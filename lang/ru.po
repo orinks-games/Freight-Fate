@@ -28819,6 +28819,68 @@ msgstr ""
 msgid "Delivery complete"
 msgstr "Доставка завершена"
 
+#. one sentence of a longer line
+msgid "The balance holds where it is."
+msgstr "Остаток долга не меняется."
+
+#. placeholders: {carrier_name}, {grouped}
+#. one sentence of a longer line
+msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
+msgstr ""
+"{carrier_name} списывает {grouped} {grouped:доллар|доллара|долларов} из "
+"того, что вы должны."
+
+#. placeholders: {carrier_name}, {grouped}
+msgid ""
+"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
+"holds where it is."
+msgstr ""
+"{carrier_name} списывает {grouped} {grouped:доллар|доллара|долларов} из "
+"того, что вы должны. Остаток долга не меняется."
+
+msgid ""
+"Square with your carrier again. Nothing owed, every settlement reaches you "
+"whole."
+msgstr ""
+"Вы снова в расчёте с перевозчиком. Долгов нет, каждый расчёт доходит до вас "
+"целиком."
+
+#. placeholders: {unlock}
+msgid "Unlock: {unlock}"
+msgstr "Открывается: {unlock}"
+
+#. placeholders: {names}
+msgid "New achievement! {names}."
+msgstr "Новое достижение! {names}."
+
+#. one sentence of a longer line
+msgid "New achievements!"
+msgstr "Новые достижения!"
+
+#. placeholders: {join}
+msgid "New achievements! {join}."
+msgstr "Новые достижения! {join}."
+
+#. placeholders: {title}
+msgid "Freight Fate: {title}."
+msgstr "Freight Fate: {title}."
+
+msgid "Delivery summary copied to clipboard."
+msgstr "Сводка доставки скопирована в буфер обмена."
+
+msgid "Repeat this settlement line."
+msgstr "Повторить эту строку расчёта."
+
+msgid "Copy delivery summary to clipboard"
+msgstr "Скопировать сводку доставки в буфер обмена"
+
+msgid "Copies the settlement lines as plain text."
+msgstr "Копирует строки расчёта простым текстом."
+
+#. placeholders: {name}
+msgid "Continue to {name}"
+msgstr "Дальше: {name}"
+
 msgid "Repositioned"
 msgstr "Переезд завершён"
 
@@ -29336,68 +29398,6 @@ msgstr "Маршрут: {join}."
 msgid "Distance credited: {distance_text}."
 msgstr "Засчитанное расстояние: {distance_text}."
 
-#. one sentence of a longer line
-msgid "The balance holds where it is."
-msgstr "Остаток долга не меняется."
-
-#. placeholders: {carrier_name}, {grouped}
-#. one sentence of a longer line
-msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
-msgstr ""
-"{carrier_name} списывает {grouped} {grouped:доллар|доллара|долларов} из "
-"того, что вы должны."
-
-#. placeholders: {carrier_name}, {grouped}
-msgid ""
-"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
-"holds where it is."
-msgstr ""
-"{carrier_name} списывает {grouped} {grouped:доллар|доллара|долларов} из "
-"того, что вы должны. Остаток долга не меняется."
-
-msgid ""
-"Square with your carrier again. Nothing owed, every settlement reaches you "
-"whole."
-msgstr ""
-"Вы снова в расчёте с перевозчиком. Долгов нет, каждый расчёт доходит до вас "
-"целиком."
-
-#. placeholders: {unlock}
-msgid "Unlock: {unlock}"
-msgstr "Открывается: {unlock}"
-
-#. placeholders: {names}
-msgid "New achievement! {names}."
-msgstr "Новое достижение! {names}."
-
-#. one sentence of a longer line
-msgid "New achievements!"
-msgstr "Новые достижения!"
-
-#. placeholders: {join}
-msgid "New achievements! {join}."
-msgstr "Новые достижения! {join}."
-
-#. placeholders: {title}
-msgid "Freight Fate: {title}."
-msgstr "Freight Fate: {title}."
-
-msgid "Delivery summary copied to clipboard."
-msgstr "Сводка доставки скопирована в буфер обмена."
-
-msgid "Repeat this settlement line."
-msgstr "Повторить эту строку расчёта."
-
-msgid "Copy delivery summary to clipboard"
-msgstr "Скопировать сводку доставки в буфер обмена"
-
-msgid "Copies the settlement lines as plain text."
-msgstr "Копирует строки расчёта простым текстом."
-
-#. placeholders: {name}
-msgid "Continue to {name}"
-msgstr "Дальше: {name}"
-
 msgid "April 1"
 msgstr "1 апреля"
 
@@ -29584,6 +29584,9 @@ msgstr "На площадке. Оставляем прицеп."
 
 msgid "Docked. Unloading cargo."
 msgstr "У рампы. Разгрузка."
+
+msgid "receiver unloading"
+msgstr ""
 
 msgid "Trailer dropped. Hooked to an empty, paperwork signed."
 msgstr "Прицеп оставлен. Пустой прицеп прицеплен, документы подписаны."
@@ -31926,6 +31929,165 @@ msgstr ""
 "{engine_off}Вы проспали 10 часов на стоянке. {clock_text}. Часы вождения и "
 "смены сброшены. Отдых был плохим. {deadline_text}{wake_air_instruction}"
 
+msgid "No real-time parking data nearby."
+msgstr "Поблизости нет данных о парковке в реальном времени."
+
+#. placeholders: {total_available}
+msgid "Real-time parking: {total_available} spaces available nearby."
+msgstr ""
+"Парковка в реальном времени: поблизости свободно мест: {total_available}."
+
+msgid "Real-time parking: nearby lots are full."
+msgstr "Парковка в реальном времени: ближайшие стоянки заполнены."
+
+msgid "Pairs with 8 hours in the sleeper berth."
+msgstr "Составляет пару с 8 часами на спальном месте."
+
+msgid "Pairs with 7 hours in the sleeper berth."
+msgstr "Составляет пару с 7 часами на спальном месте."
+
+msgid "Pairs with 3 more hours at parking where you can sleep."
+msgstr "Сочетается ещё с 3 часами на стоянке, где можно спать."
+
+msgid "Pairs with 2 more hours at parking where you can sleep."
+msgstr "Сочетается ещё с 2 часами на стоянке, где можно спать."
+
+#. placeholders: {pair}, {hours}
+msgid "{pair} Clock and deadline advance {hours} hours."
+msgstr ""
+"{pair} Часы и срок доставки сдвигаются на {hours} {hours:час|часа|часов}."
+
+#. placeholders: {f}
+msgid "Brake job: {f} percent wear, carrier billed"
+msgstr ""
+"Ремонт тормозов: износ {f} {f:процент|процента|процентов}, за счёт "
+"перевозчика"
+
+msgid "Resting at a stop"
+msgstr "Отдых на остановке"
+
+#. placeholders: {grouped}, {rest}
+msgid "{grouped} dollars and {rest} cents"
+msgstr ""
+"{grouped} {grouped:доллар|доллара|долларов} и {rest} "
+"{rest:цент|цента|центов}"
+
+msgid "Reweigh"
+msgstr "Перевзвеситься"
+
+msgid "Weigh"
+msgstr "Взвеситься"
+
+#. placeholders: {verb}, {dollars_and_cents}
+msgid "{verb} on the CAT Scale: {dollars_and_cents}"
+msgstr "{verb} на CAT Scale: {dollars_and_cents}"
+
+#. placeholders: {verb}
+msgid "{verb} on the CAT Scale, carrier billed"
+msgstr "{verb} на CAT Scale, за счёт перевозчика"
+
+#. one sentence of a longer line
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
+msgstr ""
+"Талон весов CAT Scale: рулевая ось, ведущие оси, прицеп и полная масса, до "
+"весов штата."
+
+#. placeholders: {dollars_and_cents}, {f}
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
+"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
+msgstr ""
+"Талон весов CAT Scale: рулевая ось, ведущие оси, прицеп и полная масса, до "
+"весов штата. Повторное взвешивание в течение 24 часов стоит "
+"{dollars_and_cents}. {f} {f:минута|минуты|минут} на смене."
+
+#. placeholders: {dollars_and_cents}
+#. one sentence of a longer line
+msgid "Reweigh within 24 hours is {dollars_and_cents}."
+msgstr "Повторное взвешивание в течение 24 часов стоит {dollars_and_cents}."
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
+msgstr ""
+"Взвешивание стоит {dollars_and_cents}, а у вас {grouped} "
+"{grouped:доллар|доллара|долларов}."
+
+msgid "CAT Scale weigh"
+msgstr "Взвешивание на CAT Scale"
+
+msgid "Billed to the carrier."
+msgstr "Счёт выставлен перевозчику."
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "{dollars_and_cents}. You have {grouped} dollars."
+msgstr ""
+"{dollars_and_cents}. У вас {grouped} {grouped:доллар|доллара|долларов}."
+
+#. one sentence of a longer line
+msgid "CAT Scale ticket."
+msgstr "Талон CAT Scale."
+
+#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
+msgid ""
+"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
+msgstr ""
+"Талон CAT Scale. {ticket} {billing} Сейчас {clock_text}. {deadline_text}"
+
+#. placeholders: {ticket}, {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{ticket} {billing} It is {clock_text}."
+msgstr "{ticket} {billing} Сейчас {clock_text}."
+
+#. placeholders: {grouped}
+msgid "Buy snow chains: {grouped} dollars"
+msgstr ""
+"Купить цепи противоскольжения: {grouped} {grouped:доллар|доллара|долларов}"
+
+msgid "Buy snow chains, carrier billed"
+msgstr "Купить цепи противоскольжения, за счёт перевозчика"
+
+#. one sentence of a longer line
+msgid "A new set with two spare repair links."
+msgstr "Новый комплект с двумя запасными ремонтными звеньями."
+
+#. placeholders: {f}
+msgid "A new set with two spare repair links. {f} minutes on duty."
+msgstr ""
+"Новый комплект с двумя запасными ремонтными звеньями. {f} "
+"{f:минута|минуты|минут} на смене."
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"A set of snow chains costs {grouped} dollars and you have {grouped2} "
+"dollars."
+msgstr ""
+"Комплект цепей противоскольжения стоит {grouped} "
+"{grouped:доллар|доллара|долларов}, а у вас {grouped2} "
+"{grouped2:доллар|доллара|долларов}."
+
+#. placeholders: {grouped}, {grouped2}
+msgid "{grouped} dollars. You have {grouped2} dollars."
+msgstr ""
+"{grouped} {grouped:доллар|доллара|долларов}. У вас {grouped2} "
+"{grouped2:доллар|доллара|долларов}."
+
+#. one sentence of a longer line
+msgid "A new set of snow chains is in the side box."
+msgstr "Новый комплект цепей противоскольжения лежит в боковом ящике."
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"A new set of snow chains is in the side box. {billing} It is {clock_text}."
+msgstr ""
+"Новый комплект цепей противоскольжения лежит в боковом ящике. {billing} "
+"Сейчас {clock_text}."
+
+#. placeholders: {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{billing} It is {clock_text}."
+msgstr "{billing} Сейчас {clock_text}."
+
 msgid "The truck does not need repair."
 msgstr "Грузовику не нужен ремонт."
 
@@ -32232,165 +32394,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{body} It is {clock_text}."
 msgstr "{body} Сейчас {clock_text}."
-
-msgid "No real-time parking data nearby."
-msgstr "Поблизости нет данных о парковке в реальном времени."
-
-#. placeholders: {total_available}
-msgid "Real-time parking: {total_available} spaces available nearby."
-msgstr ""
-"Парковка в реальном времени: поблизости свободно мест: {total_available}."
-
-msgid "Real-time parking: nearby lots are full."
-msgstr "Парковка в реальном времени: ближайшие стоянки заполнены."
-
-msgid "Pairs with 8 hours in the sleeper berth."
-msgstr "Составляет пару с 8 часами на спальном месте."
-
-msgid "Pairs with 7 hours in the sleeper berth."
-msgstr "Составляет пару с 7 часами на спальном месте."
-
-msgid "Pairs with 3 more hours at parking where you can sleep."
-msgstr "Сочетается ещё с 3 часами на стоянке, где можно спать."
-
-msgid "Pairs with 2 more hours at parking where you can sleep."
-msgstr "Сочетается ещё с 2 часами на стоянке, где можно спать."
-
-#. placeholders: {pair}, {hours}
-msgid "{pair} Clock and deadline advance {hours} hours."
-msgstr ""
-"{pair} Часы и срок доставки сдвигаются на {hours} {hours:час|часа|часов}."
-
-#. placeholders: {f}
-msgid "Brake job: {f} percent wear, carrier billed"
-msgstr ""
-"Ремонт тормозов: износ {f} {f:процент|процента|процентов}, за счёт "
-"перевозчика"
-
-msgid "Resting at a stop"
-msgstr "Отдых на остановке"
-
-#. placeholders: {grouped}, {rest}
-msgid "{grouped} dollars and {rest} cents"
-msgstr ""
-"{grouped} {grouped:доллар|доллара|долларов} и {rest} "
-"{rest:цент|цента|центов}"
-
-msgid "Reweigh"
-msgstr "Перевзвеситься"
-
-msgid "Weigh"
-msgstr "Взвеситься"
-
-#. placeholders: {verb}, {dollars_and_cents}
-msgid "{verb} on the CAT Scale: {dollars_and_cents}"
-msgstr "{verb} на CAT Scale: {dollars_and_cents}"
-
-#. placeholders: {verb}
-msgid "{verb} on the CAT Scale, carrier billed"
-msgstr "{verb} на CAT Scale, за счёт перевозчика"
-
-#. one sentence of a longer line
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
-msgstr ""
-"Талон весов CAT Scale: рулевая ось, ведущие оси, прицеп и полная масса, до "
-"весов штата."
-
-#. placeholders: {dollars_and_cents}, {f}
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
-"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
-msgstr ""
-"Талон весов CAT Scale: рулевая ось, ведущие оси, прицеп и полная масса, до "
-"весов штата. Повторное взвешивание в течение 24 часов стоит "
-"{dollars_and_cents}. {f} {f:минута|минуты|минут} на смене."
-
-#. placeholders: {dollars_and_cents}
-#. one sentence of a longer line
-msgid "Reweigh within 24 hours is {dollars_and_cents}."
-msgstr "Повторное взвешивание в течение 24 часов стоит {dollars_and_cents}."
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
-msgstr ""
-"Взвешивание стоит {dollars_and_cents}, а у вас {grouped} "
-"{grouped:доллар|доллара|долларов}."
-
-msgid "CAT Scale weigh"
-msgstr "Взвешивание на CAT Scale"
-
-msgid "Billed to the carrier."
-msgstr "Счёт выставлен перевозчику."
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "{dollars_and_cents}. You have {grouped} dollars."
-msgstr ""
-"{dollars_and_cents}. У вас {grouped} {grouped:доллар|доллара|долларов}."
-
-#. one sentence of a longer line
-msgid "CAT Scale ticket."
-msgstr "Талон CAT Scale."
-
-#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
-msgid ""
-"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
-msgstr ""
-"Талон CAT Scale. {ticket} {billing} Сейчас {clock_text}. {deadline_text}"
-
-#. placeholders: {ticket}, {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{ticket} {billing} It is {clock_text}."
-msgstr "{ticket} {billing} Сейчас {clock_text}."
-
-#. placeholders: {grouped}
-msgid "Buy snow chains: {grouped} dollars"
-msgstr ""
-"Купить цепи противоскольжения: {grouped} {grouped:доллар|доллара|долларов}"
-
-msgid "Buy snow chains, carrier billed"
-msgstr "Купить цепи противоскольжения, за счёт перевозчика"
-
-#. one sentence of a longer line
-msgid "A new set with two spare repair links."
-msgstr "Новый комплект с двумя запасными ремонтными звеньями."
-
-#. placeholders: {f}
-msgid "A new set with two spare repair links. {f} minutes on duty."
-msgstr ""
-"Новый комплект с двумя запасными ремонтными звеньями. {f} "
-"{f:минута|минуты|минут} на смене."
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"A set of snow chains costs {grouped} dollars and you have {grouped2} "
-"dollars."
-msgstr ""
-"Комплект цепей противоскольжения стоит {grouped} "
-"{grouped:доллар|доллара|долларов}, а у вас {grouped2} "
-"{grouped2:доллар|доллара|долларов}."
-
-#. placeholders: {grouped}, {grouped2}
-msgid "{grouped} dollars. You have {grouped2} dollars."
-msgstr ""
-"{grouped} {grouped:доллар|доллара|долларов}. У вас {grouped2} "
-"{grouped2:доллар|доллара|долларов}."
-
-#. one sentence of a longer line
-msgid "A new set of snow chains is in the side box."
-msgstr "Новый комплект цепей противоскольжения лежит в боковом ящике."
-
-#. placeholders: {billing}, {clock_text}
-msgid ""
-"A new set of snow chains is in the side box. {billing} It is {clock_text}."
-msgstr ""
-"Новый комплект цепей противоскольжения лежит в боковом ящике. {billing} "
-"Сейчас {clock_text}."
-
-#. placeholders: {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{billing} It is {clock_text}."
-msgstr "{billing} Сейчас {clock_text}."
 
 msgid "Return to terminal"
 msgstr "Вернуться на базу"

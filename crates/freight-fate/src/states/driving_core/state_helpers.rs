@@ -31,7 +31,15 @@ pub fn advance_rest_clock(
     duty_status: Option<&str>,
     note: &str,
 ) {
-    advance_clock(driving, ctx, minutes, duty_status, note, true);
+    advance_clock(
+        driving,
+        ctx,
+        minutes,
+        Some(duty_status.unwrap_or("off_duty")),
+        note,
+        true,
+        None,
+    );
 }
 
 /// `advance_rest_clock`, with the simulated sky's change timer moving with
@@ -47,8 +55,10 @@ fn advance_clock(
     duty_status: Option<&str>,
     note: &str,
     sky_moves: bool,
+    location_override: Option<&str>,
 ) {
     let start_hour = driving.absolute_game_hour(ctx, None);
+    let player_in_sleeper_berth = driving.co_driver_driving();
     driving
         .trip
         .truck
@@ -65,20 +75,62 @@ fn advance_clock(
     driving.team_menu_minutes(ctx, minutes);
     // While the co-driver works the stop, the player's own log reads the
     // sleeper berth.
-    let duty_status = duty_status.map(|status| {
-        if driving.co_driver_driving() {
-            "sleeper_berth"
-        } else {
-            status
-        }
-    });
+    let duty_status = if player_in_sleeper_berth {
+        "sleeper_berth"
+    } else {
+        duty_status.unwrap_or("off_duty")
+    };
     let end_hour = driving.absolute_game_hour(ctx, None);
-    if let Some(status) = duty_status {
-        let location = driving.logbook_location(ctx);
-        profile_mut_of(ctx)
-            .duty_log
-            .record(status, start_hour, end_hour, &location, note);
+    let location = location_override
+        .map(str::to_string)
+        .unwrap_or_else(|| driving.logbook_location(ctx));
+    profile_mut_of(ctx)
+        .duty_log
+        .record_exact(duty_status, start_hour, end_hour, &location, note);
+}
+
+pub fn record_driving_frame(
+    driving: &DrivingState,
+    ctx: &mut GameContext,
+    start_hour: f64,
+    end_hour: f64,
+) {
+    if end_hour <= start_hour {
+        return;
     }
+    let status = if driving.co_driver_driving() {
+        "sleeper_berth"
+    } else if driving.trip.truck.speed_mph() > 5.0 {
+        "driving"
+    } else {
+        "on_duty_not_driving"
+    };
+    record_duty_interval(driving, ctx, start_hour, end_hour, status, "", None);
+}
+
+pub fn record_duty_interval(
+    driving: &DrivingState,
+    ctx: &mut GameContext,
+    start_hour: f64,
+    end_hour: f64,
+    status: &str,
+    note: &str,
+    location: Option<&str>,
+) {
+    if end_hour <= start_hour {
+        return;
+    }
+    let status = if driving.co_driver_driving() {
+        "sleeper_berth"
+    } else {
+        status
+    };
+    let location = location
+        .map(str::to_string)
+        .unwrap_or_else(|| driving.logbook_location(ctx));
+    profile_mut_of(ctx)
+        .duty_log
+        .record_exact(status, start_hour, end_hour, &location, note);
 }
 
 /// A coffee or energy drink's lift that wore off during a sleep is paid
@@ -103,7 +155,36 @@ pub fn advance_on_duty_clock(
     note: &str,
 ) {
     accrue_on_duty_fatigue(driving, ctx, minutes);
-    advance_rest_clock(driving, ctx, minutes, duty_status, note);
+    advance_clock(
+        driving,
+        ctx,
+        minutes,
+        Some(duty_status.unwrap_or("on_duty_not_driving")),
+        note,
+        true,
+        None,
+    );
+    hos_mut_of(ctx).on_duty(minutes);
+}
+
+pub fn advance_on_duty_clock_at(
+    driving: &mut DrivingState,
+    ctx: &mut GameContext,
+    minutes: f64,
+    duty_status: Option<&str>,
+    note: &str,
+    location: &str,
+) {
+    accrue_on_duty_fatigue(driving, ctx, minutes);
+    advance_clock(
+        driving,
+        ctx,
+        minutes,
+        Some(duty_status.unwrap_or("on_duty_not_driving")),
+        note,
+        true,
+        Some(location),
+    );
     hos_mut_of(ctx).on_duty(minutes);
 }
 
@@ -117,7 +198,15 @@ pub fn advance_on_duty_clock_holding_sky(
     note: &str,
 ) {
     accrue_on_duty_fatigue(driving, ctx, minutes);
-    advance_clock(driving, ctx, minutes, duty_status, note, false);
+    advance_clock(
+        driving,
+        ctx,
+        minutes,
+        Some(duty_status.unwrap_or("on_duty_not_driving")),
+        note,
+        false,
+        None,
+    );
     hos_mut_of(ctx).on_duty(minutes);
 }
 

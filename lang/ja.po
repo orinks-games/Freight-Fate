@@ -26130,6 +26130,62 @@ msgstr "上下の矢印キーで概要を確認します。Enter で行を繰り
 msgid "Delivery complete"
 msgstr "配達完了"
 
+#. one sentence of a longer line
+msgid "The balance holds where it is."
+msgstr "残高はそのままです。"
+
+#. placeholders: {carrier_name}, {grouped}
+#. one sentence of a longer line
+msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
+msgstr "{carrier_name}が、借金のうち{grouped}ドルを帳消しにしました。"
+
+#. placeholders: {carrier_name}, {grouped}
+msgid ""
+"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
+"holds where it is."
+msgstr "{carrier_name}が、借金のうち{grouped}ドルを帳消しにしました。残高はそのままです。"
+
+msgid ""
+"Square with your carrier again. Nothing owed, every settlement reaches you "
+"whole."
+msgstr "運送会社への借りがなくなりました。借金はなく、毎回の精算がそのまま全額届きます。"
+
+#. placeholders: {unlock}
+msgid "Unlock: {unlock}"
+msgstr "解除：{unlock}"
+
+#. placeholders: {names}
+msgid "New achievement! {names}."
+msgstr "新しい実績！{names}。"
+
+#. one sentence of a longer line
+msgid "New achievements!"
+msgstr "新しい実績！"
+
+#. placeholders: {join}
+msgid "New achievements! {join}."
+msgstr "新しい実績！{join}。"
+
+#. placeholders: {title}
+msgid "Freight Fate: {title}."
+msgstr "Freight Fate：{title}。"
+
+msgid "Delivery summary copied to clipboard."
+msgstr "配達の概要をクリップボードにコピーしました。"
+
+msgid "Repeat this settlement line."
+msgstr "この精算の行を繰り返します。"
+
+msgid "Copy delivery summary to clipboard"
+msgstr "配達の概要をクリップボードにコピー"
+
+msgid "Copies the settlement lines as plain text."
+msgstr "精算の行をプレーンテキストでコピーします。"
+
+#. placeholders: {name}
+msgid "Continue to {name}"
+msgstr "{name}へ進む"
+
 msgid "Repositioned"
 msgstr "回送完了"
 
@@ -26583,62 +26639,6 @@ msgstr "ルート：{join}。"
 msgid "Distance credited: {distance_text}."
 msgstr "計上された距離：{distance_text}。"
 
-#. one sentence of a longer line
-msgid "The balance holds where it is."
-msgstr "残高はそのままです。"
-
-#. placeholders: {carrier_name}, {grouped}
-#. one sentence of a longer line
-msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
-msgstr "{carrier_name}が、借金のうち{grouped}ドルを帳消しにしました。"
-
-#. placeholders: {carrier_name}, {grouped}
-msgid ""
-"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
-"holds where it is."
-msgstr "{carrier_name}が、借金のうち{grouped}ドルを帳消しにしました。残高はそのままです。"
-
-msgid ""
-"Square with your carrier again. Nothing owed, every settlement reaches you "
-"whole."
-msgstr "運送会社への借りがなくなりました。借金はなく、毎回の精算がそのまま全額届きます。"
-
-#. placeholders: {unlock}
-msgid "Unlock: {unlock}"
-msgstr "解除：{unlock}"
-
-#. placeholders: {names}
-msgid "New achievement! {names}."
-msgstr "新しい実績！{names}。"
-
-#. one sentence of a longer line
-msgid "New achievements!"
-msgstr "新しい実績！"
-
-#. placeholders: {join}
-msgid "New achievements! {join}."
-msgstr "新しい実績！{join}。"
-
-#. placeholders: {title}
-msgid "Freight Fate: {title}."
-msgstr "Freight Fate：{title}。"
-
-msgid "Delivery summary copied to clipboard."
-msgstr "配達の概要をクリップボードにコピーしました。"
-
-msgid "Repeat this settlement line."
-msgstr "この精算の行を繰り返します。"
-
-msgid "Copy delivery summary to clipboard"
-msgstr "配達の概要をクリップボードにコピー"
-
-msgid "Copies the settlement lines as plain text."
-msgstr "精算の行をプレーンテキストでコピーします。"
-
-#. placeholders: {name}
-msgid "Continue to {name}"
-msgstr "{name}へ進む"
-
 msgid "April 1"
 msgstr "4月1日"
 
@@ -26815,6 +26815,9 @@ msgstr "ヤードに入りました。トレーラーを切り離しています
 
 msgid "Docked. Unloading cargo."
 msgstr "荷降ろし場に着けました。積荷を降ろしています。"
+
+msgid "receiver unloading"
+msgstr ""
 
 msgid "Trailer dropped. Hooked to an empty, paperwork signed."
 msgstr "トレーラーを切り離しました。空のトレーラーをつなぎ、書類にサインしました。"
@@ -28896,6 +28899,143 @@ msgstr ""
 "{engine_off}駐車場で10時間眠りました。{clock_text}。運転と勤務の時計はリセットされました。眠りは浅かったです。{deadlin"
 "e_text}{wake_air_instruction}"
 
+msgid "No real-time parking data nearby."
+msgstr "近くにリアルタイムの駐車場情報はありません。"
+
+#. placeholders: {total_available}
+msgid "Real-time parking: {total_available} spaces available nearby."
+msgstr "リアルタイムの駐車場情報：近くに{total_available}台分の空きがあります。"
+
+msgid "Real-time parking: nearby lots are full."
+msgstr "リアルタイムの駐車場情報：近くの駐車場は満車です。"
+
+msgid "Pairs with 8 hours in the sleeper berth."
+msgstr "スリーパーでの8時間と組になります。"
+
+msgid "Pairs with 7 hours in the sleeper berth."
+msgstr "スリーパーでの7時間と組になります。"
+
+msgid "Pairs with 3 more hours at parking where you can sleep."
+msgstr "眠れる駐車場でのあと3時間と組み合わせます。"
+
+msgid "Pairs with 2 more hours at parking where you can sleep."
+msgstr "眠れる駐車場でのあと2時間と組み合わせます。"
+
+#. placeholders: {pair}, {hours}
+msgid "{pair} Clock and deadline advance {hours} hours."
+msgstr "{pair}時刻と期限が{hours}時間進みます。"
+
+#. placeholders: {f}
+msgid "Brake job: {f} percent wear, carrier billed"
+msgstr "ブレーキ整備：摩耗{f}パーセント、運送会社に請求"
+
+msgid "Resting at a stop"
+msgstr "停車地で休息中"
+
+#. placeholders: {grouped}, {rest}
+msgid "{grouped} dollars and {rest} cents"
+msgstr "{grouped}ドル{rest}セント"
+
+msgid "Reweigh"
+msgstr "再計量"
+
+msgid "Weigh"
+msgstr "計量"
+
+#. placeholders: {verb}, {dollars_and_cents}
+msgid "{verb} on the CAT Scale: {dollars_and_cents}"
+msgstr "CAT Scale で{verb}：{dollars_and_cents}"
+
+#. placeholders: {verb}
+msgid "{verb} on the CAT Scale, carrier billed"
+msgstr "CAT Scale で{verb}、運送会社に請求"
+
+#. one sentence of a longer line
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
+msgstr "CAT Scaleの計量票：州の計量所の前に、前軸、駆動軸、トレーラー、総重量を確認できます。"
+
+#. placeholders: {dollars_and_cents}, {f}
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
+"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
+msgstr ""
+"CAT "
+"Scaleの計量票：州の計量所の前に、前軸、駆動軸、トレーラー、総重量を確認できます。24時間以内の再計量は{dollars_and_cents}です。"
+"勤務時間で{f}分です。"
+
+#. placeholders: {dollars_and_cents}
+#. one sentence of a longer line
+msgid "Reweigh within 24 hours is {dollars_and_cents}."
+msgstr "24時間以内の再計量は{dollars_and_cents}です。"
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
+msgstr "計量は{dollars_and_cents}で、所持金は{grouped}ドルです。"
+
+msgid "CAT Scale weigh"
+msgstr "CAT Scale での計量"
+
+msgid "Billed to the carrier."
+msgstr "運送会社に請求します。"
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "{dollars_and_cents}. You have {grouped} dollars."
+msgstr "{dollars_and_cents}。所持金は{grouped}ドルです。"
+
+#. one sentence of a longer line
+msgid "CAT Scale ticket."
+msgstr "CAT Scale の計量票です。"
+
+#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
+msgid ""
+"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
+msgstr "CAT Scale の計量票です。{ticket}{billing}今は{clock_text}です。{deadline_text}"
+
+#. placeholders: {ticket}, {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{ticket} {billing} It is {clock_text}."
+msgstr "{ticket}{billing}今は{clock_text}です。"
+
+#. placeholders: {grouped}
+msgid "Buy snow chains: {grouped} dollars"
+msgstr "タイヤチェーンを買う：{grouped}ドル"
+
+msgid "Buy snow chains, carrier billed"
+msgstr "タイヤチェーンを買う、運送会社に請求"
+
+#. one sentence of a longer line
+msgid "A new set with two spare repair links."
+msgstr "予備の修理用リンク2つ付きの新しいセットです。"
+
+#. placeholders: {f}
+msgid "A new set with two spare repair links. {f} minutes on duty."
+msgstr "予備の修理用リンク2つ付きの新しいセットです。勤務時間で{f}分です。"
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"A set of snow chains costs {grouped} dollars and you have {grouped2} "
+"dollars."
+msgstr "タイヤチェーンのセットは{grouped}ドルで、手持ちは{grouped2}ドルです。"
+
+#. placeholders: {grouped}, {grouped2}
+msgid "{grouped} dollars. You have {grouped2} dollars."
+msgstr "{grouped}ドルです。手持ちは{grouped2}ドルです。"
+
+#. one sentence of a longer line
+msgid "A new set of snow chains is in the side box."
+msgstr "新しいタイヤチェーンのセットがサイドボックスに入っています。"
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"A new set of snow chains is in the side box. {billing} It is {clock_text}."
+msgstr "新しいタイヤチェーンのセットがサイドボックスに入っています。{billing}{clock_text}です。"
+
+#. placeholders: {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{billing} It is {clock_text}."
+msgstr "{billing}{clock_text}です。"
+
 msgid "The truck does not need repair."
 msgstr "トラックに修理は必要ありません。"
 
@@ -29163,143 +29303,6 @@ msgstr "点検が終わりました。{f}分です。{body}今は{clock_text}で
 #. one sentence of a longer line
 msgid "{body} It is {clock_text}."
 msgstr "{body}今は{clock_text}です。"
-
-msgid "No real-time parking data nearby."
-msgstr "近くにリアルタイムの駐車場情報はありません。"
-
-#. placeholders: {total_available}
-msgid "Real-time parking: {total_available} spaces available nearby."
-msgstr "リアルタイムの駐車場情報：近くに{total_available}台分の空きがあります。"
-
-msgid "Real-time parking: nearby lots are full."
-msgstr "リアルタイムの駐車場情報：近くの駐車場は満車です。"
-
-msgid "Pairs with 8 hours in the sleeper berth."
-msgstr "スリーパーでの8時間と組になります。"
-
-msgid "Pairs with 7 hours in the sleeper berth."
-msgstr "スリーパーでの7時間と組になります。"
-
-msgid "Pairs with 3 more hours at parking where you can sleep."
-msgstr "眠れる駐車場でのあと3時間と組み合わせます。"
-
-msgid "Pairs with 2 more hours at parking where you can sleep."
-msgstr "眠れる駐車場でのあと2時間と組み合わせます。"
-
-#. placeholders: {pair}, {hours}
-msgid "{pair} Clock and deadline advance {hours} hours."
-msgstr "{pair}時刻と期限が{hours}時間進みます。"
-
-#. placeholders: {f}
-msgid "Brake job: {f} percent wear, carrier billed"
-msgstr "ブレーキ整備：摩耗{f}パーセント、運送会社に請求"
-
-msgid "Resting at a stop"
-msgstr "停車地で休息中"
-
-#. placeholders: {grouped}, {rest}
-msgid "{grouped} dollars and {rest} cents"
-msgstr "{grouped}ドル{rest}セント"
-
-msgid "Reweigh"
-msgstr "再計量"
-
-msgid "Weigh"
-msgstr "計量"
-
-#. placeholders: {verb}, {dollars_and_cents}
-msgid "{verb} on the CAT Scale: {dollars_and_cents}"
-msgstr "CAT Scale で{verb}：{dollars_and_cents}"
-
-#. placeholders: {verb}
-msgid "{verb} on the CAT Scale, carrier billed"
-msgstr "CAT Scale で{verb}、運送会社に請求"
-
-#. one sentence of a longer line
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
-msgstr "CAT Scaleの計量票：州の計量所の前に、前軸、駆動軸、トレーラー、総重量を確認できます。"
-
-#. placeholders: {dollars_and_cents}, {f}
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
-"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
-msgstr ""
-"CAT "
-"Scaleの計量票：州の計量所の前に、前軸、駆動軸、トレーラー、総重量を確認できます。24時間以内の再計量は{dollars_and_cents}です。"
-"勤務時間で{f}分です。"
-
-#. placeholders: {dollars_and_cents}
-#. one sentence of a longer line
-msgid "Reweigh within 24 hours is {dollars_and_cents}."
-msgstr "24時間以内の再計量は{dollars_and_cents}です。"
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
-msgstr "計量は{dollars_and_cents}で、所持金は{grouped}ドルです。"
-
-msgid "CAT Scale weigh"
-msgstr "CAT Scale での計量"
-
-msgid "Billed to the carrier."
-msgstr "運送会社に請求します。"
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "{dollars_and_cents}. You have {grouped} dollars."
-msgstr "{dollars_and_cents}。所持金は{grouped}ドルです。"
-
-#. one sentence of a longer line
-msgid "CAT Scale ticket."
-msgstr "CAT Scale の計量票です。"
-
-#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
-msgid ""
-"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
-msgstr "CAT Scale の計量票です。{ticket}{billing}今は{clock_text}です。{deadline_text}"
-
-#. placeholders: {ticket}, {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{ticket} {billing} It is {clock_text}."
-msgstr "{ticket}{billing}今は{clock_text}です。"
-
-#. placeholders: {grouped}
-msgid "Buy snow chains: {grouped} dollars"
-msgstr "タイヤチェーンを買う：{grouped}ドル"
-
-msgid "Buy snow chains, carrier billed"
-msgstr "タイヤチェーンを買う、運送会社に請求"
-
-#. one sentence of a longer line
-msgid "A new set with two spare repair links."
-msgstr "予備の修理用リンク2つ付きの新しいセットです。"
-
-#. placeholders: {f}
-msgid "A new set with two spare repair links. {f} minutes on duty."
-msgstr "予備の修理用リンク2つ付きの新しいセットです。勤務時間で{f}分です。"
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"A set of snow chains costs {grouped} dollars and you have {grouped2} "
-"dollars."
-msgstr "タイヤチェーンのセットは{grouped}ドルで、手持ちは{grouped2}ドルです。"
-
-#. placeholders: {grouped}, {grouped2}
-msgid "{grouped} dollars. You have {grouped2} dollars."
-msgstr "{grouped}ドルです。手持ちは{grouped2}ドルです。"
-
-#. one sentence of a longer line
-msgid "A new set of snow chains is in the side box."
-msgstr "新しいタイヤチェーンのセットがサイドボックスに入っています。"
-
-#. placeholders: {billing}, {clock_text}
-msgid ""
-"A new set of snow chains is in the side box. {billing} It is {clock_text}."
-msgstr "新しいタイヤチェーンのセットがサイドボックスに入っています。{billing}{clock_text}です。"
-
-#. placeholders: {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{billing} It is {clock_text}."
-msgstr "{billing}{clock_text}です。"
 
 msgid "Return to terminal"
 msgstr "ターミナルに戻る"

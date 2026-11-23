@@ -199,10 +199,20 @@ impl DrivingState {
     /// The clocks and the truck over a stretch the co-driver drove while
     /// the player slept.
     fn sleep_drive_clocks(&mut self, ctx: &mut GameContext, jump: Jump) {
+        let start_hour = self.absolute_game_hour(ctx, None);
         self.trip.game_minutes += jump.minutes;
         self.trip.weather.update(jump.minutes);
         self.trip.refresh_chain_control();
         hos_mut_of(ctx).drive(jump.minutes);
+        record_duty_interval(
+            self,
+            ctx,
+            start_hour,
+            start_hour + jump.minutes / 60.0,
+            "driving",
+            "",
+            None,
+        );
         self.trip.last_moved_mi = jump.miles;
         self.update_team_hours(ctx, jump.minutes);
         self.trip.last_moved_mi = 0.0;

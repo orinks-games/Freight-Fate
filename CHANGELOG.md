@@ -10,6 +10,7 @@
 
 ### Fixed
 
+- **The Logbook now includes driving, unloading and 30-minute breaks in its entries and daily totals.**
 - **Weather reports and alerts now use the selected language.** Players hear over a thousand fewer English lines.
 - **Town streets at the start and end of a road no longer get the highway's speed limit.** Where no sign is mapped, the town limit applies instead.
 - **Mac VoiceOver users regain immediate key response after switching back to the game.** (Johann Tan, @johanntan; [#810](https://github.com/orinks-games/Freight-Fate/pull/810).)

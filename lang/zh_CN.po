@@ -25805,6 +25805,62 @@ msgstr "Up和Down浏览摘要。Enter重复这一行。Escape继续。"
 msgid "Delivery complete"
 msgstr "送货完成"
 
+#. one sentence of a longer line
+msgid "The balance holds where it is."
+msgstr "欠款维持不变。"
+
+#. placeholders: {carrier_name}, {grouped}
+#. one sentence of a longer line
+msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
+msgstr "{carrier_name}免除了你欠款中的{grouped}美元。"
+
+#. placeholders: {carrier_name}, {grouped}
+msgid ""
+"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
+"holds where it is."
+msgstr "{carrier_name}免除了你欠款中的{grouped}美元。欠款维持不变。"
+
+msgid ""
+"Square with your carrier again. Nothing owed, every settlement reaches you "
+"whole."
+msgstr "和承运商又两清了。什么都不欠，每次结算都全额到你手里。"
+
+#. placeholders: {unlock}
+msgid "Unlock: {unlock}"
+msgstr "解锁：{unlock}"
+
+#. placeholders: {names}
+msgid "New achievement! {names}."
+msgstr "新成就！{names}。"
+
+#. one sentence of a longer line
+msgid "New achievements!"
+msgstr "新成就！"
+
+#. placeholders: {join}
+msgid "New achievements! {join}."
+msgstr "新成就！{join}。"
+
+#. placeholders: {title}
+msgid "Freight Fate: {title}."
+msgstr "Freight Fate：{title}。"
+
+msgid "Delivery summary copied to clipboard."
+msgstr "送货摘要已复制到剪贴板。"
+
+msgid "Repeat this settlement line."
+msgstr "重复这一条结算信息。"
+
+msgid "Copy delivery summary to clipboard"
+msgstr "把送货摘要复制到剪贴板"
+
+msgid "Copies the settlement lines as plain text."
+msgstr "把结算信息复制为纯文本。"
+
+#. placeholders: {name}
+msgid "Continue to {name}"
+msgstr "继续前往{name}"
+
 msgid "Repositioned"
 msgstr "调车完成"
 
@@ -26253,62 +26309,6 @@ msgstr "路线：{join}。"
 msgid "Distance credited: {distance_text}."
 msgstr "计入的距离：{distance_text}。"
 
-#. one sentence of a longer line
-msgid "The balance holds where it is."
-msgstr "欠款维持不变。"
-
-#. placeholders: {carrier_name}, {grouped}
-#. one sentence of a longer line
-msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
-msgstr "{carrier_name}免除了你欠款中的{grouped}美元。"
-
-#. placeholders: {carrier_name}, {grouped}
-msgid ""
-"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
-"holds where it is."
-msgstr "{carrier_name}免除了你欠款中的{grouped}美元。欠款维持不变。"
-
-msgid ""
-"Square with your carrier again. Nothing owed, every settlement reaches you "
-"whole."
-msgstr "和承运商又两清了。什么都不欠，每次结算都全额到你手里。"
-
-#. placeholders: {unlock}
-msgid "Unlock: {unlock}"
-msgstr "解锁：{unlock}"
-
-#. placeholders: {names}
-msgid "New achievement! {names}."
-msgstr "新成就！{names}。"
-
-#. one sentence of a longer line
-msgid "New achievements!"
-msgstr "新成就！"
-
-#. placeholders: {join}
-msgid "New achievements! {join}."
-msgstr "新成就！{join}。"
-
-#. placeholders: {title}
-msgid "Freight Fate: {title}."
-msgstr "Freight Fate：{title}。"
-
-msgid "Delivery summary copied to clipboard."
-msgstr "送货摘要已复制到剪贴板。"
-
-msgid "Repeat this settlement line."
-msgstr "重复这一条结算信息。"
-
-msgid "Copy delivery summary to clipboard"
-msgstr "把送货摘要复制到剪贴板"
-
-msgid "Copies the settlement lines as plain text."
-msgstr "把结算信息复制为纯文本。"
-
-#. placeholders: {name}
-msgid "Continue to {name}"
-msgstr "继续前往{name}"
-
 msgid "April 1"
 msgstr "4月1日"
 
@@ -26485,6 +26485,9 @@ msgstr "在场院里。正在甩挂车。"
 
 msgid "Docked. Unloading cargo."
 msgstr "已靠上装卸口。正在卸货。"
+
+msgid "receiver unloading"
+msgstr ""
 
 msgid "Trailer dropped. Hooked to an empty, paperwork signed."
 msgstr "挂车已甩下。已挂上空挂车，文件已签。"
@@ -28544,6 +28547,142 @@ msgstr ""
 "{engine_off}在停车场睡了10个小时。{clock_text}。驾驶和值班时钟重置。休息很差。{deadline_text}{wake_air"
 "_instruction}"
 
+msgid "No real-time parking data nearby."
+msgstr "附近没有实时停车位数据。"
+
+#. placeholders: {total_available}
+msgid "Real-time parking: {total_available} spaces available nearby."
+msgstr "实时停车位：附近有{total_available}个空位。"
+
+msgid "Real-time parking: nearby lots are full."
+msgstr "实时停车位：附近的停车场都满了。"
+
+msgid "Pairs with 8 hours in the sleeper berth."
+msgstr "与卧铺里的8小时配对。"
+
+msgid "Pairs with 7 hours in the sleeper berth."
+msgstr "与卧铺里的7小时配对。"
+
+msgid "Pairs with 3 more hours at parking where you can sleep."
+msgstr "可与在能睡觉的停车场再休息 3 小时配对。"
+
+msgid "Pairs with 2 more hours at parking where you can sleep."
+msgstr "可与在能睡觉的停车场再休息 2 小时配对。"
+
+#. placeholders: {pair}, {hours}
+msgid "{pair} Clock and deadline advance {hours} hours."
+msgstr "{pair}时钟和截止时间前进{hours}小时。"
+
+#. placeholders: {f}
+msgid "Brake job: {f} percent wear, carrier billed"
+msgstr "刹车维修：磨损百分之{f}，记承运商的账"
+
+msgid "Resting at a stop"
+msgstr "在停靠点休息"
+
+#. placeholders: {grouped}, {rest}
+msgid "{grouped} dollars and {rest} cents"
+msgstr "{grouped}美元{rest}美分"
+
+msgid "Reweigh"
+msgstr "复称"
+
+msgid "Weigh"
+msgstr "称重"
+
+#. placeholders: {verb}, {dollars_and_cents}
+msgid "{verb} on the CAT Scale: {dollars_and_cents}"
+msgstr "在CAT Scale上{verb}：{dollars_and_cents}"
+
+#. placeholders: {verb}
+msgid "{verb} on the CAT Scale, carrier billed"
+msgstr "在CAT Scale上{verb}，记承运商的账"
+
+#. one sentence of a longer line
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
+msgstr "先取得CAT Scale称重单，列明转向轴、驱动轴、挂车轴及总重，再前往州称重站。"
+
+#. placeholders: {dollars_and_cents}, {f}
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
+"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
+msgstr ""
+"先取得CAT "
+"Scale称重单，列明转向轴、驱动轴、挂车轴及总重，再前往州称重站。24小时内复称费用为{dollars_and_cents}。占用{f}分钟当班时间。"
+
+#. placeholders: {dollars_and_cents}
+#. one sentence of a longer line
+msgid "Reweigh within 24 hours is {dollars_and_cents}."
+msgstr "24小时内重新称重为{dollars_and_cents}。"
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
+msgstr "称重一次要{dollars_and_cents}，你有{grouped}美元。"
+
+msgid "CAT Scale weigh"
+msgstr "CAT Scale称重"
+
+msgid "Billed to the carrier."
+msgstr "记承运商的账。"
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "{dollars_and_cents}. You have {grouped} dollars."
+msgstr "{dollars_and_cents}。你有{grouped}美元。"
+
+#. one sentence of a longer line
+msgid "CAT Scale ticket."
+msgstr "CAT Scale称重单。"
+
+#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
+msgid ""
+"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
+msgstr "CAT Scale称重单。{ticket}{billing}现在是{clock_text}。{deadline_text}"
+
+#. placeholders: {ticket}, {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{ticket} {billing} It is {clock_text}."
+msgstr "{ticket}{billing}现在是{clock_text}。"
+
+#. placeholders: {grouped}
+msgid "Buy snow chains: {grouped} dollars"
+msgstr "购买防滑链：{grouped}美元"
+
+msgid "Buy snow chains, carrier billed"
+msgstr "购买防滑链，向承运商结账"
+
+#. one sentence of a longer line
+msgid "A new set with two spare repair links."
+msgstr "一套新的，带2个备用修补链环。"
+
+#. placeholders: {f}
+msgid "A new set with two spare repair links. {f} minutes on duty."
+msgstr "一套新的，带2个备用修补链环。计入当班时间{f}分钟。"
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"A set of snow chains costs {grouped} dollars and you have {grouped2} "
+"dollars."
+msgstr "一套防滑链要{grouped}美元，你有{grouped2}美元。"
+
+#. placeholders: {grouped}, {grouped2}
+msgid "{grouped} dollars. You have {grouped2} dollars."
+msgstr "{grouped}美元。你有{grouped2}美元。"
+
+#. one sentence of a longer line
+msgid "A new set of snow chains is in the side box."
+msgstr "侧工具箱里已放好一套新防滑链。"
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"A new set of snow chains is in the side box. {billing} It is {clock_text}."
+msgstr "侧工具箱里已放好一套新防滑链。{billing}现在是{clock_text}。"
+
+#. placeholders: {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{billing} It is {clock_text}."
+msgstr "{billing}现在是{clock_text}。"
+
 msgid "The truck does not need repair."
 msgstr "卡车不需要维修。"
 
@@ -28805,142 +28944,6 @@ msgstr "绕车检查完成，{f}分钟。{body}现在是{clock_text}。{deadline
 #. one sentence of a longer line
 msgid "{body} It is {clock_text}."
 msgstr "{body}现在是{clock_text}。"
-
-msgid "No real-time parking data nearby."
-msgstr "附近没有实时停车位数据。"
-
-#. placeholders: {total_available}
-msgid "Real-time parking: {total_available} spaces available nearby."
-msgstr "实时停车位：附近有{total_available}个空位。"
-
-msgid "Real-time parking: nearby lots are full."
-msgstr "实时停车位：附近的停车场都满了。"
-
-msgid "Pairs with 8 hours in the sleeper berth."
-msgstr "与卧铺里的8小时配对。"
-
-msgid "Pairs with 7 hours in the sleeper berth."
-msgstr "与卧铺里的7小时配对。"
-
-msgid "Pairs with 3 more hours at parking where you can sleep."
-msgstr "可与在能睡觉的停车场再休息 3 小时配对。"
-
-msgid "Pairs with 2 more hours at parking where you can sleep."
-msgstr "可与在能睡觉的停车场再休息 2 小时配对。"
-
-#. placeholders: {pair}, {hours}
-msgid "{pair} Clock and deadline advance {hours} hours."
-msgstr "{pair}时钟和截止时间前进{hours}小时。"
-
-#. placeholders: {f}
-msgid "Brake job: {f} percent wear, carrier billed"
-msgstr "刹车维修：磨损百分之{f}，记承运商的账"
-
-msgid "Resting at a stop"
-msgstr "在停靠点休息"
-
-#. placeholders: {grouped}, {rest}
-msgid "{grouped} dollars and {rest} cents"
-msgstr "{grouped}美元{rest}美分"
-
-msgid "Reweigh"
-msgstr "复称"
-
-msgid "Weigh"
-msgstr "称重"
-
-#. placeholders: {verb}, {dollars_and_cents}
-msgid "{verb} on the CAT Scale: {dollars_and_cents}"
-msgstr "在CAT Scale上{verb}：{dollars_and_cents}"
-
-#. placeholders: {verb}
-msgid "{verb} on the CAT Scale, carrier billed"
-msgstr "在CAT Scale上{verb}，记承运商的账"
-
-#. one sentence of a longer line
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
-msgstr "先取得CAT Scale称重单，列明转向轴、驱动轴、挂车轴及总重，再前往州称重站。"
-
-#. placeholders: {dollars_and_cents}, {f}
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
-"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
-msgstr ""
-"先取得CAT "
-"Scale称重单，列明转向轴、驱动轴、挂车轴及总重，再前往州称重站。24小时内复称费用为{dollars_and_cents}。占用{f}分钟当班时间。"
-
-#. placeholders: {dollars_and_cents}
-#. one sentence of a longer line
-msgid "Reweigh within 24 hours is {dollars_and_cents}."
-msgstr "24小时内重新称重为{dollars_and_cents}。"
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
-msgstr "称重一次要{dollars_and_cents}，你有{grouped}美元。"
-
-msgid "CAT Scale weigh"
-msgstr "CAT Scale称重"
-
-msgid "Billed to the carrier."
-msgstr "记承运商的账。"
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "{dollars_and_cents}. You have {grouped} dollars."
-msgstr "{dollars_and_cents}。你有{grouped}美元。"
-
-#. one sentence of a longer line
-msgid "CAT Scale ticket."
-msgstr "CAT Scale称重单。"
-
-#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
-msgid ""
-"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
-msgstr "CAT Scale称重单。{ticket}{billing}现在是{clock_text}。{deadline_text}"
-
-#. placeholders: {ticket}, {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{ticket} {billing} It is {clock_text}."
-msgstr "{ticket}{billing}现在是{clock_text}。"
-
-#. placeholders: {grouped}
-msgid "Buy snow chains: {grouped} dollars"
-msgstr "购买防滑链：{grouped}美元"
-
-msgid "Buy snow chains, carrier billed"
-msgstr "购买防滑链，向承运商结账"
-
-#. one sentence of a longer line
-msgid "A new set with two spare repair links."
-msgstr "一套新的，带2个备用修补链环。"
-
-#. placeholders: {f}
-msgid "A new set with two spare repair links. {f} minutes on duty."
-msgstr "一套新的，带2个备用修补链环。计入当班时间{f}分钟。"
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"A set of snow chains costs {grouped} dollars and you have {grouped2} "
-"dollars."
-msgstr "一套防滑链要{grouped}美元，你有{grouped2}美元。"
-
-#. placeholders: {grouped}, {grouped2}
-msgid "{grouped} dollars. You have {grouped2} dollars."
-msgstr "{grouped}美元。你有{grouped2}美元。"
-
-#. one sentence of a longer line
-msgid "A new set of snow chains is in the side box."
-msgstr "侧工具箱里已放好一套新防滑链。"
-
-#. placeholders: {billing}, {clock_text}
-msgid ""
-"A new set of snow chains is in the side box. {billing} It is {clock_text}."
-msgstr "侧工具箱里已放好一套新防滑链。{billing}现在是{clock_text}。"
-
-#. placeholders: {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{billing} It is {clock_text}."
-msgstr "{billing}现在是{clock_text}。"
 
 msgid "Return to terminal"
 msgstr "回到场站"

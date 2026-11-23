@@ -33,6 +33,7 @@ pub use rest_stop::{RestFocus, RestStopState};
 pub use roadside::{
     EnforcementStopState, FelonyStopState, LicencePulledState, RoadsideExit, TrafficStopState,
 };
+pub use short_stay::ShortStay;
 pub use shoulder::ShoulderSleepConfirmationState;
 
 use ff_core::models::enforcement;

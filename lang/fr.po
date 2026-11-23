@@ -29093,6 +29093,66 @@ msgstr ""
 msgid "Delivery complete"
 msgstr "Livraison terminée"
 
+#. one sentence of a longer line
+msgid "The balance holds where it is."
+msgstr "Le solde reste où il est."
+
+#. placeholders: {carrier_name}, {grouped}
+#. one sentence of a longer line
+msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
+msgstr "{carrier_name} a effacé {grouped} dollars de ce que vous devez."
+
+#. placeholders: {carrier_name}, {grouped}
+msgid ""
+"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
+"holds where it is."
+msgstr ""
+"{carrier_name} a effacé {grouped} dollars de ce que vous devez. Le solde "
+"reste où il est."
+
+msgid ""
+"Square with your carrier again. Nothing owed, every settlement reaches you "
+"whole."
+msgstr ""
+"Quitte avec votre transporteur. Vous ne devez plus rien, chaque règlement "
+"vous arrive en entier."
+
+#. placeholders: {unlock}
+msgid "Unlock: {unlock}"
+msgstr "Déblocage : {unlock}"
+
+#. placeholders: {names}
+msgid "New achievement! {names}."
+msgstr "Nouveau succès ! {names}."
+
+#. one sentence of a longer line
+msgid "New achievements!"
+msgstr "Nouveaux succès !"
+
+#. placeholders: {join}
+msgid "New achievements! {join}."
+msgstr "Nouveaux succès ! {join}."
+
+#. placeholders: {title}
+msgid "Freight Fate: {title}."
+msgstr "Freight Fate : {title}."
+
+msgid "Delivery summary copied to clipboard."
+msgstr "Résumé de livraison copié dans le presse-papiers."
+
+msgid "Repeat this settlement line."
+msgstr "Répéter cette ligne du règlement."
+
+msgid "Copy delivery summary to clipboard"
+msgstr "Copier le résumé de livraison dans le presse-papiers"
+
+msgid "Copies the settlement lines as plain text."
+msgstr "Copie les lignes du règlement en texte brut."
+
+#. placeholders: {name}
+msgid "Continue to {name}"
+msgstr "Continuer vers {name}"
+
 msgid "Repositioned"
 msgstr "Repositionné"
 
@@ -29585,66 +29645,6 @@ msgstr "Itinéraire : {join}."
 msgid "Distance credited: {distance_text}."
 msgstr "Distance créditée : {distance_text}."
 
-#. one sentence of a longer line
-msgid "The balance holds where it is."
-msgstr "Le solde reste où il est."
-
-#. placeholders: {carrier_name}, {grouped}
-#. one sentence of a longer line
-msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
-msgstr "{carrier_name} a effacé {grouped} dollars de ce que vous devez."
-
-#. placeholders: {carrier_name}, {grouped}
-msgid ""
-"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
-"holds where it is."
-msgstr ""
-"{carrier_name} a effacé {grouped} dollars de ce que vous devez. Le solde "
-"reste où il est."
-
-msgid ""
-"Square with your carrier again. Nothing owed, every settlement reaches you "
-"whole."
-msgstr ""
-"Quitte avec votre transporteur. Vous ne devez plus rien, chaque règlement "
-"vous arrive en entier."
-
-#. placeholders: {unlock}
-msgid "Unlock: {unlock}"
-msgstr "Déblocage : {unlock}"
-
-#. placeholders: {names}
-msgid "New achievement! {names}."
-msgstr "Nouveau succès ! {names}."
-
-#. one sentence of a longer line
-msgid "New achievements!"
-msgstr "Nouveaux succès !"
-
-#. placeholders: {join}
-msgid "New achievements! {join}."
-msgstr "Nouveaux succès ! {join}."
-
-#. placeholders: {title}
-msgid "Freight Fate: {title}."
-msgstr "Freight Fate : {title}."
-
-msgid "Delivery summary copied to clipboard."
-msgstr "Résumé de livraison copié dans le presse-papiers."
-
-msgid "Repeat this settlement line."
-msgstr "Répéter cette ligne du règlement."
-
-msgid "Copy delivery summary to clipboard"
-msgstr "Copier le résumé de livraison dans le presse-papiers"
-
-msgid "Copies the settlement lines as plain text."
-msgstr "Copie les lignes du règlement en texte brut."
-
-#. placeholders: {name}
-msgid "Continue to {name}"
-msgstr "Continuer vers {name}"
-
 msgid "April 1"
 msgstr "1er avril"
 
@@ -29832,6 +29832,9 @@ msgstr "Dans la cour. Dépôt de la remorque."
 
 msgid "Docked. Unloading cargo."
 msgstr "À quai. Déchargement."
+
+msgid "receiver unloading"
+msgstr ""
 
 msgid "Trailer dropped. Hooked to an empty, paperwork signed."
 msgstr "Remorque déposée. Attelé à une vide, papiers signés."
@@ -32188,6 +32191,158 @@ msgstr ""
 "compteurs de conduite et de service sont remis à zéro. Le repos était "
 "mauvais. {deadline_text}{wake_air_instruction}"
 
+msgid "No real-time parking data nearby."
+msgstr "Pas de données de stationnement en temps réel à proximité."
+
+#. placeholders: {total_available}
+msgid "Real-time parking: {total_available} spaces available nearby."
+msgstr ""
+"Stationnement en temps réel : {total_available} {total_available:place "
+"disponible|places disponibles} à proximité."
+
+msgid "Real-time parking: nearby lots are full."
+msgstr "Stationnement en temps réel : les parkings proches sont complets."
+
+msgid "Pairs with 8 hours in the sleeper berth."
+msgstr "Se combine avec 8 heures en couchette."
+
+msgid "Pairs with 7 hours in the sleeper berth."
+msgstr "Se combine avec 7 heures en couchette."
+
+msgid "Pairs with 3 more hours at parking where you can sleep."
+msgstr ""
+"Se combine avec 3 heures de plus sur un parking où l'on peut dormir."
+
+msgid "Pairs with 2 more hours at parking where you can sleep."
+msgstr ""
+"Se combine avec 2 heures de plus sur un parking où l'on peut dormir."
+
+#. placeholders: {pair}, {hours}
+msgid "{pair} Clock and deadline advance {hours} hours."
+msgstr ""
+"{pair} L'horloge et le délai de livraison avancent de {hours} heures."
+
+#. placeholders: {f}
+msgid "Brake job: {f} percent wear, carrier billed"
+msgstr ""
+"Réparation des freins : {f} pour cent d'usure, facturé au transporteur"
+
+msgid "Resting at a stop"
+msgstr "Repos à un arrêt"
+
+#. placeholders: {grouped}, {rest}
+msgid "{grouped} dollars and {rest} cents"
+msgstr "{grouped} dollars et {rest} cents"
+
+msgid "Reweigh"
+msgstr "Nouvelle pesée"
+
+msgid "Weigh"
+msgstr "Pesée"
+
+#. placeholders: {verb}, {dollars_and_cents}
+msgid "{verb} on the CAT Scale: {dollars_and_cents}"
+msgstr "{verb} sur la CAT Scale : {dollars_and_cents}"
+
+#. placeholders: {verb}
+msgid "{verb} on the CAT Scale, carrier billed"
+msgstr "{verb} sur la CAT Scale, facturée au transporteur"
+
+#. one sentence of a longer line
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
+msgstr ""
+"Ticket de pesée CAT Scale : essieu directeur, essieux moteurs, remorque et "
+"poids total, avant une bascule d'État."
+
+#. placeholders: {dollars_and_cents}, {f}
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
+"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
+msgstr ""
+"Ticket de pesée CAT Scale : essieu directeur, essieux moteurs, remorque et "
+"poids total, avant une bascule d'État. Une nouvelle pesée dans les 24 "
+"heures coûte {dollars_and_cents}. {f} minutes en service."
+
+#. placeholders: {dollars_and_cents}
+#. one sentence of a longer line
+msgid "Reweigh within 24 hours is {dollars_and_cents}."
+msgstr "Une nouvelle pesée dans les 24 heures coûte {dollars_and_cents}."
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
+msgstr "Une pesée coûte {dollars_and_cents} et vous avez {grouped} dollars."
+
+msgid "CAT Scale weigh"
+msgstr "Pesée CAT Scale"
+
+msgid "Billed to the carrier."
+msgstr "Facturé au transporteur."
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "{dollars_and_cents}. You have {grouped} dollars."
+msgstr "{dollars_and_cents}. Vous avez {grouped} dollars."
+
+#. one sentence of a longer line
+msgid "CAT Scale ticket."
+msgstr "Ticket CAT Scale."
+
+#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
+msgid ""
+"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
+msgstr ""
+"Ticket CAT Scale. {ticket} {billing} Il est {clock_text}. {deadline_text}"
+
+#. placeholders: {ticket}, {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{ticket} {billing} It is {clock_text}."
+msgstr "{ticket} {billing} Il est {clock_text}."
+
+#. placeholders: {grouped}
+msgid "Buy snow chains: {grouped} dollars"
+msgstr "Acheter des chaînes à neige : {grouped} dollars"
+
+msgid "Buy snow chains, carrier billed"
+msgstr "Acheter des chaînes à neige, facturées au transporteur"
+
+#. one sentence of a longer line
+msgid "A new set with two spare repair links."
+msgstr "Un nouveau jeu avec deux maillons de réparation de rechange."
+
+#. placeholders: {f}
+msgid "A new set with two spare repair links. {f} minutes on duty."
+msgstr ""
+"Un nouveau jeu avec deux maillons de réparation de rechange. {f} minutes en "
+"service."
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"A set of snow chains costs {grouped} dollars and you have {grouped2} "
+"dollars."
+msgstr ""
+"Un jeu de chaînes à neige coûte {grouped} dollars et vous avez {grouped2} "
+"dollars."
+
+#. placeholders: {grouped}, {grouped2}
+msgid "{grouped} dollars. You have {grouped2} dollars."
+msgstr "{grouped} dollars. Vous avez {grouped2} dollars."
+
+#. one sentence of a longer line
+msgid "A new set of snow chains is in the side box."
+msgstr "Un nouveau jeu de chaînes à neige est dans le coffre latéral."
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"A new set of snow chains is in the side box. {billing} It is {clock_text}."
+msgstr ""
+"Un nouveau jeu de chaînes à neige est dans le coffre latéral. {billing} Il "
+"est {clock_text}."
+
+#. placeholders: {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{billing} It is {clock_text}."
+msgstr "{billing} Il est {clock_text}."
+
 msgid "The truck does not need repair."
 msgstr "Le camion n'a pas besoin de réparation."
 
@@ -32485,158 +32640,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{body} It is {clock_text}."
 msgstr "{body} Il est {clock_text}."
-
-msgid "No real-time parking data nearby."
-msgstr "Pas de données de stationnement en temps réel à proximité."
-
-#. placeholders: {total_available}
-msgid "Real-time parking: {total_available} spaces available nearby."
-msgstr ""
-"Stationnement en temps réel : {total_available} {total_available:place "
-"disponible|places disponibles} à proximité."
-
-msgid "Real-time parking: nearby lots are full."
-msgstr "Stationnement en temps réel : les parkings proches sont complets."
-
-msgid "Pairs with 8 hours in the sleeper berth."
-msgstr "Se combine avec 8 heures en couchette."
-
-msgid "Pairs with 7 hours in the sleeper berth."
-msgstr "Se combine avec 7 heures en couchette."
-
-msgid "Pairs with 3 more hours at parking where you can sleep."
-msgstr ""
-"Se combine avec 3 heures de plus sur un parking où l'on peut dormir."
-
-msgid "Pairs with 2 more hours at parking where you can sleep."
-msgstr ""
-"Se combine avec 2 heures de plus sur un parking où l'on peut dormir."
-
-#. placeholders: {pair}, {hours}
-msgid "{pair} Clock and deadline advance {hours} hours."
-msgstr ""
-"{pair} L'horloge et le délai de livraison avancent de {hours} heures."
-
-#. placeholders: {f}
-msgid "Brake job: {f} percent wear, carrier billed"
-msgstr ""
-"Réparation des freins : {f} pour cent d'usure, facturé au transporteur"
-
-msgid "Resting at a stop"
-msgstr "Repos à un arrêt"
-
-#. placeholders: {grouped}, {rest}
-msgid "{grouped} dollars and {rest} cents"
-msgstr "{grouped} dollars et {rest} cents"
-
-msgid "Reweigh"
-msgstr "Nouvelle pesée"
-
-msgid "Weigh"
-msgstr "Pesée"
-
-#. placeholders: {verb}, {dollars_and_cents}
-msgid "{verb} on the CAT Scale: {dollars_and_cents}"
-msgstr "{verb} sur la CAT Scale : {dollars_and_cents}"
-
-#. placeholders: {verb}
-msgid "{verb} on the CAT Scale, carrier billed"
-msgstr "{verb} sur la CAT Scale, facturée au transporteur"
-
-#. one sentence of a longer line
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
-msgstr ""
-"Ticket de pesée CAT Scale : essieu directeur, essieux moteurs, remorque et "
-"poids total, avant une bascule d'État."
-
-#. placeholders: {dollars_and_cents}, {f}
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
-"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
-msgstr ""
-"Ticket de pesée CAT Scale : essieu directeur, essieux moteurs, remorque et "
-"poids total, avant une bascule d'État. Une nouvelle pesée dans les 24 "
-"heures coûte {dollars_and_cents}. {f} minutes en service."
-
-#. placeholders: {dollars_and_cents}
-#. one sentence of a longer line
-msgid "Reweigh within 24 hours is {dollars_and_cents}."
-msgstr "Une nouvelle pesée dans les 24 heures coûte {dollars_and_cents}."
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
-msgstr "Une pesée coûte {dollars_and_cents} et vous avez {grouped} dollars."
-
-msgid "CAT Scale weigh"
-msgstr "Pesée CAT Scale"
-
-msgid "Billed to the carrier."
-msgstr "Facturé au transporteur."
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "{dollars_and_cents}. You have {grouped} dollars."
-msgstr "{dollars_and_cents}. Vous avez {grouped} dollars."
-
-#. one sentence of a longer line
-msgid "CAT Scale ticket."
-msgstr "Ticket CAT Scale."
-
-#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
-msgid ""
-"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
-msgstr ""
-"Ticket CAT Scale. {ticket} {billing} Il est {clock_text}. {deadline_text}"
-
-#. placeholders: {ticket}, {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{ticket} {billing} It is {clock_text}."
-msgstr "{ticket} {billing} Il est {clock_text}."
-
-#. placeholders: {grouped}
-msgid "Buy snow chains: {grouped} dollars"
-msgstr "Acheter des chaînes à neige : {grouped} dollars"
-
-msgid "Buy snow chains, carrier billed"
-msgstr "Acheter des chaînes à neige, facturées au transporteur"
-
-#. one sentence of a longer line
-msgid "A new set with two spare repair links."
-msgstr "Un nouveau jeu avec deux maillons de réparation de rechange."
-
-#. placeholders: {f}
-msgid "A new set with two spare repair links. {f} minutes on duty."
-msgstr ""
-"Un nouveau jeu avec deux maillons de réparation de rechange. {f} minutes en "
-"service."
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"A set of snow chains costs {grouped} dollars and you have {grouped2} "
-"dollars."
-msgstr ""
-"Un jeu de chaînes à neige coûte {grouped} dollars et vous avez {grouped2} "
-"dollars."
-
-#. placeholders: {grouped}, {grouped2}
-msgid "{grouped} dollars. You have {grouped2} dollars."
-msgstr "{grouped} dollars. Vous avez {grouped2} dollars."
-
-#. one sentence of a longer line
-msgid "A new set of snow chains is in the side box."
-msgstr "Un nouveau jeu de chaînes à neige est dans le coffre latéral."
-
-#. placeholders: {billing}, {clock_text}
-msgid ""
-"A new set of snow chains is in the side box. {billing} It is {clock_text}."
-msgstr ""
-"Un nouveau jeu de chaînes à neige est dans le coffre latéral. {billing} Il "
-"est {clock_text}."
-
-#. placeholders: {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{billing} It is {clock_text}."
-msgstr "{billing} Il est {clock_text}."
 
 msgid "Return to terminal"
 msgstr "Retour au terminal"

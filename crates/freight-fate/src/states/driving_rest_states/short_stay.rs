@@ -41,7 +41,7 @@ pub trait ShortStay: FuelPump + Sized + 'static {
 
     fn take_break(&mut self, ctx: &mut GameContext) {
         let Some(text) = self.drive().clone().with(ctx, |d, ctx| {
-            advance_rest_clock(d, ctx, 30.0, None, "");
+            advance_rest_clock(d, ctx, 30.0, Some("off_duty"), "");
             hos_mut_of(ctx).take_break(30.0);
             {
                 let p = profile_mut_of(ctx);
