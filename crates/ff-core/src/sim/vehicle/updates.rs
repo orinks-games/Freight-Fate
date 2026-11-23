@@ -255,6 +255,33 @@ impl TruckState {
         base * self.specs.fuel_burn_factor * self.fuel_wear_penalty_mult()
     }
 
+    /// Gallons per game-second while rolling, putting `power_kw` through
+    /// the wheels: the burn `update_fuel` charges every frame.
+    fn moving_fuel_burn_rate(&self, power_kw: f64) -> f64 {
+        (0.00022 + power_kw * 1.5e-5) * self.specs.fuel_burn_factor * self.fuel_wear_penalty_mult()
+    }
+
+    /// Miles per gallon these specs give at a steady 60 mph on level road,
+    /// pulling a dry van with the reference cargo aboard, in calm air with no
+    /// wear: the
+    /// figure the truck dealer reads. At a steady speed the wheels put out
+    /// exactly what drag and rolling resistance take, so the burn is
+    /// `update_fuel`'s at that power.
+    pub fn rated_mpg(specs: &super::TruckSpecs) -> f64 {
+        const RATED_MPH: f64 = 60.0;
+        let mut truck = TruckState::new(specs.clone());
+        truck.cargo_kg = super::REFERENCE_CARGO_KG;
+        truck.grade = 0.0;
+        truck.drag_mult = 1.0;
+        truck.velocity_mps = RATED_MPH / crate::sim::trip_models::MPH_PER_MPS;
+        let power_kw = truck.resistance_force().max(0.0) * truck.velocity_mps / 1000.0;
+        let gal_per_s = truck.moving_fuel_burn_rate(power_kw);
+        if gal_per_s <= 0.0 {
+            return 0.0;
+        }
+        (RATED_MPH / 3600.0) / gal_per_s
+    }
+
     pub(crate) fn update_fuel(&mut self, dt: f64) {
         if !self.engine_on {
             return;
@@ -268,9 +295,7 @@ impl TruckState {
             self.idle_fuel_burn_rate()
         } else {
             let power_kw = self.drive_force().abs() * self.velocity_mps.abs() / 1000.0;
-            let mut burn = (0.00022 + power_kw * 1.5e-5) * self.specs.fuel_burn_factor;
-            burn *= self.fuel_wear_penalty_mult();
-            burn
+            self.moving_fuel_burn_rate(power_kw)
         };
         self.fuel_gal = (self.fuel_gal - burn * dt * self.fuel_burn_mult).max(0.0);
         if self.fuel_gal <= 0.0 {

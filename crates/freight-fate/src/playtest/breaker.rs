@@ -38,6 +38,7 @@ use crate::states::driving_menu_states::DriveRef;
 
 use ff_core::data::curves::RouteCurve;
 use ff_core::data::world_models::{GradeSegment, Leg, Route};
+use ff_core::models::business_stage::BusinessStage;
 use ff_core::models::jobs::{cargo_type, Job};
 use ff_core::models::profile::Profile;
 use ff_core::sim::trip::Trip;
@@ -368,7 +369,7 @@ impl Rig {
         let origin_key = app.ctx.world.resolve_city_key(origin);
         let mut profile = Profile::named_in("Breaker", &origin_key);
         if let Some(business) = &opts.business {
-            profile.business_status = business.clone();
+            profile.set_business_stage(BusinessStage::from_fields(business, false, false));
         }
         app.ctx.profile = Some(profile);
         let route = app

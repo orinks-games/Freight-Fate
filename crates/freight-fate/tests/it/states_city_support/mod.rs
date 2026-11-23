@@ -188,3 +188,15 @@ pub fn loaded_pickup(app: &TestApp, job: Job) -> PickupFacilityState {
         },
     )
 }
+
+/// Open the owner-operator buy-in from Business status and buy the cheapest
+/// tractor it lists: the row asks once, the second press buys.
+pub fn buy_in_cheapest(app: &mut TestApp) {
+    use freight_fate::states::city::{BusinessStatusState, BuyInState};
+    select::<BusinessStatusState>(app, "Owner-operator buy-in");
+    let row = ff_core::data::world_models::py_capitalize(
+        ff_core::models::buy_in::buy_in_tractors()[0].label,
+    );
+    select::<BuyInState>(app, &row);
+    select::<BuyInState>(app, &row);
+}

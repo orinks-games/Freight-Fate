@@ -3,6 +3,7 @@
 
 use serde::Serialize;
 
+use crate::models::business_stage::BusinessStage;
 use crate::models::career::Career;
 use crate::models::career_ladder::STARTER_CARRIER_NAME;
 use crate::models::carriers::{self, carrier};
@@ -523,7 +524,8 @@ pub trait StartProfile {
     fn set_start_mode(&mut self, mode: &str);
     fn set_carrier_name(&mut self, name: &str);
     fn set_money(&mut self, money: f64);
-    fn set_business_status(&mut self, status: &str);
+    /// `Profile::set_business_stage`.
+    fn set_business_stage(&mut self, stage: BusinessStage);
     fn set_truck(&mut self, key: &str);
     fn set_owned_trucks(&mut self, trucks: Vec<String>);
     fn set_owned_trailers(&mut self, trailers: Vec<String>);
@@ -696,10 +698,10 @@ pub fn apply_start_option<P: StartProfile + ?Sized>(profile: &mut P, option: &Ca
         profile.set_parked_facility(&carrier.terminal_name(world, home).unwrap_or_default());
     }
     profile.set_money(option.starting_money);
-    profile.set_business_status(if option.is_owner_operator() {
-        "leased_owner_operator"
+    profile.set_business_stage(if option.is_owner_operator() {
+        BusinessStage::LeasedOn
     } else {
-        "company_driver"
+        BusinessStage::CompanyDriver
     });
     profile.set_truck(option.starting_truck);
     profile.set_owned_trucks(option.owned_trucks.iter().map(|k| k.to_string()).collect());

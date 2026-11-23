@@ -6929,9 +6929,9 @@ msgstr "完成{OWNER_OPERATOR_DELIVERIES}次送货。"
 
 #. placeholders: {grouped}, {grouped2}, {grouped3}
 msgid ""
-"Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
-"working capital."
-msgstr "存够{grouped}美元：{grouped2}用于买断卡车，{grouped3}作为周转资金。"
+"Save {grouped} dollars: {grouped2} for the cheapest sleeper tractor and "
+"{grouped3} for working capital."
+msgstr ""
 
 #. placeholders: {NO_CARRIER_STATUS}, {level}, {title}
 #. one sentence of a longer line
@@ -6991,9 +6991,9 @@ msgid "Company driver by choice. {company_ladder_next}"
 msgstr "自愿当公司司机。{company_ladder_next}"
 
 msgid ""
-"Next: the owner-operator buy-in under Business status, where you buy the "
-"truck you drive."
-msgstr "下一步：在经营状况中办理车主司机买断，买下你开的这辆卡车。"
+"Next: the owner-operator buy-in under Business status, where you buy a "
+"tractor of your own."
+msgstr ""
 
 #. placeholders: {join}
 msgid "Owner-operator gate locked: {join}"
@@ -7104,9 +7104,9 @@ msgstr ""
 #. placeholders: {grouped}, {grouped2}
 #. one sentence of a longer line
 msgid ""
-"The buy-in costs {grouped} dollars and keeps {grouped2} dollars of working "
-"capital in the bank."
-msgstr "买断需要{grouped}美元，并在银行里保留{grouped2}美元周转资金。"
+"Tractors start at {grouped} dollars, and {grouped2} dollars stays in the "
+"bank as working capital."
+msgstr ""
 
 #. placeholders: {carrier_name}, {level}, {title}
 #. one sentence of a longer line
@@ -7116,19 +7116,17 @@ msgstr "你是{carrier_name}的公司司机，{level}级{title}。"
 #. placeholders: {carrier_name}, {level}, {title}, {grouped}, {grouped2}
 msgid ""
 "You are a company driver for {carrier_name}, level {level} {title}. You "
-"qualify for the owner-operator buy-in: you buy the truck you drive and keep "
-"hauling for the carrier as a leased-on owner-operator. The buy-in costs "
-"{grouped} dollars and keeps {grouped2} dollars of working capital in the "
-"bank."
+"qualify for the owner-operator buy-in: you buy a tractor of your own and "
+"keep hauling for the carrier as a leased-on owner-operator. Tractors start "
+"at {grouped} dollars, and {grouped2} dollars stays in the bank as working "
+"capital."
 msgstr ""
-"你是{carrier_name}的公司司机，{level}级{title}。你符合车主司机买断的条件：买下你开的卡车，以挂靠承运商的车主司机身份继续为承"
-"运商拉货。买断需要{grouped}美元，并在银行里保留{grouped2}美元周转资金。"
 
 #. one sentence of a longer line
 msgid ""
-"You qualify for the owner-operator buy-in: you buy the truck you drive and "
-"keep hauling for the carrier as a leased-on owner-operator."
-msgstr "你符合车主司机买断的条件：买下你开的卡车，以挂靠承运商的车主司机身份继续为承运商拉货。"
+"You qualify for the owner-operator buy-in: you buy a tractor of your own "
+"and keep hauling for the carrier as a leased-on owner-operator."
+msgstr ""
 
 #. placeholders: {carrier_name}
 #. one sentence of a longer line
@@ -7484,9 +7482,9 @@ msgstr "车主司机"
 
 msgid ""
 "The owner-operator buy-in opens once its other requirements are met: you "
-"buy the truck you drive and haul for the carrier as a leased-on "
+"buy a tractor of your own and haul for the carrier as a leased-on "
 "owner-operator. TWIC port card enrollment opens under Licenses and training."
-msgstr "车主司机买断在其他要求满足后开放：买下你开的卡车，以挂靠承运商的车主司机身份为承运商拉货。TWIC港口卡申请在驾照与培训中开放。"
+msgstr ""
 
 msgid "Eligible to buy your own truck and pay its operating costs."
 msgstr "有资格买下自己的卡车并承担运营成本。"
@@ -10745,6 +10743,9 @@ msgstr "northstar"
 msgid "your home in Buffalo"
 msgstr "你在Buffalo的家"
 
+msgid "Hand Back"
+msgstr ""
+
 #. placeholders: {f}, {f2}, {f3}, {f4}
 msgid ""
 "{f} percent pay share, {f2} dollars per mile floor, {f3} dollar stop pay, "
@@ -11094,6 +11095,11 @@ msgstr "轻型"
 
 msgid "heavy"
 msgstr "重型"
+
+#. placeholders: {f}, {f2}, {f3}
+msgid ""
+"{f} thousand newton meters torque, {f2} gallon tank, {f3} miles per gallon"
+msgstr ""
 
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
@@ -20043,9 +20049,9 @@ msgid "{source} in {city_name}: {desc}."
 msgstr "{city_name}的{source}：{desc}。"
 
 msgid ""
-"Enter repeats a line, or buys in when qualified. Escape returns to the "
-"terminal."
-msgstr "Enter重复一行，符合条件时则是买断。Escape回到场站。"
+"Enter repeats a line, or opens the buy-in when qualified. Escape returns to "
+"the terminal."
+msgstr ""
 
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
@@ -20098,31 +20104,6 @@ msgid "Weigh station transponder. {body}"
 msgstr "称重站电子标签。{body}"
 
 #. one sentence of a longer line
-msgid "Owner-operator path locked."
-msgstr "车主司机路线未解锁。"
-
-#. placeholders: {join}
-msgid "Owner-operator path locked. {join}"
-msgstr "车主司机路线未解锁。{join}"
-
-#. one sentence of a longer line
-msgid "Leased-on owner-operator status unlocked."
-msgstr "挂靠承运商的车主司机身份已解锁。"
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"Leased-on owner-operator status unlocked. Paid {grouped} dollars toward "
-"your first tractor, {grouped2} dollars working capital left."
-msgstr "已解锁车主司机租赁状态。为你的第一台牵引车支付了 {grouped} 美元，剩余流动资金为 {grouped2} 美元。"
-
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid ""
-"Paid {grouped} dollars toward your first tractor, {grouped2} dollars "
-"working capital left."
-msgstr "已为你的第一辆牵引车支付{grouped}美元，还剩{grouped2}美元周转资金。"
-
-#. one sentence of a longer line
 msgid "Authority prep locked."
 msgstr "资质准备未解锁。"
 
@@ -20148,11 +20129,6 @@ msgid ""
 "Own authority unlocks after you meet the delivery, reputation, trailer "
 "program and cash requirements."
 msgstr "满足送货、声誉、挂车计划和现金条件后，自有运营资质就会解锁。"
-
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-msgid "You have {grouped2} dollars left."
-msgstr "你还剩{grouped2}美元。"
 
 #. one sentence of a longer line
 msgid "Transponder subscription locked."
@@ -20231,12 +20207,13 @@ msgstr "下一个经营解锁项"
 msgid "The next career or business unlock."
 msgstr "下一个职业或经营解锁项。"
 
-#. placeholders: {grouped}
-msgid "Owner-operator buy-in: {grouped} dollars"
-msgstr "车主司机买入：{grouped}美元"
+msgid "Owner-operator buy-in: choose a tractor"
+msgstr ""
 
-msgid "Higher revenue, but your business pays operating costs."
-msgstr "收入更高，但你的经营要承担运营成本。"
+msgid ""
+"You buy a tractor of your own. Loads pay more, and your business pays the "
+"operating costs."
+msgstr ""
 
 msgid "Reopen the owner-operator plan"
 msgstr "重新开启车主司机计划"
@@ -20334,191 +20311,6 @@ msgstr "称重站电子标签未解锁"
 
 msgid "What the transponder still needs."
 msgstr "电子标签还需要什么。"
-
-msgid "Upgrades"
-msgstr "升级"
-
-msgid ""
-"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
-"details. Escape returns to the garage."
-msgstr "升级适用于你拥有的每辆牵引车。按 Enter 购买下一级，F1 查看详情。Escape 返回车库。"
-
-msgid ""
-"Upgrades unlock with the owner-operator buy-in, from level 18 under "
-"Business status."
-msgstr "升级在车主司机买断后解锁，从18级起在经营状况里办理。"
-
-#. placeholders: {owned}, {max_tier}
-msgid ", tier {owned} of {max_tier}"
-msgstr "，第{owned}级，共{max_tier}级"
-
-#. placeholders: {owned}, {max_tier}
-#. one clause of a longer line
-msgid "tier {owned} of {max_tier}"
-msgstr "等级 {owned}，共 {max_tier} 级"
-
-#. placeholders: {label}, {tiers}
-msgid "{label}: owned{tiers}"
-msgstr "{label}：已拥有{tiers}"
-
-#. placeholders: {owned}
-msgid ", tier {owned} owned"
-msgstr "，已拥有第{owned}级"
-
-#. placeholders: {owned}
-#. one clause of a longer line
-msgid "tier {owned} owned"
-msgstr "已拥有等级 {owned}"
-
-#. placeholders: {label}, {owned}, {max_tier}, {grouped}, {owned_part}
-msgid "{label}, tier {owned} of {max_tier}: {grouped} dollars{owned_part}"
-msgstr "{label}，第{owned}级，共{max_tier}级：{grouped}美元{owned_part}"
-
-#. placeholders: {label}, {grouped}
-msgid "{label}: {grouped} dollars"
-msgstr "{label}：{grouped}美元"
-
-#. placeholders: {label}
-msgid "{label} is already fully installed."
-msgstr "{label}已经全部装好了。"
-
-#. one sentence of a longer line
-msgid "Not enough money."
-msgstr "钱不够。"
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"Not enough money. {label} costs {grouped} dollars and you have {grouped2}."
-msgstr "钱不够。{label}要{grouped}美元，你有{grouped2}美元。"
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "{label} costs {grouped} dollars and you have {grouped2}."
-msgstr "{label}要{grouped}美元，你有{grouped2}美元。"
-
-#. placeholders: {owned}
-msgid " tier {owned}"
-msgstr " 第{owned}级"
-
-#. placeholders: {label}, {tier_part}, {grouped}
-#. one sentence of a longer line
-msgid ""
-"{label}{tier_part} installed across your fleet for {grouped} dollars."
-msgstr "已为你的整个车队安装{label}{tier_part}，花费{grouped}美元。"
-
-#. placeholders: {label}, {tier_part}, {grouped}, {grouped2}
-msgid ""
-"{label}{tier_part} installed across your fleet for {grouped} dollars. You "
-"have {grouped2} dollars left."
-msgstr "已为你的整个车队安装{label}{tier_part}，花费{grouped}美元。你还剩{grouped2}美元。"
-
-#. one sentence of a longer line
-msgid "Fleet upgrades, for every tractor you own."
-msgstr "车队升级，适用于你拥有的每一辆牵引车。"
-
-#. placeholders: {grouped}, {current}
-msgid ""
-"Fleet upgrades, for every tractor you own. You have {grouped} dollars. "
-"{current}"
-msgstr "车队升级，适用于你拥有的每一辆牵引车。你有{grouped}美元。{current}"
-
-#. one sentence of a longer line
-msgid "Upgrades."
-msgstr "升级。"
-
-#. placeholders: {grouped}, {current}
-msgid "Upgrades. You have {grouped} dollars. {current}"
-msgstr "升级。你有{grouped}美元。{current}"
-
-msgid "Upgrades locked: carrier-assigned tractor"
-msgstr "升级未解锁：承运商指派的牵引车"
-
-msgid ""
-"Truck ownership starts with the leased-on owner-operator buy-in, and that "
-"needs a carrier to lease to. Apply to a carrier first."
-msgstr "拥有卡车要从挂靠车主司机的买断开始，而这需要有承运商可以挂靠。请先申请承运商。"
-
-msgid "Trucks"
-msgstr "卡车"
-
-msgid ""
-"Owner-operators buy tractors or switch among those they own. Upgrades "
-"follow whichever tractor you drive."
-msgstr "车主司机可以购买牵引车，或者在自己拥有的牵引车之间切换。升级跟着你开的那辆牵引车走。"
-
-msgid ""
-"Company drivers use the carrier's trucks. Buying trucks unlocks with the "
-"owner-operator buy-in, from level 18 under Business status."
-msgstr "公司司机用承运商的卡车。购买卡车在车主司机买断后解锁，从18级起在经营状况里办理。"
-
-#. placeholders: {f}, {f2}
-msgid "{f} thousand newton meters torque, {f2} gallon tank"
-msgstr "扭矩{f}千牛米，油箱{f2}加仑"
-
-#. placeholders: {name}, {traits}
-msgid "{name}: currently driving, {traits}"
-msgstr "{name}：正在驾驶，{traits}"
-
-#. placeholders: {name}, {traits}
-msgid "{name}: owned, {traits}, switch to it"
-msgstr "{name}：已拥有，{traits}，切换到它"
-
-#. placeholders: {name}, {traits}, {grouped}
-msgid "{name}: {traits}, buy for {grouped} dollars"
-msgstr "{name}：{traits}，{grouped}美元购买"
-
-#. placeholders: {label}
-msgid "You are already driving the {label}."
-msgstr "你已经在开{label}了。"
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"Not enough money. The {label} costs {grouped} dollars and you have "
-"{grouped2}."
-msgstr "钱不够。{label}要{grouped}美元，你有{grouped2}美元。"
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "The {label} costs {grouped} dollars and you have {grouped2}."
-msgstr "{label}要{grouped}美元，你有{grouped2}美元。"
-
-#. placeholders: {label}, {grouped}
-#. one sentence of a longer line
-msgid "You bought the {label} for {grouped} dollars, now your tractor."
-msgstr "你花{grouped}美元买下了{label}，现在它是你的牵引车了。"
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"You bought the {label} for {grouped} dollars, now your tractor. You have "
-"{grouped2} dollars left."
-msgstr "你花{grouped}美元买下了{label}，现在它是你的牵引车了。你还剩{grouped2}美元。"
-
-#. placeholders: {label}
-msgid "You are now driving the {label}."
-msgstr "你现在开的是{label}。"
-
-#. placeholders: {name}
-msgid "Inside {name}. "
-msgstr "在{name}里面。 "
-
-#. placeholders: {dealer}
-#. one sentence of a longer line
-msgid "{dealer}Trucks."
-msgstr "{dealer}卡车。"
-
-#. placeholders: {dealer}, {grouped}, {current}
-msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
-msgstr "{dealer}卡车。你有{grouped}美元。{current}"
-
-msgid "Truck ownership locked: no carrier"
-msgstr "拥有卡车已锁定：没有承运商"
-
-msgid "Truck ownership locked: carrier-assigned tractor"
-msgstr "卡车所有权未解锁：承运商指派的牵引车"
-
-msgid ""
-"Unlocks with the owner-operator buy-in, from level 18 under Business status."
-msgstr "在车主司机买断后解锁，从18级起在经营状况里办理。"
 
 msgid "Trailers"
 msgstr "挂车"
@@ -20758,6 +20550,101 @@ msgstr "调查通过后资质就会生效，并解锁{unlocks}。"
 msgid "Return to the terminal menu."
 msgstr "回到场站菜单。"
 
+msgid "Owner-operator buy-in"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {price}
+msgid "{name}, the tractor you drive now: {traits}, {price} dollars"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {price}
+msgid "{name}: {traits}, {price} dollars"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Owner-operator path locked."
+msgstr "车主司机路线未解锁。"
+
+#. placeholders: {join}
+msgid "Owner-operator path locked. {join}"
+msgstr "车主司机路线未解锁。{join}"
+
+#. one sentence of a longer line
+msgid "Not enough money."
+msgstr "钱不够。"
+
+#. placeholders: {label}, {grouped}, {capital}, {grouped2}
+msgid ""
+"Not enough money. The {label} costs {grouped} dollars, and {capital} "
+"dollars stays in the bank as working capital. You have {grouped2}."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {capital}
+#. one sentence of a longer line
+msgid ""
+"The {label} costs {grouped} dollars, and {capital} dollars stays in the "
+"bank as working capital."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You have {grouped2}."
+msgstr ""
+
+msgid "Double tap again to buy it."
+msgstr ""
+
+msgid "Press Enter again to buy it."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You would have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}
+#. one sentence of a longer line
+msgid "{py_capitalize}, {grouped} dollars."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}, {grouped2}, {again}
+msgid ""
+"{py_capitalize}, {grouped} dollars. You would have {grouped2} dollars left. "
+"{again}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Leased-on owner-operator status unlocked."
+msgstr "挂靠承运商的车主司机身份已解锁。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Leased-on owner-operator status unlocked. You bought the {label} for "
+"{grouped} dollars and have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid ""
+"You bought the {label} for {grouped} dollars and have {grouped2} dollars "
+"left."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Owner-operator buy-in."
+msgstr ""
+
+#. placeholders: {grouped}, {capital}, {current}
+msgid ""
+"Owner-operator buy-in. You have {grouped} dollars. {capital} dollars stays "
+"in the bank as working capital. {current}"
+msgstr ""
+
+#. placeholders: {capital}
+#. one sentence of a longer line
+msgid "{capital} dollars stays in the bank as working capital."
+msgstr ""
+
 msgid "Move to another carrier: locked"
 msgstr "换到另一家承运商：未解锁"
 
@@ -20805,6 +20692,188 @@ msgstr "{carrier_name}。{menu_summary}{starts}再按一次Enter即可继续。"
 #. one sentence of a longer line
 msgid "{menu_summary}{starts} Press Enter again to move."
 msgstr "{menu_summary}{starts}再按一次Enter即可继续。"
+
+msgid "Upgrades"
+msgstr "升级"
+
+msgid ""
+"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
+"details. Escape returns to the garage."
+msgstr "升级适用于你拥有的每辆牵引车。按 Enter 购买下一级，F1 查看详情。Escape 返回车库。"
+
+msgid ""
+"Upgrades unlock with the owner-operator buy-in, from level 18 under "
+"Business status."
+msgstr "升级在车主司机买断后解锁，从18级起在经营状况里办理。"
+
+#. placeholders: {owned}, {max_tier}
+msgid ", tier {owned} of {max_tier}"
+msgstr "，第{owned}级，共{max_tier}级"
+
+#. placeholders: {owned}, {max_tier}
+#. one clause of a longer line
+msgid "tier {owned} of {max_tier}"
+msgstr "等级 {owned}，共 {max_tier} 级"
+
+#. placeholders: {label}, {tiers}
+msgid "{label}: owned{tiers}"
+msgstr "{label}：已拥有{tiers}"
+
+#. placeholders: {owned}
+msgid ", tier {owned} owned"
+msgstr "，已拥有第{owned}级"
+
+#. placeholders: {owned}
+#. one clause of a longer line
+msgid "tier {owned} owned"
+msgstr "已拥有等级 {owned}"
+
+#. placeholders: {label}, {owned}, {max_tier}, {grouped}, {owned_part}
+msgid "{label}, tier {owned} of {max_tier}: {grouped} dollars{owned_part}"
+msgstr "{label}，第{owned}级，共{max_tier}级：{grouped}美元{owned_part}"
+
+#. placeholders: {label}, {grouped}
+msgid "{label}: {grouped} dollars"
+msgstr "{label}：{grouped}美元"
+
+#. placeholders: {label}
+msgid "{label} is already fully installed."
+msgstr "{label}已经全部装好了。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Not enough money. {label} costs {grouped} dollars and you have {grouped2}."
+msgstr "钱不够。{label}要{grouped}美元，你有{grouped2}美元。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid "{label} costs {grouped} dollars and you have {grouped2}."
+msgstr "{label}要{grouped}美元，你有{grouped2}美元。"
+
+#. placeholders: {owned}
+msgid " tier {owned}"
+msgstr " 第{owned}级"
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You have {grouped2} dollars left."
+msgstr "你还剩{grouped2}美元。"
+
+#. placeholders: {label}, {tier_part}, {grouped}
+#. one sentence of a longer line
+msgid ""
+"{label}{tier_part} installed across your fleet for {grouped} dollars."
+msgstr "已为你的整个车队安装{label}{tier_part}，花费{grouped}美元。"
+
+#. placeholders: {label}, {tier_part}, {grouped}, {grouped2}
+msgid ""
+"{label}{tier_part} installed across your fleet for {grouped} dollars. You "
+"have {grouped2} dollars left."
+msgstr "已为你的整个车队安装{label}{tier_part}，花费{grouped}美元。你还剩{grouped2}美元。"
+
+#. one sentence of a longer line
+msgid "Fleet upgrades, for every tractor you own."
+msgstr "车队升级，适用于你拥有的每一辆牵引车。"
+
+#. placeholders: {grouped}, {current}
+msgid ""
+"Fleet upgrades, for every tractor you own. You have {grouped} dollars. "
+"{current}"
+msgstr "车队升级，适用于你拥有的每一辆牵引车。你有{grouped}美元。{current}"
+
+#. one sentence of a longer line
+msgid "Upgrades."
+msgstr "升级。"
+
+#. placeholders: {grouped}, {current}
+msgid "Upgrades. You have {grouped} dollars. {current}"
+msgstr "升级。你有{grouped}美元。{current}"
+
+msgid "Upgrades locked: carrier-assigned tractor"
+msgstr "升级未解锁：承运商指派的牵引车"
+
+msgid ""
+"Truck ownership starts with the leased-on owner-operator buy-in, and that "
+"needs a carrier to lease to. Apply to a carrier first."
+msgstr "拥有卡车要从挂靠车主司机的买断开始，而这需要有承运商可以挂靠。请先申请承运商。"
+
+msgid "Trucks"
+msgstr "卡车"
+
+msgid ""
+"Owner-operators buy tractors or switch among those they own. Upgrades "
+"follow whichever tractor you drive."
+msgstr "车主司机可以购买牵引车，或者在自己拥有的牵引车之间切换。升级跟着你开的那辆牵引车走。"
+
+msgid ""
+"Company drivers use the carrier's trucks. Buying trucks unlocks with the "
+"owner-operator buy-in, from level 18 under Business status."
+msgstr "公司司机用承运商的卡车。购买卡车在车主司机买断后解锁，从18级起在经营状况里办理。"
+
+#. placeholders: {name}, {traits}
+msgid "{name}: currently driving, {traits}"
+msgstr "{name}：正在驾驶，{traits}"
+
+#. placeholders: {name}, {traits}
+msgid "{name}: owned, {traits}, switch to it"
+msgstr "{name}：已拥有，{traits}，切换到它"
+
+#. placeholders: {name}, {traits}, {grouped}
+msgid "{name}: {traits}, buy for {grouped} dollars"
+msgstr "{name}：{traits}，{grouped}美元购买"
+
+#. placeholders: {label}
+msgid "You are already driving the {label}."
+msgstr "你已经在开{label}了。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Not enough money. The {label} costs {grouped} dollars and you have "
+"{grouped2}."
+msgstr "钱不够。{label}要{grouped}美元，你有{grouped2}美元。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid "The {label} costs {grouped} dollars and you have {grouped2}."
+msgstr "{label}要{grouped}美元，你有{grouped2}美元。"
+
+#. placeholders: {label}, {grouped}
+#. one sentence of a longer line
+msgid "You bought the {label} for {grouped} dollars, now your tractor."
+msgstr "你花{grouped}美元买下了{label}，现在它是你的牵引车了。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"You bought the {label} for {grouped} dollars, now your tractor. You have "
+"{grouped2} dollars left."
+msgstr "你花{grouped}美元买下了{label}，现在它是你的牵引车了。你还剩{grouped2}美元。"
+
+#. placeholders: {label}
+msgid "You are now driving the {label}."
+msgstr "你现在开的是{label}。"
+
+#. placeholders: {name}
+msgid "Inside {name}. "
+msgstr "在{name}里面。 "
+
+#. placeholders: {dealer}
+#. one sentence of a longer line
+msgid "{dealer}Trucks."
+msgstr "{dealer}卡车。"
+
+#. placeholders: {dealer}, {grouped}, {current}
+msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
+msgstr "{dealer}卡车。你有{grouped}美元。{current}"
+
+msgid "Truck ownership locked: no carrier"
+msgstr "拥有卡车已锁定：没有承运商"
+
+msgid "Truck ownership locked: carrier-assigned tractor"
+msgstr "卡车所有权未解锁：承运商指派的牵引车"
+
+msgid ""
+"Unlocks with the owner-operator buy-in, from level 18 under Business status."
+msgstr "在车主司机买断后解锁，从18级起在经营状况里办理。"
 
 msgid "carrier shop repair"
 msgstr "承运商维修厂维修"
@@ -43313,6 +43382,66 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid ""
+#~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
+#~ "working capital."
+#~ msgstr "存够{grouped}美元：{grouped2}用于买断卡车，{grouped3}作为周转资金。"
+
+#~ msgid ""
+#~ "Next: the owner-operator buy-in under Business status, where you buy the "
+#~ "truck you drive."
+#~ msgstr "下一步：在经营状况中办理车主司机买断，买下你开的这辆卡车。"
+
+#~ msgid ""
+#~ "The buy-in costs {grouped} dollars and keeps {grouped2} dollars of working "
+#~ "capital in the bank."
+#~ msgstr "买断需要{grouped}美元，并在银行里保留{grouped2}美元周转资金。"
+
+#~ msgid ""
+#~ "You are a company driver for {carrier_name}, level {level} {title}. You "
+#~ "qualify for the owner-operator buy-in: you buy the truck you drive and keep "
+#~ "hauling for the carrier as a leased-on owner-operator. The buy-in costs "
+#~ "{grouped} dollars and keeps {grouped2} dollars of working capital in the "
+#~ "bank."
+#~ msgstr ""
+#~ "你是{carrier_name}的公司司机，{level}级{title}。你符合车主司机买断的条件：买下你开的卡车，以挂靠承运商的车主司机身份继续为承"
+#~ "运商拉货。买断需要{grouped}美元，并在银行里保留{grouped2}美元周转资金。"
+
+#~ msgid ""
+#~ "You qualify for the owner-operator buy-in: you buy the truck you drive and "
+#~ "keep hauling for the carrier as a leased-on owner-operator."
+#~ msgstr "你符合车主司机买断的条件：买下你开的卡车，以挂靠承运商的车主司机身份继续为承运商拉货。"
+
+#~ msgid ""
+#~ "The owner-operator buy-in opens once its other requirements are met: you "
+#~ "buy the truck you drive and haul for the carrier as a leased-on "
+#~ "owner-operator. TWIC port card enrollment opens under Licenses and training."
+#~ msgstr "车主司机买断在其他要求满足后开放：买下你开的卡车，以挂靠承运商的车主司机身份为承运商拉货。TWIC港口卡申请在驾照与培训中开放。"
+
+#~ msgid ""
+#~ "Enter repeats a line, or buys in when qualified. Escape returns to the "
+#~ "terminal."
+#~ msgstr "Enter重复一行，符合条件时则是买断。Escape回到场站。"
+
+#~ msgid ""
+#~ "Leased-on owner-operator status unlocked. Paid {grouped} dollars toward "
+#~ "your first tractor, {grouped2} dollars working capital left."
+#~ msgstr "已解锁车主司机租赁状态。为你的第一台牵引车支付了 {grouped} 美元，剩余流动资金为 {grouped2} 美元。"
+
+#~ msgid ""
+#~ "Paid {grouped} dollars toward your first tractor, {grouped2} dollars "
+#~ "working capital left."
+#~ msgstr "已为你的第一辆牵引车支付{grouped}美元，还剩{grouped2}美元周转资金。"
+
+#~ msgid "Owner-operator buy-in: {grouped} dollars"
+#~ msgstr "车主司机买入：{grouped}美元"
+
+#~ msgid "Higher revenue, but your business pays operating costs."
+#~ msgstr "收入更高，但你的经营要承担运营成本。"
+
+#~ msgid "{f} thousand newton meters torque, {f2} gallon tank"
+#~ msgstr "扭矩{f}千牛米，油箱{f2}加仑"
 
 #~ msgid "Destination {destination_label} ahead."
 #~ msgstr "前方是目的地{destination_label}。"

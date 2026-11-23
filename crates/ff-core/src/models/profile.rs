@@ -56,6 +56,7 @@ pub mod plausibility;
 pub mod sealed;
 pub mod serialize;
 pub mod signing;
+mod stage;
 mod stimulant;
 mod traits;
 
@@ -176,6 +177,7 @@ pub const PROFILE_FIELDS: &[&str] = &[
     "owned_trailers",
     "turnpike_program_notice_seen",
     "owner_operator_declined",
+    "buy_in_paid",
     "career",
     "driving_record",
     "selection_score",
@@ -538,6 +540,11 @@ pub struct Profile {
     /// the nudges toward it stop. Cleared by buying in or by reopening the
     /// plan from the same screen.
     pub owner_operator_declined: bool,
+    /// What the owner-operator buy-in paid for the first owned tractor: its
+    /// catalog price. 0 for a tractor from a 1.9 or earlier buy-in, the
+    /// owner-operator start, or a driver who owns nothing; going back to
+    /// company driving and repossession set it back to 0.
+    pub buy_in_paid: f64,
     pub career: Career,
     // Citations, serious violations, and CDL standing. Enforcement outlives a
     // trip: the old build kept the felony count on the trip snapshot and then
@@ -624,6 +631,7 @@ impl Default for Profile {
             owned_trailers: Vec::new(),
             turnpike_program_notice_seen: true,
             owner_operator_declined: false,
+            buy_in_paid: 0.0,
             career: Career::new(),
             driving_record: DrivingRecord::new(),
             selection_score: SAFETY_RECORD_BASELINE,

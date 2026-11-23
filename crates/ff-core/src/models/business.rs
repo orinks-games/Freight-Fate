@@ -6,6 +6,7 @@
 //! leased-on owner-operator track once the 30-level career ladder has enough
 //! reputation, cash, and miles behind it.
 
+use crate::models::buy_in::{buy_in_cash_needed, cheapest_buy_in_price};
 use crate::models::career::CareerProfile;
 use crate::models::career_ladder::{
     display_rank_for_level, next_company_rank_for_level, next_rank_for_level, rank_for_level,
@@ -34,7 +35,10 @@ pub const OWNER_OPERATOR_PREP_CHECKLIST_LEVEL: i64 = 14;
 pub const OWNER_OPERATOR_LEVEL: i64 = 18;
 pub const OWNER_OPERATOR_REPUTATION: f64 = 80.0;
 pub const OWNER_OPERATOR_DELIVERIES: i64 = 35;
-pub const OWNER_OPERATOR_BUY_IN: f64 = 35_000.0;
+/// What the buy-in cost before 2.0, when it handed over the tractor
+/// dispatch had assigned. A first tractor from one of those buy-ins (saved
+/// with no `buy_in_paid`) still goes back for no more than this.
+pub const OLD_BUY_IN_PRICE: f64 = 35_000.0;
 pub const OWNER_OPERATOR_WORKING_CAPITAL: f64 = 10_000.0;
 pub const OWNER_OPERATOR_REVENUE_MULT: f64 = 1.12;
 pub const AUTHORITY_READY_LEVEL: i64 = 21;
@@ -379,12 +383,13 @@ pub fn owner_operator_eligibility<P: BusinessProfile + ?Sized>(profile: &P) -> (
             fmt_f(OWNER_OPERATOR_REPUTATION, 0)
         ));
     }
-    let needed_cash = OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL;
+    let cheapest = cheapest_buy_in_price();
+    let needed_cash = buy_in_cash_needed(cheapest);
     if profile.money() < needed_cash {
         reasons.push(format!(
-            "Save {} dollars: {} for the truck buy-in and {} for working capital.",
+            "Save {} dollars: {} for the cheapest sleeper tractor and {} for working capital.",
             fmt_grouped(needed_cash, 0),
-            fmt_grouped(OWNER_OPERATOR_BUY_IN, 0),
+            fmt_grouped(cheapest, 0),
             fmt_grouped(OWNER_OPERATOR_WORKING_CAPITAL, 0)
         ));
     }
@@ -452,7 +457,7 @@ pub fn next_business_unlock<P: BusinessProfile + ?Sized>(profile: &P) -> String 
         return format!("Company driver by choice. {}", company_ladder_next(level));
     }
     if ok {
-        return "Next: the owner-operator buy-in under Business status, where you buy the truck you drive."
+        return "Next: the owner-operator buy-in under Business status, where you buy a tractor of your own."
             .to_string();
     }
     // The Business Prep Driver rank (14) starts reading the real checklist,
@@ -568,11 +573,11 @@ fn business_status_summary_inner<P: BusinessProfile + ?Sized>(profile: &P) -> St
     }
     if ok {
         return format!(
-            "You are a company driver for {}, level {} {}. You qualify for the owner-operator buy-in: you buy the truck you drive and keep hauling for the carrier as a leased-on owner-operator. The buy-in costs {} dollars and keeps {} dollars of working capital in the bank.",
+            "You are a company driver for {}, level {} {}. You qualify for the owner-operator buy-in: you buy a tractor of your own and keep hauling for the carrier as a leased-on owner-operator. Tractors start at {} dollars, and {} dollars stays in the bank as working capital.",
             carrier_name(profile),
             rank.level,
             rank.title,
-            fmt_grouped(OWNER_OPERATOR_BUY_IN, 0),
+            fmt_grouped(cheapest_buy_in_price(), 0),
             fmt_grouped(OWNER_OPERATOR_WORKING_CAPITAL, 0)
         );
     }

@@ -308,6 +308,8 @@ Open Truck status before another load if you need to check fuel, damage, tire we
 
 Garage offers fuel, repairs, tire service, brake service, engine work, snow chains, and a wash. A company supplies your equipment and handles its routine costs. As an owner, you'll pay those bills yourself, so keep enough cash for service and fuel between settlements.
 
+The truck dealer reads each tractor's torque, tank size and miles per gallon at a steady 60 miles per hour.
+
 Owners can also choose tire compounds and buy upgrades for torque, drag, tank capacity, and braking. Think about the work you want to haul: more fuel capacity can help on a long run, while stronger brakes matter on a descent. Review your truck and business status before spending the money you'll need for the next trip.
 
 ### Choosing equipment and work
@@ -342,11 +344,13 @@ As a company driver, you're paid wages and bonuses from what the carrier earns. 
 | Bulk trailer program | Opens grain, farm inputs, and loose bulk cargo for owner-operators. |
 | Owned trailer | Own-authority drivers can buy dry van, reefer, flatbed, or bulk trailers. Matching direct freight uses an owned-trailer reserve at settlement. |
 
-There are 30 career levels. If you're driving for a company and want to buy in as an owner, the option opens at level 18. You'll also need 35 deliveries, reputation of 80, no outstanding advance, and enough money to pay 35,000 dollars while keeping 10,000 dollars in working capital. Business status tells you which requirements you still need to meet.
+There are 30 career levels. If you're driving for a company and want to buy in as an owner, the option opens at level 18. You'll also need 35 deliveries, reputation of 80, no outstanding advance, and enough money for the cheapest sleeper tractor, 31,000 dollars, while keeping 10,000 dollars in working capital. Business status tells you which requirements you still need to meet.
+
+The buy-in lists every sleeper tractor at its dealer price, cheapest first, and marks the one you drive now. Press Enter on a tractor to hear its price and what you would have left, then press Enter again to buy it.
 
 You can stay with company driving if ownership doesn't suit you. Stay a company driver changes your goals and rank titles to that career path without closing the buy-in option. Reopen the owner-operator plan brings the ownership goals back.
 
-An owner who chooses Go back to company driving gets two confirmations before anything is sold. The game buys your tractors and trailers at the stated values, then assigns carrier equipment. The buy-in tractor returns its purchase price; later purchases use their used values. Your driving record stays with you.
+An owner who chooses Go back to company driving gets two confirmations before anything is sold. The carrier buys your tractors and trailers back at their used values, then assigns carrier equipment. A tractor from a buy-in made before version 2.0 goes back for no more than 35,000 dollars. Your driving record stays with you.
 
 Owning the truck means paying for fuel, repairs, maintenance and insurance reserves, trailer costs, truck reserves, and fees. A larger gross payment isn't all take-home money.
 

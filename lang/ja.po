@@ -6937,9 +6937,9 @@ msgstr "配達を{OWNER_OPERATOR_DELIVERIES}件完了してください。"
 
 #. placeholders: {grouped}, {grouped2}, {grouped3}
 msgid ""
-"Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
-"working capital."
-msgstr "{grouped}ドル貯めてください。トラックの買い取りに{grouped2}ドル、運転資金に{grouped3}ドルです。"
+"Save {grouped} dollars: {grouped2} for the cheapest sleeper tractor and "
+"{grouped3} for working capital."
+msgstr ""
 
 #. placeholders: {NO_CARRIER_STATUS}, {level}, {title}
 #. one sentence of a longer line
@@ -6999,9 +6999,9 @@ msgid "Company driver by choice. {company_ladder_next}"
 msgstr "自ら選んだ社員ドライバーです。{company_ladder_next}"
 
 msgid ""
-"Next: the owner-operator buy-in under Business status, where you buy the "
-"truck you drive."
-msgstr "次は、事業状況にあるオーナードライバーの買い取りです。今乗っているトラックを買い取ります。"
+"Next: the owner-operator buy-in under Business status, where you buy a "
+"tractor of your own."
+msgstr ""
 
 #. placeholders: {join}
 msgid "Owner-operator gate locked: {join}"
@@ -7113,9 +7113,9 @@ msgstr ""
 #. placeholders: {grouped}, {grouped2}
 #. one sentence of a longer line
 msgid ""
-"The buy-in costs {grouped} dollars and keeps {grouped2} dollars of working "
-"capital in the bank."
-msgstr "買い取りには{grouped}ドルかかり、運転資金として{grouped2}ドルを口座に残します。"
+"Tractors start at {grouped} dollars, and {grouped2} dollars stays in the "
+"bank as working capital."
+msgstr ""
 
 #. placeholders: {carrier_name}, {level}, {title}
 #. one sentence of a longer line
@@ -7125,22 +7125,17 @@ msgstr "{carrier_name}の社員ドライバーです。レベル{level}、{title
 #. placeholders: {carrier_name}, {level}, {title}, {grouped}, {grouped2}
 msgid ""
 "You are a company driver for {carrier_name}, level {level} {title}. You "
-"qualify for the owner-operator buy-in: you buy the truck you drive and keep "
-"hauling for the carrier as a leased-on owner-operator. The buy-in costs "
-"{grouped} dollars and keeps {grouped2} dollars of working capital in the "
-"bank."
+"qualify for the owner-operator buy-in: you buy a tractor of your own and "
+"keep hauling for the carrier as a leased-on owner-operator. Tractors start "
+"at {grouped} dollars, and {grouped2} dollars stays in the bank as working "
+"capital."
 msgstr ""
-"{carrier_name}の社員ドライバーです。レベル{level}、{title}です。オーナードライバーの買い取りの条件を満たしています。今乗って"
-"いるトラックを買い取り、運送会社と業務委託のオーナードライバーとして、引き続きこの運送会社の荷を運びます。買い取りには{grouped}ドルかかり、運転"
-"資金として{grouped2}ドルを口座に残します。"
 
 #. one sentence of a longer line
 msgid ""
-"You qualify for the owner-operator buy-in: you buy the truck you drive and "
-"keep hauling for the carrier as a leased-on owner-operator."
+"You qualify for the owner-operator buy-in: you buy a tractor of your own "
+"and keep hauling for the carrier as a leased-on owner-operator."
 msgstr ""
-"オーナードライバーの買い取りの条件を満たしています。今乗っているトラックを買い取り、運送会社と業務委託のオーナードライバーとして、引き続きこの運送会社の"
-"荷を運びます。"
 
 #. placeholders: {carrier_name}
 #. one sentence of a longer line
@@ -7499,11 +7494,9 @@ msgstr "オーナードライバー"
 
 msgid ""
 "The owner-operator buy-in opens once its other requirements are met: you "
-"buy the truck you drive and haul for the carrier as a leased-on "
+"buy a tractor of your own and haul for the carrier as a leased-on "
 "owner-operator. TWIC port card enrollment opens under Licenses and training."
 msgstr ""
-"ほかの条件を満たすと、オーナードライバーの買い取りが選べるようになります。今乗っているトラックを買い取り、運送会社と業務委託のオーナードライバーとしてこ"
-"の運送会社の荷を運びます。免許と研修で、TWICの港湾カードの申請ができるようになります。"
 
 msgid "Eligible to buy your own truck and pay its operating costs."
 msgstr "自分のトラックを買い、その運行費用を払う資格があります。"
@@ -10804,6 +10797,9 @@ msgstr "northstar"
 msgid "your home in Buffalo"
 msgstr "Buffaloの本拠地"
 
+msgid "Hand Back"
+msgstr ""
+
 #. placeholders: {f}, {f2}, {f3}, {f4}
 msgid ""
 "{f} percent pay share, {f2} dollars per mile floor, {f3} dollar stop pay, "
@@ -11160,6 +11156,11 @@ msgstr "軽量"
 
 msgid "heavy"
 msgstr "重量"
+
+#. placeholders: {f}, {f2}, {f3}
+msgid ""
+"{f} thousand newton meters torque, {f2} gallon tank, {f3} miles per gallon"
+msgstr ""
 
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
@@ -20244,9 +20245,9 @@ msgid "{source} in {city_name}: {desc}."
 msgstr "{city_name}の{source}：{desc}。"
 
 msgid ""
-"Enter repeats a line, or buys in when qualified. Escape returns to the "
-"terminal."
-msgstr "Enter で行を繰り返し、条件を満たしていれば買い取ります。 Escape でターミナルに戻ります。"
+"Enter repeats a line, or opens the buy-in when qualified. Escape returns to "
+"the terminal."
+msgstr ""
 
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
@@ -20301,33 +20302,6 @@ msgid "Weigh station transponder. {body}"
 msgstr "計量所トランスポンダー。{body}"
 
 #. one sentence of a longer line
-msgid "Owner-operator path locked."
-msgstr "オーナードライバーへの道はロックされています。"
-
-#. placeholders: {join}
-msgid "Owner-operator path locked. {join}"
-msgstr "オーナードライバーへの道はロックされています。{join}"
-
-#. one sentence of a longer line
-msgid "Leased-on owner-operator status unlocked."
-msgstr "運送会社と業務委託のオーナードライバーの立場が解放されました。"
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"Leased-on owner-operator status unlocked. Paid {grouped} dollars toward "
-"your first tractor, {grouped2} dollars working capital left."
-msgstr ""
-"運送会社と業務委託のオーナードライバーの立場が解放されました。最初のトラクターに{grouped}ドルを支払い、運転資金が{grouped2}ドル残って"
-"います。"
-
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid ""
-"Paid {grouped} dollars toward your first tractor, {grouped2} dollars "
-"working capital left."
-msgstr "最初のトラクターに{grouped}ドルを支払い、運転資金が{grouped2}ドル残っています。"
-
-#. one sentence of a longer line
 msgid "Authority prep locked."
 msgstr "運送許可の準備はロックされています。"
 
@@ -20354,11 +20328,6 @@ msgid ""
 "Own authority unlocks after you meet the delivery, reputation, trailer "
 "program and cash requirements."
 msgstr "独自の運送許可は、配達、評判、トレーラープログラム、所持金の条件を満たすと解放されます。"
-
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-msgid "You have {grouped2} dollars left."
-msgstr "残りは{grouped2}ドルです。"
 
 #. one sentence of a longer line
 msgid "Transponder subscription locked."
@@ -20437,12 +20406,13 @@ msgstr "次の事業の解放"
 msgid "The next career or business unlock."
 msgstr "次のキャリアか事業の解放。"
 
-#. placeholders: {grouped}
-msgid "Owner-operator buy-in: {grouped} dollars"
-msgstr "オーナードライバーの買い取り：{grouped}ドル"
+msgid "Owner-operator buy-in: choose a tractor"
+msgstr ""
 
-msgid "Higher revenue, but your business pays operating costs."
-msgstr "収入は高くなりますが、運営費は事業で負担します。"
+msgid ""
+"You buy a tractor of your own. Loads pay more, and your business pays the "
+"operating costs."
+msgstr ""
 
 msgid "Reopen the owner-operator plan"
 msgstr "オーナードライバーのプランを再開する"
@@ -20541,193 +20511,6 @@ msgstr "計量所トランスポンダーはロックされています"
 
 msgid "What the transponder still needs."
 msgstr "トランスポンダーにまだ必要なもの。"
-
-msgid "Upgrades"
-msgstr "アップグレード"
-
-msgid ""
-"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
-"details. Escape returns to the garage."
-msgstr "改造は所有するすべてのトラクターに適用されます。Enterで次の段階を購入、F1で詳細。Escapeでガレージに戻ります。"
-
-msgid ""
-"Upgrades unlock with the owner-operator buy-in, from level 18 under "
-"Business status."
-msgstr "アップグレードは、レベル18から事業状況で選べるオーナードライバーの買い取りで解放されます。"
-
-#. placeholders: {owned}, {max_tier}
-msgid ", tier {owned} of {max_tier}"
-msgstr "、{max_tier}段階中{owned}段階"
-
-#. placeholders: {owned}, {max_tier}
-#. one clause of a longer line
-msgid "tier {owned} of {max_tier}"
-msgstr "ティア {owned} / {max_tier}"
-
-#. placeholders: {label}, {tiers}
-msgid "{label}: owned{tiers}"
-msgstr "{label}：所有{tiers}"
-
-#. placeholders: {owned}
-msgid ", tier {owned} owned"
-msgstr "、{owned}段階まで所有"
-
-#. placeholders: {owned}
-#. one clause of a longer line
-msgid "tier {owned} owned"
-msgstr "ティア {owned} 所有"
-
-#. placeholders: {label}, {owned}, {max_tier}, {grouped}, {owned_part}
-msgid "{label}, tier {owned} of {max_tier}: {grouped} dollars{owned_part}"
-msgstr "{label}、{max_tier}段階中{owned}段階：{grouped}ドル{owned_part}"
-
-#. placeholders: {label}, {grouped}
-msgid "{label}: {grouped} dollars"
-msgstr "{label}：{grouped}ドル"
-
-#. placeholders: {label}
-msgid "{label} is already fully installed."
-msgstr "{label}はすでにすべて取り付け済みです。"
-
-#. one sentence of a longer line
-msgid "Not enough money."
-msgstr "お金が足りません。"
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"Not enough money. {label} costs {grouped} dollars and you have {grouped2}."
-msgstr "お金が足りません。{label}は{grouped}ドルで、手持ちは{grouped2}ドルです。"
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "{label} costs {grouped} dollars and you have {grouped2}."
-msgstr "{label}は{grouped}ドルで、手持ちは{grouped2}ドルです。"
-
-#. placeholders: {owned}
-msgid " tier {owned}"
-msgstr " {owned}段階目"
-
-#. placeholders: {label}, {tier_part}, {grouped}
-#. one sentence of a longer line
-msgid ""
-"{label}{tier_part} installed across your fleet for {grouped} dollars."
-msgstr "{label}{tier_part}を{grouped}ドルで保有車両すべてに取り付けました。"
-
-#. placeholders: {label}, {tier_part}, {grouped}, {grouped2}
-msgid ""
-"{label}{tier_part} installed across your fleet for {grouped} dollars. You "
-"have {grouped2} dollars left."
-msgstr "{label}{tier_part}を{grouped}ドルで保有車両すべてに取り付けました。残りは{grouped2}ドルです。"
-
-#. one sentence of a longer line
-msgid "Fleet upgrades, for every tractor you own."
-msgstr "所有するすべてのトラクター向けの、保有車両のアップグレードです。"
-
-#. placeholders: {grouped}, {current}
-msgid ""
-"Fleet upgrades, for every tractor you own. You have {grouped} dollars. "
-"{current}"
-msgstr "所有するすべてのトラクター向けの、保有車両のアップグレードです。手持ちは{grouped}ドルです。{current}"
-
-#. one sentence of a longer line
-msgid "Upgrades."
-msgstr "アップグレード。"
-
-#. placeholders: {grouped}, {current}
-msgid "Upgrades. You have {grouped} dollars. {current}"
-msgstr "アップグレード。手持ちは{grouped}ドルです。{current}"
-
-msgid "Upgrades locked: carrier-assigned tractor"
-msgstr "アップグレードはロック中：運送会社が割り当てたトラクター"
-
-msgid ""
-"Truck ownership starts with the leased-on owner-operator buy-in, and that "
-"needs a carrier to lease to. Apply to a carrier first."
-msgstr ""
-"トラックの所有は、業務委託のオーナードライバーの買い取りから始まります。それには契約先の運送会社が必要です。先に運送会社に応募してください。"
-
-msgid "Trucks"
-msgstr "トラック"
-
-msgid ""
-"Owner-operators buy tractors or switch among those they own. Upgrades "
-"follow whichever tractor you drive."
-msgstr "オーナードライバーはトラクターを買うか、所有するトラクターを切り替えます。アップグレードは運転するトラクターに付いてきます。"
-
-msgid ""
-"Company drivers use the carrier's trucks. Buying trucks unlocks with the "
-"owner-operator buy-in, from level 18 under Business status."
-msgstr ""
-"社員ドライバーは運送会社のトラックを使います。トラックの購入は、レベル18から事業状況で選べるオーナードライバーの買い取りで解放されます。"
-
-#. placeholders: {f}, {f2}
-msgid "{f} thousand newton meters torque, {f2} gallon tank"
-msgstr "トルク{f}千ニュートンメートル、タンク{f2}ガロン"
-
-#. placeholders: {name}, {traits}
-msgid "{name}: currently driving, {traits}"
-msgstr "{name}：運転中、{traits}"
-
-#. placeholders: {name}, {traits}
-msgid "{name}: owned, {traits}, switch to it"
-msgstr "{name}：所有、{traits}、切り替える"
-
-#. placeholders: {name}, {traits}, {grouped}
-msgid "{name}: {traits}, buy for {grouped} dollars"
-msgstr "{name}：{traits}、{grouped}ドルで買う"
-
-#. placeholders: {label}
-msgid "You are already driving the {label}."
-msgstr "すでに{label}を運転しています。"
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"Not enough money. The {label} costs {grouped} dollars and you have "
-"{grouped2}."
-msgstr "お金が足りません。{label}は{grouped}ドルで、手持ちは{grouped2}ドルです。"
-
-#. placeholders: {label}, {grouped}, {grouped2}
-#. one sentence of a longer line
-msgid "The {label} costs {grouped} dollars and you have {grouped2}."
-msgstr "{label}は{grouped}ドルで、手持ちは{grouped2}ドルです。"
-
-#. placeholders: {label}, {grouped}
-#. one sentence of a longer line
-msgid "You bought the {label} for {grouped} dollars, now your tractor."
-msgstr "{label}を{grouped}ドルで買いました。これが自分のトラクターです。"
-
-#. placeholders: {label}, {grouped}, {grouped2}
-msgid ""
-"You bought the {label} for {grouped} dollars, now your tractor. You have "
-"{grouped2} dollars left."
-msgstr "{label}を{grouped}ドルで買いました。これが自分のトラクターです。残りは{grouped2}ドルです。"
-
-#. placeholders: {label}
-msgid "You are now driving the {label}."
-msgstr "{label}を運転するようになりました。"
-
-#. placeholders: {name}
-msgid "Inside {name}. "
-msgstr "{name}の中です。 "
-
-#. placeholders: {dealer}
-#. one sentence of a longer line
-msgid "{dealer}Trucks."
-msgstr "{dealer}トラック。"
-
-#. placeholders: {dealer}, {grouped}, {current}
-msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
-msgstr "{dealer}トラック。手持ちは{grouped}ドルです。{current}"
-
-msgid "Truck ownership locked: no carrier"
-msgstr "トラックの所有は未開放：運送会社がありません"
-
-msgid "Truck ownership locked: carrier-assigned tractor"
-msgstr "トラックの所有はロック中：運送会社が割り当てたトラクター"
-
-msgid ""
-"Unlocks with the owner-operator buy-in, from level 18 under Business status."
-msgstr "レベル18から事業状況で選べるオーナードライバーの買い取りで解放されます。"
 
 msgid "Trailers"
 msgstr "トレーラー"
@@ -20973,6 +20756,101 @@ msgstr "調査が通ると資格が有効になり、{unlocks}が解放されま
 msgid "Return to the terminal menu."
 msgstr "ターミナルのメニューに戻ります。"
 
+msgid "Owner-operator buy-in"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {price}
+msgid "{name}, the tractor you drive now: {traits}, {price} dollars"
+msgstr ""
+
+#. placeholders: {name}, {traits}, {price}
+msgid "{name}: {traits}, {price} dollars"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Owner-operator path locked."
+msgstr "オーナードライバーへの道はロックされています。"
+
+#. placeholders: {join}
+msgid "Owner-operator path locked. {join}"
+msgstr "オーナードライバーへの道はロックされています。{join}"
+
+#. one sentence of a longer line
+msgid "Not enough money."
+msgstr "お金が足りません。"
+
+#. placeholders: {label}, {grouped}, {capital}, {grouped2}
+msgid ""
+"Not enough money. The {label} costs {grouped} dollars, and {capital} "
+"dollars stays in the bank as working capital. You have {grouped2}."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {capital}
+#. one sentence of a longer line
+msgid ""
+"The {label} costs {grouped} dollars, and {capital} dollars stays in the "
+"bank as working capital."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You have {grouped2}."
+msgstr ""
+
+msgid "Double tap again to buy it."
+msgstr ""
+
+msgid "Press Enter again to buy it."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You would have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}
+#. one sentence of a longer line
+msgid "{py_capitalize}, {grouped} dollars."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}, {grouped2}, {again}
+msgid ""
+"{py_capitalize}, {grouped} dollars. You would have {grouped2} dollars left. "
+"{again}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Leased-on owner-operator status unlocked."
+msgstr "運送会社と業務委託のオーナードライバーの立場が解放されました。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Leased-on owner-operator status unlocked. You bought the {label} for "
+"{grouped} dollars and have {grouped2} dollars left."
+msgstr ""
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid ""
+"You bought the {label} for {grouped} dollars and have {grouped2} dollars "
+"left."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Owner-operator buy-in."
+msgstr ""
+
+#. placeholders: {grouped}, {capital}, {current}
+msgid ""
+"Owner-operator buy-in. You have {grouped} dollars. {capital} dollars stays "
+"in the bank as working capital. {current}"
+msgstr ""
+
+#. placeholders: {capital}
+#. one sentence of a longer line
+msgid "{capital} dollars stays in the bank as working capital."
+msgstr ""
+
 msgid "Move to another carrier: locked"
 msgstr "別の運送会社に移る：ロック中"
 
@@ -21020,6 +20898,190 @@ msgstr "{carrier_name}。{menu_summary}{starts}進むには、もう一度 Enter
 #. one sentence of a longer line
 msgid "{menu_summary}{starts} Press Enter again to move."
 msgstr "{menu_summary}{starts}進むには、もう一度 Enter を押します。"
+
+msgid "Upgrades"
+msgstr "アップグレード"
+
+msgid ""
+"Upgrades apply to every tractor you own. Enter buys the next tier, F1 is "
+"details. Escape returns to the garage."
+msgstr "改造は所有するすべてのトラクターに適用されます。Enterで次の段階を購入、F1で詳細。Escapeでガレージに戻ります。"
+
+msgid ""
+"Upgrades unlock with the owner-operator buy-in, from level 18 under "
+"Business status."
+msgstr "アップグレードは、レベル18から事業状況で選べるオーナードライバーの買い取りで解放されます。"
+
+#. placeholders: {owned}, {max_tier}
+msgid ", tier {owned} of {max_tier}"
+msgstr "、{max_tier}段階中{owned}段階"
+
+#. placeholders: {owned}, {max_tier}
+#. one clause of a longer line
+msgid "tier {owned} of {max_tier}"
+msgstr "ティア {owned} / {max_tier}"
+
+#. placeholders: {label}, {tiers}
+msgid "{label}: owned{tiers}"
+msgstr "{label}：所有{tiers}"
+
+#. placeholders: {owned}
+msgid ", tier {owned} owned"
+msgstr "、{owned}段階まで所有"
+
+#. placeholders: {owned}
+#. one clause of a longer line
+msgid "tier {owned} owned"
+msgstr "ティア {owned} 所有"
+
+#. placeholders: {label}, {owned}, {max_tier}, {grouped}, {owned_part}
+msgid "{label}, tier {owned} of {max_tier}: {grouped} dollars{owned_part}"
+msgstr "{label}、{max_tier}段階中{owned}段階：{grouped}ドル{owned_part}"
+
+#. placeholders: {label}, {grouped}
+msgid "{label}: {grouped} dollars"
+msgstr "{label}：{grouped}ドル"
+
+#. placeholders: {label}
+msgid "{label} is already fully installed."
+msgstr "{label}はすでにすべて取り付け済みです。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Not enough money. {label} costs {grouped} dollars and you have {grouped2}."
+msgstr "お金が足りません。{label}は{grouped}ドルで、手持ちは{grouped2}ドルです。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid "{label} costs {grouped} dollars and you have {grouped2}."
+msgstr "{label}は{grouped}ドルで、手持ちは{grouped2}ドルです。"
+
+#. placeholders: {owned}
+msgid " tier {owned}"
+msgstr " {owned}段階目"
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "You have {grouped2} dollars left."
+msgstr "残りは{grouped2}ドルです。"
+
+#. placeholders: {label}, {tier_part}, {grouped}
+#. one sentence of a longer line
+msgid ""
+"{label}{tier_part} installed across your fleet for {grouped} dollars."
+msgstr "{label}{tier_part}を{grouped}ドルで保有車両すべてに取り付けました。"
+
+#. placeholders: {label}, {tier_part}, {grouped}, {grouped2}
+msgid ""
+"{label}{tier_part} installed across your fleet for {grouped} dollars. You "
+"have {grouped2} dollars left."
+msgstr "{label}{tier_part}を{grouped}ドルで保有車両すべてに取り付けました。残りは{grouped2}ドルです。"
+
+#. one sentence of a longer line
+msgid "Fleet upgrades, for every tractor you own."
+msgstr "所有するすべてのトラクター向けの、保有車両のアップグレードです。"
+
+#. placeholders: {grouped}, {current}
+msgid ""
+"Fleet upgrades, for every tractor you own. You have {grouped} dollars. "
+"{current}"
+msgstr "所有するすべてのトラクター向けの、保有車両のアップグレードです。手持ちは{grouped}ドルです。{current}"
+
+#. one sentence of a longer line
+msgid "Upgrades."
+msgstr "アップグレード。"
+
+#. placeholders: {grouped}, {current}
+msgid "Upgrades. You have {grouped} dollars. {current}"
+msgstr "アップグレード。手持ちは{grouped}ドルです。{current}"
+
+msgid "Upgrades locked: carrier-assigned tractor"
+msgstr "アップグレードはロック中：運送会社が割り当てたトラクター"
+
+msgid ""
+"Truck ownership starts with the leased-on owner-operator buy-in, and that "
+"needs a carrier to lease to. Apply to a carrier first."
+msgstr ""
+"トラックの所有は、業務委託のオーナードライバーの買い取りから始まります。それには契約先の運送会社が必要です。先に運送会社に応募してください。"
+
+msgid "Trucks"
+msgstr "トラック"
+
+msgid ""
+"Owner-operators buy tractors or switch among those they own. Upgrades "
+"follow whichever tractor you drive."
+msgstr "オーナードライバーはトラクターを買うか、所有するトラクターを切り替えます。アップグレードは運転するトラクターに付いてきます。"
+
+msgid ""
+"Company drivers use the carrier's trucks. Buying trucks unlocks with the "
+"owner-operator buy-in, from level 18 under Business status."
+msgstr ""
+"社員ドライバーは運送会社のトラックを使います。トラックの購入は、レベル18から事業状況で選べるオーナードライバーの買い取りで解放されます。"
+
+#. placeholders: {name}, {traits}
+msgid "{name}: currently driving, {traits}"
+msgstr "{name}：運転中、{traits}"
+
+#. placeholders: {name}, {traits}
+msgid "{name}: owned, {traits}, switch to it"
+msgstr "{name}：所有、{traits}、切り替える"
+
+#. placeholders: {name}, {traits}, {grouped}
+msgid "{name}: {traits}, buy for {grouped} dollars"
+msgstr "{name}：{traits}、{grouped}ドルで買う"
+
+#. placeholders: {label}
+msgid "You are already driving the {label}."
+msgstr "すでに{label}を運転しています。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"Not enough money. The {label} costs {grouped} dollars and you have "
+"{grouped2}."
+msgstr "お金が足りません。{label}は{grouped}ドルで、手持ちは{grouped2}ドルです。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+#. one sentence of a longer line
+msgid "The {label} costs {grouped} dollars and you have {grouped2}."
+msgstr "{label}は{grouped}ドルで、手持ちは{grouped2}ドルです。"
+
+#. placeholders: {label}, {grouped}
+#. one sentence of a longer line
+msgid "You bought the {label} for {grouped} dollars, now your tractor."
+msgstr "{label}を{grouped}ドルで買いました。これが自分のトラクターです。"
+
+#. placeholders: {label}, {grouped}, {grouped2}
+msgid ""
+"You bought the {label} for {grouped} dollars, now your tractor. You have "
+"{grouped2} dollars left."
+msgstr "{label}を{grouped}ドルで買いました。これが自分のトラクターです。残りは{grouped2}ドルです。"
+
+#. placeholders: {label}
+msgid "You are now driving the {label}."
+msgstr "{label}を運転するようになりました。"
+
+#. placeholders: {name}
+msgid "Inside {name}. "
+msgstr "{name}の中です。 "
+
+#. placeholders: {dealer}
+#. one sentence of a longer line
+msgid "{dealer}Trucks."
+msgstr "{dealer}トラック。"
+
+#. placeholders: {dealer}, {grouped}, {current}
+msgid "{dealer}Trucks. You have {grouped} dollars. {current}"
+msgstr "{dealer}トラック。手持ちは{grouped}ドルです。{current}"
+
+msgid "Truck ownership locked: no carrier"
+msgstr "トラックの所有は未開放：運送会社がありません"
+
+msgid "Truck ownership locked: carrier-assigned tractor"
+msgstr "トラックの所有はロック中：運送会社が割り当てたトラクター"
+
+msgid ""
+"Unlocks with the owner-operator buy-in, from level 18 under Business status."
+msgstr "レベル18から事業状況で選べるオーナードライバーの買い取りで解放されます。"
 
 msgid "carrier shop repair"
 msgstr "運送会社の整備工場での修理"
@@ -43995,6 +44057,73 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid ""
+#~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
+#~ "working capital."
+#~ msgstr "{grouped}ドル貯めてください。トラックの買い取りに{grouped2}ドル、運転資金に{grouped3}ドルです。"
+
+#~ msgid ""
+#~ "Next: the owner-operator buy-in under Business status, where you buy the "
+#~ "truck you drive."
+#~ msgstr "次は、事業状況にあるオーナードライバーの買い取りです。今乗っているトラックを買い取ります。"
+
+#~ msgid ""
+#~ "The buy-in costs {grouped} dollars and keeps {grouped2} dollars of working "
+#~ "capital in the bank."
+#~ msgstr "買い取りには{grouped}ドルかかり、運転資金として{grouped2}ドルを口座に残します。"
+
+#~ msgid ""
+#~ "You are a company driver for {carrier_name}, level {level} {title}. You "
+#~ "qualify for the owner-operator buy-in: you buy the truck you drive and keep "
+#~ "hauling for the carrier as a leased-on owner-operator. The buy-in costs "
+#~ "{grouped} dollars and keeps {grouped2} dollars of working capital in the "
+#~ "bank."
+#~ msgstr ""
+#~ "{carrier_name}の社員ドライバーです。レベル{level}、{title}です。オーナードライバーの買い取りの条件を満たしています。今乗って"
+#~ "いるトラックを買い取り、運送会社と業務委託のオーナードライバーとして、引き続きこの運送会社の荷を運びます。買い取りには{grouped}ドルかかり、運転"
+#~ "資金として{grouped2}ドルを口座に残します。"
+
+#~ msgid ""
+#~ "You qualify for the owner-operator buy-in: you buy the truck you drive and "
+#~ "keep hauling for the carrier as a leased-on owner-operator."
+#~ msgstr ""
+#~ "オーナードライバーの買い取りの条件を満たしています。今乗っているトラックを買い取り、運送会社と業務委託のオーナードライバーとして、引き続きこの運送会社の"
+#~ "荷を運びます。"
+
+#~ msgid ""
+#~ "The owner-operator buy-in opens once its other requirements are met: you "
+#~ "buy the truck you drive and haul for the carrier as a leased-on "
+#~ "owner-operator. TWIC port card enrollment opens under Licenses and training."
+#~ msgstr ""
+#~ "ほかの条件を満たすと、オーナードライバーの買い取りが選べるようになります。今乗っているトラックを買い取り、運送会社と業務委託のオーナードライバーとしてこ"
+#~ "の運送会社の荷を運びます。免許と研修で、TWICの港湾カードの申請ができるようになります。"
+
+#~ msgid ""
+#~ "Enter repeats a line, or buys in when qualified. Escape returns to the "
+#~ "terminal."
+#~ msgstr "Enter で行を繰り返し、条件を満たしていれば買い取ります。 Escape でターミナルに戻ります。"
+
+#~ msgid ""
+#~ "Leased-on owner-operator status unlocked. Paid {grouped} dollars toward "
+#~ "your first tractor, {grouped2} dollars working capital left."
+#~ msgstr ""
+#~ "運送会社と業務委託のオーナードライバーの立場が解放されました。最初のトラクターに{grouped}ドルを支払い、運転資金が{grouped2}ドル残って"
+#~ "います。"
+
+#~ msgid ""
+#~ "Paid {grouped} dollars toward your first tractor, {grouped2} dollars "
+#~ "working capital left."
+#~ msgstr "最初のトラクターに{grouped}ドルを支払い、運転資金が{grouped2}ドル残っています。"
+
+#~ msgid "Owner-operator buy-in: {grouped} dollars"
+#~ msgstr "オーナードライバーの買い取り：{grouped}ドル"
+
+#~ msgid "Higher revenue, but your business pays operating costs."
+#~ msgstr "収入は高くなりますが、運営費は事業で負担します。"
+
+#~ msgid "{f} thousand newton meters torque, {f2} gallon tank"
+#~ msgstr "トルク{f}千ニュートンメートル、タンク{f2}ガロン"
 
 #~ msgid "Destination {destination_label} ahead."
 #~ msgstr "前方に目的地、{destination_label}。"
