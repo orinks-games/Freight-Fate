@@ -449,7 +449,7 @@ impl DrivingState {
         self.lane.turn_in_play = self.hold_turn_side();
         let off_road_event = self.lane.update(dt, speed_mps, road, &mode, takes_the_bend);
         self.rear_trailer_whip(ctx, dt);
-        self.single_trailer_stability(ctx, dt, curve);
+        self.single_trailer_stability(ctx, dt, curve, wind);
         if off_road_event {
             // The shoulder costs the truck whether or not anything warns about
             // it, and a charge is never silent: the rumble and the line play
@@ -1042,10 +1042,16 @@ impl DrivingState {
     /// hears when crosswind is pushing an empty/light box or when the trailer
     /// tandems are cutting inside on a tight ramp curve. Doubles use
     /// `rear_trailer_whip` instead.
-    fn single_trailer_stability(&mut self, ctx: &mut GameContext, dt: f64, curve: f64) {
-        use ff_core::sim::vehicle::TrailerSwayState;
+    fn single_trailer_stability(
+        &mut self,
+        ctx: &mut GameContext,
+        dt: f64,
+        curve: f64,
+        wind: f64,
+    ) {
+        use ff_core::sim::vehicle::{crosswind_lateral_g, TrailerSwayState};
 
-        let wind_g = self.lane.wind_lateral_g;
+        let wind_g = crosswind_lateral_g(wind, self.lane.wind_lateral_g);
         let state =
             self.trip
                 .truck

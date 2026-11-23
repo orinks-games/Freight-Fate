@@ -238,6 +238,18 @@ pub fn single_trailer_offtrack_clipping(
     offtrack_ft > clearance_ft + 1.5
 }
 
+/// Sustained crosswind lateral loading per unit `WeatherEffects::wind`
+/// (`0.0..=1.0`), in g. Calibrated so `WeatherKind::Wind` (`0.9`) pushes an
+/// empty or light high-profile box trailer past `TRAILER_SWAY_WARN_DEG` at
+/// highway speed while clear/rain weather and loaded trailers stay steady.
+pub const SUSTAINED_CROSSWIND_LATERAL_G: f64 = 0.16;
+
+/// Combined crosswind lateral loading (g) from sustained weather wind
+/// (`0.0..=1.0`, from `WeatherEffects::wind`) and transient gust acceleration.
+pub fn crosswind_lateral_g(weather_wind: f64, gust_lateral_g: f64) -> f64 {
+    weather_wind.max(0.0) * SUSTAINED_CROSSWIND_LATERAL_G + gust_lateral_g.abs()
+}
+
 /// Advances single-trailer crosswind sway angle (degrees) over `dt` seconds.
 /// Lighter high-profile trailers at highway speeds sway more in strong winds.
 pub fn single_trailer_sway_step(
@@ -618,5 +630,45 @@ mod tests {
             (truck.braking_decel_mps2(BrakeApplication::Service(1.0)) - delivered_decel).abs()
                 < 1e-9
         );
+    }
+
+    #[test]
+    fn sustained_high_wind_triggers_sway_even_without_gust_acceleration() {
+        use crate::sim::vehicle::{TruckSpecs, TruckState};
+        use crate::sim::weather::{effects as weather_effects, WeatherKind};
+
+        let wind_g = crosswind_lateral_g(weather_effects(WeatherKind::Wind).wind, 0.0);
+        let mut empty = TruckState::new(TruckSpecs::default());
+        empty.trailer_attached = true;
+        empty.cargo_kg = 0.0;
+        empty.velocity_mps = 28.0; // ~62.6 mph
+
+        let mut state = TrailerSwayState::Steady;
+        for _ in 0..50 {
+            state = empty.update_single_trailer_stability(0.1, wind_g, 0.0, 0.0);
+        }
+        assert_eq!(
+            state,
+            TrailerSwayState::Swaying,
+            "sustained high wind should sway an empty single trailer even with zero gust acceleration"
+        );
+
+        // Easing off to 35 mph recovers to Steady.
+        empty.velocity_mps = 15.6;
+        for _ in 0..80 {
+            state = empty.update_single_trailer_stability(0.1, wind_g, 0.0, 0.0);
+        }
+        assert_eq!(state, TrailerSwayState::Steady);
+
+        // A fully loaded trailer stays Steady in the same sustained wind.
+        let mut loaded = TruckState::new(TruckSpecs::default());
+        loaded.trailer_attached = true;
+        loaded.cargo_kg = 20_000.0;
+        loaded.velocity_mps = 28.0;
+        let mut loaded_state = TrailerSwayState::Steady;
+        for _ in 0..50 {
+            loaded_state = loaded.update_single_trailer_stability(0.1, wind_g, 0.0, 0.0);
+        }
+        assert_eq!(loaded_state, TrailerSwayState::Steady);
     }
 }

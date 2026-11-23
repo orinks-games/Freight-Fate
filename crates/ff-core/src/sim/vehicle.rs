@@ -30,8 +30,9 @@ pub mod traction;
 mod updates;
 
 pub use traction::{
-    single_trailer_offtrack_clipping, single_trailer_offtrack_ft, single_trailer_sway_step,
-    AbsEvent, AbsState, DriveTractionEvent, DriveTractionState, TrailerSwayEvent, TrailerSwayState,
+    crosswind_lateral_g, single_trailer_offtrack_clipping, single_trailer_offtrack_ft,
+    single_trailer_sway_step, AbsEvent, AbsState, DriveTractionEvent, DriveTractionState,
+    TrailerSwayEvent, TrailerSwayState,
 };
 
 pub use axles::{AxleLoads, TANDEM_LIMIT_LB};
