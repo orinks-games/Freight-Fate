@@ -6901,6 +6901,19 @@ a carrier slice (owner, 2026-10-26).
       31 a mile before the exit, and the roll past the ramp's sign stops at
       15. The exit tests now start from the city's longest leg. Check where
       a destination exit belongs on a two-lane road into a town.
+- [ ] (Found along the way) The miles before a leg's first posted limit
+      read that first posting, even inside the town the leg leaves
+      (`posted_sample_at` takes the first sample for any mile before it,
+      and the urban 55 applies only where a leg has no posting at all).
+      440 of 1,624 US legs have no posting in their first 2 miles; on 314
+      the first posting is 55 or more, and 222 of those have a bend advised
+      25 or less in that stretch (counted at each leg's start only).
+      Marshalltown to Ottumwa reads 65 through two 20 mph turns a quarter
+      mile out of the yard: the keeper takes the truck to 42, "Sharp right,
+      a quarter mile. Advise 20 miles per hour. Cruise paused for the
+      bend." comes at mile 0.42 for a bend at 0.77, and cruise only coasts.
+      A firm brake on the call makes it; a one-second brake rolls the
+      truck.
 
 ### Winter cab, wipers and ice roads (designed November 22)
 
