@@ -112,7 +112,7 @@ fn parse_covered_legs(value: Option<&str>, require: bool) -> Result<Option<Vec<S
     Ok(Some(legs))
 }
 
-fn requires_covered_selection(write: bool, survey: bool) -> bool {
+fn writes_placements(write: bool, survey: bool) -> bool {
     write && !survey
 }
 
@@ -121,6 +121,7 @@ fn validate_covered_legs(
     leg_ids: &HashSet<String>,
     archive_ids: &HashSet<String>,
     scope: &str,
+    publishing: bool,
 ) -> Result<()> {
     for leg in selected {
         let reverse = leg
@@ -134,7 +135,7 @@ fn validate_covered_legs(
         } else {
             return Err(format!("--only references unknown leg {leg:?}"));
         };
-        if (scope == "all" || is_north(known)) && !archive_ids.contains(known) {
+        if publishing && (scope == "all" || is_north(known)) && !archive_ids.contains(known) {
             return Err(format!("--only leg {known:?} has no archived road"));
         }
     }
@@ -200,11 +201,9 @@ pub fn main(argv: &[String]) -> Result<i32> {
     )
     .map_err(|e| format!("{e}\n{USAGE}"))?;
     let survey = args.flag("survey");
-    let selection = parse_covered_legs(
-        args.value("only"),
-        requires_covered_selection(args.flag("write"), survey),
-    )
-    .map_err(|e| format!("{e}\n{USAGE}"))?;
+    let publication = writes_placements(args.flag("write"), survey);
+    let selection =
+        parse_covered_legs(args.value("only"), publication).map_err(|e| format!("{e}\n{USAGE}"))?;
     let pbfs = pbf_paths(&args, USAGE)?;
     let date = super::extract_date(&args, &pbfs)?;
     let snapshot = args.string("snapshot", "OpenStreetMap planet file");
@@ -219,7 +218,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     if let Some(selected) = &selection {
         let leg_ids: HashSet<String> = run.legs_mut()?.iter().map(leg_id).collect();
         let archive_ids: HashSet<String> = run.archive.keys().cloned().collect();
-        validate_covered_legs(selected, &leg_ids, &archive_ids, &scope)?;
+        validate_covered_legs(selected, &leg_ids, &archive_ids, &scope, publication)?;
     }
 
     let way =
@@ -369,7 +368,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         "{changed} legs changed, {same} the same in scope {scope}, {no_archive} with no archived \
          road."
     );
-    run.finish(args.flag("write") && !survey)
+    run.finish(publication)
 }
 
 #[cfg(test)]
@@ -383,25 +382,69 @@ mod tests {
         assert!(parse_covered_legs(Some("a:b;not-a-route"), true).is_err());
         assert!(parse_covered_legs(Some("a:b;:d"), true).is_err());
         assert!(parse_covered_legs(Some("a:b;c:d"), true).is_ok());
-        assert!(requires_covered_selection(true, false));
-        assert!(!requires_covered_selection(false, false));
-        assert!(!requires_covered_selection(true, true));
+        assert!(writes_placements(true, false));
+        assert!(!writes_placements(false, false));
+        assert!(!writes_placements(false, true));
+        assert!(!writes_placements(true, true));
         assert_eq!(parse_covered_legs(None, false).unwrap(), None);
         assert_eq!(
-            parse_covered_legs(None, requires_covered_selection(true, true)).unwrap(),
+            parse_covered_legs(None, writes_placements(true, true)).unwrap(),
             None
         );
     }
 
     #[test]
-    fn covered_routes_must_exist_and_have_archived_geometry() {
-        let selected = vec!["b:a".to_string()];
-        let leg_ids = ["a:b".to_string()].into_iter().collect();
+    fn covered_routes_validate_identity_in_all_modes_but_require_archives_for_writes() {
+        let selected = vec!["a:b".to_string(), "c:d".to_string()];
+        let leg_ids = ["a:b".to_string(), "c:d".to_string()].into_iter().collect();
         let archive_ids = ["a:b".to_string()].into_iter().collect();
-        assert!(validate_covered_legs(&selected, &leg_ids, &archive_ids, "all").is_ok());
-        assert!(validate_covered_legs(&["a:c".into()], &leg_ids, &archive_ids, "all").is_err());
-        assert!(validate_covered_legs(&["a:b".into()], &leg_ids, &HashSet::new(), "all").is_err());
-        assert!(validate_covered_legs(&["a:b".into()], &leg_ids, &HashSet::new(), "north").is_ok());
+        assert!(validate_covered_legs(
+            &selected,
+            &leg_ids,
+            &archive_ids,
+            "all",
+            writes_placements(false, false),
+        )
+        .is_ok());
+        assert!(validate_covered_legs(
+            &selected,
+            &leg_ids,
+            &archive_ids,
+            "all",
+            writes_placements(false, true),
+        )
+        .is_ok());
+        assert!(validate_covered_legs(
+            &selected,
+            &leg_ids,
+            &archive_ids,
+            "all",
+            writes_placements(true, true),
+        )
+        .is_ok());
+        assert!(validate_covered_legs(
+            &selected,
+            &leg_ids,
+            &archive_ids,
+            "all",
+            writes_placements(true, false),
+        )
+        .is_err());
+        assert!(
+            validate_covered_legs(&["a:e".into()], &leg_ids, &archive_ids, "all", false).is_err()
+        );
+
+        let outside_scope = vec!["seattle_wa_us:portland_or_us".to_string()];
+        let outside_leg_ids: HashSet<String> = outside_scope.iter().cloned().collect();
+        let no_archive = HashSet::new();
+        assert!(validate_covered_legs(
+            &outside_scope,
+            &outside_leg_ids,
+            &no_archive,
+            "north",
+            true,
+        )
+        .is_ok());
     }
 
     #[test]
