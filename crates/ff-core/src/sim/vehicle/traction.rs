@@ -583,4 +583,40 @@ mod tests {
         assert!(ice_jake < dry_jake);
         assert!(truck.jake_slipping());
     }
+
+    #[test]
+    fn braking_decel_and_stopping_distance_include_abs_modulation() {
+        use crate::sim::vehicle::{BrakeApplication, TruckSpecs, TruckState};
+
+        let mut truck = TruckState::new(TruckSpecs::default());
+        truck.velocity_mps = 22.0;
+        truck.parking_brake = false;
+        truck.grip = 0.25;
+        truck.brake = 1.0;
+
+        let unmodulated_decel = truck.full_service_decel_mps2();
+        let unmodulated_stop = truck.stopping_distance_m(None, 0.0, false);
+
+        // Choose a phase where ABS modulation is at its trough (0.88).
+        truck.abs_state = AbsState::Modulating {
+            phase_s: 0.5 / ABS_CYCLE_HZ,
+        };
+        assert!(truck.abs_state.modulation_factor() < 1.0);
+
+        let modulated_decel = truck.full_service_decel_mps2();
+        let delivered_decel = truck.service_brake_force() / truck.gross_mass_kg();
+        assert!((modulated_decel - delivered_decel).abs() < 1e-9);
+        assert!(
+            modulated_decel < unmodulated_decel,
+            "ABS modulation must reduce estimated deceleration"
+        );
+        assert!(
+            truck.stopping_distance_m(None, 0.0, false) > unmodulated_stop,
+            "ABS modulation must lengthen estimated stopping distance"
+        );
+        assert!(
+            (truck.braking_decel_mps2(BrakeApplication::Service(1.0)) - delivered_decel).abs()
+                < 1e-9
+        );
+    }
 }

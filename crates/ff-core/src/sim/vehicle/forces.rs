@@ -197,9 +197,11 @@ impl TruckState {
         self.foundation_brake_force(application) * self.abs_state.modulation_factor()
     }
 
-    /// Foundation-brake deceleration for a chosen application.
+    /// Foundation-brake deceleration for a chosen application, including any
+    /// active ABS modulation so stopping budgets agree with delivered force.
     pub fn braking_decel_mps2(&self, application: BrakeApplication) -> f64 {
-        self.foundation_brake_force(application) / self.gross_mass_kg().max(1.0)
+        (self.foundation_brake_force(application) * self.abs_state.modulation_factor())
+            / self.gross_mass_kg().max(1.0)
     }
 
     /// Deceleration a full service-brake application delivers right now.
