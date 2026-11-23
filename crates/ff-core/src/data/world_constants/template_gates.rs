@@ -428,6 +428,15 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     // at Carneys Point and the Cape May fishing docks.
     "carneys_point_nj_us",
     "cape_may_nj_us",
+    // Texas and Louisiana (missing roads brief 3, 2026-11-23): the Denton
+    // truck plant and mall, the Galveston, Freeport, Point Comfort, Port
+    // Fourchon and Venice port sites, each with a store that takes dry freight.
+    "denton_tx_us",
+    "galveston_tx_us",
+    "freeport_tx_us",
+    "point_comfort_tx_us",
+    "port_fourchon_la_us",
+    "venice_la_us",
 ];
 
 /// Whether this city keeps only its authored freight locations. See

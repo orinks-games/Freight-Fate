@@ -132,6 +132,45 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
         "yuma_az_us",
         "phoenix_az_us",
         &["yuma_az_us", "buckeye_az_us", "phoenix_az_us"],
+    ),    // I-44, 713 mi: missing roads pass (Texas and Louisiana), 2026-11-23.
+    // The chain runs over the I-35 and I-44 legs already on the map.
+    (
+        "dallas_tx_us",
+        "st_louis_mo_us",
+        &[
+            "dallas_tx_us",
+            "denton_tx_us",
+            "ardmore_ok_us",
+            "oklahoma_city_ok_us",
+            "tulsa_ok_us",
+            "joplin_mo_us",
+            "springfield_mo_us",
+            "rolla_mo_us",
+            "st_louis_mo_us",
+        ],
+    ),
+    // I-35, 200 mi: missing roads pass, 2026-11-23.
+    (
+        "fort_worth_tx_us",
+        "oklahoma_city_ok_us",
+        &[
+            "fort_worth_tx_us",
+            "denton_tx_us",
+            "ardmore_ok_us",
+            "oklahoma_city_ok_us",
+        ],
+    ),
+    // US-287, 133 mi: missing roads pass, 2026-11-23.
+    (
+        "wichita_falls_tx_us",
+        "mckinney_tx_us",
+        &["wichita_falls_tx_us", "denton_tx_us", "mckinney_tx_us"],
+    ),
+    // I-35, 128 mi: missing roads pass, 2026-11-23.
+    (
+        "mckinney_tx_us",
+        "waco_tx_us",
+        &["mckinney_tx_us", "dallas_tx_us", "waco_tx_us"],
     ),
 ];
 
