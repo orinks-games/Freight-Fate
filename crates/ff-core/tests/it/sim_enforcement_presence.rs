@@ -805,12 +805,15 @@ fn test_a_clean_driver_hears_the_police_constantly_and_pays_nothing() {
 
 #[test]
 fn test_a_reckless_driver_meets_the_same_road_and_a_very_different_bill() {
-    // Presence is identical; consequence is not.
+    // Presence is identical; consequence is not. Four seeds were too few:
+    // splitting Des Moines to Chicago at Aurora (2026-11-23) re-rolled the
+    // posts' staffing on the same road and Chicago to Denver fell from 2.9
+    // to 1.3, while 24 seeds hold it at 2.2 before and after.
     for (a, b) in [("Chicago", "Denver"), ("Los Angeles", "Phoenix")] {
         let mut clean_contacts = Vec::new();
         let mut reckless_contacts = Vec::new();
         let mut rates = Vec::new();
-        for seed in 0..4 {
+        for seed in 0..24 {
             let clean = trip_seeded(a, b, seed);
             clean_contacts.push(clean.audible_enforcement_contacts().len());
             let mut trip = trip_seeded(a, b, seed);
@@ -834,11 +837,13 @@ fn test_speeding_scales_from_free_to_expensive_with_no_flat_spot() {
     // legal and habitual has to be a curve. Six seeds were too few: the
     // October exits re-read moved the posts and the occasional rate on Los
     // Angeles to Phoenix swung from 0.67 to 1.34, while 24 seeds hold it
-    // at 0.45 before and 0.56 after.
+    // at 0.45 before and 0.56 after. The Aurora split of 2026-11-23 did
+    // the same to Chicago to Denver's occasional rate (0.25 to 0.14 over
+    // 24 seeds, on the same road); 48 seeds read 0.25 and 0.20.
     for (a, b) in [("Chicago", "Denver"), ("Los Angeles", "Phoenix")] {
         let rate = |over: f64, damage: f64, duty: f64, recover_mi: f64| {
             let mut totals = Vec::new();
-            for seed in 0..24 {
+            for seed in 0..48 {
                 let mut trip = trip_seeded(a, b, seed);
                 let stops = walk(&mut trip, over, damage, 0, duty, recover_mi, seed);
                 totals.push(stops as f64 / trip.route.miles() * 500.0);

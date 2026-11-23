@@ -421,7 +421,10 @@ fn all_terrain_route_needs_flat_hills_and_mountain_on_one_run() {
 fn multi_leg_haul_needs_four_legs() {
     let near = route("houston_tx_us", "oklahoma_city_ok_us");
     let far = route("chicago_il_us", "denver_co_us");
-    assert_eq!((near.legs.len(), far.legs.len()), (3, 4));
+    // Chicago to Denver runs five legs since the Aurora split (2026-11-23);
+    // the badge only needs it past four.
+    assert_eq!(near.legs.len(), 3);
+    assert!(far.legs.len() >= 4, "{} legs", far.legs.len());
     corridor_earns("multi_leg_haul", near, far);
 }
 

@@ -6597,7 +6597,7 @@ a carrier slice (owner, 2026-10-26).
       to Sidney (US-385, 87 to 81). Twelve legs renamed for the road they
       ride, and their towns' roads read again.
 - [x] Upper Midwest and Northern Plains stops list
-      (`docs/stops/upper-midwest-northern-plains.json`), 392 stops.
+      (`docs/stops/upper-midwest-northern-plains.json`), 391 stops.
 - [ ] (Found along the way) Tolls still unread: the Reagan Tollway (I-88)
       on Des Moines to Aurora and Aurora to Chicago; the Illinois Tollway's
       site has no readable rate table.
@@ -6615,6 +6615,12 @@ a carrier slice (owner, 2026-10-26).
       A town near Clinton or DeKalb would fix it.
 - [ ] (Found along the way) Billboards on the new legs: a sheet needs
       Orinks's approval.
+- [ ] (Found along the way) Coming into Aberdeen from Jamestown, the
+      destination exit sits 0.8 miles out on US-281 inside town, where the
+      road drops from 45 to 30 and then a 15 mph street; cruise is down to
+      31 a mile before the exit, and the roll past the ramp's sign stops at
+      15. The exit tests now start from the city's longest leg. Check where
+      a destination exit belongs on a two-lane road into a town.
 
 ### Winter cab, wipers and ice roads (designed November 22)
 

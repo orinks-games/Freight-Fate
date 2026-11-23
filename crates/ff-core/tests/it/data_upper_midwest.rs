@@ -66,4 +66,3 @@ fn split_legs_are_gone_and_resume_on_their_chain() {
         assert_eq!(resumed.cities, chain);
     }
 }
-
