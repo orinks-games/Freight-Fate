@@ -5,6 +5,7 @@
 //! prices) until `models::trucks` lands.
 
 use crate::models::business_constants::{is_owner_operator, COMPANY_DRIVER};
+use crate::models::business_stage::{apply_event_to_fields, BusinessEvent, BusinessStage};
 use crate::models::career_ladder::STARTER_CARRIER_NAME;
 use crate::models::enforcement::{DrivingRecord, StandingProfile};
 use crate::models::solvency::SolvencyProfile;
@@ -37,6 +38,8 @@ pub(crate) struct FakeProfile {
     pub pay_advance: f64,
     pub pay_advance_used_for_load: bool,
     pub authority_readiness: bool,
+    pub owner_operator_declined: bool,
+    pub buy_in_paid: f64,
     pub weigh_station_transponder: bool,
     pub dispatch_board_cached: bool,
     /// What `carrier_fleet.equipment_hold_clause` would say.
@@ -66,6 +69,8 @@ impl Default for FakeProfile {
             pay_advance: 0.0,
             pay_advance_used_for_load: false,
             authority_readiness: false,
+            owner_operator_declined: false,
+            buy_in_paid: 0.0,
             weigh_station_transponder: false,
             dispatch_board_cached: true,
             hold_clause: String::new(),
@@ -193,11 +198,20 @@ impl SolvencyProfile for FakeProfile {
     fn set_owned_trailers(&mut self, trailers: Vec<String>) {
         self.owned_trailers = trailers;
     }
-    fn set_business_status(&mut self, status: &str) {
-        self.business_status = status.to_string();
+    fn apply_business_event(&mut self, event: BusinessEvent) -> Option<BusinessStage> {
+        let stage = apply_event_to_fields(
+            &mut self.business_status,
+            &mut self.authority_readiness,
+            &mut self.owner_operator_declined,
+            event,
+        )?;
+        if !stage.is_owner_operator() {
+            self.buy_in_paid = 0.0;
+        }
+        Some(stage)
     }
-    fn set_authority_readiness(&mut self, ready: bool) {
-        self.authority_readiness = ready;
+    fn buy_in_paid(&self) -> f64 {
+        self.buy_in_paid
     }
     fn set_weigh_station_transponder(&mut self, on: bool) {
         self.weigh_station_transponder = on;

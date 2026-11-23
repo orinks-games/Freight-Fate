@@ -473,7 +473,7 @@ fn test_garage_upgrade_and_truck_purchase_flow() {
         .owned_trucks
         .iter()
         .any(|k| k == "heavy_hauler"));
-    assert_eq!(profile(&app).money(), money_before - 52_000.0);
+    assert_eq!(profile(&app).money(), money_before - 78_000.0);
     let saved = reloaded(&save_path);
     assert_eq!(saved.truck, "heavy_hauler");
     assert!(saved.owned_trucks.iter().any(|k| k == "heavy_hauler"));

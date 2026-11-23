@@ -404,7 +404,7 @@ from the words, and synonyms cost them a re-read.
 | The share of every settlement that always reaches the driver | take-home | net after collection, what is left, remainder | `solvency.TAKE_HOME_SHARE` |
 | The carrier ending a company driver's employment | ended your employment | terminated, fired, let go, sacked, dropped | `solvency.apply_company_termination` |
 | The lender taking an owner-operator's tractor back | took the truck back; repossessed | seized, foreclosed, repo, impounded | `solvency.apply_repossession` |
-| The level-18 step from company driver to leased-on owner-operator | the owner-operator buy-in; buy in | lease, lease-purchase, upgrade, promotion | `BusinessStatusState::become_owner_operator`, `OWNER_OPERATOR_BUY_IN` |
+| The level-18 step from company driver to leased-on owner-operator | the owner-operator buy-in; buy in | lease, lease-purchase, upgrade, promotion | `BuyInState`, `BusinessStage`, `buy_in_tractors` |
 | Choosing the company seat with the buy-in open | stay a company driver; company driver by choice | decline, opt out, refuse, skip the lease | `Profile.owner_operator_declined`, `BusinessStatusState::stay_company_driver` |
 | An owner-operator handing the equipment back for a company seat | go back to company driving | quit the lease, sell out, downgrade, revert | `solvency.apply_return_to_company_driving` |
 | A company driver at the training fleet taking a seat at another carrier | move to another carrier; hires you away | transfer, switch carriers, quit, change jobs, graduate | `carrier_move.apply_carrier_move`, `MOVE_UP_LEVEL` |

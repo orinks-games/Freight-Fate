@@ -344,6 +344,19 @@ impl PlayerInputFrame<'_> {
         self.app.ctx.services.newspaper.status()
     }
 
+    /// The ownership ladder as `status` reports it: the stage key and what
+    /// the buy-in paid, or "no_career" before a career is loaded.
+    pub fn business_state(&self) -> String {
+        match self.app.ctx.profile.as_ref() {
+            Some(p) => format!(
+                "business_stage {}; buy_in_paid {:.0}",
+                p.business_stage().key(),
+                p.buy_in_paid
+            ),
+            None => "no_career".to_string(),
+        }
+    }
+
     pub fn cloud_resume_state(&self) -> ff_core::cloud_resume::CheckState {
         self.app.ctx.cloud_saves_service().resume_state()
     }

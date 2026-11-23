@@ -13,13 +13,12 @@
 use serde_json::{Map, Value};
 
 use ff_core::data::world::World;
-use ff_core::models::business_constants::{
-    COMPANY_DRIVER, INDEPENDENT_AUTHORITY, LEASED_OWNER_OPERATOR,
-};
+use ff_core::models::business_stage::BusinessStage;
 use ff_core::models::career::LEVEL_XP;
 use ff_core::models::career_ladder::MAX_CAREER_LEVEL;
 use ff_core::models::credentials::credential_keys;
 use ff_core::models::profile::Profile;
+use ff_core::models::trucks::truck_model;
 use ff_core::playtest_levers::{apply_city, apply_clock, resolve_city_forgiving};
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::alertness::Alertness;
@@ -86,8 +85,12 @@ pub struct Scenario {
     pub deliveries: Option<i64>,
     pub money: Option<f64>,
     pub reputation: Option<f64>,
-    /// "company", "leased" or "independent" (or the exact status key).
-    pub business: Option<String>,
+    /// Where the career stands on the ownership ladder: `business_stage`
+    /// by its key, or the older `business` (company, leased, independent).
+    pub business: Option<BusinessStage>,
+    /// Tractors the career owns, replacing what it held; the first is the
+    /// one driven. Wear and fuel are fresh. `buy_in_paid` is left alone.
+    pub owned_trucks: Option<Vec<String>>,
     /// Credential keys bought outright, replacing what the career held.
     pub endorsements: Option<Vec<String>>,
     /// Local clock, 0 to 24, moved forward to.
@@ -398,13 +401,13 @@ impl Scenario {
                 }
             }
         }
-        let business = match text(args, "business")? {
+        let mut business = match text(args, "business")? {
             None => None,
             Some(word) => Some(match word.to_lowercase().as_str() {
-                "company" | "company_driver" => COMPANY_DRIVER.to_string(),
-                "leased" | "leased_owner_operator" => LEASED_OWNER_OPERATOR.to_string(),
+                "company" | "company_driver" => BusinessStage::CompanyDriver,
+                "leased" | "leased_owner_operator" => BusinessStage::LeasedOn,
                 "independent" | "independent_authority" | "authority" => {
-                    INDEPENDENT_AUTHORITY.to_string()
+                    BusinessStage::OwnAuthority
                 }
                 other => {
                     return Err(format!(
@@ -412,6 +415,31 @@ impl Scenario {
                     ))
                 }
             }),
+        };
+        if let Some(key) = text(args, "business_stage")? {
+            business = Some(BusinessStage::from_key(&key.to_lowercase()).ok_or_else(|| {
+                format!(
+                    "business_stage must be company_driver, company_by_choice, leased_on, \
+                     leased_on_prepared or own_authority, not {key}"
+                )
+            })?);
+        }
+        let owned_trucks = match args.get("owned_trucks") {
+            None | Some(Value::Null) => None,
+            Some(Value::Array(items)) => {
+                let mut keys = Vec::new();
+                for item in items {
+                    let key = item
+                        .as_str()
+                        .ok_or("owned_trucks must be a list of truck keys")?;
+                    if truck_model(key).is_none() {
+                        return Err(format!("unknown truck {key}"));
+                    }
+                    keys.push(key.to_string());
+                }
+                Some(keys)
+            }
+            Some(_) => return Err("owned_trucks must be a list of truck keys".to_string()),
         };
         Ok(Scenario {
             name: text(args, "name")?,
@@ -421,6 +449,7 @@ impl Scenario {
             money: number(args, "money")?,
             reputation: number(args, "reputation")?,
             business,
+            owned_trucks,
             endorsements,
             hour,
             fuel_pct: number(args, "fuel_pct")?,
@@ -574,9 +603,25 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             p.career.reputation = reputation;
             notes.push(format!("Reputation {reputation}."));
         }
-        if let Some(business) = &scenario.business {
-            p.business_status = business.clone();
-            notes.push(format!("Business status {business}."));
+        if let Some(stage) = scenario.business {
+            p.set_business_stage(stage);
+            notes.push(format!("Business stage {}.", stage.key()));
+        }
+        if let Some(trucks) = &scenario.owned_trucks {
+            p.owned_trucks = trucks.clone();
+            for key in trucks {
+                if let Some(model) = truck_model(key) {
+                    p.provision_truck_condition(key, Some(model.specs.fuel_tank_gal));
+                }
+            }
+            if let Some(first) = trucks.first() {
+                p.truck = first.clone();
+            }
+            notes.push(if trucks.is_empty() {
+                "No tractors owned.".to_string()
+            } else {
+                format!("Tractors owned: {}.", trucks.join(", "))
+            });
         }
         if let Some(endorsements) = &scenario.endorsements {
             p.career.purchased_endorsements = endorsements.clone();
@@ -848,6 +893,8 @@ mod tests {
         assert!(bad(r#"{"fatigue": -1}"#).contains("fatigue"));
         assert!(bad(r#"{"hos_since_break_min": -1}"#).contains("hos_since_break_min"));
         assert!(bad(r#"{"business": "owner"}"#).contains("business"));
+        assert!(bad(r#"{"business_stage": "leased"}"#).contains("business_stage"));
+        assert!(bad(r#"{"owned_trucks": ["spaceship"]}"#).contains("unknown truck"));
         assert!(bad(r#"{"endorsements": ["rocket"]}"#).contains("unknown endorsement"));
         assert!(bad(r#"{"settings": 3}"#).contains("settings"));
         assert!(bad(r#"{"date": "02-29"}"#).contains("date"));
@@ -861,7 +908,7 @@ mod tests {
         let scenario = Scenario::from_json(&args).unwrap();
         assert_eq!(scenario.city.as_deref(), Some("Tonopah"));
         assert_eq!(scenario.level, Some(5));
-        assert_eq!(scenario.business.as_deref(), Some(LEASED_OWNER_OPERATOR));
+        assert_eq!(scenario.business, Some(BusinessStage::LeasedOn));
         assert_eq!(scenario.endorsements, Some(vec!["hazmat".to_string()]));
         assert!(bad(r#"{"abs": "pulsing"}"#).contains("abs"));
         assert!(bad(r#"{"drive_traction": "slip"}"#).contains("drive_traction"));

@@ -6902,6 +6902,37 @@ here 2026-09-25. Details stay in the linked dated sections.
       enum in `ff-core` (hired, on sufferance, unassigned, own authority)
       with one `next(event)` and a transition table, reported by the agent
       server's `status` (R1 review, 2026-11-22).
+      `BusinessStage` (below) now covers the ownership ladder; Employment
+      should sit beside it, not inside it.
+- [x] **The buy-in buys a tractor the driver chooses, at its price.** The
+      flat 35,000 dollar buy-in handed over whatever dispatch had assigned,
+      and first pick of the yard comes at level 17, so every driver up the
+      ladder bought a 176,000 to 216,000 dollar flagship for 35,000. The
+      buy-in now lists every priced sleeper, cheapest first (from 31,000),
+      at its catalog price with 10,000 working capital left over, and asks
+      twice. `buy_in_paid` records the price; a first tractor from a 1.9
+      buy-in (no `buy_in_paid`) keeps the 35,000 hand-back cap. Nobody's
+      equipment or money changes (2026-11-23).
+- [x] **The heavy hauler costs 78,000 dollars,** up from 52,000, in line
+      with the heavy sleepers around it; its stats are unchanged. Dealer and
+      buy-in rows read miles per gallon at a steady 60 mph with the reference
+      load (`TruckState::rated_mpg`), and the dealer lists the free standard
+      rig only to a driver who owns it (2026-11-23).
+- [x] **`BusinessStage` is the ownership ladder as one state machine**
+      (company driver, company by choice, leased on, leased on prepared, own
+      authority), stored in the three old profile fields so saves are
+      unchanged. `Profile::apply_business_event` is the only writer; the
+      agent server's `status` reports `business_stage` and `scenario` sets it
+      (2026-11-23).
+- [ ] (Found along the way) **Public profile net worth still counts a
+      tractor from a 1.9 buy-in at its full catalog price,** though it goes
+      back for 35,000 at most.
+- [ ] (Found along the way) **Dealer and buy-in rows stay in US units under
+      kilometers:** the tank reads gallons and economy miles per gallon while
+      fuel elsewhere reads liters.
+- [ ] (Found along the way) **`update_fuel`'s comment says it is calibrated
+      for about 6.5 to 7 mpg at 60 mph;** with the reference load on level
+      road the standard rig works out to about 7.3.
 - [x] (Found along the way) **The destination approach has a limit in
       force.** Off the destination exit the ramp to the facility goes by the
       number S speaks, the approach's 45 (never above the corridor's): the

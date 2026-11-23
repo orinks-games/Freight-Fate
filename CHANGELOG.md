@@ -69,6 +69,9 @@
 ### Changed
 
 - **Slick roads, high crosswinds, and tight ramps now trigger ABS, wheelspin, trailer sway, and off-tracking.** Automatic shifts also hold lower gears longer on downgrades.
+- **The owner-operator buy-in now buys a tractor you choose, at its dealer price.** Tractors you already own stay yours.
+- **The heavy hauler costs 78,000 dollars.** One you already own is not affected.
+- **Truck dealer rows give each tractor's miles per gallon.**
 - **Traffic glides smoothly between lanes, passes on two-lane highways, yields to your turn signal, and launches in waves from red lights.**
 - **Freeway traffic, passing vehicles and ramp cross traffic now use real recordings.** Vehicles driving alongside hold a steady exterior sound by lane.
 - **The recorded truck engine has stereo cab sound and follows rev changes more closely.** Gear changes use clacks recorded inside the cab.
@@ -95,6 +98,7 @@
 
 ### Fixed
 
+- **The truck dealer no longer offers the standard rig for nothing.** It is listed only if you own it.
 - **The truck's starter gives way to a brief idle before the engine revs up to build air.**
 - **Automatic gear changes start with a softer clunk so the drop in revs is easier to hear.**
 - **Left curve calls say "left" again in every language.** They are spoken in English for now.
