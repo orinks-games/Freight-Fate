@@ -39,6 +39,7 @@ mod data_regions;
 mod data_service_plazas;
 mod data_south_jersey;
 mod data_southwest_california;
+mod data_texas_louisiana;
 mod data_stop_access;
 mod data_stop_bounds;
 mod data_stop_exits;
