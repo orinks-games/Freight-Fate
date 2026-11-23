@@ -235,6 +235,27 @@ impl DutyLog {
         self.segments = kept;
     }
 
+    /// Rewind the ledger to a restored save boundary, clipping an interval
+    /// that crosses it and dropping entries from the discarded future.
+    pub fn truncate_after(&mut self, end_hour: f64) {
+        if !end_hour.is_finite() {
+            return;
+        }
+        let mut kept = Vec::with_capacity(self.segments.len());
+        for mut segment in self.segments.drain(..) {
+            if segment.start_hour >= end_hour {
+                continue;
+            }
+            if segment.end_hour > end_hour {
+                segment.end_hour = end_hour;
+            }
+            if segment.end_hour > segment.start_hour {
+                kept.push(segment);
+            }
+        }
+        self.segments = kept;
+    }
+
     pub fn totals_since(&self, start_hour: f64, end_hour: f64) -> DutyTotals {
         let mut totals = DutyTotals::default();
         for segment in &self.segments {
@@ -284,5 +305,26 @@ impl DutyLog {
                 .unwrap_or(std::cmp::Ordering::Equal)
         });
         Self { segments }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn truncate_after_leaves_empty_logs_and_ignores_non_finite_boundaries() {
+        let mut empty = DutyLog::new();
+        empty.truncate_after(12.0);
+        assert!(empty.segments.is_empty());
+
+        let mut log = DutyLog::new();
+        log.record_exact("driving", 1.0, 2.0, "route", "");
+        let original = log.clone();
+
+        log.truncate_after(f64::NAN);
+        assert_eq!(log, original);
+        log.truncate_after(f64::INFINITY);
+        assert_eq!(log, original);
     }
 }

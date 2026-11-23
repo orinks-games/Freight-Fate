@@ -401,6 +401,7 @@ impl DrivingState {
         normalize_job_cities(&mut job, ctx.world);
         let position_mi = f(data, "position_mi", 0.0);
         let game_minutes = f(data, "game_minutes", 0.0);
+        let duty_log_boundary_hour = profile_of(ctx).game_hours + game_minutes / 60.0;
         // fair_active_deadline is a one-time compatibility floor, but it
         // used to run on every resume: a late run could buy hours simply by
         // saving at a stop and continuing. Snapshots now carry the deadline
@@ -697,6 +698,9 @@ impl DrivingState {
         state.turn_miss_count = i(data, "turn_miss_count", 0);
         state.lane.offset = f(data, "lane_offset", 0.0);
         state.lane.lane = i(data, "lane_index", 0).max(0);
+        profile_mut_of(ctx)
+            .duty_log
+            .truncate_after(duty_log_boundary_hour);
         Some(state)
     }
 }

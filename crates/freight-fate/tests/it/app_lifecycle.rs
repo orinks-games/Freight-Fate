@@ -6,6 +6,7 @@ use ff_core::app_lifecycle::{AppEvent, AppPlace};
 use ff_core::data::world::get_world;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
+use ff_core::sim::hos::{DutyLog, HosClock};
 use ff_core::sim::weather::WeatherKind;
 use freight_fate::app::share;
 use freight_fate::app::testing::TestApp;
@@ -15,6 +16,7 @@ use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_core::DRIVE_PHASE_DELIVERY;
 use freight_fate::states::driving_menu_states::DrivingStatusState;
 use freight_fate::states::driving_pause_states::PauseMenuState;
+use freight_fate::states::main_menu::world_entry_state;
 use serde_json::json;
 
 fn start_drive(app: &mut TestApp) -> SharedState {
@@ -179,6 +181,95 @@ fn the_background_saves_the_drive_and_coming_back_puts_the_stop_back() {
     );
     assert_eq!(app.ctx.profile.as_ref().unwrap().active_trip, Some(stop));
     assert_eq!(app.app_place(), AppPlace::Active);
+    app.shutdown();
+}
+
+#[test]
+fn foreground_restores_a_stop_snapshot_without_trimming_live_duty_rows() {
+    let mut app = TestApp::new();
+    let shared = start_drive(&mut app);
+    app.ctx.profile.as_mut().unwrap().game_hours = 100.0;
+    let stop = with_drive(&shared, |d| {
+        d.trip.game_minutes = 60.0;
+        d.snapshot(&app.ctx)
+    });
+    app.ctx.profile.as_mut().unwrap().active_trip = Some(stop.clone());
+    with_drive(&shared, |d| {
+        d.trip.game_minutes = 120.0;
+        d.trip.position_mi = 21.5;
+    });
+
+    let log = &mut app.ctx.profile.as_mut().unwrap().duty_log;
+    log.record_exact("driving", 101.0, 101.5, "route", "");
+    log.record_exact("off_duty", 101.5, 102.0, "rest stop", "30-minute break");
+
+    send(
+        &mut app,
+        &[AppEvent::WillResignActive, AppEvent::DidEnterBackground],
+    );
+
+    send(
+        &mut app,
+        &[AppEvent::WillEnterForeground, AppEvent::DidBecomeActive],
+    );
+
+    let profile = app.ctx.profile.as_mut().unwrap();
+    assert_eq!(profile.active_trip, Some(stop));
+    assert_eq!(profile.duty_log.segments.len(), 2);
+    assert_eq!(profile.duty_log.segments[0].end_hour, 101.5);
+    assert_eq!(profile.duty_log.segments[1].end_hour, 102.0);
+    assert_eq!(profile.duty_log.totals_since(101.0, 102.0).driving, 0.5);
+    assert_eq!(profile.duty_log.totals_since(101.0, 102.0).off_duty, 0.5);
+    with_drive(&shared, |d| {
+        assert_eq!(d.trip.game_minutes, 120.0);
+        assert_eq!(d.trip.position_mi, 21.5);
+    });
+    app.shutdown();
+}
+
+#[test]
+fn reloading_a_saved_stop_snapshot_trims_future_duty_rows_before_replay() {
+    let mut app = TestApp::new();
+    let shared = start_drive(&mut app);
+    app.ctx.profile.as_mut().unwrap().game_hours = 100.0;
+    app.ctx.profile.as_mut().unwrap().hos = HosClock::new();
+    let snapshot = with_drive(&shared, |d| {
+        d.trip.game_minutes = 60.0;
+        d.snapshot(&app.ctx)
+    });
+
+    let profile = app.ctx.profile.as_mut().unwrap();
+    profile.active_trip = Some(snapshot);
+    profile.duty_log = DutyLog::new();
+    profile
+        .duty_log
+        .record_exact("driving", 100.5, 101.25, "route", "");
+    profile
+        .duty_log
+        .record_exact("off_duty", 101.25, 102.0, "rest stop", "30-minute break");
+    let hos_before = profile.hos.clone();
+
+    let resumed = world_entry_state(&mut app.ctx, false);
+    {
+        let resumed = resumed.borrow();
+        let resumed = resumed.as_any().downcast_ref::<DrivingState>().unwrap();
+        assert_eq!(resumed.trip.game_minutes, 60.0);
+    }
+
+    let profile = app.ctx.profile.as_mut().unwrap();
+    assert_eq!(profile.hos, hos_before);
+    assert_eq!(profile.duty_log.segments.len(), 1);
+    assert_eq!(profile.duty_log.segments[0].end_hour, 101.0);
+    assert_eq!(profile.duty_log.current_status(), "driving");
+    profile
+        .duty_log
+        .record_exact("off_duty", 101.0, 101.5, "rest stop", "30-minute break");
+    profile
+        .duty_log
+        .record_exact("off_duty", 101.0, 101.5, "rest stop", "30-minute break");
+    assert_eq!(profile.duty_log.segments.len(), 2);
+    assert_eq!(profile.duty_log.totals_since(101.0, 101.5).off_duty, 0.5);
+    assert_eq!(profile.duty_log.current_status(), "off_duty");
     app.shutdown();
 }
 
