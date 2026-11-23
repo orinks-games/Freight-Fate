@@ -76,6 +76,7 @@
 
 ### Changed
 
+- **Gearshifts and diesel turbocharger cues now use real vehicle recordings instead of synthesized sounds.** Shift clunks and turbo spool sit inside the recorded diesel engine.
 - **Bridge crossings now play a concrete deck bed, recorded steel-grate hum, and clearer water ambience.** Grooved concrete and highway seams now use recorded bumps and textured tire hum.
 
 - **Slick roads, high crosswinds, and tight ramps now trigger ABS, wheelspin, trailer sway, and off-tracking.** Automatic shifts also hold lower gears longer on downgrades.
