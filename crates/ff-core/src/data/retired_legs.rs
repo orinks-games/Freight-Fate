@@ -123,6 +123,23 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
             "cleveland_oh_us",
         ],
     ),
+    // Upper Midwest and Northern Plains missing roads (2026-11-23): legs
+    // split at a city they pass.
+    (
+        "hibbing_mn_us",
+        "minneapolis_mn_us",
+        &["hibbing_mn_us", "grand_rapids_mn_us", "minneapolis_mn_us"],
+    ),
+    (
+        "mankato_mn_us",
+        "rochester_mn_us",
+        &["mankato_mn_us", "owatonna_mn_us", "rochester_mn_us"],
+    ),
+    (
+        "des_moines_ia_us",
+        "chicago_il_us",
+        &["des_moines_ia_us", "aurora_il_us", "chicago_il_us"],
+    ),
 ];
 
 /// The replacement chain for a retired hop `a` to `b`, in travel order.
