@@ -6545,6 +6545,14 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) CA 138 between Lancaster and Valencia (decision
       10) is left undone: the leg would be 284 miles; a junction town on CA
       138 would fix it.
+- [ ] (Found along the way) A trip whose last leg leaves a freeway and runs
+      on a two-lane road to the town can end at the freeway exit, up to 25
+      miles short: the destination exit is the last exit within 25 miles of
+      the end. 120 of 3,558 single-leg trips end over 8 miles short (6 of
+      them new here: Casa Grande to Globe 24, Barstow and Blythe to Bullhead
+      City 23, Salinas to Merced 25, Yuma to Buckeye 16, Chico to Willits
+      14). The fix is a rule for when the surface road after an exit is
+      still the highway, not town streets.
 - [ ] (Found along the way) 14 pairs within 150 miles are still well over
       their road, mostly central Nevada around Austin, Eureka and Alamo
       (their roads fail the road screen) and Payson to Globe and Holbrook.
