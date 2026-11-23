@@ -300,7 +300,10 @@ pub struct DrivingState {
     // engages at whatever stage was last chosen. Full retard by default
     // -- the setting every driver leaves it on until ice says otherwise.
     pub jake_selected_stage: i32,
-    pub chains_fast_active: bool, // spoken chains-over-speed warning edge tracking
+    /// Over chain speed since the last time back at or under it: the
+    /// "Too fast for chains." onset, and how many onsets this drive.
+    pub chains_fast_active: bool,
+    pub chains_fast_onsets: u32,
     /// The cruise and keeper set speeds held down to chain speed while the
     /// chains are on, given back when they come off (`apply_chain_speed_cap`).
     pub chain_cap_cruise_mph: Option<f64>,

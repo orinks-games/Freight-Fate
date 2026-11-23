@@ -636,18 +636,29 @@ impl DrivingState {
                 );
             }
         }
-        let chains_fast =
-            self.trip.truck.chains_on && self.trip.truck.speed_mph() > CHAIN_OVERSPEED_MPH;
-        if chains_fast && !self.chains_fast_active {
+        // An onset is passing chain speed's overspeed number after having
+        // been back at or under chain speed. Each onset is its own line to
+        // the ladder: as one Coaching tip said once per leg, every onset
+        // after the first was dropped as already said, and the chains wore
+        // at the overspeed rate with nothing spoken (brief 3's drive,
+        // 2026-11-23). The ladder still rules every other line as before.
+        let mph = self.trip.truck.speed_mph();
+        let chains_on = self.trip.truck.chains_on;
+        if chains_on && mph > CHAIN_OVERSPEED_MPH && !self.chains_fast_active {
+            self.chains_fast_active = true;
+            self.chains_fast_onsets += 1;
             ctx.say_event_with(
                 format!(
                     "Too fast for chains. Keep under {}.",
                     ctx.settings.speed_text(CHAIN_SAFE_MPH)
                 ),
-                SayEvent::new().category(SpeechCategory::Coaching),
+                SayEvent::new()
+                    .category(SpeechCategory::Coaching)
+                    .key(&format!("chains_fast:{}", self.chains_fast_onsets)),
             );
+        } else if !chains_on || mph <= CHAIN_SAFE_MPH {
+            self.chains_fast_active = false;
         }
-        self.chains_fast_active = chains_fast;
     }
 
     /// Stop planning's no-chains reminder: before a chain-law area where the

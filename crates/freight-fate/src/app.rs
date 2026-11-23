@@ -300,6 +300,13 @@ pub struct DrivingObservation {
     pub chain_stop: Option<ff_core::sim::chain_work::ChainStopKind>,
     /// The set's wear in percent.
     pub chain_wear_pct: f64,
+    /// The air supply in psi, the service brake demand (0 to 1), and
+    /// whether cruise is snubbing the drums now.
+    pub air_psi: f64,
+    pub brake: f64,
+    pub cruise_snubbing: bool,
+    /// The engine brake stage now (0 is off).
+    pub jake_stage: i32,
     /// The lane the truck is in, by its spoken name, and whether a stick or
     /// a tilt has asked for one lane and not come back yet.
     pub lane: &'static str,
@@ -1068,6 +1075,10 @@ impl App {
             chain_worker: drive.chain_worker(&self.ctx),
             chain_stop: drive.chain_stop.as_ref().map(|stop| stop.kind),
             chain_wear_pct: drive.trip.truck.chain_wear_pct,
+            air_psi: drive.trip.truck.air_pressure_psi(),
+            brake: drive.trip.truck.brake,
+            cruise_snubbing: drive.cruise_snubbing,
+            jake_stage: drive.trip.truck.engine_brake_stage,
             lane: drive.lane.lane_name(),
             lane_push: drive.lane_push,
         })

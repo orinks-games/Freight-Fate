@@ -237,6 +237,7 @@ mod synth_music;
 mod transcript_announcements;
 mod transcript_career_arc_playtest;
 mod transcript_career_stats;
+mod transcript_chain_speed_hold;
 mod transcript_chain_wear;
 mod transcript_city_services;
 mod transcript_cruise_resume_ramp;

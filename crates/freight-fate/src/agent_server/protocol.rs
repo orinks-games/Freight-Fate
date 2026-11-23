@@ -333,7 +333,9 @@ fn tools_list() -> Value {
              or co_driver: who does the chain work, whoever holds the wheel) and \
              chain_stop (none, install, remove, tighten or repair: the roadside \
              chain stop the assist or the co-driver is making), chain_wear (the set's \
-             wear in percent, at the truck's exact speed in mph), and app (active, inactive or \
+             wear in percent, at the truck's exact speed in mph), air (the air supply in psi), \
+             brake (the service brake demand, 0 to 1, with \"cruise snubbing\" while \
+             cruise holds the drums on), jake (the engine brake stage, 0 for off), and app (active, inactive or \
              background: where a phone app is, moved by app_event, with \
              sound_taken after it while an interruption holds the sound). \
              Off the wheel the \

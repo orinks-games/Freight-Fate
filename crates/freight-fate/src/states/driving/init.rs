@@ -426,6 +426,7 @@ impl DrivingState {
             jake_slip_active: false,
             jake_selected_stage: JAKE_STAGES,
             chains_fast_active: false,
+            chains_fast_onsets: 0,
             chain_cap_cruise_mph: None,
             chain_cap_keeper_mph: None,
             chain_cap_said: false,
