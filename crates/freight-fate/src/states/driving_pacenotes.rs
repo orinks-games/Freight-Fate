@@ -31,13 +31,25 @@ use crate::states::driving_updates::live;
 pub struct CurveStillTrue {
     start_mi: f64,
     floor_mph: f64,
+    /// A sharp or hairpin bend, whose call is judged on the speed the truck
+    /// will bring to it (`Trip::next_curve_approach`).
+    sharp: bool,
 }
 
 impl CurveStillTrue {
     /// The bend still ahead, and the truck still carrying more speed than it
     /// advises.
     pub fn holds(&self) -> bool {
-        live::position_mi() < self.start_mi && live::speed_mph() > self.floor_mph
+        let ahead = self.start_mi - live::position_mi();
+        if ahead <= 0.0 {
+            return false;
+        }
+        let speed = if self.sharp {
+            live::approach_speed_mph(ahead)
+        } else {
+            live::speed_mph()
+        };
+        speed > self.floor_mph
     }
 }
 
@@ -162,6 +174,7 @@ impl DrivingState {
             start_mi: curve.start_mi,
             floor_mph: (curve.advisory_mph as f64 + PACENOTE_MARGIN_MPH)
                 .min(self.trip.bend_costs_above_mph(curve)),
+            sharp: matches!(curve.severity(), "sharp" | "hairpin"),
         })
     }
 

@@ -245,7 +245,9 @@ pub fn read_leg_geometry(world_data: &Path) -> Vec<String> {
 
 /// The `"leg": "..."` value of an archive line, without parsing the rest.
 fn leg_name_in(line: &str) -> Option<&str> {
-    let start = line.find("\"leg\": \"")? + "\"leg\": \"".len();
+    const KEY: &str = "\"leg\":";
+    let after = &line[line.find(KEY)? + KEY.len()..];
+    let start = line.len() - after.trim_start().strip_prefix('"')?.len();
     let len = line[start..].find('"')?;
     Some(&line[start..start + len])
 }

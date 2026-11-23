@@ -291,6 +291,8 @@ pub mod live {
         static RAMP_HOLDING: Cell<bool> = const { Cell::new(false) };
         static EXIT_SIGNAL_ON: Cell<bool> = const { Cell::new(false) };
         static MOVE_LOCKOUT: Cell<u8> = const { Cell::new(0) };
+        static GAINING_MPH_PER_S: Cell<f64> = const { Cell::new(0.0) };
+        static SPEED_TARGET_MPH: Cell<Option<f64>> = const { Cell::new(None) };
     }
 
     /// What is stopping the truck moving under its own throttle, if
@@ -361,6 +363,26 @@ pub mod live {
 
     pub fn exit_signal_on() -> bool {
         EXIT_SIGNAL_ON.with(|cell| cell.get())
+    }
+
+    /// How fast the truck is gaining, and the speed cruise or the keeper is
+    /// taking it to: a sharp bend's queued call is still true while the
+    /// truck will bring more than the bend's number to it, though it is
+    /// still under that number now.
+    pub fn set_gaining(mph_per_s: f64, target_mph: Option<f64>) {
+        GAINING_MPH_PER_S.with(|cell| cell.set(mph_per_s));
+        SPEED_TARGET_MPH.with(|cell| cell.set(target_mph));
+    }
+
+    /// The speed the truck will bring to a bend `ahead_mi` up the road
+    /// (`ff_core::sim::bend_approach`).
+    pub fn approach_speed_mph(ahead_mi: f64) -> f64 {
+        ff_core::sim::bend_approach::bend_approach_speed_mph(
+            speed_mph(),
+            GAINING_MPH_PER_S.with(|cell| cell.get()),
+            ahead_mi,
+            SPEED_TARGET_MPH.with(|cell| cell.get()),
+        )
     }
 
     pub fn set_overspeed_active(value: bool) {

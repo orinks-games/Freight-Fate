@@ -26,6 +26,7 @@
 - **The chain law call no longer says "ahead".**
 - **A stop with a full lot at night still offers the 30-minute break and Save at this stop.** Only sleeping there is turned away.
 - **Sharp bend calls no longer come on straight road where a divided highway narrows to one road.**
+- **A sharp bend is called in time when cruise is still bringing the truck up to speed.** Pulling away from a yard, the first word of it used to be "too fast", already in the bend.
 
 ### Changed
 

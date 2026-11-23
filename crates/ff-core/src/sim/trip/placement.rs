@@ -774,6 +774,17 @@ impl Trip {
         ((advisory + margin).min(costs), advisory.min(costs))
     }
 
+    /// The speed the truck will carry into a bend `ahead_mi` up the road
+    /// ([`crate::sim::bend_approach::bend_approach_speed_mph`] on the truck as it is now).
+    pub fn approach_speed_mph(&self, ahead_mi: f64) -> f64 {
+        crate::sim::bend_approach::bend_approach_speed_mph(
+            self.truck.speed_mph(),
+            self.truck.net_accel_mph_per_s(),
+            ahead_mi,
+            self.speed_control_target_mph,
+        )
+    }
+
     /// The next curve ahead that deserves a spoken approach warning and has
     /// not had it.
     ///
@@ -784,7 +795,6 @@ impl Trip {
     /// called bends ahead of it masked it until the truck was in it (bend
     /// sweep, 2026-09-24).
     pub fn next_curve_approach(&self) -> Option<RouteCurve> {
-        let speed = self.truck.speed_mph();
         for cr in &self.curves {
             let ahead = cr.start_mi - self.position_mi;
             if ahead <= 0.0 {
@@ -796,6 +806,15 @@ impl Trip {
             if cr.connector || self.curve_called(cr) {
                 continue;
             }
+            // A sharp bend is judged on the speed the truck will bring to
+            // it; a gentler one on the speed now, so a truck pulling away
+            // from a stop is not held back for a sweep it may never reach
+            // the call speed for.
+            let speed = if matches!(cr.severity(), "sharp" | "hairpin") {
+                self.approach_speed_mph(ahead)
+            } else {
+                self.truck.speed_mph()
+            };
             let (call_above, target) = self.curve_call_mph(cr);
             if speed <= call_above {
                 continue;
