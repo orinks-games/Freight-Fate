@@ -11,6 +11,10 @@
 //! The Florida and Georgia roads (2026-11-22) split West Palm Beach to Palm
 //! Bay (110 miles), which passed Port Saint Lucie 1.2 miles off: 51 miles on
 //! Florida's Turnpike, then the existing 65-mile leg on I-95.
+//!
+//! The Alabama, Mississippi and South Carolina roads (2026-11-23) split
+//! Jackson to Baton Rouge (175 miles of I-55 and I-12) at Hammond: 133 miles
+//! on I-55, then the existing 50-mile leg on I-12.
 
 use ff_core::models::profile::Profile;
 use freight_fate::app::testing::TestApp;
@@ -135,4 +139,22 @@ fn a_save_on_the_old_west_palm_beach_leg_resumes_on_the_port_saint_lucie_chain()
         ]
     );
     assert_eq!(drive.trip.position_mi, 80.0);
+}
+
+#[test]
+fn a_save_on_the_old_jackson_to_baton_rouge_leg_resumes_on_the_hammond_chain() {
+    // 90 miles in is on I-55, short of Hammond.
+    let app = resume("jackson_ms_us", "baton_rouge_la_us", 175.0, 90.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        ["jackson_ms_us", "hammond_la_us", "baton_rouge_la_us"]
+    );
+    assert_eq!(drive.trip.position_mi, 90.0);
 }
