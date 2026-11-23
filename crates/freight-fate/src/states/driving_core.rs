@@ -19,6 +19,7 @@
 //! `DriveMusicRoute` / `RadioRoute`) are newtypes here, because the orphan
 //! rule forbids implementing a foreign trait for a foreign type.
 
+pub mod assist_cues;
 pub mod constants;
 pub mod siren;
 mod state_helpers;

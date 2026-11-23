@@ -15,6 +15,10 @@
 
 ### Added
 
+- **Predictive cruise now prepares the jake brake before crests and downgrades.** It also resumes smoothly out of work zones and green lights.
+- **Steering toward an occupied lane now plays a directional blind-spot chirp.** On All assists, a tap signals, waits for a gap, and glides over.
+- **Driving assistance settings now let you set Steering assist and Speed assist independently.** Existing presets still work, and saved settings carry over.
+- **Assist handoffs now play short tones** when speed keeper locks onto traffic, curve assistance brakes, or lane keeping drops out on snow.
 - **The map now reaches Alaska,** from Tok and Fairbanks to Deadhorse, Anchorage, the Kenai Peninsula and Valdez, with real freight sites and highways.
 - **Skagway and Haines cross into the Yukon,** and Whittier is reached through the Anton Anderson Memorial Tunnel, with its one-lane gate and toll.
 - **Alaska's spring weight limits now apply.** From April to mid-June, offers on thawing highways carry lighter loads and name the road.

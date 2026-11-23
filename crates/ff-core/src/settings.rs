@@ -43,7 +43,9 @@ pub mod paths;
 pub use touch::{DEEP_SWIPE_MAX_POINTS, DEEP_SWIPE_MIN_POINTS, DEEP_SWIPE_STEP_POINTS};
 mod touch;
 mod units;
-pub use assists::AssistStash;
+pub use assists::{
+    AssistStash, SpeedAssistMode, SteeringAssistMode, SPEED_ASSIST_MODES, STEERING_ASSIST_MODES,
+};
 #[cfg(test)]
 mod tests;
 
@@ -505,6 +507,13 @@ settings_fields! {
     /// the truth about the ruleset it is running -- the whole point of the
     /// 2026-08-09 ruling.
     driving_assistance_preset: String = "all" => str_checked,
+    /// Independent steering-assist toggle ("manual", "partial", "full", or
+    /// "custom" when individual steering rows diverge). Lets players pair
+    /// lane-centering with manual speed/jake braking, or vice versa.
+    steering_assist_mode: String = "full" => str_checked,
+    /// Independent speed-assist toggle ("manual", "light", "standard",
+    /// "strong", or "custom" when individual speed rows diverge).
+    speed_assist_mode: String = "strong" => str_checked,
     automatic_emergency_braking: bool = true => bool_strict,
     lane_departure_warning: bool = true => bool_strict,
     stop_and_go_assist: bool = true => bool_strict,

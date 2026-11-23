@@ -129,6 +129,18 @@ fn scenario_properties() -> Value {
     properties["trailer_sway"] =
         json!({"type": "string", "enum": ["steady", "swaying", "off_tracking"]});
     properties["mirror_glance"] = json!({"type": "string", "enum": ["forward", "left", "right"]});
+    properties["predictive_cruise"] = json!({
+        "type": "string",
+        "enum": ["cruising", "building_for_climb", "holding_crest", "jake_anticipating", "resuming_smooth"]
+    });
+    properties["assisted_lane_change"] = json!({
+        "type": "string",
+        "enum": ["idle", "blind_spot_left", "blind_spot_right", "waiting_for_gap_left", "waiting_for_gap_right", "gliding_left", "gliding_right"]
+    });
+    properties["lane_keep_availability"] = json!({
+        "type": "string",
+        "enum": ["off", "active", "dropped_out_snow"]
+    });
     properties
 }
 

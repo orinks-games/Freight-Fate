@@ -502,6 +502,8 @@ impl Settings {
         }
         if data.is_none_or(|data| data.contains_key("driving_assistance_preset")) {
             s.refresh_driving_assistance_preset();
+        } else {
+            s.refresh_assist_modes();
         }
         if !["simple", "deliberate"].contains(&s.automatic_direction_changes.as_str()) {
             s.automatic_direction_changes = "simple".to_string();

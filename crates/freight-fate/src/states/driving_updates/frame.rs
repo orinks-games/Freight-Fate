@@ -505,6 +505,8 @@ impl DrivingState {
         self.trip.traffic_manager.player_signal_lane = if let Some(target) = self.lane_change_target
         {
             Some(target)
+        } else if let Some((target, _)) = self.assisted_lane_change.waiting_target() {
+            Some(target)
         } else if self.exit_blinker_on() && self.lane.lane > 0 {
             Some(self.lane.lane - 1)
         } else if self.lane.steering < -0.25 && self.lane.lane + 1 < self.lane.lane_count {

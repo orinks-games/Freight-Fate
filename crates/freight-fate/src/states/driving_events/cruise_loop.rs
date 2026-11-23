@@ -721,6 +721,17 @@ impl DrivingState {
             // news again.
             self.acc_weather_cap_said = None;
         }
+        // Smoothly resume out of highway work zones instead of surging to set speed.
+        let in_work_zone = self.trip.lowered_limit_reason() == "work zone";
+        if self.last_zone_was_work_zone && !in_work_zone {
+            self.predictive_cruise = self.predictive_cruise.next(
+                ff_core::sim::predictive_cruise::PredictiveCruiseEvent::TriggerSmoothResume {
+                    target_mph: set_mph,
+                },
+            );
+        }
+        self.last_zone_was_work_zone = in_work_zone;
+
         // The preview goes on last so it can only ever move the number the
         // caps already agreed on, and it is clamped against the posted cap:
         // banking momentum for a hill must never bank it past the limit.
@@ -734,6 +745,50 @@ impl DrivingState {
             target_mph = applied;
         }
         self.track_predictive_cruise(delta, reason);
+        let pcc_stalk_open =
+            ctx.settings.descent_speed_control != "off" && self.assist_jake_allowed(ctx);
+        let pcc_ceiling = JAKE_STAGES.min(0.max(self.auto_jake_max_stage()));
+        if ctx.settings.predictive_cruise {
+            let preview_grade = self.preview_grade_ahead().map(|(g, _)| g).unwrap_or(0.0);
+            let climb_ahead = preview_grade.max(0.0);
+            let descent_ahead = preview_grade.min(0.0);
+            let crest_preview = if self.trip.truck.grade > 0.01 && descent_ahead < 0.0 {
+                descent_ahead
+            } else {
+                0.0
+            };
+            let jake_warranted_or_steep = self.retarder_warranted()
+                || self.descent_safe_mph.is_some()
+                || descent_ahead <= -ff_core::sim::predictive_cruise::JAKE_ANTICIPATE_STEEP_GRADE;
+            self.predictive_cruise = self.predictive_cruise.next(
+                ff_core::sim::predictive_cruise::PredictiveCruiseEvent::Update {
+                    speed_mph: self.trip.truck.speed_mph(),
+                    target_mph,
+                    grade_here: self.trip.truck.grade,
+                    climb_ahead,
+                    descent_ahead,
+                    crest_preview,
+                    jake_available: pcc_stalk_open && jake_warranted_or_steep,
+                    jake_ceiling: pcc_ceiling,
+                },
+            );
+            if let ff_core::sim::predictive_cruise::PredictiveCruiseState::ResumingSmooth {
+                ramp_mph_per_s,
+                ..
+            } = self.predictive_cruise
+            {
+                let floor = self
+                    .cruise_working_mph
+                    .unwrap_or_else(|| self.trip.truck.speed_mph());
+                let ramped = (floor + ramp_mph_per_s * dt).min(target_mph);
+                self.cruise_working_mph = Some(ramped);
+                target_mph = target_mph.min(ramped);
+            }
+        } else {
+            self.predictive_cruise = self
+                .predictive_cruise
+                .next(ff_core::sim::predictive_cruise::PredictiveCruiseEvent::Disengaged);
+        }
         let context = self.trip.traffic_context();
         let mut following = false;
         if let Some(context) = context.as_ref() {
@@ -1146,13 +1201,22 @@ impl DrivingState {
                 .descent_safe_mph
                 .is_some_and(|safe| speed_now > safe + CRUISE_JAKE_OVER_MPH);
         let steep_hill = (may_retard && self.descent_safe_mph.is_some()) || over_hill_number;
+        let anticipated_jake = if stalk_open && over > -1.0 {
+            self.predictive_cruise.anticipated_jake_stage().min(ceiling)
+        } else {
+            0
+        };
         let mut wanted = current;
-        if !still_a_grade {
+        if !still_a_grade && anticipated_jake == 0 {
             wanted = 0;
+        } else if !still_a_grade && anticipated_jake > 0 {
+            wanted = current.max(anticipated_jake);
         } else if steep_hill {
             wanted = ceiling;
         } else if may_retard && over > CRUISE_JAKE_OVER_MPH && !slowing {
             wanted = current + 1;
+        } else if may_retard && anticipated_jake > current && over > 0.25 && !slowing {
+            wanted = anticipated_jake;
         } else if over < -CRUISE_JAKE_UNDER_MPH && self.descent_safe_mph.is_none() {
             // Not with a steep pitch in sight: the easier quarter mile
             // between two of them is not the bottom of the hill, and a

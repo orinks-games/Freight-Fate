@@ -444,10 +444,80 @@ impl DrivingState {
             grip,
             bank,
         };
+        // Evaluate snow/ice lane-keep availability before running the lane
+        // controller: on snow-covered northern roads with low grip, lane
+        // keeping drops out with a short non-verbal earcon instead of crowding
+        // speech.
+        let prev_lk = self.lane_keep_availability;
+        let snow_covered = matches!(
+            self.trip.weather.current,
+            ff_core::sim::weather::WeatherKind::Snow | ff_core::sim::weather::WeatherKind::Ice
+        ) && grip < 0.72;
+        self.lane_keep_availability = self.lane_keep_availability.next(
+            ff_core::sim::lane_keep_status::LaneKeepStatusEvent::Evaluate {
+                enabled: mode != "off",
+                snow_covered,
+            },
+        );
+        if ff_core::sim::lane_keep_status::LaneKeepAvailability::dropped_out_from(
+            prev_lk,
+            self.lane_keep_availability,
+        ) {
+            ctx.audio.play(assist_cues::LANE_KEEP_DROPOUT_KEY);
+        }
+        let effective_mode = if self.lane_keep_availability.is_dropped_out() {
+            "off"
+        } else {
+            mode.as_str()
+        };
         // The turn a hold toward follows the road for, from its call on
         // (`hold_turn_side`, `LaneKeeping::turn_in_play`).
         self.lane.turn_in_play = self.hold_turn_side();
-        let off_road_event = self.lane.update(dt, speed_mps, road, &mode, takes_the_bend);
+        let off_road_event = self
+            .lane
+            .update(dt, speed_mps, road, effective_mode, takes_the_bend);
+        // Active blind-spot warning on Balanced/All when steering toward an
+        // occupied adjacent lane.
+        if (mode == "partial" || mode == "full")
+            && self.lane_change_target.is_none()
+            && self.assisted_lane_change.waiting_target().is_none()
+            && self.ramp_mi.is_none()
+            && self.trip.truck.speed_mph() >= LANE_MIN_MPH
+        {
+            let steer_dir = if self.lane.steering < -0.25 {
+                Some(1i64)
+            } else if self.lane.steering > 0.25 {
+                Some(-1i64)
+            } else {
+                None
+            };
+            if let Some(dir) = steer_dir {
+                let adj = self.lane.lane + dir;
+                if (0..self.lane.lane_count).contains(&adj) && self.lane_blocked_text(adj).is_some()
+                {
+                    if let Some(side) =
+                        ff_core::sim::lane_change_assist::BlindSpotSide::from_direction(dir)
+                    {
+                        let was_idle = matches!(
+                            self.assisted_lane_change,
+                            ff_core::sim::lane_change_assist::AssistedLaneChange::Idle
+                        );
+                        self.assisted_lane_change = self.assisted_lane_change.next(
+                            ff_core::sim::lane_change_assist::LaneChangeAssistEvent::BlindSpotDetected {
+                                side,
+                            },
+                        );
+                        if was_idle {
+                            ctx.audio.play_with(
+                                assist_cues::BLIND_SPOT_CHIRP_KEY,
+                                0.85,
+                                side.pan(),
+                            );
+                        }
+                    }
+                }
+            }
+        }
         self.rear_trailer_whip(ctx, dt);
         self.single_trailer_stability(ctx, dt, road.curvature, wind);
         if off_road_event {
@@ -483,7 +553,84 @@ impl DrivingState {
 
     /// Advance an assist-off tap change: signal clicks, then the flip.
     pub fn update_tap_lane_change(&mut self, ctx: &mut GameContext, dt: f64) {
+        // Assisted lane change waiting for a safe gap (All assists): keep the
+        // turn signal active so PR #789 courtesy yielding opens a gap, then
+        // glide smoothly into the target lane as soon as it clears.
+        if let Some((wait_target, _)) = self.assisted_lane_change.waiting_target() {
+            let clamped = wait_target.min(self.lane.lane_count - 1);
+            if self.ramp_mi.is_some() || clamped == self.lane.lane {
+                self.assisted_lane_change = self
+                    .assisted_lane_change
+                    .next(ff_core::sim::lane_change_assist::LaneChangeAssistEvent::Cancel);
+                if !self.exit_blinker_on() {
+                    ctx.audio.release_cue("vehicle/turn_signal");
+                }
+                return;
+            }
+            let pan = if clamped > self.lane.lane { -0.6 } else { 0.6 };
+            if !self.exit_blinker_on() {
+                ctx.audio.update_cue("vehicle/turn_signal", 0.8, pan);
+            }
+            self.lane_signal_timer += dt;
+            if self.lane_signal_timer >= LANE_SIGNAL_CLICK_S {
+                self.lane_signal_timer = 0.0;
+                if !self.exit_blinker_on() {
+                    ctx.audio.play_if_idle("vehicle/turn_signal", 0.8, pan);
+                }
+            }
+            let gap_open = self.lane_gap_open(clamped) && Some(clamped) != self.closed_lane_here();
+            let next_state = self.assisted_lane_change.next(
+                ff_core::sim::lane_change_assist::LaneChangeAssistEvent::Tick {
+                    dt,
+                    gap_open,
+                    blind_spot_occupied: !gap_open,
+                    glide_complete: false,
+                },
+            );
+            self.assisted_lane_change = next_state;
+            match next_state {
+                ff_core::sim::lane_change_assist::AssistedLaneChange::Gliding {
+                    target_lane,
+                    ..
+                } => {
+                    self.lane_change_target = Some(target_lane);
+                    self.pass_returning = false;
+                    self.keeping_lane_change = false;
+                    self.lane_change_timer = LANE_TAP_CHANGE_S;
+                    self.lane_signal_timer = 0.0;
+                    ctx.say_event_with(
+                        format!(
+                            "Gap open. Gliding to the {} lane.",
+                            lane_label(target_lane, self.lane.lane_count)
+                        ),
+                        SayEvent::queued().category(SpeechCategory::Confirmation),
+                    );
+                }
+                ff_core::sim::lane_change_assist::AssistedLaneChange::Idle => {
+                    if !self.exit_blinker_on() {
+                        ctx.audio.release_cue("vehicle/turn_signal");
+                    }
+                    ctx.say_event_with(
+                        format!(
+                            "No gap opened. Staying in the {} lane.",
+                            self.lane.lane_name()
+                        ),
+                        SayEvent::queued().category(SpeechCategory::Status),
+                    );
+                }
+                _ => {}
+            }
+            return;
+        }
         let Some(mut target) = self.lane_change_target else {
+            self.assisted_lane_change = self.assisted_lane_change.next(
+                ff_core::sim::lane_change_assist::LaneChangeAssistEvent::Tick {
+                    dt,
+                    gap_open: true,
+                    blind_spot_occupied: false,
+                    glide_complete: true,
+                },
+            );
             if !self.steer_cue_active && !self.exit_blinker_on() {
                 ctx.audio.release_cue("vehicle/turn_signal");
             }
@@ -530,6 +677,14 @@ impl DrivingState {
                 return;
             }
             self.lane.lane = target;
+            self.assisted_lane_change = self.assisted_lane_change.next(
+                ff_core::sim::lane_change_assist::LaneChangeAssistEvent::Tick {
+                    dt: 0.0,
+                    gap_open: true,
+                    blind_spot_occupied: false,
+                    glide_complete: true,
+                },
+            );
             // The tap change crosses the same painted line: same marker roll.
             let volume = 1.0f64.min(0.7 * self.cue_loudness(ctx));
             ctx.audio.play_with("vehicle/lane_line_cross", volume, pan);

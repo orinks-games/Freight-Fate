@@ -381,7 +381,7 @@ fn fatigue_state_line(
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
          rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; recognizer {recognizer}; road_offer {}; \
-         touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; tire song {}; structure {}; chain_control {}; chains {}; abs {}; drive_traction {}; trailer_sway {}; mirror_glance {}; app {}.",
+         touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; tire song {}; structure {}; chain_control {}; chains {}; abs {}; drive_traction {}; trailer_sway {}; mirror_glance {}; predictive_cruise {}; assisted_lane_change {}; lane_keep_availability {}; app {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -409,6 +409,9 @@ fn fatigue_state_line(
         o.drive_traction.label(),
         o.trailer_sway.label(),
         o.mirror_glance.label(),
+        o.predictive_cruise.key(),
+        o.assisted_lane_change.key(),
+        o.lane_keep_availability.key(),
         place.key()
     )
 }

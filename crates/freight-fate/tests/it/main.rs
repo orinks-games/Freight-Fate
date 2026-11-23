@@ -121,6 +121,7 @@ mod states_driving_alertness;
 mod states_driving_approach_sweep;
 mod states_driving_armed_exit_readout;
 mod states_driving_arrival_gate;
+mod states_driving_assistance_pr3;
 mod states_driving_bend_rollover_sweep;
 mod states_driving_billboard_moment;
 mod states_driving_border;

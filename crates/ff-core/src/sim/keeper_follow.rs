@@ -61,6 +61,18 @@ impl KeeperFollow {
     pub fn following(&self) -> bool {
         matches!(self, KeeperFollow::Following { .. })
     }
+
+    /// True when the transition freshly locked onto a lead (`Free -> Following`)
+    /// or switched to a different lead vehicle.
+    pub fn locked_on_from(previous: &KeeperFollow, current: &KeeperFollow) -> bool {
+        match (previous, current) {
+            (KeeperFollow::Free, KeeperFollow::Following { .. }) => true,
+            (KeeperFollow::Following { lead: prev }, KeeperFollow::Following { lead: cur }) => {
+                prev != cur
+            }
+            _ => false,
+        }
+    }
 }
 
 #[cfg(test)]

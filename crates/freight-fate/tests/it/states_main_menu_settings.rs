@@ -226,6 +226,8 @@ fn gameplay_subcategory_rows(category: &str) -> &'static [&'static str] {
     match category {
         "assistance" => &[
             "Driving assistance preset",
+            "Steering assist",
+            "Speed assist",
             "Automatic emergency braking",
             "Lane-departure warning",
             "Stop-and-go assistance",
@@ -771,6 +773,8 @@ fn test_driving_assistance_preset_keyboard_path_and_custom_transition() {
     assert_eq!(app.ctx.settings.time_scale, 10.0);
     assert_eq!(app.ctx.settings.hos_mode, "realistic");
     key(&mut app, Key::Down);
+    key(&mut app, Key::Down);
+    key(&mut app, Key::Down);
     key(&mut app, Key::Return);
     assert_eq!(app.ctx.settings.driving_assistance_preset, "custom");
     assert_eq!(labels::<Cat>(&app)[0], "Driving assistance preset: Custom");
@@ -792,12 +796,14 @@ fn test_driving_assistance_preset_keyboard_path_and_custom_transition() {
     );
     key(&mut app, Key::Right);
     assert_eq!(app.ctx.settings.driving_assistance_preset, "realistic");
-    assert_eq!(original_index, 1);
+    assert_eq!(original_index, 3);
 
     // A toggle that lands on Custom queues the preset note after the
     // spoken on/off state instead of interrupting it, and later toggles
     // while already Custom do not repeat the note.
     app.clear_speech();
+    key(&mut app, Key::Down);
+    key(&mut app, Key::Down);
     key(&mut app, Key::Down);
     key(&mut app, Key::Return);
     assert_eq!(app.ctx.settings.driving_assistance_preset, "custom");
