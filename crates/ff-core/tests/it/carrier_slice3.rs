@@ -91,9 +91,9 @@ fn test_every_lower_48_city_is_hired_into() {
             missing_regional.push(city.clone());
         }
     }
-    assert_eq!(by_any, 634);
+    assert_eq!(by_any, 638);
     assert_eq!(
-        by_regional, 634,
+        by_regional, 638,
         "no regional hires in {missing_regional:?}"
     );
 }
