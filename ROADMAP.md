@@ -6568,9 +6568,10 @@ a carrier slice (owner, 2026-10-26).
       Johnsbury, the Throgs Neck Bridge on Riverhead to New York, the Tobin
       Bridge, the Pell Bridge on Newport to New London, and a Thruway
       reading for exit 17 to replace the estimated fares.
-- [ ] (Found along the way) Two chains run longer than the leg they
-      replaced: Allentown to Baltimore by 16 miles and New York to Albany by
-      14. Saves resume at the same mile, so the remaining distance grows.
+- Two chains run longer than the legs they replaced, and they are right:
+      Allentown to Baltimore by 16 miles and New York to Albany by 14 (the
+      Thruway puts exit 17 at mile 60 and exit 24 at mile 148, before the
+      Bronx). The old legs were short; do not shorten the chains.
 - [ ] (Found along the way) Gaps of 52 to 65 miles with no truck stop:
       Elmira to Jamestown, Newburgh to Binghamton, Altoona to Cumberland,
       Plattsburgh to Watertown.
