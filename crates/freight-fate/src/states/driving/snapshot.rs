@@ -520,7 +520,6 @@ impl DrivingState {
         state.chain_set = ff_core::sim::chain_control::ChainSet::from_truck(
             state.trip.truck.chains_on,
             ff_core::sim::chain_control::snow_or_ice(state.trip.weather.effects().surface),
-            state.trip.position_mi,
         );
         state.trailer_refused = b(data, "trailer_refused", false);
         state.trailer_repaired = b(data, "trailer_repaired", false);

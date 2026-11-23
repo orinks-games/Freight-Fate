@@ -329,10 +329,11 @@ fn tools_list() -> Value {
              lugging in a tall gear: the clutch a touch shift works in a manual \
              truck), chain_control (clear, level_1 or level_2: the chain law posted \
              at the truck, which follows snow or ice on the road) and chains \
-             (stowed, on_snow, on_bare or broken), chain_worker (driver, assist \
+             (stowed, on_snow, on_bare inside the 2 mile bare-road grace, on_bare_wearing past it, or broken), chain_worker (driver, assist \
              or co_driver: who does the chain work, whoever holds the wheel) and \
              chain_stop (none, install, remove, tighten or repair: the roadside \
-             chain stop the assist or the co-driver is making), and app (active, inactive or \
+             chain stop the assist or the co-driver is making), chain_wear (the set's \
+             wear in percent, at the truck's exact speed in mph), and app (active, inactive or \
              background: where a phone app is, moved by app_event, with \
              sound_taken after it while an interruption holds the sound). \
              Off the wheel the \
