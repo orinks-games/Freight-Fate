@@ -91,7 +91,7 @@ impl DrivingState {
         let Some(team) = self.team.as_ref() else {
             return false;
         };
-        let name = team.co_driver.name;
+        let co_driver_name = team.co_driver.name;
         let Some(wheel) = team.wheel.as_ref() else {
             return false;
         };
@@ -150,12 +150,15 @@ impl DrivingState {
         let place = stop.spoken_name();
         let line = match (gallons > 0.0, took_break) {
             (true, true) => format!(
-                "{name} fueled {} gallons and took a 30-minute break at {place}.",
+                "{co_driver_name} fueled {} gallons and took a 30-minute break at {place}.",
                 gallons.round()
             ),
-            (true, false) => format!("{name} fueled {} gallons at {place}.", gallons.round()),
-            (false, true) => format!("{name} took a 30-minute break at {place}."),
-            (false, false) => format!("{name} stopped at {place}."),
+            (true, false) => format!(
+                "{co_driver_name} fueled {} gallons at {place}.",
+                gallons.round()
+            ),
+            (false, true) => format!("{co_driver_name} took a 30-minute break at {place}."),
+            (false, false) => format!("{co_driver_name} stopped at {place}."),
         };
         self.co_driver_note(ctx, line, NoteWeight::Passing);
         self.co_driver_clear_plan_at(stop, making_for);
@@ -214,7 +217,7 @@ impl DrivingState {
     /// The co-driver at an open scale: the check-in the menu's own row runs,
     /// settled where the truck stands, and one note of how it went.
     fn co_driver_works_scale(&mut self, ctx: &mut GameContext, stop: &RoadStop) {
-        let Some(name) = self.co_driver_at_wheel_name() else {
+        let Some(co_driver_name) = self.co_driver_at_wheel_name() else {
             return;
         };
         let place = stop.spoken_name();
@@ -227,21 +230,21 @@ impl DrivingState {
             advance_on_duty_clock(self, ctx, WAVE_THROUGH_MIN, None, "");
             record_inspection(ctx);
             (
-                format!("{name} checked in at {place}. The inspection decal got the truck waved through."),
+                format!("{co_driver_name} checked in at {place}. The inspection decal got the truck waved through."),
                 NoteWeight::Passing,
             )
         } else if !self.scale_selects_driver(ctx, stop) {
             advance_on_duty_clock(self, ctx, WAVE_THROUGH_MIN, None, "");
             record_inspection(ctx);
             (
-                format!("{name} checked in at {place} and was waved through."),
+                format!("{co_driver_name} checked in at {place} and was waved through."),
                 NoteWeight::Passing,
             )
         } else {
             let report = self.inspection_report(ctx, InspectionLevel::Full);
             let outcome = self.settle_inspection(ctx, &report);
             (
-                format!("{name} was pulled in for an inspection at {place}. {outcome}"),
+                format!("{co_driver_name} was pulled in for an inspection at {place}. {outcome}"),
                 NoteWeight::Wake,
             )
         };

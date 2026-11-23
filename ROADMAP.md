@@ -846,6 +846,7 @@ into the release gate. Details stay in the linked dated sections, marked
 Everything found before 2026-09-25 moved to
 [2.0](#found-along-the-way-in-19-moved-to-20) that day.
 
+- [ ] (Found along the way) The Vietnamese full `Date: June 29, summer` line keeps `June` in English; standalone `June` is translated.
 - [x] (Found along the way) Confirmed Windows shutdown, restart and sign-out clear the crash marker with a 500 ms cleanup wait. Queries and cancelled session ends keep it. The window callback does not save careers or wait for cloud services; saves remain at normal checkpoints.
 - [x] (Found along the way) Fatigue bands and the nod-off are state
       machines saved with the trip: a quiet first yawn at 40, the band in
@@ -4562,6 +4563,12 @@ label from the career stage that said nothing about the load. Design:
       are labelled assumed. A feature landing during the 1.9.7 fixes-only
       stretch: the owner put it in 1.9.7 on 2026-11-21 as the last feature
       before stable.
+
+### November 24 calendar month in full Vietnamese dates (Found along the way)
+
+In Vietnamese, `Date: June 29, summer` renders as `Ngày: June 29, mùa hè`,
+while standalone `June` translates as `Tháng Sáu`. The full-date line still
+keeps the month in English.
 
 ### November 16 exits inside a work zone (Release gate)
 

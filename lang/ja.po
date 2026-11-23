@@ -7647,25 +7647,26 @@ msgstr "ray"
 msgid "lou"
 msgstr "lou"
 
-#. placeholders: {name}
-msgid "{name}, from your training class."
-msgstr "研修クラスの同期、{name}。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name}, from your training class."
+msgstr "研修クラスの同期、{co_driver_name}。"
 
-#. placeholders: {name}, {carrier_name}
-msgid "{name}, from your training class, drives for {carrier_name} now."
-msgstr "研修クラスの同期、{name}。今は{carrier_name}で運転しています。"
+#. placeholders: {co_driver_name}, {carrier_name}
+msgid ""
+"{co_driver_name}, from your training class, drives for {carrier_name} now."
+msgstr "研修クラスの同期、{co_driver_name}。今は{carrier_name}で運転しています。"
 
-#. placeholders: {name}
-msgid "{name}, your co-driver."
-msgstr "相棒の運転手、{name}。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name}, your co-driver."
+msgstr "相棒の運転手、{co_driver_name}。"
 
-#. placeholders: {name}
-msgid "{name}, back from Meridian with a story."
-msgstr "Meridianから話を抱えて戻ってきた{name}。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name}, back from Meridian with a story."
+msgstr "Meridianから話を抱えて戻ってきた{co_driver_name}。"
 
-#. placeholders: {name}
-msgid "{name}, your old trainer, along for one load."
-msgstr "昔の教官、{name}。1回の積荷に同乗します。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name}, your old trainer, along for one load."
+msgstr "昔の教官、{co_driver_name}。1回の積荷に同乗します。"
 
 msgid "training"
 msgstr "研修"
@@ -19717,9 +19718,9 @@ msgstr "3本指でタップすると天気です。"
 msgid "Via {join}. Tap with three fingers for weather."
 msgstr "経由：{join}。3本指でタップすると天気です。"
 
-#. placeholders: {name}
-msgid "Depart with {name} driving, and ride along"
-msgstr "{name}の運転で出発し、助手席で過ごす"
+#. placeholders: {co_driver_name}
+msgid "Depart with {co_driver_name} driving, and ride along"
+msgstr "{co_driver_name}の運転で出発し、助手席で過ごす"
 
 #. placeholders: {who}
 #. one sentence of a longer line
@@ -19730,19 +19731,21 @@ msgstr "{who}寝台で休みながら、道の音を聞きます。"
 msgid "{who} You rest in the sleeper and hear the road. {terms}"
 msgstr "{who}寝台で休みながら、道の音を聞きます。{terms}"
 
-#. placeholders: {name}
-msgid "Depart with {name} driving, and sleep"
-msgstr "{name}の運転で出発し、眠る"
+#. placeholders: {co_driver_name}
+msgid "Depart with {co_driver_name} driving, and sleep"
+msgstr "{co_driver_name}の運転で出発し、眠る"
 
-#. placeholders: {who}, {name}
+#. placeholders: {who}, {co_driver_name}
 #. one sentence of a longer line
-msgid "{who} You wake when {name} needs you, with a summary of the drive."
-msgstr "{who}{name}に呼ばれたら目を覚まし、運転の要約を聞きます。"
-
-#. placeholders: {who}, {name}, {terms}
 msgid ""
-"{who} You wake when {name} needs you, with a summary of the drive. {terms}"
-msgstr "{who}{name}に呼ばれたら目を覚まし、運転の要約を聞きます。{terms}"
+"{who} You wake when {co_driver_name} needs you, with a summary of the drive."
+msgstr "{who}{co_driver_name}に呼ばれたら目を覚まし、運転の要約を聞きます。"
+
+#. placeholders: {who}, {co_driver_name}, {terms}
+msgid ""
+"{who} You wake when {co_driver_name} needs you, with a summary of the "
+"drive. {terms}"
+msgstr "{who}{co_driver_name}に呼ばれたら目を覚まし、運転の要約を聞きます。{terms}"
 
 msgid ""
 "This backup was made by an earlier version of Freight Fate. Version 1.9 "
@@ -27183,7 +27186,8 @@ msgstr "予備の修理用リンクを使います。"
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "予備の修理用リンクを使います。残りは{chain_repair_links}です。"
 
-# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
+# leave empty: one hole before "left"; it took every left curve call ("Sharp
+# left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
@@ -30331,101 +30335,108 @@ msgstr "{name}が{distance_text}運転しました"
 msgid " and fueled at {stop}"
 msgstr "、{stop}で給油しました"
 
-#. placeholders: {name}, {round}
+#. placeholders: {co_driver_name}, {round}
 msgid ""
-"You pay {name} {round} percent of the settlement for the miles they drive."
-msgstr "{name}が運転した距離の分、精算の{round}パーセントを{name}に支払います。"
+"You pay {co_driver_name} {round} percent of the settlement for the miles "
+"they drive."
+msgstr "{co_driver_name}が運転した距離の分、精算の{round}パーセントを{co_driver_name}に支払います。"
 
-#. placeholders: {name}
-msgid "Miles {name} drives pay you half."
-msgstr "{name}が運転した距離の報酬は半分になります。"
+#. placeholders: {co_driver_name}
+msgid "Miles {co_driver_name} drives pay you half."
+msgstr "{co_driver_name}が運転した距離の報酬は半分になります。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "While {name} drives, you are logged in the sleeper berth."
-msgstr "{name}が運転している間、あなたは寝台として記録されます。"
+msgid "While {co_driver_name} drives, you are logged in the sleeper berth."
+msgstr "{co_driver_name}が運転している間、あなたは寝台として記録されます。"
 
 #. placeholders: {pay}
 #. one sentence of a longer line
 msgid "{pay} Those miles earn you half the experience."
 msgstr "{pay}その距離で得られる経験値は半分です。"
 
-#. placeholders: {pay}, {name}
+#. placeholders: {pay}, {co_driver_name}
 msgid ""
-"{pay} Those miles earn you half the experience. While {name} drives, you "
-"are logged in the sleeper berth."
-msgstr "{pay}その距離で得られる経験値は半分です。{name}が運転している間、あなたは寝台として記録されます。"
+"{pay} Those miles earn you half the experience. While {co_driver_name} "
+"drives, you are logged in the sleeper berth."
+msgstr "{pay}その距離で得られる経験値は半分です。{co_driver_name}が運転している間、あなたは寝台として記録されます。"
 
 #. one sentence of a longer line
 msgid "Your own hours reach the receiver from there."
 msgstr "そこからは、あなた自身の時間で荷受人まで届きます。"
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #. one sentence of a longer line
 msgid ""
-"{name} has {left} of driving left, then parks and hands you the wheel."
-msgstr "{name}の残り運転時間は{left}です。そのあと駐車して、ハンドルを渡してくれます。"
+"{co_driver_name} has {left} of driving left, then parks and hands you the "
+"wheel."
+msgstr "{co_driver_name}の残り運転時間は{left}です。そのあと駐車して、ハンドルを渡してくれます。"
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 msgid ""
-"{name} has {left} of driving left, then parks and hands you the wheel. Your "
-"own hours reach the receiver from there."
+"{co_driver_name} has {left} of driving left, then parks and hands you the "
+"wheel. Your own hours reach the receiver from there."
 msgstr ""
-"{name}の残り運転時間は{left}です。そのあと駐車して、ハンドルを渡してくれます。そこからは、あなた自身の時間で荷受人まで届きます。"
+"{co_driver_name}の残り運転時間は{left}です。そのあと駐車して、ハンドルを渡してくれます。そこからは、あなた自身の時間で荷受人まで届"
+"きます。"
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #. one sentence of a longer line
 msgid ""
-"{name} has {left} of driving left and no truck lot in reach, so they stop "
-"on the shoulder and hand you the wheel."
-msgstr "{name}の残り運転時間は{left}で、近くにトラックの駐車場がないので、路肩に停めてハンドルを渡してくれます。"
-
-#. placeholders: {name}, {left}
-msgid ""
-"{name} has {left} of driving left and no truck lot in reach, so they stop "
-"on the shoulder and hand you the wheel. Your own hours reach the receiver "
-"from there."
+"{co_driver_name} has {left} of driving left and no truck lot in reach, so "
+"they stop on the shoulder and hand you the wheel."
 msgstr ""
-"{name}の残り運転時間は{left}で、近くにトラックの駐車場がないので、路肩に停めてハンドルを渡してくれます。そこからは、あなた自身の時間で荷受人"
-"まで届きます。"
+"{co_driver_name}の残り運転時間は{left}で、近くにトラックの駐車場がないので、路肩に停めてハンドルを渡してくれます。"
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 msgid ""
-"{name} has {left} of driving left, short of your 10-hour rest, so they park "
-"and you finish it there."
-msgstr "{name}の残り運転時間は{left}で、10時間の休息には足りないので、駐車して残りはそこで休みます。"
+"{co_driver_name} has {left} of driving left and no truck lot in reach, so "
+"they stop on the shoulder and hand you the wheel. Your own hours reach the "
+"receiver from there."
+msgstr ""
+"{co_driver_name}の残り運転時間は{left}で、近くにトラックの駐車場がないので、路肩に停めてハンドルを渡してくれます。そこからは、あな"
+"た自身の時間で荷受人まで届きます。"
+
+#. placeholders: {co_driver_name}, {left}
+msgid ""
+"{co_driver_name} has {left} of driving left, short of your 10-hour rest, so "
+"they park and you finish it there."
+msgstr "{co_driver_name}の残り運転時間は{left}で、10時間の休息には足りないので、駐車して残りはそこで休みます。"
 
 #. one sentence of a longer line
 msgid "Shoulder rest is poor and risks a ticket or minor damage."
 msgstr "路肩での休息は質が悪く、違反切符や軽い損傷の危険があります。"
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #. one sentence of a longer line
 msgid ""
-"{name} has {left} of driving left, short of your 10-hour rest, and no truck "
-"lot in reach, so they stop on the shoulder and you finish it there."
+"{co_driver_name} has {left} of driving left, short of your 10-hour rest, "
+"and no truck lot in reach, so they stop on the shoulder and you finish it "
+"there."
 msgstr ""
-"{name}の残り運転時間は{left}で、10時間の休息には足りず、近くにトラックの駐車場もないので、路肩に停めて残りはそこで休みます。"
+"{co_driver_name}の残り運転時間は{left}で、10時間の休息には足りず、近くにトラックの駐車場もないので、路肩に停めて残りはそこで休み"
+"ます。"
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 msgid ""
-"{name} has {left} of driving left, short of your 10-hour rest, and no truck "
-"lot in reach, so they stop on the shoulder and you finish it there. "
-"Shoulder rest is poor and risks a ticket or minor damage."
+"{co_driver_name} has {left} of driving left, short of your 10-hour rest, "
+"and no truck lot in reach, so they stop on the shoulder and you finish it "
+"there. Shoulder rest is poor and risks a ticket or minor damage."
 msgstr ""
-"{name}の残り運転時間は{left}で、10時間の休息には足りず、近くにトラックの駐車場もないので、路肩に停めて残りはそこで休みます。路肩での休息は"
-"質が悪く、違反切符や軽い損傷の危険があります。"
+"{co_driver_name}の残り運転時間は{left}で、10時間の休息には足りず、近くにトラックの駐車場もないので、路肩に停めて残りはそこで休み"
+"ます。路肩での休息は質が悪く、違反切符や軽い損傷の危険があります。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} can drive from here, or take over later from the pause menu, while "
-"you rest in the sleeper."
-msgstr "寝台で休んでいる間、{name}がここから運転するか、あとで一時停止メニューから交代できます。"
+"{co_driver_name} can drive from here, or take over later from the pause "
+"menu, while you rest in the sleeper."
+msgstr "寝台で休んでいる間、{co_driver_name}がここから運転するか、あとで一時停止メニューから交代できます。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} can take the wheel from this menu while you rest in the sleeper."
-msgstr "寝台で休んでいる間、このメニューから{name}にハンドルを任せられます。"
+"{co_driver_name} can take the wheel from this menu while you rest in the "
+"sleeper."
+msgstr "寝台で休んでいる間、このメニューから{co_driver_name}にハンドルを任せられます。"
 
 #. one sentence of a longer line
 msgid "This load is long enough to share with a co-driver."
@@ -30435,17 +30446,19 @@ msgstr "この積荷は相棒の運転手と分け合えるほど長距離です
 msgid "This load is long enough to share with a co-driver. {take}"
 msgstr "この積荷は相棒の運転手と分け合えるほど長距離です。{take}"
 
-#. placeholders: {name}
-msgid "{name} drives to the receiver's gate unless something needs you."
-msgstr "何かで呼ばれない限り、{name}が荷受人のゲートまで運転します。"
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} drives to the receiver's gate unless something needs you."
+msgstr "何かで呼ばれない限り、{co_driver_name}が荷受人のゲートまで運転します。"
 
-#. placeholders: {name}
-msgid "{name} drives until their own hours run out."
-msgstr "{name}は自分の運転時間が尽きるまで運転します。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} drives until their own hours run out."
+msgstr "{co_driver_name}は自分の運転時間が尽きるまで運転します。"
 
-#. placeholders: {name}
-msgid "{name} hands the wheel back once you have had your 10-hour rest."
-msgstr "10時間の休息が取れたら、{name}がハンドルを返してくれます。"
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} hands the wheel back once you have had your 10-hour rest."
+msgstr "10時間の休息が取れたら、{co_driver_name}がハンドルを返してくれます。"
 
 #. placeholders: {status}
 msgid "{status} Wakes you and gives you the wheel."
@@ -30460,21 +30473,21 @@ msgstr " 10時間の休息はやり直しになります。"
 msgid "Take the wheel back"
 msgstr "運転を代わる"
 
-#. placeholders: {name}, {time}
-msgid "Hand the wheel to {name} for {time} and ride along"
-msgstr "{name}に{time}ハンドルを任せ、助手席で過ごす"
+#. placeholders: {co_driver_name}, {time}
+msgid "Hand the wheel to {co_driver_name} for {time} and ride along"
+msgstr "{co_driver_name}に{time}ハンドルを任せ、助手席で過ごす"
 
-#. placeholders: {name}, {time}
-msgid "Hand the wheel to {name} for {time} and sleep"
-msgstr "{name}に{time}ハンドルを任せ、眠る"
+#. placeholders: {co_driver_name}, {time}
+msgid "Hand the wheel to {co_driver_name} for {time} and sleep"
+msgstr "{co_driver_name}に{time}ハンドルを任せ、眠る"
 
-#. placeholders: {name}
-msgid "Hand the wheel to {name} and ride along"
-msgstr "{name}にハンドルを任せ、助手席で過ごす"
+#. placeholders: {co_driver_name}
+msgid "Hand the wheel to {co_driver_name} and ride along"
+msgstr "{co_driver_name}にハンドルを任せ、助手席で過ごす"
 
-#. placeholders: {name}
-msgid "Hand the wheel to {name} and sleep"
-msgstr "{name}にハンドルを任せ、眠る"
+#. placeholders: {co_driver_name}
+msgid "Hand the wheel to {co_driver_name} and sleep"
+msgstr "{co_driver_name}にハンドルを任せ、眠る"
 
 msgid "You have the wheel."
 msgstr "ハンドルを握りました。"
@@ -30491,42 +30504,43 @@ msgstr "駐車してハンドルを渡すため"
 msgid "to park for the end of their shift"
 msgstr "シフトの終わりに駐車するため"
 
-#. placeholders: {name}, {place}, {distance}, {why}
-msgid "{name} plans to stop at {place} in {distance}, {why}."
-msgstr "{name}は{distance}先の{place}に停まる予定です。{why}。"
+#. placeholders: {co_driver_name}, {place}, {distance}, {why}
+msgid "{co_driver_name} plans to stop at {place} in {distance}, {why}."
+msgstr "{co_driver_name}は{distance}先の{place}に停まる予定です。{why}。"
 
 #. placeholders: {capitalize}
 msgid "{capitalize} got across ahead of the truck."
 msgstr "{capitalize}がトラックの前を横切りました。"
 
-#. placeholders: {name}
-msgid "{name} put the chains on at the chain control."
-msgstr "{name}がチェーン規制の検問でチェーンを装着しました。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} put the chains on at the chain control."
+msgstr "{co_driver_name}がチェーン規制の検問でチェーンを装着しました。"
 
-#. placeholders: {name}
-msgid "{name} put the chains on when the chain law posted."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} put the chains on when the chain law posted."
 msgstr ""
 
-#. placeholders: {name}
-msgid "{name} put the chains on before the chain control."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} put the chains on before the chain control."
 msgstr ""
 
-#. placeholders: {name}
-msgid "{name} took the chains off on bare road."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} took the chains off on bare road."
 msgstr ""
 
-#. placeholders: {name}
-msgid "{name} tightened a slapping chain."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} tightened a slapping chain."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} fixed a broken chain with a spare link."
+msgid "{co_driver_name} fixed a broken chain with a spare link."
 msgstr ""
 
-#. placeholders: {name}, {damage_pct}
+#. placeholders: {co_driver_name}, {damage_pct}
 msgid ""
-"{name} fixed a broken chain with a spare link. Damage {damage_pct} percent."
+"{co_driver_name} fixed a broken chain with a spare link. Damage "
+"{damage_pct} percent."
 msgstr ""
 
 #. one sentence of a longer line
@@ -30538,15 +30552,16 @@ msgid ""
 "A chain broke and there is no spare link. Damage {damage_pct} percent."
 msgstr ""
 
-#. placeholders: {name}, {animal}
+#. placeholders: {co_driver_name}, {animal}
 #. one sentence of a longer line
-msgid "{name} drove on after a collision with {animal}."
-msgstr "{name}は{animal}と衝突した後、そのまま走り続けました。"
+msgid "{co_driver_name} drove on after a collision with {animal}."
+msgstr "{co_driver_name}は{animal}と衝突した後、そのまま走り続けました。"
 
-#. placeholders: {name}, {animal}, {damage}
+#. placeholders: {co_driver_name}, {animal}, {damage}
 msgid ""
-"{name} drove on after a collision with {animal}. Damage {damage} percent."
-msgstr "{name}は{animal}と衝突した後、そのまま走り続けました。損傷{damage}パーセント。"
+"{co_driver_name} drove on after a collision with {animal}. Damage {damage} "
+"percent."
+msgstr "{co_driver_name}は{animal}と衝突した後、そのまま走り続けました。損傷{damage}パーセント。"
 
 msgid "Refuel"
 msgstr "給油"
@@ -30563,81 +30578,86 @@ msgstr "損傷"
 msgid "off the road"
 msgstr "道路外"
 
-#. placeholders: {name}, {duration_text}
-msgid "{name} needs you back in {duration_text}."
-msgstr "{name}は{duration_text}後に運転を代わってほしいそうです。"
+#. placeholders: {co_driver_name}, {duration_text}
+msgid "{co_driver_name} needs you back in {duration_text}."
+msgstr "{co_driver_name}は{duration_text}後に運転を代わってほしいそうです。"
 
 #. one sentence of a longer line
 msgid "Your 10-hour rest is in."
 msgstr "10時間の休息が取れました。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"Your 10-hour rest is in. {name} hands back at the next place to park."
-msgstr "10時間の休息が取れました。次の駐車できる場所で{name}がハンドルを返します。"
+"Your 10-hour rest is in. {co_driver_name} hands back at the next place to "
+"park."
+msgstr "10時間の休息が取れました。次の駐車できる場所で{co_driver_name}がハンドルを返します。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} hands back at the next place to park."
-msgstr "次の駐車できる場所で{name}がハンドルを返します。"
+msgid "{co_driver_name} hands back at the next place to park."
+msgstr "次の駐車できる場所で{co_driver_name}がハンドルを返します。"
 
 #. placeholders: {rested}
 #. one sentence of a longer line
 msgid "Rest: {rested} of 10 hours."
 msgstr "休息：10時間のうち{rested}。"
 
-#. placeholders: {rested}, {name}, {duration_text}
+#. placeholders: {rested}, {co_driver_name}, {duration_text}
 msgid ""
-"Rest: {rested} of 10 hours. {name} hands back in about {duration_text}."
-msgstr "休息：10時間のうち{rested}。{name}はあと約{duration_text}でハンドルを返します。"
+"Rest: {rested} of 10 hours. {co_driver_name} hands back in about "
+"{duration_text}."
+msgstr "休息：10時間のうち{rested}。{co_driver_name}はあと約{duration_text}でハンドルを返します。"
 
-#. placeholders: {name}, {duration_text}
+#. placeholders: {co_driver_name}, {duration_text}
 #. one sentence of a longer line
-msgid "{name} hands back in about {duration_text}."
-msgstr "{name}はあと約{duration_text}でハンドルを返します。"
+msgid "{co_driver_name} hands back in about {duration_text}."
+msgstr "{co_driver_name}はあと約{duration_text}でハンドルを返します。"
 
-#. placeholders: {rested}, {name}, {duration_text}
+#. placeholders: {rested}, {co_driver_name}, {duration_text}
 msgid ""
-"Rest: {rested} of 10 hours. {name} needs you back in {duration_text}, "
-"before your rest is in."
-msgstr "休息：10時間のうち{rested}。休息が取れる前に、{duration_text}後に{name}が交代を必要としています。"
+"Rest: {rested} of 10 hours. {co_driver_name} needs you back in "
+"{duration_text}, before your rest is in."
+msgstr ""
+"休息：10時間のうち{rested}。休息が取れる前に、{duration_text}後に{co_driver_name}が交代を必要としています。"
 
-#. placeholders: {name}, {duration_text}
+#. placeholders: {co_driver_name}, {duration_text}
 #. one sentence of a longer line
-msgid "{name} needs you back in {duration_text}, before your rest is in."
-msgstr "休息が取れる前に、{duration_text}後に{name}が交代を必要としています。"
+msgid ""
+"{co_driver_name} needs you back in {duration_text}, before your rest is in."
+msgstr "休息が取れる前に、{duration_text}後に{co_driver_name}が交代を必要としています。"
 
-#. placeholders: {name}
-msgid "Co-driver: {name}, driving"
-msgstr "相棒の運転手：{name}、運転中"
+#. placeholders: {co_driver_name}
+msgid "Co-driver: {co_driver_name}, driving"
+msgstr "相棒の運転手：{co_driver_name}、運転中"
 
-#. placeholders: {name}, {bio}
-msgid "About {name}: {bio}"
-msgstr "{name}について：{bio}"
+#. placeholders: {co_driver_name}, {bio}
+msgid "About {co_driver_name}: {bio}"
+msgstr "{co_driver_name}について：{bio}"
 
 #. placeholders: {join}
 msgid "Last shift: {join}"
 msgstr "前回の勤務：{join}"
 
-#. placeholders: {name}
-msgid "Co-driver: {name}, in the sleeper"
-msgstr "相棒の運転手：{name}、寝台で休憩中"
+#. placeholders: {co_driver_name}
+msgid "Co-driver: {co_driver_name}, in the sleeper"
+msgstr "相棒の運転手：{co_driver_name}、寝台で休憩中"
 
-#. placeholders: {name}
-msgid "Co-driver: {name}, in the sleeper, rested."
-msgstr "相棒の運転手：{name}、寝台で休憩中、休息済み。"
+#. placeholders: {co_driver_name}
+msgid "Co-driver: {co_driver_name}, in the sleeper, rested."
+msgstr "相棒の運転手：{co_driver_name}、寝台で休憩中、休息済み。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "Co-driver: {name}, in the sleeper."
-msgstr "相棒の運転手：{name}、寝台で休憩中。"
+msgid "Co-driver: {co_driver_name}, in the sleeper."
+msgstr "相棒の運転手：{co_driver_name}、寝台で休憩中。"
 
-#. placeholders: {name}, {duration_text}, {duration_text2}
+#. placeholders: {co_driver_name}, {duration_text}, {duration_text2}
 msgid ""
-"Co-driver: {name}, in the sleeper. Rest: {duration_text} of 10 hours. "
-"{duration_text2} of driving left."
+"Co-driver: {co_driver_name}, in the sleeper. Rest: {duration_text} of 10 "
+"hours. {duration_text2} of driving left."
 msgstr ""
-"相棒の運転手：{name}、寝台で休憩中。休息：10時間のうち{duration_text}。残り運転時間は{duration_text2}。"
+"相棒の運転手：{co_driver_name}、寝台で休憩中。休息：10時間のうち{duration_text}。残り運転時間は{duration_te"
+"xt2}。"
 
 #. placeholders: {duration_text}
 #. one sentence of a longer line
@@ -30649,9 +30669,9 @@ msgstr "休息：10時間のうち{duration_text}。"
 msgid "{duration_text2} of driving left."
 msgstr "残り運転時間は{duration_text2}。"
 
-#. placeholders: {name}, {trim_end_matches}
-msgid "ELD, {name}: {trim_end_matches}"
-msgstr "ELD、{name}：{trim_end_matches}"
+#. placeholders: {co_driver_name}, {trim_end_matches}
+msgid "ELD, {co_driver_name}: {trim_end_matches}"
+msgstr "ELD、{co_driver_name}：{trim_end_matches}"
 
 #. placeholders: {round}
 msgid "their {round} percent"
@@ -30660,15 +30680,16 @@ msgstr "{round}パーセントの取り分"
 msgid "their half of the pay"
 msgstr "報酬の半分の取り分"
 
-#. placeholders: {name}, {miles}, {share}, {grouped}
+#. placeholders: {co_driver_name}, {miles}, {share}, {grouped}
 msgid ""
-"{name} drove {miles} of this load: {share} is {grouped} dollars, and those "
-"miles earn you half the experience."
-msgstr "{name}がこの積荷の{miles}を運転しました。{share}は{grouped}ドルで、その距離で得られる経験値は半分です。"
+"{co_driver_name} drove {miles} of this load: {share} is {grouped} dollars, "
+"and those miles earn you half the experience."
+msgstr ""
+"{co_driver_name}がこの積荷の{miles}を運転しました。{share}は{grouped}ドルで、その距離で得られる経験値は半分です。"
 
-#. placeholders: {name}, {f}
-msgid "Team load: {name} drove {f} of the miles"
-msgstr "チームの積荷：{name}が距離の{f}を運転"
+#. placeholders: {co_driver_name}, {f}
+msgid "Team load: {co_driver_name} drove {f} of the miles"
+msgstr "チームの積荷：{co_driver_name}が距離の{f}を運転"
 
 msgid "hours up, yours reach"
 msgstr "時間切れ、あなたの時間で届く"
@@ -30685,57 +30706,59 @@ msgstr "路肩で時間切れ"
 msgid "shoulder hours, yours reach"
 msgstr "路肩で時間切れ、あなたの時間で届く"
 
-#. placeholders: {name}
-msgid "{name} took a 30-minute break on the shoulder."
-msgstr "{name}は路肩で30分の休憩を取りました。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} took a 30-minute break on the shoulder."
+msgstr "{co_driver_name}は路肩で30分の休憩を取りました。"
 
 msgid "slept on"
 msgstr "眠り続けた"
 
-#. placeholders: {name}, {gallons}, {place}
+#. placeholders: {co_driver_name}, {gallons}, {place}
 msgid ""
-"{name} fueled {gallons} gallons and took a 30-minute break at {place}."
-msgstr "{name}は{place}で{gallons}ガロン給油し、30分の休憩を取りました。"
+"{co_driver_name} fueled {gallons} gallons and took a 30-minute break at "
+"{place}."
+msgstr "{co_driver_name}は{place}で{gallons}ガロン給油し、30分の休憩を取りました。"
 
-#. placeholders: {name}, {gallons}, {place}
-msgid "{name} fueled {gallons} gallons at {place}."
-msgstr "{name}は{place}で{gallons}ガロン給油しました。"
+#. placeholders: {co_driver_name}, {gallons}, {place}
+msgid "{co_driver_name} fueled {gallons} gallons at {place}."
+msgstr "{co_driver_name}は{place}で{gallons}ガロン給油しました。"
 
-#. placeholders: {name}, {place}
-msgid "{name} took a 30-minute break at {place}."
-msgstr "{name}は{place}で30分の休憩を取りました。"
+#. placeholders: {co_driver_name}, {place}
+msgid "{co_driver_name} took a 30-minute break at {place}."
+msgstr "{co_driver_name}は{place}で30分の休憩を取りました。"
 
-#. placeholders: {name}, {place}
-msgid "{name} stopped at {place}."
-msgstr "{name}は{place}に停まりました。"
+#. placeholders: {co_driver_name}, {place}
+msgid "{co_driver_name} stopped at {place}."
+msgstr "{co_driver_name}は{place}に停まりました。"
 
 #. one sentence of a longer line
 msgid "The inspection decal got the truck waved through."
 msgstr "検査ステッカーのおかげで、トラックはそのまま通されました。"
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 #. one sentence of a longer line
-msgid "{name} checked in at {place}."
-msgstr "{name}は{place}でチェックインしました。"
+msgid "{co_driver_name} checked in at {place}."
+msgstr "{co_driver_name}は{place}でチェックインしました。"
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 msgid ""
-"{name} checked in at {place}. The inspection decal got the truck waved "
-"through."
-msgstr "{name}は{place}でチェックインしました。検査ステッカーのおかげで、トラックはそのまま通されました。"
+"{co_driver_name} checked in at {place}. The inspection decal got the truck "
+"waved through."
+msgstr "{co_driver_name}は{place}でチェックインしました。検査ステッカーのおかげで、トラックはそのまま通されました。"
 
-#. placeholders: {name}, {place}
-msgid "{name} checked in at {place} and was waved through."
-msgstr "{name}は{place}でチェックインし、そのまま通されました。"
+#. placeholders: {co_driver_name}, {place}
+msgid "{co_driver_name} checked in at {place} and was waved through."
+msgstr "{co_driver_name}は{place}でチェックインし、そのまま通されました。"
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 #. one sentence of a longer line
-msgid "{name} was pulled in for an inspection at {place}."
-msgstr "{name}は{place}で検査のために呼び込まれました。"
+msgid "{co_driver_name} was pulled in for an inspection at {place}."
+msgstr "{co_driver_name}は{place}で検査のために呼び込まれました。"
 
-#. placeholders: {name}, {place}, {outcome}
-msgid "{name} was pulled in for an inspection at {place}. {outcome}"
-msgstr "{name}は{place}で検査のために呼び込まれました。{outcome}"
+#. placeholders: {co_driver_name}, {place}, {outcome}
+msgid ""
+"{co_driver_name} was pulled in for an inspection at {place}. {outcome}"
+msgstr "{co_driver_name}は{place}で検査のために呼び込まれました。{outcome}"
 
 msgid "advice"
 msgstr "助言"
