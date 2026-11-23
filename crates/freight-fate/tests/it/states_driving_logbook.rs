@@ -1,7 +1,7 @@
 use crate::states_driving_menus_support::{a_drive, drive_and_ctx};
 use ff_core::models::profile::Profile;
 use ff_core::sim::hos::{DutyLog, HosClock};
-use ff_core::sim::trip_models::RoadStop;
+use ff_core::sim::trip_models::{NavigationCue, RoadStop};
 use freight_fate::app::testing::TestApp;
 use freight_fate::states::base::Menu;
 use freight_fate::states::driving_core::{
@@ -11,6 +11,7 @@ use freight_fate::states::driving_core::{
 use freight_fate::states::driving_menu_states::{ArrivalState, DriveRef};
 use freight_fate::states::driving_rest_states::{RestStopState, ShortStay};
 use freight_fate::states::driving_team::TeamMode;
+use freight_fate::states::driving_turns::TURN_MISS_LOOP_MIN;
 use freight_fate::states::logbook::{logbook_lines, LogbookState};
 
 #[test]
@@ -173,6 +174,42 @@ fn test_normal_frame_records_driving_and_exact_rows_coalesce_without_bridging() 
         assert_eq!(totals.driving, 1.0);
         assert_eq!(totals.off_duty, 0.5);
     });
+}
+
+#[test]
+fn test_missed_turn_records_scripted_driving_after_the_frame_once() {
+    let mut app = TestApp::new();
+    let drive = a_drive(&mut app);
+    drive_and_ctx(&drive, &mut app, |d, ctx| {
+        let profile = ctx.profile.as_mut().unwrap();
+        profile.game_hours = 100.0;
+        profile.duty_log = DutyLog::new();
+        d.trip.game_minutes = 6.0;
+        d.trip.truck.velocity_mps = 45.0 / 2.23694;
+        record_driving_frame(d, ctx, 100.0, 100.1);
+
+        let hos_before = profile_of(ctx).hos.clone();
+        let cue = NavigationCue::new(
+            "logbook-turn:0",
+            "street_turn",
+            d.trip.position_mi,
+            "Turn onto the next street",
+            "",
+        );
+        d.handle_missed_turn(ctx, &cue);
+
+        assert_eq!(d.trip.game_minutes, 6.0 + TURN_MISS_LOOP_MIN);
+        assert_eq!(profile_of(ctx).hos, hos_before);
+        let duty_log = &profile_of(ctx).duty_log;
+        assert_eq!(duty_log.segments.len(), 1, "{:?}", duty_log.segments);
+        assert_eq!(duty_log.segments[0].status, "driving");
+        assert_eq!(duty_log.segments[0].start_hour, 100.0);
+        let expected_end = 100.1 + TURN_MISS_LOOP_MIN / 60.0;
+        assert!((duty_log.segments[0].end_hour - expected_end).abs() < 1e-9);
+        let totals = duty_log.totals_since(100.0, 101.0);
+        assert!((totals.driving - (0.1 + TURN_MISS_LOOP_MIN / 60.0)).abs() < 1e-9);
+    });
+    app.shutdown();
 }
 
 #[test]
