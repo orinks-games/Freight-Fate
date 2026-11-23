@@ -18,6 +18,18 @@ pub const ONCOMING_SHARE: f64 = 0.50;
 pub const ONCOMING_FLOOR: f64 = 0.14;
 
 impl TrafficManager {
+    /// True when `mile` lies on an undivided two-lane road (one lane each way
+    /// with no median barrier separating opposing traffic).
+    pub(super) fn is_undivided_two_lane_at(&self, mile: f64) -> bool {
+        let Some(leg) = self.leg_at(mile) else {
+            return false;
+        };
+        if leg.divided == Some(true) {
+            return false;
+        }
+        self.freeway_presence_at(mile) == 0.0 && self.lane_count_at(mile) == 1
+    }
+
     /// Optional oncoming vehicle for a newly drawn undivided two-lane `cell`,
     /// drawn from the cell's `rng` after `lanes_beside` so existing freeway
     /// draws are untouched.
@@ -29,7 +41,7 @@ impl TrafficManager {
         rng: &mut PyRandom,
     ) -> Option<TrafficVehicle> {
         let cell_mid = (cell as f64 + 0.5) * SPAWN_CELL_MI;
-        if self.freeway_presence_at(cell_mid) > 0.0 || self.lane_count_at(cell_mid) != 1 {
+        if !self.is_undivided_two_lane_at(cell_mid) {
             return None;
         }
         let chance = (density * ONCOMING_SHARE).clamp(ONCOMING_FLOOR, 0.55);
@@ -40,10 +52,7 @@ impl TrafficManager {
         if mile <= position_mi + NO_SPAWN_AHEAD_MI || mile > self.route.miles() {
             return None;
         }
-        if self.leg_at(mile).is_none()
-            || self.freeway_presence_at(mile) > 0.0
-            || self.lane_count_at(mile) != 1
-        {
+        if !self.is_undivided_two_lane_at(mile) {
             return None;
         }
         let vehicle_class = freeway_class(rng);

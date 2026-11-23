@@ -1424,8 +1424,7 @@ impl TrafficManager {
                 vehicle.lane = -1;
                 vehicle.visual_lane = 1.0;
                 vehicle.relative_lane = -1;
-                let still_two_lane = self.freeway_presence_at(vehicle.position_mi) == 0.0
-                    && self.lane_count_at(vehicle.position_mi) == 1;
+                let still_two_lane = self.is_undivided_two_lane_at(vehicle.position_mi);
                 let rel_mi = vehicle.position_mi - position_mi;
                 if rel_mi >= -1.0 && (still_two_lane || rel_mi < 0.3) {
                     kept.push(vehicle);
