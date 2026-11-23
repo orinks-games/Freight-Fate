@@ -350,6 +350,11 @@ pub struct Trip {
     /// checkpoint hears the officer instead, so the drive clears it there.
     pub chain_law_lift_to_speak: Option<usize>,
     pub announced_curves: HashSet<String>,
+    /// The speed cruise or the speed keeper is taking the truck to, set by
+    /// the driving layer each frame; None with neither engaged. The bend
+    /// approach call is judged on the speed the truck will carry into the
+    /// bend, and this caps that projection (`approach_speed_mph`).
+    pub speed_control_target_mph: Option<f64>,
     pub announced_lane_changes: HashSet<String>,
     /// lazily built, direction-aware
     pub lane_runs: Option<Vec<LaneRun>>,
@@ -532,6 +537,7 @@ impl Trip {
             chain_control: Default::default(),
             chain_law_lift_to_speak: None,
             announced_curves: HashSet::new(),
+            speed_control_target_mph: None,
             announced_lane_changes: HashSet::new(),
             lane_runs: None,
             announced_landmarks: HashSet::new(),
