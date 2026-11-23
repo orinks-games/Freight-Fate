@@ -30,6 +30,7 @@
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
 - **South Jersey has new roads.** Drive the Turnpike or I-295 to Carneys Point, cross the Delaware Memorial Bridge, or haul to Cape May.
 - **California and the Southwest have 35 new roads.** Page to Saint George is now 155 miles on US 89, down from 513.
+- **The Great Lakes states have 61 new roads.** Joliet, Alpena, Ashtabula and Sandusky join the map.
 - **Units has a new Automatic choice, the default in 2.0:** miles in the United States, kilometers in Canada, said once at the border.
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.
@@ -63,13 +64,18 @@
 - **Billboards follow each state's and province's sign law,** with attraction boards across Canada and plain lines in Alaska and wherever else boards are banned.
 - **Billboards notice what you haul.** Cattle, a reefer load or doubles get their own signs, and now and then a board names your carrier.
 - **Canadian roads keep Canada's holidays.** Canada Day and October's Thanksgiving get their own boards.
+- **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
+- **Page Up and Page Down now move ten options at a time in every menu.**
+- **Tires whine on grooved concrete and hum on steel grate bridge decks.** The pitch rises and falls with your speed.
 
 ### Changed
 
 - **Freeway traffic, passing vehicles and ramp cross traffic now use real recordings.** Vehicles driving alongside hold a steady exterior sound by lane.
 - **The recorded truck engine has stereo cab sound and follows rev changes more closely.** Gear changes use clacks recorded inside the cab.
 - **The GPS no longer calls out low bridges and weight limits.** Your route already clears every one of them.
-- **The player manual now covers 2.0,** including Alaska and Canada, the border, units, carriers and the hours rules in each place.
+- **The player manual has been rewritten in a clearer, more conversational style and covers 2.0,** including Alaska and Canada, the border, units, carriers and the hours rules in each place.
+- **Exit, stop, fuel and road report calls no longer end in "ahead".** "Signal set for exit 323, 5 miles."
+- **F1 in a text field now repeats how the field works.**
 - **The new roads, loads and achievements are translated in all eleven languages.**
 - **A new career starts at your carrier's terminal.** Pick a region, a home city, then a carrier hiring there.
 - **The career start list runs local, regional, then national carriers, nearest terminal first.** The owner-operator start stays last.
@@ -89,6 +95,7 @@
 
 ### Fixed
 
+- **The Ohio Turnpike toll between Cleveland and Toledo is now the 2026 five-axle fare.** It drops from $28.00 to $17.50.
 - **Toll estimates no longer charge a one-way bridge in both directions.** The estimate now matches what the drive charges.
 - **The truck's starter gives way to a brief idle before the engine revs up to build air.**
 - **Automatic gear changes start with a softer clunk so the drop in revs is easier to hear.**
@@ -110,7 +117,11 @@
 - **The delivery screen now reads deductibles, an uncovered balance, road tickets and any freight claim.** They had only reached the spoken summary.
 - **A team load's deadline no longer leaves room for a 10-hour sleep,** at any urgency.
 - **A refused load's settlement no longer reads a pay figure or an on-time bonus.** It says the receiver refused it.
-
+- **The hours of service countdown plays a chime again.** The alarm tone is still kept for a violation.
+- **Lines that were said twice or late are now said once, in order.** This covers the first drive, stop arrivals and leaving Settings.
+- **An open weigh station is announced once, then its exit signal.** The stop callout that repeated it is gone.
+- **Report a problem now says plainly when orinks.net cannot be reached.** It used to read the error text aloud.
+- **A successful cloud restore no longer leaves the newer-copy warning in the Cloud backup menu.**
 ## 1.9.7 - 2026-11-21
 
 ### Compatibility

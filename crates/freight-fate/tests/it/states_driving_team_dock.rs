@@ -7,6 +7,9 @@ use freight_fate::states::city_pickup::PickupFacilityState;
 use freight_fate::states::driving::DrivingState;
 
 const DT: f64 = 1.0 / 60.0;
+/// The shortest load these drives take: the 148-mile Madison load the map
+/// assigned before Joliet joined it (2026-11-22) was the measure.
+const LONG_LOAD_MI: f64 = 140.0;
 
 /// Loaded at the shipper, with `drive_min` of the player's shift already
 /// driven.
@@ -14,6 +17,9 @@ fn loaded_at_shipper(name: &str, drive_min: f64) -> PlaytestHarness {
     let mut harness = PlaytestHarness::new();
     harness.start_delivery(StartDelivery {
         stop_at_pickup: true,
+        // A load a shift does not cover; the nearest neighbour (Joliet, 47
+        // miles) is one it does.
+        min_load_mi: Some(LONG_LOAD_MI),
         ..StartDelivery::named(name)
     });
     harness.select_menu_item("Check in at shipping office");

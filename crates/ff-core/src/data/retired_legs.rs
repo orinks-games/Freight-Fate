@@ -133,6 +133,38 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
         "phoenix_az_us",
         &["yuma_az_us", "buckeye_az_us", "phoenix_az_us"],
     ),
+    // Great Lakes missing roads (2026-11-22): legs split at a city they pass.
+    (
+        "bloomington_il_us",
+        "chicago_il_us",
+        &["bloomington_il_us", "joliet_il_us", "chicago_il_us"],
+    ),
+    (
+        "chicago_il_us",
+        "st_louis_mo_us",
+        &[
+            "chicago_il_us",
+            "joliet_il_us",
+            "bloomington_il_us",
+            "springfield_il_us",
+            "st_louis_mo_us",
+        ],
+    ),
+    (
+        "eau_claire_wi_us",
+        "wausau_wi_us",
+        &["eau_claire_wi_us", "chippewa_falls_wi_us", "wausau_wi_us"],
+    ),
+    (
+        "indianapolis_in_us",
+        "south_bend_in_us",
+        &["indianapolis_in_us", "kokomo_in_us", "south_bend_in_us"],
+    ),
+    (
+        "ann_arbor_mi_us",
+        "fort_wayne_in_us",
+        &["ann_arbor_mi_us", "jackson_mi_us", "fort_wayne_in_us"],
+    ),
 ];
 
 /// The replacement chain for a retired hop `a` to `b`, in travel order.

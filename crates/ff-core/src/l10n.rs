@@ -367,11 +367,23 @@ impl Catalog {
     }
 }
 
+/// The key a kept line is stored and looked up under: no final full stop,
+/// because a menu row is spoken with one added.
+fn verbatim_key(line: &str) -> &str {
+    line.trim().trim_end_matches('.')
+}
+
 /// Translates finished English lines into the player's language.
 pub struct Translator {
     catalog: Option<Catalog>,
     cache: Mutex<HashMap<String, String>>,
     misses: Option<Mutex<MissLog>>,
+    /// Text from outside the game that is spoken as it arrives, in English:
+    /// the driver newspaper's lines, which the site writes. Kept out of the
+    /// catalog the way a name in a `{station}` hole is, and never logged as
+    /// a miss, since no translator could supply them. Set only while the
+    /// screen that speaks them is open (`keep_verbatim`).
+    kept: Mutex<HashSet<String>>,
 }
 
 /// Where untranslated lines are written, once each, for translators.
@@ -393,6 +405,7 @@ impl Translator {
             catalog: None,
             cache: Mutex::new(HashMap::new()),
             misses: None,
+            kept: Mutex::new(HashSet::new()),
         }
     }
 
@@ -401,6 +414,7 @@ impl Translator {
             catalog: Some(catalog),
             cache: Mutex::new(HashMap::new()),
             misses: None,
+            kept: Mutex::new(HashSet::new()),
         }
     }
 
@@ -412,6 +426,25 @@ impl Translator {
             seen: HashSet::new(),
         }));
         self
+    }
+
+    /// Speak `lines` untranslated from now on, in place of the last set
+    /// kept. An empty list keeps nothing. The cache is emptied either way,
+    /// so a line translated before (or kept before) is worked out again.
+    pub fn keep_verbatim(&self, lines: impl IntoIterator<Item = String>) {
+        let set: HashSet<String> = lines
+            .into_iter()
+            .map(|line| verbatim_key(&line).to_string())
+            .filter(|line| !line.is_empty())
+            .collect();
+        *self.kept.lock() = set;
+        self.cache.lock().clear();
+    }
+
+    /// Whether `line` is one of the lines [`Self::keep_verbatim`] holds.
+    pub fn is_kept_verbatim(&self, line: &str) -> bool {
+        let kept = self.kept.lock();
+        !kept.is_empty() && kept.contains(verbatim_key(line))
     }
 
     /// The catalog's language code, `en` for English.
@@ -429,11 +462,16 @@ impl Translator {
         let Some(catalog) = &self.catalog else {
             return Cow::Borrowed(line);
         };
+        if self.is_kept_verbatim(line) {
+            return Cow::Borrowed(line);
+        }
         if let Some(hit) = self.cache.lock().get(line) {
             return Cow::Owned(hit.clone());
         }
         let mut missed = Vec::new();
-        let out = render::translate(catalog, line, &mut missed);
+        let out = render::translate(catalog, line, &mut missed, &|row| {
+            self.is_kept_verbatim(row)
+        });
         if let Some(log) = &self.misses {
             log.lock().record(&missed);
         }

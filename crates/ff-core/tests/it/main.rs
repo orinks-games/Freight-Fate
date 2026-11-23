@@ -26,6 +26,7 @@ mod data_curve_management;
 mod data_domestic_routes;
 mod data_facility_approaches;
 mod data_facility_endpoints;
+mod data_great_lakes;
 mod data_interchanges;
 mod data_lane_data;
 mod data_leg_road_agreement;

@@ -256,6 +256,18 @@ pub fn require_real_network(method: &str, url: &str) {
     }
 }
 
+/// Whether `url` names a host under `.invalid`, the top-level domain
+/// reserved never to resolve (RFC 6761). The agent and playtest sandbox
+/// point the site there; nothing addressed to it is ever sent.
+pub fn names_reserved_offline_host(url: &str) -> bool {
+    url::Url::parse(url).is_ok_and(|parsed| {
+        parsed.host_str().is_some_and(|host| {
+            let host = host.trim_end_matches('.').to_ascii_lowercase();
+            host == "invalid" || host.ends_with(".invalid")
+        })
+    })
+}
+
 #[cold]
 fn refuse_request(method: &str, url: &str) -> ! {
     REFUSED_REQUESTS
@@ -512,6 +524,16 @@ pub fn request(
     let method = method
         .map(|m| m.to_ascii_uppercase())
         .unwrap_or_else(|| if body.is_some() { "POST" } else { "GET" }.to_string());
+    // The agent sandbox points every Orinks call at a reserved `.invalid`
+    // host. Left to the resolver, that still went out: through a proxy it is
+    // a CONNECT to the proxy (Report a problem in a cloud agent drive). It
+    // fails here instead, the way a missing network would, with no socket.
+    if names_reserved_offline_host(url) {
+        log::info!("{method} {url}: an offline sandbox address, not sent");
+        return Err(NetError::HostNotFound(format!(
+            "{url} is a reserved offline address"
+        )));
+    }
     // Before the agent is built, before a name is resolved: nothing leaves
     // this process until something has said it is the game.
     if !real_network_allowed() {
@@ -771,6 +793,29 @@ pub fn wait_seconds(event: &Event, seconds: f64) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// A sandbox address fails at once, before the capability check: a test
+    /// process (which has no network capability) gets the offline error
+    /// instead of a panic, so nothing was about to be sent.
+    #[test]
+    fn a_reserved_offline_host_is_never_sent() {
+        let sent = request(
+            Tier::ProblemReport,
+            Some("POST"),
+            "https://sandbox-offline.invalid/api/problem-reports/open",
+            Some(b"{}"),
+            &[],
+        );
+        assert!(matches!(sent, Err(NetError::HostNotFound(_))), "{sent:?}");
+        assert!(!refused_requests()
+            .iter()
+            .any(|r| r.contains("sandbox-offline.invalid")));
+        assert!(names_reserved_offline_host(
+            "https://SANDBOX-offline.INVALID./x"
+        ));
+        assert!(!names_reserved_offline_host("https://orinks.net/api"));
+        assert!(!names_reserved_offline_host("https://invalid.example.com/"));
+    }
 
     /// The download client must never carry a total deadline: one bounded
     /// every update download at the same place regardless of connection

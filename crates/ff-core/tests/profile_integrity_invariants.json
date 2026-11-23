@@ -1341,6 +1341,31 @@
     "Veteran Independent Operator",
     "Freight Fate Independent"
   ],
+  "cargoLabels": {
+    "automotive": "automotive parts",
+    "bulk": "bulk materials",
+    "chemicals": "packaged industrial chemicals",
+    "construction": "construction materials",
+    "container": "shipping containers",
+    "electronics": "electronics",
+    "farm_inputs": "farm inputs",
+    "food": "fresh food",
+    "fuel_bulk": "bulk fuel",
+    "general": "general freight",
+    "grain": "grain",
+    "hazardous": "placarded hazardous materials",
+    "liquid_food": "liquid food products",
+    "livestock": "live cattle",
+    "lumber_paper": "lumber and paper products",
+    "machinery": "heavy machinery",
+    "parcel": "parcel freight",
+    "parcel_doubles": "twin-trailer parcel freight",
+    "port_container": "port containers",
+    "refrigerated": "refrigerated goods",
+    "retail": "retail goods",
+    "steel": "steel products",
+    "turnpike_doubles": "48-foot turnpike doubles freight"
+  },
   "carrierLabels": {
     "alapaha_regional": "Alapaha Regional",
     "anclote_freight": "Anclote Freight",
@@ -2127,6 +2152,7 @@
     "albuquerque_nm_us": "Albuquerque, New Mexico",
     "alexandria_la_us": "Alexandria, Louisiana",
     "allentown_pa_us": "Allentown, Pennsylvania",
+    "alpena_mi_us": "Alpena, Michigan",
     "altoona_pa_us": "Altoona, Pennsylvania",
     "altus_ok_us": "Altus, Oklahoma",
     "amarillo_tx_us": "Amarillo, Texas",
@@ -2140,6 +2166,7 @@
     "ashern_mb_ca": "Ashern, Manitoba",
     "asheville_nc_us": "Asheville, North Carolina",
     "ashland_ky_us": "Ashland, Kentucky",
+    "ashtabula_oh_us": "Ashtabula, Ohio",
     "astoria_or_us": "Astoria, Oregon",
     "athens_ga_us": "Athens, Georgia",
     "atlanta_ga_us": "Atlanta, Georgia",
@@ -2447,6 +2474,7 @@
     "jamestown_ny_us": "Jamestown, New York",
     "jasper_ab_ca": "Jasper, Alberta",
     "johnson_city_tn_us": "Johnson City, Tennessee",
+    "joliet_il_us": "Joliet, Illinois",
     "jonesboro_ar_us": "Jonesboro, Arkansas",
     "joplin_mo_us": "Joplin, Missouri",
     "junction_city_ks_us": "Junction City, Kansas",
@@ -2743,6 +2771,7 @@
     "san_jose_ca_us": "San Jose, California",
     "san_luis_obispo_ca_us": "San Luis Obispo, California",
     "sandpoint_id_us": "Sandpoint, Idaho",
+    "sandusky_oh_us": "Sandusky, Ohio",
     "santa_ana_ca_us": "Santa Ana, California",
     "santa_barbara_ca_us": "Santa Barbara, California",
     "santa_fe_nm_us": "Santa Fe, New Mexico",
@@ -3265,6 +3294,28 @@
     "reinforced_brakes": [
       6500
     ]
+  },
+  "weatherKeys": [
+    "clear",
+    "cloudy",
+    "fog",
+    "heavy_rain",
+    "ice",
+    "rain",
+    "snow",
+    "thunderstorm",
+    "wind"
+  ],
+  "weatherLabels": {
+    "clear": "clear",
+    "cloudy": "cloudy",
+    "fog": "fog",
+    "heavy_rain": "heavy rain",
+    "ice": "freezing rain",
+    "rain": "rain",
+    "snow": "snow",
+    "thunderstorm": "thunderstorm",
+    "wind": "high winds"
   },
   "xpFlatPerDelivery": 250.12499999999997,
   "xpPerMileMax": 4.002

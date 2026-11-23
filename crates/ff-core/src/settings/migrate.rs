@@ -579,12 +579,25 @@ impl Settings {
         }
         // (cloud_saves, live_weather_controls_calendar and
         // duck_audio_for_speech were type-checked in the raw copy.)
+        // Outside sounds and Road surface split off Weather sounds and
+        // Gameplay cues (1.9.8). A file from before them keeps the mix its
+        // player set: each starts at the volume its sounds rode until now.
+        if let Some(data) = data {
+            if !data.contains_key("outside_volume") {
+                s.outside_volume = s.weather_volume;
+            }
+            if !data.contains_key("road_surface_volume") {
+                s.road_surface_volume = s.sfx_volume;
+            }
+        }
         for level in [
             &mut s.master_volume,
             &mut s.sfx_volume,
             &mut s.music_volume,
             &mut s.radio_volume,
             &mut s.weather_volume,
+            &mut s.outside_volume,
+            &mut s.road_surface_volume,
             &mut s.engine_volume,
             &mut s.ui_volume,
             &mut s.speech_rate,

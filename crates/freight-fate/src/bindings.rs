@@ -41,7 +41,9 @@ mod touch;
 pub use hearken::bindings::{
     key_saved_name, key_spoken_name, pad_button_short_name, parse_key_name, Chord, PadChord,
 };
-pub use touch::{touch_gesture_name, touch_gesture_noun, touch_slots, TouchCommand};
+pub use touch::{
+    touch_gesture_name, touch_gesture_noun, touch_second_finger, touch_slots, TouchCommand,
+};
 
 /// One discrete driving control a player can move to another key or button.
 ///

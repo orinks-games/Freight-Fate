@@ -10,12 +10,14 @@
 //! other. Every distance here is real wheel travel, not the trip model's
 //! compressed route miles, so a stretch sounds the same at every pace.
 //!
-//! Bridge joints are in [`joints`]. Pure ambience: nothing here is spoken.
+//! Bridge joints are in [`joints`], the tires' song on grooved concrete and
+//! steel grating in [`song`]. Pure ambience: nothing here is spoken.
 
 use crate::data::pavement::{Surface, SurfaceGroup};
 use crate::pyrandom::PyRandom;
 
 pub mod joints;
+pub mod song;
 
 /// An invented jointed stretch runs this many metres of wheel travel.
 pub const JOINTED_M: (f64, f64) = (400.0, 1_500.0);

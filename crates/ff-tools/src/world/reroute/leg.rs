@@ -18,7 +18,8 @@
 //! * the grade profile, posted limits, state lines, toll events and the
 //!   pavement layer, all read along the old road, are dropped, as are the
 //!   leg's rows in the curve, runaway-ramp and limit-screen layers (re-read
-//!   the pavement with `hpms-pavement --only from:to --write`);
+//!   the pavement with `hpms-pavement --only from:to --write`, then its
+//!   bridge decks with `nbi-decks --only from:to --write`);
 //! * new route points and elevation samples are written every 25 miles, so
 //!   the builders have the new road's bounds.
 //!
@@ -544,7 +545,10 @@ pub fn main(argv: &[String]) -> Result<i32> {
         }
     }
     if had_pavement {
-        println!("  pavement dropped: re-read it with hpms-pavement --only {from}:{to} --write");
+        println!(
+            "  pavement dropped: re-read it with hpms-pavement --only {from}:{to} --write, then \
+             nbi-decks --only {from}:{to} --write"
+        );
     }
     if route.has_toll {
         println!("  the new road tolls and the leg has no toll events: curate them");

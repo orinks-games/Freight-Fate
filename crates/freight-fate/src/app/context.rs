@@ -115,6 +115,8 @@ pub struct Services {
     pub jaws_script: JawsScript,
     pub cloud: CloudSaves,
     pub journal: JournalOutbox,
+    /// The driver newspaper the site published, when the game holds one.
+    pub newspaper: crate::newspaper::Newspaper,
 }
 
 /// A career achievement and whether this installation can publish it publicly.
@@ -133,6 +135,8 @@ pub struct GameContext {
     pub speech: Box<dyn SpeechSink>,
     pub audio: Box<dyn Audio>,
     pub controller: ControllerManager,
+    /// Tilt steering: the motion sensor's reading and the machine it feeds.
+    pub tilt: super::tilt::TiltInput,
     pub settings: Settings,
     /// Which key and pad button does what at the wheel, rebuilt from
     /// `settings` by `apply_bindings` whenever the player moves one.
@@ -160,6 +164,9 @@ pub struct GameContext {
     /// the whole way (`Some(true)`) or smooth. `None` in the shipped game,
     /// where stretches of each alternate.
     pub playtest_road_jointed: Option<bool>,
+    /// A staged scenario's tire song for every drive it starts. `None` in
+    /// the shipped game, where the pavement layer decides.
+    pub playtest_tire_song: Option<ff_core::sim::road_texture::song::HeldSong>,
     /// A staged scenario's simulated sky for every drive it starts:
     /// `Some(Some(kind))` forces that condition (`WeatherSystem::forced`),
     /// `Some(None)` leaves it free. `None` in the shipped game.
@@ -205,6 +212,9 @@ pub struct GameContext {
     /// handled. See `player_asked`: a readout somebody asked for cuts the
     /// line in progress even at the wheel, where unasked-for lines queue.
     pub(crate) speech_requested: bool,
+    /// True while [`GameContext::say_result_then`] runs the step after a
+    /// result: every interrupting main-channel line queues behind it.
+    pub(crate) result_leads: bool,
     /// The co-driver has the wheel and the player is in the sleeper: the
     /// road, the co-driver's own controls and the screens they work say
     /// nothing aloud (the transcript still gets every line). Answers to
@@ -298,6 +308,7 @@ impl GameContext {
             speech: parts.speech,
             audio: parts.audio,
             controller: parts.controller,
+            tilt: super::tilt::TiltInput::default(),
             bindings: KeyBindings::from_settings(&parts.settings),
             settings: parts.settings,
             world: parts.world,
@@ -311,6 +322,7 @@ impl GameContext {
             playtest_sandbox: false,
             playtest_window_down: None,
             playtest_road_jointed: None,
+            playtest_tire_song: None,
             playtest_weather: None,
             playtest_co_driver_hos: None,
             crash_offer_pending: crate::problem_reports::take_crash_offer(),
@@ -325,6 +337,7 @@ impl GameContext {
             running: false,
             speech_ducked: false,
             speech_requested: false,
+            result_leads: false,
             co_driver_away: false,
             co_driver_fast_forward: false,
             copy_focus_key: None,
@@ -791,6 +804,8 @@ impl GameContext {
             .sfx(self.settings.sfx_volume)
             .music(self.settings.music_volume)
             .weather(self.settings.weather_volume)
+            .outside(self.settings.outside_volume)
+            .road(self.settings.road_surface_volume)
             .engine(self.settings.engine_volume)
             .ui(self.settings.ui_volume);
         self.audio.set_volumes(&update);
@@ -804,6 +819,13 @@ impl GameContext {
     pub fn apply_presence(&mut self) {
         let enabled = self.online_enabled(self.settings.discord_presence);
         self.services.presence.set_enabled(enabled);
+    }
+
+    /// Reflect the Online services switch on the newspaper's fetch.
+    pub fn apply_newspaper(&mut self) {
+        self.services
+            .newspaper
+            .set_enabled(self.settings.online_services);
     }
 
     /// Reflect the drivers-board setting (e.g. after a settings change).
@@ -906,6 +928,15 @@ impl GameContext {
                 action.label()
             ),
             None => format!("Tap with three fingers for {}", action.label()),
+        }
+    }
+
+    /// [`Self::touch_instruction`] for a sentence about a held pedal, where
+    /// a second-finger slot is named before the plain gesture.
+    pub fn touch_instruction_while_pedal(&self, action: crate::bindings::Action) -> String {
+        match self.bindings.touch_instruction_while_pedal(action) {
+            Some(gesture) => gesture.to_string(),
+            None => self.touch_instruction(action),
         }
     }
 

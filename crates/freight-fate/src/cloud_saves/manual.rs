@@ -83,9 +83,9 @@ impl Inner {
             let outcome = backup_conflict_outcome(slot, content_hash, Some(revision), token);
             self.note_outcome(name, token, outcome);
             if outcome == "stale" {
-                self.set_status(STALE_BACKUP_STATUS);
+                self.set_slot_status(name, STALE_BACKUP_STATUS);
             } else {
-                self.set_status(&conflict_status(name));
+                self.set_slot_status(name, &conflict_status(name));
             }
         }
         true
@@ -172,5 +172,26 @@ mod tests {
                 .contains_key("Road Star"));
             assert_eq!(transport.request_count(), 0);
         }
+    }
+
+    #[test]
+    fn restoring_one_career_does_not_clear_another_careers_conflict_status() {
+        let dir = tempfile::tempdir().unwrap();
+        let service = CloudSaves::new(CloudSavesOptions {
+            enabled: true,
+            identity: Some(OnlineIdentity::new("test-driver", &"t".repeat(48))),
+            transport: FakeTransport::new(),
+            threaded: false,
+            data_dir: dir.path().into(),
+            ..CloudSavesOptions::default()
+        });
+        let other_status = conflict_status("Night Runs");
+        service.inner.set_slot_status("Night Runs", &other_status);
+
+        service.restore_succeeded("Road Star");
+        assert_eq!(service.status(), other_status);
+
+        service.restore_succeeded("Night Runs");
+        assert_eq!(service.status(), "Cloud backup is ready.");
     }
 }
