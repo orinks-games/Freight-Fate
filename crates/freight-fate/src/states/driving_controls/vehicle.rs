@@ -98,6 +98,7 @@ impl DrivingState {
         // zero the moment their reason ran out ("we see no reason for you to
         // be doing that", player report, 2026-10-14).
         self.cruise_jake_stage = 0;
+        self.keeper_jake_stage = 0;
         self.curve_assist_jake = false;
         self.jake_selected_stage = stage;
         self.trip.truck.engine_brake_stage = stage;
