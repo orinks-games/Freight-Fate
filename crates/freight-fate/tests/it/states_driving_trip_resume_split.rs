@@ -21,6 +21,11 @@
 //! The Alabama, Mississippi and South Carolina roads (2026-11-23) split
 //! Jackson to Baton Rouge (175 miles of I-55 and I-12) at Hammond: 133 miles
 //! on I-55, then the existing 50-mile leg on I-12.
+//!
+//! The Texas and Louisiana roads (2026-11-23) retired Dallas to St. Louis
+//! for a chain over Denton, Ardmore and the I-44 legs, and Wichita Falls to
+//! McKinney for one through Denton, and Ardmore to Dallas for one through
+//! Denton.
 
 use ff_core::models::profile::Profile;
 use freight_fate::app::testing::TestApp;
@@ -221,4 +226,69 @@ fn a_save_on_the_old_jackson_to_baton_rouge_leg_resumes_on_the_hammond_chain() {
         ["jackson_ms_us", "hammond_la_us", "baton_rouge_la_us"]
     );
     assert_eq!(drive.trip.position_mi, 90.0);
+}
+
+/// Texas and Louisiana (2026-11-23): Dallas to St. Louis retired for a chain
+/// over Denton, Ardmore and the I-44 legs. A save past Tulsa resumes there.
+#[test]
+fn a_save_on_the_old_dallas_to_st_louis_leg_resumes_on_the_i44_chain() {
+    let app = resume("Dallas", "St. Louis", 713.0, 360.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        [
+            "dallas_tx_us",
+            "denton_tx_us",
+            "ardmore_ok_us",
+            "oklahoma_city_ok_us",
+            "tulsa_ok_us",
+            "joplin_mo_us",
+            "springfield_mo_us",
+            "rolla_mo_us",
+            "st_louis_mo_us"
+        ]
+    );
+    assert_eq!(drive.trip.position_mi, 360.0);
+}
+
+/// Wichita Falls to McKinney retired for a chain through Denton.
+#[test]
+fn a_save_on_the_old_wichita_falls_to_mckinney_leg_resumes_through_denton() {
+    let app = resume("Wichita Falls", "McKinney", 133.0, 110.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        ["wichita_falls_tx_us", "denton_tx_us", "mckinney_tx_us"]
+    );
+    assert_eq!(drive.trip.position_mi, 110.0);
+}
+
+/// Ardmore to Dallas (I-35) retired for a chain through Denton.
+#[test]
+fn a_save_on_the_old_ardmore_to_dallas_leg_resumes_through_denton() {
+    let app = resume("Ardmore", "Dallas", 109.0, 55.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        ["ardmore_ok_us", "denton_tx_us", "dallas_tx_us"]
+    );
+    assert_eq!(drive.trip.position_mi, 55.0);
 }

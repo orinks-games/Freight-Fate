@@ -50,6 +50,7 @@ mod data_stop_exits;
 mod data_street_chain;
 mod data_street_turns;
 mod data_surface_streets;
+mod data_texas_louisiana;
 mod data_upper_midwest;
 mod data_village_sides;
 mod data_world;

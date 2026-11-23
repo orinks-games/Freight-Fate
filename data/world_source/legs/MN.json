@@ -13769,6 +13769,23 @@
             "name": "Pigeon River Provincial Park and Grand Portage State Park",
             "source": "derived 2026-11-22: OpenStreetMap park polygons (Pigeon River Provincial Park and Grand Portage State Park) boundary from the planet extract of 2026-11-16; the stretch of the leg's archived route inside the park or within 150 m of its boundary, gaps under 2 miles merged (the right of way is carved out of the park, so the road has no private land beside it to stand a board on)"
           }
+        ],
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "St. Louis County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 19.4,
+            "name": "Lake County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 72.2,
+            "name": "Cook County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
         ]
       },
       "rerouted": true,
