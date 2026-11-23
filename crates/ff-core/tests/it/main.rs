@@ -34,6 +34,7 @@ mod data_limit_artifacts;
 mod data_local_approaches;
 mod data_local_geometry;
 mod data_nj_truck_routes;
+mod data_northeast;
 mod data_pavement;
 mod data_place_names;
 mod data_regions;

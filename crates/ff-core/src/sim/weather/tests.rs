@@ -3288,7 +3288,7 @@ fn test_city_events_keep_crossing_fallback_without_mapped_state_line() {
 fn test_city_events_include_state_without_repeating_crossing() {
     use crate::sim::trip_models::TripEventKind;
 
-    let route = route_of(&["New York", "Buffalo", "Cleveland"]);
+    let route = route_of(&["Syracuse", "Buffalo", "Cleveland"]);
     let mut trip = trip_on(route.clone(), system("northeast", 1), seeded(2));
     trip.position_mi = route.legs[0].miles;
     let events = trip.update(0.0);
