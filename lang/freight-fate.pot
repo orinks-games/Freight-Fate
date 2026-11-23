@@ -16203,7 +16203,7 @@ msgstr ""
 msgid "{lane_part}, crossing the {side} lane line."
 msgstr ""
 
-#: crates/ff-core/src/sim/lane_change_assist.rs crates/ff-core/src/touch/recognizer.rs
+#: crates/ff-core/src/sim/lane_change_assist.rs crates/ff-core/src/sim/turbo.rs crates/ff-core/src/touch/recognizer.rs
 msgid "idle"
 msgstr ""
 
@@ -19030,6 +19030,18 @@ msgstr ""
 msgid "{reason} Dispatch reroutes you from {city}."
 msgstr ""
 
+#: crates/ff-core/src/sim/turbo.rs
+msgid "spooling"
+msgstr ""
+
+#: crates/ff-core/src/sim/turbo.rs
+msgid "boosted"
+msgstr ""
+
+#: crates/ff-core/src/sim/turbo.rs
+msgid "release"
+msgstr ""
+
 #: crates/ff-core/src/sim/vehicle/air.rs
 msgid "schema"
 msgstr ""
@@ -20179,6 +20191,19 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid "Tires on a steel grate bridge deck: texture, not a decision."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
+msgid "Hollow resonance of a concrete bridge deck: texture, not a decision."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
+msgid "Turbocharger spool under engine load: texture, not a decision."
+msgstr ""
+
+#: crates/ff-core/src/sound_catalog.rs
+msgid ""
+"Turbocharger pressure release on lift-off or shift: texture, not a decision."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs

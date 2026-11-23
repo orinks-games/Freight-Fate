@@ -72,8 +72,11 @@
 - **Page Up and Page Down now move ten options at a time in every menu.**
 - **Tires whine on grooved concrete and hum on steel grate bridge decks.** The pitch rises and falls with your speed.
 - **Alt+Left and Alt+Right check your left or right mirror.** You hear whether that lane is clear while traffic audio focuses on that side.
+- **Turbocharged tractors now spool under load and release pressure on shifts.** Heavy-spec trucks whistle loudest; trainer day cabs and city shuttles stay quiet.
 
 ### Changed
+
+- **Bridge crossings now play a concrete deck bed, recorded steel-grate hum, and clearer water ambience.** Grooved concrete and highway seams now use recorded bumps and textured tire hum.
 
 - **Slick roads, high crosswinds, and tight ramps now trigger ABS, wheelspin, trailer sway, and off-tracking.** Automatic shifts also hold lower gears longer on downgrades.
 - **The owner-operator buy-in now buys a tractor you choose, at its dealer price.** Tractors you already own stay yours.

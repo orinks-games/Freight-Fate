@@ -892,6 +892,7 @@ impl DrivingState {
             shift_hold_rpm: None,
             manual_engage_clunk_pending: false,
             engine_audio_throttle: 0.0,
+            turbo: ff_core::sim::turbo::TurboState::default(),
             reverse_brake_held: false,
             reverse_accel_held: false,
             direction_armed: String::new(),

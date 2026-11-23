@@ -463,6 +463,8 @@ pub struct TruckSpecs {
     pub fuel_burn_factor: f64,
     /// Stage-3 retarding torque near rated RPM.
     pub engine_brake_torque_nm: f64,
+    /// In-cab turbocharger prominence in `0.0..=1.0` (`0.0` = no audible turbo).
+    pub turbo_level: f64,
     // Air-brake thresholds follow official CDL references: FMCSA gives
     // typical compressor cut-out/cut-in ranges, California places low-air
     // warnings at 55-75 psi, and Georgia describes spring brakes applying
@@ -512,6 +514,7 @@ impl Default for TruckSpecs {
             fuel_tank_gal: 150.0,
             fuel_burn_factor: 1.0,
             engine_brake_torque_nm: 1_800.0,
+            turbo_level: 0.50,
             air_governor_cut_out_psi: 125.0,
             air_governor_cut_in_psi: 100.0,
             air_low_warning_psi: 60.0,

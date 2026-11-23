@@ -3,12 +3,13 @@
 //! weather bed, and automatic retarder management.
 
 use ff_core::engine_audio::{classify, EngineReading};
+use ff_core::sim::turbo::{TurboInput, TURBO_BLOWOFF_KEY, TURBO_FADE_MS, TURBO_SPOOL_KEY};
 use ff_core::sim::vehicle::{
     TruckState, DRIVE_AXLE_LOAD_FRACTION, JAKE_LOCK_MARGIN, JAKE_RPM_FLOOR,
 };
 
 use crate::app::GameContext;
-use crate::audio::{CH_AIR, CH_JAKE};
+use crate::audio::{CH_AIR, CH_JAKE, CH_TURBO};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_updates::{
@@ -312,6 +313,7 @@ impl DrivingState {
         let engine_load = self.engine_audio_throttle.min(cap);
         ctx.audio
             .set_engine_rpm_with(self.trip.truck.rpm, engine_load);
+        self.update_turbo_audio(ctx, dt, shifting, manual_clutch_out);
         ctx.audio.set_road_noise(self.trip.truck.velocity_mps);
 
         self.update_road_texture(ctx, dt);
@@ -462,6 +464,38 @@ impl DrivingState {
         }
         if self.trip.weather.should_thunder() {
             ctx.audio.play("weather/thunder");
+        }
+    }
+
+    /// In-cab diesel turbocharger spool loop and lift-off / shift release cue.
+    fn update_turbo_audio(
+        &mut self,
+        ctx: &mut GameContext,
+        dt: f64,
+        shifting: bool,
+        clutch_out: bool,
+    ) {
+        let t = &self.trip.truck;
+        let out = self.turbo.step(TurboInput {
+            engine_on: t.engine_on && !ctx.audio.engine_starting(),
+            rpm: t.rpm,
+            idle_rpm: t.specs.idle_rpm,
+            max_rpm: t.specs.max_rpm,
+            throttle: t.throttle,
+            shifting,
+            clutch_out: clutch_out || t.transmission.in_neutral(),
+            turbo_level: t.specs.turbo_level,
+            dt,
+        });
+        if out.spool_level > 0.0 {
+            ctx.audio
+                .start_loop_with(CH_TURBO, TURBO_SPOOL_KEY, out.spool_level, TURBO_FADE_MS);
+            ctx.audio.set_loop_rate(CH_TURBO, out.spool_rate);
+        } else {
+            ctx.audio.stop_loop_with(CH_TURBO, TURBO_FADE_MS);
+        }
+        if let Some(vol) = out.blowoff_volume {
+            ctx.audio.play_with(TURBO_BLOWOFF_KEY, vol, 0.0);
         }
     }
 

@@ -32,7 +32,7 @@ pub const SMOOTH_M: (f64, f64) = (800.0, 3_000.0);
 /// with machine regularity. At highway speed that is about six seams a
 /// second. Orinks chose it by ear from a recording on 2026-11-20, over the
 /// 14 to 18 m the seams first had.
-pub const SEAM_SPACING_M: (f64, f64) = (4.4, 4.8);
+pub const SEAM_SPACING_M: (f64, f64) = (4.3, 4.9);
 /// Below this speed no new seam is heard.
 pub const SEAM_MIN_SPEED_MPS: f64 = 5.0;
 /// Steer axle to the drive tandem: an assumed tractor wheelbase, not a
