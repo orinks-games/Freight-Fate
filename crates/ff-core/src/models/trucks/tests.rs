@@ -378,3 +378,29 @@ fn rated_mpg_orders_the_heavy_hauler_rig_and_aero_flagship() {
         "heavy {heavy}, rig {rig}, aero {aero}"
     );
 }
+
+#[test]
+fn turbo_eligibility_leaves_unknowns_and_off_models_silent_even_with_tune() {
+    assert_eq!(turbo_level_for_model("unknown_future_tractor"), 0.0);
+    for off_key in ["trainer_day_cab", "city_shuttle", "hand_me_down_sleeper"] {
+        assert_eq!(turbo_level_for_model(off_key), 0.0);
+        assert_eq!(
+            build_truck_specs(off_key, &[("engine_tune", 2)]).turbo_level,
+            0.0,
+            "{off_key} must stay silent even with engine_tune tier 2"
+        );
+    }
+    let mut enabled_count = 0usize;
+    for model in TRUCK_CATALOG.values() {
+        if model.specs.turbo_level > 0.0 {
+            enabled_count += 1;
+            assert!(
+                model.specs.max_torque_nm >= 2_300.0,
+                "{} enabled with unexpectedly low torque {}",
+                model.key,
+                model.specs.max_torque_nm
+            );
+        }
+    }
+    assert_eq!(enabled_count, 32);
+}

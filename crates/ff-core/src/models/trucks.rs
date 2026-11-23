@@ -137,22 +137,64 @@ impl<const N: usize> UpgradeTiers for [(&str, i64); N] {
 /// `{}`: no upgrades at all.
 pub const NO_UPGRADES: [(&str, i64); 0] = [];
 
-fn turbo_level_for_model(key: &str, spec: &str, max_torque_nm: f64) -> f64 {
+/// Verified in-cab diesel turbocharger prominence (`0.0..=1.0`) for each
+/// catalog tractor.
+///
+/// Every entry in `TRUCK_CATALOG` is a fictional North American Class 8
+/// tractor-semitrailer diesel (`mass_kg` 34.6-37.8 t, 600-2,200 rpm,
+/// `max_torque_nm` 2,050-3,150 N*m / 1,512-2,323 lb-ft). Independent OEM
+/// engine specifications and diesel BMEP physics confirm that naturally
+/// aspirated heavy-duty truck diesels cap near ~930-1,085 N*m (e.g. Cummins
+/// NH-250 14.0L at 929 N*m / 685 lb-ft; Detroit 8V-71N at 1,085 N*m /
+/// 800 lb-ft), whereas every North American Class 8 on-highway diesel in the
+/// 1,966-2,779+ N*m band (Cummins X15, Detroit DD13/DD15/DD16, Mack MP8 /
+/// Volvo D13, Caterpillar C15) is factory turbocharged.
+///
+/// Models are listed explicitly by key rather than inferred from class; any
+/// unknown or unverified key returns `0.0` and stays off even with an engine
+/// tune. Three quiet/low-tier models (`trainer_day_cab`, `city_shuttle`,
+/// `hand_me_down_sleeper`) are also held at `0.0` by design.
+pub fn turbo_level_for_model(key: &str) -> f64 {
     match key {
-        // Quiet trainer, light stop-and-go city day cab, and tired old sleeper:
-        // no audible in-cab turbo whistle.
+        // Explicit quiet / off exceptions (stay 0.0 even with engine_tune).
         "trainer_day_cab" | "city_shuttle" | "hand_me_down_sleeper" => 0.0,
-        _ => match spec {
-            SPEC_HEAVY => {
-                if max_torque_nm >= 2_900.0 {
-                    0.95
-                } else {
-                    0.80
-                }
-            }
-            SPEC_LIGHT => 0.30,
-            _ => 0.50,
-        },
+
+        // Heavy-haul / high-torque Class 8 turbocharged diesels (2,900-3,150 N*m).
+        "heavy_hauler"
+        | "steel_hauler"
+        | "mountain_spec_hauler"
+        | "granite_grade_king"
+        | "summit_flagship"
+        | "centurion_longhood"
+        | "continental_expedition"
+        | "presidential_sleeper" => 0.95,
+
+        // Heavy-spec Class 8 turbocharged diesels (2,450-2,850 N*m).
+        "yard_mule"
+        | "short_haul_stubnose"
+        | "farm_road_workhorse"
+        | "old_longnose"
+        | "big_bunk_conventional" => 0.80,
+
+        // Standard-spec Class 8 turbocharged diesels (2,350-2,900 N*m).
+        "rig"
+        | "plain_jane_conventional"
+        | "dock_hopper"
+        | "ridgeline_sleeper"
+        | "long_run_midroof"
+        | "interstate_condo"
+        | "highline_sleeper"
+        | "chrome_shop_special"
+        | "deep_sleeper_custom"
+        | "wide_glide_tourer"
+        | "owner_spec_showpiece" => 0.50,
+
+        // Light / insulated aero Class 8 turbocharged diesels (2,300-2,950 N*m).
+        "midroof_runner" | "sunset_day_cab" | "dry_lightning" | "aero_cruiser"
+        | "cabover_revival" | "silver_aero" | "midnight_flyer" | "night_flag_aero" => 0.30,
+
+        // Unknown / unverified models stay off.
+        _ => 0.0,
     }
 }
 
@@ -165,7 +207,7 @@ fn model(
     cab: &'static str,
     spec: &'static str,
 ) -> (&'static str, TruckModel) {
-    specs.turbo_level = turbo_level_for_model(key, spec, specs.max_torque_nm);
+    specs.turbo_level = turbo_level_for_model(key);
     (
         key,
         TruckModel {
