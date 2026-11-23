@@ -13,6 +13,7 @@ use ff_core::units::spoken_feet_or_meters;
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
+use crate::states::driving_updates::live;
 
 /// Whether a road stop's streets from its exit ramp to its lot are driven.
 /// OFF for 1.9 (owner decision, 2026-09-24): most exits have a ramp end
@@ -371,7 +372,7 @@ impl DrivingState {
             } else {
                 format!("At {place}. Come to a stop.")
             };
-            let mut opts = SayEvent::new();
+            let mut opts = SayEvent::new().valid(|| !live::stop_menu_open());
             opts.category = Some(SpeechCategory::Navigation);
             ctx.say_event_with(message, opts);
         }
@@ -529,6 +530,10 @@ impl DrivingState {
         // a measured run, which is the "came to a stop" a tester reported
         // (Brandon, 2026-08-21). Now the lane exists, sized from the highway
         // it feeds, and the truck has room to build speed on it.
+        // The streets just driven replace the town miles the leg's own road
+        // starts with (Carlisle's 25 and 35 before I-76): the ramp joins the
+        // highway, so the lane is sized from the highway's limit.
+        self.trip.join_highway_after_streets();
         let (highway_mph, _) = self.trip.speed_limit_at(0.0);
         let grade = self.trip.grade_at(0.0);
         let lane_mi = acceleration_lane_mi(highway_mph, grade * 100.0);

@@ -57,6 +57,9 @@ pub struct Section {
     pub iri: Option<f64>,
     pub faulting: Option<f64>,
     pub year: Option<i64>,
+    /// Year_Last_Construction and YEAR_LAST_IMPROVEMENT, as years.
+    pub built: Option<i64>,
+    pub improved: Option<i64>,
     /// `Begin_Point` and `End_Point`, miles along the state's route.
     pub begin_mi: Option<f64>,
     pub end_mi: Option<f64>,
@@ -235,6 +238,11 @@ pub fn surface_name(code: i64) -> Option<&'static str> {
     })
 }
 
+/// Surface_Type codes 3, 4, 5, 9 and 10: concrete on top.
+pub fn exposed_concrete(code: i64) -> bool {
+    matches!(code, 3 | 4 | 5 | 9 | 10)
+}
+
 /// HPMS Structure_Type, by name (HPMS Field Manual, Item 4).
 pub fn structure_name(code: i64) -> Option<&'static str> {
     Some(match code {
@@ -256,6 +264,10 @@ pub struct SurfaceRun {
     /// Read off the inventory carriageway while the leg drives the other
     /// one, which HPMS gives no reading of its own: the section's value.
     pub inventory_side: bool,
+    /// The section's build and improvement years, on exposed concrete only
+    /// (the groove rule's input; nothing reads them on asphalt).
+    pub built: Option<i64>,
+    pub improved: Option<i64>,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -436,17 +448,29 @@ pub fn assemble(sections: &[Section], placed: &[Placed], leg_miles: f64) -> LegP
                 .min();
         }
     }
-    let code = |d: usize| -> Vec<Option<(i64, bool)>> {
+    type Reading = (i64, bool, Option<i64>, Option<i64>);
+    let code = |d: usize| -> Vec<Option<Reading>> {
         surf[d]
             .iter()
-            .map(|k| k.and_then(|(k, side)| Some((sections[k].surface?, side))))
+            .map(|k| {
+                k.and_then(|(k, side)| {
+                    let s = &sections[k];
+                    let code = s.surface?;
+                    let (built, improved) = if exposed_concrete(code) {
+                        (s.built, s.improved)
+                    } else {
+                        (None, None)
+                    };
+                    Some((code, side, built, improved))
+                })
+            })
             .collect()
     };
     let (fwd_codes, rev_codes) = (code(0), code(1));
     let mut surface = Vec::new();
     for (dirs, stream) in split(&fwd_codes, &rev_codes) {
         let side = if dirs == Directions::Reverse { 1 } else { 0 };
-        for (a, z, (value, inventory_side)) in runs(&stream) {
+        for (a, z, (value, inventory_side, built, improved)) in runs(&stream) {
             let picks = || {
                 surf[side][a..=z]
                     .iter()
@@ -458,6 +482,8 @@ pub fn assemble(sections: &[Section], placed: &[Placed], leg_miles: f64) -> LegP
                 to_mi: ((z + 1) as f64 * BIN_MI).min(leg_miles),
                 surface: value,
                 inventory_side,
+                built,
+                improved,
                 directions: dirs,
                 iri: mean(picks().filter_map(|s| s.iri).filter(|v| *v > 0.0)),
                 faulting: mean(picks().filter_map(|s| s.faulting)),
@@ -774,9 +800,43 @@ mod tests {
                 iri: None,
                 faulting: None,
                 inventory_side: false,
+                built: None,
+                improved: None,
             })
             .collect();
         assert_eq!(flicker(&runs, 2.0, 5.0), vec![(0.0, 4.0, 40)]);
         assert!(flicker(&runs[..10], 2.0, 5.0).is_empty());
+    }
+
+    #[test]
+    fn concrete_runs_split_on_their_years_and_asphalt_keeps_none() {
+        let dated = |lat0, lat1, surface, built, improved| Section {
+            built,
+            improved,
+            ..sec(lat0, lat1, -97.0, 2, Some(surface))
+        };
+        let legs = build(
+            &[
+                dated(30.0, 30.1, 3, Some(1988), None),
+                dated(30.1, 30.2, 3, Some(1988), None),
+                dated(30.2, 30.3, 3, Some(1988), Some(2015)),
+                dated(30.3, 30.4, 2, Some(1990), None),
+                dated(30.4, 30.5, 2, Some(2001), Some(2010)),
+            ],
+            69.0,
+        );
+        let got: Vec<(i64, Option<i64>, Option<i64>)> = legs
+            .surface
+            .iter()
+            .map(|r| (r.surface, r.built, r.improved))
+            .collect();
+        assert_eq!(
+            got,
+            vec![
+                (3, Some(1988), None),
+                (3, Some(1988), Some(2015)),
+                (2, None, None)
+            ]
+        );
     }
 }

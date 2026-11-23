@@ -1,7 +1,6 @@
 //! The spoken route POI menu: actions come from the corridor metadata
 //! (`RestStopState`).
 
-use ff_core::achievements::increment_stat;
 use ff_core::data::amenities::{classify_brand, spoken_amenities};
 use ff_core::data::buffs::{buffs_for_stop, Buff};
 use ff_core::models::solvency;
@@ -9,7 +8,6 @@ use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_int, round_py_n};
 use ff_core::sim::alertness::Alertness;
 use ff_core::sim::hos;
 use ff_core::sim::roadside_inspection::InspectionLevel;
-use ff_core::sim::stimulant;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
 use serde_json::json;
@@ -34,6 +32,7 @@ use crate::states::driving_rest_states::back_on_the_road_line;
 use crate::states::driving_rest_states::fuel_pump::FuelPump;
 use crate::states::driving_rest_states::loyalty::LoyaltyRewardsState;
 use crate::states::driving_rest_states::rest_preview::{sleep_preview, SleepChoice};
+use crate::states::driving_rest_states::short_stay::{ShortStay, BREAK_ROW, FOOD_ROW};
 
 mod cat_scale;
 mod chains;
@@ -115,10 +114,10 @@ impl RestStopState {
         if self.preferred_rest != RestFocus::Default {
             let focus = self.preferred_rest;
             let wanted = |text: &str| match focus {
-                RestFocus::Break => text == "Take a 30-minute break",
+                RestFocus::Break => text == BREAK_ROW,
                 // The fuel row's label carries the gallons and the price.
                 RestFocus::Fuel => text.starts_with("Refuel ") || text.starts_with("Fuel: "),
-                RestFocus::Food => text == "Food and coffee break",
+                RestFocus::Food => text == FOOD_ROW,
                 RestFocus::Sleep | RestFocus::Default => text == "Sleep 10 hours",
             };
             let index = self
@@ -254,27 +253,10 @@ impl RestStopState {
             items.push(self.chains_item(ctx));
         }
         if has("food") {
-            items.push(
-                MenuItem::new("Food and coffee break", |s: &mut Self, ctx| {
-                    s.food_break(ctx)
-                })
-                .help(
-                    "Fifteen minutes off duty. Coffee eases fatigue a little, but the lift \
-                     wears off in two hours, and a second coffee before then adds nothing. Does \
-                     not satisfy the 30-minute break rule.",
-                ),
-            );
+            items.push(Self::food_item());
         }
         if has("break") {
-            items.push(
-                MenuItem::new("Take a 30-minute break", |s: &mut Self, ctx| {
-                    s.take_break(ctx)
-                })
-                .help(
-                    "Satisfies the 30-minute break rule and eases fatigue. Clock and deadline \
-                     advance half an hour.",
-                ),
-            );
+            items.push(Self::break_item());
         }
         if has("sleep") {
             for hours in [2, 3, 7, 8] {
@@ -452,12 +434,7 @@ impl RestStopState {
             )),
         );
         if has("save") {
-            items.push(
-                MenuItem::new("Save at this stop", |s: &mut Self, ctx| {
-                    s.save_here(ctx, false)
-                })
-                .help("Saves the drive at this stop."),
-            );
+            items.push(Self::save_item());
         }
         if self.pay_advance_available(ctx) {
             items.push(
@@ -532,74 +509,6 @@ impl RestStopState {
     fn loyalty_menu(&mut self, ctx: &mut GameContext) {
         let state = LoyaltyRewardsState::new(self.driving.clone(), self.stop.clone());
         ctx.push_state(state);
-    }
-
-    fn take_break(&mut self, ctx: &mut GameContext) {
-        let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
-            advance_rest_clock(d, ctx, 30.0, None, "");
-            hos_mut_of(ctx).take_break(30.0);
-            {
-                let p = profile_mut_of(ctx);
-                p.fatigue = hos::rest_break(p.fatigue);
-            }
-            format!(
-                "You took a 30-minute break. It is {}. Break requirement reset. {}",
-                clock_text(d.trip.local_hour()),
-                deadline_text(d, ctx)
-            )
-        }) else {
-            return;
-        };
-        // Twenty-five proper breaks. The 30-minute one is the break that
-        // counts -- the 15-minute food and coffee stop eases fatigue but
-        // resets nothing, so it is not one of these. Counted before the
-        // save, so a quit afterwards cannot lose it.
-        let breaks = increment_stat(profile_mut_of(ctx), "breaks_taken");
-        self.save_here(ctx, true);
-        ctx.audio.play("ui/notify");
-        ctx.say(&text);
-        ctx.award_achievement("break_taken");
-        if breaks >= 25 {
-            ctx.award_achievement("coffee_regular");
-        }
-        // The break counts toward a 10-hour reset; the reset row says so.
-        self.refresh(ctx, true);
-    }
-
-    fn food_break(&mut self, ctx: &mut GameContext) {
-        let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
-            advance_rest_clock(d, ctx, 15.0, Some("off_duty"), "food and coffee");
-            hos_mut_of(ctx).take_break(15.0);
-            // The lift is a loan, paid back when the coffee wears off; a
-            // second cup before then lifts nothing.
-            let now_h = d.absolute_game_hour(ctx, None);
-            let lifted = profile_mut_of(ctx).take_stimulant(
-                hos::FATIGUE_COFFEE_RELIEF,
-                now_h,
-                stimulant::COFFEE_BREAK_LOAN_H,
-                stimulant::COFFEE_WORN_OFF,
-            );
-            if lifted > 0.0 {
-                format!(
-                    "Coffee break. {}. Eases fatigue. Does not count as your 30-minute break. {}",
-                    clock_text(d.trip.local_hour()),
-                    deadline_text(d, ctx)
-                )
-            } else {
-                format!(
-                    "Coffee break. {}. No lift while the last coffee lasts. Does not count as \
-                     your 30-minute break. {}",
-                    clock_text(d.trip.local_hour()),
-                    deadline_text(d, ctx)
-                )
-            }
-        }) else {
-            return;
-        };
-        self.save_here(ctx, true);
-        ctx.audio.play("ui/notify");
-        ctx.say(&text);
-        self.refresh(ctx, true);
     }
 
     fn sleeper_split_rest(&mut self, ctx: &mut GameContext, hours: i64) {
@@ -1313,6 +1222,7 @@ impl RestStopState {
         let stop = self.stop.clone();
         let result = self.driving.clone().with(ctx, |d, ctx| {
             d.stop_visit(&stop).inspected = true;
+            d.note_road_tally_scale(&stop);
             ctx.audio.play("ui/notify");
             // A valid decal is waved through on sight (CVSA Operational
             // Policy 5), unless the record is targeted.
@@ -1513,6 +1423,8 @@ impl FuelPump for RestStopState {
         &self.stop
     }
 }
+
+impl ShortStay for RestStopState {}
 
 impl Menu for RestStopState {
     /// A prompt to answer: Escape answers it, so touch adds no Back row.

@@ -2,9 +2,41 @@
 
 ## Unreleased
 
+### Added
+
+- **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
+- **Page Up and Page Down now move ten options at a time in every menu.**
+- **Tires whine on grooved concrete and hum on steel grate bridge decks.** The pitch rises and falls with your speed.
+
 ### Fixed
 
-- **Weather reports, weather alerts and about a thousand other lines are now spoken in your language.** Every translation had left some of them in English.
+- **Weather reports and alerts now use the selected language.** Players hear over a thousand fewer English lines.
+- **Town streets at the start and end of a road no longer get the highway's speed limit.** Where no sign is mapped, the town limit applies instead.
+- **Chains no longer wear fast in the first 2 miles of bare road.** That leaves room to stop and take them off.
+- **Holding chain speed on cruise no longer wears the chains as if you were speeding.**
+- **Cruise now keeps the truck at chain speed downhill.** It used to drift over and wear the chains faster.
+- **"Too fast for chains" is now spoken every time you go over, not once per drive.**
+- **Left curve calls say "left" again in every language.** They are spoken in English for now.
+- **The hours of service countdown plays a chime again.** The alarm tone is still kept for a violation.
+- **Lines that were said twice or late are now said once, in order.** This covers the first drive, stop arrivals and leaving Settings.
+- **An open weigh station is announced once, then its exit signal.** The stop callout that repeated it is gone.
+- **Report a problem now says plainly when orinks.net cannot be reached.** It used to read the error text aloud.
+- **A successful cloud restore no longer leaves the newer-copy warning in the Cloud backup menu.**
+- **A co-driver braking downhill no longer cancels their own chain stop.** Chains stayed on bare road and broke.
+- **Chain work your co-driver does no longer adds to your fatigue.** You get one note per job when you wake.
+- **A chain control no longer cites a truck that was already on the grade when the snow began.**
+- **The chain law call no longer says "ahead".**
+- **A stop with a full lot at night still offers the 30-minute break and Save at this stop.** Only sleeping there is turned away.
+- **Sharp bend calls no longer come on straight road where a divided highway narrows to one road.**
+- **A sharp bend is called in time when cruise is still bringing the truck up to speed.** Pulling away from a yard, the first word of it used to be "too fast", already in the bend.
+
+### Changed
+
+- **The player manual has been rewritten in a clearer, more conversational style.** It walks through each part of the game step by step.
+- **The GPS no longer calls out low bridges and weight limits.** Your route already clears every one of them.
+- **Exit, stop, fuel and road report calls no longer end in "ahead".** "Signal set for exit 323, 5 miles."
+- **F1 in a text field now repeats how the field works.**
+- **The manual now explains which NVDA Braille settings show Freight Fate's menu text.**
 
 ## 1.9.7 - 2026-11-21
 

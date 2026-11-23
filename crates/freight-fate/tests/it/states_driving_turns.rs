@@ -894,6 +894,8 @@ fn test_the_speed_limit_readout_leaves_a_connector_arc_unnamed() {
     // acts on. The readout names mainline bends only now.
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
+    // Out on the corridor, past Buffalo's 30 mph streets.
+    d.trip.position_mi = 5.0;
     let mut arc = RouteCurve {
         start_mi: d.trip.position_mi - 0.05,
         apex_mi: d.trip.position_mi,
@@ -1275,6 +1277,8 @@ fn test_safe_speed_folds_in_the_bend() {
 fn test_upcoming_lists_the_next_bends() {
     let mut app = TestApp::new();
     let mut d = a_drive(&mut app);
+    // Out on the corridor, past Buffalo's 30 mph streets.
+    d.trip.position_mi = 5.0;
     app.clear_speech();
     let pos = d.trip.position_mi;
     d.trip.curves = vec![

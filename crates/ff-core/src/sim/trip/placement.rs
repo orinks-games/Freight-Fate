@@ -353,20 +353,9 @@ impl Trip {
                     ),
                 ));
             }
-            for restriction in leg.restrictions() {
-                let offset = stop_offset_for_direction(restriction.at_mi, leg.miles, forward);
-                cues.push(NavigationCue::new(
-                    &format!(
-                        "restriction:{i}:{}:{}",
-                        py_str_float(restriction.at_mi),
-                        restriction.kind
-                    ),
-                    "restriction",
-                    start + offset,
-                    &restriction.spoken_ahead(),
-                    &restriction.spoken_near(),
-                ));
-            }
+            // `leg.restrictions()` (low bridges, weight limits) makes no
+            // cue: routing already avoids anything a legal truck cannot pass,
+            // so a call about one told the driver nothing (owner, 2026-11-22).
             for ix in leg.interchanges() {
                 // Destinations the leg's other exits sign too are the
                 // mainline's own promise, not this exit's: on I-35 south the
@@ -687,6 +676,20 @@ impl Trip {
 
     // -- curves ---------------------------------------------------------------------
 
+    /// Each leg's town stretches, from its profile and its bends (connector
+    /// arcs included: they are what marks the town streets).
+    pub fn place_town_ends(&self) -> Vec<crate::sim::town_limits::TownEnds> {
+        self.route
+            .legs
+            .iter()
+            .map(|leg| {
+                let curves =
+                    crate::data::curves::leg_curves(&format!("{}:{}", leg.a, leg.b), false);
+                crate::sim::town_limits::town_ends(leg, &curves)
+            })
+            .collect()
+    }
+
     /// Every baked curve on the route in trip-mile coordinates. Connector
     /// ramps stay in the list for curve physics but are filtered from the
     /// spoken layers.
@@ -785,6 +788,17 @@ impl Trip {
         ((advisory + margin).min(costs), advisory.min(costs))
     }
 
+    /// The speed the truck will carry into a bend `ahead_mi` up the road
+    /// ([`crate::sim::bend_approach::bend_approach_speed_mph`] on the truck as it is now).
+    pub fn approach_speed_mph(&self, ahead_mi: f64) -> f64 {
+        crate::sim::bend_approach::bend_approach_speed_mph(
+            self.truck.speed_mph(),
+            self.truck.net_accel_mph_per_s(),
+            ahead_mi,
+            self.speed_control_target_mph,
+        )
+    }
+
     /// The next curve ahead that deserves a spoken approach warning and has
     /// not had it.
     ///
@@ -795,7 +809,6 @@ impl Trip {
     /// called bends ahead of it masked it until the truck was in it (bend
     /// sweep, 2026-09-24).
     pub fn next_curve_approach(&self) -> Option<RouteCurve> {
-        let speed = self.truck.speed_mph();
         for cr in &self.curves {
             let ahead = cr.start_mi - self.position_mi;
             if ahead <= 0.0 {
@@ -807,6 +820,15 @@ impl Trip {
             if cr.connector || self.curve_called(cr) {
                 continue;
             }
+            // A sharp bend is judged on the speed the truck will bring to
+            // it; a gentler one on the speed now, so a truck pulling away
+            // from a stop is not held back for a sweep it may never reach
+            // the call speed for.
+            let speed = if matches!(cr.severity(), "sharp" | "hairpin") {
+                self.approach_speed_mph(ahead)
+            } else {
+                self.truck.speed_mph()
+            };
             let (call_above, target) = self.curve_call_mph(cr);
             if speed <= call_above {
                 continue;

@@ -12,8 +12,8 @@ use super::{
     asset_bytes, Audio, AudioBackend, AudioError, Buses, HearkenBackend, KeyProbe, NullBackend,
     RadioVoicing, SustainLoopSpec, VolumeUpdate, ALERT_HOLD_TIMEOUT_S, CH_AIR, CH_ALERT,
     CH_AMBIENT, CH_CAB_FAN, CH_CAB_WIND, CH_EDGE, CH_HORN, CH_JAKE, CH_LANE_GUIDE, CH_OUTSIDE,
-    CH_RADIO_FX, CH_ROAD, CH_SCALE, CH_SURGE, CH_TRAFFIC_BED, CH_TRAFFIC_SOUNDS, CH_WEATHER,
-    CH_WEATHER_B, CUE_HOLD_TIMEOUT_S, HORN_LOOP, JAKE_BAND_PREFIX, JAKE_CLASSIC_KEY,
+    CH_RADIO_FX, CH_ROAD, CH_ROAD_SONG, CH_SCALE, CH_SURGE, CH_TRAFFIC_BED, CH_TRAFFIC_SOUNDS,
+    CH_WEATHER, CH_WEATHER_B, CUE_HOLD_TIMEOUT_S, HORN_LOOP, JAKE_BAND_PREFIX, JAKE_CLASSIC_KEY,
     JAKE_RECORDED_KEY, SFX_EXTENSIONS,
 };
 
@@ -707,6 +707,8 @@ impl Audio for AudioEngine {
             CH_OUTSIDE[1],
             CH_OUTSIDE[2],
             CH_OUTSIDE[3],
+            // The tires' song, set every frame at the wheel.
+            CH_ROAD_SONG,
         ] {
             self.stop_loop_with(ch, 400);
         }

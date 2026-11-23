@@ -88,15 +88,21 @@ fn scenario_properties() -> Value {
         "fuel_pct": {"type": "number"},
         "window": {"type": "string", "enum": ["up", "down"]},
         "road_surface": {"type": "string", "enum": ["jointed", "smooth"]},
+        "tire_song": {"type": "string", "enum": ["quiet", "whine", "hum"]},
         "weather": {"type": "string", "description": "the simulated sky every drive starts under, forced: snow, ice, cloudy, clear, rain, heavy_rain, thunderstorm, fog or wind; free unlocks it"},
         "damage_pct": {"type": "number"},
         "tire_wear_pct": {"type": "number"},
         "brake_wear_pct": {"type": "number"},
+        "chains": {"type": "boolean"},
+        "chain_wear_pct": {"type": "number"},
+        "chain_repair_links": {"type": "integer"},
         "citations": {"type": "integer"},
         "out_of_service_events": {"type": "integer"},
         "rested": {"type": "boolean"},
         "first_run": {"type": "boolean"},
         "touch_gestures": {"type": "boolean"},
+        "tilt_steering": {"type": "boolean"},
+        "phone": {"type": "boolean", "description": "true plays this run as an iPhone with no hardware keyboard: the phone's menus, settings rows and help, and prompts that name gestures; false goes back to the desktop"},
         "fatigue": {"type": "number", "description": "0 to 100; 40 worn, 60 drowsy, 80 severe"},
         "hos_driving_min": {"type": "number"},
         "hos_duty_min": {"type": "number"},
@@ -105,6 +111,7 @@ fn scenario_properties() -> Value {
         "market_seed": {"type": "integer"},
         "board_seed": {"type": "integer"},
         "came_from": {"type": "string"},
+        "newspaper": {"type": "string", "description": "a file holding a driver newspaper issue in the site's body (crates/ff-core/src/newspaper/fixture_issue.json is a made-up one) for the game to hold, or none for no issue"},
         "settings": {"type": "object"},
     });
     for key in [
@@ -209,6 +216,58 @@ fn tools_list() -> Value {
             &["name"],
         ),
         tool(
+            "fingers",
+            "Touch the screen with raw fingers, read by the shared gesture recognizer \
+             (Android's, and the iPhone's with Touch gestures, New gesture reading on), \
+             then reply with what was heard. events is a list of {finger, kind, x, y, \
+             at_ms}: finger is any id that stays the same from down to up; kind is down, \
+             move, up or cancel; x and y are points (y grows downwards, an iPhone screen \
+             is about 390 by 844); at_ms is milliseconds from the start of the call, in \
+             order. Each event is handed over at its own time and the recognizer ticks \
+             every frame, so a stroke held past the flick window becomes a hold. Moves \
+             are not filled in: send one every 16 ms or so for a stroke. A finger left \
+             down stays down until a later call lifts it. In lockstep the clock runs \
+             only inside calls. A desktop run, phone: true included, has no native \
+             recognizer, so this tool always uses the shared one, whatever the setting \
+             says; gesture sends a recognized gesture by name instead. status reports \
+             the recognizer's phase on the STATE line.",
+            json!({
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "finger": {"type": "integer"},
+                            "kind": {"type": "string", "enum": ["down", "move", "up", "cancel"]},
+                            "x": {"type": "number"},
+                            "y": {"type": "number"},
+                            "at_ms": {"type": "number"},
+                        },
+                        "required": ["finger", "kind", "at_ms"],
+                    },
+                },
+            }),
+            &["events"],
+        ),
+        tool(
+            "tilt",
+            "Hold the phone at an angle, standing in for its motion sensor the way \
+             gesture stands in for the screen: degrees from flat, right edge down \
+             positive, for seconds (0.05 to 30), then back to where it was, or to \
+             then. silent sends no readings for the seconds instead. The phone is \
+             held level (0) from the start. With tilt steering on (scenario \
+             tilt_steering), level is taken from the pose when the drive starts or \
+             resumes, and status reports the tilt state, level and angle. Replies \
+             with what was heard once the time is up.",
+            json!({
+                "degrees": {"type": "number", "description": "angle from flat, -90 to 90; right edge down is positive"},
+                "seconds": {"type": "number", "description": "real seconds to hold it, 0.05 to 30"},
+                "then": {"type": "number", "description": "the angle to hold afterwards; default: where it was before"},
+                "silent": {"type": "boolean", "description": "send no readings for the seconds"},
+            }),
+            &["seconds"],
+        ),
+        tool(
             "wait_for",
             "Let the game run until something arrives: a spoken line or sound whose \
              text contains `text` (case-insensitive), or a menu on screen when `menu` \
@@ -270,9 +329,17 @@ fn tools_list() -> Value {
              lugging in a tall gear: the clutch a touch shift works in a manual \
              truck), chain_control (clear, level_1 or level_2: the chain law posted \
              at the truck, which follows snow or ice on the road) and chains \
-             (stowed, on_snow, on_bare or broken). \
+             (stowed, on_snow, on_bare inside the 2 mile bare-road grace, on_bare_wearing past it, or broken), chain_worker (driver, assist \
+             or co_driver: who does the chain work, whoever holds the wheel) and \
+             chain_stop (none, install, remove, tighten or repair: the roadside \
+             chain stop the assist or the co-driver is making), chain_wear (the set's \
+             wear in percent, at the truck's exact speed in mph), air (the air supply in psi), \
+             brake (the service brake demand, 0 to 1, with \"cruise snubbing\" while \
+             cruise holds the drums on), jake (the engine brake stage, 0 for off), and app (active, inactive or \
+             background: where a phone app is, moved by app_event, with \
+             sound_taken after it while an interruption holds the sound). \
              Off the wheel the \
-             STATE line carries touch_mode alone, and on the dispatch board also \
+             STATE line carries touch_mode and app, and on the dispatch board also \
              board_mode (assigned or browse), board_offer (the row dispatch \
              assigned or recommends, or none), board_reason (assigned, none, \
              training, best_pay_for_hours, best_net_for_hours, \
@@ -281,9 +348,28 @@ fn tools_list() -> Value {
              no keys, since they are menu keys. A SPEECH line follows it \
              everywhere: main_backend (the saved Main voice choice, automatic \
              when none), main (the voice bound now) and event (the event \
-             voice bound now, or main voice when events share it).",
+             voice bound now, or main voice when events share it). An INPUT line \
+             ends it: phone (whether this run plays as a phone), device (keyboard, \
+             controller or touch: the input prompts name), last_used, and keyboard \
+             and controller (connected or none).",
             json!({}),
             &[],
+        ),
+        tool(
+            "app_event",
+            "Send a phone app's lifecycle notification, as an iPhone delivers it, then \
+             reply with what was heard. Names: will_resign_active (a call, Siri, \
+             Control Center, the app switcher, the lock button; the window's focus is \
+             lost with it), did_enter_background, will_enter_foreground, \
+             did_become_active (focus comes back with it), audio_interruption_began, \
+             audio_interruption_ended and output_device_lost (headphones out). Leaving \
+             is will_resign_active then did_enter_background; coming back is \
+             will_enter_foreground then did_become_active; Control Center is \
+             will_resign_active then did_become_active. status reports app (active, \
+             inactive or background, and sound_taken while an interruption holds the \
+             sound).",
+            json!({"name": {"type": "string"}}),
+            &["name"],
         ),
         tool(
             "listen",
@@ -316,7 +402,8 @@ fn tools_list() -> Value {
              feature must be one of: downgrade, upgrade, zone, limit-drop, stop, \
              scale, curve, interchange, toll, chain-law, destination, departure, river, \
              bridge (one with joints, longest first), jointed (road with seams, longest \
-             first). \
+             first), grooved (road the tires whine on, longest first), grating (an \
+             open steel grate deck the tires hum on). \
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
              3) so an encounter can be staged on purpose; the road's own seeded posts \
@@ -346,12 +433,18 @@ fn tools_list() -> Value {
              business (company, leased or independent), endorsements (a list of \
              credential keys bought outright, replacing what was held), hour (local \
              clock 0 to 24, moved forward to), fuel_pct, damage_pct, tire_wear_pct and \
-             brake_wear_pct (0 to 100, what a roadside inspection reads), citations and \
+             brake_wear_pct (0 to 100, what a roadside inspection reads), chains (true \
+             puts a set of snow chains aboard, false takes them away), chain_wear_pct \
+             (0 to 100, how worn the set is; near 100 a set snaps soon) and \
+             chain_repair_links (spare links for a broken chain), citations and \
              out_of_service_events (counts on the record, dated now; with damage they set the \
              safety band that decides who is pulled into the inspection lane), \
              rested (true takes a full sleep), first_run (true teaches the first-run \
              walkthrough on the next drive), touch_gestures (true opens the iPhone \
-             Touch gestures settings screen over the terminal), fatigue (0 to 100, set after rested; \
+             Touch gestures settings screen over the terminal), phone (true plays the \
+             run as an iPhone with no hardware keyboard, false as the desktop again; \
+             applied first), tilt_steering (true or false: the Touch gestures switch; \
+             the tilt tool is the phone's motion sensor), fatigue (0 to 100, set after rested; \
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
              hos_since_break_min (sandbox HOS counters in game minutes), \
              co_driver_driving_min, co_driver_duty_min, co_driver_since_break_min and \
@@ -366,7 +459,8 @@ fn tools_list() -> Value {
              session), window (up or down: every drive from here on starts with \
              the driver window there), road_surface (jointed or smooth: every \
              drive from here on keeps that surface the whole way, over what the \
-             pavement layer reads), and name (the career created when none is \
+             pavement layer reads), tire_song (quiet, whine or hum: every drive \
+             from here on holds that song the whole way), and name (the career created when none is \
              loaded; default Playtest). Nothing is refused for being unreasonable: this is the \
              audited sandbox. Listen afterwards for the terminal.",
             scenario_properties(),
@@ -703,6 +797,36 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
                 length,
             })
         }
+        "fingers" => Ok(Command::Fingers {
+            events: fingers_arg(args)?,
+        }),
+        "tilt" => {
+            let seconds = args.get("seconds").and_then(Value::as_f64).unwrap_or(0.0);
+            if seconds <= 0.0 {
+                return Err("tilt needs a positive number of seconds".to_string());
+            }
+            let angle = |name: &str| -> Result<Option<f64>, String> {
+                match args.get(name) {
+                    None | Some(Value::Null) => Ok(None),
+                    Some(value) => match value.as_f64() {
+                        Some(degrees) if degrees.is_finite() => {
+                            Ok(Some(degrees.clamp(-90.0, 90.0)))
+                        }
+                        _ => Err(format!("{name} must be a number of degrees")),
+                    },
+                }
+            };
+            let silent = args.get("silent").and_then(Value::as_bool).unwrap_or(false);
+            let degrees = angle("degrees")?;
+            if silent == degrees.is_some() {
+                return Err("tilt needs degrees, or silent: true, but not both".to_string());
+            }
+            Ok(Command::Tilt {
+                degrees,
+                seconds,
+                then: angle("then")?,
+            })
+        }
         "wait_for" => {
             let seconds = args.get("seconds").and_then(Value::as_f64).unwrap_or(0.0);
             if seconds <= 0.0 {
@@ -760,6 +884,25 @@ pub fn build_command(name: &str, args: &Map<String, Value>) -> Result<Command, S
             Ok(Command::Cruise { target })
         }
         "status" => Ok(Command::Status),
+        "app_event" => {
+            let name = args
+                .get("name")
+                .and_then(Value::as_str)
+                .unwrap_or("")
+                .trim()
+                .to_ascii_lowercase();
+            let event = ff_core::app_lifecycle::AppEvent::from_key(&name).ok_or_else(|| {
+                format!(
+                    "{name:?} is not an app event. The names are: {}.",
+                    ff_core::app_lifecycle::AppEvent::ALL
+                        .iter()
+                        .map(|event| event.key())
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                )
+            })?;
+            Ok(Command::AppEvent { event })
+        }
         "listen" => Ok(Command::Listen),
         "menu" => Ok(Command::Menu),
         "observe" => Ok(Command::Observe),
@@ -963,6 +1106,65 @@ pub(super) fn discover(
     let hit = hits[index].clone();
     let found = hits.len();
     Ok((hit, opts, found, index + 1))
+}
+
+/// The `fingers` tool's events, checked: known kinds, finite points, and
+/// times in order within the call's limit.
+fn fingers_arg(args: &Map<String, Value>) -> Result<Vec<super::fingers::ScriptedFinger>, String> {
+    let Some(list) = args.get("events").and_then(Value::as_array) else {
+        return Err("fingers needs events, a list of {finger, kind, x, y, at_ms}".to_string());
+    };
+    if list.is_empty() {
+        return Err("fingers needs at least one event".to_string());
+    }
+    let mut events = Vec::with_capacity(list.len());
+    let mut last_ms = 0.0;
+    for (i, event) in list.iter().enumerate() {
+        let n = i + 1;
+        let finger = event
+            .get("finger")
+            .and_then(Value::as_i64)
+            .ok_or_else(|| format!("event {n}: finger must be a whole number"))?;
+        let kind_name = event.get("kind").and_then(Value::as_str).unwrap_or("");
+        let kind = crate::touch::FingerKind::from_name(kind_name)
+            .ok_or_else(|| format!("event {n}: kind must be down, move, up or cancel"))?;
+        let point = |name: &str| -> Result<f32, String> {
+            match event.get(name) {
+                None | Some(Value::Null) if kind == crate::touch::FingerKind::Cancel => Ok(0.0),
+                None | Some(Value::Null) => Err(format!("event {n}: {name} is missing")),
+                Some(value) => match value.as_f64() {
+                    Some(v) if v.is_finite() => Ok(v as f32),
+                    _ => Err(format!("event {n}: {name} must be a number of points")),
+                },
+            }
+        };
+        let (x, y) = (point("x")?, point("y")?);
+        let at_ms = event
+            .get("at_ms")
+            .and_then(Value::as_f64)
+            .filter(|ms| ms.is_finite() && *ms >= 0.0)
+            .ok_or_else(|| format!("event {n}: at_ms must be 0 or more"))?;
+        if at_ms < last_ms {
+            return Err(format!(
+                "event {n}: at_ms {at_ms} comes before the event ahead of it ({last_ms})"
+            ));
+        }
+        if at_ms > super::fingers::MAX_FINGERS_MS {
+            return Err(format!(
+                "event {n}: at_ms is past {} ms; split it into calls",
+                super::fingers::MAX_FINGERS_MS
+            ));
+        }
+        last_ms = at_ms;
+        events.push(super::fingers::ScriptedFinger {
+            finger,
+            kind,
+            x,
+            y,
+            at_ms,
+        });
+    }
+    Ok(events)
 }
 
 #[cfg(test)]

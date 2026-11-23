@@ -61,7 +61,7 @@ pub const RANDOM_SAMPLE: usize = 6;
 /// launched later. It does not choose a facility or corridor.
 const DEPARTURE_TRIP_SEED: i64 = 0;
 
-pub const FEATURES: [&str; 15] = [
+pub const FEATURES: [&str; 17] = [
     "downgrade",
     "upgrade",
     "zone",
@@ -77,6 +77,8 @@ pub const FEATURES: [&str; 15] = [
     "river",
     "bridge",
     "jointed",
+    "grooved",
+    "grating",
 ];
 const SCAN_STEP_MI: f64 = 0.1;
 /// How far before the feature the SEARCH looks back to report a posted
@@ -583,6 +585,12 @@ pub fn find_feature(
             "river" => hits.extend(self::river::river_hits(&mut trip, origin, destination)),
             "bridge" => hits.extend(self::pavement::bridge_hits(&mut trip, origin, destination)),
             "jointed" => hits.extend(self::pavement::jointed_hits(&mut trip, origin, destination)),
+            "grooved" | "grating" => hits.extend(self::pavement::song_hits(
+                &mut trip,
+                origin,
+                destination,
+                feature == "grating",
+            )),
             _ => {}
         }
     }

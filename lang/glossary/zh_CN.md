@@ -68,7 +68,6 @@ has no plural forms; write one form.
 | passing | 超车 | |
 | hazard | 危险 | |
 | stopping distance | 停车距离 | Not "制动距离", a shorter distance. |
-| low bridge | 限高桥 | |
 | weight limit | 限重 | |
 | exit speed | 出口速度 | |
 | ramp curve | 匝道弯 | |

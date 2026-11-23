@@ -50,7 +50,9 @@ impl Trip {
 
     pub fn traffic_pressure_speed(&self, mile: f64, intensity: f64) -> f64 {
         let posted = self.corridor_limit_at(mile);
-        30.0_f64.max(posted.min(posted - intensity * 26.0))
+        // The 30 floor keeps a highway queue moving; it never lifts the
+        // target over a town limit lower than that.
+        posted.min(30.0_f64.max(posted - intensity * 26.0))
     }
 
     pub fn place_traffic_pressures(&self) -> Vec<TrafficPressure> {

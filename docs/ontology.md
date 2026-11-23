@@ -307,8 +307,6 @@ from the words, and synonyms cost them a re-read.
 | The retarder | engine brake; "jake" in short control feedback ("Jake on, stage two") | retarder | `TruckState.engine_brake_stage` |
 | A stretch of road where a town bans the engine brake | no engine brake zone ("End of no engine brake zone." when one the driver heard about ends) | jake brake zone, engine brake restriction, quiet zone | `Trip.engine_brake_ban_at`, `jake_zone::ZoneNotice` |
 | The speed this truck, at its weight, can hold a steep downgrade at without overheating its brakes ("Descent control holding 45 miles per hour." / D: "Safe speed 45 miles per hour for the grade.") | the number descent control holds; "safe speed ... for the grade" on D | weight-specific speed, grade speed, runaway speed, descent speed | `TruckState::safe_descent_mph`, `DrivingState::descent_safe_mph` |
-| A posted height restriction on the corridor | low bridge | low clearance, height limit, clearance restriction | `RouteRestriction.kind_label` |
-| A posted weight restriction on the corridor | weight limit | max weight, tonnage limit, weight restriction | `RouteRestriction.kind_label` |
 | A delivery stop that is a shopping mall: it takes freight in at its service dock and ships none | mall (dropped when the name already says it: "Mall of America near Bloomington in Minneapolis") | shopping center, retail center, retail distribution hub (that is a warehouse) | `shopping_mall` facility type, `LOCATION_TYPE_LABELS` |
 | The facility entrance where a drive ends | facility gate; "gate" in short cues | entrance (as the noun for the thing), dock gate | `_handle_arrival_gate` |
 | The highway exit for the delivery | destination exit | final exit, last exit, your exit | `_destination_exit_stop` |
@@ -446,6 +444,8 @@ from the words, and synonyms cost them a re-read.
 | The parking brake engaging: a hard mechanical clunk of air dumping | Parking brake set | brake set, park brake on | `vehicle/brake_set` |
 | The parking brake releasing, freeing the truck to roll | Parking brake released | brake release, park brake off | `vehicle/brake_release` |
 | The driver's side window, lowered or raised by its motor; with it down the wind rushes in and the outside sounds louder; with it up the birds, insects and rivers outside are muffled | driver window; "Driver window down." / "Driver window up." | window (alone: "window" is also the duty window), cab window, open/closed | `sim/cab.rs CabState` and `Window`, `cab/window_motor`, `cab/wind` |
+| The thumps of pavement seams and bridge joints under the wheels, the tires' whine on grooved concrete and hum on steel grate decks, and their volume row | road surface; "Road surface volume" | road texture, road joints, road bumps | `vehicle/seam_steer`, `vehicle/seam_drive`, `vehicle/bridge_joint`, `vehicle/tined_whine`, `vehicle/grate_hum`, `Category::Road` |
+| The birds, insects and rivers heard outside the truck, and their volume row | outside sounds; "Outside sounds volume" | nature sounds, ambience, outdoor ambience | `CH_OUTSIDE`, `Category::Outside` |
 | The cab blower, off, low, medium or high | fan; "Fan low." | blower, vent, climate fan | `sim/cab.rs FanSpeed`, `cab/fan` |
 | Warm or cold air from the fan | heat; air conditioning | A/C, AC, cooling, climate mode, HVAC | `sim/cab.rs ClimateMode`, `cab/ac_clutch` |
 | The hardest stop the truck has, for a hazard that cannot otherwise be missed | Emergency brake | e-brake (bare abbreviation), panic stop | `vehicle/ebrake` (fallback `vehicle/brake_air`) |

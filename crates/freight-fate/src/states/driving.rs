@@ -128,6 +128,9 @@ pub struct DrivingState {
     pub rig_buffs: RigBuffs,
     /// See [`StopVisit`]; read and written through `stop_visit`.
     pub stop_visit: StopVisit,
+    /// What the drive met on the road, for the delivery the road journal
+    /// posts (`ff_core::sim::road_tally`).
+    pub road_tally: ff_core::sim::road_tally::RoadTally,
     /// The truck moved in automatic at some point on this run, so the gate
     /// pays no manual-spec differential however the run ends.
     pub drove_automatic: bool,
@@ -297,7 +300,10 @@ pub struct DrivingState {
     // engages at whatever stage was last chosen. Full retard by default
     // -- the setting every driver leaves it on until ice says otherwise.
     pub jake_selected_stage: i32,
-    pub chains_fast_active: bool, // spoken chains-over-speed warning edge tracking
+    /// Over chain speed since the last time back at or under it: the
+    /// "Too fast for chains." onset, and how many onsets this drive.
+    pub chains_fast_active: bool,
+    pub chains_fast_onsets: u32,
     /// The cruise and keeper set speeds held down to chain speed while the
     /// chains are on, given back when they come off (`apply_chain_speed_cap`).
     pub chain_cap_cruise_mph: Option<f64>,
@@ -335,8 +341,13 @@ pub struct DrivingState {
     pub chain_bare_cue_pending: bool,
     /// The slap tighten was offered once since the chains went on.
     pub chain_assist_tighten_tried: bool,
-    /// A chain broke this drive and the assist hasn't answered it yet.
+    /// A chain broke this drive and the assist or the co-driver hasn't
+    /// answered it yet.
     pub chain_assist_snapped: bool,
+    /// The chain-law areas the truck rolled into under a posted law: the
+    /// only ones the chain control and the patrol cite in. Not saved: the
+    /// first look after a resume rebuilds it.
+    pub chain_area_entry: ff_core::sim::chain_work::ChainAreaEntry,
     // Curve management: the curve the too-fast warning has been spoken for
     // (its start milepost; the ramp curve has its own id), `driving_rollover`.
     pub curve_warned_mi: Option<f64>,
@@ -393,6 +404,10 @@ pub struct DrivingState {
     pub fatigue_events: i64, // run-off-road microsleeps this trip
     // Every open scale whose notice has been spoken this trip, by key.
     pub weigh_station_noticed: HashSet<String>,
+    /// The scale the weigh station notice last named in words, and the real
+    /// seconds left in which the exit signal can call it "the scale exit".
+    pub scale_named_key: String,
+    pub scale_named_s: f64,
     // The half-mile "slow for the scale" nudge, latched separately so it
     // speaks once per announced scale and never re-fires on a re-approach.
     pub weigh_station_reminder_key: String,
@@ -907,9 +922,9 @@ pub struct DrivingState {
     // Discrete lanes: tap-change progress (assist off), closed-lane
     // policing, hazard-dodge context, and keep-right pressure.
     pub lane_change_target: Option<i64>,
-    /// Full lane keeping: the side the left stick last asked to change
-    /// lanes toward, until it comes back near the center.
-    pub stick_lane_request: i8,
+    /// Full lane keeping: whether the left stick or a tilt of the phone
+    /// has asked for its lane and not come back near the centre yet.
+    pub lane_push: ff_core::sim::lane_push::LanePush,
     pub lane_change_timer: f64,
     pub lane_signal_timer: f64,
     /// Lane keeping on full is passing a slow vehicle: (the lane to come

@@ -122,7 +122,7 @@ impl DrivingState {
                 } else {
                     format!(
                         "Fuel range about {range_text}, short of the next fuel stop, \
-                         {ahead_text} ahead."
+                         {ahead_text}."
                     )
                 }
             }

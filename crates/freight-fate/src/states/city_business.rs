@@ -11,7 +11,8 @@ use ff_core::models::business::{
 };
 use ff_core::models::career::PendingCredential;
 use ff_core::models::credentials::{
-    course_eligibility, course_help_text, course_offer_text, credential, Credential, CREDENTIALS,
+    course_eligibility, course_help_text, course_offer_text, course_touch_help_text, credential,
+    Credential, CREDENTIALS,
 };
 use ff_core::models::enforcement::HOURS_PER_DAY;
 use ff_core::models::solvency::{apply_return_to_company_driving, company_return_buy_back};
@@ -1302,7 +1303,8 @@ impl Menu for EndorsementCourseState {
                     ),
                     move |s: &mut Self, ctx| s.buy(ctx, key),
                 )
-                .help(course_help_text(cred)),
+                .help(course_help_text(cred))
+                .touch_help(course_touch_help_text(cred)),
             );
         }
         items.push(

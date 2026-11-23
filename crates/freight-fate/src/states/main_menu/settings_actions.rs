@@ -197,7 +197,7 @@ impl SettingsCategoryState {
             let note = if ctx.settings.lane_is_automated()
                 && ctx.controller.device() == ff_core::input_hints::TOUCH
             {
-                "Lane keeping full: the truck holds the lane, swipe left or right to change lanes."
+                "Lane keeping full: the truck holds the lane, flick left or right to change lanes."
                     .to_string()
             } else if ctx.settings.lane_is_automated() {
                 format!(
@@ -329,6 +329,8 @@ impl SettingsCategoryState {
             "music_volume" => &mut s.music_volume,
             "radio_volume" => &mut s.radio_volume,
             "weather_volume" => &mut s.weather_volume,
+            "outside_volume" => &mut s.outside_volume,
+            "road_surface_volume" => &mut s.road_surface_volume,
             "engine_volume" => &mut s.engine_volume,
             "ui_volume" => &mut s.ui_volume,
             "speech_rate" => &mut s.speech_rate,

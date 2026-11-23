@@ -118,7 +118,10 @@ pub const MAGIC: &[u8; 8] = b"FFDATA\0\0";
 /// 10: a corridor carries the county each stretch runs through (`counties`).
 ///
 /// 11: a corridor carries its HPMS surface runs and structures (`pavement`).
-pub const FORMAT_VERSION: u32 = 11;
+///
+/// 12: a pavement run carries its HPMS build and improvement years, and a
+/// structure its National Bridge Inventory deck, record and grating span.
+pub const FORMAT_VERSION: u32 = 12;
 
 const HEADER_LEN: usize = 32;
 

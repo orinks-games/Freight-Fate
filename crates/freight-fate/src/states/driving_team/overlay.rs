@@ -67,6 +67,12 @@ pub fn overlay_move(top: &dyn State, drive: &DrivingState, ctx: &GameContext) ->
         if drive.team_shift().hours_ending() {
             return OverlayMove::Summon("parking".into());
         }
+        // A full lot still has room for the 30-minute break.
+        if making_for_break(drive) {
+            if let Some(row) = row_starting(&rows, "Take a 30-minute break") {
+                return OverlayMove::Row(row);
+            }
+        }
         return row_starting(&rows, "Drive on to the next stop")
             .map_or_else(|| OverlayMove::Summon("parking".into()), OverlayMove::Row);
     }
@@ -74,6 +80,15 @@ pub fn overlay_move(top: &dyn State, drive: &DrivingState, ctx: &GameContext) ->
         return rest_stop_move(&rows, drive, ctx);
     }
     OverlayMove::Summon("screen".into())
+}
+
+/// Whether the co-driver is pulling in for their 30-minute break.
+fn making_for_break(drive: &DrivingState) -> bool {
+    drive
+        .team
+        .as_ref()
+        .and_then(|team| team.wheel.as_ref())
+        .is_some_and(|wheel| matches!(wheel.pilot.making_for, Some((_, StopPurpose::Break))))
 }
 
 /// At a stop: hand back if the shift is over, fuel if it sells diesel and
@@ -100,7 +115,7 @@ fn rest_stop_move(rows: &[String], drive: &DrivingState, ctx: &GameContext) -> O
     if rested && can_park {
         return OverlayMove::Summon("rested".into());
     }
-    if pilot.is_some_and(|pilot| matches!(pilot.making_for, Some((_, StopPurpose::Break)))) {
+    if making_for_break(drive) {
         if let Some(row) = row_starting(rows, "Take a 30-minute break") {
             return OverlayMove::Row(row);
         }

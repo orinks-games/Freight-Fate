@@ -26,6 +26,9 @@ pub const QUERY_URL: &str = "https://services2.arcgis.com/FiaPA4ga0iQKduv3/arcgi
 /// A query client with its cache.
 pub struct Client {
     agent: ureq::Agent,
+    url: String,
+    /// The service's name, for errors.
+    name: &'static str,
     cache: PathBuf,
     refresh: bool,
     pub fetched: std::sync::atomic::AtomicUsize,
@@ -45,9 +48,17 @@ fn encode(text: &str) -> String {
 
 impl Client {
     pub fn new(refresh: bool) -> Self {
+        Self::service("HPMS", QUERY_URL, "hpms", refresh)
+    }
+
+    /// A client for another ArcGIS feature service's query endpoint, cached
+    /// under `.route-cache/<cache>/`.
+    pub fn service(name: &'static str, url: &str, cache: &str, refresh: bool) -> Self {
         Self {
             agent: http::agent(Some(Duration::from_secs(120))),
-            cache: util::repo_root().join(".route-cache").join("hpms"),
+            url: url.to_string(),
+            name,
+            cache: util::repo_root().join(".route-cache").join(cache),
             refresh,
             fetched: Default::default(),
         }
@@ -59,7 +70,7 @@ impl Client {
             .iter()
             .map(|(k, v)| format!("{k}={}", encode(v)))
             .collect();
-        let url = format!("{QUERY_URL}?{}", query.join("&"));
+        let url = format!("{}?{}", self.url, query.join("&"));
         let key = hex::encode(Sha256::digest(url.as_bytes()));
         let path = self.cache.join(format!("{}.json", &key[..24]));
         if !self.refresh {
@@ -78,10 +89,13 @@ impl Client {
                 Ok(r) if r.status == 200 => {
                     let text = String::from_utf8_lossy(&r.body).into_owned();
                     let v: serde_json::Value = serde_json::from_str(&text).map_err(|e| {
-                        format!("HPMS answered with something that is not JSON: {e}")
+                        format!(
+                            "{} answered with something that is not JSON: {e}",
+                            self.name
+                        )
                     })?;
                     if v.get("error").is_some() {
-                        last = format!("HPMS error: {}", v["error"]);
+                        last = format!("{} error: {}", self.name, v["error"]);
                         continue;
                     }
                     std::fs::create_dir_all(&self.cache).map_err(|e| e.to_string())?;
@@ -90,7 +104,7 @@ impl Client {
                         .fetch_add(1, std::sync::atomic::Ordering::Relaxed);
                     return Ok(v);
                 }
-                Ok(r) => last = format!("HPMS answered {}", r.status),
+                Ok(r) => last = format!("{} answered {}", self.name, r.status),
                 Err(e) => last = e,
             }
         }

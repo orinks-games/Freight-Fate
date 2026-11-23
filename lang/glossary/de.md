@@ -68,7 +68,6 @@ Page Up, F1 and the rest) and place names stay in English.
 | passing | Überholen | |
 | hazard | Gefahr | |
 | stopping distance | Anhalteweg | |
-| low bridge | niedrige Brücke | |
 | weight limit | Gewichtsbeschränkung | |
 | exit speed | Ausfahrtgeschwindigkeit | |
 | ramp curve | Ausfahrtkurve | |

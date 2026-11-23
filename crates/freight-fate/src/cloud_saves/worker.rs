@@ -265,7 +265,23 @@ revision {} is waiting in the Cloud backup menu",
     }
 
     pub(super) fn set_status(&self, message: &str) {
-        self.state.lock().unwrap().status = message.to_string();
+        let mut state = self.state.lock().unwrap();
+        state.status = message.to_string();
+        state.status_slot = None;
+    }
+
+    pub(super) fn set_slot_status(&self, name: &str, message: &str) {
+        let mut state = self.state.lock().unwrap();
+        state.status = message.to_string();
+        state.status_slot = Some(name.to_string());
+    }
+
+    pub(super) fn clear_slot_status(&self, name: &str) {
+        let mut state = self.state.lock().unwrap();
+        if state.status_slot.as_deref() == Some(name) {
+            state.status = "Cloud backup is ready.".to_string();
+            state.status_slot = None;
+        }
     }
 
     pub(super) fn upload_slot(&self, name: &str, pending: Pending) {
@@ -319,7 +335,7 @@ revision {} is waiting in the Cloud backup menu",
                     } else {
                         conflict_status(name)
                     };
-                    self.set_status(&message);
+                    self.set_slot_status(name, &message);
                     self.announce_refusal(name, token, outcome, &message);
                     return;
                 }
@@ -410,7 +426,7 @@ has; restarting the slot fresh"
             self.sync_state.record_conflict(name, &result);
             self.done_with(name, &snapshot);
             self.note_outcome(name, token, "conflict");
-            self.set_status(&conflict_status(name));
+            self.set_slot_status(name, &conflict_status(name));
             self.announce_refusal(name, token, "conflict", &conflict_status(name));
             log::warn!(
                 "Cloud backup of {name} skipped: the cloud copy is newer (revision {})",
@@ -440,7 +456,7 @@ has; restarting the slot fresh"
             let reason_text = reason.clone().unwrap_or_default();
             log::warn!("Cloud backup of {name} was rejected: {reason_text}");
             let status = rejection_status(name, reason.as_deref());
-            self.set_status(&status);
+            self.set_slot_status(name, &status);
             self.done_with(name, &snapshot);
             let cause = format!("rejected:{reason_text}");
             self.note_outcome(name, token, &cause);

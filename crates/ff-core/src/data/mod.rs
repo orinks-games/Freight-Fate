@@ -8,6 +8,7 @@ pub mod branded_plazas;
 pub mod buffs;
 pub mod corners;
 pub mod counties;
+pub mod curve_road;
 pub mod curves;
 pub mod data_resources;
 pub mod grades;
