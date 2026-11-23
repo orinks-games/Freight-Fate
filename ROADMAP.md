@@ -6669,11 +6669,17 @@ a carrier slice (owner, 2026-10-26).
 - [x] Stops list `docs/stops/southwest-california.json`: the stops the
       region's legs already carried, plus 39 travel centers and state rest
       areas read from OpenStreetMap (23 with truck access read, 16 assumed).
-- [x] Two game fixes the new roads needed: a board thin only because a big
-      market is in range relays from that market (Tonopah's new neighbours
-      Bishop and Austin are as thin as Tonopah), and an exit nearer the
-      city being left is never the destination exit (Flagstaff to Sedona
-      would have ended at I-17 exit 337, 24 miles short).
+- [x] An exit nearer the city being left is never the destination exit:
+      Flagstaff to Sedona would have ended at I-17 exit 337, 24 miles short.
+      Dispatch is unchanged: Tonopah now relays from its new nearest towns
+      (Bishop, Austin, Mammoth Lakes) by the nearest-first rule, and its
+      test was re-pinned to that.
+- [ ] (Found along the way) Oak Creek Canyon (Flagstaff to Sedona on AZ
+      89A): Wikipedia's route description and AARoads say trucks over 50
+      feet were barred from the switchbacks (AARoads: the sign came down
+      after 2008). Both are unverified; ADOT's pages are silent and
+      OpenStreetMap carries no length, weight or truck tag there. A person
+      should drive it, and an ADOT source would settle the length limit.
 - [ ] (Found along the way) Still no stop a tractor-trailer can use on
       Austin to Fallon, Eureka to Austin, Phoenix to Payson, Oxnard to Los
       Angeles, Santa Rosa to Ukiah, Carson City to Fallon, Lancaster to Los
