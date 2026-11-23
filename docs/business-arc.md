@@ -73,8 +73,10 @@ already worn.
 - Progression: levels 1-15 are company-driver and senior company-driver ranks.
   Levels 16-17 prepare the owner-operator transition, but the leased-on buy-in
   does not unlock until level 18 with 35 deliveries, reputation 80, no pay
-  advance, and enough cash for a 35,000 dollar buy-in while keeping 10,000
-  dollars of working capital.
+  advance, and enough cash for the cheapest sleeper tractor while keeping
+  10,000 dollars of working capital. Since 2.0 the buy-in buys a sleeper
+  tractor the driver picks, at its catalog price; before 2.0 it charged a flat
+  35,000 dollars for the tractor dispatch had assigned.
 - The design remains a driving career, not a fleet-management sim. It adds one
   terminal menu and settlement math; it does not add driver hiring, tax filing,
   direct broker negotiation, or full authority paperwork management.

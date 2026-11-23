@@ -134,6 +134,70 @@ impl DrivingState {
         self.lane_gap_blocker(lane_index).is_none()
     }
 
+    /// Quick mirror / blind-spot check on the left or right side.
+    ///
+    /// Transitions `self.mirror_glance` (momentarily biasing positional traffic
+    /// audio toward the glanced side for 2.5 s) and speaks a terse status line
+    /// for that side's lane and blind spot. Pressing the same side again
+    /// returns focus forward.
+    pub fn glance_mirror(
+        &mut self,
+        ctx: &mut GameContext,
+        side: ff_core::sim::mirror_glance::MirrorSide,
+    ) {
+        use ff_core::sim::mirror_glance::{MirrorGlanceEvent, MirrorSide};
+
+        self.mirror_glance = self.mirror_glance.next(MirrorGlanceEvent::Glance(side));
+        if self.mirror_glance.active_side().is_none() {
+            ctx.say("Looking forward.");
+            return;
+        }
+        let side_word = match side {
+            MirrorSide::Left => "Left",
+            MirrorSide::Right => "Right",
+        };
+        let target_lane = match side {
+            MirrorSide::Left => self.lane.lane + 1,
+            MirrorSide::Right => self.lane.lane - 1,
+        };
+        if target_lane < 0 || target_lane >= self.lane.lane_count {
+            let text = format!("{side_word} shoulder.");
+            self.set_status(&text);
+            ctx.say(&text);
+            return;
+        }
+        if self.lane_gap_closed_by_zone(target_lane) {
+            let text = format!("{side_word} lane closed.");
+            self.set_status(&text);
+            ctx.say(&text);
+            return;
+        }
+        let text = if let Some(blocker) = self.lane_gap_blocker(target_lane) {
+            let kind = if blocker.vehicle_class.is_empty() {
+                "vehicle"
+            } else {
+                blocker.vehicle_class.as_str()
+            };
+            let dist_ft = (blocker.position_mi - self.trip.position_mi) * 5280.0;
+            let rel_mph = blocker.speed_mph - self.trip.truck.speed_mph();
+            let side_lower = side_word.to_ascii_lowercase();
+            let kind_cap = capitalize(kind);
+            if dist_ft.abs() <= 45.0 {
+                format!("{kind_cap} beside {side_lower}.")
+            } else if dist_ft < 0.0 && rel_mph > 2.0 {
+                format!("{kind_cap} closing {side_lower}.")
+            } else if dist_ft < 0.0 {
+                format!("{kind_cap} behind {side_lower}.")
+            } else {
+                format!("{kind_cap} ahead {side_lower}.")
+            }
+        } else {
+            format!("{side_word} clear.")
+        };
+        self.set_status(&text);
+        ctx.say(&text);
+    }
+
     // -- the spoken cue -------------------------------------------------------
 
     pub fn arm_lane_gap_watch(&mut self, lane_index: i64) {
@@ -573,7 +637,7 @@ impl DrivingState {
             .traffic_manager
             .vehicles
             .iter()
-            .filter(|v| v.lane == lane || (lane == 0 && v.lane == -1))
+            .filter(|v| !v.oncoming && (v.lane == lane || (lane == 0 && v.lane == -1)))
             .find(|v| {
                 let rear = v.position_mi - self.trip.position_mi;
                 let front = rear + real_length_mi(&v.vehicle_class);

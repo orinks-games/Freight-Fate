@@ -33,6 +33,8 @@ fn inputs() -> CatalogInputs {
         delivery_completion_xp: 150.0,
         level_xp: vec![0, 1000, 2500, 4500, 7000],
         market_cargo_keys: vec!["retail".into(), "general".into()],
+        cargo_labels: vec![("general".into(), "general freight".into())],
+        weather_labels: vec![("heavy_rain".into(), "heavy rain".into())],
         profile_fields: vec![
             "name".into(),
             "money".into(),

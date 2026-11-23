@@ -98,7 +98,9 @@ fn test_owner_operator_unlock_requires_career_and_working_capital() {
     p.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
     p.career.deliveries = OWNER_OPERATOR_DELIVERIES;
     p.career.reputation = OWNER_OPERATOR_REPUTATION;
-    p.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL);
+    p.set_money(crate::models::buy_in::buy_in_cash_needed(
+        crate::models::buy_in::cheapest_buy_in_price(),
+    ));
 
     let (ok, reasons) = owner_operator_eligibility(&p);
     assert!(ok);
@@ -425,7 +427,9 @@ fn test_a_company_driver_who_chose_to_stay_is_not_nudged_toward_the_buy_in() {
     p.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
     p.career.deliveries = OWNER_OPERATOR_DELIVERIES;
     p.career.reputation = OWNER_OPERATOR_REPUTATION;
-    p.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL);
+    p.set_money(crate::models::buy_in::buy_in_cash_needed(
+        crate::models::buy_in::cheapest_buy_in_price(),
+    ));
     assert!(owner_operator_eligibility(&p).0);
     assert!(next_business_unlock(&p).contains("the owner-operator buy-in"));
     assert!(business_status_summary(&p).contains("You qualify for the owner-operator buy-in"));

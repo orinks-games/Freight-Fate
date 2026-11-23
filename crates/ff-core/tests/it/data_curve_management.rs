@@ -914,41 +914,77 @@ fn test_every_connector_row_names_the_reading_that_flagged_it() {
 /// The owner's report, 2026-08-23: "interstate mainline curves make the truck
 /// slow far too often."
 ///
-/// A real interstate asks a loaded truck to drop below 65 essentially never --
-/// it is built to be driven at 70 or 75 all the way. Two fixes moved this
-/// number: counting the bank the road is built with (one every 28.8 miles ->
-/// 44.2), and then classifying interchange and departure geometry as the
-/// connectors they are rather than as mainline.
+/// A real interstate on level ground asks a loaded truck to drop below 65
+/// essentially never -- it is built to be driven at 70 or 75 all the way. Two
+/// fixes moved this number: counting the bank the road is built with (one
+/// every 28.8 miles -> 44.2), and then classifying interchange and departure
+/// geometry as the connectors they are rather than as mainline.
 ///
 /// Pinned as a rate rather than a count so the map can grow. The bar is set
 /// well below what shipped, because this is a floor on quality, not a target
 /// anything was fitted to.
+///
+/// Flat ground only (2026-11-23). Each curve is classed by the grade stretch
+/// it sits on, not by its whole leg. Summed over every terrain the rate
+/// stopped measuring quality: every new leg over a pass repeats that pass, and
+/// six legs now cross Snoqualmie on I-90, which put the whole-map rate at
+/// 99.2. Terrain separates the rates by an order of magnitude each. On the
+/// Mountain and Northwest base (ed715860) flat, hills and mountain stretches
+/// gave one slowdown every 279.0, 33.8 and 7.3 miles; on that branch 274.3,
+/// 34.2 and 7.4. Interstate design allows exactly that: 70 mph generally, 60
+/// in hilly terrain and 50 in mountainous (the Interstate Guide's summary of
+/// AASHTO's "A Policy on Design Standards: Interstate System", edition not
+/// named, read 2026-11-23; a summary, not the standard itself). Hills and
+/// mountain get no floor here; their rates must only keep their order, or the
+/// terrain or curve data is wrong. Measurements:
+/// /mnt/project-files/missing-roads/mountain-northwest/interstate-curves-by-terrain.md
 #[test]
 fn test_interstate_mainline_asks_the_truck_to_slow_down_rarely() {
     let world = world();
     let mut seen: HashSet<String> = HashSet::new();
-    let mut miles = 0.0;
-    let mut slow = 0usize;
+    // (slowdowns, miles) per grade stretch terrain: flat, hills, mountain.
+    let mut by_terrain: HashMap<String, (usize, f64)> = HashMap::new();
     for leg in &world.legs {
         let key = format!("{}:{}", leg.a, leg.b);
         if seen.contains(&key) || !is_interstate(leg) {
             continue;
         }
         seen.insert(key.clone());
-        miles += leg.miles;
-        slow += leg_curves(&key, true)
+        let segments = leg.grade_segments();
+        for segment in segments {
+            by_terrain.entry(segment.terrain.clone()).or_default().1 +=
+                segment.end_mi - segment.start_mi;
+        }
+        for curve in leg_curves(&key, true)
             .iter()
             .filter(|curve| curve.advisory_mph <= 65)
-            .count();
+        {
+            // A curve on no stretch counts as flat, so missing grade data
+            // cannot hide a slowdown.
+            let terrain = segments
+                .iter()
+                .find(|s| s.start_mi <= curve.apex_mi && curve.apex_mi < s.end_mi)
+                .map_or("flat", |s| s.terrain.as_str());
+            by_terrain.entry(terrain.to_string()).or_default().0 += 1;
+        }
     }
+    let rate = |terrain: &str| {
+        let (slow, miles) = by_terrain.get(terrain).copied().unwrap_or_default();
+        assert!(
+            slow > 0,
+            "no interstate slowdowns on {terrain} stretches at all means the data vanished"
+        );
+        miles / slow as f64
+    };
+    let (flat, hills, mountain) = (rate("flat"), rate("hills"), rate("mountain"));
     assert!(
-        slow > 0,
-        "a network with no interstate slowdowns at all means the data vanished"
+        flat > 100.0,
+        "one interstate slowdown every {flat:.1} miles of flat ground is too often"
     );
-    let every = miles / slow as f64;
     assert!(
-        every > 100.0,
-        "one interstate slowdown every {every:.1} miles is too often"
+        mountain < hills && hills < flat,
+        "slowdowns should be densest in the mountains and sparsest on flat ground, \
+         but came one every {mountain:.1} (mountain), {hills:.1} (hills), {flat:.1} (flat) miles"
     );
 }
 

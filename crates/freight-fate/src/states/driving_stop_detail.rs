@@ -58,7 +58,7 @@ impl StopDetailState {
                     lines.push(format!("Exit: {}.", stop.exit_label));
                 }
                 lines.push(format!(
-                    "Distance: {} ahead.",
+                    "Distance: {}.",
                     ctx.settings.distance_text(ahead, false)
                 ));
                 let offers: Vec<String> = stop
@@ -329,7 +329,7 @@ impl Menu for ConfirmMovePlanState {
     fn announce_entry(&mut self, ctx: &mut GameContext) {
         let where_ = match self.planned_stop() {
             Some(current) => format!(
-                "{}, {} ahead",
+                "{}, {}",
                 current.spoken_name(),
                 self.ahead_text(ctx, &current)
             ),

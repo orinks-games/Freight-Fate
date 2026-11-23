@@ -90,6 +90,8 @@ pub const CH_NATURE_OPEN: u32 = 28; // the same bed through the open window
 pub const CH_WATER_SEALED: u32 = 29; // a river under the truck, window closed
 pub const CH_WATER_OPEN: u32 = 30; // the same river, window open
 /// The four outside bed slots, sealed and open for nature then water.
+/// The tires' song: the whine on grooved concrete or the grate deck's hum.
+pub const CH_ROAD_SONG: u32 = 31;
 pub const CH_OUTSIDE: [u32; 4] = [
     CH_NATURE_SEALED,
     CH_NATURE_OPEN,
@@ -109,6 +111,7 @@ pub const NUM_CHANNELS: u32 = 32;
 // reservation only ever mattered to the pygame mixer, so the value is kept as
 // the Python module had it.)
 const _: () = assert!(CH_WATER_OPEN < NUM_CHANNELS);
+const _: () = assert!(CH_ROAD_SONG < NUM_CHANNELS);
 
 /// A held alert tone is a dead man's switch. Its owner re-asserts it every
 /// frame through `hold_alert`, and it stops on its own the moment that stops

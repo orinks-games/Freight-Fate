@@ -233,6 +233,17 @@ impl DrivingState {
             .and_then(|(_, found)| found.clone())
     }
 
+    /// Where the delivery leaves the road, for the agent server's `status`:
+    /// None once the destination exit is taken, on the origin's streets and
+    /// outside the delivery phase.
+    pub fn destination_arrival_ahead(&self, ctx: &GameContext) -> Option<DestinationArrival> {
+        if self.phase != DRIVE_PHASE_DELIVERY || self.destination_exit_taken || self.departure_chain
+        {
+            return None;
+        }
+        Some(destination_arrival(ctx.world, &self.trip, false))
+    }
+
     /// `_scan_destination_exit_details(*, include_past=False)`.
     pub fn scan_destination_exit_details(
         &self,
@@ -243,4 +254,6 @@ impl DrivingState {
     }
 }
 
-pub use ff_core::sim::trip::destination_exit::scan_destination_exit;
+pub use ff_core::sim::trip::destination_exit::{
+    destination_arrival, scan_destination_exit, DestinationArrival,
+};

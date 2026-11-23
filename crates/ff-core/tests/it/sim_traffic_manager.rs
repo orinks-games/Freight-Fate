@@ -1577,3 +1577,143 @@ fn a_platoon_forms_behind_a_slow_truck_on_a_two_lane_road() {
         );
     }
 }
+
+#[test]
+fn lane_change_slews_visual_lane_gradually_while_logical_lane_switches() {
+    let mut manager = open_road(2);
+    manager.truck_speed_mph = 50.0;
+    manager.vehicles.push(placed("fast", 19.8, 70.0, 0));
+    let mut truck_mi = 20.0;
+    let mut saw_mid_glide = false;
+    for _ in 0..80 {
+        truck_mi += 50.0 / 3600.0 * 0.25;
+        manager.update(0.25, truck_mi, 1.0, Some(12.0), Some(false));
+        let fast = &manager.vehicles[0];
+        if fast.lane == 1 && fast.visual_lane > 0.05 && fast.visual_lane < 0.95 {
+            saw_mid_glide = true;
+            break;
+        }
+    }
+    assert!(
+        saw_mid_glide,
+        "expected visual_lane to glide smoothly between 0.0 and 1.0 during lane change"
+    );
+}
+
+#[test]
+fn oncoming_traffic_spawns_on_undivided_two_lane_and_moves_opposite() {
+    let mut leg = Leg::new("A", "B", 80.0, "US-20", "flat", Vec::new());
+    leg.lanes = 1;
+    leg.divided = Some(false);
+    let two_lane_route = Route::from_legs(vec!["A".to_string(), "B".to_string()], vec![leg]);
+    let mut two_lane = manager_for_route(&two_lane_route, 42);
+    two_lane.truck_speed_mph = 55.0;
+    let mut position_mi = 5.0;
+    let mut seen_oncoming = false;
+    let mut tracked: Option<(String, f64)> = None;
+    let mut moved_opposite = false;
+    for _ in 0..400 {
+        position_mi += 55.0 / 3600.0 * 1.0;
+        two_lane.update(1.0, position_mi, 1.0, Some(12.0), Some(false));
+        for v in &two_lane.vehicles {
+            if v.oncoming {
+                seen_oncoming = true;
+                assert_eq!(v.lane, -1);
+                assert_eq!(v.visual_lane, 1.0);
+                if let Some((ref key, prev_mi)) = tracked {
+                    if key == &v.key && v.position_mi < prev_mi {
+                        moved_opposite = true;
+                    }
+                } else {
+                    tracked = Some((v.key.clone(), v.position_mi));
+                }
+            }
+        }
+        if let Some(ctx) = two_lane.lead_vehicle(position_mi, 55.0) {
+            assert!(!ctx.lead.oncoming, "oncoming vehicle must never be a lead");
+        }
+    }
+    assert!(
+        seen_oncoming,
+        "expected oncoming traffic on 1-lane US highway"
+    );
+    assert!(
+        moved_opposite,
+        "expected oncoming vehicle to travel toward decreasing route miles"
+    );
+
+    let mut fwy_leg = Leg::new("A", "B", 80.0, "I-80", "flat", Vec::new());
+    fwy_leg.lanes = 2;
+    let fwy_route = Route::from_legs(vec!["A".to_string(), "B".to_string()], vec![fwy_leg]);
+    let mut freeway = manager_for_route(&fwy_route, 42);
+    freeway.truck_speed_mph = 65.0;
+    let mut fwy_mi = 5.0;
+    for _ in 0..60 {
+        fwy_mi += 65.0 / 3600.0 * 1.0;
+        freeway.update(1.0, fwy_mi, 1.0, Some(12.0), Some(false));
+        assert!(
+            freeway.vehicles.iter().all(|v| !v.oncoming),
+            "oncoming traffic must not spawn on a divided freeway"
+        );
+    }
+}
+
+#[test]
+fn courteous_driver_yields_or_changes_lanes_for_player_signal() {
+    use ff_core::sim::traffic_manager::courteous_to_signal;
+
+    let courteous_key = (0..100)
+        .map(|i| format!("courteous-{i}"))
+        .find(|k| courteous_to_signal(k))
+        .expect("courteous key");
+    let stubborn_key = (0..100)
+        .map(|i| format!("stubborn-{i}"))
+        .find(|k| !courteous_to_signal(k))
+        .expect("stubborn key");
+
+    // On a 2-lane road, a courteous driver in lane 1 behind the player slows
+    // to open a merge gap when there is no further left lane.
+    let mut yield_mgr = open_road(2);
+    yield_mgr.truck_speed_mph = 60.0;
+    yield_mgr.player_lane = 0;
+    yield_mgr.player_signal_lane = Some(1);
+    yield_mgr
+        .vehicles
+        .push(placed(&courteous_key, 19.92, 68.0, 1));
+    let mut stubborn_mgr = open_road(2);
+    stubborn_mgr.truck_speed_mph = 60.0;
+    stubborn_mgr.player_lane = 0;
+    stubborn_mgr.player_signal_lane = Some(1);
+    stubborn_mgr
+        .vehicles
+        .push(placed(&stubborn_key, 19.92, 68.0, 1));
+
+    for _ in 0..12 {
+        yield_mgr.update(0.25, 20.0, 1.0, Some(12.0), Some(false));
+        stubborn_mgr.update(0.25, 20.0, 1.0, Some(12.0), Some(false));
+    }
+    assert!(
+        yield_mgr.vehicles[0].speed_mph < 56.0,
+        "courteous driver should slow to open a gap, got {:.1}",
+        yield_mgr.vehicles[0].speed_mph
+    );
+    assert!(
+        stubborn_mgr.vehicles[0].speed_mph > 66.0,
+        "stubborn driver should hold speed, got {:.1}",
+        stubborn_mgr.vehicles[0].speed_mph
+    );
+
+    // On a 3-lane road, a courteous driver in lane 1 glides left to lane 2.
+    let mut glide_mgr = open_road(3);
+    glide_mgr.truck_speed_mph = 60.0;
+    glide_mgr.player_lane = 0;
+    glide_mgr.player_signal_lane = Some(1);
+    glide_mgr
+        .vehicles
+        .push(placed(&courteous_key, 19.92, 65.0, 1));
+    glide_mgr.update(0.25, 20.0, 1.0, Some(12.0), Some(false));
+    assert_eq!(
+        glide_mgr.vehicles[0].lane, 2,
+        "courteous driver should move one lane further left when open"
+    );
+}

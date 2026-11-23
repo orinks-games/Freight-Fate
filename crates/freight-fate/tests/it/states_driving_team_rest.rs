@@ -14,12 +14,20 @@ use freight_fate::states::driving_team::pilot::StopPurpose;
 use freight_fate::states::driving_team::TeamMode;
 
 const DT: f64 = 1.0 / 60.0;
+/// The shortest load these drives take: the 148-mile Madison load the map
+/// assigned before Joliet joined it (2026-11-22) was the measure.
+const LONG_LOAD_MI: f64 = 140.0;
 
 const INTRO: &str = "This load is long enough to share with a co-driver.";
 
 fn quiet_drive(name: &str) -> PlaytestHarness {
     let mut harness = PlaytestHarness::new();
-    harness.start_delivery(StartDelivery::named(name));
+    harness.start_delivery(StartDelivery {
+        // Longer than a shift's tail: the nearest neighbour (Joliet, 47
+        // miles) leaves no road for the co-driver.
+        min_load_mi: Some(LONG_LOAD_MI),
+        ..StartDelivery::named(name)
+    });
     harness.app.ctx.settings.hos_mode = "realistic".to_string();
     harness.with_drive(|d, _| {
         d.tutorial = None;

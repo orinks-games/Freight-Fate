@@ -28,6 +28,18 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
             "prince_george_bc_ca",
         ],
     ),
+    // The Florida and Georgia missing roads (2026-11-22) split West Palm
+    // Beach to Palm Bay at Port Saint Lucie, which it passed 1.2 miles off.
+    // The chain is 51 plus 65 miles against the old leg's 110.
+    (
+        "west_palm_beach_fl_us",
+        "palm_bay_fl_us",
+        &[
+            "west_palm_beach_fl_us",
+            "port_saint_lucie_fl_us",
+            "palm_bay_fl_us",
+        ],
+    ),
     // I-5, 121 mi: missing roads pass, 2026-11-22.
     (
         "los_angeles_ca_us",
@@ -133,6 +145,101 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
         "phoenix_az_us",
         &["yuma_az_us", "buckeye_az_us", "phoenix_az_us"],
     ),
+    // Great Lakes missing roads (2026-11-22): legs split at a city they pass.
+    (
+        "bloomington_il_us",
+        "chicago_il_us",
+        &["bloomington_il_us", "joliet_il_us", "chicago_il_us"],
+    ),
+    (
+        "chicago_il_us",
+        "st_louis_mo_us",
+        &[
+            "chicago_il_us",
+            "joliet_il_us",
+            "bloomington_il_us",
+            "springfield_il_us",
+            "st_louis_mo_us",
+        ],
+    ),
+    (
+        "eau_claire_wi_us",
+        "wausau_wi_us",
+        &["eau_claire_wi_us", "chippewa_falls_wi_us", "wausau_wi_us"],
+    ),
+    (
+        "indianapolis_in_us",
+        "south_bend_in_us",
+        &["indianapolis_in_us", "kokomo_in_us", "south_bend_in_us"],
+    ),
+    (
+        "ann_arbor_mi_us",
+        "fort_wayne_in_us",
+        &["ann_arbor_mi_us", "jackson_mi_us", "fort_wayne_in_us"],
+    ),
+    // Northeast missing roads (2026-11-23): legs split at a city they pass.
+    (
+        "newport_ri_us",
+        "new_haven_ct_us",
+        &["newport_ri_us", "new_london_ct_us", "new_haven_ct_us"],
+    ),
+    (
+        "allentown_pa_us",
+        "baltimore_md_us",
+        &[
+            "allentown_pa_us",
+            "reading_pa_us",
+            "lancaster_pa_us",
+            "baltimore_md_us",
+        ],
+    ),
+    (
+        "albany_ny_us",
+        "montpelier_vt_us",
+        &["albany_ny_us", "rutland_vt_us", "montpelier_vt_us"],
+    ),
+    (
+        "new_york_ny_us",
+        "albany_ny_us",
+        &["new_york_ny_us", "newburgh_ny_us", "albany_ny_us"],
+    ),
+    (
+        "buffalo_ny_us",
+        "new_york_ny_us",
+        &["buffalo_ny_us", "newburgh_ny_us", "new_york_ny_us"],
+    ),
+    (
+        "rochester_ny_us",
+        "new_york_ny_us",
+        &["rochester_ny_us", "newburgh_ny_us", "new_york_ny_us"],
+    ),
+    (
+        "meadville_pa_us",
+        "pittsburgh_pa_us",
+        &[
+            "meadville_pa_us",
+            "cranberry_township_pa_us",
+            "pittsburgh_pa_us",
+        ],
+    ),
+    (
+        "youngstown_oh_us",
+        "pittsburgh_pa_us",
+        &[
+            "youngstown_oh_us",
+            "cranberry_township_pa_us",
+            "pittsburgh_pa_us",
+        ],
+    ),
+    (
+        "pittsburgh_pa_us",
+        "cleveland_oh_us",
+        &[
+            "pittsburgh_pa_us",
+            "cranberry_township_pa_us",
+            "cleveland_oh_us",
+        ],
+    ),
     // I-44, 713 mi: missing roads pass (Texas and Louisiana), 2026-11-23.
     // The chain runs over the I-35 and I-44 legs already on the map.
     (
@@ -172,6 +279,13 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
         "mckinney_tx_us",
         "waco_tx_us",
         &["mckinney_tx_us", "dallas_tx_us", "waco_tx_us"],
+    ),
+    // I-35, 109 mi: missing roads pass, 2026-11-23. Denton to Ardmore and
+    // Dallas to Denton ride the same road.
+    (
+        "ardmore_ok_us",
+        "dallas_tx_us",
+        &["ardmore_ok_us", "denton_tx_us", "dallas_tx_us"],
     ),
 ];
 

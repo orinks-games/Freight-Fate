@@ -116,7 +116,7 @@ impl RadioAppState {
             ];
         }
         let safe = ctx.settings.radio_streamer_safe;
-        let mut lines = vec![match (safe, crate::PERSONAL_PLAYLISTS) {
+        let mut lines = vec![match (safe, crate::device::personal_playlists()) {
             (false, true) => {
                 "Streamer-safe mode off. Real public streams and personal playlists are on the \
                  dial."
@@ -146,7 +146,7 @@ impl RadioAppState {
                     .any(|s| s.source_type == PERSONAL_PLAYLIST_SOURCE_TYPE)
             })
             .unwrap_or(true);
-        if crate::PERSONAL_PLAYLISTS && !safe && !has_playlists {
+        if crate::device::personal_playlists() && !safe && !has_playlists {
             lines.push(format!(
                 "No playlists of your own yet. Put M3U, M3U8 or PLS playlist files in {}.",
                 personal_playlists_dir().display()
@@ -178,7 +178,7 @@ impl Menu for RadioAppState {
         // repaired mid-run used to need a whole new drive before the radio
         // would look again, and this is where a player comes looking.
         self.driving.with(ctx, |d, ctx| {
-            if crate::PERSONAL_PLAYLISTS {
+            if crate::device::personal_playlists() {
                 d.radio.reload_personal_playlists(&personal_playlists_dir());
             }
             d.sync_radio_settings(ctx);
@@ -287,10 +287,13 @@ impl Menu for RadioAppState {
                 "Freight Fate stations, your playlists and favorites, and stations nearby. Enter \
                  on one tunes it.",
             )
-            .touch_help(
+            .touch_help(if crate::device::personal_playlists() {
                 "Freight Fate stations, your playlists and favorites, and stations nearby. \
-                 Double tap one to tune it.",
-            ),
+                 Double tap one to tune it."
+            } else {
+                "Freight Fate stations, your favorites, and stations nearby. Double tap one to \
+                 tune it."
+            }),
             MenuItem::new(
                 format!("Stations in range: {in_range}"),
                 |s: &mut Self, ctx| s.open_list(ctx, "range"),

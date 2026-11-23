@@ -418,6 +418,31 @@ fn test_coming_back_from_the_browser_re_orients_the_player() {
     );
 }
 
+/// A phone coming back from the browser sends the app's return and the
+/// window's focus together; the screen still says where the player is once.
+#[test]
+fn test_coming_back_to_the_phone_app_re_orients_once() {
+    let (mut app, state) = setup_app(false);
+    setup(&mut app, &state, |s, _| {
+        s.activation = Some(an_activation());
+        s.phase = SetupPhase::Waiting;
+    });
+    app.handle_event(&InputEvent::WindowFocusLost);
+    app.handle_event(&InputEvent::App(
+        ff_core::app_lifecycle::AppEvent::WillResignActive,
+    ));
+    app.clear_speech();
+
+    app.handle_event(&InputEvent::App(
+        ff_core::app_lifecycle::AppEvent::DidBecomeActive,
+    ));
+    app.handle_event(&InputEvent::WindowFocusGained);
+
+    let lines = app.main_lines();
+    assert_eq!(lines.len(), 1, "{lines:#?}");
+    assert!(lines[0].starts_with("Back in Freight Fate."), "{lines:#?}");
+}
+
 #[test]
 fn test_still_waiting_is_spoken_once_after_five_seconds() {
     let (mut app, state) = setup_app(false);

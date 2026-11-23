@@ -128,6 +128,9 @@ pub struct DrivingState {
     pub rig_buffs: RigBuffs,
     /// See [`StopVisit`]; read and written through `stop_visit`.
     pub stop_visit: StopVisit,
+    /// What the drive met on the road, for the delivery the road journal
+    /// posts (`ff_core::sim::road_tally`).
+    pub road_tally: ff_core::sim::road_tally::RoadTally,
     /// The truck moved in automatic at some point on this run, so the gate
     /// pays no manual-spec differential however the run ends.
     pub drove_automatic: bool,
@@ -301,6 +304,10 @@ pub struct DrivingState {
     pub brake_squeal_cooldown_s: f64, // hot-brake squeal cue spacing
     pub hydro_active: bool,           // spoken hydroplane warning edge tracking
     pub jake_slip_active: bool,       // spoken jake-slip warning edge tracking
+    pub abs_active: bool,             // spoken ABS pulsing edge tracking
+    pub wheelspin_active: bool,       // spoken drive-wheel spin edge tracking
+    pub trailer_sway_state: ff_core::sim::vehicle::TrailerSwayState,
+    pub mirror_glance: ff_core::sim::mirror_glance::MirrorGlance,
     // The cylinder selector's position, like the real dash switch: J
     // engages at whatever stage was last chosen. Full retard by default
     // -- the setting every driver leaves it on until ice says otherwise.
@@ -401,6 +408,10 @@ pub struct DrivingState {
     pub fatigue_events: i64, // run-off-road microsleeps this trip
     // Every open scale whose notice has been spoken this trip, by key.
     pub weigh_station_noticed: HashSet<String>,
+    /// The scale the weigh station notice last named in words, and the real
+    /// seconds left in which the exit signal can call it "the scale exit".
+    pub scale_named_key: String,
+    pub scale_named_s: f64,
     // The half-mile "slow for the scale" nudge, latched separately so it
     // speaks once per announced scale and never re-fires on a re-approach.
     pub weigh_station_reminder_key: String,
@@ -930,9 +941,9 @@ pub struct DrivingState {
     // Discrete lanes: tap-change progress (assist off), closed-lane
     // policing, hazard-dodge context, and keep-right pressure.
     pub lane_change_target: Option<i64>,
-    /// Full lane keeping: the side the left stick last asked to change
-    /// lanes toward, until it comes back near the center.
-    pub stick_lane_request: i8,
+    /// Full lane keeping: whether the left stick or a tilt of the phone
+    /// has asked for its lane and not come back near the centre yet.
+    pub lane_push: ff_core::sim::lane_push::LanePush,
     pub lane_change_timer: f64,
     pub lane_signal_timer: f64,
     /// Lane keeping on full is passing a slow vehicle: (the lane to come

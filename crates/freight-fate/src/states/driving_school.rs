@@ -341,6 +341,10 @@ impl State for SchoolDrivingState {
         self.drive.on_controller_disconnect(ctx);
     }
 
+    fn on_app_leaving(&mut self, ctx: &mut GameContext) {
+        self.drive.on_app_leaving(ctx);
+    }
+
     fn update(&mut self, ctx: &mut GameContext, dt: f64) {
         self.drive.update(ctx, dt);
     }

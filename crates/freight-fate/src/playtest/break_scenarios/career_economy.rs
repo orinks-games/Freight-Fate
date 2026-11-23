@@ -11,13 +11,15 @@ use crate::app::testing::TestApp;
 use crate::playtest::breaker::{outcome, outcome_of, Outcome, Rig, RigOptions, Verdict};
 use crate::playtest::harness::{PlaytestHarness, StartDelivery};
 use crate::playtest::MPH_PER_MPS;
+use crate::states::city::py_capitalize;
 use crate::states::city_business::{BusinessStatusState, EndorsementCourseState};
 use crate::states::driving_engine_brake::{JAKE_ZONE_FINES, JAKE_ZONE_GRACE_S};
 use crate::states::driving_menu_states::ArrivalState;
 use crate::states::driving_pause_states::{AbandonJobConfirmationState, PauseMenuState};
+use ff_core::models::buy_in::{buy_in_cash_needed, buy_in_tractors, cheapest_buy_in_price};
 
 use ff_core::models::business::{
-    LEASED_OWNER_OPERATOR, OWNER_OPERATOR_BUY_IN, OWNER_OPERATOR_DELIVERIES, OWNER_OPERATOR_LEVEL,
+    LEASED_OWNER_OPERATOR, OWNER_OPERATOR_DELIVERIES, OWNER_OPERATOR_LEVEL,
     OWNER_OPERATOR_REPUTATION, OWNER_OPERATOR_WORKING_CAPITAL,
 };
 use ff_core::models::career::{
@@ -604,8 +606,8 @@ pub fn level_up_at_settlement_boundary() -> Outcome {
     outcome("level_up_at_settlement_boundary", &rig, findings, &note)
 }
 
-/// Buy into owner-operator at exactly level 18 with exact capital; refuse it at
-/// level 17.
+/// Buy into owner-operator at exactly level 18 with exactly the cheapest
+/// tractor plus working capital; refuse it at level 17.
 pub fn owner_op_buyin_at_level_18_boundary() -> Outcome {
     let mut findings: Vec<String> = Vec::new();
     {
@@ -618,7 +620,7 @@ pub fn owner_op_buyin_at_level_18_boundary() -> Outcome {
             profile.career.xp = LEVEL_XP[OWNER_OPERATOR_LEVEL as usize - 1]; // exactly level 18
             profile.career.deliveries = OWNER_OPERATOR_DELIVERIES;
             profile.career.reputation = OWNER_OPERATOR_REPUTATION;
-            profile.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL);
+            profile.set_money(buy_in_cash_needed(cheapest_buy_in_price()));
             // exact dollar
         }
         let level = app.ctx.profile.as_ref().map_or(0, |p| p.career.level());
@@ -639,7 +641,13 @@ pub fn owner_op_buyin_at_level_18_boundary() -> Outcome {
         {
             findings.push("level 18 with exact capital: no buy-in menu item offered".to_string());
         } else {
+            // The buy-in list opens; its first row is the cheapest sleeper,
+            // and a row asks twice before it buys.
             select_containing(&mut app, "Owner-operator buy-in");
+            let cheapest = buy_in_tractors()[0];
+            let row = py_capitalize(cheapest.label);
+            select_containing(&mut app, &row);
+            select_containing(&mut app, &row);
             let (status, money) = {
                 let profile = app.ctx.profile.as_ref().expect("a profile");
                 (profile.business_status.clone(), profile.money())
@@ -666,7 +674,7 @@ pub fn owner_op_buyin_at_level_18_boundary() -> Outcome {
         profile.career.xp = LEVEL_XP[OWNER_OPERATOR_LEVEL as usize - 2]; // level 17
         profile.career.deliveries = OWNER_OPERATOR_DELIVERIES;
         profile.career.reputation = OWNER_OPERATOR_REPUTATION;
-        profile.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL + 50_000.0);
+        profile.set_money(buy_in_cash_needed(cheapest_buy_in_price()) + 50_000.0);
         profile.money()
     };
     let level = app.ctx.profile.as_ref().map_or(0, |p| p.career.level());

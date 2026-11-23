@@ -85,6 +85,7 @@ const SPLIT: &[(&str, &str)] = &[
     ("fort_worth_tx_us", "oklahoma_city_ok_us"),
     ("wichita_falls_tx_us", "mckinney_tx_us"),
     ("mckinney_tx_us", "waco_tx_us"),
+    ("ardmore_ok_us", "dallas_tx_us"),
 ];
 
 fn has_leg(a: &str, b: &str) -> bool {

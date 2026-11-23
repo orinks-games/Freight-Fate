@@ -26,7 +26,14 @@ mod hotel;
 mod mass;
 mod roll;
 mod shifting;
+pub mod traction;
 mod updates;
+
+pub use traction::{
+    crosswind_lateral_g, single_trailer_offtrack_clipping, single_trailer_offtrack_ft,
+    single_trailer_sway_step, AbsEvent, AbsState, DriveTractionEvent, DriveTractionState,
+    TrailerSwayEvent, TrailerSwayState,
+};
 
 pub use axles::{AxleLoads, TANDEM_LIMIT_LB};
 pub use descent::{DESCENT_SPEED_STEP_MPH, GSRS_BRAKE_LIMIT_C};
@@ -701,6 +708,14 @@ pub struct TruckState {
     /// to take straight back. Not persisted -- the driving layer sets it
     /// every frame cruise runs.
     pub descent_gear_hold: bool,
+    /// Explicit ABS modulation state on slick surfaces.
+    pub abs_state: AbsState,
+    /// Explicit drive-axle traction state (static grip vs. low-grip wheelspin).
+    pub drive_traction_state: DriveTractionState,
+    /// Single-trailer crosswind sway angle in degrees (doubles use `trailer_set`).
+    pub trailer_sway_deg: f64,
+    /// Explicit single-trailer stability state (`Steady`, `Swaying`, `OffTracking`).
+    pub trailer_sway_state: TrailerSwayState,
 }
 
 impl Default for TruckState {
@@ -784,7 +799,52 @@ impl TruckState {
             high_idle_rpm: None,
             last_service_air_application: 0.0,
             descent_gear_hold: false,
+            abs_state: AbsState::Inactive,
+            drive_traction_state: DriveTractionState::Grip,
+            trailer_sway_deg: 0.0,
+            trailer_sway_state: TrailerSwayState::Steady,
         }
+    }
+
+    pub fn abs_active(&self) -> bool {
+        self.abs_state.is_active()
+    }
+
+    pub fn drive_wheels_spinning(&self) -> bool {
+        self.drive_traction_state.is_spinning()
+    }
+
+    /// Updates single-trailer crosswind sway and tight-ramp off-tracking state.
+    pub fn update_single_trailer_stability(
+        &mut self,
+        dt: f64,
+        wind_lateral_g: f64,
+        curvature_per_ft: f64,
+        lane_offset: f64,
+    ) -> TrailerSwayState {
+        let speed_mph = self.speed_mph();
+        let doubles = self.doubles_hooked();
+        if !self.trailer_attached || doubles {
+            self.trailer_sway_deg = 0.0;
+        } else {
+            self.trailer_sway_deg = single_trailer_sway_step(
+                self.trailer_sway_deg,
+                wind_lateral_g,
+                self.load_fraction(),
+                speed_mph,
+                dt,
+            );
+        }
+        let offtrack_clip = self.trailer_attached
+            && !doubles
+            && single_trailer_offtrack_clipping(curvature_per_ft, lane_offset, speed_mph);
+        self.trailer_sway_state = self.trailer_sway_state.next(TrailerSwayEvent {
+            trailer_attached: self.trailer_attached,
+            doubles_hooked: doubles,
+            sway_deg: self.trailer_sway_deg,
+            offtrack_clip,
+        });
+        self.trailer_sway_state
     }
 
     // Not a dataclass field: the bool view proxies the staged jake so every

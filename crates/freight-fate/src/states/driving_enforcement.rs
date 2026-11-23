@@ -119,6 +119,13 @@ pub const WEIGH_STATION_REMINDER_MAX_MI: f64 = 1.0;
 /// charged at all.
 pub const SCALE_REMINDER_REAL_LEAD_S: f64 = 15.0;
 
+/// Real seconds after the weigh station notice in which an exit signal for
+/// that scale says "Signal set for the scale exit." alone: the notice has
+/// just given the name and the distance, and a signal right behind it (lane
+/// keeping on full sets one at once) said both again. The notice itself runs
+/// about five seconds; a press inside the next ten answers it.
+pub const SCALE_NAMED_GRACE_S: f64 = 15.0;
+
 /// The sentence the open-scale lead distance is sized from. It must pace the
 /// real announcement's longest realistic rendering -- a long stop name -- or
 /// the spoken lead undershoots and the notice lands with no road left to act

@@ -296,6 +296,27 @@ fn test_mall_of_america_is_a_receive_only_stop_in_bloomington() {
 }
 
 #[test]
+fn test_every_store_receives_freight_and_ships_none() {
+    // Fifteen Northeast stores were built with the two lists swapped
+    // (2026-11-23): they started loads and nothing could be delivered to them.
+    let world = world();
+    let mut wrong = Vec::new();
+    for city in world.cities.values() {
+        for loc in &city.locations {
+            if loc.facility_type == "shopping_mall"
+                && (!loc.ships.is_empty() || loc.receives.is_empty())
+            {
+                wrong.push(format!("{}: {}", city.key, loc.name));
+            }
+        }
+    }
+    assert!(
+        wrong.is_empty(),
+        "stores that ship or receive nothing: {wrong:#?}"
+    );
+}
+
+#[test]
 fn test_world_yard_pins_are_freight_endpoints_not_homes() {
     // World terminal/company_yard pins only name freight endpoints (and the
     // fallback garage); homes are the hiring carrier's own terminals.

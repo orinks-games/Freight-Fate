@@ -128,27 +128,18 @@ pub fn freight_density(world: &World, city_key: &str) -> usize {
 /// Nearest first, not thickest: a dispatcher fills a thin board from the
 /// next town over, and ranking by freight let a big market at the edge of
 /// the range beat every closer town (the 300-mile North Carolina deadhead).
-///
-/// `min_density` keeps only towns with at least that much freight: a board
-/// that is thin only because a big market is in range relays from the
-/// market, not from the nearest town as thin as this one (Tonopah, once its
-/// roads to Bishop and Austin were built, 2026-11-22).
 fn relay_towns<'a>(
     world: &World,
     here: &str,
     nearby: &'a [Candidate],
     level: i64,
-    min_density: usize,
 ) -> Vec<&'a Candidate> {
     let range = relay_range_mi(level);
     let density = |key: &str| freight_density(world, key);
     let mut towns: Vec<&Candidate> = nearby
         .iter()
         .filter(|(city, miles, _)| {
-            city != here
-                && *miles >= MIN_JOB_DISTANCE_MI
-                && *miles <= range
-                && density(city) >= min_density.max(1)
+            city != here && *miles >= MIN_JOB_DISTANCE_MI && *miles <= range && density(city) > 0
         })
         .collect();
     towns.sort_by(|a, b| a.1.total_cmp(&b.1).then(density(&b.0).cmp(&density(&a.0))));
@@ -166,10 +157,7 @@ pub fn warm_dispatch_routes(world: &World, city: &str) {
     let here = world.resolve_city_key(city);
     let mut nearby = reachable_cities(world, &here);
     nearby.sort_by(|a, b| a.1.total_cmp(&b.1));
-    let market = freight_density(world, &here) * THIN_MARKET_RATIO;
-    let nearest = relay_towns(world, &here, &nearby, i64::MAX, 1);
-    let markets = relay_towns(world, &here, &nearby, i64::MAX, market);
-    for (town, _, _) in nearest.into_iter().chain(markets) {
+    for (town, _, _) in relay_towns(world, &here, &nearby, i64::MAX) {
         let _ = world.supported_route(&here, town, None);
         let _ = reachable_cities(world, town);
     }
@@ -183,20 +171,10 @@ pub fn best_relay(
     request: &RelayRequest<'_>,
     nearby: &[Candidate],
 ) -> Option<RelayLoad> {
-    best_relay_from(world, request, nearby, 1)
-}
-
-/// [`best_relay`] drawn only from towns with at least `min_density` freight.
-fn best_relay_from(
-    world: &World,
-    request: &RelayRequest<'_>,
-    nearby: &[Candidate],
-    min_density: usize,
-) -> Option<RelayLoad> {
     let here = world.resolve_city_key(request.here);
     let plan = pay_plan_for_key(request.carrier_key);
     let mut best: Option<RelayLoad> = None;
-    for (city, _, _) in relay_towns(world, &here, nearby, request.level, min_density) {
+    for (city, _, _) in relay_towns(world, &here, nearby, request.level) {
         let Some(deadhead) = world.supported_route(&here, city, None).ok().flatten() else {
             continue;
         };
@@ -279,15 +257,11 @@ pub fn relay_load(
         .map(|(city, _, _)| freight_density(world, city))
         .max()
         .unwrap_or(0);
-    let thin_board = usable_local.len() < THIN_BOARD_LOADS
-        || best_local_rate < RELAY_RATE_RATIO * relay.rate_per_h;
-    let market = here_density * THIN_MARKET_RATIO;
-    if !thin_board {
-        if market_density < market {
-            return None;
-        }
-        // Thin only beside the big market: the load comes from the market.
-        relay = best_relay_from(world, request, nearby, market)?;
+    let thin = usable_local.len() < THIN_BOARD_LOADS
+        || best_local_rate < RELAY_RATE_RATIO * relay.rate_per_h
+        || market_density >= here_density * THIN_MARKET_RATIO;
+    if !thin {
+        return None;
     }
     // The deadhead is part of the assignment: paid at the empty-mile rate.
     // Not added to the deadline: the delivery clock starts at the shipper,
@@ -446,9 +420,12 @@ mod tests {
 
     #[test]
     fn test_a_small_town_beside_a_big_market_relays_even_off_a_full_board() {
-        // Tonopah, Nevada: five shippers on the map, with Reno's and Las
-        // Vegas's markets of twice that within a day's deadhead. A full,
-        // well-paid local board does not keep a carrier's truck there.
+        // Tonopah, Nevada: a thin town with Reno's and Las Vegas's markets
+        // within a day's deadhead. A full, well-paid local board does not
+        // keep a carrier's truck there. The load comes from the nearest
+        // towns, nearest first: since the roads to Bishop and Austin were
+        // built (2026-11-22) those are Bishop, Austin and Mammoth Lakes,
+        // not the market that made the board thin.
         let world = get_world();
         let endorsements: [&str; 0] = [];
         // A seasoned driver: Reno and Las Vegas are over 200 miles out.
@@ -462,8 +439,10 @@ mod tests {
         let local = vec![rich.clone(), rich.clone(), rich.clone(), rich];
         let chosen = relay_load(world, &request, &local, &nearby).expect("Tonopah relays");
         assert!(
-            freight_density(world, &chosen.job.origin)
-                >= freight_density(world, &world.resolve_city_key("Tonopah")) * THIN_MARKET_RATIO
+            ["bishop_ca_us", "austin_nv_us", "mammoth_lakes_ca_us"]
+                .contains(&chosen.job.origin.as_str()),
+            "relayed from {}",
+            chosen.job.origin
         );
         // Chicago is nobody's thin market: the same full board stays put.
         let chicago = self::request("Chicago", &endorsements);

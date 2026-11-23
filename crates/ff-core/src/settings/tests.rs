@@ -176,12 +176,13 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // radio_cab_speakers (2026-10-18), achievement_sort (2026-10-28) and
     // driving_hints (2026-11-08) and crash_report_offer (2026-11-13), and
     // main_backend (2026-11-17), cloud_resume, and left_bumper_layer
-    // (2026-11-18).
-    assert_eq!(Settings::FIELD_NAMES.len(), 105);
+    // (2026-11-18), the two tilt fields, outside_volume,
+    // road_surface_volume and touch_shared_recogniser (2026-11-22).
+    assert_eq!(Settings::FIELD_NAMES.len(), 110);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
-    assert_eq!(Settings::FIELD_NAMES[84], "settings_layout_notice_from");
+    assert_eq!(Settings::FIELD_NAMES[86], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 105);
+    assert_eq!(pairs.len(), 110);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -218,7 +219,8 @@ fn the_defaults_match_the_python_dataclass() {
         "radio_volume": 0.25, "radio_enabled": true,
         "radio_station_id": "route_playlist", "radio_streamer_safe": false,
         "radio_shuffle_playlists": false, "radio_cab_speakers": true,
-        "weather_volume": 0.65, "engine_volume": 0.55, "ui_volume": 0.9,
+        "weather_volume": 0.65, "outside_volume": 0.65, "road_surface_volume": 0.8,
+        "engine_volume": 0.55, "ui_volume": 0.9,
         "duck_audio_for_speech": false, "driving_speech": "standard", "chatter_parks": true,
         "chatter_rivers": true, "chatter_passes": true, "chatter_museums": true,
         "chatter_billboards": true, "place_callouts": "sparse",
@@ -239,18 +241,36 @@ fn the_defaults_match_the_python_dataclass() {
         "steering_guide_inverted": false, "assist_preset_chosen": false,
         "facility_streets": true,
         "language": "auto", "visual_display": true, "achievement_sort": "earned",
-        "driving_hints": true, "crash_report_offer": true, "left_bumper_layer": false
+        "driving_hints": true, "crash_report_offer": true, "left_bumper_layer": false,
+        "touch_tilt_steering": false, "touch_tilt_full_degrees": 30.0,
+        "touch_shared_recogniser": false
     }"#,
     )
     .unwrap();
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 105);
+    assert_eq!(expected.len(), 110);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }
     assert!(!s.lane_keeping_unreadable);
+}
+
+#[test]
+fn outside_and_road_surface_volumes_start_at_the_mix_an_old_file_had() {
+    let old = from_json(json!({"weather_volume": 0.3, "sfx_volume": 0.4}));
+    assert_eq!(old.outside_volume, 0.3);
+    assert_eq!(old.road_surface_volume, 0.4);
+    let chosen = from_json(json!({
+        "weather_volume": 0.3, "sfx_volume": 0.4,
+        "outside_volume": 0.9, "road_surface_volume": 0.1,
+    }));
+    assert_eq!(chosen.outside_volume, 0.9);
+    assert_eq!(chosen.road_surface_volume, 0.1);
+    let fresh = Settings::default();
+    assert_eq!(fresh.outside_volume, fresh.weather_volume);
+    assert_eq!(fresh.road_surface_volume, fresh.sfx_volume);
 }
 
 #[test]
@@ -314,7 +334,7 @@ fn the_file_text_is_what_json_dump_wrote() {
          \"touch_rotate_degrees\": 30.0,\n  \"touch_parking_brake_mph\": 1.0,\n  \
          \"steering_guide_inverted\": false,\n  \"assist_preset_chosen\": false,\n  \"facility_streets\": true,\n  \"language\": \"auto\",\n  \
          \"visual_display\": true,\n  \"achievement_sort\": \"earned\",\n  \"driving_hints\": true,\n  \
-         \"crash_report_offer\": true,\n  \"left_bumper_layer\": false,\n  \"steering_assist\": \"off\",\n  \"imperial_units\": true\n}"
+         \"crash_report_offer\": true,\n  \"left_bumper_layer\": false,\n  \"touch_tilt_steering\": false,\n  \"touch_tilt_full_degrees\": 30.0,\n  \"touch_shared_recogniser\": false,\n  \"steering_assist\": \"off\",\n  \"imperial_units\": true\n}"
     ));
     assert!(text.contains("\n  \"time_scale\": 10.0,\n"));
     assert!(text.contains("\n  \"radio_volume\": 0.25,\n"));

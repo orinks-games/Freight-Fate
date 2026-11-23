@@ -44,7 +44,7 @@ fn catalog_can_load_to(world: &World, origin: &str, facility: &str, destination:
 #[test]
 fn departure_is_a_named_finder_feature() {
     assert!(FEATURES.contains(&"departure"));
-    assert_eq!(FEATURES.len(), 17);
+    assert_eq!(FEATURES.len(), 19);
 }
 
 #[test]

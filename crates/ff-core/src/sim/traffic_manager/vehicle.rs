@@ -53,7 +53,17 @@ pub struct TrafficVehicle {
     /// The key of the vehicle (or `"truck"`) this one is holding its
     /// following gap behind, this frame; `None` when the road ahead is open.
     pub holding_behind: Option<String>,
+    /// Continuous lateral lane position used for audio panning; slews smoothly
+    /// toward `lane as f64` during lane changes so overtakes glide instead of
+    /// snapping across the stereo field.
+    pub visual_lane: f64,
+    /// True for vehicles traveling in the opposite direction on an undivided
+    /// two-lane highway (`lane == -1`).
+    pub oncoming: bool,
 }
+
+/// Real-time lane-change glide rate (lanes per second; ~2.5s per lane change).
+pub const LANE_CHANGE_SLEW_PER_S: f64 = 0.4;
 
 impl TrafficVehicle {
     pub fn new(
@@ -81,6 +91,8 @@ impl TrafficVehicle {
             slowdown_mph: 0.0,
             home_lane: None,
             holding_behind: None,
+            visual_lane: 0.0,
+            oncoming: false,
         }
     }
 
@@ -101,7 +113,34 @@ impl TrafficVehicle {
 
     pub fn with_lane(mut self, lane: i64) -> Self {
         self.lane = lane;
+        self.visual_lane = lane as f64;
         self
+    }
+
+    pub fn with_oncoming(mut self, oncoming: bool) -> Self {
+        self.oncoming = oncoming;
+        if oncoming {
+            self.lane = -1;
+            self.visual_lane = 1.0;
+            self.relative_lane = -1;
+        }
+        self
+    }
+
+    /// Slew `visual_lane` toward the discrete `lane` over `dt` real seconds.
+    pub fn slew_visual_lane(&mut self, dt: f64) {
+        if self.oncoming {
+            self.visual_lane = 1.0;
+            return;
+        }
+        let target = self.lane as f64;
+        let diff = target - self.visual_lane;
+        let step = LANE_CHANGE_SLEW_PER_S * dt.max(0.0);
+        if diff.abs() <= step {
+            self.visual_lane = target;
+        } else {
+            self.visual_lane += diff.signum() * step;
+        }
     }
 
     pub fn with_exit_at(mut self, exit_at_mi: Option<f64>) -> Self {
@@ -173,6 +212,9 @@ impl TrafficVehicle {
         if class == "state trooper" {
             return class.to_string();
         }
+        if self.oncoming {
+            return format!("Oncoming {class}");
+        }
         if self.intent == "merging" && self.lane < 0 {
             return format!("Merging {class} on the right ramp");
         }
@@ -210,6 +252,31 @@ mod tests {
 
         assert_eq!(vehicle.status_label(), "Merging car on the right ramp");
     }
+
+    #[test]
+    fn oncoming_status_names_oncoming_vehicle() {
+        let vehicle = TrafficVehicle::new("oncoming", 1.0, 55.0, 55.0, -1, "cruising", "semi")
+            .with_oncoming(true);
+
+        assert_eq!(vehicle.status_label(), "Oncoming semi");
+        assert_eq!(vehicle.lane, -1);
+        assert_eq!(vehicle.visual_lane, 1.0);
+    }
+
+    #[test]
+    fn visual_lane_slews_smoothly_toward_logical_lane() {
+        let mut vehicle = TrafficVehicle::new("car", 1.0, 65.0, 65.0, 0, "cruising", "car");
+        assert_eq!(vehicle.visual_lane, 0.0);
+        vehicle.lane = 1;
+        vehicle.slew_visual_lane(1.0);
+        assert!(
+            (vehicle.visual_lane - super::LANE_CHANGE_SLEW_PER_S).abs() < 1e-6,
+            "{}",
+            vehicle.visual_lane
+        );
+        vehicle.slew_visual_lane(2.0);
+        assert_eq!(vehicle.visual_lane, 1.0);
+    }
 }
 
 impl From<NPCVehicle> for TrafficVehicle {
@@ -226,6 +293,8 @@ impl From<NPCVehicle> for TrafficVehicle {
             vehicle_class: "vehicle".to_string(),
             length_mi: npc.length_mi,
             lane: npc.lane,
+            visual_lane: npc.lane as f64,
+            oncoming: false,
             exit_at_mi: None,
             limit_share: None,
             governor_mph: None,

@@ -1,7 +1,7 @@
 use ff_core::models::business::{
-    OWNER_OPERATOR_BUY_IN, OWNER_OPERATOR_DELIVERIES, OWNER_OPERATOR_LEVEL,
-    OWNER_OPERATOR_REPUTATION, OWNER_OPERATOR_WORKING_CAPITAL,
+    OWNER_OPERATOR_DELIVERIES, OWNER_OPERATOR_LEVEL, OWNER_OPERATOR_REPUTATION,
 };
+use ff_core::models::buy_in::{buy_in_cash_needed, cheapest_buy_in_price};
 use ff_core::models::career::LEVEL_XP;
 use ff_core::models::jobs::{make_reposition_job, Job, JobBoard, OfferOptions};
 use ff_core::models::profile::Profile;
@@ -353,11 +353,11 @@ fn changing_business_status_marks_business_changed() {
         profile.career.xp = LEVEL_XP[(OWNER_OPERATOR_LEVEL - 1) as usize];
         profile.career.deliveries = OWNER_OPERATOR_DELIVERIES;
         profile.career.reputation = OWNER_OPERATOR_REPUTATION;
-        profile.set_money(OWNER_OPERATOR_BUY_IN + OWNER_OPERATOR_WORKING_CAPITAL);
+        profile.set_money(buy_in_cash_needed(cheapest_buy_in_price()));
     }
     app.push_state(BusinessStatusState::new());
 
-    select::<BusinessStatusState>(&mut app, "Owner-operator buy-in");
+    buy_in_cheapest(&mut app);
 
     assert_eq!(
         pending_reason(&app),

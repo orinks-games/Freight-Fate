@@ -105,6 +105,8 @@ pub(super) fn bus_of(category: Category) -> Bus {
     match category {
         Category::Engine => Bus("engine"),
         Category::Weather => Bus("weather"),
+        Category::Outside => Bus("outside"),
+        Category::Road => Bus("road"),
         Category::Ui => Bus::UI,
         Category::Siren => Bus("siren"),
         Category::Sfx => Bus::EFFECTS,
