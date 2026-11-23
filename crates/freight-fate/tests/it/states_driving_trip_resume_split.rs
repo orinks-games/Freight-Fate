@@ -14,6 +14,10 @@
 //!
 //! The Northeast roads (2026-11-23) split Buffalo to New York, a 468-mile
 //! Thruway leg, at Newburgh: about 465 miles of the same road.
+//!
+//! The South Central roads (2026-11-23) split Little Rock to Oklahoma City
+//! at Henryetta and Dodge City to Salina at Great Bend; the Dodge City
+//! chain is 15 miles shorter than the leg it replaced.
 
 use ff_core::models::profile::Profile;
 use freight_fate::app::testing::TestApp;
@@ -156,4 +160,46 @@ fn a_save_on_the_old_buffalo_to_new_york_leg_resumes_on_its_pieces() {
         ["buffalo_ny_us", "newburgh_ny_us", "new_york_ny_us"]
     );
     assert_eq!(drive.trip.position_mi, 300.0);
+}
+
+#[test]
+fn a_save_on_the_old_little_rock_to_oklahoma_city_leg_resumes_on_its_pieces() {
+    // 200 miles in lands on I-40, short of Henryetta.
+    let app = resume("Little Rock", "Oklahoma City", 339.0, 200.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        [
+            "little_rock_ar_us",
+            "henryetta_ok_us",
+            "oklahoma_city_ok_us"
+        ]
+    );
+    assert_eq!(drive.trip.position_mi, 200.0);
+}
+
+#[test]
+fn a_save_past_the_end_of_the_shorter_dodge_city_chain_comes_back_at_salina() {
+    // The old Dodge City to Salina leg went north to I-70 (182 miles); the
+    // chain over Great Bend is 167. A save at old mile 175 lies past the
+    // chain's end and comes back at its last mile, at Salina.
+    let app = resume("Dodge City", "Salina", 182.0, 175.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        ["dodge_city_ks_us", "great_bend_ks_us", "salina_ks_us"]
+    );
+    assert_eq!(drive.trip.position_mi, drive.route.miles());
 }
