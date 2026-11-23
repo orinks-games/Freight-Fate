@@ -99,6 +99,7 @@ bookmarks usable.
 - [ ] (Found along the way) Five legs ride other roads for 5 to 16 miles beside their interstate: Charlotte to Knoxville (US-321 and US-221 Business near Hickory and Marion), Erie to Meadville (PA-98), Rapid City to Sioux Falls (SD-50), Paducah to Clarksville (US-60 and US-62) and Sacramento to Portland (OR-99). The truck router keeps 77 to 97% of each on the interstate. Erie to Meadville reads 0% on I-79 in the router's own report, which needs a look before re-routing it.
 - [ ] (Found along the way) Six Florida legs named I-95 ride Florida's Turnpike for about 13 miles (West Palm Beach, Port St. Lucie, Coral Springs and Jacksonville to Miami and Palm Bay). The route is a reasonable truck choice; the label is what is wrong. Name the road the legs drive, or split the highway name where they change roads. On `feat/career-2.0` (2026-11-22, Florida and Georgia roads) Port Saint Lucie to Coral Springs and to Miami are renamed Florida's Turnpike, and West Palm Beach to Palm Bay is split at Port Saint Lucie with its southern piece on the Turnpike.
 - [ ] (Found along the way) Florida and Georgia roads (2026-11-22): billboards for the new legs, four tolls still unpriced, and seventeen long legs with no stop a tractor-trailer can use. Detail under "Florida and Georgia roads".
+- [ ] (Found along the way) Alabama, Mississippi and South Carolina roads (2026-11-23): billboards for the new legs, Grenada to Oxford off MS 7 for two posted bridges, and long legs with no stop a tractor-trailer can use. Detail under "Alabama, Mississippi and South Carolina roads".
 - [ ] (Found along the way) A whole-map run of the new layer builders (2026-11-05, dry run) would change most legs: lane counts and landmarks mostly by their source notes, villages by about 160 places, and low clearances from 118 legs to 543, mostly real posted bridges under 16 feet in the Northeast. Decide whether to apply it. The low clearances need no listening pass: the GPS no longer speaks them (2026-11-22).
 - [ ] (Found along the way) The terrain class reads at most 800 HPMS sections per leg, so a long leg is judged on whichever 800 the server returns first: Harrisburg to Pittsburgh across the Alleghenies reads level. Count every section in the leg's own corridor instead.
 - [x] (Found along the way) What the road is made of, and where it leaves the ground, is on the map (2026-11-20; the owner asked whether pavement data could make the planned road seams accurate). `cargo tools hpms-pavement` reads FHWA HPMS surface type and bridges, tunnels and causeways along every leg's archived road, each way; the road seams and bridge joints use it. Coverage and method: [November 20](#november-20-pavement-and-structures-from-hpms-found-along-the-way).
@@ -6855,6 +6856,278 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Gaps of 52 to 65 miles with no truck stop:
       Elmira to Jamestown, Newburgh to Binghamton, Altoona to Cumberland,
       Plattsburgh to Watertown.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+
+### Mountain and Northwest roads (missing roads brief 3, November 23)
+
+- [x] Aberdeen, Washington is a city, pinned where US 12 meets US 101,
+      with the Port of Grays Harbor's Terminal 4, AGP's soybean meal
+      export terminal, the Sierra Pacific sawmill, Olympic Gateway Plaza
+      and the Westport cold store. It keeps only those sites.
+- [x] 45 new legs between neighbours the map routed far around, routed by
+      the truck router over the OpenStreetMap planet of 2026-11-16 and built
+      with every layer, among them US 89 from Cedar City to Page, US 84 from
+      Pagosa Springs to Santa Fe over Chama, US 50 over Monarch Pass, US 12
+      over Lolo Pass, US 82 over Cloudcroft, US 287 into Lamar, US 85 and
+      US 18 through Lusk, US 20 from Bend to Corvallis and US 97 from Bend to
+      The Dalles. The detours that shrank most: Pagosa Springs to Santa Fe
+      (435 miles to 153), Carlsbad to Van Horn (380 to 119) and Burlington
+      to Lamar (375 to 119).
+- [x] Seven long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Astoria to Olympia at Longview, Roswell to
+      Lubbock at Clovis, Denver to Albuquerque at Alamosa and Santa Fe,
+      Trinidad to Pueblo at Walsenburg, Burlington to Denver at Limon,
+      Billings to Cheyenne at Casper and Wheatland, and Eugene to
+      Tri-Cities at The Dalles. Each chain is within 4 miles of its old leg.
+      Their billboards moved onto the pieces by coordinate; the San Luis
+      Valley boards on CO 17 (UFO Watchtower, Colorado Gators, Great Sand
+      Dunes) came off, because US 285 does not pass them.
+- [x] Re-routed onto their roads: Carlsbad to Odessa (US 285 by Pecos),
+      Tri-Cities to Seattle, Corvallis to Eugene, Newberg to McMinnville,
+      Portland to Salt Lake City, Salem to Albany, Glasgow to Wolf Point,
+      Shelby to Havre, and Wenatchee to Everett, which now runs US 2 over
+      Stevens Pass (123 miles, was 169 by Blewett Pass and I-90) instead of
+      getting a second leg. Its Snoqualmie Falls billboard stays on the
+      other I-90 legs. 23 legs renamed for the road they ride, among them
+      Casper to Billings I-90 and McMinnville to Salem OR-99W, and their
+      towns' roads read again.
+- [x] Stops list `docs/stops/mountain-northwest.json`: the stops the
+      region's legs already carried, plus 46 travel centers and state rest
+      areas read from OpenStreetMap (18 with truck access read, 28 assumed),
+      among them Love's Madras, Pilot Orla, Pilot Lolo, ONE9 Tucumcari and
+      the Independence Rock, Mule Creek Junction and Kane Springs rest areas.
+- [ ] (Found along the way) Gillette to Hot Springs was left out: the truck
+      router's road is 173 miles (I-90 to Sundance, WY 585, US 85), not the
+      list's 144, so the game's 202 is under the cut.
+- [ ] (Found along the way) Still no stop a tractor-trailer can use on
+      Bend to Eugene, Coos Bay to Newport, Coos Bay to Roseburg, McMinnville
+      to Newport, Newport to Albany, Kalispell to Libby, Wolf Point to
+      Williston, Alamogordo to El Paso, Alamogordo to Roswell, Colorado
+      Springs to Limon, Denver to Silverthorne and back, Durango to Pagosa
+      Springs, Pagosa Springs to Santa Fe, Laramie to Wheatland and Port
+      Angeles to Olympia; the leads found only town fuel stations with no
+      truck tag.
+- [ ] (Found along the way) 28 rest areas have truck access assumed, not
+      read; eight of them have no name in OpenStreetMap and are named for the
+      nearest town (Poncha Springs, Cheraw, Sterling, Carrizozo, Capitan,
+      Moorcroft, Mule Creek Junction, Tampico). State DOT rest area lists
+      would settle both.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Screen Interstate mainline curve advisories
+      against the terrain's design speed (60 mph in hills, 50 in mountains).
+      30 sit under 50 mph today, the slowest 40 mph on Charlottesville to
+      Harrisonburg, Dallas to St. Louis (twice) and Johnson City to
+      Asheville; three 45s on Athens to Columbia look like town streets
+      under an I- label. The interstate slowdown test now counts flat
+      ground only. Measurements:
+      /mnt/project-files/missing-roads/mountain-northwest/interstate-curves-by-terrain.md
+- [ ] (Found along the way) Colorado Springs to Limon leaves town on East
+      Platte Avenue, which OpenStreetMap tags as closed to trucks over four
+      axles for its first miles; the router takes it, and the city start is
+      not judged.
+
+### Upper Midwest and Northern Plains roads (missing roads brief 3, November 23)
+
+- [x] 35 new legs between neighbours the map routed far around, in Iowa,
+      Minnesota, Nebraska, the Dakotas and across into Wisconsin, Illinois,
+      Missouri, Kansas and Wyoming, routed by the truck router over the
+      OpenStreetMap planet of 2026-11-16 and built with every layer. No new
+      cities. The detours that shrank most: Bemidji to St. Cloud (368 miles
+      to 159), Aberdeen to Jamestown (348 to 104), Fort Dodge to Sioux City
+      (322 to 118) and Burlington to Quincy (308 to 87).
+- [x] Three long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Hibbing to Minneapolis at Grand Rapids,
+      Mankato to Rochester at Owatonna, Des Moines to Chicago at Aurora.
+      The chains run 2, 6 and 6 miles over the old legs, because Owatonna
+      and Aurora sit off the through road.
+- [x] Re-routed onto their roads: Aberdeen to Pierre, Rapid City to Sioux
+      Falls, Willmar to Watertown (US-12, 139 miles to 111) and Scottsbluff
+      to Sidney (US-385, 87 to 81). Twelve legs renamed for the road they
+      ride, and their towns' roads read again.
+- [x] Upper Midwest and Northern Plains stops list
+      (`docs/stops/upper-midwest-northern-plains.json`), 391 stops.
+- [ ] (Found along the way) Tolls still unread: the Reagan Tollway (I-88)
+      on Des Moines to Aurora and Aurora to Chicago; the Illinois Tollway's
+      site has no readable rate table.
+- [ ] (Found along the way) No station a tractor-trailer can use is on
+      Burlington to Quincy or Scottsbluff to Sidney. Gaps of 60 to 103
+      miles between fuel, counting town stations marked bobtail only, on
+      Aberdeen to Pierre, Fargo to Willmar, Rapid City to Sioux Falls,
+      Mankato to Willmar, Fort Dodge to Waterloo, Grand Island to Salina,
+      Fort Dodge to Mason City, Burlington to Ottumwa, Aberdeen to
+      Jamestown, Grand Rapids to Minneapolis, Iowa City to Quincy and
+      Brookings to Willmar. Many town stations there likely take trucks;
+      a source that says so would let them count.
+- [ ] (Found along the way) US 30 from Cedar Rapids to Joliet is left
+      undone: 224 router miles with no city between, over the 200 mile cap.
+      A town near Clinton or DeKalb would fix it.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Coming into Aberdeen from Jamestown, the
+      destination exit sits 0.8 miles out on US-281 inside town, where the
+      road drops from 45 to 30 and then a 15 mph street; cruise is down to
+      31 a mile before the exit, and the roll past the ramp's sign stops at
+      15. The exit tests now start from the city's longest leg. Check where
+      a destination exit belongs on a two-lane road into a town.
+- [ ] (Found along the way) The miles before a leg's first posted limit
+      read that first posting, even inside the town the leg leaves
+      (`posted_sample_at` takes the first sample for any mile before it,
+      and the urban 55 applies only where a leg has no posting at all).
+      440 of 1,624 US legs have no posting in their first 2 miles; on 314
+      the first posting is 55 or more, and 222 of those have a bend advised
+      25 or less in that stretch (counted at each leg's start only).
+      Marshalltown to Ottumwa reads 65 through two 20 mph turns a quarter
+      mile out of the yard: the keeper takes the truck to 42, "Sharp right,
+      a quarter mile. Advise 20 miles per hour. Cruise paused for the
+      bend." comes at mile 0.42 for a bend at 0.77, and cruise only coasts.
+      A firm brake on the call makes it; a one-second brake rolls the
+      truck.
+
+### Alabama, Mississippi and South Carolina roads (missing roads brief 3, November 23)
+
+- [x] Pascagoula and Beaufort are cities. Pascagoula has the Chevron
+      refinery, Ingalls Shipbuilding, Omega Protein's Moss Point plant and
+      the Walmart on Denny Avenue; Beaufort the Walmart and Lowe's on Robert
+      Smalls Parkway and Norman USA's distribution centre in the Commerce
+      Park. Each keeps only those sites.
+- [x] 25 new legs between neighbours the map routed far around, routed by
+      the truck router over the OpenStreetMap planet of 2026-11-16 and built
+      with every layer. The detours that shrank most: Florence, Alabama to
+      Jackson, Tennessee (284 miles to 116), Columbus to Grenada (248 to
+      108) and Clarksdale to Stuttgart (216 to 95).
+- [x] Jackson to Baton Rouge split at Hammond, where I-55 meets I-12; a
+      save on the old leg resumes on the chain (183 miles against 175).
+- [x] Re-routed: Columbus to Tupelo onto US 45, Tupelo to Memphis onto
+      I-22 and I-269. Renamed for the road they ride: Dothan to Albany
+      (GA-62), Dothan to Tallahassee (I-10), Florence to Tupelo (AL-24),
+      Oxford to Memphis (US-78), Sumter to Florence (I-95).
+- [x] Alabama, Mississippi and South Carolina stops list
+      (`docs/stops/alabama-mississippi-south-carolina.json`), with 23 truck
+      stops new to the map, among them Love's at Tuscumbia, Lucedale, Lake
+      Village and Pine Bluff, Pilot at Rising Fawn and ONE9 at Wildwood on
+      legs that had none.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) Grenada to Oxford rides I-55 and MS 32: two
+      MS 7 bridges south of Water Valley are posted at 26 and 28 short tons
+      (31 and 32 for a tractor-trailer) in OpenStreetMap. If MDOT lifts the
+      postings, re-route it onto MS 7 (52 miles against 59).
+- [ ] (Found along the way) Legs of 60 miles or more still with no stop a
+      tractor-trailer can use; the leads found none with a name and truck
+      access: Florence to Tupelo, Clarksdale to Memphis, Greenville and
+      Grenada, Oxford to Clarksdale, Greenville and Natchez to Vicksburg,
+      Charleston to Myrtle Beach, and the new Florence to Tuscaloosa,
+      Gadsden to LaGrange and Huntsville, Columbus to Meridian, Hattiesburg
+      to Natchez, Clarksdale to Stuttgart and Beaufort to Charleston. The
+      welcome centres on US 231, I-10 and I-26 need their truck parking
+      read before they go on.
+- [ ] (Found along the way) Pascagoula's port terminals are not sites: the
+      port authority's and MDOT's pages refuse automated reads and
+      OpenStreetMap names none of them.
+- [x] Grenada to Oxford is labelled "I-55 / MS-7", as the Northeast did for
+      Newport to New London: it starts with 20 miles of I-55 and 15 of MS 32
+      before MS 7, so "Merge onto MS-7" was untrue for its first 35 miles.
+      Heard: "Merge onto I-55 / MS-7 North toward Oxford, then 59 miles on it."
+      osm-speed-limits now reads a combined label as an interstate only
+      where its interstate runs, so the 30 and 20 posted into Oxford stay.
+- [ ] (Found along the way) A leg labelled for an Interstate it rides for
+      only part of its miles (Tacoma to Yakima, Newberg to Woodburn) loses
+      real postings under 45 mph on its other miles and on the town streets
+      at its ends: osm-speed-limits treats the whole leg as an interstate.
+      HPMS traffic reads the label the same way (its own starts-with-"I-"
+      test). Both are left for the fix thread on false open-road limits
+      leaving town.
+
+### Texas and Louisiana roads (missing roads brief 3, November 23)
+
+- [x] 61 new legs in Texas and Louisiana, routed by the truck router over
+      the OpenStreetMap planet of 2026-11-16 and built with every layer,
+      among them US 87 from Dumas to Raton, US 281 from Stephenville to
+      Waco, US 190 from Killeen to Lampasas, US 277 from Del Rio to Ozona,
+      US 59 from Houston to Victoria and the Indian Nation Turnpike from
+      Paris to McAlester. Six new cities: Denton, Galveston, Freeport, Point
+      Comfort, Port Fourchon and Venice, each pinned where a truck arrives.
+- [x] Five legs retired for chains (decision 2), each with a
+      `RETIRED_LEGS` entry: Dallas to St. Louis now rides Denton, Ardmore
+      and the existing I-44 legs (713 miles against 720), Fort Worth to
+      Oklahoma City, Wichita Falls to McKinney and Ardmore to Dallas go
+      through Denton, McKinney to Waco through Dallas. Jacksboro to McKinney was not built: the road
+      runs through Denton and the two legs there are shorter.
+- [x] Re-routed onto their road: Houston to Lake Charles, Longview to
+      Shreveport, Midland to Odessa, Lafayette to Baton Rouge and Lafayette
+      to New Orleans. Renamed to the road they ride: thirteen legs, among
+      them College Station to Houston TX-249 and McKinney to Fort Worth
+      TX-121.
+- [x] Tolls from the authorities' five-axle tables: Indian Nation Turnpike
+      (estimated, 2024 table), LA 1 at Leeville, Chisholm Trail Parkway,
+      Sam Rayburn Tollway, SH 249 and the Tomball and Sam Houston tollways
+      (HCTRA's 2015 schedule, estimated), SH 45 Southeast.
+- [x] Stops list `docs/stops/texas-louisiana.json`: 266 stops the region's
+      legs carried, plus 76 read from OpenStreetMap (41 with truck access
+      read, 35 assumed). QuikTrip stores are left out: the stop access
+      rule screens them as convenience stations.
+- [ ] (Found along the way) Tolls still unpriced: SH 130 segment 5 on
+      Austin to Victoria (its operator posts rates by class and plaza name,
+      with no plaza locations), the Montgomery County stretch of SH 249 on
+      College Station to Houston (no five-axle table read), and a newer
+      HCTRA and OTA five-axle table to replace the estimates.
+- [ ] (Found along the way) Still no stop a tractor-trailer can use on
+      Laredo to McAllen, Corpus Christi to Laredo, Longview to Paris, Point
+      Comfort to Freeport, Port Fourchon to New Orleans, Alexandria to
+      Monroe, Victoria to Corpus Christi, Alexandria to Ruston, Point Comfort
+      to Corpus Christi, Ozona to San Angelo, Natchitoches to Ruston, Venice
+      to New Orleans, Alexandria to Natchez, Dumas to Pampa, Uvalde to Del
+      Rio and Port Fourchon to Houma; OpenStreetMap shows nothing truck
+      usable within half a mile.
+- [ ] (Found along the way) Pilot Joplin and Love's Strafford rode the
+      old Dallas to St. Louis leg with estimated miles and no coordinates;
+      no leg carries them now. For the chain truck stop pass.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+- [ ] (Found along the way) The South Central region: Galena and the Big
+      Blue Whale billboards on the I-44 legs, and the Dallas to St. Louis
+      chain legs (Oklahoma City to Tulsa, Tulsa to Joplin, Joplin to
+      Springfield, Springfield to Rolla, Rolla to St. Louis, Oklahoma City to
+      Ardmore) are not to be split again.
+
+### Appalachia and Mid-South roads (missing roads brief 3, November 23)
+
+- [x] Morehead City, Pinehurst and Reedville are cities, each keeping only
+      the port, plants and stores read from the map for it.
+- [x] 61 new legs between neighbours the map routed far around, routed by
+      the truck router over the OpenStreetMap planet of 2026-11-16 and
+      built with every layer.
+- [x] Three long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Johnson City to Pikeville at Kingsport,
+      Asheville to Winston-Salem at Hickory, and Charleston to Richmond at
+      Beckley, Staunton and Charlottesville.
+- [x] Four legs re-routed onto the truck router's road (Knoxville to
+      Atlanta, Charlotte to Greensboro, Charlotte to Knoxville, Paducah to
+      Clarksville) and seven renamed for the road they ride.
+- [x] Appalachia and Mid-South stops list
+      (`docs/stops/appalachia-mid-south.json`).
+- [x] The routing truck weighs 80,000 lb exactly; at 3 kg over, every
+      bridge posted at 40 short tons refused it.
+- Hazard to Morehead is not built: KY 205 is posted at 62,000 lb in
+      Kentucky's truck weight classes.
+- Bristol to Hickory rides US 421 over Holston and Iron Mountain (The
+      Snake, a 46 ft switchback at mile 24.7) and stays: checked 2026-11-23,
+      OpenStreetMap has no maxlength, maxweight or truck ban on its ways
+      (hgv=destination only on King Street in Boone, which the leg does not
+      ride), and TDOT's restrictions page and its one curve-road length
+      limit (30 ft on US 129, The Dragon, 2014) do not name US 421. The next
+      legal roads run 126 miles (via Elizabethton and Mountain City) and
+      142 (I-26 and US 19E) against 102. If TDOT or NCDOT posts a truck
+      length limit there, the leg comes out.
+- [ ] (Found along the way) Tolls still unread: the Monroe Expressway on
+      Charlotte to Florence (the only five-axle table found is a 2023 PDF)
+      and the Dominion Boulevard Veterans Bridge on Greenville to Norfolk.
+- [ ] (Found along the way) Gaps of 51 to 64 miles with no stop of any
+      kind: Memphis to Stuttgart, Dyersburg to Jonesboro, Chattanooga to
+      Cookeville, Cookeville to London, Pinehurst to Florence, Louisville
+      to Vincennes, Wilmington to Fayetteville, Elizabethtown to Owensboro.
 - [ ] (Found along the way) Billboards on the new legs: a sheet needs
       Orinks's approval.
 

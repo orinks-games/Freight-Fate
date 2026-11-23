@@ -119,6 +119,21 @@ pub fn destinations(world: &'static World, want: usize) -> (Vec<Destination>, Ve
     (chain, plain)
 }
 
+/// The neighbour a single-facility run starts from: the far end of the
+/// city's longest leg, so a short leg added into the city later does not
+/// move the run onto a different approach. The first neighbour by name
+/// used to be the rule; Aberdeen's became Jamestown on 2026-11-23, whose
+/// destination exit sits on in-town US-281 under a 15 mph street.
+pub fn approach_origin(world: &World, city: &str) -> String {
+    world
+        .neighbors(city)
+        .iter()
+        .max_by(|a, b| a.miles.total_cmp(&b.miles))
+        .expect("a destination with a neighbour")
+        .other(city)
+        .to_string()
+}
+
 // -- driving one of them ---------------------------------------------------------------
 
 /// What one arrival did.
@@ -1323,9 +1338,7 @@ fn arrive_from_the_sign(
     brake_after_clear: bool,
 ) -> SignRelease {
     let world = get_world();
-    let origin = world.neighbors(&destination.city)[0]
-        .other(&destination.city)
-        .to_string();
+    let origin = approach_origin(world, &destination.city);
     let mut harness = PlaytestHarness::new();
     harness.app.ctx.settings.destination_approach_assist = approach_assist;
     harness.app.ctx.settings.route_transition_assist = true;

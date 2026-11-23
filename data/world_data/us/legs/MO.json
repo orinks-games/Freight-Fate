@@ -23516,6 +23516,28 @@
           "directions": [
             "both"
           ]
+        },
+        {
+          "name": "Flying J's",
+          "type": "travel_center",
+          "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.; at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles); at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles)",
+          "parking": "likely",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking",
+            "scale"
+          ],
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 69.6
         }
       ],
       "divided": true,
@@ -64093,8 +64115,8 @@
           "name": "Love's Travel Stop Rolla",
           "type": "travel_center",
           "at_mi": 1.0,
-          "source": "OpenStreetMap/Overpass development-time amenity query centered on the rolla_mo_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Missouri extract dated 2026-06-22, read 2026-09-17): Love's store 341 at Rolla; town read from the mapped site's address; matched by coordinate, 0.00 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
-          "parking": "likely",
+          "source": "Love's official Rolla, Missouri location page lists I-44, store 341, and 89 truck parking spaces, accessed 2026-06-18: https://www.loves.com/locations/mo/rolla/loves-travel-stop-rolla-341; parking, services and actions carried from the curated record of the retired Dallas to St. Louis leg (missing roads, 2026-11-23); position is this leg's own read coordinates.",
+          "parking": "confirmed",
           "actions": [
             "park",
             "save",
@@ -64111,7 +64133,11 @@
           ],
           "lat": 37.98186,
           "lon": -91.71896,
-          "vehicle_access": "tractor_trailer"
+          "vehicle_access": "tractor_trailer",
+          "curation": "curated",
+          "directions": [
+            "both"
+          ]
         },
         {
           "name": "Love's Travel Stop",
@@ -64161,6 +64187,28 @@
           "directions": [
             "both"
           ]
+        },
+        {
+          "name": "ONE9 Travel Center Strafford",
+          "type": "travel_center",
+          "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Missouri extract dated 2026-06-22, read 2026-09-17): ONE9 store at Strafford; town read from the store page the mapped site links to; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.; at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles); at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles)",
+          "parking": "likely",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking",
+            "scale"
+          ],
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 97.5
         }
       ],
       "divided": true,
@@ -66773,8 +66821,8 @@
           "name": "Love's Travel Stop Rolla",
           "type": "travel_center",
           "at_mi": 1.0,
-          "source": "OpenStreetMap/Overpass development-time amenity query centered on the rolla_mo_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Missouri extract dated 2026-06-22, read 2026-09-17): Love's store 341 at Rolla; town read from the mapped site's address; matched by coordinate, 0.01 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.",
-          "parking": "likely",
+          "source": "Love's official Rolla, Missouri location page lists I-44, store 341, and 89 truck parking spaces, accessed 2026-06-18: https://www.loves.com/locations/mo/rolla/loves-travel-stop-rolla-341; parking, services and actions carried from the curated record of the retired Dallas to St. Louis leg (missing roads, 2026-11-23); position is this leg's own read coordinates.",
+          "parking": "confirmed",
           "actions": [
             "park",
             "save",
@@ -66842,7 +66890,33 @@
               }
             }
           ],
-          "approach_source": "derived: routed over the local OpenStreetMap extract from this exit's ramp terminal node (read) to the stop's read coordinates; per-street limit, controls and driveway as in facility_approaches.json generated.street_sources"
+          "approach_source": "derived: routed over the local OpenStreetMap extract from this exit's ramp terminal node (read) to the stop's read coordinates; per-street limit, controls and driveway as in facility_approaches.json generated.street_sources",
+          "curation": "curated",
+          "directions": [
+            "both"
+          ]
+        },
+        {
+          "name": "QuikTrip",
+          "type": "travel_center",
+          "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Type corrected from service_plaza to travel_center (read): the OpenStreetMap feature at the record's coordinate carries hgv=yes on the services area; amenity=fuel with HGV lanes or HGV diesel; amenity=parking for HGVs; a truck scale (amenity=weighbridge). Geofabrik extract, accessed 2026-09-17. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.; at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles); at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles)",
+          "parking": "likely",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking",
+            "scale"
+          ],
+          "vehicle_access": "bobtail_only",
+          "at_mi": 3.9
         },
         {
           "name": "TA Travel Center Cuba",
@@ -66928,6 +67002,28 @@
             }
           ],
           "approach_source": "derived: routed over the local OpenStreetMap extract from this exit's ramp terminal node (read) to the stop's read coordinates; per-street limit, controls and driveway as in facility_approaches.json generated.street_sources"
+        },
+        {
+          "name": "Flying J Travel Center Sullivan",
+          "type": "travel_center",
+          "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Store identity read from OpenStreetMap (Geofabrik Missouri extract dated 2026-06-22, read 2026-09-17): Flying J store at Sullivan; town read from the mapped site's address; matched by coordinate, 0.03 mi from the mapped site. CAT Scale read from OpenStreetMap (amenity=weighbridge, brand CAT Scale) within 0.25 mi of the store; Overpass snapshot 2026-09-24, tools/cat_scales.py.; at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles); at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles)",
+          "parking": "likely",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking",
+            "scale"
+          ],
+          "vehicle_access": "tractor_trailer",
+          "at_mi": 39.7
         },
         {
           "name": "Saint Clair Rest Area (Westbound)",

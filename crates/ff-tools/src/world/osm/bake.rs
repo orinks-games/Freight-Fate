@@ -105,8 +105,40 @@ fn ref_matches_shield(route_ref: &str, shield: &[&str]) -> bool {
     !shield.is_empty() && digit_groups(route_ref).iter().any(|d| shield.contains(d))
 }
 
+/// The roads a label names: "I-55 / MS-7" is two, "I-80" one.
+fn label_parts(highway: &str) -> impl Iterator<Item = &str> {
+    highway.split('/').map(str::trim).filter(|p| !p.is_empty())
+}
+
+fn part_is_interstate(part: &str) -> bool {
+    part.to_uppercase().starts_with("I-")
+}
+
+/// Whether the whole leg is an interstate: every road its label names is
+/// one. A combined label ("I-55 / MS-7", "US-4 / I-89") rides other roads
+/// too, so its interstate miles are found per sample instead
+/// ([`interstate_numbers`]).
 pub fn is_interstate(highway: &str) -> bool {
-    highway.trim().to_uppercase().starts_with("I-")
+    let mut parts = label_parts(highway).peekable();
+    parts.peek().is_some() && parts.all(part_is_interstate)
+}
+
+/// The interstate numbers in a label ("I-55 / MS-7" -> ["55"]).
+fn interstate_numbers(highway: &str) -> Vec<&str> {
+    label_parts(highway)
+        .filter(|p| part_is_interstate(p))
+        .flat_map(digit_groups)
+        .collect()
+}
+
+/// Whether an OSM `ref` ("I 55;US 51") carries one of these interstate
+/// numbers on an interstate shield, not just the same digits.
+fn ref_carries_interstate(route_ref: &str, numbers: &[&str]) -> bool {
+    route_ref.split(';').any(|r| {
+        let r = r.trim().to_uppercase();
+        (r.starts_with("I ") || r.starts_with("I-"))
+            && digit_groups(&r).iter().any(|d| numbers.contains(d))
+    })
 }
 
 /// One step of the profile. `mph` of `None` is a coverage gap; `assumed`
@@ -149,6 +181,13 @@ pub fn bake_leg(
     let mile = |m: f64| round_py_n(m / M_PER_MI * scale, 1);
     let shield = digit_groups(highway);
     let interstate = is_interstate(highway);
+    // A combined label's interstate numbers: there the street floor holds
+    // only where one of its interstates is in the corridor.
+    let mixed_interstates = if interstate {
+        Vec::new()
+    } else {
+        interstate_numbers(highway)
+    };
     let mean_lat = line.points.iter().map(|p| p.0).sum::<f64>() / line.points.len() as f64;
     let coslat = mean_lat.to_radians().cos();
     let total_mi = mile(line.length_m());
@@ -172,7 +211,13 @@ pub fn bake_leg(
         // nearest of any; ways whose tag has no number do not count.
         // mph, hgv, on_shield, dist, sign km/h
         let mut best: Option<(f64, bool, bool, f64, Option<i64>)> = None;
+        let mut on_interstate = interstate;
         for (way, d) in index.near(lat, lon, MATCH_CORRIDOR_M + 1e-9, coslat) {
+            if !mixed_interstates.is_empty()
+                && ref_carries_interstate(&way.route_ref, &mixed_interstates)
+            {
+                on_interstate = true;
+            }
             let Some((mph, hgv)) = way.limit(canada) else {
                 continue;
             };
@@ -188,7 +233,7 @@ pub fn bake_leg(
             }
         }
         let read = best
-            .filter(|b| !(interstate && b.0 < INTERSTATE_MIN_PLAUSIBLE_MPH))
+            .filter(|b| !(on_interstate && b.0 < INTERSTATE_MIN_PLAUSIBLE_MPH))
             .map(|(mph, hgv, _, _, kmh)| (mph as i64, hgv, None, kmh));
         let unposted = || {
             regions
@@ -503,6 +548,48 @@ mod tests {
     }
 
     #[test]
+    fn a_combined_label_keeps_town_limits_off_its_interstate() {
+        // The first half is I-55 at 70; the second half is a town street at
+        // 30 with no interstate in the corridor.
+        let ways = vec![
+            way(1, "I 55", 70.0, 40.0, -100.1, -99.81),
+            way(2, "", 30.0, 40.0, -99.81, -99.5),
+        ];
+        let samples = bake(ways.clone(), "I-55 / MS-7");
+        let mph: Vec<_> = samples.iter().map(|s| s.mph).collect();
+        assert_eq!(mph, [Some(70), Some(30)], "{samples:?}");
+        // A whole-interstate label still refuses the street: past the
+        // interstate there is only a gap.
+        let samples = bake(ways, "I-55");
+        let mph: Vec<_> = samples.iter().map(|s| s.mph).collect();
+        assert_eq!(mph, [Some(70), None], "{samples:?}");
+    }
+
+    #[test]
+    fn a_combined_label_keeps_the_floor_beside_its_interstate() {
+        // A 30 mph frontage road nearer the line than I-89, which posts no
+        // limit: on the interstate stretch the street reading is refused.
+        let frontage = way(1, "", 30.0, 40.0, -100.1, -99.5);
+        let mut interstate = way(2, "I 89", 65.0, 40.0005, -100.1, -99.5);
+        interstate.mph = None;
+        interstate.ca_mph = None;
+        let samples = bake(vec![frontage, interstate], "US-4 / I-89");
+        assert!(samples.is_empty(), "{samples:?}");
+    }
+
+    #[test]
+    fn interstate_means_every_road_in_the_label() {
+        assert!(is_interstate("I-80"));
+        assert!(is_interstate("I-95 / I-295"));
+        assert!(!is_interstate("I-55 / MS-7"));
+        assert!(!is_interstate("RI-138 / I-95"));
+        assert!(!is_interstate("US-60"));
+        assert_eq!(interstate_numbers("RI-138 / I-95"), ["95"]);
+        assert!(ref_carries_interstate("US 51;I 55", &["55"]));
+        assert!(!ref_carries_interstate("MS 55", &["55"]));
+    }
+
+    #[test]
     fn repair_drops_a_town_anchor_the_road_contradicts() {
         let s = |at_mi, mph| Sample {
             at_mi,
@@ -518,6 +605,9 @@ mod tests {
         assert_eq!(repair("US-60", 40.0, &mut town), 0);
         let mut interstate = vec![s(0.0, 70), s(3.0, 40), s(4.0, 70)];
         assert_eq!(repair("I-55", 40.0, &mut interstate), 1);
+        // A combined label is not an interstate leg: its town limits stay.
+        let mut mixed = vec![s(0.0, 70), s(50.0, 55), s(58.7, 30)];
+        assert_eq!(repair("I-55 / MS-7", 59.0, &mut mixed), 0);
     }
 
     #[test]

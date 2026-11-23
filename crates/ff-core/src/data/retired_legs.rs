@@ -40,6 +40,14 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
             "palm_bay_fl_us",
         ],
     ),
+    // The Alabama, Mississippi and South Carolina missing roads
+    // (2026-11-23) split Jackson to Baton Rouge (I-55 then I-12, 175 mi) at
+    // Hammond, where the two roads meet. The chain is 133 plus 50 miles.
+    (
+        "jackson_ms_us",
+        "baton_rouge_la_us",
+        &["jackson_ms_us", "hammond_la_us", "baton_rouge_la_us"],
+    ),
     // I-5, 121 mi: missing roads pass, 2026-11-22.
     (
         "los_angeles_ca_us",
@@ -283,6 +291,144 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
             "little_rock_ar_us",
             "henryetta_ok_us",
             "oklahoma_city_ok_us",
+        ],
+    ),
+    // Mountain and Northwest missing roads, 2026-11-23: each leg split at
+    // the city it passes. Each chain is within 4 miles of its old leg:
+    // Astoria to Olympia 122 against 119, Roswell to Lubbock 209 against
+    // 211, Denver to Albuquerque 420 against 423, Trinidad to Pueblo 85
+    // against 86, Burlington to Denver 167 against 168, Billings to
+    // Cheyenne 453 against 457, Eugene to Tri-Cities 327 against 329.
+    (
+        "astoria_or_us",
+        "olympia_wa_us",
+        &["astoria_or_us", "longview_wa_us", "olympia_wa_us"],
+    ),
+    (
+        "roswell_nm_us",
+        "lubbock_tx_us",
+        &["roswell_nm_us", "clovis_nm_us", "lubbock_tx_us"],
+    ),
+    (
+        "denver_co_us",
+        "albuquerque_nm_us",
+        &[
+            "denver_co_us",
+            "alamosa_co_us",
+            "santa_fe_nm_us",
+            "albuquerque_nm_us",
+        ],
+    ),
+    (
+        "trinidad_co_us",
+        "pueblo_co_us",
+        &["trinidad_co_us", "walsenburg_co_us", "pueblo_co_us"],
+    ),
+    (
+        "burlington_co_us",
+        "denver_co_us",
+        &["burlington_co_us", "limon_co_us", "denver_co_us"],
+    ),
+    (
+        "billings_mt_us",
+        "cheyenne_wy_us",
+        &[
+            "billings_mt_us",
+            "casper_wy_us",
+            "wheatland_wy_us",
+            "cheyenne_wy_us",
+        ],
+    ),
+    (
+        "eugene_or_us",
+        "tri_cities_wa_us",
+        &["eugene_or_us", "the_dalles_or_us", "tri_cities_wa_us"],
+    ),
+    // Upper Midwest and Northern Plains missing roads (2026-11-23): legs
+    // split at a city they pass.
+    (
+        "hibbing_mn_us",
+        "minneapolis_mn_us",
+        &["hibbing_mn_us", "grand_rapids_mn_us", "minneapolis_mn_us"],
+    ),
+    (
+        "mankato_mn_us",
+        "rochester_mn_us",
+        &["mankato_mn_us", "owatonna_mn_us", "rochester_mn_us"],
+    ),
+    (
+        "des_moines_ia_us",
+        "chicago_il_us",
+        &["des_moines_ia_us", "aurora_il_us", "chicago_il_us"],
+    ),
+    // I-44, 713 mi: missing roads pass (Texas and Louisiana), 2026-11-23.
+    // The chain runs over the I-35 and I-44 legs already on the map.
+    (
+        "dallas_tx_us",
+        "st_louis_mo_us",
+        &[
+            "dallas_tx_us",
+            "denton_tx_us",
+            "ardmore_ok_us",
+            "oklahoma_city_ok_us",
+            "tulsa_ok_us",
+            "joplin_mo_us",
+            "springfield_mo_us",
+            "rolla_mo_us",
+            "st_louis_mo_us",
+        ],
+    ),
+    // I-35, 200 mi: missing roads pass, 2026-11-23.
+    (
+        "fort_worth_tx_us",
+        "oklahoma_city_ok_us",
+        &[
+            "fort_worth_tx_us",
+            "denton_tx_us",
+            "ardmore_ok_us",
+            "oklahoma_city_ok_us",
+        ],
+    ),
+    // US-287, 133 mi: missing roads pass, 2026-11-23.
+    (
+        "wichita_falls_tx_us",
+        "mckinney_tx_us",
+        &["wichita_falls_tx_us", "denton_tx_us", "mckinney_tx_us"],
+    ),
+    // I-35, 128 mi: missing roads pass, 2026-11-23.
+    (
+        "mckinney_tx_us",
+        "waco_tx_us",
+        &["mckinney_tx_us", "dallas_tx_us", "waco_tx_us"],
+    ),
+    // I-35, 109 mi: missing roads pass, 2026-11-23. Denton to Ardmore and
+    // Dallas to Denton ride the same road.
+    (
+        "ardmore_ok_us",
+        "dallas_tx_us",
+        &["ardmore_ok_us", "denton_tx_us", "dallas_tx_us"],
+    ),
+    // Appalachia and Mid-South missing roads (2026-11-23): legs split at a
+    // city they pass.
+    (
+        "johnson_city_tn_us",
+        "pikeville_ky_us",
+        &["johnson_city_tn_us", "kingsport_tn_us", "pikeville_ky_us"],
+    ),
+    (
+        "asheville_nc_us",
+        "winston_salem_nc_us",
+        &["asheville_nc_us", "hickory_nc_us", "winston_salem_nc_us"],
+    ),
+    (
+        "charleston_wv_us",
+        "richmond_va_us",
+        &[
+            "charleston_wv_us",
+            "beckley_wv_us",
+            "staunton_va_us",
+            "charlottesville_va_us",
+            "richmond_va_us",
         ],
     ),
 ];

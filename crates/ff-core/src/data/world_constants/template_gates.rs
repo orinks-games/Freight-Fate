@@ -461,6 +461,29 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     // South Central (missing roads, 2026-11-23): Sikeston keeps the
     // warehouse, plant and store read from the map for it.
     "sikeston_mo_us",
+    // Alabama, Mississippi and South Carolina (missing roads, 2026-11-23):
+    // the Pascagoula refinery, shipyard and fish plant, and Beaufort's
+    // stores and its Commerce Park distribution centre, each surveyed.
+    "pascagoula_ms_us",
+    "beaufort_sc_us",
+    // Texas and Louisiana (missing roads brief 3, 2026-11-23): the Denton
+    // truck plant and mall, the Galveston, Freeport, Point Comfort, Port
+    // Fourchon and Venice port sites, each with a store that takes dry freight.
+    "denton_tx_us",
+    "galveston_tx_us",
+    "freeport_tx_us",
+    "point_comfort_tx_us",
+    "port_fourchon_la_us",
+    "venice_la_us",
+    // Appalachia and Mid-South (missing roads, 2026-11-23): each new town
+    // keeps the port, plants and stores read from the map for it.
+    "morehead_city_nc_us",
+    "pinehurst_nc_us",
+    "reedville_va_us",
+    // Mountain and Northwest (missing roads, 2026-11-23): the Port of Grays
+    // Harbor's Terminal 4 and AGP's export terminal, the Sierra Pacific
+    // sawmill, a shopping centre and a Westport cold store, each surveyed.
+    "aberdeen_wa_us",
 ];
 
 /// Whether this city keeps only its authored freight locations. See
