@@ -240,6 +240,51 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
             "cleveland_oh_us",
         ],
     ),
+    // South Central missing roads (2026-11-23): legs split at a city they pass.
+    (
+        "altus_ok_us",
+        "wichita_falls_tx_us",
+        &["altus_ok_us", "vernon_tx_us", "wichita_falls_tx_us"],
+    ),
+    (
+        "el_dorado_ar_us",
+        "monroe_la_us",
+        &["el_dorado_ar_us", "ruston_la_us", "monroe_la_us"],
+    ),
+    (
+        "garden_city_ks_us",
+        "amarillo_tx_us",
+        &[
+            "garden_city_ks_us",
+            "liberal_ks_us",
+            "stratford_tx_us",
+            "dumas_tx_us",
+            "amarillo_tx_us",
+        ],
+    ),
+    (
+        "dodge_city_ks_us",
+        "salina_ks_us",
+        &["dodge_city_ks_us", "great_bend_ks_us", "salina_ks_us"],
+    ),
+    (
+        "poplar_bluff_mo_us",
+        "cape_girardeau_mo_us",
+        &[
+            "poplar_bluff_mo_us",
+            "sikeston_mo_us",
+            "cape_girardeau_mo_us",
+        ],
+    ),
+    (
+        "little_rock_ar_us",
+        "oklahoma_city_ok_us",
+        &[
+            "little_rock_ar_us",
+            "henryetta_ok_us",
+            "oklahoma_city_ok_us",
+        ],
+    ),
 ];
 
 /// The replacement chain for a retired hop `a` to `b`, in travel order.
