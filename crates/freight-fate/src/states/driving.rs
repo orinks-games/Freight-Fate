@@ -1112,6 +1112,8 @@ pub struct DrivingState {
     // Smooth only the audible engine load. Physics keeps the raw throttle,
     // while small controller and cruise changes blend into the engine bed.
     pub engine_audio_throttle: f64,
+    /// In-cab diesel turbocharger boost and release state.
+    pub turbo: ff_core::sim::turbo::TurboState,
     // Prev-frame accel/brake state, so a forward<->reverse shift needs a
     // fresh press (release then press) rather than a held control.
     pub reverse_brake_held: bool,

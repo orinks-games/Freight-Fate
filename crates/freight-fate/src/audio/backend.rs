@@ -9,8 +9,8 @@ use std::fmt;
 use ff_core::audio_loops::SustainLoopSpec;
 
 use super::{
-    AudioError, CH_ENGINE, CH_OUTSIDE, CH_ROAD_SONG, CH_SIREN, CH_WEATHER, CH_WEATHER_B,
-    ENGINE_RPM_IDLE,
+    AudioError, CH_BRIDGE_DECK, CH_ENGINE, CH_OUTSIDE, CH_ROAD_SONG, CH_SIREN, CH_TURBO,
+    CH_WEATHER, CH_WEATHER_B, ENGINE_RPM_IDLE,
 };
 
 /// The mix bus a sound rides: one of the volume settings.
@@ -64,7 +64,7 @@ pub fn one_shot_category(key: &str) -> Category {
         Category::Ui
     } else if key.starts_with("weather/") {
         Category::Weather
-    } else if key.starts_with("engine/") {
+    } else if key.starts_with("engine/") || key == "vehicle/turbo_blowoff" {
         Category::Engine
     } else if is_road_surface(key) {
         Category::Road
@@ -81,13 +81,13 @@ fn is_road_surface(key: &str) -> bool {
 
 /// The bus a loop rides, by reserved slot.
 pub fn loop_category(channel: u32) -> Category {
-    if CH_ENGINE.contains(&channel) {
+    if CH_ENGINE.contains(&channel) || channel == CH_TURBO {
         Category::Engine
     } else if channel == CH_WEATHER || channel == CH_WEATHER_B {
         Category::Weather
     } else if CH_OUTSIDE.contains(&channel) {
         Category::Outside
-    } else if channel == CH_ROAD_SONG {
+    } else if channel == CH_ROAD_SONG || channel == CH_BRIDGE_DECK {
         // With the seams and joints: the Road surface volume, never ducked.
         Category::Road
     } else if channel == CH_SIREN {

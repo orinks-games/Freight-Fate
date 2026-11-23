@@ -14,7 +14,7 @@ use ff_core::sim::road_texture::{
 };
 
 use crate::app::GameContext;
-use crate::audio::{BANK_JITTER, CH_ROAD_SONG};
+use crate::audio::{BANK_JITTER, CH_BRIDGE_DECK, CH_ROAD_SONG};
 use crate::states::driving::DrivingState;
 
 /// A seam under the steer axle on good jointed concrete at 30 m/s and
@@ -43,6 +43,13 @@ const JUMP_MI: f64 = 1.0;
 const SEAM_STEER: &str = "vehicle/seam_steer";
 const SEAM_DRIVE: &str = "vehicle/seam_drive";
 const BRIDGE_JOINT: &str = "vehicle/bridge_joint";
+const BRIDGE_DECK: &str = "vehicle/bridge_deck";
+/// Reference speed (60 mph) for the concrete bridge deck resonance bed.
+const BRIDGE_DECK_REF_MPS: f64 = 26.82;
+/// Level of the concrete bridge deck bed at and above reference speed.
+const BRIDGE_DECK_LEVEL: f64 = 0.42;
+/// Fade time in milliseconds when entering or leaving a concrete bridge deck.
+const BRIDGE_DECK_FADE_MS: u32 = 220;
 /// A pack without the banks still has the old seam.
 const FALLBACK: &str = "vehicle/road_joint";
 
@@ -133,6 +140,7 @@ impl DrivingState {
         }
 
         self.update_tire_song(ctx, speed, dt);
+        self.update_bridge_deck(ctx, speed, position);
 
         self.road_texture.since_seam_rumble_s += dt;
         for hit in landed {
@@ -166,6 +174,34 @@ impl DrivingState {
                 ctx.audio.set_loop_rate(CH_ROAD_SONG, rate);
             }
             None => ctx.audio.stop_loop_with(CH_ROAD_SONG, SONG_FADE_MS),
+        }
+    }
+
+    /// Hollow concrete resonance bed while rolling across a bridge span.
+    /// Open steel grates keep their own grate hum instead.
+    fn update_bridge_deck(&mut self, ctx: &mut GameContext, speed: f64, position: f64) {
+        let on_grate = matches!(
+            self.road_texture.song,
+            TireSong::Hum(_) | TireSong::Held(ff_core::sim::road_texture::song::HeldSong::Hum)
+        );
+        let on_span = matches!(
+            self.trip.bridge,
+            ff_core::sim::bridges::BridgeCrossing::On { .. }
+        ) || self
+            .road_texture
+            .spans
+            .iter()
+            .any(|s| position >= s.from_mi && position <= s.to_mi);
+        if !self.trip.on_ramp && !on_grate && on_span && speed > SEAM_MIN_SPEED_MPS {
+            let ratio = speed / BRIDGE_DECK_REF_MPS;
+            let rate = ratio.clamp(0.55, 1.35);
+            let level = BRIDGE_DECK_LEVEL * ratio.powf(1.2).min(1.0);
+            ctx.audio
+                .start_loop_with(CH_BRIDGE_DECK, BRIDGE_DECK, level, BRIDGE_DECK_FADE_MS);
+            ctx.audio.set_loop_rate(CH_BRIDGE_DECK, rate);
+        } else {
+            ctx.audio
+                .stop_loop_with(CH_BRIDGE_DECK, BRIDGE_DECK_FADE_MS);
         }
     }
 }

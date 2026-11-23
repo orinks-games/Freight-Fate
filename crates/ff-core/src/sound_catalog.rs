@@ -834,6 +834,18 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
         "vehicle/grate_hum",
         "Tires on a steel grate bridge deck: texture, not a decision.",
     ),
+    (
+        "vehicle/bridge_deck",
+        "Hollow resonance of a concrete bridge deck: texture, not a decision.",
+    ),
+    (
+        "vehicle/turbo_spool",
+        "Turbocharger spool under engine load: texture, not a decision.",
+    ),
+    (
+        "vehicle/turbo_blowoff",
+        "Turbocharger pressure release on lift-off or shift: texture, not a decision.",
+    ),
     ("vehicle/truck_door", "A door."),
     (
         "cab/*",

@@ -137,15 +137,35 @@ impl<const N: usize> UpgradeTiers for [(&str, i64); N] {
 /// `{}`: no upgrades at all.
 pub const NO_UPGRADES: [(&str, i64); 0] = [];
 
+fn turbo_level_for_model(key: &str, spec: &str, max_torque_nm: f64) -> f64 {
+    match key {
+        // Quiet trainer, light stop-and-go city day cab, and tired old sleeper:
+        // no audible in-cab turbo whistle.
+        "trainer_day_cab" | "city_shuttle" | "hand_me_down_sleeper" => 0.0,
+        _ => match spec {
+            SPEC_HEAVY => {
+                if max_torque_nm >= 2_900.0 {
+                    0.95
+                } else {
+                    0.80
+                }
+            }
+            SPEC_LIGHT => 0.30,
+            _ => 0.50,
+        },
+    }
+}
+
 fn model(
     key: &'static str,
     label: &'static str,
     price: f64,
     description: &'static str,
-    specs: TruckSpecs,
+    mut specs: TruckSpecs,
     cab: &'static str,
     spec: &'static str,
 ) -> (&'static str, TruckModel) {
+    specs.turbo_level = turbo_level_for_model(key, spec, specs.max_torque_nm);
     (
         key,
         TruckModel {
@@ -709,8 +729,11 @@ pub fn build_truck_specs<U: UpgradeTiers + ?Sized>(truck_key: &str, upgrades: &U
     let mut specs = base.clone();
     let tier = upgrades.tier("engine_tune");
     if tier != 0 {
-        specs.max_torque_nm =
-            base.max_torque_nm * (1.0 + ENGINE_TUNE_TORQUE_PER_TIER * tier.min(2) as f64);
+        let clamped = tier.min(2) as f64;
+        specs.max_torque_nm = base.max_torque_nm * (1.0 + ENGINE_TUNE_TORQUE_PER_TIER * clamped);
+        if base.turbo_level > 0.0 {
+            specs.turbo_level = (base.turbo_level + 0.15 * clamped).min(1.0);
+        }
     }
     if upgrades.tier("aero_kit") != 0 {
         specs.drag_coefficient = base.drag_coefficient * AERO_DRAG_MULT;

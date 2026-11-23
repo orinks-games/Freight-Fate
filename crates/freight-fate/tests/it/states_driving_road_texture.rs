@@ -414,3 +414,70 @@ fn the_main_street_bridge_grating_hums_and_the_road_past_it_is_quiet() {
     assert!((hummed_s - HUM_MIN_S).abs() < 0.1, "hummed {hummed_s} s");
     assert_eq!(drive.road_texture.song, TireSong::Quiet);
 }
+
+#[test]
+fn concrete_bridge_span_plays_bridge_deck_bed_and_grating_suppresses_it() {
+    use ff_core::data::pavement::StructureKind;
+    use freight_fate::audio::CH_BRIDGE_DECK;
+    assert_eq!(loop_category(CH_BRIDGE_DECK), Category::Road);
+    let mut app = TestApp::new();
+    let (mut drive, log) = a_drive(&mut app, "Jacksonville", "Miami", 10.0);
+    drive.road_texture.spans =
+        vec![JointSpan::from_structure(10.0, 12.0, StructureKind::Bridge).expect("bridge span")];
+    drive.road_texture.song = TireSong::Held(HeldSong::Quiet);
+    cruise(&mut drive, &mut app, 26.82, 1.0, 0.2);
+    let playing = log.borrow().loops.get(&CH_BRIDGE_DECK).cloned();
+    assert_eq!(
+        playing.as_ref().map(|l| l.key.as_str()),
+        Some("vehicle/bridge_deck")
+    );
+
+    // Open steel grating uses grate_hum instead of concrete bridge_deck.
+    drive.road_texture.song = TireSong::Held(HeldSong::Hum);
+    cruise(&mut drive, &mut app, 20.0, 1.0, 0.2);
+    assert!(!log.borrow().loops.contains_key(&CH_BRIDGE_DECK));
+}
+
+#[test]
+fn turbocharger_spools_under_load_and_stays_silent_on_trainer_day_cab() {
+    use ff_core::models::trucks::{build_truck_specs, NO_UPGRADES};
+    use freight_fate::audio::{one_shot_category, CH_TURBO};
+    assert_eq!(loop_category(CH_TURBO), Category::Engine);
+    assert_eq!(one_shot_category("vehicle/turbo_blowoff"), Category::Engine);
+
+    let heavy = build_truck_specs("heavy_hauler", &NO_UPGRADES);
+    let trainer = build_truck_specs("trainer_day_cab", &NO_UPGRADES);
+    let tuned = build_truck_specs("rig", &[("engine_tune", 2)]);
+    assert!(heavy.turbo_level > 0.8);
+    assert_eq!(trainer.turbo_level, 0.0);
+    assert!(tuned.turbo_level > build_truck_specs("rig", &NO_UPGRADES).turbo_level);
+
+    let mut app = TestApp::new();
+    let (mut drive, log) = a_drive(&mut app, "Jacksonville", "Miami", 10.0);
+    drive.trip.truck.specs = heavy;
+    drive.trip.truck.engine_on = true;
+    drive.trip.truck.rpm = 1_650.0;
+    drive.trip.truck.throttle = 0.95;
+    for _ in 0..15 {
+        drive.update_audio(&mut app.ctx, 0.1);
+    }
+    let spool = log.borrow().loops.get(&CH_TURBO).cloned();
+    assert_eq!(
+        spool.as_ref().map(|l| l.key.as_str()),
+        Some("vehicle/turbo_spool")
+    );
+
+    // Lift off throttle under boost -> triggers turbo_blowoff cue.
+    drive.trip.truck.throttle = 0.0;
+    drive.update_audio(&mut app.ctx, 0.05);
+    assert!(
+        !plays(&log, "vehicle/turbo_blowoff").is_empty(),
+        "expected vehicle/turbo_blowoff on lift-off"
+    );
+
+    // Trainer day cab has no audible turbo.
+    drive.trip.truck.specs = trainer;
+    drive.trip.truck.throttle = 0.95;
+    drive.update_audio(&mut app.ctx, 0.1);
+    assert!(!log.borrow().loops.contains_key(&CH_TURBO));
+}
