@@ -22,7 +22,9 @@ const INDIANAPOLIS_IN_TO_NASHVILLE: &str = "indianapolis_in_us:nashville_tn_us";
 const MEMPHIS_TN_TO_NASHVILLE: &str = "memphis_tn_us:nashville_tn_us";
 const MEMPHIS_TN_TO_JACKSON: &str = "memphis_tn_us:jackson_tn_us";
 const GALESBURG_IL_TO_DAVENPORT: &str = "galesburg_il_us:davenport_ia_us";
-const DES_MOINES_IA_TO_CHICAGO: &str = "des_moines_ia_us:chicago_il_us";
+/// I-80 across the Mississippi; Des Moines to Chicago was split at Aurora
+/// (Upper Midwest roads, 2026-11-23), and this piece carries the river.
+const DES_MOINES_IA_TO_AURORA: &str = "des_moines_ia_us:aurora_il_us";
 /// I-55 into St. Louis; Chicago to St. Louis was split at Joliet, Bloomington
 /// and Springfield (Great Lakes roads, 2026-11-22), and this piece crosses the
 /// Mississippi.
@@ -660,7 +662,7 @@ fn no_two_rivers_share_a_mile() {
         BLOOMINGTON_IL_TO_JOLIET,
         SPRINGFIELD_IL_TO_ST_LOUIS,
         INDIANAPOLIS_IN_TO_NASHVILLE,
-        DES_MOINES_IA_TO_CHICAGO,
+        DES_MOINES_IA_TO_AURORA,
     ] {
         let rivers: Vec<_> = corridor_records(leg(id), "landmarks")
             .iter()
@@ -763,7 +765,7 @@ fn ohio_river_is_the_state_line() {
 fn mississippi_callouts_where_the_bridge_is() {
     for id in [
         SPRINGFIELD_IL_TO_ST_LOUIS,
-        DES_MOINES_IA_TO_CHICAGO,
+        DES_MOINES_IA_TO_AURORA,
         GALESBURG_IL_TO_DAVENPORT,
     ] {
         let leg = leg(id);
