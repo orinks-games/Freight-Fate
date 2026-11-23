@@ -658,4 +658,14 @@ fn the_tool_list_carries_the_driving_tools() {
     ] {
         assert!(names.iter().any(|n| n == name), "{name} in {names:?}");
     }
+    let scenario = answered[0]["result"]["tools"]
+        .as_array()
+        .expect("tools")
+        .iter()
+        .find(|t| t["name"] == "scenario")
+        .expect("scenario tool");
+    let props = &scenario["inputSchema"]["properties"];
+    for key in ["abs", "drive_traction", "trailer_sway", "mirror_glance"] {
+        assert!(props.get(key).is_some(), "scenario missing {key}");
+    }
 }

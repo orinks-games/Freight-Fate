@@ -15283,6 +15283,18 @@ msgstr "摂氏{temp_c}度"
 msgid "Reefer running at {cargo_temp_degrees}."
 msgstr "冷凍機は{cargo_temp_degrees}で稼働中です。"
 
+msgid "modulating"
+msgstr ""
+
+msgid "grip"
+msgstr ""
+
+msgid "spinning"
+msgstr ""
+
+msgid "swaying"
+msgstr ""
+
 msgid "simulated"
 msgstr "シミュレーション"
 
@@ -17131,6 +17143,12 @@ msgstr "天気"
 
 msgid "Lane position"
 msgstr "車線の中での位置"
+
+msgid "Check left mirror"
+msgstr ""
+
+msgid "Check right mirror"
+msgstr ""
 
 msgid "Grade"
 msgstr "勾配"
@@ -23640,6 +23658,12 @@ msgstr ""
 "でレーンロケーターのオンとオフを切り替えます。拍ごとに柔らかいトック音が、車線内の位置に合わせて左右に鳴ります。レーンキープが一部かオフのときに使います"
 "。"
 
+#. placeholders: {mirror_left}, {mirror_right}
+msgid ""
+"{mirror_left} and {mirror_right} check the left or right mirror and blind "
+"spot, briefly focusing traffic audio on that side."
+msgstr ""
+
 #. placeholders: {last_announcement}
 msgid "{last_announcement} repeats the last driving announcement."
 msgstr "{last_announcement} で最後の運転アナウンスを繰り返します。"
@@ -28478,6 +28502,43 @@ msgstr " 設定のゲームプレイ、運転アシストにある施設停車�
 
 msgid "Missed the facility gate. Use the next safe turnaround."
 msgstr "施設のゲートを通り過ぎました。次の安全な折り返しを使ってください。"
+
+msgid "Looking forward."
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} shoulder."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} lane closed."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} beside {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} closing {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} behind {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} ahead {side_lower}."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} clear."
+msgstr ""
 
 #. placeholders: {capitalized}
 msgid "{capitalized} lane open."
@@ -33904,6 +33965,12 @@ msgstr "ハイドロプレーニングです。ハンドルが軽くなりまし
 msgid "The drive wheels are sliding under the engine brake."
 msgstr "エンジンブレーキで駆動輪が滑っています。"
 
+msgid "ABS pulsing. Hold steady on the brake."
+msgstr ""
+
+msgid "Drive wheels spinning. Ease off the throttle."
+msgstr ""
+
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr "タイヤチェーンが切れて暴れています。減速して路肩に寄せ、点検してください。"
@@ -34785,6 +34852,12 @@ msgstr "しばらく左車線を走り続けています。追い越し以外は
 
 msgid "Traffic is stacking up and passing you on the right."
 msgstr "後ろに車が詰まり、右から追い越されています。"
+
+msgid "Trailer off-tracking tight on the inside. Give the curve more room."
+msgstr ""
+
+msgid "Trailer swaying in the wind. Ease off your speed."
+msgstr ""
 
 #. placeholders: {fresh}
 msgid "Weather alert: {fresh}."

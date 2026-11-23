@@ -12,7 +12,8 @@ use crate::sim::surge::lateral_accel_mps2;
 impl TruckState {
     // -- forces -----------------------------------------------------------------
 
-    pub fn drive_force(&self) -> f64 {
+    /// Unclamped tractive force demanded at the drive wheels before tire grip.
+    pub(super) fn drive_force_demand(&self) -> f64 {
         if !self.engine_on || self.stalled || self.air_brakes_holding() {
             return 0.0;
         }
@@ -33,10 +34,21 @@ impl TruckState {
         }
         let mut torque = self.torque_at(self.rpm) * self.throttle * self.health_factor();
         torque *= self.engine_wear_factor();
-        let direction = if ratio < 0.0 { -1.0 } else { 1.0 };
-        let force =
-            torque * ratio.abs() * self.specs.driveline_efficiency / self.specs.wheel_radius_m;
-        direction * force.min(self.drive_traction_limit())
+        torque * ratio.abs() * self.specs.driveline_efficiency / self.specs.wheel_radius_m
+    }
+
+    pub fn drive_force(&self) -> f64 {
+        let force = self.drive_force_demand();
+        if force == 0.0 {
+            return 0.0;
+        }
+        let direction = if self.transmission.drive_ratio() < 0.0 {
+            -1.0
+        } else {
+            1.0
+        };
+        let cap = self.drive_traction_limit() * self.drive_traction_state.traction_factor();
+        direction * force.min(cap)
     }
 
     /// The launch-ramped traction cap the drive wheels can actually use.
@@ -149,6 +161,29 @@ impl TruckState {
     ///
     /// This is the force that heats and wears the shoes; the jake is kept
     /// separate because its energy goes out the exhaust, not into the drums.
+    /// Foundation-brake demand vs. road-grip ceiling for ABS slip detection.
+    pub(super) fn service_brake_demand_and_grip_limit(&self) -> (f64, f64) {
+        if self.velocity_mps.abs() <= 0.01 {
+            return (0.0, 0.0);
+        }
+        let holding = self.air_brakes_holding();
+        let (application, boost) = if self.emergency_brake || holding {
+            (1.0, EMERGENCY_BRAKE_MULT)
+        } else {
+            (self.brake.clamp(0.0, 1.0), 1.0)
+        };
+        if application <= 0.0 {
+            return (0.0, 0.0);
+        }
+        let s = &self.specs;
+        let max_decel = G * s.max_brake_decel_g;
+        let effort =
+            max_decel * application * boost * self.brake_fade_factor() * self.brake_wear_factor();
+        let brake_demand = (self.gross_mass_kg() * effort).min(s.mass_kg * effort);
+        let road_grip_limit = self.gross_mass_kg() * max_decel * self.effective_grip();
+        (brake_demand, road_grip_limit)
+    }
+
     pub fn service_brake_force(&self) -> f64 {
         if self.velocity_mps.abs() <= 0.01 {
             return 0.0;
@@ -159,12 +194,14 @@ impl TruckState {
         } else {
             BrakeApplication::Service(self.brake)
         };
-        self.foundation_brake_force(application)
+        self.foundation_brake_force(application) * self.abs_state.modulation_factor()
     }
 
-    /// Foundation-brake deceleration for a chosen application.
+    /// Foundation-brake deceleration for a chosen application, including any
+    /// active ABS modulation so stopping budgets agree with delivered force.
     pub fn braking_decel_mps2(&self, application: BrakeApplication) -> f64 {
-        self.foundation_brake_force(application) / self.gross_mass_kg().max(1.0)
+        (self.foundation_brake_force(application) * self.abs_state.modulation_factor())
+            / self.gross_mass_kg().max(1.0)
     }
 
     /// Deceleration a full service-brake application delivers right now.

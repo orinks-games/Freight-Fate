@@ -305,6 +305,12 @@ pub struct DrivingObservation {
     /// a tilt has asked for one lane and not come back yet.
     pub lane: &'static str,
     pub lane_push: ff_core::sim::lane_push::LanePush,
+    /// Slick-surface ABS modulation, drive-axle traction, single-trailer
+    /// stability, and mirror-glance state machines.
+    pub abs: ff_core::sim::vehicle::AbsState,
+    pub drive_traction: ff_core::sim::vehicle::DriveTractionState,
+    pub trailer_sway: ff_core::sim::vehicle::TrailerSwayState,
+    pub mirror_glance: ff_core::sim::mirror_glance::MirrorGlance,
 }
 
 /// The state of a cattle load, for the agent server's inspector.
@@ -1122,6 +1128,10 @@ impl App {
             chains: drive.chain_set,
             lane: drive.lane.lane_name(),
             lane_push: drive.lane_push,
+            abs: drive.trip.truck.abs_state,
+            drive_traction: drive.trip.truck.drive_traction_state,
+            trailer_sway: drive.trip.truck.trailer_sway_state,
+            mirror_glance: drive.mirror_glance,
         })
     }
 

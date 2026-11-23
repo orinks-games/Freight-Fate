@@ -40,10 +40,14 @@ impl TruckState {
         // percent, into a gear the truck then rode at the rev ceiling (bend
         // sweep, 2026-09-25). The engine still upshifts past the ceiling.
         let descent_hold = self.descent_gear_hold && self.engine_on && self.throttle <= 0.05;
+        let sustained_grade_hold =
+            self.engine_on && self.grade <= -0.025 && (jaking || descent_hold);
         let bobtail = !self.trailer_attached;
         let load_fraction = self.load_fraction();
         let base_interval = if bobtail { 1.1 } else { 1.25 };
-        let minimum_shift_interval_s = if braking {
+        let minimum_shift_interval_s = if sustained_grade_hold {
+            2.25
+        } else if braking {
             1.75
         } else {
             base_interval + 0.55 * load_fraction
@@ -177,6 +181,8 @@ impl TruckState {
             let lower_gear = tr.gear - 1;
             let lower_gear_rpm = self.coupled_rpm(Some(lower_gear));
             if lower_gear_rpm <= self.specs.max_rpm * 0.95 {
+                let traction_cap =
+                    self.drive_traction_limit() * self.drive_traction_state.traction_factor();
                 let lower_gear_force = (self.torque_at(lower_gear_rpm)
                     * self.throttle
                     * self.health_factor()
@@ -184,7 +190,7 @@ impl TruckState {
                     * tr.ratio_for(lower_gear).abs()
                     * self.specs.driveline_efficiency
                     / self.specs.wheel_radius_m)
-                    .min(self.drive_traction_limit());
+                    .min(traction_cap);
                 if lower_gear_force > self.drive_force() * 1.02 {
                     downshift_rpm = downshift_rpm.max(rpm_est + 1.0);
                 }
@@ -228,5 +234,28 @@ impl TruckState {
             retarder_slipping,
         };
         self.transmission.auto_update(args)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::sim::vehicle::{TruckSpecs, TruckState};
+
+    #[test]
+    fn sustained_descent_holds_gear_longer_to_prevent_hunting() {
+        let mut truck = TruckState::new(TruckSpecs::default());
+        truck.engine_on = true;
+        truck.parking_brake = false;
+        truck.transmission.gear = 9;
+        truck.velocity_mps = 24.0;
+        truck.rpm = 1750.0;
+        truck.grade = -0.05;
+        truck.throttle = 0.0;
+        truck.engine_brake_stage = 3;
+        truck.transmission.gear_hold_timer = 1.9;
+
+        // Under sustained downhill jake braking, minimum shift interval is 2.25 s,
+        // so at 1.9 s since the last shift it holds the gear instead of hunting.
+        assert_eq!(truck.auto_shift(), None);
     }
 }

@@ -15180,6 +15180,18 @@ msgstr "摄氏{temp_c}度"
 msgid "Reefer running at {cargo_temp_degrees}."
 msgstr "冷藏机组运行中，温度{cargo_temp_degrees}。"
 
+msgid "modulating"
+msgstr ""
+
+msgid "grip"
+msgstr ""
+
+msgid "spinning"
+msgstr ""
+
+msgid "swaying"
+msgstr ""
+
 msgid "simulated"
 msgstr "模拟"
 
@@ -16966,6 +16978,12 @@ msgstr "天气"
 
 msgid "Lane position"
 msgstr "车道位置"
+
+msgid "Check left mirror"
+msgstr ""
+
+msgid "Check right mirror"
+msgstr ""
 
 msgid "Grade"
 msgstr "坡道"
@@ -23398,6 +23416,12 @@ msgid ""
 "panned to where you sit in your lane, on lane keeping partial or off."
 msgstr "{lane_locator} 开关车道定位器：每拍一声轻柔的嗒声，声像对应你在车道中的位置，在车道保持为部分或关闭时使用。"
 
+#. placeholders: {mirror_left}, {mirror_right}
+msgid ""
+"{mirror_left} and {mirror_right} check the left or right mirror and blind "
+"spot, briefly focusing traffic audio on that side."
+msgstr ""
+
 #. placeholders: {last_announcement}
 msgid "{last_announcement} repeats the last driving announcement."
 msgstr "{last_announcement} 重复上一条驾驶播报。"
@@ -28189,6 +28213,43 @@ msgstr " 设置、游戏玩法、驾驶辅助里的厂区停车辅助可以替�
 
 msgid "Missed the facility gate. Use the next safe turnaround."
 msgstr "错过了厂区大门。从下一个安全掉头处绕回来。"
+
+msgid "Looking forward."
+msgstr ""
+
+msgid "Left"
+msgstr ""
+
+msgid "Right"
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} shoulder."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} lane closed."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} beside {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} closing {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} behind {side_lower}."
+msgstr ""
+
+#. placeholders: {kind_cap}, {side_lower}
+msgid "{kind_cap} ahead {side_lower}."
+msgstr ""
+
+#. placeholders: {side_word}
+msgid "{side_word} clear."
+msgstr ""
 
 #. placeholders: {capitalized}
 msgid "{capitalized} lane open."
@@ -33552,6 +33613,12 @@ msgstr "水滑了。方向盘变轻了。"
 msgid "The drive wheels are sliding under the engine brake."
 msgstr "驱动轮在发动机制动下打滑。"
 
+msgid "ABS pulsing. Hold steady on the brake."
+msgstr ""
+
+msgid "Drive wheels spinning. Ease off the throttle."
+msgstr ""
+
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
 msgstr "一条轮胎防滑链断裂并在甩动。减速靠边停车检查。"
@@ -34418,6 +34485,12 @@ msgstr "你在左侧车道开了好一阵了。除了超车，请靠右行驶。
 
 msgid "Traffic is stacking up and passing you on the right."
 msgstr "后面车越积越多，都在从右边超你。"
+
+msgid "Trailer off-tracking tight on the inside. Give the curve more room."
+msgstr ""
+
+msgid "Trailer swaying in the wind. Ease off your speed."
+msgstr ""
 
 #. placeholders: {fresh}
 msgid "Weather alert: {fresh}."

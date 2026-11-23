@@ -64,9 +64,11 @@
 - **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
 - **Page Up and Page Down now move ten options at a time in every menu.**
 - **Tires whine on grooved concrete and hum on steel grate bridge decks.** The pitch rises and falls with your speed.
+- **Alt+Left and Alt+Right check your left or right mirror.** You hear whether that lane is clear while traffic audio focuses on that side.
 
 ### Changed
 
+- **Slick roads, high crosswinds, and tight ramps now trigger ABS, wheelspin, trailer sway, and off-tracking.** Automatic shifts also hold lower gears longer on downgrades.
 - **The owner-operator buy-in now buys a tractor you choose, at its dealer price.** Tractors you already own stay yours.
 - **The heavy hauler costs 78,000 dollars.** One you already own is not affected.
 - **Truck dealer rows give each tractor's miles per gallon.**

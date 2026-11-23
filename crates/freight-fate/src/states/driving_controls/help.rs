@@ -72,6 +72,8 @@ impl DrivingState {
         let weather = n(Action::Weather);
         let lane = n(Action::Lane);
         let lane_locator = n(Action::LaneLocator);
+        let mirror_left = n(Action::MirrorLeft);
+        let mirror_right = n(Action::MirrorRight);
         let last_announcement = n(Action::LastAnnouncement);
         let cb = n(Action::Cb);
         let copy_last = n(Action::CopyLastSpoken);
@@ -242,6 +244,10 @@ impl DrivingState {
         lines.push(format!(
             "{lane_locator} turns the lane locator on and off: a soft tock once a beat, \
              panned to where you sit in your lane, on lane keeping partial or off."
+        ));
+        lines.push(format!(
+            "{mirror_left} and {mirror_right} check the left or right mirror and blind spot, \
+             briefly focusing traffic audio on that side."
         ));
         lines.push(format!(
             "{last_announcement} repeats the last driving announcement."
