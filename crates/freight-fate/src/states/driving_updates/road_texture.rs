@@ -182,7 +182,10 @@ impl DrivingState {
     fn update_bridge_deck(&mut self, ctx: &mut GameContext, speed: f64, position: f64) {
         let on_grate = matches!(
             self.road_texture.song,
-            TireSong::Hum(_) | TireSong::Held(ff_core::sim::road_texture::song::HeldSong::Hum)
+            TireSong::Hum(h) if !h.past
+        ) || matches!(
+            self.road_texture.song,
+            TireSong::Held(ff_core::sim::road_texture::song::HeldSong::Hum)
         );
         let on_span = matches!(
             self.trip.bridge,

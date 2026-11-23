@@ -436,6 +436,21 @@ fn concrete_bridge_span_plays_bridge_deck_bed_and_grating_suppresses_it() {
     drive.road_texture.song = TireSong::Held(HeldSong::Hum);
     cruise(&mut drive, &mut app, 20.0, 1.0, 0.2);
     assert!(!log.borrow().loops.contains_key(&CH_BRIDGE_DECK));
+
+    // A trailing grate hold (past == true) after leaving a steel grate does not
+    // mute the concrete bridge_deck bed on a following concrete bridge span.
+    drive.road_texture.song = TireSong::Hum(ff_core::sim::road_texture::song::Hold {
+        left_s: 3.0,
+        past: true,
+    });
+    cruise(&mut drive, &mut app, 26.82, 0.2, 0.2);
+    assert_eq!(
+        log.borrow()
+            .loops
+            .get(&CH_BRIDGE_DECK)
+            .map(|l| l.key.as_str()),
+        Some("vehicle/bridge_deck")
+    );
 }
 
 #[test]
@@ -476,25 +491,24 @@ fn turbocharger_spools_under_load_and_stays_silent_on_trainer_day_cab() {
         "expected vehicle/turbo_blowoff on lift-off"
     );
 
+    // Trainer day cab has no audible turbo.
+    drive.trip.truck.specs = trainer;
+    drive.trip.truck.throttle = 0.95;
+    drive.update_audio(&mut app.ctx, 0.1);
+    assert!(!log.borrow().loops.contains_key(&CH_TURBO));
+
     // Revving in neutral has no driveline load and must not spool or blow off.
-    let mut neutral_app = TestApp::new();
-    let (mut neutral_drive, neutral_log) = a_drive(&mut neutral_app, "Jacksonville", "Miami", 10.0);
+    let (mut neutral_drive, neutral_log) = a_drive(&mut app, "Jacksonville", "Miami", 10.0);
     neutral_drive.trip.truck.specs = build_truck_specs("heavy_hauler", &NO_UPGRADES);
     neutral_drive.trip.truck.engine_on = true;
     neutral_drive.trip.truck.transmission.gear = 0;
     neutral_drive.trip.truck.rpm = 1_800.0;
     neutral_drive.trip.truck.throttle = 1.0;
     for _ in 0..15 {
-        neutral_drive.update_audio(&mut neutral_app.ctx, 0.1);
+        neutral_drive.update_audio(&mut app.ctx, 0.1);
     }
     assert!(!neutral_log.borrow().loops.contains_key(&CH_TURBO));
     neutral_drive.trip.truck.throttle = 0.0;
-    neutral_drive.update_audio(&mut neutral_app.ctx, 0.05);
+    neutral_drive.update_audio(&mut app.ctx, 0.05);
     assert!(plays(&neutral_log, "vehicle/turbo_blowoff").is_empty());
-
-    // Trainer day cab has no audible turbo.
-    drive.trip.truck.specs = trainer;
-    drive.trip.truck.throttle = 0.95;
-    drive.update_audio(&mut app.ctx, 0.1);
-    assert!(!log.borrow().loops.contains_key(&CH_TURBO));
 }
