@@ -5,7 +5,7 @@ use crate::speech::EventPriority;
 use ff_core::models::enforcement::{chain_law_fine, CHAIN_CARRY_FINE_CO};
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
 use ff_core::pyrandom::PyRandom;
-use ff_core::sim::vehicle::MIN_STOPPING_DECEL_MPS2;
+use ff_core::sim::vehicle::{CHAIN_OVERSPEED_MPH, MIN_STOPPING_DECEL_MPS2};
 use ff_core::speech_pacing::SpeechCategory;
 
 use crate::app::{GameContext, SayEvent};
@@ -637,7 +637,7 @@ impl DrivingState {
             }
         }
         let chains_fast =
-            self.trip.truck.chains_on && self.trip.truck.speed_mph() > CHAIN_SAFE_MPH + 2.0;
+            self.trip.truck.chains_on && self.trip.truck.speed_mph() > CHAIN_OVERSPEED_MPH;
         if chains_fast && !self.chains_fast_active {
             ctx.say_event_with(
                 format!(

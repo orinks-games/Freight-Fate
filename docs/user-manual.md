@@ -599,7 +599,7 @@ Chain laws apply only on steep grades while snow or ice is on the road in nine s
 - **Level 1:** Chains are required on your truck in California, Idaho, Montana, Nevada, Utah, and Washington. Wyoming accepts winter tires or chains. Colorado and Oregon apply Level 1 only to single-drive-axle trucks, so your tandem-axle truck passes without chains.
 - **Level 2:** Chains are required in all nine states.
 
-You will hear "Chain law lifted" when the road clears, and "Bare road" if your chains are still mounted with no snow under them. A co-driver at the wheel does the chain work themselves: chains on at the chain-up area before the control, and off again on bare road. If snow starts while you are already on the grade, the control does not cite you for that stretch. Running past an active chain law carries a 580-dollar base citation before multipliers.
+You will hear "Chain law lifted" when the road clears, and "Bare road" if your chains are still mounted with no snow under them. On a bare road you have about 2 miles to stop and take the chains off before they start to wear fast. A co-driver at the wheel does the chain work themselves: chains on at the chain-up area before the control, and off again on bare road. If snow starts while you are already on the grade, the control does not cite you for that stretch. Running past an active chain law carries a 580-dollar base citation before multipliers.
 
 ## Traffic and sharing the road
 

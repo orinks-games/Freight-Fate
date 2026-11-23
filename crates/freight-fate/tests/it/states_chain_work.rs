@@ -124,7 +124,7 @@ fn chains_on_bare(drive: &SharedState) {
     with_drive(drive, |d| {
         d.trip.truck.chains_on = true;
         d.trip.truck.surface = "dry".to_string();
-        d.chain_set = ChainSet::from_truck(true, false, d.trip.position_mi);
+        d.chain_set = ChainSet::from_truck(true, false);
     });
 }
 
@@ -210,7 +210,7 @@ fn the_co_driver_takes_the_chains_off_on_bare_road_without_damage() {
         let damage = with_drive(&drive, |d| d.trip.truck.damage_pct);
         chains_then_assist(&mut app, &drive);
         assert!(pending(&drive).is_none(), "not yet half a mile");
-        with_drive(&drive, |d| d.trip.position_mi = 10.8);
+        roll_to_mile(&drive, 10.8);
         chains_then_assist(&mut app, &drive);
         assert_eq!(pending(&drive), Some(ChainStopKind::Remove));
         come_to_rest(&mut app, &drive);
@@ -242,7 +242,7 @@ fn a_co_driver_braking_downhill_keeps_their_chain_off_stop() {
     co_driver_takes_it(&mut app, &drive, false);
     chains_on_bare(&drive);
     chains_then_assist(&mut app, &drive);
-    with_drive(&drive, |d| d.trip.position_mi = 10.8);
+    roll_to_mile(&drive, 10.8);
     chains_then_assist(&mut app, &drive);
     assert_eq!(pending(&drive), Some(ChainStopKind::Remove));
     for _ in 0..30 {
@@ -266,14 +266,14 @@ fn the_player_taking_the_wheel_with_chains_on_bare_road_hears_the_bare_road_line
     co_driver_takes_it(&mut app, &drive, false);
     chains_on_bare(&drive);
     chains_then_assist(&mut app, &drive);
-    with_drive(&drive, |d| d.trip.position_mi = 10.8);
+    roll_to_mile(&drive, 10.8);
     chains_then_assist(&mut app, &drive);
     assert_eq!(pending(&drive), Some(ChainStopKind::Remove));
     drive_and_ctx(&drive, &mut app, |d, ctx| d.take_wheel_back(ctx));
     app.ctx.settings.destination_approach_assist = false;
     app.clear_speech();
     for mile in [10.9, 11.0, 11.5] {
-        with_drive(&drive, |d| d.trip.position_mi = mile);
+        roll_to_mile(&drive, mile);
         chains_then_assist(&mut app, &drive);
     }
     let bare = "Bare road. Stop and take the chains off.".to_string();
@@ -347,7 +347,7 @@ fn a_chain_that_breaks_under_the_co_driver_is_fixed_and_noted_without_a_hand_bac
 fn snow_on_the_grade(app: &mut TestApp, assist_on: bool) -> SharedState {
     let drive = chain_drive(app, WeatherKind::Cloudy, assist_on, 1.0, vec![(2.0, 10.0)]);
     for mile in [1.5, 2.5, 7.0] {
-        with_drive(&drive, |d| d.trip.position_mi = mile);
+        roll_to_mile(&drive, mile);
         law(app, &drive);
     }
     with_drive(&drive, |d| d.trip.weather.current = WeatherKind::Ice);
@@ -386,7 +386,7 @@ fn a_law_that_posts_on_the_grade_is_not_cited_there() {
     let mut app = TestApp::new();
     let drive = chain_drive(&mut app, WeatherKind::Ice, false, 1.0, vec![(2.0, 10.0)]);
     for mile in [1.5, 2.5, 7.0] {
-        with_drive(&drive, |d| d.trip.position_mi = mile);
+        roll_to_mile(&drive, mile);
         law(&mut app, &drive);
     }
     assert!(with_drive(&drive, |d| d.chain_checkpoint_hold));
@@ -399,7 +399,7 @@ fn a_law_raised_on_the_grade_is_not_cited_there() {
     let mut app = TestApp::new();
     let drive = chain_drive(&mut app, WeatherKind::Snow, false, 1.0, vec![(2.0, 10.0)]);
     for mile in [1.5, 2.5, 7.0] {
-        with_drive(&drive, |d| d.trip.position_mi = mile);
+        roll_to_mile(&drive, mile);
         law(&mut app, &drive);
     }
     assert_eq!(with_drive(&drive, |d| d.trip.chain_law_level()), 1);

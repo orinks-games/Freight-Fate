@@ -83,7 +83,7 @@ impl DrivingState {
         }
         self.chain_set_event(ChainSetEvent::Road {
             snow: snow_or_ice(&self.trip.truck.surface),
-            mile: self.trip.position_mi,
+            bare_mi: self.trip.truck.chain_bare_mi,
         });
         if !self.chain_bare_cue_pending {
             return;
@@ -174,10 +174,8 @@ impl DrivingState {
         self.trip.truck.chains_on = true;
         // The road as it reads after the clock moved, not before the work.
         let surface_snow = snow_or_ice(self.trip.weather.effects().surface);
-        self.chain_set_event(ChainSetEvent::Installed {
-            surface_snow,
-            mile: self.trip.position_mi,
-        });
+        self.trip.truck.chain_bare_mi = 0.0;
+        self.chain_set_event(ChainSetEvent::Installed { surface_snow });
         self.chains_fast_active = false;
         self.chain_slap_said = false;
         self.chain_tightened = false;
@@ -226,9 +224,9 @@ impl DrivingState {
         profile_mut_of(ctx).set_chain_repair_links(links - 1);
         self.trip.truck.chain_wear_pct = 100.0 - CHAIN_REPAIR_WEAR_RESTORE;
         self.trip.truck.chains_on = true;
+        self.trip.truck.chain_bare_mi = 0.0;
         self.chain_set_event(ChainSetEvent::Repaired {
             surface_snow: snow_or_ice(self.trip.weather.effects().surface),
-            mile: self.trip.position_mi,
         });
         self.chains_fast_active = false;
         self.chain_slap_said = false;
