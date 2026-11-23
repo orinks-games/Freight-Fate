@@ -40,6 +40,14 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
             "palm_bay_fl_us",
         ],
     ),
+    // The Alabama, Mississippi and South Carolina missing roads
+    // (2026-11-23) split Jackson to Baton Rouge (I-55 then I-12, 175 mi) at
+    // Hammond, where the two roads meet. The chain is 133 plus 50 miles.
+    (
+        "jackson_ms_us",
+        "baton_rouge_la_us",
+        &["jackson_ms_us", "hammond_la_us", "baton_rouge_la_us"],
+    ),
     // I-5, 121 mi: missing roads pass, 2026-11-22.
     (
         "los_angeles_ca_us",
