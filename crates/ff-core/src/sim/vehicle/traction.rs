@@ -671,4 +671,38 @@ mod tests {
         }
         assert_eq!(loaded_state, TrailerSwayState::Steady);
     }
+
+    #[test]
+    fn uphill_wheelspin_does_not_trigger_fictitious_pull_downshift() {
+        use crate::sim::vehicle::{TruckSpecs, TruckState};
+
+        let mut truck = TruckState::new(TruckSpecs::default());
+        truck.engine_on = true;
+        truck.parking_brake = false;
+        truck.trailer_attached = true;
+        truck.cargo_kg = 15_000.0;
+        truck.grade = 0.06;
+        truck.grip = 0.2;
+        truck.throttle = 1.0;
+        truck.transmission.gear = 6;
+        truck.velocity_mps = 12.0;
+        truck.rpm = truck.coupled_rpm(Some(6));
+        truck.drive_traction_state = DriveTractionState::Spinning;
+
+        // Sanity check: we are traction-limited and losing ground on the climb.
+        assert!(truck.drive_force() < truck.resistance_force());
+        assert!(truck.drive_force_demand() > truck.drive_traction_limit());
+
+        let starting_gear = truck.transmission.gear;
+        for _ in 0..30 {
+            truck.update(0.1);
+            // Keep speed/rpm in the mid-band where only a fictitious pull downshift would fire.
+            truck.velocity_mps = 12.0;
+            truck.rpm = truck.coupled_rpm(Some(truck.transmission.gear));
+        }
+        assert_eq!(
+            truck.transmission.gear, starting_gear,
+            "auto_shift must not pull-downshift during traction-limited uphill wheelspin"
+        );
+    }
 }

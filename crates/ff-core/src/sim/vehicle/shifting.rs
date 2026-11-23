@@ -181,6 +181,8 @@ impl TruckState {
             let lower_gear = tr.gear - 1;
             let lower_gear_rpm = self.coupled_rpm(Some(lower_gear));
             if lower_gear_rpm <= self.specs.max_rpm * 0.95 {
+                let traction_cap =
+                    self.drive_traction_limit() * self.drive_traction_state.traction_factor();
                 let lower_gear_force = (self.torque_at(lower_gear_rpm)
                     * self.throttle
                     * self.health_factor()
@@ -188,7 +190,7 @@ impl TruckState {
                     * tr.ratio_for(lower_gear).abs()
                     * self.specs.driveline_efficiency
                     / self.specs.wheel_radius_m)
-                    .min(self.drive_traction_limit());
+                    .min(traction_cap);
                 if lower_gear_force > self.drive_force() * 1.02 {
                     downshift_rpm = downshift_rpm.max(rpm_est + 1.0);
                 }
