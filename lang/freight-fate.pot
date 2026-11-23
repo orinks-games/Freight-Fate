@@ -20605,6 +20605,11 @@ msgstr ""
 msgid "You take the wheel {start_mi} miles up the road."
 msgstr ""
 
+#. placeholders: {key}, {buy_in_paid}
+#: crates/freight-fate/src/app.rs
+msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
+msgstr ""
+
 #. placeholders: {i}
 #: crates/freight-fate/src/app.rs
 msgid "job {i}"
