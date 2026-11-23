@@ -6856,6 +6856,11 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Pascagoula's port terminals are not sites: the
       port authority's and MDOT's pages refuse automated reads and
       OpenStreetMap names none of them.
+- [ ] (Found along the way) A leg that rides several numbered roads opens
+      with "Merge onto" its one label for the whole leg. Grenada to Oxford
+      says "Merge onto MS-7 North toward Oxford, then 59 miles on it." and
+      starts with 20 miles of I-55 and 15 of MS 32. The road changes
+      inside a leg need their own turn calls.
 
 ### Winter cab, wipers and ice roads (designed November 22)
 
