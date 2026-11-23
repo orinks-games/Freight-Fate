@@ -18,6 +18,7 @@ mod dispatch_relay;
 mod live_fuel_prices;
 mod live_weather_alerts;
 mod states_city_support;
+mod states_driving_logbook;
 mod states_driving_menus_support;
 mod states_main_menu_support;
 mod states_online_support;

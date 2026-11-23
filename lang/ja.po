@@ -26130,6 +26130,62 @@ msgstr "上下の矢印キーで概要を確認します。Enter で行を繰り
 msgid "Delivery complete"
 msgstr "配達完了"
 
+#. one sentence of a longer line
+msgid "The balance holds where it is."
+msgstr "残高はそのままです。"
+
+#. placeholders: {carrier_name}, {grouped}
+#. one sentence of a longer line
+msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
+msgstr "{carrier_name}が、借金のうち{grouped}ドルを帳消しにしました。"
+
+#. placeholders: {carrier_name}, {grouped}
+msgid ""
+"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
+"holds where it is."
+msgstr "{carrier_name}が、借金のうち{grouped}ドルを帳消しにしました。残高はそのままです。"
+
+msgid ""
+"Square with your carrier again. Nothing owed, every settlement reaches you "
+"whole."
+msgstr "運送会社への借りがなくなりました。借金はなく、毎回の精算がそのまま全額届きます。"
+
+#. placeholders: {unlock}
+msgid "Unlock: {unlock}"
+msgstr "解除：{unlock}"
+
+#. placeholders: {names}
+msgid "New achievement! {names}."
+msgstr "新しい実績！{names}。"
+
+#. one sentence of a longer line
+msgid "New achievements!"
+msgstr "新しい実績！"
+
+#. placeholders: {join}
+msgid "New achievements! {join}."
+msgstr "新しい実績！{join}。"
+
+#. placeholders: {title}
+msgid "Freight Fate: {title}."
+msgstr "Freight Fate：{title}。"
+
+msgid "Delivery summary copied to clipboard."
+msgstr "配達の概要をクリップボードにコピーしました。"
+
+msgid "Repeat this settlement line."
+msgstr "この精算の行を繰り返します。"
+
+msgid "Copy delivery summary to clipboard"
+msgstr "配達の概要をクリップボードにコピー"
+
+msgid "Copies the settlement lines as plain text."
+msgstr "精算の行をプレーンテキストでコピーします。"
+
+#. placeholders: {name}
+msgid "Continue to {name}"
+msgstr "{name}へ進む"
+
 msgid "Repositioned"
 msgstr "回送完了"
 
@@ -26273,6 +26329,9 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{grouped} dollars held back."
 msgstr "{grouped}ドルが差し引かれます。"
+
+msgid "receiver unloading"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Carrier covers the repair."
@@ -26582,62 +26641,6 @@ msgstr "ルート：{join}。"
 #. placeholders: {distance_text}
 msgid "Distance credited: {distance_text}."
 msgstr "計上された距離：{distance_text}。"
-
-#. one sentence of a longer line
-msgid "The balance holds where it is."
-msgstr "残高はそのままです。"
-
-#. placeholders: {carrier_name}, {grouped}
-#. one sentence of a longer line
-msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
-msgstr "{carrier_name}が、借金のうち{grouped}ドルを帳消しにしました。"
-
-#. placeholders: {carrier_name}, {grouped}
-msgid ""
-"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
-"holds where it is."
-msgstr "{carrier_name}が、借金のうち{grouped}ドルを帳消しにしました。残高はそのままです。"
-
-msgid ""
-"Square with your carrier again. Nothing owed, every settlement reaches you "
-"whole."
-msgstr "運送会社への借りがなくなりました。借金はなく、毎回の精算がそのまま全額届きます。"
-
-#. placeholders: {unlock}
-msgid "Unlock: {unlock}"
-msgstr "解除：{unlock}"
-
-#. placeholders: {names}
-msgid "New achievement! {names}."
-msgstr "新しい実績！{names}。"
-
-#. one sentence of a longer line
-msgid "New achievements!"
-msgstr "新しい実績！"
-
-#. placeholders: {join}
-msgid "New achievements! {join}."
-msgstr "新しい実績！{join}。"
-
-#. placeholders: {title}
-msgid "Freight Fate: {title}."
-msgstr "Freight Fate：{title}。"
-
-msgid "Delivery summary copied to clipboard."
-msgstr "配達の概要をクリップボードにコピーしました。"
-
-msgid "Repeat this settlement line."
-msgstr "この精算の行を繰り返します。"
-
-msgid "Copy delivery summary to clipboard"
-msgstr "配達の概要をクリップボードにコピー"
-
-msgid "Copies the settlement lines as plain text."
-msgstr "精算の行をプレーンテキストでコピーします。"
-
-#. placeholders: {name}
-msgid "Continue to {name}"
-msgstr "{name}へ進む"
 
 msgid "April 1"
 msgstr "4月1日"

@@ -49,6 +49,9 @@ fn advance_clock(
     sky_moves: bool,
 ) {
     let start_hour = driving.absolute_game_hour(ctx, None);
+    if duty_status.is_some() {
+        log_driving_until(driving, ctx, start_hour);
+    }
     driving
         .trip
         .truck
@@ -79,6 +82,28 @@ fn advance_clock(
             .duty_log
             .record(status, start_hour, end_hour, &location, note);
     }
+}
+
+pub fn log_driving_until(driving: &DrivingState, ctx: &mut GameContext, end_hour: f64) {
+    let trip_start = profile_of(ctx).game_hours;
+    let from = profile_of(ctx)
+        .duty_log
+        .segments
+        .last()
+        .map_or(trip_start, |last| last.end_hour)
+        .max(trip_start);
+    if end_hour <= from {
+        return;
+    }
+    let status = if driving.co_driver_driving() {
+        "sleeper_berth"
+    } else {
+        "driving"
+    };
+    let location = driving.logbook_location(ctx);
+    profile_mut_of(ctx)
+        .duty_log
+        .record(status, from, end_hour, &location, "");
 }
 
 /// A coffee or energy drink's lift that wore off during a sleep is paid

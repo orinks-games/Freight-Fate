@@ -28712,6 +28712,68 @@ msgstr ""
 msgid "Delivery complete"
 msgstr "Dostawa zakończona"
 
+#. one sentence of a longer line
+msgid "The balance holds where it is."
+msgstr "Saldo zostaje bez zmian."
+
+#. placeholders: {carrier_name}, {grouped}
+#. one sentence of a longer line
+msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
+msgstr ""
+"{carrier_name} umorzył {grouped} {grouped:dolar|dolary|dolarów} z tego, ile "
+"jesteś winien."
+
+#. placeholders: {carrier_name}, {grouped}
+msgid ""
+"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
+"holds where it is."
+msgstr ""
+"{carrier_name} umorzył {grouped} {grouped:dolar|dolary|dolarów} z tego, ile "
+"jesteś winien. Saldo zostaje bez zmian."
+
+msgid ""
+"Square with your carrier again. Nothing owed, every settlement reaches you "
+"whole."
+msgstr ""
+"Znowu jesteś kwita z przewoźnikiem. Nic nie jesteś winien, każde "
+"rozliczenie trafia do ciebie w całości."
+
+#. placeholders: {unlock}
+msgid "Unlock: {unlock}"
+msgstr "Odblokowanie: {unlock}"
+
+#. placeholders: {names}
+msgid "New achievement! {names}."
+msgstr "Nowe osiągnięcie! {names}."
+
+#. one sentence of a longer line
+msgid "New achievements!"
+msgstr "Nowe osiągnięcia!"
+
+#. placeholders: {join}
+msgid "New achievements! {join}."
+msgstr "Nowe osiągnięcia! {join}."
+
+#. placeholders: {title}
+msgid "Freight Fate: {title}."
+msgstr "Freight Fate: {title}."
+
+msgid "Delivery summary copied to clipboard."
+msgstr "Podsumowanie dostawy skopiowane do schowka."
+
+msgid "Repeat this settlement line."
+msgstr "Powtórz ten wiersz rozliczenia."
+
+msgid "Copy delivery summary to clipboard"
+msgstr "Kopiuj podsumowanie dostawy do schowka"
+
+msgid "Copies the settlement lines as plain text."
+msgstr "Kopiuje wiersze rozliczenia jako zwykły tekst."
+
+#. placeholders: {name}
+msgid "Continue to {name}"
+msgstr "Jedź dalej do {name}"
+
 msgid "Repositioned"
 msgstr "Przejazd zakończony"
 
@@ -28875,6 +28937,9 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{grouped} dollars held back."
 msgstr "Wstrzymano {grouped} {grouped:dolar|dolary|dolarów}."
+
+msgid "receiver unloading"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Carrier covers the repair."
@@ -29216,68 +29281,6 @@ msgstr "Trasa: {join}."
 #. placeholders: {distance_text}
 msgid "Distance credited: {distance_text}."
 msgstr "Zaliczony dystans: {distance_text}."
-
-#. one sentence of a longer line
-msgid "The balance holds where it is."
-msgstr "Saldo zostaje bez zmian."
-
-#. placeholders: {carrier_name}, {grouped}
-#. one sentence of a longer line
-msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
-msgstr ""
-"{carrier_name} umorzył {grouped} {grouped:dolar|dolary|dolarów} z tego, ile "
-"jesteś winien."
-
-#. placeholders: {carrier_name}, {grouped}
-msgid ""
-"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
-"holds where it is."
-msgstr ""
-"{carrier_name} umorzył {grouped} {grouped:dolar|dolary|dolarów} z tego, ile "
-"jesteś winien. Saldo zostaje bez zmian."
-
-msgid ""
-"Square with your carrier again. Nothing owed, every settlement reaches you "
-"whole."
-msgstr ""
-"Znowu jesteś kwita z przewoźnikiem. Nic nie jesteś winien, każde "
-"rozliczenie trafia do ciebie w całości."
-
-#. placeholders: {unlock}
-msgid "Unlock: {unlock}"
-msgstr "Odblokowanie: {unlock}"
-
-#. placeholders: {names}
-msgid "New achievement! {names}."
-msgstr "Nowe osiągnięcie! {names}."
-
-#. one sentence of a longer line
-msgid "New achievements!"
-msgstr "Nowe osiągnięcia!"
-
-#. placeholders: {join}
-msgid "New achievements! {join}."
-msgstr "Nowe osiągnięcia! {join}."
-
-#. placeholders: {title}
-msgid "Freight Fate: {title}."
-msgstr "Freight Fate: {title}."
-
-msgid "Delivery summary copied to clipboard."
-msgstr "Podsumowanie dostawy skopiowane do schowka."
-
-msgid "Repeat this settlement line."
-msgstr "Powtórz ten wiersz rozliczenia."
-
-msgid "Copy delivery summary to clipboard"
-msgstr "Kopiuj podsumowanie dostawy do schowka"
-
-msgid "Copies the settlement lines as plain text."
-msgstr "Kopiuje wiersze rozliczenia jako zwykły tekst."
-
-#. placeholders: {name}
-msgid "Continue to {name}"
-msgstr "Jedź dalej do {name}"
 
 msgid "April 1"
 msgstr "1 kwietnia"

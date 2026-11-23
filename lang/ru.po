@@ -28819,6 +28819,68 @@ msgstr ""
 msgid "Delivery complete"
 msgstr "Доставка завершена"
 
+#. one sentence of a longer line
+msgid "The balance holds where it is."
+msgstr "Остаток долга не меняется."
+
+#. placeholders: {carrier_name}, {grouped}
+#. one sentence of a longer line
+msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
+msgstr ""
+"{carrier_name} списывает {grouped} {grouped:доллар|доллара|долларов} из "
+"того, что вы должны."
+
+#. placeholders: {carrier_name}, {grouped}
+msgid ""
+"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
+"holds where it is."
+msgstr ""
+"{carrier_name} списывает {grouped} {grouped:доллар|доллара|долларов} из "
+"того, что вы должны. Остаток долга не меняется."
+
+msgid ""
+"Square with your carrier again. Nothing owed, every settlement reaches you "
+"whole."
+msgstr ""
+"Вы снова в расчёте с перевозчиком. Долгов нет, каждый расчёт доходит до вас "
+"целиком."
+
+#. placeholders: {unlock}
+msgid "Unlock: {unlock}"
+msgstr "Открывается: {unlock}"
+
+#. placeholders: {names}
+msgid "New achievement! {names}."
+msgstr "Новое достижение! {names}."
+
+#. one sentence of a longer line
+msgid "New achievements!"
+msgstr "Новые достижения!"
+
+#. placeholders: {join}
+msgid "New achievements! {join}."
+msgstr "Новые достижения! {join}."
+
+#. placeholders: {title}
+msgid "Freight Fate: {title}."
+msgstr "Freight Fate: {title}."
+
+msgid "Delivery summary copied to clipboard."
+msgstr "Сводка доставки скопирована в буфер обмена."
+
+msgid "Repeat this settlement line."
+msgstr "Повторить эту строку расчёта."
+
+msgid "Copy delivery summary to clipboard"
+msgstr "Скопировать сводку доставки в буфер обмена"
+
+msgid "Copies the settlement lines as plain text."
+msgstr "Копирует строки расчёта простым текстом."
+
+#. placeholders: {name}
+msgid "Continue to {name}"
+msgstr "Дальше: {name}"
+
 msgid "Repositioned"
 msgstr "Переезд завершён"
 
@@ -28988,6 +29050,9 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{grouped} dollars held back."
 msgstr "Удержано {grouped} {grouped:доллар|доллара|долларов}."
+
+msgid "receiver unloading"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Carrier covers the repair."
@@ -29335,68 +29400,6 @@ msgstr "Маршрут: {join}."
 #. placeholders: {distance_text}
 msgid "Distance credited: {distance_text}."
 msgstr "Засчитанное расстояние: {distance_text}."
-
-#. one sentence of a longer line
-msgid "The balance holds where it is."
-msgstr "Остаток долга не меняется."
-
-#. placeholders: {carrier_name}, {grouped}
-#. one sentence of a longer line
-msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
-msgstr ""
-"{carrier_name} списывает {grouped} {grouped:доллар|доллара|долларов} из "
-"того, что вы должны."
-
-#. placeholders: {carrier_name}, {grouped}
-msgid ""
-"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
-"holds where it is."
-msgstr ""
-"{carrier_name} списывает {grouped} {grouped:доллар|доллара|долларов} из "
-"того, что вы должны. Остаток долга не меняется."
-
-msgid ""
-"Square with your carrier again. Nothing owed, every settlement reaches you "
-"whole."
-msgstr ""
-"Вы снова в расчёте с перевозчиком. Долгов нет, каждый расчёт доходит до вас "
-"целиком."
-
-#. placeholders: {unlock}
-msgid "Unlock: {unlock}"
-msgstr "Открывается: {unlock}"
-
-#. placeholders: {names}
-msgid "New achievement! {names}."
-msgstr "Новое достижение! {names}."
-
-#. one sentence of a longer line
-msgid "New achievements!"
-msgstr "Новые достижения!"
-
-#. placeholders: {join}
-msgid "New achievements! {join}."
-msgstr "Новые достижения! {join}."
-
-#. placeholders: {title}
-msgid "Freight Fate: {title}."
-msgstr "Freight Fate: {title}."
-
-msgid "Delivery summary copied to clipboard."
-msgstr "Сводка доставки скопирована в буфер обмена."
-
-msgid "Repeat this settlement line."
-msgstr "Повторить эту строку расчёта."
-
-msgid "Copy delivery summary to clipboard"
-msgstr "Скопировать сводку доставки в буфер обмена"
-
-msgid "Copies the settlement lines as plain text."
-msgstr "Копирует строки расчёта простым текстом."
-
-#. placeholders: {name}
-msgid "Continue to {name}"
-msgstr "Дальше: {name}"
 
 msgid "April 1"
 msgstr "1 апреля"

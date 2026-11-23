@@ -25805,6 +25805,62 @@ msgstr "Up和Down浏览摘要。Enter重复这一行。Escape继续。"
 msgid "Delivery complete"
 msgstr "送货完成"
 
+#. one sentence of a longer line
+msgid "The balance holds where it is."
+msgstr "欠款维持不变。"
+
+#. placeholders: {carrier_name}, {grouped}
+#. one sentence of a longer line
+msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
+msgstr "{carrier_name}免除了你欠款中的{grouped}美元。"
+
+#. placeholders: {carrier_name}, {grouped}
+msgid ""
+"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
+"holds where it is."
+msgstr "{carrier_name}免除了你欠款中的{grouped}美元。欠款维持不变。"
+
+msgid ""
+"Square with your carrier again. Nothing owed, every settlement reaches you "
+"whole."
+msgstr "和承运商又两清了。什么都不欠，每次结算都全额到你手里。"
+
+#. placeholders: {unlock}
+msgid "Unlock: {unlock}"
+msgstr "解锁：{unlock}"
+
+#. placeholders: {names}
+msgid "New achievement! {names}."
+msgstr "新成就！{names}。"
+
+#. one sentence of a longer line
+msgid "New achievements!"
+msgstr "新成就！"
+
+#. placeholders: {join}
+msgid "New achievements! {join}."
+msgstr "新成就！{join}。"
+
+#. placeholders: {title}
+msgid "Freight Fate: {title}."
+msgstr "Freight Fate：{title}。"
+
+msgid "Delivery summary copied to clipboard."
+msgstr "送货摘要已复制到剪贴板。"
+
+msgid "Repeat this settlement line."
+msgstr "重复这一条结算信息。"
+
+msgid "Copy delivery summary to clipboard"
+msgstr "把送货摘要复制到剪贴板"
+
+msgid "Copies the settlement lines as plain text."
+msgstr "把结算信息复制为纯文本。"
+
+#. placeholders: {name}
+msgid "Continue to {name}"
+msgstr "继续前往{name}"
+
 msgid "Repositioned"
 msgstr "调车完成"
 
@@ -25946,6 +26002,9 @@ msgstr "收货方在单据上记录了损坏：货物到达时{cargo_condition_t
 #. one sentence of a longer line
 msgid "{grouped} dollars held back."
 msgstr "扣留{grouped}美元。"
+
+msgid "receiver unloading"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Carrier covers the repair."
@@ -26252,62 +26311,6 @@ msgstr "路线：{join}。"
 #. placeholders: {distance_text}
 msgid "Distance credited: {distance_text}."
 msgstr "计入的距离：{distance_text}。"
-
-#. one sentence of a longer line
-msgid "The balance holds where it is."
-msgstr "欠款维持不变。"
-
-#. placeholders: {carrier_name}, {grouped}
-#. one sentence of a longer line
-msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
-msgstr "{carrier_name}免除了你欠款中的{grouped}美元。"
-
-#. placeholders: {carrier_name}, {grouped}
-msgid ""
-"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
-"holds where it is."
-msgstr "{carrier_name}免除了你欠款中的{grouped}美元。欠款维持不变。"
-
-msgid ""
-"Square with your carrier again. Nothing owed, every settlement reaches you "
-"whole."
-msgstr "和承运商又两清了。什么都不欠，每次结算都全额到你手里。"
-
-#. placeholders: {unlock}
-msgid "Unlock: {unlock}"
-msgstr "解锁：{unlock}"
-
-#. placeholders: {names}
-msgid "New achievement! {names}."
-msgstr "新成就！{names}。"
-
-#. one sentence of a longer line
-msgid "New achievements!"
-msgstr "新成就！"
-
-#. placeholders: {join}
-msgid "New achievements! {join}."
-msgstr "新成就！{join}。"
-
-#. placeholders: {title}
-msgid "Freight Fate: {title}."
-msgstr "Freight Fate：{title}。"
-
-msgid "Delivery summary copied to clipboard."
-msgstr "送货摘要已复制到剪贴板。"
-
-msgid "Repeat this settlement line."
-msgstr "重复这一条结算信息。"
-
-msgid "Copy delivery summary to clipboard"
-msgstr "把送货摘要复制到剪贴板"
-
-msgid "Copies the settlement lines as plain text."
-msgstr "把结算信息复制为纯文本。"
-
-#. placeholders: {name}
-msgid "Continue to {name}"
-msgstr "继续前往{name}"
 
 msgid "April 1"
 msgstr "4月1日"

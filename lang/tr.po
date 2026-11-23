@@ -28088,6 +28088,66 @@ msgstr ""
 msgid "Delivery complete"
 msgstr "Teslimat tamamlandı"
 
+#. one sentence of a longer line
+msgid "The balance holds where it is."
+msgstr "Borç olduğu yerde kalıyor."
+
+#. placeholders: {carrier_name}, {grouped}
+#. one sentence of a longer line
+msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
+msgstr "{carrier_name} borcunuzun {grouped} dolarını sildi."
+
+#. placeholders: {carrier_name}, {grouped}
+msgid ""
+"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
+"holds where it is."
+msgstr ""
+"{carrier_name} borcunuzun {grouped} dolarını sildi. Borç olduğu yerde "
+"kalıyor."
+
+msgid ""
+"Square with your carrier again. Nothing owed, every settlement reaches you "
+"whole."
+msgstr ""
+"Taşıyıcı firmanızla yeniden ödeşik durumdasınız. Borç yok, her hesap kesimi "
+"size eksiksiz ulaşır."
+
+#. placeholders: {unlock}
+msgid "Unlock: {unlock}"
+msgstr "Açılan: {unlock}"
+
+#. placeholders: {names}
+msgid "New achievement! {names}."
+msgstr "Yeni başarım! {names}."
+
+#. one sentence of a longer line
+msgid "New achievements!"
+msgstr "Yeni başarımlar!"
+
+#. placeholders: {join}
+msgid "New achievements! {join}."
+msgstr "Yeni başarımlar! {join}."
+
+#. placeholders: {title}
+msgid "Freight Fate: {title}."
+msgstr "Freight Fate: {title}."
+
+msgid "Delivery summary copied to clipboard."
+msgstr "Teslimat özeti panoya kopyalandı."
+
+msgid "Repeat this settlement line."
+msgstr "Bu hesap kesimi satırını tekrarla."
+
+msgid "Copy delivery summary to clipboard"
+msgstr "Teslimat özetini panoya kopyala"
+
+msgid "Copies the settlement lines as plain text."
+msgstr "Hesap kesimi satırlarını düz metin olarak kopyalar."
+
+#. placeholders: {name}
+msgid "Continue to {name}"
+msgstr "Devam et: {name}"
+
 msgid "Repositioned"
 msgstr "Yer değiştirildi"
 
@@ -28238,6 +28298,9 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{grouped} dollars held back."
 msgstr "{grouped} dolar kesildi."
+
+msgid "receiver unloading"
+msgstr ""
 
 #. one sentence of a longer line
 msgid "Carrier covers the repair."
@@ -28563,66 +28626,6 @@ msgstr "Güzergâh: {join}."
 #. placeholders: {distance_text}
 msgid "Distance credited: {distance_text}."
 msgstr "Hesaba katılan mesafe: {distance_text}."
-
-#. one sentence of a longer line
-msgid "The balance holds where it is."
-msgstr "Borç olduğu yerde kalıyor."
-
-#. placeholders: {carrier_name}, {grouped}
-#. one sentence of a longer line
-msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
-msgstr "{carrier_name} borcunuzun {grouped} dolarını sildi."
-
-#. placeholders: {carrier_name}, {grouped}
-msgid ""
-"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
-"holds where it is."
-msgstr ""
-"{carrier_name} borcunuzun {grouped} dolarını sildi. Borç olduğu yerde "
-"kalıyor."
-
-msgid ""
-"Square with your carrier again. Nothing owed, every settlement reaches you "
-"whole."
-msgstr ""
-"Taşıyıcı firmanızla yeniden ödeşik durumdasınız. Borç yok, her hesap kesimi "
-"size eksiksiz ulaşır."
-
-#. placeholders: {unlock}
-msgid "Unlock: {unlock}"
-msgstr "Açılan: {unlock}"
-
-#. placeholders: {names}
-msgid "New achievement! {names}."
-msgstr "Yeni başarım! {names}."
-
-#. one sentence of a longer line
-msgid "New achievements!"
-msgstr "Yeni başarımlar!"
-
-#. placeholders: {join}
-msgid "New achievements! {join}."
-msgstr "Yeni başarımlar! {join}."
-
-#. placeholders: {title}
-msgid "Freight Fate: {title}."
-msgstr "Freight Fate: {title}."
-
-msgid "Delivery summary copied to clipboard."
-msgstr "Teslimat özeti panoya kopyalandı."
-
-msgid "Repeat this settlement line."
-msgstr "Bu hesap kesimi satırını tekrarla."
-
-msgid "Copy delivery summary to clipboard"
-msgstr "Teslimat özetini panoya kopyala"
-
-msgid "Copies the settlement lines as plain text."
-msgstr "Hesap kesimi satırlarını düz metin olarak kopyalar."
-
-#. placeholders: {name}
-msgid "Continue to {name}"
-msgstr "Devam et: {name}"
 
 msgid "April 1"
 msgstr "1 Nisan"
