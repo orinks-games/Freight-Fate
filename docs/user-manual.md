@@ -1248,6 +1248,15 @@ Yes. Pick the **Realistic** preset (or set lane keeping to **Off**) under **Sett
 
 Yes. Set **Output** to **Braille only** under **Settings, Speech**. This requires NVDA or JAWS.
 
+### Why is menu text missing from my braille display?
+
+If you hear Freight Fate's menu text but do not see it on your braille display, open **NVDA Settings, Braille** and try either:
+
+- Set **Braille mode** to **Display speech output**. The display shows what NVDA speaks instead of following the cursor.
+- Set **Show messages** to **Use timeout** to display messages for the chosen **Message Timeout (sec)**, or **Show indefinitely** to keep messages visible rather than timing them out.
+
+You can keep Freight Fate's **Output** set to **Speech and braille**; **Braille only** is not required. See the [NVDA User Guide](https://download.nvaccess.org/releases/2026.3.1/documentation/userGuide.html) for details.
+
 ## When you need help
 
 If the truck will not roll, check the basics first: fuel, engine, air pressure, and parking brake. Heavy damage, worn-out parts, or a suspended CDL can also stop you; roadside help can restore fuel or patch the truck enough to move.
