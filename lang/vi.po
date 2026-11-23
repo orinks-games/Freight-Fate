@@ -31682,6 +31682,152 @@ msgstr ""
 "giờ lái và khung giờ làm việc đã được đặt lại. Giấc ngủ không được sâu. "
 "{deadline_text}{wake_air_instruction}"
 
+msgid "No real-time parking data nearby."
+msgstr "Không có dữ liệu bãi đỗ theo thời gian thực ở gần đây."
+
+#. placeholders: {total_available}
+msgid "Real-time parking: {total_available} spaces available nearby."
+msgstr ""
+"Bãi đỗ theo thời gian thực: còn {total_available} chỗ trống gần đây."
+
+msgid "Real-time parking: nearby lots are full."
+msgstr "Bãi đỗ theo thời gian thực: các bãi gần đây đã kín chỗ."
+
+msgid "Pairs with 8 hours in the sleeper berth."
+msgstr "Ghép cặp với 8 giờ nghỉ trong giường cabin."
+
+msgid "Pairs with 7 hours in the sleeper berth."
+msgstr "Ghép cặp với 7 giờ nghỉ trong giường cabin."
+
+msgid "Pairs with 3 more hours at parking where you can sleep."
+msgstr "Ghép cặp với 3 giờ nghỉ thêm tại bãi đỗ có thể ngủ."
+
+msgid "Pairs with 2 more hours at parking where you can sleep."
+msgstr "Ghép cặp với 2 giờ nghỉ thêm tại bãi đỗ có thể ngủ."
+
+#. placeholders: {pair}, {hours}
+msgid "{pair} Clock and deadline advance {hours} hours."
+msgstr "{pair} Đồng hồ và hạn giao hàng tăng thêm {hours} giờ."
+
+#. placeholders: {f}
+msgid "Brake job: {f} percent wear, carrier billed"
+msgstr "Làm lại phanh: mòn {f} phần trăm, ghi sổ cho hãng"
+
+msgid "Resting at a stop"
+msgstr "Đang nghỉ tại điểm dừng"
+
+#. placeholders: {grouped}, {rest}
+msgid "{grouped} dollars and {rest} cents"
+msgstr "{grouped} đô la {rest} xu"
+
+msgid "Reweigh"
+msgstr "Cân lại"
+
+msgid "Weigh"
+msgstr "Cân xe"
+
+#. placeholders: {verb}, {dollars_and_cents}
+msgid "{verb} on the CAT Scale: {dollars_and_cents}"
+msgstr "{verb} trên trạm CAT Scale: {dollars_and_cents}"
+
+#. placeholders: {verb}
+msgid "{verb} on the CAT Scale, carrier billed"
+msgstr "{verb} trên trạm CAT Scale, ghi sổ cho hãng"
+
+#. one sentence of a longer line
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
+msgstr ""
+"Phiếu cân CAT Scale: cân trục lái, trục chủ động, rơ-moóc và tổng tải trọng "
+"trước khi qua trạm cân bang."
+
+#. placeholders: {dollars_and_cents}, {f}
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
+"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
+msgstr ""
+"Phiếu cân CAT Scale: cân trục lái, trục chủ động, rơ-moóc và tổng tải trọng "
+"trước khi qua trạm cân bang. Cân lại trong vòng 24 giờ chỉ hết "
+"{dollars_and_cents}. Mất {f} phút làm việc."
+
+#. placeholders: {dollars_and_cents}
+#. one sentence of a longer line
+msgid "Reweigh within 24 hours is {dollars_and_cents}."
+msgstr "Cân lại trong vòng 24 giờ chỉ hết {dollars_and_cents}."
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
+msgstr "Một lần cân giá {dollars_and_cents} mà bạn chỉ có {grouped} đô la."
+
+msgid "CAT Scale weigh"
+msgstr "cân xe tại CAT Scale"
+
+msgid "Billed to the carrier."
+msgstr "Đã ghi sổ cho hãng."
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "{dollars_and_cents}. You have {grouped} dollars."
+msgstr "Hết {dollars_and_cents}. Bạn còn {grouped} đô la."
+
+#. one sentence of a longer line
+msgid "CAT Scale ticket."
+msgstr "Phiếu cân CAT Scale."
+
+#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
+msgid ""
+"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
+msgstr ""
+"Phiếu cân CAT Scale. {ticket} {billing} Bây giờ là {clock_text}. "
+"{deadline_text}"
+
+#. placeholders: {ticket}, {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{ticket} {billing} It is {clock_text}."
+msgstr "{ticket} {billing} Bây giờ là {clock_text}."
+
+#. placeholders: {grouped}
+msgid "Buy snow chains: {grouped} dollars"
+msgstr "Mua xích lốp đi tuyết: {grouped} đô la"
+
+msgid "Buy snow chains, carrier billed"
+msgstr "Mua xích lốp đi tuyết, ghi sổ cho hãng"
+
+#. one sentence of a longer line
+msgid "A new set with two spare repair links."
+msgstr "Một bộ mới kèm hai mắt xích sửa chữa dự phòng."
+
+#. placeholders: {f}
+msgid "A new set with two spare repair links. {f} minutes on duty."
+msgstr ""
+"Một bộ mới kèm hai mắt xích sửa chữa dự phòng. Mất {f} phút làm việc."
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"A set of snow chains costs {grouped} dollars and you have {grouped2} "
+"dollars."
+msgstr ""
+"Một bộ xích lốp đi tuyết giá {grouped} đô la mà bạn chỉ có {grouped2} đô la."
+
+#. placeholders: {grouped}, {grouped2}
+msgid "{grouped} dollars. You have {grouped2} dollars."
+msgstr "Hết {grouped} đô la. Bạn còn {grouped2} đô la."
+
+#. one sentence of a longer line
+msgid "A new set of snow chains is in the side box."
+msgstr "Bộ xích lốp đi tuyết mới đã được cất vào thùng đồ hông xe."
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"A new set of snow chains is in the side box. {billing} It is {clock_text}."
+msgstr ""
+"Bộ xích lốp đi tuyết mới đã được cất vào thùng đồ hông xe. {billing} Bây "
+"giờ là {clock_text}."
+
+#. placeholders: {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{billing} It is {clock_text}."
+msgstr "{billing} Bây giờ là {clock_text}."
+
 msgid "The truck does not need repair."
 msgstr "Xe đầu kéo không cần sửa chữa."
 
@@ -31969,152 +32115,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{body} It is {clock_text}."
 msgstr "{body} Bây giờ là {clock_text}."
-
-msgid "No real-time parking data nearby."
-msgstr "Không có dữ liệu bãi đỗ theo thời gian thực ở gần đây."
-
-#. placeholders: {total_available}
-msgid "Real-time parking: {total_available} spaces available nearby."
-msgstr ""
-"Bãi đỗ theo thời gian thực: còn {total_available} chỗ trống gần đây."
-
-msgid "Real-time parking: nearby lots are full."
-msgstr "Bãi đỗ theo thời gian thực: các bãi gần đây đã kín chỗ."
-
-msgid "Pairs with 8 hours in the sleeper berth."
-msgstr "Ghép cặp với 8 giờ nghỉ trong giường cabin."
-
-msgid "Pairs with 7 hours in the sleeper berth."
-msgstr "Ghép cặp với 7 giờ nghỉ trong giường cabin."
-
-msgid "Pairs with 3 more hours at parking where you can sleep."
-msgstr "Ghép cặp với 3 giờ nghỉ thêm tại bãi đỗ có thể ngủ."
-
-msgid "Pairs with 2 more hours at parking where you can sleep."
-msgstr "Ghép cặp với 2 giờ nghỉ thêm tại bãi đỗ có thể ngủ."
-
-#. placeholders: {pair}, {hours}
-msgid "{pair} Clock and deadline advance {hours} hours."
-msgstr "{pair} Đồng hồ và hạn giao hàng tăng thêm {hours} giờ."
-
-#. placeholders: {f}
-msgid "Brake job: {f} percent wear, carrier billed"
-msgstr "Làm lại phanh: mòn {f} phần trăm, ghi sổ cho hãng"
-
-msgid "Resting at a stop"
-msgstr "Đang nghỉ tại điểm dừng"
-
-#. placeholders: {grouped}, {rest}
-msgid "{grouped} dollars and {rest} cents"
-msgstr "{grouped} đô la {rest} xu"
-
-msgid "Reweigh"
-msgstr "Cân lại"
-
-msgid "Weigh"
-msgstr "Cân xe"
-
-#. placeholders: {verb}, {dollars_and_cents}
-msgid "{verb} on the CAT Scale: {dollars_and_cents}"
-msgstr "{verb} trên trạm CAT Scale: {dollars_and_cents}"
-
-#. placeholders: {verb}
-msgid "{verb} on the CAT Scale, carrier billed"
-msgstr "{verb} trên trạm CAT Scale, ghi sổ cho hãng"
-
-#. one sentence of a longer line
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
-msgstr ""
-"Phiếu cân CAT Scale: cân trục lái, trục chủ động, rơ-moóc và tổng tải trọng "
-"trước khi qua trạm cân bang."
-
-#. placeholders: {dollars_and_cents}, {f}
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
-"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
-msgstr ""
-"Phiếu cân CAT Scale: cân trục lái, trục chủ động, rơ-moóc và tổng tải trọng "
-"trước khi qua trạm cân bang. Cân lại trong vòng 24 giờ chỉ hết "
-"{dollars_and_cents}. Mất {f} phút làm việc."
-
-#. placeholders: {dollars_and_cents}
-#. one sentence of a longer line
-msgid "Reweigh within 24 hours is {dollars_and_cents}."
-msgstr "Cân lại trong vòng 24 giờ chỉ hết {dollars_and_cents}."
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
-msgstr "Một lần cân giá {dollars_and_cents} mà bạn chỉ có {grouped} đô la."
-
-msgid "CAT Scale weigh"
-msgstr "cân xe tại CAT Scale"
-
-msgid "Billed to the carrier."
-msgstr "Đã ghi sổ cho hãng."
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "{dollars_and_cents}. You have {grouped} dollars."
-msgstr "Hết {dollars_and_cents}. Bạn còn {grouped} đô la."
-
-#. one sentence of a longer line
-msgid "CAT Scale ticket."
-msgstr "Phiếu cân CAT Scale."
-
-#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
-msgid ""
-"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
-msgstr ""
-"Phiếu cân CAT Scale. {ticket} {billing} Bây giờ là {clock_text}. "
-"{deadline_text}"
-
-#. placeholders: {ticket}, {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{ticket} {billing} It is {clock_text}."
-msgstr "{ticket} {billing} Bây giờ là {clock_text}."
-
-#. placeholders: {grouped}
-msgid "Buy snow chains: {grouped} dollars"
-msgstr "Mua xích lốp đi tuyết: {grouped} đô la"
-
-msgid "Buy snow chains, carrier billed"
-msgstr "Mua xích lốp đi tuyết, ghi sổ cho hãng"
-
-#. one sentence of a longer line
-msgid "A new set with two spare repair links."
-msgstr "Một bộ mới kèm hai mắt xích sửa chữa dự phòng."
-
-#. placeholders: {f}
-msgid "A new set with two spare repair links. {f} minutes on duty."
-msgstr ""
-"Một bộ mới kèm hai mắt xích sửa chữa dự phòng. Mất {f} phút làm việc."
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"A set of snow chains costs {grouped} dollars and you have {grouped2} "
-"dollars."
-msgstr ""
-"Một bộ xích lốp đi tuyết giá {grouped} đô la mà bạn chỉ có {grouped2} đô la."
-
-#. placeholders: {grouped}, {grouped2}
-msgid "{grouped} dollars. You have {grouped2} dollars."
-msgstr "Hết {grouped} đô la. Bạn còn {grouped2} đô la."
-
-#. one sentence of a longer line
-msgid "A new set of snow chains is in the side box."
-msgstr "Bộ xích lốp đi tuyết mới đã được cất vào thùng đồ hông xe."
-
-#. placeholders: {billing}, {clock_text}
-msgid ""
-"A new set of snow chains is in the side box. {billing} It is {clock_text}."
-msgstr ""
-"Bộ xích lốp đi tuyết mới đã được cất vào thùng đồ hông xe. {billing} Bây "
-"giờ là {clock_text}."
-
-#. placeholders: {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{billing} It is {clock_text}."
-msgstr "{billing} Bây giờ là {clock_text}."
 
 msgid "Return to terminal"
 msgstr "Quay về trạm chính"

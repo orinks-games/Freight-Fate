@@ -31075,6 +31075,147 @@ msgstr ""
 "{engine_off}Otoparkta 10 saat uyudunuz. {clock_text}. Sürüş ve görev "
 "saatleri sıfırlandı. Kötü uyudunuz. {deadline_text}{wake_air_instruction}"
 
+msgid "No real-time parking data nearby."
+msgstr "Yakında anlık park bilgisi yok."
+
+#. placeholders: {total_available}
+msgid "Real-time parking: {total_available} spaces available nearby."
+msgstr "Anlık park: yakında {total_available} boş yer var."
+
+msgid "Real-time parking: nearby lots are full."
+msgstr "Anlık park: yakındaki otoparklar dolu."
+
+msgid "Pairs with 8 hours in the sleeper berth."
+msgstr "Kabin yatağında 8 saatle eşleşir."
+
+msgid "Pairs with 7 hours in the sleeper berth."
+msgstr "Kabin yatağında 7 saatle eşleşir."
+
+msgid "Pairs with 3 more hours at parking where you can sleep."
+msgstr "Uyuyabileceğiniz bir park yerinde 3 saat daha ile eşleşir."
+
+msgid "Pairs with 2 more hours at parking where you can sleep."
+msgstr "Uyuyabileceğiniz bir park yerinde 2 saat daha ile eşleşir."
+
+#. placeholders: {pair}, {hours}
+msgid "{pair} Clock and deadline advance {hours} hours."
+msgstr "{pair} Saat ve teslim süresi {hours} saat ilerler."
+
+#. placeholders: {f}
+msgid "Brake job: {f} percent wear, carrier billed"
+msgstr "Fren işi: yüzde {f} aşınma, fatura taşıyıcı firmaya"
+
+msgid "Resting at a stop"
+msgstr "Mola yerinde dinleniyor"
+
+#. placeholders: {grouped}, {rest}
+msgid "{grouped} dollars and {rest} cents"
+msgstr "{grouped} dolar {rest} sent"
+
+msgid "Reweigh"
+msgstr "Yeniden tartım"
+
+msgid "Weigh"
+msgstr "Tartım"
+
+#. placeholders: {verb}, {dollars_and_cents}
+msgid "{verb} on the CAT Scale: {dollars_and_cents}"
+msgstr "CAT Scale, {verb}: {dollars_and_cents}"
+
+#. placeholders: {verb}
+msgid "{verb} on the CAT Scale, carrier billed"
+msgstr "CAT Scale, {verb}, fatura taşıyıcı firmaya"
+
+#. one sentence of a longer line
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
+msgstr ""
+"CAT Scale fişi: ön aks, çeker aks, dorse ve toplam ağırlık, eyalet "
+"kantarından önce."
+
+#. placeholders: {dollars_and_cents}, {f}
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
+"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
+msgstr ""
+"CAT Scale fişi: ön aks, çeker aks, dorse ve toplam ağırlık, eyalet "
+"kantarından önce. 24 saat içinde yeniden tartım {dollars_and_cents}. "
+"Görevde {f} dakika."
+
+#. placeholders: {dollars_and_cents}
+#. one sentence of a longer line
+msgid "Reweigh within 24 hours is {dollars_and_cents}."
+msgstr "24 saat içinde yeniden tartım {dollars_and_cents}."
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
+msgstr "Tartım {dollars_and_cents}, sizde {grouped} dolar var."
+
+msgid "CAT Scale weigh"
+msgstr "CAT Scale tartımı"
+
+msgid "Billed to the carrier."
+msgstr "Fatura taşıyıcı firmaya."
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "{dollars_and_cents}. You have {grouped} dollars."
+msgstr "{dollars_and_cents}. Sizde {grouped} dolar var."
+
+#. one sentence of a longer line
+msgid "CAT Scale ticket."
+msgstr "CAT Scale fişi."
+
+#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
+msgid ""
+"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
+msgstr ""
+"CAT Scale fişi. {ticket} {billing} Saat {clock_text}. {deadline_text}"
+
+#. placeholders: {ticket}, {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{ticket} {billing} It is {clock_text}."
+msgstr "{ticket} {billing} Saat {clock_text}."
+
+#. placeholders: {grouped}
+msgid "Buy snow chains: {grouped} dollars"
+msgstr "Kar zinciri al: {grouped} dolar"
+
+msgid "Buy snow chains, carrier billed"
+msgstr "Kar zinciri al, fatura taşıyıcı firmaya"
+
+#. one sentence of a longer line
+msgid "A new set with two spare repair links."
+msgstr "İki yedek onarım halkalı yeni bir takım."
+
+#. placeholders: {f}
+msgid "A new set with two spare repair links. {f} minutes on duty."
+msgstr "İki yedek onarım halkalı yeni bir takım. Görevde {f} dakika."
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"A set of snow chains costs {grouped} dollars and you have {grouped2} "
+"dollars."
+msgstr "Bir takım kar zinciri {grouped} dolar, sizde {grouped2} dolar var."
+
+#. placeholders: {grouped}, {grouped2}
+msgid "{grouped} dollars. You have {grouped2} dollars."
+msgstr "{grouped} dolar. Sizde {grouped2} dolar var."
+
+#. one sentence of a longer line
+msgid "A new set of snow chains is in the side box."
+msgstr "Yan kutuda yeni bir takım kar zinciri var."
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"A new set of snow chains is in the side box. {billing} It is {clock_text}."
+msgstr ""
+"Yan kutuda yeni bir takım kar zinciri var. {billing} Saat {clock_text}."
+
+#. placeholders: {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{billing} It is {clock_text}."
+msgstr "{billing} Saat {clock_text}."
+
 msgid "The truck does not need repair."
 msgstr "Tırın onarıma ihtiyacı yok."
 
@@ -31354,147 +31495,6 @@ msgstr "Tur bitti, {f} dakika. {body} Saat {clock_text}. {deadline_text}"
 #. one sentence of a longer line
 msgid "{body} It is {clock_text}."
 msgstr "{body} Saat {clock_text}."
-
-msgid "No real-time parking data nearby."
-msgstr "Yakında anlık park bilgisi yok."
-
-#. placeholders: {total_available}
-msgid "Real-time parking: {total_available} spaces available nearby."
-msgstr "Anlık park: yakında {total_available} boş yer var."
-
-msgid "Real-time parking: nearby lots are full."
-msgstr "Anlık park: yakındaki otoparklar dolu."
-
-msgid "Pairs with 8 hours in the sleeper berth."
-msgstr "Kabin yatağında 8 saatle eşleşir."
-
-msgid "Pairs with 7 hours in the sleeper berth."
-msgstr "Kabin yatağında 7 saatle eşleşir."
-
-msgid "Pairs with 3 more hours at parking where you can sleep."
-msgstr "Uyuyabileceğiniz bir park yerinde 3 saat daha ile eşleşir."
-
-msgid "Pairs with 2 more hours at parking where you can sleep."
-msgstr "Uyuyabileceğiniz bir park yerinde 2 saat daha ile eşleşir."
-
-#. placeholders: {pair}, {hours}
-msgid "{pair} Clock and deadline advance {hours} hours."
-msgstr "{pair} Saat ve teslim süresi {hours} saat ilerler."
-
-#. placeholders: {f}
-msgid "Brake job: {f} percent wear, carrier billed"
-msgstr "Fren işi: yüzde {f} aşınma, fatura taşıyıcı firmaya"
-
-msgid "Resting at a stop"
-msgstr "Mola yerinde dinleniyor"
-
-#. placeholders: {grouped}, {rest}
-msgid "{grouped} dollars and {rest} cents"
-msgstr "{grouped} dolar {rest} sent"
-
-msgid "Reweigh"
-msgstr "Yeniden tartım"
-
-msgid "Weigh"
-msgstr "Tartım"
-
-#. placeholders: {verb}, {dollars_and_cents}
-msgid "{verb} on the CAT Scale: {dollars_and_cents}"
-msgstr "CAT Scale, {verb}: {dollars_and_cents}"
-
-#. placeholders: {verb}
-msgid "{verb} on the CAT Scale, carrier billed"
-msgstr "CAT Scale, {verb}, fatura taşıyıcı firmaya"
-
-#. one sentence of a longer line
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
-msgstr ""
-"CAT Scale fişi: ön aks, çeker aks, dorse ve toplam ağırlık, eyalet "
-"kantarından önce."
-
-#. placeholders: {dollars_and_cents}, {f}
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
-"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
-msgstr ""
-"CAT Scale fişi: ön aks, çeker aks, dorse ve toplam ağırlık, eyalet "
-"kantarından önce. 24 saat içinde yeniden tartım {dollars_and_cents}. "
-"Görevde {f} dakika."
-
-#. placeholders: {dollars_and_cents}
-#. one sentence of a longer line
-msgid "Reweigh within 24 hours is {dollars_and_cents}."
-msgstr "24 saat içinde yeniden tartım {dollars_and_cents}."
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
-msgstr "Tartım {dollars_and_cents}, sizde {grouped} dolar var."
-
-msgid "CAT Scale weigh"
-msgstr "CAT Scale tartımı"
-
-msgid "Billed to the carrier."
-msgstr "Fatura taşıyıcı firmaya."
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "{dollars_and_cents}. You have {grouped} dollars."
-msgstr "{dollars_and_cents}. Sizde {grouped} dolar var."
-
-#. one sentence of a longer line
-msgid "CAT Scale ticket."
-msgstr "CAT Scale fişi."
-
-#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
-msgid ""
-"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
-msgstr ""
-"CAT Scale fişi. {ticket} {billing} Saat {clock_text}. {deadline_text}"
-
-#. placeholders: {ticket}, {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{ticket} {billing} It is {clock_text}."
-msgstr "{ticket} {billing} Saat {clock_text}."
-
-#. placeholders: {grouped}
-msgid "Buy snow chains: {grouped} dollars"
-msgstr "Kar zinciri al: {grouped} dolar"
-
-msgid "Buy snow chains, carrier billed"
-msgstr "Kar zinciri al, fatura taşıyıcı firmaya"
-
-#. one sentence of a longer line
-msgid "A new set with two spare repair links."
-msgstr "İki yedek onarım halkalı yeni bir takım."
-
-#. placeholders: {f}
-msgid "A new set with two spare repair links. {f} minutes on duty."
-msgstr "İki yedek onarım halkalı yeni bir takım. Görevde {f} dakika."
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"A set of snow chains costs {grouped} dollars and you have {grouped2} "
-"dollars."
-msgstr "Bir takım kar zinciri {grouped} dolar, sizde {grouped2} dolar var."
-
-#. placeholders: {grouped}, {grouped2}
-msgid "{grouped} dollars. You have {grouped2} dollars."
-msgstr "{grouped} dolar. Sizde {grouped2} dolar var."
-
-#. one sentence of a longer line
-msgid "A new set of snow chains is in the side box."
-msgstr "Yan kutuda yeni bir takım kar zinciri var."
-
-#. placeholders: {billing}, {clock_text}
-msgid ""
-"A new set of snow chains is in the side box. {billing} It is {clock_text}."
-msgstr ""
-"Yan kutuda yeni bir takım kar zinciri var. {billing} Saat {clock_text}."
-
-#. placeholders: {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{billing} It is {clock_text}."
-msgstr "{billing} Saat {clock_text}."
 
 msgid "Return to terminal"
 msgstr "Terminale dön"
