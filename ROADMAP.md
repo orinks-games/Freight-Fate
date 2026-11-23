@@ -6598,6 +6598,15 @@ a carrier slice (owner, 2026-10-26).
       bridge posted at 40 short tons refused it.
 - Hazard to Morehead is not built: KY 205 is posted at 62,000 lb in
       Kentucky's truck weight classes.
+- Bristol to Hickory rides US 421 over Holston and Iron Mountain (The
+      Snake, a 46 ft switchback at mile 24.7) and stays: checked 2026-11-23,
+      OpenStreetMap has no maxlength, maxweight or truck ban on its ways
+      (hgv=destination only on King Street in Boone, which the leg does not
+      ride), and TDOT's restrictions page and its one curve-road length
+      limit (30 ft on US 129, The Dragon, 2014) do not name US 421. The next
+      legal roads run 126 miles (via Elizabethton and Mountain City) and
+      142 (I-26 and US 19E) against 102. If TDOT or NCDOT posts a truck
+      length limit there, the leg comes out.
 - [ ] (Found along the way) Tolls still unread: the Monroe Expressway on
       Charlotte to Florence (the only five-axle table found is a 2023 PDF)
       and the Dominion Boulevard Veterans Bridge on Greenville to Norfolk.
