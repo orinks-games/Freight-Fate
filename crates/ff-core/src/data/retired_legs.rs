@@ -123,6 +123,29 @@ pub const RETIRED_LEGS: &[(&str, &str, &[&str])] = &[
             "cleveland_oh_us",
         ],
     ),
+    // Appalachia and Mid-South missing roads (2026-11-23): legs split at a
+    // city they pass.
+    (
+        "johnson_city_tn_us",
+        "pikeville_ky_us",
+        &["johnson_city_tn_us", "kingsport_tn_us", "pikeville_ky_us"],
+    ),
+    (
+        "asheville_nc_us",
+        "winston_salem_nc_us",
+        &["asheville_nc_us", "hickory_nc_us", "winston_salem_nc_us"],
+    ),
+    (
+        "charleston_wv_us",
+        "richmond_va_us",
+        &[
+            "charleston_wv_us",
+            "beckley_wv_us",
+            "staunton_va_us",
+            "charlottesville_va_us",
+            "richmond_va_us",
+        ],
+    ),
 ];
 
 /// The replacement chain for a retired hop `a` to `b`, in travel order.
