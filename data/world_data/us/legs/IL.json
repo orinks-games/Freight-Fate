@@ -1496,7 +1496,47 @@
       "miles": 41,
       "highway": "I-88",
       "terrain": "flat",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Speedway",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 549835492 (amenity=fuel, brand=Speedway, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 2.3
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1431395389 (amenity=parking, hgv=designated), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 28.7
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -1536,6 +1576,283 @@
         "source": "Piece of the former Des Moines to Chicago leg (old miles 295.8 to 334), split at Aurora for the missing roads pass, Upper Midwest and Northern Plains (Career 2.0, 2026-11-23; decision 2), then routed by Valhalla truck costing over OpenStreetMap (valhalla1.openstreetmap.de).",
         "interchanges": [
           {
+            "at_mi": 2.9,
+            "exit_ref": "117",
+            "name": "",
+            "destinations": [
+              "Aurora",
+              "North Aurora",
+              "Mooseheart"
+            ],
+            "via": "IL 31;IL 56 East",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 3275.7,
+            "ramp_terminal_backward": {
+              "node": 1892891817,
+              "lat": 41.7937277,
+              "lon": -88.3232052
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 5.0,
+            "exit_ref": "119",
+            "name": "",
+            "destinations": [
+              "Farnsworth Avenue",
+              "South Farnsworth Avenue",
+              "Premium Outlet Boulevard"
+            ],
+            "via": "",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1347.1,
+            "ramp_terminal_backward": {
+              "node": 9025709633,
+              "lat": 41.7994125,
+              "lon": -88.2821291
+            },
+            "ramp_length_ft_forward": 1447.3,
+            "ramp_terminal_forward": {
+              "node": 5344583301,
+              "lat": 41.79699,
+              "lon": -88.282104
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 7.1,
+            "exit_ref": "121",
+            "name": "",
+            "destinations": [],
+            "via": "CR 14",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 35.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link ways of this exit's ramp, per direction of travel (read; a directional suffix resolved from the way's drawn direction), the lowest on any branch of the ramp, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 3657.4,
+            "ramp_terminal_backward": {
+              "node": 1612083922,
+              "lat": 41.8053862,
+              "lon": -88.2457451
+            },
+            "ramp_length_ft_forward": 2057.5,
+            "ramp_terminal_forward": {
+              "node": 5072887474,
+              "lat": 41.7981831,
+              "lon": -88.2471675
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 9.3,
+            "exit_ref": "123",
+            "name": "",
+            "destinations": [
+              "Naperville",
+              "Plainfield",
+              "Warrenville"
+            ],
+            "via": "IL 59",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 25.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link ways of this exit's ramp, per direction of travel (read; a directional suffix resolved from the way's drawn direction), the lowest on any branch of the ramp, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 2289.1,
+            "ramp_terminal_backward": {
+              "node": 4748432673,
+              "lat": 41.8044118,
+              "lon": -88.2034993
+            },
+            "ramp_length_ft_forward": 1687.0,
+            "ramp_terminal_forward": {
+              "node": 5216732292,
+              "lat": 41.8017885,
+              "lon": -88.2040221
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 13.3,
+            "exit_ref": "127",
+            "name": "",
+            "destinations": [
+              "Naperville Road",
+              "Children's Museum",
+              "Naper Settlement"
+            ],
+            "via": "",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_advisory_forward": 40.0,
+            "ramp_advisory_backward": 40.0,
+            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link ways of this exit's ramp, per direction of travel (read; a directional suffix resolved from the way's drawn direction), the lowest on any branch of the ramp, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1810.4,
+            "ramp_terminal_backward": {
+              "node": 1760594387,
+              "lat": 41.8068815,
+              "lon": -88.1241126
+            },
+            "ramp_length_ft_forward": 1944.3,
+            "ramp_terminal_forward": {
+              "node": 5066144149,
+              "lat": 41.8054479,
+              "lon": -88.1253842
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 16.6,
+            "exit_ref": "131",
+            "name": "",
+            "destinations": [
+              "Joliet",
+              "Ogden Avenue",
+              "Lisle"
+            ],
+            "via": "I 355 Toll South",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_forward": 4122.1,
+            "ramp_terminal_forward": {
+              "node": 853317140,
+              "lat": 41.8035486,
+              "lon": -88.056516
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 19.4,
+            "exit_ref": "131B",
+            "name": "",
+            "destinations": [
+              "Northwest Suburbs",
+              "Butterfield Road",
+              "Oak Brook"
+            ],
+            "via": "I 355 Toll North",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 5071.6,
+            "ramp_terminal_backward": {
+              "node": 237608049,
+              "lat": 41.8331117,
+              "lon": -88.027817
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 22.2,
+            "exit_ref": "136",
+            "name": "",
+            "destinations": [
+              "Midwest Road"
+            ],
+            "via": "",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_forward": 1515.4,
+            "ramp_terminal_forward": {
+              "node": 1892892219,
+              "lat": 41.8432219,
+              "lon": -87.9722334
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 24.3,
+            "exit_ref": "138",
+            "name": "",
+            "destinations": [
+              "Indiana",
+              "York Road",
+              "Oak Brook"
+            ],
+            "via": "I 294 South;IL 38",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 1437.8,
+            "ramp_terminal_backward": {
+              "node": 237613973,
+              "lat": 41.8468401,
+              "lon": -87.9480876
+            },
+            "ramp_length_ft_forward": 2942.8,
+            "ramp_terminal_forward": {
+              "node": 5346774375,
+              "lat": 41.8513214,
+              "lon": -87.9293594
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
+            "at_mi": 26.6,
+            "exit_ref": "15A",
+            "name": "",
+            "destinations": [],
+            "via": "",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "ramp_control": "signal",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_far_end": "surface",
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_forward": 7301.2,
+            "ramp_terminal_forward": {
+              "node": 345104958,
+              "lat": 41.8682141,
+              "lon": -87.8828723
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
+          },
+          {
             "at_mi": 29.7,
             "exit_ref": "168",
             "name": "",
@@ -1565,179 +1882,400 @@
             "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/"
           },
           {
-            "at_mi": 41.0,
-            "exit_ref": "216",
+            "at_mi": 33.4,
+            "exit_ref": "23A",
             "name": "",
             "destinations": [
-              "Merango",
-              "North English"
+              "Austin Boulevard",
+              "Central Avenue"
             ],
             "via": "",
-            "highway": "I-80",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-10-19. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
-            "ramp_far_end": "surface",
-            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-10-19. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
-            "ramp_length_ft_backward": 1590.4,
-            "ramp_terminal_backward": {
-              "node": 159972582,
-              "lat": 41.6900591,
-              "lon": -92.066189
-            },
-            "ramp_length_ft_forward": 2241.7,
-            "ramp_terminal_forward": {
-              "node": 159974322,
-              "lat": 41.6873493,
-              "lon": -92.0662202
-            },
-            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/",
-            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/"
-          },
-          {
-            "at_mi": 41.0,
-            "exit_ref": "246",
-            "name": "",
-            "destinations": [
-              "Mount Vernon"
-            ],
-            "via": "IA 1",
-            "highway": "I-80",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-10-19. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
             "ramp_control": "signal",
-            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
             "ramp_far_end": "surface",
-            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-10-19. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
-            "ramp_length_ft_backward": 1588.2,
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 2003.5,
             "ramp_terminal_backward": {
-              "node": 160085230,
-              "lat": 41.687986,
-              "lon": -91.4985
+              "node": 345099197,
+              "lat": 41.8711193,
+              "lon": -87.774317
             },
-            "ramp_length_ft_forward": 1541.4,
+            "ramp_length_ft_forward": 1472.8,
             "ramp_terminal_forward": {
-              "node": 3933193563,
-              "lat": 41.6854996,
-              "lon": -91.5004848
+              "node": 345099281,
+              "lat": 41.8710455,
+              "lon": -87.774314
             },
-            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/",
-            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/"
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
           },
           {
-            "at_mi": 41.0,
-            "exit_ref": "259",
+            "at_mi": 36.8,
+            "exit_ref": "26B",
             "name": "",
             "destinations": [
-              "West Liberty"
+              "Homan Avenue",
+              "Sacramento Boulevard",
+              "Sacramento Avenue"
             ],
             "via": "",
-            "highway": "I-80",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-10-19. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
-            "ramp_far_end": "surface",
-            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-10-19. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
-            "ramp_advisory_forward": 45.0,
-            "ramp_advisory_backward": 45.0,
-            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link ways of this exit's ramp, per direction of travel (read; a directional suffix resolved from the way's drawn direction), the lowest on any branch of the ramp, OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/",
-            "ramp_length_ft_backward": 1380.3,
-            "ramp_terminal_backward": {
-              "node": 159226512,
-              "lat": 41.664495,
-              "lon": -91.249621
-            },
-            "ramp_length_ft_forward": 1555.4,
-            "ramp_terminal_forward": {
-              "node": 159226495,
-              "lat": 41.661607,
-              "lon": -91.249594
-            },
-            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/",
-            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/"
-          },
-          {
-            "at_mi": 41.0,
-            "exit_ref": "54",
-            "name": "",
-            "destinations": [
-              "Dixon"
-            ],
-            "via": "IL 26",
-            "highway": "I-80",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-10-19. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
-            "ramp_far_end": "surface",
-            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-10-19. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
-            "ramp_length_ft_backward": 3721.4,
-            "ramp_terminal_backward": {
-              "node": 3537258110,
-              "lat": 41.8206064,
-              "lon": -89.47364
-            },
-            "ramp_length_ft_forward": 5202.2,
-            "ramp_terminal_forward": {
-              "node": 3537258110,
-              "lat": 41.8206064,
-              "lon": -89.47364
-            },
-            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/",
-            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/"
-          },
-          {
-            "at_mi": 41.0,
-            "exit_ref": "76",
-            "name": "",
-            "destinations": [
-              "Rochelle",
-              "Mendota"
-            ],
-            "via": "IL 251",
-            "highway": "I-80",
-            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-10-19. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
-            "ramp_far_end": "surface",
-            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-10-19. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
-            "ramp_length_ft_backward": 2073.4,
-            "ramp_terminal_backward": {
-              "node": 236765161,
-              "lat": 41.9019514,
-              "lon": -89.0682171
-            },
-            "ramp_length_ft_forward": 2566.5,
-            "ramp_terminal_forward": {
-              "node": 3175909103,
-              "lat": 41.8988965,
-              "lon": -89.0683289
-            },
-            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/",
-            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-10-19: https://www.openstreetmap.org/"
-          },
-          {
-            "at_mi": 41.0,
-            "exit_ref": "29B",
-            "name": "",
-            "destinations": [
-              "Wisconsin",
-              "Madison Street",
-              "Washington Street"
-            ],
-            "via": "I 90 West;I 94 West",
-            "highway": "I-80",
-            "source": "OpenStreetMap highway=motorway_junction exit ref and destination sign tags on the leg's Interstate shield, snapped to checked-in OSRM route geometry, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "highway": "I-88",
+            "source": "Exit ref, name and destination signs read from OpenStreetMap highway=motorway_junction nodes on a motorway or trunk way running along the leg's archived route, and the destination tags of this exit's own motorway_link ramps, OpenStreetMap planet file of 2026-11-16. at_mi derived: the mean of the exit's junction nodes (one per carriageway) projected onto that route, rescaled to the leg's miles: https://www.openstreetmap.org/",
             "ramp_control": "signal",
-            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
+            "ramp_control_source": "OpenStreetMap highway=traffic_signals/highway=stop/highway=give_way node within 120 m of the walked terminal node where this exit's ramp chain ends (read; the walk supplies the node, the tag supplies the control), OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
             "ramp_far_end": "surface",
-            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from the gore in a local Geofabrik extract, accessed 2026-06-23. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
-            "ramp_advisory_forward": 25.0,
-            "ramp_advisory_backward": 25.0,
-            "ramp_advisory_source": "OpenStreetMap maxspeed:advisory on the motorway_link way at this exit (read; directional suffix resolved from OSM way direction into leg direction), from a local Geofabrik extract, accessed 2026-06-23: https://www.openstreetmap.org/",
-            "ramp_length_ft_backward": 1124.4,
-            "ramp_length_ft_forward": 3136.2,
-            "ramp_terminal_forward": {
-              "node": 1309410892,
-              "lat": 41.8696819,
-              "lon": -87.64536
+            "ramp_far_end_source": "derived: this exit's motorway_link chains walked from every gore within 500 m of its junction nodes, both carriageways, in the OpenStreetMap planet file of 2026-11-16. 'motorway' means every chain merges onto a highway=motorway way; 'surface' means at least one chain ends off the motorway network: https://www.openstreetmap.org/",
+            "ramp_length_ft_backward": 978.3,
+            "ramp_terminal_backward": {
+              "node": 737087309,
+              "lat": 41.874567,
+              "lon": -87.7101996
             },
-            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included; direction from the ramp's first edge against the leg. Screened: under 300 ft or over 1.5 mi dropped, not clamped. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/",
-            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. Local Geofabrik extract accessed 2026-06-23: https://www.openstreetmap.org/"
+            "ramp_length_ft_forward": 886.7,
+            "ramp_terminal_forward": {
+              "node": 261154468,
+              "lat": 41.8743454,
+              "lon": -87.7010258
+            },
+            "ramp_length_source": "derived from OpenStreetMap geometry: summed node-to-node distance along this exit's motorway_link way(s), from the gore node where the ramp leaves the motorway to the nearest node where it ends (a public road -- trunk to residential, not a service or private way -- or a dead end, else a motorway merge). Per direction of travel: the gore nearest the exit's junction nodes whose first ramp edge runs that way. Starts at the OSM diverge, at or near the gore, so any deceleration lane before it is not included. Screened: under 300 ft or over 1.5 mi dropped, not clamped. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/",
+            "ramp_terminal_source": "read from OpenStreetMap topology: the node where the same walk that measures ramp_length ends (the public crossroad or dead end the motorway_link way reaches), per direction of travel. Only baked beside a length that passed its screen, and never for a ramp that ends in a merge. OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/"
           }
         ],
         "tollway_detected": true,
-        "landmarks": [],
+        "landmarks": [
+          {
+            "name": "Fox River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 3.2,
+            "lat": 41.79598,
+            "lon": -88.32078,
+            "spoken": "Crossing the Fox River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 1499995467 (Fox River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "West Branch DuPage River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 10.7,
+            "lat": 41.80589,
+            "lon": -88.1759,
+            "spoken": "Crossing the West Branch DuPage River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 491478373 (West Branch DuPage River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Warrenville",
+            "at_mi": 10.8,
+            "off_mi": 0.82,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153594243, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Warrenville"
+          },
+          {
+            "name": "East Branch DuPage River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 15.6,
+            "lat": 41.80723,
+            "lon": -88.08122,
+            "spoken": "Crossing the East Branch DuPage River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 30656926 (East Branch DuPage River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Lisle",
+            "at_mi": 15.7,
+            "off_mi": 0.55,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153463922, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Lisle"
+          },
+          {
+            "name": "Cleve Carney Museum of Art",
+            "category": "museum",
+            "kind": "point",
+            "at_mi": 16.2,
+            "lat": 41.80998,
+            "lon": -88.06972,
+            "spoken": "Passing Cleve Carney Museum of Art",
+            "source": "derived: name and category read from the OpenStreetMap tags of node 13032254245 (Cleve Carney Museum of Art); placed at the nearest projection of it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "Downers Grove",
+            "at_mi": 18.1,
+            "off_mi": 1.62,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 25779941, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Downers Grove"
+          },
+          {
+            "name": "Westmont",
+            "at_mi": 18.4,
+            "off_mi": 3.02,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153518066, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Westmont"
+          },
+          {
+            "name": "Villa Park",
+            "at_mi": 22.2,
+            "off_mi": 3.12,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153589666, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Villa Park"
+          },
+          {
+            "name": "Oakbrook Terrace",
+            "at_mi": 22.7,
+            "off_mi": 0.39,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153618591, projected onto the leg's checked-in route geometry",
+            "spoken": "Entering Oakbrook Terrace"
+          },
+          {
+            "name": "Clarendon Hills",
+            "at_mi": 23.1,
+            "off_mi": 3.34,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153737983, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Clarendon Hills"
+          },
+          {
+            "name": "Oak Brook",
+            "at_mi": 23.4,
+            "off_mi": 0.82,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153769536, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Oak Brook"
+          },
+          {
+            "name": "Hinsdale",
+            "at_mi": 23.5,
+            "off_mi": 3.07,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153522592, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Hinsdale"
+          },
+          {
+            "name": "Western Springs",
+            "at_mi": 23.7,
+            "off_mi": 3.37,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153480864, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Western Springs"
+          },
+          {
+            "name": "Elmhurst",
+            "at_mi": 26.1,
+            "off_mi": 2.4,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153764754, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Elmhurst"
+          },
+          {
+            "name": "Berkeley",
+            "at_mi": 26.6,
+            "off_mi": 1.07,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153480007, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Berkeley"
+          },
+          {
+            "name": "Hillside",
+            "at_mi": 26.7,
+            "off_mi": 0.3,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153742315, projected onto the leg's checked-in route geometry",
+            "spoken": "Entering Hillside"
+          },
+          {
+            "name": "Northlake",
+            "at_mi": 26.7,
+            "off_mi": 3.05,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153760478, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Northlake"
+          },
+          {
+            "name": "Stone Park",
+            "at_mi": 26.9,
+            "off_mi": 2.4,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153482054, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Stone Park"
+          },
+          {
+            "name": "Bellwood",
+            "at_mi": 27.8,
+            "off_mi": 0.82,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153670106, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Bellwood"
+          },
+          {
+            "name": "Westchester",
+            "at_mi": 27.8,
+            "off_mi": 1.31,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153666182, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Westchester"
+          },
+          {
+            "name": "La Grange Park",
+            "at_mi": 28.5,
+            "off_mi": 2.59,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153496579, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing La Grange Park"
+          },
+          {
+            "name": "Melrose Park",
+            "at_mi": 29.1,
+            "off_mi": 2.02,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153728796, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Melrose Park"
+          },
+          {
+            "name": "Broadview",
+            "at_mi": 29.2,
+            "off_mi": 0.49,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 12292993220, projected onto the leg's checked-in route geometry",
+            "spoken": "Entering Broadview"
+          },
+          {
+            "name": "Brookfield",
+            "at_mi": 29.5,
+            "off_mi": 3.34,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153571478, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Brookfield"
+          },
+          {
+            "name": "Maywood",
+            "at_mi": 29.8,
+            "off_mi": 0.54,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153426523, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Maywood"
+          },
+          {
+            "name": "Des Plaines River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 30.7,
+            "lat": 41.87202,
+            "lon": -87.82551,
+            "spoken": "Crossing the Des Plaines River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 1335997551 (Des Plaines River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          },
+          {
+            "name": "North Riverside",
+            "at_mi": 31.0,
+            "off_mi": 1.77,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153737536, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing North Riverside"
+          },
+          {
+            "name": "Riverside",
+            "at_mi": 31.0,
+            "off_mi": 2.76,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153359947, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Riverside"
+          },
+          {
+            "name": "Forest Park",
+            "at_mi": 31.4,
+            "off_mi": 0.39,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153399772, projected onto the leg's checked-in route geometry",
+            "spoken": "Entering Forest Park"
+          },
+          {
+            "name": "River Forest",
+            "at_mi": 31.4,
+            "off_mi": 1.65,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=village node 153450833, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing River Forest"
+          },
+          {
+            "name": "Elmwood Park",
+            "at_mi": 31.4,
+            "off_mi": 3.23,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153591171, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Elmwood Park"
+          },
+          {
+            "name": "Berwyn",
+            "at_mi": 32.4,
+            "off_mi": 1.52,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153363158, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Berwyn"
+          },
+          {
+            "name": "Oak Park",
+            "at_mi": 32.5,
+            "off_mi": 1.07,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153519846, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Oak Park"
+          },
+          {
+            "name": "Cicero",
+            "at_mi": 34.4,
+            "off_mi": 1.78,
+            "category": "village",
+            "kind": "point",
+            "source": "OpenStreetMap place=town node 153769836, projected onto the leg's checked-in route geometry",
+            "spoken": "Passing Cicero"
+          },
+          {
+            "name": "South Branch Chicago River",
+            "category": "river",
+            "kind": "point",
+            "at_mi": 40.4,
+            "lat": 41.87546,
+            "lon": -87.63658,
+            "spoken": "Crossing the South Branch Chicago River",
+            "source": "derived: name and category read from the OpenStreetMap tags of way 1308480104 (South Branch Chicago River); placed at the crossing of the road with it on the leg's archived route geometry, rescaled to leg miles. OpenStreetMap, OpenStreetMap planet file of 2026-11-16: https://www.openstreetmap.org/."
+          }
+        ],
         "restrictions": [],
         "traffic_aadt": [
           {
@@ -1974,7 +2512,158 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "lane_segments": [
+          {
+            "start_mi": 0.0,
+            "end_mi": 0.5,
+            "lanes": 3,
+            "lanes_forward": 1,
+            "lanes_backward": 2,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 0.5,
+            "end_mi": 1.4,
+            "lanes": 4,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 1.4,
+            "end_mi": 1.8,
+            "lanes": 4,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 1.8,
+            "end_mi": 2.5,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 8.0,
+            "end_mi": 10.9,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 10.9,
+            "end_mi": 16.0,
+            "lanes": 4,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 16.0,
+            "end_mi": 16.8,
+            "lanes": 5,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 16.8,
+            "end_mi": 17.8,
+            "lanes": 4,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 17.8,
+            "end_mi": 18.4,
+            "lanes": 5,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 18.4,
+            "end_mi": 24.4,
+            "lanes": 4,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 24.4,
+            "end_mi": 25.6,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 25.6,
+            "end_mi": 26.1,
+            "lanes": 2,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 26.4,
+            "end_mi": 26.9,
+            "lanes": 1,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 26.9,
+            "end_mi": 34.0,
+            "lanes": 3,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 34.0,
+            "end_mi": 39.6,
+            "lanes": 4,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          },
+          {
+            "start_mi": 39.6,
+            "end_mi": 41.0,
+            "lanes": 5,
+            "oneway": true,
+            "source": "OpenStreetMap lanes tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; total per the OSM lanes semantics (directional on oneway carriageways). ODbL, (c) OpenStreetMap contributors."
+          }
+        ],
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Kane County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 6.2,
+            "name": "DuPage County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 25.6,
+            "name": "Cook County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ],
+        "speed_limits": [
+          {
+            "at_mi": 8.0,
+            "mph": 60,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 25.6,
+            "mph": 55,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 39.6,
+            "mph": 45,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          }
+        ]
       },
       "lanes": 3,
       "rerouted": true,

@@ -2668,9 +2668,6 @@
         {
           "name": "Arco",
           "type": "fuel_station",
-          "at_mi": 18.0,
-          "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
-          "parking": "limited",
           "actions": [
             "park",
             "save",
@@ -2681,9 +2678,33 @@
             "diesel",
             "parking"
           ],
-          "lat": 47.38152,
-          "lon": -94.61234,
-          "vehicle_access": "bobtail_only"
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 714450162 (amenity=fuel, brand=Arco, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 5.5
+        },
+        {
+          "name": "US2 rest area near Cass Lake",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 10,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Cass Lake Area Welcome Center on US2 in Cass Lake, MN with 10 truck parking spaces, mile post 131; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 19.6
         },
         {
           "name": "Holiday",
@@ -2713,7 +2734,167 @@
       "to": "st_cloud_mn_us",
       "miles": 159,
       "highway": "MN-371",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Arco",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 714450162 (amenity=fuel, brand=Arco, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 3.4
+        },
+        {
+          "name": "Arco",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+          "at_mi": 16.6
+        },
+        {
+          "name": "Cenex",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1221996698 (amenity=fuel, brand=Cenex, fuel:diesel=yes, operator=Orton's), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 37.8
+        },
+        {
+          "name": "Speedway",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 995873217 (amenity=fuel, brand=Speedway), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 73.8
+        },
+        {
+          "name": "Holiday",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 380244837 (amenity=fuel, brand=Holiday, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 96.7
+        },
+        {
+          "name": "MN371 rest area near Baxter",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 33,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Brainerd Lakes Area Welcome Center on MN371 in Baxter, MN with 33 truck parking spaces, mile post 20; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 104.6
+        },
+        {
+          "name": "Shell",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 5939110786 (amenity=fuel), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 122.0
+        },
+        {
+          "name": "Holiday",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1102564326 (amenity=fuel, brand=Holiday), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 125.5
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -4092,7 +4273,44 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Beltrami County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 6.8,
+            "name": "Hubbard County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 13.7,
+            "name": "Cass County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 72.8,
+            "name": "Crow Wing County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 112.6,
+            "name": "Morrison County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 137.2,
+            "name": "Benton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 158.3,
+            "name": "Stearns County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -4745,31 +4963,31 @@
           {
             "at_mi": 0.3,
             "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 0.5,
             "mph": 55,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 7.3,
             "mph": 70,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 21.4,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 23.3,
             "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
@@ -4779,43 +4997,43 @@
           {
             "at_mi": 50.8,
             "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 61.8,
             "mph": 55,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 62.1,
             "mph": 40,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 62.9,
             "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 84.3,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 84.6,
             "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 85.7,
             "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
@@ -4825,25 +5043,25 @@
           {
             "at_mi": 114.0,
             "mph": 35,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 116.2,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 117.5,
             "mph": 55,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 119.4,
             "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
@@ -4853,43 +5071,43 @@
           {
             "at_mi": 174.9,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 206.6,
             "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 207.3,
             "mph": 55,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 209.6,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 241.6,
             "mph": 35,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 248.1,
             "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 251.8,
             "mph": 25,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -9261,7 +9479,236 @@
       "to": "st_cloud_mn_us",
       "miles": 144,
       "highway": "I-35",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Kwik Trip",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.; at_mi derived 2026-10-01: the stop's own coordinates projected onto the rerouted Valhalla truck geometry (nearest point, distance rescaled to leg miles)",
+          "at_mi": 2.2
+        },
+        {
+          "name": "I-35N rest area near Duluth",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 10,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Thompson Hill Travel Information Center on I-35N in Duluth, MN with 10 truck parking spaces, mile post 250; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 6.7,
+          "directions": [
+            "reverse"
+          ]
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 12646034433 (amenity=parking, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 21.1
+        },
+        {
+          "name": "I-35N rest area near Mahtowa",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 11,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Culkin on I-35N in Mahtowa, MN with 11 truck parking spaces, mile post 226; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 30.9,
+          "directions": [
+            "reverse"
+          ]
+        },
+        {
+          "name": "Kwik Trip Gas Pumps",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+          "at_mi": 42.8
+        },
+        {
+          "name": "I-35S rest area near Sturgeon Lake",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 10,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists General Andrews on I-35S in Sturgeon Lake, MN with 10 truck parking spaces, mile post 208; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 48.6,
+          "directions": [
+            "forward"
+          ]
+        },
+        {
+          "name": "I-35N rest area near Askov",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 10,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Kettle River on I-35N in Askov, MN with 10 truck parking spaces, mile post 198; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 59.0,
+          "directions": [
+            "reverse"
+          ]
+        },
+        {
+          "name": "Kwik Trip",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+          "at_mi": 73.8
+        },
+        {
+          "name": "Direct Service",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 13411197133 (amenity=fuel), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 109.6
+        },
+        {
+          "name": "Holiday",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 1458318606 (amenity=fuel, brand=Holiday), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 113.9
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 12480390464 (amenity=parking, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 138.5
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -10879,7 +11326,44 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "St. Louis County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 11.7,
+            "name": "Carlton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 43.6,
+            "name": "Pine County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 86.2,
+            "name": "Kanabec County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 107.6,
+            "name": "Mille Lacs County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 120.8,
+            "name": "Benton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 143.3,
+            "name": "Stearns County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -14399,6 +14883,27 @@
           "vehicle_access": "bobtail_only"
         },
         {
+          "name": "US2 rest area near Floodwood",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 8,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Floodwood Rest Area on US2 in Floodwood, MN with 8 truck parking spaces, mile post 220; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 36.9
+        },
+        {
           "name": "Speedway",
           "type": "fuel_station",
           "at_mi": 41.5,
@@ -14417,6 +14922,30 @@
           "lat": 46.92427,
           "lon": -92.91531,
           "vehicle_access": "bobtail_only"
+        },
+        {
+          "name": "I-35N rest area near Duluth",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 10,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Thompson Hill Travel Information Center on I-35N in Duluth, MN with 10 truck parking spaces, mile post 250; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 76.5,
+          "directions": [
+            "reverse"
+          ]
         },
         {
           "name": "Kwik Trip",
@@ -16319,9 +16848,87 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Itasca County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 15.2,
+            "name": "Aitkin County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 70.4,
+            "name": "Crow Wing County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 77.1,
+            "name": "Mille Lacs County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 129.7,
+            "name": "Sherburne County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 149.2,
+            "name": "Wright County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 153.7,
+            "name": "Hennepin County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
+        {
+          "name": "Holiday",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 565107991 (amenity=fuel, brand=Holiday, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 53.1
+        },
+        {
+          "name": "US169 rest area near Onamia",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 9,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Rum River on US169 in Onamia, MN with 9 truck parking spaces, mile post 203; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 103.7
+        },
         {
           "name": "Rum River Rest Area",
           "type": "public_rest_area",
@@ -16341,6 +16948,26 @@
           "lat": 45.9240033,
           "lon": -93.6651692,
           "vehicle_access": "tractor_trailer"
+        },
+        {
+          "name": "Holiday",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 1458318606 (amenity=fuel, brand=Holiday), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 115.7
         },
         {
           "name": "Kwik Trip",
@@ -16383,6 +17010,49 @@
           "lat": 45.1968713,
           "lon": -93.5493156,
           "vehicle_access": "tractor_trailer"
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 770737745 (amenity=parking, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 155.7
+        },
+        {
+          "name": "I-94E rest area near Maple Grove",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 15,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Elm Creek on I-94E in Maple Grove, MN with 15 truck parking spaces, mile post 215; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 163.2,
+          "directions": [
+            "forward"
+          ]
         }
       ],
       "lanes": 2,
@@ -16425,7 +17095,129 @@
       "to": "st_cloud_mn_us",
       "miles": 147,
       "highway": "MN-371",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Holiday",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 565107991 (amenity=fuel, brand=Holiday, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 53.0
+        },
+        {
+          "name": "Holiday Station Stores",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1306677013 (amenity=fuel, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 67.7
+        },
+        {
+          "name": "Holiday",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 380244837 (amenity=fuel, brand=Holiday, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 85.0
+        },
+        {
+          "name": "MN371 rest area near Baxter",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 33,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Brainerd Lakes Area Welcome Center on MN371 in Baxter, MN with 33 truck parking spaces, mile post 20; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 92.7
+        },
+        {
+          "name": "Shell",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 5939110786 (amenity=fuel), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 110.0
+        },
+        {
+          "name": "Holiday",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1102564326 (amenity=fuel, brand=Holiday), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 113.5
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -17631,7 +18423,39 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Itasca County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 15.2,
+            "name": "Aitkin County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 58.3,
+            "name": "Crow Wing County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 100.6,
+            "name": "Morrison County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 125.3,
+            "name": "Benton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 146.3,
+            "name": "Stearns County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -19888,9 +20712,42 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "St. Louis County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 9.5,
+            "name": "Itasca County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
-      "stops": [],
+      "stops": [
+        {
+          "name": "Sinclair",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1202856494 (amenity=fuel, brand=Sinclair, fuel:diesel=yes, operator=Latvala Oil Company), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 14.7
+        }
+      ],
       "lanes": 2,
       "route_via": [
         {
@@ -22364,9 +23221,58 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Blue Earth County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 1.0,
+            "name": "Nicollet County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 2.8,
+            "name": "Blue Earth County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 16.6,
+            "name": "Waseca County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 38.1,
+            "name": "Steele County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
+        {
+          "name": "TA Express",
+          "type": "service_plaza",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep",
+            "fuel",
+            "food"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1369154971 (brand=TA, hgv=yes, highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 8.3
+        },
         {
           "name": "Kwik Trip",
           "type": "fuel_station",
@@ -22395,7 +23301,88 @@
       "to": "willmar_mn_us",
       "miles": 115,
       "highway": "US-212",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Kwik Trip",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 459894573 (amenity=fuel, brand=Kwik Trip, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 4.9
+        },
+        {
+          "name": "Cenex",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 5553707254 (amenity=fuel, brand=Cenex, opening_hours=Mo-Fr 08:00-17:00; Sa-Su closed, operator=UFC), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 32.1
+        },
+        {
+          "name": "Kwik Trip",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "source": "OpenStreetMap/Overpass development-time amenity query centered on the willmar_mn_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.; at_mi derived 2026-11-05: the stop's own coordinates projected onto the rerouted Valhalla truck geometry, rescaled to leg miles",
+          "at_mi": 113.6
+        },
+        {
+          "name": "Divine House Inc.",
+          "type": "service_plaza",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep",
+            "fuel",
+            "food"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 4796897598 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
+          "at_mi": 114.9
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -23270,7 +24257,49 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Blue Earth County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 1.0,
+            "name": "Nicollet County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 2.8,
+            "name": "Blue Earth County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 3.4,
+            "name": "Nicollet County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 39.2,
+            "name": "Sibley County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 51.4,
+            "name": "McLeod County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 64.3,
+            "name": "Renville County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 98.9,
+            "name": "Kandiyohi County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -27832,7 +28861,66 @@
       "to": "rice_lake_wi_us",
       "miles": 103,
       "highway": "US-63",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Jor Gas",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 843552423 (amenity=fuel), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 49.7
+        },
+        {
+          "name": "Clayton Wayside",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap relation 11036188 (highway=rest_area, operator=Village of Clayton), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
+          "at_mi": 70.8
+        },
+        {
+          "name": "VP Racing Fuels",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "source": "OpenStreetMap/Overpass development-time amenity query centered on the rice_lake_wi_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+          "at_mi": 102.7
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -29844,7 +30932,39 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Hennepin County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 4.7,
+            "name": "Ramsey County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 15.9,
+            "name": "Washington County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 26.3,
+            "name": "St. Croix County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 59.7,
+            "name": "Polk County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 75.6,
+            "name": "Barron County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -31562,6 +32682,29 @@
       },
       "stops": [
         {
+          "name": "Truck Parking",
+          "type": "truck_stop",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 12635926190 (amenity=fuel, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 4.9
+        },
+        {
           "name": "Kwik Trip",
           "type": "fuel_station",
           "at_mi": 16.25,
@@ -31580,6 +32723,25 @@
           "lat": 44.29163,
           "lon": -93.26134,
           "vehicle_access": "bobtail_only"
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 448587541 (amenity=parking, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 18.2
         },
         {
           "name": "Heath Creek",
@@ -31602,6 +32764,52 @@
           "parking": "confirmed",
           "curation": "curated",
           "parking_spaces": 20
+        },
+        {
+          "name": "I-35N rest area near Dundas",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 20,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists Heath Creek on I-35N in Dundas, MN with 20 truck parking spaces, mile post 68; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 27.3,
+          "directions": [
+            "forward"
+          ]
+        },
+        {
+          "name": "Flying J Travel Center",
+          "type": "service_plaza",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep",
+            "fuel",
+            "food"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 265726417 (brand=Flying J, hgv=yes, highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 28.6
         },
         {
           "name": "Kwik Trip #1116",
@@ -31644,6 +32852,73 @@
           "parking": "confirmed",
           "curation": "curated",
           "parking_spaces": 15
+        },
+        {
+          "name": "I-35S rest area near Elko",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 15,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists New Market on I-35S in Elko, MN with 15 truck parking spaces, mile post 75; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 34.3,
+          "directions": [
+            "reverse"
+          ]
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_stop",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 12635944770 (amenity=fuel, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 40.7
+        },
+        {
+          "name": "Bobby & Steve's Auto World",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 8081832888 (amenity=fuel, brand=Mobil, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 59.2
         }
       ],
       "divided": true,
@@ -32298,7 +33573,24 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Steele County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 10.4,
+            "name": "Dodge County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 29.6,
+            "name": "Olmsted County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [],
       "lanes": 2,
@@ -37237,7 +38529,135 @@
       "to": "waterloo_ia_us",
       "miles": 115,
       "highway": "US-63",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Truck Parking",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 142088252 (amenity=parking, hgv=designated, operator=Kwik Trip), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 5.6
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 138389762 (amenity=parking, hgv=designated, operator=Kwik Trip), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 11.1
+        },
+        {
+          "name": "State Line Wayside",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1364335723 (highway=rest_area, opening_hours=24/7, operator=Minnesota Department of Transportation), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
+          "at_mi": 41.2
+        },
+        {
+          "name": "Route 63 Travel Plaza",
+          "type": "truck_stop",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 859356887 (amenity=fuel), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed from its truck stop name and brand. Leg mile projected onto the leg's archived road.",
+          "at_mi": 42.2
+        },
+        {
+          "name": "Kwik Star",
+          "type": "truck_stop",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 3048023544 (amenity=fuel, brand=Kwik Star, opening_hours=24/7), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed from its truck stop name and brand. Leg mile projected onto the leg's archived road.",
+          "at_mi": 74.2
+        },
+        {
+          "name": "Kwik Star",
+          "type": "truck_stop",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 11228811921 (amenity=fuel, brand=Kwik Star), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed from its truck stop name and brand. Leg mile projected onto the leg's archived road.",
+          "at_mi": 112.2
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -38755,7 +40175,44 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Olmsted County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 14.1,
+            "name": "Mower County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 24.2,
+            "name": "Fillmore County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 41.3,
+            "name": "Howard County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 63.0,
+            "name": "Chickasaw County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 85.5,
+            "name": "Bremer County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 104.3,
+            "name": "Black Hawk County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -39583,69 +41040,39 @@
         ],
         "speed_limits": [
           {
-            "at_mi": 0.3,
-            "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
             "at_mi": 1.2,
             "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 1.4,
-            "mph": 40,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 2.2,
-            "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 2.7,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 9.5,
             "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 10.5,
             "mph": 70,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 44.4,
             "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 50.4,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 51.6,
-            "mph": 35,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
-            "hgv": false
-          },
-          {
-            "at_mi": 53.0,
-            "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -46594,11 +48021,76 @@
       },
       "stops": [
         {
+          "name": "Divine House Inc.",
+          "type": "service_plaza",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep",
+            "fuel",
+            "food"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 4796897598 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
+          "at_mi": 0.1
+        },
+        {
+          "name": "Willmar Auto Plaza - BP",
+          "type": "truck_stop",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 3383588583 (amenity=fuel, brand=BP), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed from its truck stop name and brand. Leg mile projected onto the leg's archived road.",
+          "at_mi": 1.2
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_stop",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 11739618737 (amenity=fuel, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 2.0
+        },
+        {
           "name": "Kwik Trip",
           "type": "fuel_station",
-          "at_mi": 47.0,
-          "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
-          "parking": "limited",
           "actions": [
             "park",
             "save",
@@ -46609,7 +48101,12 @@
             "diesel",
             "parking"
           ],
-          "vehicle_access": "bobtail_only"
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1212654186 (amenity=fuel, brand=Kwik Trip, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 44.5
         }
       ],
       "divided": false,
@@ -47451,9 +48948,63 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Kandiyohi County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 13.7,
+            "name": "Chippewa County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 40.0,
+            "name": "Yellow Medicine County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 40.2,
+            "name": "Lac qui Parle County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 75.2,
+            "name": "Deuel County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 98.8,
+            "name": "Codington County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
+        {
+          "name": "Divine House Inc.",
+          "type": "service_plaza",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep",
+            "fuel",
+            "food"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 4796897598 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
+          "at_mi": 0.3
+        },
         {
           "name": "Kwik Trip",
           "type": "fuel_station",
@@ -47473,6 +49024,26 @@
           "lat": 45.10209,
           "lon": -95.04347,
           "vehicle_access": "bobtail_only"
+        },
+        {
+          "name": "Cenex",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1510290150 (amenity=fuel, brand=Cenex), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 55.7
         }
       ],
       "lanes": 1,

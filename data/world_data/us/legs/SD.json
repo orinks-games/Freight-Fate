@@ -5,7 +5,28 @@
       "to": "jamestown_nd_us",
       "miles": 104,
       "highway": "US-281",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Cenex C-Store",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 506223447 (amenity=fuel, brand=Cenex, opening_hours=Mo-Su 06:00-22:00), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; tractor-trailer access assumed: a rural station on the highway itself, between towns on a road whose freight moves by tractor-trailer, and the only fuel the leg's middle stretch has; the map does not say; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 64.8
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -569,7 +590,29 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Brown County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 33.9,
+            "name": "Dickey County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 59.4,
+            "name": "LaMoure County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 84.3,
+            "name": "Stutsman County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -581,7 +624,69 @@
       "to": "mitchell_sd_us",
       "miles": 143,
       "highway": "US-281",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Cenex",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 562892808 (amenity=fuel, brand=Cenex, fuel:diesel=yes, opening_hours=Su-Sa 06:00-23:00), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 42.6
+        },
+        {
+          "name": "281 Travel Center",
+          "type": "travel_center",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "likely",
+          "vehicle_access": "tractor_trailer",
+          "source": "OpenStreetMap/Overpass dense in-gap corridor amenity query, accessed 2026-07-19; added to close a stretch with no truck-accessible service after the truck-accessibility sweep. Curated into a gameplay POI (clean name, normalized category) without raw OSM IDs.",
+          "at_mi": 76.0
+        },
+        {
+          "name": "Express 2",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 7195709264 (amenity=fuel), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 109.5
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -1403,7 +1508,39 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Brown County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 16.9,
+            "name": "Spink County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 59.8,
+            "name": "Beadle County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 90.7,
+            "name": "Jerauld County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 105.7,
+            "name": "Sanborn County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 133.0,
+            "name": "Davison County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -2287,7 +2424,39 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Brown County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 12.2,
+            "name": "Edmunds County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 60.5,
+            "name": "Walworth County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 91.2,
+            "name": "Potter County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 116.1,
+            "name": "Sully County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 140.4,
+            "name": "Hughes County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -2329,6 +2498,26 @@
           "lat": 45.44749,
           "lon": -99.02118,
           "vehicle_access": "bobtail_only"
+        },
+        {
+          "name": "Marathon",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 12944463251 (amenity=fuel, brand=Marathon), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; tractor-trailer access assumed: a rural station on the highway itself, between towns on a road whose freight moves by tractor-trailer, and the only fuel the leg's middle stretch has; the map does not say; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 57.9
         }
       ],
       "lanes": 1,
@@ -3288,6 +3477,26 @@
           "lat": 45.46236,
           "lon": -98.47565,
           "vehicle_access": "bobtail_only"
+        },
+        {
+          "name": "Duane's Sinclair",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 2577624102 (amenity=fuel, brand=Sinclair, operator=Duane's), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 19.1
         }
       ],
       "divided": true,
@@ -3298,7 +3507,108 @@
       "to": "mankato_mn_us",
       "miles": 153,
       "highway": "US-14",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Cenex",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 9807285416 (amenity=fuel, brand=Cenex, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 28.3
+        },
+        {
+          "name": "Hoyte Oil & Convenience",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1281822966 (amenity=fuel), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 70.3
+        },
+        {
+          "name": "Cenex",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1478622206 (amenity=fuel, brand=Cenex, opening_hours=Su 07:00-21:00; Mo-Sa 06:00-21:00), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; tractor-trailer access assumed: a rural station on the highway itself, between towns on a road whose freight moves by tractor-trailer, and the only fuel the leg's middle stretch has; the map does not say; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 80.2
+        },
+        {
+          "name": "Kwik Trip",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1307276106 (amenity=fuel, brand=Kwik Trip, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 121.9
+        },
+        {
+          "name": "Kwik Trip",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 459894573 (amenity=fuel, brand=Kwik Trip, fuel:diesel=yes, opening_hours=24/7), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 148.3
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -4653,7 +4963,54 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Brookings County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 19.8,
+            "name": "Lincoln County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 39.3,
+            "name": "Lyon County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 63.5,
+            "name": "Redwood County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 88.5,
+            "name": "Brown County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 123.4,
+            "name": "Nicollet County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 149.4,
+            "name": "Blue Earth County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 150.1,
+            "name": "Nicollet County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 151.9,
+            "name": "Blue Earth County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -4664,7 +5021,88 @@
       "to": "willmar_mn_us",
       "miles": 130,
       "highway": "MN-23",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Cenex",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 9807285416 (amenity=fuel, brand=Cenex, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 28.2
+        },
+        {
+          "name": "Casey's General Store",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1410572364 (amenity=fuel, brand=Casey's General Store), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 91.6
+        },
+        {
+          "name": "Kwik Trip",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "source": "OpenStreetMap/Overpass development-time amenity query centered on the willmar_mn_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.; at_mi derived 2026-11-05: the stop's own coordinates projected onto the rerouted Valhalla truck geometry, rescaled to leg miles",
+          "at_mi": 128.6
+        },
+        {
+          "name": "Divine House Inc.",
+          "type": "service_plaza",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep",
+            "fuel",
+            "food"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 4796897598 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
+          "at_mi": 129.9
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -5862,7 +6300,59 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Brookings County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 19.7,
+            "name": "Lincoln County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 39.2,
+            "name": "Lyon County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 77.8,
+            "name": "Yellow Medicine County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 91.7,
+            "name": "Chippewa County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 98.5,
+            "name": "Renville County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 99.3,
+            "name": "Chippewa County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 101.0,
+            "name": "Renville County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 101.3,
+            "name": "Chippewa County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 115.8,
+            "name": "Kandiyohi County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -6883,7 +7373,165 @@
       "to": "norfolk_ne_us",
       "miles": 150,
       "highway": "US-81",
-      "stops": [],
+      "stops": [
+        {
+          "name": "Freedom",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "source": "OpenStreetMap/Overpass development-time amenity query centered on the mitchell_sd_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+          "at_mi": 0.3
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 12672565880 (amenity=parking, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 1.6
+        },
+        {
+          "name": "Shell",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 360584291 (amenity=fuel, brand=Shell, opening_hours=24/7), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 2.0
+        },
+        {
+          "name": "Salem Rest Area Eastbound",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "parking_spaces": 16,
+          "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Opposite-direction copy onto overlapping same-highway partner; curated 2026-09-16. Truck parking confirmed by the FHWA Jason's Law inventory (USDOT BTS NTAD Truck Stop Parking, compiled 2019), which lists I-90E truck parking near Salem with 16 truck parking spaces on this corridor, accessed 2026-07-17: https://geodata.bts.gov/datasets/usdot::truck-stop-parking/about; at_mi derived 2026-11-05: the stop's own coordinates projected onto the rerouted Valhalla truck geometry, rescaled to leg miles",
+          "at_mi": 31.9
+        },
+        {
+          "name": "Casey's General Store",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1545867371 (amenity=fuel, brand=Casey's General Store, fuel:diesel=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed. Leg mile projected onto the leg's archived road.",
+          "at_mi": 56.8
+        },
+        {
+          "name": "Shell",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 3202179059 (amenity=fuel, brand=Shell), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 90.8
+        },
+        {
+          "name": "Jerry's Hilltop Services",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "source": "OpenStreetMap/Overpass development-time corridor amenity query, accessed 2026-06-21; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.",
+          "at_mi": 127.0
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_stop",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 1241764260 (amenity=fuel, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 145.1
+        }
+      ],
       "corridor": {
         "route_points": [
           {
@@ -8572,7 +9220,49 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Davison County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 4.2,
+            "name": "Hanson County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 22.7,
+            "name": "McCook County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 46.0,
+            "name": "Hutchinson County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 69.8,
+            "name": "Yankton County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 91.1,
+            "name": "Cedar County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 121.0,
+            "name": "Pierce County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 145.2,
+            "name": "Madison County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "rerouted": true,
       "terrain": "flat",
@@ -13593,49 +14283,49 @@
           {
             "at_mi": 0.0,
             "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 1.2,
             "mph": 35,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 1.5,
             "mph": 40,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 1.7,
             "mph": 35,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 2.6,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 3.1,
             "mph": 55,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 8.8,
             "mph": 70,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 20.9,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
@@ -13645,19 +14335,19 @@
           {
             "at_mi": 92.2,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 106.6,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 106.9,
             "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
@@ -13667,7 +14357,7 @@
           {
             "at_mi": 120.0,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
@@ -13677,7 +14367,7 @@
           {
             "at_mi": 144.0,
             "mph": 35,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -13946,6 +14636,29 @@
           "lat": 43.70535,
           "lon": -98.02943,
           "vehicle_access": "bobtail_only"
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_stop",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 12672621523 (amenity=fuel, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 54.8
         },
         {
           "name": "Sinclair",
@@ -14807,43 +15520,43 @@
           {
             "at_mi": 150.0,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 159.0,
             "mph": 70,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 167.9,
             "mph": 55,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 168.4,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 169.3,
             "mph": 35,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 169.6,
             "mph": 40,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 170.9,
             "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -26203,7 +26916,59 @@
             "hpms_year": 2020,
             "source": "FHWA Highway Performance Monitoring System (HPMS) Surface_Type (Item 49) and Structure_Type (Item 4), codes per the HPMS Field Manual, Chapter 4 (https://www.fhwa.dot.gov/policyinformation/hpms/fieldmanual/page06.cfm and page04.cfm), read from the national ArcGIS Living Atlas layer (Federal User Community hpms_v2_view), accessed 2026-11-23. The class and the structure are READ. Mileage is DERIVED: each section's longest geometry piece projected onto the archived leg road and rescaled to the leg's miles, read in 0.005-mile bins, the highest functional class nearest the road winning where rows overlap. A run marked inventory_side is ASSUMED: the leg drives the non-inventory carriageway there, which HPMS gives no surface of its own, and the inventory carriageway's reading within 250 m is applied to it (meta inventory_share_* gives how much of the leg). A structure's hpms_mi is READ: the milepoint length of the HPMS sections behind it, each once. mile_scale is leg miles per measured mile of the archived road. Each surface entry reads 'from_mi to_mi class', then forward or reverse when it holds one way only, then iri=, faulting= and inventory_side where they apply; each structure reads 'from_mi to_mi kind', the way, then hpms= (its HPMS length). iri (inches per mile) and faulting (inches) are DERIVED: the mean of the section readings inside the run. Where HPMS has no reading nothing is written. HPMS reports bridge-sized culverts as bridges."
           }
-        }
+        },
+        "counties": [
+          {
+            "at_mi": 0.0,
+            "name": "Pennington County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 68.5,
+            "name": "Jackson County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 118.8,
+            "name": "Jones County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 154.4,
+            "name": "Lyman County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 206.9,
+            "name": "Brule County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 236.4,
+            "name": "Aurora County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 260.6,
+            "name": "Davison County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 278.6,
+            "name": "Hanson County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 297.3,
+            "name": "McCook County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          },
+          {
+            "at_mi": 321.2,
+            "name": "Minnehaha County",
+            "source": "Derived: the archived route geometry sampled every 0.1 mi against the U.S. Census Bureau TIGER/Line 2021 county boundaries (public domain); a county line is placed by bisection between samples."
+          }
+        ]
       },
       "stops": [
         {
@@ -26418,6 +27183,50 @@
           "lon": -102.24302
         },
         {
+          "name": "Conoco",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 5904906389 (amenity=fuel, brand=Conoco, opening_hours=Mo-Su 06:00-21:00), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 55.3
+        },
+        {
+          "name": "I-90E rest area near Cactus Flats",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 15,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists NHS Rest Stop or Truck Facility 24 on I-90E in Cactus Flats, SD with 15 truck parking spaces, mile post 129; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 73.9,
+          "directions": [
+            "forward"
+          ]
+        },
+        {
           "name": "I-90W truck parking near Cactus Flats",
           "type": "public_rest_area",
           "at_mi": 81.3,
@@ -26438,6 +27247,78 @@
           "parking": "confirmed",
           "curation": "curated",
           "vehicle_access": "tractor_trailer"
+        },
+        {
+          "name": "I-90E rest area near Belvidere",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 12,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists NHS Rest Stop or Truck Facility 10 on I-90E in Belvidere, SD with 12 truck parking spaces, mile post 165; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 109.3,
+          "directions": [
+            "forward"
+          ]
+        },
+        {
+          "name": "I-90W rest area near Belvidere",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 12,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists NHS Rest Stop or Truck Facility 19 on I-90W in Belvidere, SD with 12 truck parking spaces, mile post 166; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 110.9,
+          "directions": [
+            "reverse"
+          ]
+        },
+        {
+          "name": "I-90E rest area near Gumbo Rdige",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 12,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists NHS Rest Stop or Truck Facility 32 on I-90E in Gumbo Rdige, SD with 12 truck parking spaces, mile post 188; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 132.1,
+          "directions": [
+            "forward"
+          ]
         },
         {
           "name": "Pilot Travel Center Murdo",
@@ -26564,6 +27445,74 @@
           "vehicle_access": "tractor_trailer"
         },
         {
+          "name": "I-90W rest area near Presho",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 13,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists NHS Rest Stop or Truck Facility 20 on I-90W in Presho, SD with 13 truck parking spaces, mile post 221; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 165.6,
+          "directions": [
+            "reverse"
+          ]
+        },
+        {
+          "name": "Clark",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 769565905 (amenity=fuel, brand=Clark), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 179.5
+        },
+        {
+          "name": "I-90E rest area near Chamberlain",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 16,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists NHS Rest Stop or Truck Facility 12 on I-90E in Chamberlain, SD with 16 truck parking spaces, mile post 264; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 208.3,
+          "directions": [
+            "forward"
+          ]
+        },
+        {
           "name": "Love's Travel Stop Kimball",
           "type": "travel_center",
           "at_mi": 228.3,
@@ -26663,6 +27612,92 @@
           "vehicle_access": "tractor_trailer"
         },
         {
+          "name": "I-90E rest area near White Lake",
+          "type": "public_rest_area",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "confirmed",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "parking_spaces": 9,
+          "curation": "curated",
+          "source": "Read: FHWA Jason's Law truck parking inventory (NTAD via BTS) lists NHS Rest Stop or Truck Facility 13 on I-90E in White Lake, SD with 9 truck parking spaces, mile post 300; read 2026-11-23: https://services.arcgis.com/xOi1kZaI0eWDREZv/arcgis/rest/services/NTAD_Truck_Stop_Parking/FeatureServer/0/query. Leg mile projected onto the leg's archived road.",
+          "at_mi": 245.4,
+          "directions": [
+            "forward"
+          ]
+        },
+        {
+          "name": "Sinclair (Truck)",
+          "type": "truck_stop",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "food",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "diesel",
+            "food",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 2440039045 (amenity=fuel, brand=Sinclair, operator=Coffee Cup Fuel Stop), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed from its truck stop name and brand. Leg mile projected onto the leg's archived road.",
+          "at_mi": 254.7
+        },
+        {
+          "name": "Truck Parking",
+          "type": "truck_parking",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep"
+          ],
+          "services": [
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap node 12672565880 (amenity=parking, hgv=yes), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 276.2
+        },
+        {
+          "name": "Shell",
+          "type": "fuel_station",
+          "actions": [
+            "park",
+            "save",
+            "fuel",
+            "break"
+          ],
+          "services": [
+            "diesel",
+            "parking"
+          ],
+          "parking": "limited",
+          "vehicle_access": "bobtail_only",
+          "vehicle_access_basis": "assumed",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 360584291 (amenity=fuel, brand=Shell, opening_hours=24/7), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
+          "at_mi": 276.5
+        },
+        {
           "name": "Salem Rest Area Eastbound",
           "type": "public_rest_area",
           "at_mi": 306.4,
@@ -26685,6 +27720,28 @@
             "both"
           ],
           "parking_spaces": 16
+        },
+        {
+          "name": "Flying J Travel Center",
+          "type": "service_plaza",
+          "actions": [
+            "park",
+            "save",
+            "break",
+            "sleep",
+            "fuel",
+            "food"
+          ],
+          "services": [
+            "parking",
+            "restrooms"
+          ],
+          "parking": "limited",
+          "vehicle_access": "tractor_trailer",
+          "vehicle_access_basis": "read",
+          "curation": "curated",
+          "source": "Read: OpenStreetMap way 235555447 (brand=Flying J, hgv=yes, highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access read from the hgv tag. Leg mile projected onto the leg's archived road.",
+          "at_mi": 341.2
         }
       ],
       "lanes": 2,
@@ -28993,103 +30050,103 @@
           {
             "at_mi": 0.0,
             "mph": 20,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 1.5,
             "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 3.3,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 7.1,
             "mph": 50,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 7.4,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 8.6,
             "mph": 80,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 20.9,
             "mph": 70,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 61.8,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 77.8,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 89.8,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 90.3,
             "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 91.3,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 92.2,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 142.7,
             "mph": 50,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 145.4,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 152.6,
             "mph": 50,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 154.1,
             "mph": 30,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
@@ -31890,117 +32947,159 @@
         ],
         "speed_limits": [
           {
+            "at_mi": 0.0,
+            "mph": 20,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 0.6,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
             "at_mi": 2.2,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 5.7,
             "mph": 55,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 6.0,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 13.3,
             "mph": 80,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 23.6,
             "mph": 70,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 62.2,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 77.9,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 90.8,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 91.8,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 93.1,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 142.6,
             "mph": 50,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 145.5,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 152.8,
             "mph": 50,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 158.4,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 166.5,
+            "mph": 35,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 167.6,
+            "mph": 30,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 168.0,
+            "mph": 40,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 168.2,
             "mph": 55,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 169.4,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 199.6,
             "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 200.6,
             "mph": 65,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 220.6,
             "mph": 60,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           },
           {
             "at_mi": 234.7,
             "mph": 45,
-            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file cut to the lower 48 of 2026-10-19 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
+            "hgv": false
+          },
+          {
+            "at_mi": 235.5,
+            "mph": 25,
+            "source": "OpenStreetMap maxspeed tags on the corridor highway ways, read from the OpenStreetMap planet file of 2026-11-16 and matched within 90 m of the archived route; normalized to mph, maxspeed:hgv preferred where tagged.",
             "hgv": false
           }
         ],
