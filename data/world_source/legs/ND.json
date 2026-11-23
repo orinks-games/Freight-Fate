@@ -13859,28 +13859,6 @@
           "curation": "curated",
           "source": "Read: OpenStreetMap way 200675616 (amenity=fuel), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road.",
           "at_mi": 80.6
-        },
-        {
-          "name": "Divine House Inc.",
-          "type": "service_plaza",
-          "actions": [
-            "park",
-            "save",
-            "break",
-            "sleep",
-            "fuel",
-            "food"
-          ],
-          "services": [
-            "parking",
-            "restrooms"
-          ],
-          "parking": "limited",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "assumed",
-          "curation": "curated",
-          "source": "Read: OpenStreetMap node 4796897598 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
-          "at_mi": 165.7
         }
       ],
       "corridor": {

@@ -23253,20 +23253,21 @@
       "stops": [
         {
           "name": "TA Express",
-          "type": "service_plaza",
+          "type": "travel_center",
           "actions": [
             "park",
             "save",
-            "break",
-            "sleep",
             "fuel",
-            "food"
+            "food",
+            "break",
+            "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
-          "parking": "limited",
+          "parking": "likely",
           "vehicle_access": "tractor_trailer",
           "vehicle_access_basis": "read",
           "curation": "curated",
@@ -23359,28 +23360,6 @@
           "vehicle_access": "bobtail_only",
           "source": "OpenStreetMap/Overpass development-time amenity query centered on the willmar_mn_us endpoint city's own coordinates; curated into a gameplay POI (clean name, normalized category) without raw OSM IDs. Truck access: No verified truck access: OpenStreetMap records no hgv allowance, truck parking, or truck-stop classification at this location (checked 2026-07-19). Generic fuel stations default to bobtail_only per the truck-accessibility policy.; at_mi derived 2026-11-05: the stop's own coordinates projected onto the rerouted Valhalla truck geometry, rescaled to leg miles",
           "at_mi": 113.6
-        },
-        {
-          "name": "Divine House Inc.",
-          "type": "service_plaza",
-          "actions": [
-            "park",
-            "save",
-            "break",
-            "sleep",
-            "fuel",
-            "food"
-          ],
-          "services": [
-            "parking",
-            "restrooms"
-          ],
-          "parking": "limited",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "assumed",
-          "curation": "curated",
-          "source": "Read: OpenStreetMap node 4796897598 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
-          "at_mi": 114.9
         }
       ],
       "corridor": {
@@ -32791,20 +32770,21 @@
         },
         {
           "name": "Flying J Travel Center",
-          "type": "service_plaza",
+          "type": "travel_center",
           "actions": [
             "park",
             "save",
-            "break",
-            "sleep",
             "fuel",
-            "food"
+            "food",
+            "break",
+            "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
-          "parking": "limited",
+          "parking": "likely",
           "vehicle_access": "tractor_trailer",
           "vehicle_access_basis": "read",
           "curation": "curated",
@@ -48021,28 +48001,6 @@
       },
       "stops": [
         {
-          "name": "Divine House Inc.",
-          "type": "service_plaza",
-          "actions": [
-            "park",
-            "save",
-            "break",
-            "sleep",
-            "fuel",
-            "food"
-          ],
-          "services": [
-            "parking",
-            "restrooms"
-          ],
-          "parking": "limited",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "assumed",
-          "curation": "curated",
-          "source": "Read: OpenStreetMap node 4796897598 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
-          "at_mi": 0.1
-        },
-        {
           "name": "Willmar Auto Plaza - BP",
           "type": "truck_stop",
           "actions": [
@@ -48983,28 +48941,6 @@
         ]
       },
       "stops": [
-        {
-          "name": "Divine House Inc.",
-          "type": "service_plaza",
-          "actions": [
-            "park",
-            "save",
-            "break",
-            "sleep",
-            "fuel",
-            "food"
-          ],
-          "services": [
-            "parking",
-            "restrooms"
-          ],
-          "parking": "limited",
-          "vehicle_access": "tractor_trailer",
-          "vehicle_access_basis": "assumed",
-          "curation": "curated",
-          "source": "Read: OpenStreetMap node 4796897598 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
-          "at_mi": 0.3
-        },
         {
           "name": "Kwik Trip",
           "type": "fuel_station",

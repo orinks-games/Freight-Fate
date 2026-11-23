@@ -2,7 +2,7 @@
  "about": "Curated stops for the Upper Midwest and Northern Plains legs (missing roads pass, 2026-11-23), placed by cargo tools osm-stops --stops. Started from the stops the region's existing legs carry with a position and a source, so a stop on a shared road lands on a new leg too; heading for those was derived from the side the old leg placed them on (the leg's own direction of travel at the stop). lat, lon, reach_mi, season and heading steer placement; every other key is the stop as the game reads it. Stops for the new legs and the long legs with none were added from FHWA's Jason's Law truck parking inventory (public rest areas, read 2026-11-23) and the OpenStreetMap planet file of 2026-11-16: truck stops (hgv tag or a truck stop name or brand) and named rest areas within 0.3 mile of the road, designated truck parking, named diesel stations within 0.15 mile at most one per 12 miles where no other fuel stood, and on stretches still 55 miles or more between fuel, a named or branded station in a town, its diesel assumed where the map is silent (said in its source).",
  "truck_access": {
   "read": 97,
-  "assumed": 89,
+  "assumed": 88,
   "about": "Stops added in this pass whose tractor-trailer access was read (an hgv tag, Jason's Law) and those where it is assumed with the reason in source: rest areas and truck stops with no hgv tag, and town stations, which are marked bobtail only. The stops carried over from the region's existing legs keep their own sources."
  },
  "stops": [
@@ -5077,27 +5077,25 @@
   },
   {
    "name": "Casey's",
-   "type": "service_plaza",
+   "type": "fuel_station",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "break"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "parking"
    ],
    "parking": "limited",
-   "vehicle_access": "tractor_trailer",
+   "vehicle_access": "bobtail_only",
    "vehicle_access_basis": "assumed",
    "lat": 40.825961,
    "lon": -96.706627,
    "season": "year round",
    "curation": "curated",
-   "source": "Read: OpenStreetMap relation 17778324 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road."
+   "source": "Read: OpenStreetMap relation 17778324 (highway=services), OpenStreetMap planet file of 2026-11-16. Type derived: a convenience store with fuel mapped as a services area, not a truck stop; diesel and truck access assumed, the map does not say; town stations are marked bobtail only. Leg mile projected onto the leg's archived road."
   },
   {
    "name": "Truck Parking",
@@ -5187,27 +5185,28 @@
   },
   {
    "name": "Western Travel Terminal",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "assumed",
    "lat": 42.055477,
    "lon": -104.165486,
    "season": "year round",
    "curation": "curated",
-   "source": "Read: OpenStreetMap way 1178693816 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road."
+   "source": "Read: OpenStreetMap way 1178693816 (highway=services), OpenStreetMap planet file of 2026-11-16. Type derived: a truck stop mapped as a services area, named as one; tractor-trailer access assumed from the name, the map does not say. Leg mile projected onto the leg's archived road."
   },
   {
    "name": "Exxon",
@@ -5453,30 +5452,6 @@
    "source": "Read: OpenStreetMap node 5553707254 (amenity=fuel, brand=Cenex, opening_hours=Mo-Fr 08:00-17:00; Sa-Su closed, operator=UFC), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed; diesel assumed, the map does not say (the only fuel on a long stretch). Leg mile projected onto the leg's archived road."
   },
   {
-   "name": "Divine House Inc.",
-   "type": "service_plaza",
-   "actions": [
-    "park",
-    "save",
-    "break",
-    "sleep",
-    "fuel",
-    "food"
-   ],
-   "services": [
-    "parking",
-    "restrooms"
-   ],
-   "parking": "limited",
-   "vehicle_access": "tractor_trailer",
-   "vehicle_access_basis": "assumed",
-   "lat": 45.120993,
-   "lon": -95.048235,
-   "season": "year round",
-   "curation": "curated",
-   "source": "Read: OpenStreetMap node 4796897598 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road."
-  },
-  {
    "name": "Truck Parking",
    "type": "truck_parking",
    "actions": [
@@ -5711,20 +5686,21 @@
   },
   {
    "name": "Holstein Travel Center",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "read",
    "lat": 42.473579,
@@ -6210,27 +6186,25 @@
   },
   {
    "name": "Casey's General Store",
-   "type": "service_plaza",
+   "type": "fuel_station",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "break"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "parking"
    ],
    "parking": "limited",
-   "vehicle_access": "tractor_trailer",
+   "vehicle_access": "bobtail_only",
    "vehicle_access_basis": "assumed",
    "lat": 40.710198,
    "lon": -96.505972,
    "season": "year round",
    "curation": "curated",
-   "source": "Read: OpenStreetMap relation 17459943 (highway=services, operator=Casey's General Store), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road."
+   "source": "Read: OpenStreetMap relation 17459943 (highway=services, operator=Casey's General Store), OpenStreetMap planet file of 2026-11-16. Type derived: a convenience store with fuel mapped as a services area, not a truck stop; diesel and truck access assumed, the map does not say; town stations are marked bobtail only. Leg mile projected onto the leg's archived road."
   },
   {
    "name": "Love's",
@@ -6283,27 +6257,28 @@
   },
   {
    "name": "Trails End Truck Stop",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "assumed",
    "lat": 40.40624,
    "lon": -95.557789,
    "season": "year round",
    "curation": "curated",
-   "source": "Read: OpenStreetMap way 1092225243 (highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road."
+   "source": "Read: OpenStreetMap way 1092225243 (highway=services), OpenStreetMap planet file of 2026-11-16. Type derived: a truck stop mapped as a services area, named as one; tractor-trailer access assumed from the name, the map does not say. Leg mile projected onto the leg's archived road."
   },
   {
    "name": "I-29S rest area near Rockport",
@@ -7112,20 +7087,21 @@
   },
   {
    "name": "Petro Stopping Centers",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "read",
    "lat": 40.818873,
@@ -7183,20 +7159,21 @@
   },
   {
    "name": "Love's Travel Stop",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "read",
    "lat": 39.835467,
@@ -7342,20 +7319,21 @@
   },
   {
    "name": "TA Express",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "read",
    "lat": 44.169862,
@@ -7464,20 +7442,21 @@
   },
   {
    "name": "TA",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "read",
    "lat": 41.698916,
@@ -7488,20 +7467,21 @@
   },
   {
    "name": "Pilot Travel Center",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "read",
    "lat": 41.697995,
@@ -7610,20 +7590,21 @@
   },
   {
    "name": "ONE9 Travel Center",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "read",
    "lat": 41.644173,
@@ -7797,27 +7778,28 @@
   },
   {
    "name": "Love's Travel Stop",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "assumed",
    "lat": 41.755378,
    "lon": -89.688106,
    "season": "year round",
    "curation": "curated",
-   "source": "Read: OpenStreetMap way 1526546320 (brand=Love's, highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road."
+   "source": "Read: OpenStreetMap way 1526546320 (brand=Love's, highway=services), OpenStreetMap planet file of 2026-11-16. Type derived: a truck stop mapped as a services area, named as one; tractor-trailer access assumed from the name, the map does not say. Leg mile projected onto the leg's archived road."
   },
   {
    "name": "Truck Parking",
@@ -8215,20 +8197,21 @@
   },
   {
    "name": "Flying J Travel Center",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "read",
    "lat": 43.604079,
@@ -8701,20 +8684,21 @@
   },
   {
    "name": "Flying J Travel Center",
-   "type": "service_plaza",
+   "type": "travel_center",
    "actions": [
     "park",
     "save",
-    "break",
-    "sleep",
     "fuel",
-    "food"
+    "food",
+    "break",
+    "sleep"
    ],
    "services": [
-    "parking",
-    "restrooms"
+    "diesel",
+    "food",
+    "parking"
    ],
-   "parking": "limited",
+   "parking": "likely",
    "vehicle_access": "tractor_trailer",
    "vehicle_access_basis": "read",
    "lat": 44.470447,

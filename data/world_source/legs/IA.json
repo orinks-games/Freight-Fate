@@ -22288,20 +22288,21 @@
         },
         {
           "name": "TA",
-          "type": "service_plaza",
+          "type": "travel_center",
           "actions": [
             "park",
             "save",
-            "break",
-            "sleep",
             "fuel",
-            "food"
+            "food",
+            "break",
+            "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
-          "parking": "limited",
+          "parking": "likely",
           "vehicle_access": "tractor_trailer",
           "vehicle_access_basis": "read",
           "curation": "curated",
@@ -22310,20 +22311,21 @@
         },
         {
           "name": "Pilot Travel Center",
-          "type": "service_plaza",
+          "type": "travel_center",
           "actions": [
             "park",
             "save",
-            "break",
-            "sleep",
             "fuel",
-            "food"
+            "food",
+            "break",
+            "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
-          "parking": "limited",
+          "parking": "likely",
           "vehicle_access": "tractor_trailer",
           "vehicle_access_basis": "read",
           "curation": "curated",
@@ -22527,20 +22529,21 @@
         },
         {
           "name": "ONE9 Travel Center",
-          "type": "service_plaza",
+          "type": "travel_center",
           "actions": [
             "park",
             "save",
-            "break",
-            "sleep",
             "fuel",
-            "food"
+            "food",
+            "break",
+            "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
-          "parking": "limited",
+          "parking": "likely",
           "vehicle_access": "tractor_trailer",
           "vehicle_access_basis": "read",
           "curation": "curated",
@@ -22790,24 +22793,25 @@
         },
         {
           "name": "Love's Travel Stop",
-          "type": "service_plaza",
+          "type": "travel_center",
           "actions": [
             "park",
             "save",
-            "break",
-            "sleep",
             "fuel",
-            "food"
+            "food",
+            "break",
+            "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
-          "parking": "limited",
+          "parking": "likely",
           "vehicle_access": "tractor_trailer",
           "vehicle_access_basis": "assumed",
           "curation": "curated",
-          "source": "Read: OpenStreetMap way 1526546320 (brand=Love's, highway=services), OpenStreetMap planet file of 2026-11-16. Type and services derived from those tags; truck access assumed (a state highway rest area; the map does not say). Leg mile projected onto the leg's archived road.",
+          "source": "Read: OpenStreetMap way 1526546320 (brand=Love's, highway=services), OpenStreetMap planet file of 2026-11-16. Type derived: a truck stop mapped as a services area, named as one; tractor-trailer access assumed from the name, the map does not say. Leg mile projected onto the leg's archived road.",
           "at_mi": 220.6
         },
         {
@@ -49399,20 +49403,21 @@
         },
         {
           "name": "Holstein Travel Center",
-          "type": "service_plaza",
+          "type": "travel_center",
           "actions": [
             "park",
             "save",
-            "break",
-            "sleep",
             "fuel",
-            "food"
+            "food",
+            "break",
+            "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
-          "parking": "limited",
+          "parking": "likely",
           "vehicle_access": "tractor_trailer",
           "vehicle_access_basis": "read",
           "curation": "curated",
@@ -66526,20 +66531,21 @@
         },
         {
           "name": "Pilot Travel Center",
-          "type": "service_plaza",
+          "type": "travel_center",
           "actions": [
             "park",
             "save",
-            "break",
-            "sleep",
             "fuel",
-            "food"
+            "food",
+            "break",
+            "sleep"
           ],
           "services": [
-            "parking",
-            "restrooms"
+            "diesel",
+            "food",
+            "parking"
           ],
-          "parking": "limited",
+          "parking": "likely",
           "vehicle_access": "tractor_trailer",
           "vehicle_access_basis": "read",
           "curation": "curated",
