@@ -22,6 +22,7 @@ use ff_core::radio_rotation::initial_airtime_s;
 use ff_core::sim::lane_guidance::{HAIRPIN_ADVISORY_MPH, STRIP_LEAD_MI};
 use ff_core::sim::real_traffic::RealTrafficProvider;
 use ff_core::sim::real_weather::RealWeatherProvider;
+use ff_core::sim::road_texture::song::TireSong;
 use ff_core::sim::road_texture::RoadSurface;
 use ff_core::sim::season::real_clock_game_hours;
 use ff_core::sim::surge::{liquid_load_for, LiquidCargo};
@@ -252,7 +253,7 @@ impl DrivingState {
         }
         let community = load_community_stations(&crate::community_stations::cache_path());
         catalog.extend(new_community_stations(&catalog, community));
-        if crate::PERSONAL_PLAYLISTS {
+        if crate::device::personal_playlists() {
             catalog.extend(load_personal_playlists(&personal_playlists_dir()));
         }
         let radio = RadioState::from_settings(
@@ -289,8 +290,16 @@ impl DrivingState {
         if let Some(jointed) = ctx.playtest_road_jointed {
             road_surface = RoadSurface::held(jointed);
         }
-        let road_texture =
-            RoadTexture::new(road_surface, trip.bridge_joint_spans(), trip.position_mi);
+        let tire_song = match ctx.playtest_tire_song {
+            Some(held) => TireSong::Held(held),
+            None => TireSong::first(trip.underfoot_at(trip.position_mi)),
+        };
+        let road_texture = RoadTexture::new(
+            road_surface,
+            tire_song,
+            trip.bridge_joint_spans(),
+            trip.position_mi,
+        );
 
         let damage_band = trip.truck.damage_band();
         let engine_on = trip.truck.engine_on;
@@ -324,6 +333,9 @@ impl DrivingState {
             start_engine_wear,
             rig_buffs: RigBuffs::new(),
             stop_visit: Default::default(),
+            road_tally: ff_core::sim::road_tally::RoadTally::starting_at(
+                crate::states::driving_updates::road_tally::career_inspections(ctx),
+            ),
             drove_automatic: false,
             weather_source_real: ctx.settings.real_weather,
             alerts_next_poll_mi: 0.0,
@@ -414,6 +426,7 @@ impl DrivingState {
             jake_slip_active: false,
             jake_selected_stage: JAKE_STAGES,
             chains_fast_active: false,
+            chains_fast_onsets: 0,
             chain_cap_cruise_mph: None,
             chain_cap_keeper_mph: None,
             chain_cap_said: false,
@@ -433,6 +446,7 @@ impl DrivingState {
             chain_bare_cue_pending: false,
             chain_assist_tighten_tried: false,
             chain_assist_snapped: false,
+            chain_area_entry: Default::default(),
             curve_warned_mi: None,
             speeding_tickets: 0,
             ticket_fines_paid: 0.0,
@@ -463,6 +477,8 @@ impl DrivingState {
             record_events: Vec::new(),
             fatigue_events: 0,
             weigh_station_noticed: HashSet::new(),
+            scale_named_key: String::new(),
+            scale_named_s: 0.0,
             weigh_station_reminder_key: String::new(),
             weigh_station_reminder_age_s: 0.0,
             scale_reminder_held_by_game: HashSet::new(),
@@ -701,7 +717,7 @@ impl DrivingState {
             overrev_s: 0.0,
             overrev_warn_due: OVERREV_GRACE_S,
             lane_change_target: None,
-            stick_lane_request: 0,
+            lane_push: ff_core::sim::lane_push::LanePush::Centred,
             lane_change_timer: 0.0,
             lane_signal_timer: 0.0,
             passing: None,

@@ -8,6 +8,7 @@ use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
 use ff_core::sim::outside::RIVER_SPAN_MI;
 use ff_core::sim::road_texture::joints::{JointSpan, SpanOrigin, MIN_SPAN_MI};
+use ff_core::sim::road_texture::song::{HeldSong, TireSong, HUM, HUM_MIN_S, WHINE};
 use ff_core::sim::road_texture::{
     Axle, Crossing, Hit, RoadSurface, AXLE_GAP_M, OVERLAY_SEAM_FACTOR, POOR_SEAM_FACTOR,
     TRAILER_GAP_M,
@@ -15,7 +16,7 @@ use ff_core::sim::road_texture::{
 use ff_core::sim::weather::WeatherKind;
 
 use freight_fate::app::testing::{AudioLog, TestApp};
-use freight_fate::audio::BANK_JITTER;
+use freight_fate::audio::{loop_category, Category, BANK_JITTER, CH_ROAD_SONG};
 use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_core::*;
 use freight_fate::states::driving_updates::road_texture::{hit_sound, SEAM_LEVEL};
@@ -349,4 +350,65 @@ fn test_seam_rumble_pulses_stay_apart_at_slab_spacing() {
         factor: 1.0,
     };
     assert!(seam_rumbles(joint, 0.0));
+}
+
+/// The song loop sounding now: its key, level and rate.
+fn song(log: &AudioLog) -> Option<(String, f64, f64)> {
+    log.borrow()
+        .loops
+        .get(&CH_ROAD_SONG)
+        .map(|l| (l.key.clone(), l.volume, l.rate))
+}
+
+#[test]
+fn a_held_song_plays_its_loop_at_a_pitch_that_follows_speed() {
+    let mut app = TestApp::new();
+    let (mut drive, log) = a_drive(&mut app, "Kenosha", "Chicago", 5.0);
+    drive.road_texture.song = TireSong::Held(HeldSong::Whine);
+    cruise(&mut drive, &mut app, WHINE.reference_mps, 1.0, 0.5);
+    let (key, level, rate) = song(&log).expect("the whine plays");
+    assert_eq!(key, WHINE.key);
+    assert!((rate - 1.0).abs() < 1e-9, "{rate}");
+    assert!((level - WHINE.level).abs() < 1e-9, "{level}");
+    // 35 mph: the note and the level drop with the speed.
+    cruise(&mut drive, &mut app, 15.65, 1.0, 0.5);
+    let (_, level, rate) = song(&log).expect("still whining");
+    assert!((rate - 15.65 / WHINE.reference_mps).abs() < 1e-9);
+    assert!(level < WHINE.level * 0.5);
+    // Under the seam speed it stops.
+    cruise(&mut drive, &mut app, 4.0, 1.0, 0.2);
+    assert_eq!(song(&log), None);
+
+    // The hum swaps the loop on the same channel.
+    drive.road_texture.song = TireSong::Held(HeldSong::Hum);
+    cruise(&mut drive, &mut app, HUM.reference_mps, 1.0, 0.5);
+    assert_eq!(song(&log).map(|s| s.0), Some(HUM.key.to_string()));
+    drive.road_texture.song = TireSong::Held(HeldSong::Quiet);
+    cruise(&mut drive, &mut app, HUM.reference_mps, 1.0, 0.2);
+    assert_eq!(song(&log), None);
+}
+
+#[test]
+fn the_song_rides_the_road_surface_volume() {
+    assert_eq!(loop_category(CH_ROAD_SONG), Category::Road);
+}
+
+#[test]
+fn the_main_street_bridge_grating_hums_and_the_road_past_it_is_quiet() {
+    use ff_core::sim::road_texture::song::Underfoot;
+    let mut app = TestApp::new();
+    let (mut drive, log) = a_drive(&mut app, "Jacksonville", "Miami", 0.85);
+    assert_eq!(drive.trip.underfoot_at(0.95), Underfoot::Grating);
+    // At route pacing the 0.07 mile grating passes in well under a second;
+    // the hum holds its three real seconds and then goes.
+    let mut hummed_s = 0.0;
+    for _ in 0..600 {
+        cruise(&mut drive, &mut app, 20.0, 12.0, FRAME);
+        if song(&log).is_some_and(|s| s.0 == HUM.key) {
+            hummed_s += FRAME;
+        }
+    }
+    assert!(drive.trip.position_mi > 1.05);
+    assert!((hummed_s - HUM_MIN_S).abs() < 0.1, "hummed {hummed_s} s");
+    assert_eq!(drive.road_texture.song, TireSong::Quiet);
 }

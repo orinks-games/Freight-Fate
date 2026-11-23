@@ -7,6 +7,7 @@ use ff_core::speech_pacing::SpeechCategory;
 use crate::app::{GameContext, SayEvent};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
+use crate::states::driving_updates::live;
 
 use crate::states::driving_stops::assist_servo_brake;
 
@@ -298,7 +299,7 @@ impl DrivingState {
             // at zero forever and nothing downstream could ever read it as
             // spent (owner playtest, Buffalo to Albany, 2026-08-12).
             self.ramp_arrival_grace_s = self.ramp_arrival_grace_for(ctx, &message);
-            let mut opts = SayEvent::new();
+            let mut opts = SayEvent::new().valid(|| !live::stop_menu_open());
             opts.category = Some(SpeechCategory::Navigation);
             ctx.say_event_with(message, opts);
             return;

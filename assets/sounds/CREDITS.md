@@ -52,6 +52,8 @@ current idle, start, and shutdown cues.
 | Road seam thump | `vehicle/road_joint.ogg` | Short low thump synthesized in-repo; the fallback for the seam banks, and the small debris strike |
 | Road seams, steer and drive axles | `vehicle/seam_steer_01.ogg` to `_04`, `vehicle/seam_drive_01.ogg` to `_04` | Pitched cuts of the in-repo seam thump, the drive cuts lower and duller, made by `sound-test/road_seams.sh` |
 | Bridge end joint | `vehicle/bridge_joint_01.ogg` to `_03` | The in-repo seam thump pitched down with a second strike, made by `sound-test/road_seams.sh` |
+| Tire whine on grooved concrete | `vehicle/tined_whine.ogg` | Sine tones and shaped noise synthesized in-repo by `sound-test/synth_road_song.py` (whine b: 19 mm grooves, 1,529 Hz at 65 mph) |
+| Steel grate deck hum | `vehicle/grate_hum.ogg` | Sine tones and shaped noise synthesized in-repo by `sound-test/synth_road_song.py` (grate a: 5 inch bars, 158 Hz at 45 mph), raised 4 dB so it carries over the engine |
 | Car pass-by | `traffic/car_pass.ogg` | ElevenLabs-generated nearby passenger-car pass-by cue |
 | Box truck pass-by | `traffic/box_truck_pass.ogg` | ElevenLabs-generated nearby medium-truck pass-by cue |
 | Semi pass-by | `traffic/semi_pass.ogg` | ElevenLabs-generated nearby tractor-trailer pass-by cue |

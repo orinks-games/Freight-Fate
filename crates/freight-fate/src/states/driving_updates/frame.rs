@@ -149,6 +149,7 @@ impl DrivingState {
             self.ladder_leg_index = leg;
             ctx.reset_ladder_leg_memory();
         }
+        self.scale_named_s = (self.scale_named_s - dt).max(0.0);
         if self.destination_exit_response_s > 0.0 {
             self.destination_exit_response_s = (self.destination_exit_response_s - dt).max(0.0);
             if self.destination_exit_response_s == 0.0 && self.exit_stop.is_none() {
@@ -624,6 +625,7 @@ impl DrivingState {
         // change; the setter only re-renders cues when the choice actually flips.
         self.trip.set_imperial(ctx.settings.imperial_units);
         let pos_before = self.trip.position_mi;
+        let generation_before = self.trip_generation;
         // Tell the trip model which stop's exit is signaled or on the ramp so its
         // plan-cancelled warning can tell a driver who is taking the exit from one
         // who blew past it. Set before trip.update (which runs check_stops) and
@@ -645,6 +647,9 @@ impl DrivingState {
         events.sort_by_key(|event| event.data.chain_law.is_none());
         for event in events {
             self.handle_trip_event(ctx, &event);
+        }
+        if self.trip_generation == generation_before {
+            self.note_road_tally(pos_before);
         }
         if self.selected_stop_key.is_some()
             && self.trip.planned_stop_key != self.selected_stop_key
@@ -791,6 +796,7 @@ impl DrivingState {
             0
         });
         live::set_arrival_menu_open(self.arrival_menu_open);
+        live::set_stop_menu_open(false);
         live::set_gate_stop_prompted(self.gate.stop_prompted());
         live::set_on_ramp(self.ramp_mi.is_some());
         live::set_posted_limit_mph(match self.trip.entered_zone.as_ref() {

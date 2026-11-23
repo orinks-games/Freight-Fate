@@ -4,6 +4,7 @@
 use crate::speech::EventPriority;
 use ff_core::sim::transmission::JAKE_MAX_RPM;
 use ff_core::sim::trip::{is_highway_zone_reason, LIMIT_WARNING_MAX_LEAD_MI};
+use ff_core::sim::vehicle::CHAIN_SAFE_MPH;
 use ff_core::speech_pacing::SpeechCategory;
 use ff_core::speech_text::SpokenMessage;
 
@@ -721,9 +722,19 @@ impl DrivingState {
         let (bias, reason) = self.predictive_cruise_bias(ctx, target_mph);
         // The cue hears the clamped delta, not the raw bias: a shave the cap
         // cancelled is not easing and stays silent.
+        //
+        // Nor past chain speed: the bank built before a climb in the preview
+        // put a chained truck's target near 33 on the Donner descent with
+        // cruise "held to 30 for chains", where the chains wear six times as
+        // fast over 32 (brief 4 drive, 2026-11-23).
+        let bank_cap_mph = if self.trip.truck.chains_on {
+            cap_mph.min(CHAIN_SAFE_MPH)
+        } else {
+            cap_mph
+        };
         let mut delta = 0.0;
         if bias != 0.0 {
-            let applied = CRUISE_MIN_MPH.max((target_mph + bias).min(cap_mph));
+            let applied = CRUISE_MIN_MPH.max((target_mph + bias).min(bank_cap_mph));
             delta = applied - target_mph;
             target_mph = applied;
         }
@@ -1220,6 +1231,15 @@ impl DrivingState {
         let past_safe_descent = self
             .descent_safe_mph
             .is_some_and(|safe| speed_now > safe + CRUISE_BRAKE_OVER_MPH);
+        // Held to chain speed, the band over the number is the chains', not
+        // the retarder's: past `CHAIN_OVERSPEED_MPH` the set wears six times
+        // as fast. At 2.5 over, waiting on a retarder that never maxed, the
+        // Donner descent ran 33 to 35 mph with cruise "held to 30 for
+        // chains" (brief 4 drive, 2026-11-23). So the drums snub a mile an
+        // hour over, whatever the retarder is doing, and let go half a mile
+        // an hour under, as every snub does.
+        let held_to_chain_speed =
+            self.trip.truck.chains_on && self.cruise_mph.is_some_and(|set| set <= CHAIN_SAFE_MPH);
         let guarding_gear = self.trip.truck.transmission.automatic
             && self.on_downgrade()
             && self.trip.truck.engine_brake_stage > 0;
@@ -1235,6 +1255,7 @@ impl DrivingState {
         } else if (jake_maxed && over > CRUISE_BRAKE_OVER_MPH)
             || revs_at_ceiling
             || past_safe_descent
+            || (held_to_chain_speed && over > CRUISE_CHAIN_BRAKE_OVER_MPH)
         {
             self.cruise_snubbing = true;
         }

@@ -24,6 +24,7 @@ use ff_core::playtest_levers::{apply_city, apply_clock, resolve_city_forgiving};
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::sim::alertness::Alertness;
 use ff_core::sim::hos::HosClock;
+use ff_core::sim::road_texture::song::HeldSong;
 use ff_core::sim::vehicle::TruckState;
 use ff_core::sim::weather::WeatherKind;
 
@@ -97,6 +98,11 @@ pub struct Scenario {
     /// inspection reads.
     pub tire_wear_pct: Option<f64>,
     pub brake_wear_pct: Option<f64>,
+    /// A set of snow chains aboard (true) or none (false), how worn the set
+    /// is, 0 to 100, and its spare repair links.
+    pub chains: Option<bool>,
+    pub chain_wear_pct: Option<f64>,
+    pub chain_repair_links: Option<i64>,
     /// The driving record's lifetime citation count and the career's
     /// out-of-service events: together with damage they set the safety
     /// record band that decides who gets pulled into the inspection lane.
@@ -109,6 +115,13 @@ pub struct Scenario {
     /// Open Touch gestures over the terminal: the iPhone and iPad settings
     /// screen, which a desktop build's Controls list leaves out.
     pub touch_gestures: bool,
+    /// Tilt steering on or off (Touch gestures, Tilt steering). The agent
+    /// server's `tilt` tool is the phone's motion sensor.
+    pub tilt_steering: Option<bool>,
+    /// Play as an iPhone (true) or as this desktop again (false): the phone's
+    /// menus, rows and help, starting with no hardware keyboard, so prompts
+    /// name gestures. Applied before anything else in the scenario.
+    pub phone: Option<bool>,
     /// The fatigue number, 0 to 100, set after `rested`.
     pub fatigue: Option<f64>,
     /// Sandbox HOS counters for a near-limit road start. These are staged
@@ -136,9 +149,15 @@ pub struct Scenario {
     /// The road surface every drive from here on keeps: `Some(true)` jointed
     /// the whole way, `Some(false)` smooth.
     pub road_jointed: Option<bool>,
+    /// The tires' song every drive from here on holds, over what the layer
+    /// reads.
+    pub tire_song: Option<HeldSong>,
     /// The simulated sky every drive from here on starts under:
     /// `Some(Some(kind))` forced, `Some(None)` free (`parse_weather`).
     pub weather: Option<Option<WeatherKind>>,
+    /// The driver newspaper: `Some(Some(path))` holds the issue in that file
+    /// (the site's body, version 1), `Some(None)` holds none.
+    pub newspaper: Option<Option<String>>,
 }
 
 /// A `weather` field: a condition by name ("snow", "ice", "cloudy",
@@ -239,6 +258,13 @@ impl Scenario {
                 ))
             }
         };
+        let tire_song = match text(args, "tire_song")?.as_deref() {
+            None => None,
+            Some(name) => Some(
+                HeldSong::from_name(name)
+                    .ok_or_else(|| format!("tire_song must be quiet, whine or hum, not {name}"))?,
+            ),
+        };
         let weather = text(args, "weather")?
             .map(|value| parse_weather(&value))
             .transpose()?;
@@ -264,6 +290,7 @@ impl Scenario {
             "damage_pct",
             "tire_wear_pct",
             "brake_wear_pct",
+            "chain_wear_pct",
             "fatigue",
         ] {
             if let Some(pct) = number(args, key)? {
@@ -323,6 +350,9 @@ impl Scenario {
             damage_pct: number(args, "damage_pct")?,
             tire_wear_pct: number(args, "tire_wear_pct")?,
             brake_wear_pct: number(args, "brake_wear_pct")?,
+            chains: args.get("chains").and_then(Value::as_bool),
+            chain_wear_pct: number(args, "chain_wear_pct")?,
+            chain_repair_links: integer(args, "chain_repair_links")?,
             citations: integer(args, "citations")?,
             out_of_service_events: integer(args, "out_of_service_events")?,
             rested: args.get("rested").and_then(Value::as_bool).unwrap_or(false),
@@ -334,6 +364,8 @@ impl Scenario {
                 .get("touch_gestures")
                 .and_then(Value::as_bool)
                 .unwrap_or(false),
+            tilt_steering: args.get("tilt_steering").and_then(Value::as_bool),
+            phone: args.get("phone").and_then(Value::as_bool),
             fatigue: number(args, "fatigue")?,
             hos_driving_min: number(args, "hos_driving_min")?,
             hos_duty_min: number(args, "hos_duty_min")?,
@@ -354,7 +386,12 @@ impl Scenario {
             settings,
             window_down,
             road_jointed,
+            tire_song,
             weather,
+            newspaper: text(args, "newspaper")?.map(|value| match value.as_str() {
+                "none" => None,
+                _ => Some(value),
+            }),
         })
     }
 
@@ -513,6 +550,43 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
                 }
             }
         }
+        if scenario.chains.is_some()
+            || scenario.chain_wear_pct.is_some()
+            || scenario.chain_repair_links.is_some()
+        {
+            // Every truck record, for the same reason as the wear meters.
+            let fields: Vec<(&str, Value)> = [
+                ("chains_owned", scenario.chains.map(Value::from)),
+                ("chain_wear_pct", scenario.chain_wear_pct.map(Value::from)),
+                (
+                    "chain_repair_links",
+                    scenario.chain_repair_links.map(|n| Value::from(n.max(0))),
+                ),
+            ]
+            .into_iter()
+            .filter_map(|(key, value)| value.map(|v| (key, v)))
+            .collect();
+            if let Some(owned) = scenario.chains {
+                p.set_chains_owned(owned);
+            }
+            if let Some(pct) = scenario.chain_wear_pct {
+                p.set_chain_wear_pct(pct);
+            }
+            if let Some(links) = scenario.chain_repair_links {
+                p.set_chain_repair_links(links);
+            }
+            for record in p.truck_conditions.values_mut() {
+                for (key, value) in &fields {
+                    record.insert((*key).to_string(), value.clone());
+                }
+            }
+            notes.push(format!(
+                "Snow chains: {}, {} percent worn, {} spare links.",
+                if p.chains_owned() { "aboard" } else { "none" },
+                p.chain_wear_pct().round(),
+                p.chain_repair_links()
+            ));
+        }
         // Dated now, so the safety record's window counts them.
         if let Some(count) = scenario.citations {
             p.driving_record.citations = count;
@@ -598,6 +672,10 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             "Drives start with the driver window up.".to_string()
         });
     }
+    if let Some(song) = scenario.tire_song {
+        ctx.playtest_tire_song = Some(song);
+        notes.push(format!("Drives hold the tire song {}.", song.name()));
+    }
     if let Some(weather) = scenario.weather {
         ctx.playtest_weather = Some(weather);
         notes.push(match weather {
@@ -617,6 +695,10 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
         ctx.dispatch_board_seed = Some(seed);
         notes.push(format!("Dispatch board seed {seed}."));
     }
+    if let Some(on) = scenario.tilt_steering {
+        ctx.settings.touch_tilt_steering = on;
+        notes.push(format!("Tilt steering {}.", if on { "on" } else { "off" }));
+    }
     for (name, value) in &scenario.settings {
         if !ctx.settings.set_field(name, value) {
             return Err(format!(
@@ -624,6 +706,19 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             ));
         }
         notes.push(format!("Setting {name} is now {value}."));
+    }
+    if let Some(paper) = &scenario.newspaper {
+        match paper {
+            Some(path) => {
+                let issue = crate::newspaper::issue_from_file(std::path::Path::new(path))?;
+                notes.push(format!("The game holds newspaper issue {}.", issue.issue));
+                ctx.services.newspaper.stage(Some(issue));
+            }
+            None => {
+                ctx.services.newspaper.stage(None);
+                notes.push("The game holds no newspaper.".to_string());
+            }
+        }
     }
     ctx.save_profile();
     Ok(notes)

@@ -272,3 +272,20 @@ pub fn a_drive_with_a_lamp_out(app: &mut TestApp) -> (SharedState, String) {
     }
     panic!("no seeded drop yard produced a trailer with a lamp out");
 }
+
+/// Move the truck to route mile `mile` by hand, as the physics would have
+/// counted it for the chains: a bare stretch grows by the miles moved with
+/// chains on off snow and ice, and starts again otherwise
+/// (`TruckState::chain_bare_mi`).
+pub fn roll_to_mile(shared: &SharedState, mile: f64) {
+    with_drive(shared, |d| {
+        let moved = (mile - d.trip.position_mi).abs();
+        let truck = &mut d.trip.truck;
+        if truck.chains_on && !ff_core::sim::chain_control::snow_or_ice(&truck.surface) {
+            truck.chain_bare_mi += moved;
+        } else {
+            truck.chain_bare_mi = 0.0;
+        }
+        d.trip.position_mi = mile;
+    });
+}

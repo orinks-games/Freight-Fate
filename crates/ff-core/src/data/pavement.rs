@@ -11,8 +11,12 @@
 //! Each record is one line of text, to keep the tree small and its diffs one
 //! line per record: a run reads `"from_mi to_mi class"`, then `forward` or
 //! `reverse` when it holds one way only, then `iri=`, `faulting=` and
-//! `inventory_side` where they apply; a structure reads `"from_mi to_mi
-//! kind"`, the way, then `hpms=` (HPMS's own length of it).
+//! `inventory_side` where they apply, and on exposed concrete `built=` and
+//! `improved=` (HPMS's years of last construction and improvement); a
+//! structure reads `"from_mi to_mi kind"`, the way, then `hpms=` (HPMS's own
+//! length of it) and, where `cargo tools nbi-decks` matched a National
+//! Bridge Inventory record, `deck=`, `nbi=` and on a movable grating
+//! `grate=from:to`. The decks and the groove rule are in [`grooves`].
 //!
 //! Screened on the way in, never edited in the bake (see `CLAUDE.md`,
 //! "Provenance"): a run that ends before it starts or runs off the leg, a
@@ -22,12 +26,19 @@
 //! dropped is counted in [`Pavement::screened`]. A structure whose derived
 //! span disagrees with HPMS's own length of it is kept and flagged
 //! ([`Structure::span_disagrees`]), since either could be the wrong one.
+//! The deck readings are screened too: a `grate=` span that runs backwards
+//! or outside its structure, a deck on a tunnel, and a `built=` or
+//! `improved=` year before 1900 or after the layer's HPMS year each drop
+//! that reading (not the record) and count in [`Pavement::screened`].
 
 use serde_json::{Map, Value};
 
 use crate::data::world_models::DataError;
 use crate::data::world_parsing::{get_float, get_str};
 use crate::pyfmt::py_str_float;
+
+pub mod grooves;
+pub use grooves::{cross_grooved, Deck, Grooves};
 
 /// HPMS Surface_Type (HPMS Field Manual, Item 49), by its layer name.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
@@ -210,6 +221,10 @@ pub struct SurfaceRun {
     /// The inventory carriageway's reading standing for a section whose
     /// other carriageway, the one the leg drives, HPMS reads nothing of.
     pub inventory_side: bool,
+    /// HPMS Year_Last_Construction (read), on exposed concrete only.
+    pub built: Option<i64>,
+    /// HPMS Year_Last_Improvement (read), on exposed concrete only.
+    pub improved: Option<i64>,
 }
 
 /// One bridge, tunnel or causeway, native frame.
@@ -224,6 +239,15 @@ pub struct Structure {
     /// The derived span, in measured miles, is more than
     /// [`SPAN_TOLERANCE_MI`] off `hpms_mi`. Flagged, never edited.
     pub span_disagrees: bool,
+    /// The deck, from the National Bridge Inventory (read).
+    pub deck: Option<Deck>,
+    /// The NBI record behind `deck`, `<state FIPS>-<structure number>`.
+    pub nbi: Option<String>,
+    /// On a movable bridge with an open grating, the movable span (native
+    /// frame), DERIVED from the record's span count and longest span
+    /// centred on its point. `None` with an open grating: the whole
+    /// structure is grating.
+    pub grate: Option<(f64, f64)>,
 }
 
 /// A leg's whole layer.
@@ -305,6 +329,46 @@ impl Pavement {
             .find(|s| s.0 <= offset_mi && offset_mi < s.1)
             .map(|s| s.2)
     }
+
+    /// The structure under `offset_mi` heading `forward`, as joined by
+    /// [`Self::structures_for`], with the piece of it that carries a deck
+    /// reading, if any does.
+    fn decked_at(&self, offset_mi: f64, forward: bool) -> Option<((f64, f64), &Structure)> {
+        let (a, z, _) = self
+            .structures_for(forward)
+            .into_iter()
+            .find(|s| s.0 <= offset_mi && offset_mi < s.1)?;
+        self.structures
+            .iter()
+            .find(|s| s.deck.is_some() && s.ways.holds(forward) && s.from_mi < z && s.to_mi > a)
+            .map(|s| ((a, z), s))
+    }
+
+    /// The deck under `offset_mi`, for a truck heading `forward`. `None`
+    /// off a structure, or on one no NBI record matched.
+    pub fn deck_at(&self, offset_mi: f64, forward: bool) -> Option<Deck> {
+        self.decked_at(offset_mi, forward).and_then(|(_, s)| s.deck)
+    }
+
+    /// Whether the truck is on the open grating itself: the `grate=` span,
+    /// or the whole structure when the deck is open grating with no span.
+    pub fn on_grating(&self, offset_mi: f64, forward: bool) -> bool {
+        self.decked_at(offset_mi, forward).is_some_and(|(_, s)| {
+            s.deck == Some(Deck::OpenGrating)
+                && s.grate.is_none_or(|(a, z)| a <= offset_mi && offset_mi < z)
+        })
+    }
+
+    /// Whether the surface here is grooved across the lane, and how the
+    /// game knows; `state` is the state the truck is in, by name. `None`
+    /// where it is not, or where nothing says. The rule is
+    /// [`cross_grooved`].
+    pub fn cross_grooved_at(&self, offset_mi: f64, forward: bool, state: &str) -> Option<Grooves> {
+        let deck = self
+            .decked_at(offset_mi, forward)
+            .and_then(|((a, z), s)| Some((s.deck?, z - a)));
+        cross_grooved(deck, self.surface_at(offset_mi, forward), state)
+    }
 }
 
 fn object<'a>(
@@ -365,11 +429,7 @@ impl<'a> Line<'a> {
     }
 
     fn number(&self, key: &str) -> Result<Option<f64>, DataError> {
-        let Some(value) = self
-            .tags
-            .iter()
-            .find_map(|t| t.strip_prefix(key)?.strip_prefix('='))
-        else {
+        let Some(value) = self.value(key) else {
             return Ok(None);
         };
         value
@@ -383,6 +443,78 @@ impl<'a> Line<'a> {
     fn flag(&self, word: &str) -> bool {
         self.tags.contains(&word)
     }
+
+    fn value(&self, key: &str) -> Option<&'a str> {
+        self.tags
+            .iter()
+            .find_map(|t| t.strip_prefix(key)?.strip_prefix('='))
+    }
+
+    fn year(&self, key: &str) -> Result<Option<i64>, DataError> {
+        self.value(key)
+            .map(|v| {
+                v.parse::<i64>()
+                    .map_err(|_| DataError::value(format!("pavement {key}={v} is not a year")))
+            })
+            .transpose()
+    }
+
+    fn deck(&self) -> Result<Option<Deck>, DataError> {
+        self.value("deck")
+            .map(|v| {
+                Deck::from_name(v)
+                    .ok_or_else(|| DataError::value(format!("pavement deck={v} is not a deck")))
+            })
+            .transpose()
+    }
+
+    /// `key=from:to`, two miles.
+    fn span(&self, key: &str) -> Result<Option<(f64, f64)>, DataError> {
+        let Some(v) = self.value(key) else {
+            return Ok(None);
+        };
+        let mile = |w: &str| w.parse::<f64>().ok().filter(|m| m.is_finite());
+        v.split_once(':')
+            .and_then(|(a, z)| Some((mile(a)?, mile(z)?)))
+            .map(Some)
+            .ok_or_else(|| DataError::value(format!("pavement {key}={v} is not two miles")))
+    }
+}
+
+/// Drop deck and year readings that contradict themselves or their
+/// record; the records stay. Returns how many readings were dropped.
+fn screen_readings(
+    surface: &mut [SurfaceRun],
+    structures: &mut [Structure],
+    hpms_year: Option<i64>,
+) -> usize {
+    let mut dropped = 0;
+    let latest = hpms_year.unwrap_or(i64::MAX);
+    for r in surface.iter_mut() {
+        for year in [&mut r.built, &mut r.improved] {
+            if year.is_some_and(|y| !(1900..=latest).contains(&y)) {
+                *year = None;
+                dropped += 1;
+            }
+        }
+    }
+    for s in structures.iter_mut() {
+        if s.kind == StructureKind::Tunnel && s.deck.is_some() {
+            s.deck = None;
+            s.grate = None;
+            dropped += 1;
+        }
+        if s.grate
+            .is_some_and(|(a, z)| !(a < z && a >= s.from_mi - TOUCH_MI && z <= s.to_mi + TOUCH_MI))
+        {
+            // Without its span an open grating would read as the whole
+            // structure, which is the claim the bad span did not make.
+            s.grate = None;
+            s.deck = None;
+            dropped += 1;
+        }
+    }
+    dropped
 }
 
 fn lines<'a>(raw: &'a Map<String, Value>, key: &str) -> Vec<&'a str> {
@@ -466,6 +598,8 @@ pub fn parse_pavement(
             iri: line.number("iri")?,
             faulting: line.number("faulting")?,
             inventory_side: line.flag("inventory_side"),
+            built: line.year("built")?,
+            improved: line.year("improved")?,
         });
     }
     surface.sort_by(|a, b| a.from_mi.total_cmp(&b.from_mi));
@@ -491,6 +625,9 @@ pub fn parse_pavement(
             ways: line.ways,
             hpms_mi: line.number("hpms")?,
             span_disagrees: false,
+            deck: line.deck()?,
+            nbi: line.value("nbi").map(str::to_string),
+            grate: line.span("grate")?,
         });
     }
     structures.sort_by(|a, b| a.from_mi.total_cmp(&b.from_mi));
@@ -509,6 +646,10 @@ pub fn parse_pavement(
             py_str_float(mile_scale)
         )));
     }
+    let hpms_year = meta
+        .and_then(|m| m.get("hpms_year"))
+        .and_then(Value::as_i64);
+    screened += screen_readings(&mut surface, &mut structures, hpms_year);
     for s in &mut structures {
         s.span_disagrees = s
             .hpms_mi
@@ -541,142 +682,11 @@ pub fn parse_pavement(
         inventory_share_forward,
         inventory_share_reverse,
         mile_scale,
-        hpms_year: meta
-            .and_then(|m| m.get("hpms_year"))
-            .and_then(Value::as_i64),
+        hpms_year,
         source: meta.map(|m| get_str(m, "source")).unwrap_or_default(),
         screened,
     }))
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-    use serde_json::json;
-
-    fn parse(raw: Value, miles: f64) -> Pavement {
-        parse_pavement(Some(&raw), miles, "a", "b")
-            .unwrap()
-            .unwrap()
-    }
-
-    #[test]
-    fn a_run_resolves_by_direction() {
-        let p = parse(
-            json!({"surface": [
-                "0 2 asphalt",
-                "2 3 jointed_plain_concrete forward iri=80 faulting=0.1",
-                "2 3 asphalt_over_jointed_concrete reverse inventory_side",
-            ], "meta": {"read_share_forward": 0.3, "read_share_reverse": 0.3}}),
-            10.0,
-        );
-        assert_eq!(p.surface_at(1.0, false).unwrap().surface, Surface::Asphalt);
-        assert_eq!(p.surface_at(1.0, true).unwrap().ways, Ways::Both);
-        let fwd = p.surface_at(2.5, true).unwrap();
-        assert_eq!(fwd.surface.group(), SurfaceGroup::JointedConcrete);
-        assert_eq!((fwd.iri, fwd.faulting), (Some(80.0), Some(0.1)));
-        assert!(!fwd.inventory_side);
-        let rev = p.surface_at(2.5, false).unwrap();
-        assert!(rev.surface.over_jointed_concrete() && rev.inventory_side);
-        assert!(p.surface_at(5.0, true).is_none(), "nothing is filled in");
-    }
-
-    #[test]
-    fn a_twin_bridge_tail_joins_its_bridge_one_way_only() {
-        let p = parse(
-            json!({"structures": [
-                "1 1.1 bridge hpms=0.1",
-                "1.1 1.12 bridge forward",
-                "4 4.5 tunnel",
-            ]}),
-            10.0,
-        );
-        assert_eq!(
-            p.structures_for(true),
-            vec![
-                (1.0, 1.12, StructureKind::Bridge),
-                (4.0, 4.5, StructureKind::Tunnel)
-            ]
-        );
-        assert_eq!(
-            p.structures_for(false)[0],
-            (1.0, 1.1, StructureKind::Bridge)
-        );
-        assert_eq!(p.structure_at(1.11, true), Some(StructureKind::Bridge));
-        assert_eq!(p.structure_at(1.11, false), None);
-    }
-
-    #[test]
-    fn implausible_records_are_screened_not_kept() {
-        let p = parse(
-            json!({"surface": ["3 2 asphalt", "0 12 asphalt"],
-                   "structures": ["1 5 tunnel", "1 1.2 bridge"]}),
-            10.0,
-        );
-        assert!(p.surface.is_empty());
-        assert_eq!(p.structures.len(), 1);
-        assert_eq!(p.screened, 3);
-    }
-
-    #[test]
-    fn a_span_off_its_hpms_length_is_flagged_and_kept() {
-        // Tuscarora as the dry run placed it: 1.18 leg miles against HPMS's
-        // 1.148, on a leg 5 percent longer than its measured road.
-        let p = parse(
-            json!({"structures": [
-                "58.615 59.795 tunnel hpms=1.148",
-                "1 1.105 bridge hpms=0.1",
-                "2 2.5 bridge",
-            ], "meta": {"mile_scale": 1.05}}),
-            100.0,
-        );
-        let flags: Vec<bool> = p.structures.iter().map(|s| s.span_disagrees).collect();
-        assert_eq!(flags, vec![false, false, false]);
-        let p = parse(
-            json!({"structures": ["58.615 59.795 tunnel hpms=0.99"]}),
-            100.0,
-        );
-        assert!(p.structures[0].span_disagrees);
-        assert_eq!(p.structures.len(), 1, "flagged, not dropped");
-    }
-
-    #[test]
-    fn interleaved_carriageways_are_screened() {
-        let mut runs: Vec<Value> = (0..30)
-            .map(|i| {
-                let class = if i % 2 == 0 {
-                    "asphalt"
-                } else {
-                    "jointed_plain_concrete"
-                };
-                json!(format!(
-                    "{} {} {class}",
-                    i as f64 * 0.1,
-                    (i + 1) as f64 * 0.1
-                ))
-            })
-            .collect();
-        runs.push(json!("3 8 asphalt"));
-        // One lone tenth between long runs is a real reading and stays.
-        runs.push(json!("8 8.1 continuous_concrete"));
-        runs.push(json!("8.1 9 asphalt"));
-        let p = parse(json!({ "surface": runs }), 10.0);
-        assert_eq!(p.screened, 30);
-        assert_eq!(p.surface.len(), 3);
-    }
-
-    #[test]
-    fn a_malformed_record_fails_the_load() {
-        for raw in [
-            json!({"surface": ["0 1 gravel"]}),
-            json!({"surface": ["0 asphalt"]}),
-            json!({"surface": ["0 1 asphalt iri=rough"]}),
-            json!({"structures": ["0 1 ramp"]}),
-            json!({"meta": {"mile_scale": 7.0}}),
-            json!({"meta": {"read_share_forward": 1.5}}),
-        ] {
-            assert!(parse_pavement(Some(&raw), 10.0, "a", "b").is_err(), "{raw}");
-        }
-        assert!(parse_pavement(None, 10.0, "a", "b").unwrap().is_none());
-    }
-}
+mod tests;

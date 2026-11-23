@@ -23,6 +23,7 @@ mod parking_full;
 mod rest_preview;
 mod rest_stop;
 mod roadside;
+mod short_stay;
 mod shoulder;
 
 pub use fuel_pump::FuelPump;
@@ -247,8 +248,13 @@ impl DrivingState {
     }
 
     /// `ctx.push_state(ParkingFullState(ctx, self, stop))`.
-    pub fn push_parking_full_state(&mut self, ctx: &mut GameContext, stop: &RoadStop) {
-        let mut state = ParkingFullState::new(ctx, stop.clone());
+    pub fn push_parking_full_state(
+        &mut self,
+        ctx: &mut GameContext,
+        stop: &RoadStop,
+        preferred_rest: RestFocus,
+    ) {
+        let mut state = ParkingFullState::new(ctx, stop.clone(), preferred_rest);
         state.enter_over_drive(ctx, self);
         push_over_drive(ctx, state);
     }

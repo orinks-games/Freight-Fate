@@ -823,7 +823,7 @@ fn test_t_plans_a_sleep_stop_well_beyond_the_exit_window() {
         "{said}"
     );
     assert!(
-        said.contains("20 miles ahead") || said.contains("20.0 miles ahead"),
+        said.contains(", 20 miles.") || said.contains(", 20.0 miles."),
         "{said}"
     );
     // Twenty miles out the exit cannot be signalled yet; it is called when

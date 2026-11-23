@@ -46,6 +46,8 @@ pub mod logbook;
 pub mod main_menu;
 pub mod main_menu_career;
 pub mod main_menu_help;
+mod main_menu_help_phone;
+pub mod newspaper;
 pub mod online_hub;
 pub mod online_offer;
 pub mod online_states;

@@ -30,11 +30,17 @@ impl DrivingState {
         if self.held(ctx, Action::SteerRight) {
             key_dir += 1;
         }
-        // The left stick provides analog steering when the keys are idle.
-        let stick = if self.pad_live(ctx) {
+        // The left stick provides analog steering when the keys are idle,
+        // and a tilt of the phone when the stick is idle too.
+        let pad = if self.pad_live(ctx) {
             ctx.controller.steering()
         } else {
             0.0
+        };
+        let stick = if pad != 0.0 || self.co_driver_driving() {
+            pad
+        } else {
+            ctx.tilt.steering(ctx.settings.touch_tilt_full())
         };
         self.lane.steer_input(key_dir, stick);
         if ctx.settings.lane_is_automated() {

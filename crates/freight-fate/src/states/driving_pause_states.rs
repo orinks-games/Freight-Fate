@@ -133,6 +133,10 @@ impl PauseMenuState {
             .help(
                 "How to play, opened at the driving keys page. Left and Right change pages, Up \
                  and Down read lines.",
+            )
+            .touch_help(
+                "How to play, opened at the driving gestures page. Flick up or down to change \
+                 pages, and right or left to read lines.",
             ),
             MenuItem::new("Learn game sounds", |_s: &mut Self, ctx: &mut GameContext| {
                 let state = LearnSoundsState::new();
@@ -148,7 +152,7 @@ impl PauseMenuState {
                 let state = SettingsState::new();
                 ctx.push_state(state);
             })
-            .help("Units, transmission, volumes, weather, voices, update channel, and pacing."),
+            .help(crate::states::main_menu::settings_help()),
         ];
         let team_rows = self.team_rows(ctx, d);
         let team_count = team_rows.len();
@@ -784,6 +788,12 @@ impl Menu for PauseMenuState {
         if let Some(key) = self.menu.open_sound_key.clone() {
             ctx.audio.play(&key);
         }
+        self.announce_entry(ctx);
+    }
+
+    /// Back in a phone app the drive was paused for: the menu from its
+    /// title, since its opening was cut off as the player left.
+    fn on_app_return(&mut self, ctx: &mut GameContext) {
         self.announce_entry(ctx);
     }
 

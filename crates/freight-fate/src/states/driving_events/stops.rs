@@ -2,7 +2,7 @@
 //! intent, and opening a route point's own menu. Planning a stop by its
 //! purpose is `stop_plan`.
 
-use ff_core::sim::hos;
+use ff_core::sim::stop_lot::StopLot;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::speech_pacing::SpeechCategory;
 
@@ -11,6 +11,7 @@ use crate::states::base::TimedMessageState;
 use crate::states::driving::{DrivingState, StopVisit};
 use crate::states::driving_core::*;
 use crate::states::driving_rest_states::RestFocus;
+use crate::states::driving_updates::live;
 
 use super::stop_plan::StopPlanPurpose;
 use super::with_drive;
@@ -334,7 +335,7 @@ impl DrivingState {
             String::new()
         };
         let message = format!(
-            "{prefix}, {}, {distance} ahead{exit_text}.{note}{next_step}{assist}",
+            "{prefix}, {}{exit_text}, {distance}.{note}{next_step}{assist}",
             stop.spoken_name()
         );
         self.set_status(message.clone());
@@ -357,6 +358,18 @@ impl DrivingState {
     }
 
     /// `_open_poi_stop(stop, *, settle=False, preferred_rest=None)`.
+    /// The lot at `stop` if the truck pulled in now. The one rule the
+    /// player's stop menu and the co-driver both read.
+    pub fn lot_at(&self, stop: &RoadStop) -> StopLot {
+        StopLot::on_arrival(
+            &stop.actions,
+            self.trip_seed,
+            stop.at_mi,
+            self.trip.local_hour(),
+            stop.parking_spaces,
+        )
+    }
+
     pub fn open_poi_stop(
         &mut self,
         ctx: &mut GameContext,
@@ -402,6 +415,9 @@ impl DrivingState {
             return;
         }
 
+        // A line about reaching the stop is spent once its menu opens: held
+        // or cut off, it was said again over the menu (phone walk E2).
+        live::set_stop_menu_open(true);
         if settle {
             // A POI stop that pulls in through this wait is a menu-driven
             // stop like a roadside inspection: the frame loop that eases
@@ -435,16 +451,8 @@ impl DrivingState {
             return;
         }
 
-        let can_sleep = stop.actions.iter().any(|action| action == "sleep");
-        if can_sleep
-            && hos::parking_is_full(
-                self.trip_seed,
-                stop.at_mi,
-                self.trip.local_hour(),
-                stop.parking_spaces,
-            )
-        {
-            self.push_parking_full_state(ctx, stop);
+        if self.lot_at(stop).is_full() {
+            self.push_parking_full_state(ctx, stop, preferred_rest);
             return;
         }
         self.push_rest_stop_state(ctx, stop, preferred_rest);

@@ -55,6 +55,7 @@ pub mod pending;
 pub mod radio;
 pub mod radio_channel3000;
 pub mod radio_synth;
+pub mod road_tally;
 pub mod road_texture;
 pub mod runaway;
 pub mod stops;
@@ -282,6 +283,7 @@ pub mod live {
         static SPEED_MPH: Cell<f64> = const { Cell::new(0.0) };
         static HAZARD_ACTIVE: Cell<bool> = const { Cell::new(false) };
         static ARRIVAL_MENU_OPEN: Cell<bool> = const { Cell::new(false) };
+        static STOP_MENU_OPEN: Cell<bool> = const { Cell::new(false) };
         static GATE_STOP_PROMPTED: Cell<bool> = const { Cell::new(false) };
         static STOP_OFFER_OPEN: Cell<bool> = const { Cell::new(false) };
         static ON_RAMP: Cell<bool> = const { Cell::new(false) };
@@ -419,6 +421,17 @@ pub mod live {
 
     pub fn arrival_menu_open() -> bool {
         ARRIVAL_MENU_OPEN.with(|cell| cell.get())
+    }
+
+    /// Whether a road stop's menu is opening or open (a rest area, a truck
+    /// stop, a scale). Stamped where it opens, since the drive stops ticking
+    /// then, and cleared by the next frame of driving.
+    pub fn set_stop_menu_open(value: bool) {
+        STOP_MENU_OPEN.with(|cell| cell.set(value));
+    }
+
+    pub fn stop_menu_open() -> bool {
+        STOP_MENU_OPEN.with(|cell| cell.get())
     }
 
     /// Whether the gate's own "At <facility>. Stop..." line has been

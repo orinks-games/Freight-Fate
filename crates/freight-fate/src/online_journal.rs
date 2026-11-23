@@ -421,6 +421,9 @@ pub struct DeliveryFacts {
     /// On a team load, who drove how much of it; said in place of the
     /// condition line.
     pub team_note: Option<String>,
+    /// What the drive met on the road (`RoadTally::conditions`): only the
+    /// parts true for this trip, or `None`.
+    pub conditions: Option<Value>,
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -446,8 +449,24 @@ pub fn queue_delivery(
         ],
     );
     let mut inner = Map::new();
-    inner.insert("version".to_string(), json!(1));
+    // Version 2 is version 1 plus the catalog keys orinks.net reads the
+    // cargo and cities by, so it never has to match spoken text. The event
+    // id above is built from the same facts as before, so a delivery still
+    // waiting in the outbox as version 1 is not queued a second time.
+    inner.insert("version".to_string(), json!(2));
     inner.insert("cargo".to_string(), Value::from(facts.cargo_label.as_str()));
+    inner.insert(
+        "cargoKey".to_string(),
+        Value::from(facts.cargo_key.as_str()),
+    );
+    inner.insert(
+        "originKey".to_string(),
+        Value::from(facts.job_origin.as_str()),
+    );
+    inner.insert(
+        "destinationKey".to_string(),
+        Value::from(facts.job_destination.as_str()),
+    );
     inner.insert(
         "weightPounds".to_string(),
         Value::from(round_py_int(facts.weight_tons * 2000.0)),
@@ -463,6 +482,9 @@ pub fn queue_delivery(
             "notableCondition".to_string(),
             Value::from("Delivered without new truck damage"),
         );
+    }
+    if let Some(conditions) = &facts.conditions {
+        inner.insert("conditions".to_string(), conditions.clone());
     }
     let payload = json!({
         "eventId": event_id,

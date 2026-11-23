@@ -156,3 +156,89 @@ fn a_transponder_green_light_keeps_full_lane_keeping_on_the_highway() {
     assert!(rig.drive.trip.position_mi > SCALE_MI + 1.0, "{transcript}");
     assert_eq!(rig.said("Scale bypass enforcement"), 0, "{transcript}");
 }
+
+/// Drive toward the open scale until lane keeping signals for it, and return
+/// the transcript up to then.
+fn drive_to_the_signal(rig: &mut Rig) -> Vec<String> {
+    rig.prepare(55.0, None);
+    for _ in 0..60 * 60 * 5 {
+        rig.drive.trip.truck.velocity_mps = 55.0 * MPS_PER_MPH;
+        rig.step(1, DT, None);
+        if rig.drive.exit_signal_on {
+            break;
+        }
+    }
+    // Let the queued lines play out.
+    for _ in 0..60 * 10 {
+        rig.drive.trip.truck.velocity_mps = 55.0 * MPS_PER_MPH;
+        rig.step(1, DT, None);
+    }
+    rig.transcript()
+}
+
+/// Phone walk, 2026-11-21: one open scale was called three times, by the
+/// stop callout, the weigh station notice and the exit signal, each naming
+/// it and its distance. The notice is the one call now; the signal right
+/// behind it says only which exit.
+#[test]
+fn an_open_scale_is_announced_once_then_its_exit_signal() {
+    let mut rig = rig_on("full");
+    rig.app.ctx.settings.driving_speech = "standard".to_string();
+    open_scale(&mut rig);
+    let transcript = drive_to_the_signal(&mut rig);
+    let text = transcript.join("\n");
+    assert!(rig.drive.exit_signal_on, "{text}");
+    assert_eq!(rig.said("Open weigh station in"), 1, "{text}");
+    // The callout opened on the name; the armed exit's own countdown
+    // ("Exit for ... in 2 miles.") is a later, different line.
+    assert!(
+        !transcript.iter().any(|line| line
+            .trim_start_matches("[event] ")
+            .starts_with(&format!("{NAME} in "))),
+        "the stop callout repeated the notice:\n{text}"
+    );
+    let signal: Vec<&String> = transcript
+        .iter()
+        .filter(|line| line.contains("for the scale exit"))
+        .collect();
+    assert_eq!(signal.len(), 1, "{text}");
+    assert!(
+        signal[0].contains("Signal set for the scale exit.") && !signal[0].contains(" mile"),
+        "the signal said the name or distance again: {}",
+        signal[0]
+    );
+}
+
+/// Quiet speech: the notice is its earcon alone, so the signal still names
+/// the scale and the distance.
+#[test]
+fn a_quiet_notice_leaves_the_signal_line_whole() {
+    let mut rig = rig_on("full");
+    rig.app.ctx.settings.driving_speech = "quiet".to_string();
+    open_scale(&mut rig);
+    let transcript = drive_to_the_signal(&mut rig);
+    let text = transcript.join("\n");
+    assert!(rig.drive.exit_signal_on, "{text}");
+    assert_eq!(rig.said("Signal set for the scale exit."), 0, "{text}");
+    assert!(rig.said(&format!("for the {NAME} exit")) > 0, "{text}");
+}
+
+/// A closed scale has no notice, so its sign is still read by the stop
+/// callout.
+#[test]
+fn a_closed_scale_keeps_its_stop_callout() {
+    let mut rig = rig_on("full");
+    open_scale(&mut rig);
+    rig.drive.trip.posts.clear();
+    rig.prepare(55.0, None);
+    for _ in 0..60 * 60 * 5 {
+        rig.drive.trip.truck.velocity_mps = 55.0 * MPS_PER_MPH;
+        rig.step(1, DT, None);
+        if rig.drive.trip.position_mi > SCALE_MI - 0.5 {
+            break;
+        }
+    }
+    let text = rig.transcript().join("\n");
+    assert!(rig.said("Closed.") > 0, "{text}");
+    assert_eq!(rig.said("Open weigh station in"), 0, "{text}");
+}

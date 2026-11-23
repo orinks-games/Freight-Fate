@@ -70,7 +70,7 @@ fn remind(app: &mut TestApp, drive: &SharedState) {
 fn reminders(app: &TestApp) -> Vec<String> {
     app.event_lines()
         .into_iter()
-        .filter(|s| s.starts_with("Chain law ahead"))
+        .filter(|s| s.starts_with("Chain law on"))
         .collect()
 }
 
@@ -298,13 +298,13 @@ fn test_the_road_reminder_plays_once_per_corridor_and_never_spends() {
     let said = reminders(&app);
     assert_eq!(said.len(), 1, "{said:?}");
     assert!(
-        said[0].starts_with("Chain law ahead on I-70 at exit 254."),
+        said[0].starts_with("Chain law on I-70 at exit 254."),
         "{said:?}"
     );
     // No store: no garage is open between here and the delivery.
     assert_eq!(
         said[0],
-        "Chain law ahead on I-70 at exit 254. You have no chains."
+        "Chain law on I-70 at exit 254. You have no chains."
     );
     // Ticking on through the approach doesn't repeat it.
     for at in [6.0, 10.0, 15.0, 19.0] {
@@ -315,12 +315,12 @@ fn test_the_road_reminder_plays_once_per_corridor_and_never_spends() {
     // The next separate corridor plays again.
     clock.advance(120.0); // the first line has long finished
     app.clear_speech();
-    with_drive(&drive, |d| d.trip.position_mi = 27.0);
+    roll_to_mile(&drive, 27.0);
     remind(&mut app, &drive);
     let said = reminders(&app);
     assert_eq!(said.len(), 1, "{said:?}");
     assert!(
-        said[0].starts_with("Chain law ahead on I-70 at exit 234."),
+        said[0].starts_with("Chain law on I-70 at exit 234."),
         "{said:?}"
     );
     assert!((money(&app) - 1000.0).abs() < 0.01);
@@ -340,7 +340,7 @@ fn test_the_road_reminder_plays_once_per_corridor_and_never_spends() {
     let said = reminders(&app);
     assert_eq!(said.len(), 1, "{said:?}");
     assert!(!said[0].contains("exit"), "{said:?}");
-    assert_eq!(said[0], "Chain law ahead on I-70. You have no chains.");
+    assert_eq!(said[0], "Chain law on I-70. You have no chains.");
 }
 
 #[test]
@@ -595,7 +595,7 @@ fn chains_on_bare(drive: &SharedState) {
     with_drive(drive, |d| {
         d.trip.truck.chains_on = true;
         d.trip.truck.surface = "dry".to_string();
-        d.chain_set = ChainSet::from_truck(true, false, d.trip.position_mi);
+        d.chain_set = ChainSet::from_truck(true, false);
     });
 }
 
@@ -618,7 +618,7 @@ fn test_facility_stopping_takes_chains_off_on_bare_road() {
         pending(&drive).is_none(),
         "not yet half a mile of bare road"
     );
-    with_drive(&drive, |d| d.trip.position_mi = 10.8);
+    roll_to_mile(&drive, 10.8);
     chains_then_assist(&mut app, &drive);
     assert_eq!(pending(&drive), Some(ChainStopKind::Remove));
     assert_eq!(
@@ -650,7 +650,7 @@ fn test_facility_stopping_takes_chains_off_on_bare_road_inside_a_chain_law_area(
     );
     chains_on_bare(&drive);
     chains_then_assist(&mut app, &drive);
-    with_drive(&drive, |d| d.trip.position_mi = 4.6);
+    roll_to_mile(&drive, 4.6);
     chains_then_assist(&mut app, &drive);
     assert_eq!(pending(&drive), Some(ChainStopKind::Remove));
     assert!(
@@ -680,7 +680,7 @@ fn test_without_the_assist_the_driver_hears_bare_road_once_per_stretch() {
     let bare_line = "Bare road. Stop and take the chains off.".to_string();
     let count = |app: &TestApp| lines(app).iter().filter(|l| **l == bare_line).count();
     for mile in [4.2, 4.4, 4.6, 5.0, 6.0] {
-        with_drive(&drive, |d| d.trip.position_mi = mile);
+        roll_to_mile(&drive, mile);
         chains_then_assist(&mut app, &drive);
     }
     assert_eq!(count(&app), 1, "{:?}", lines(&app));
@@ -691,7 +691,7 @@ fn test_without_the_assist_the_driver_hears_bare_road_once_per_stretch() {
     chains_then_assist(&mut app, &drive);
     with_drive(&drive, |d| d.trip.truck.surface = "wet".to_string());
     for mile in [6.2, 6.4, 6.8] {
-        with_drive(&drive, |d| d.trip.position_mi = mile);
+        roll_to_mile(&drive, mile);
         chains_then_assist(&mut app, &drive);
     }
     assert_eq!(count(&app), 2, "{:?}", lines(&app));

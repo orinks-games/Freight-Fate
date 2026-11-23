@@ -60,6 +60,22 @@ impl WeatherKind {
         }
     }
 
+    /// The key a delivery names this condition by on orinks.net
+    /// (`heavy_rain`): the member name in lower case. Not spoken.
+    pub fn key(self) -> &'static str {
+        match self {
+            WeatherKind::Clear => "clear",
+            WeatherKind::Cloudy => "cloudy",
+            WeatherKind::Rain => "rain",
+            WeatherKind::HeavyRain => "heavy_rain",
+            WeatherKind::Thunderstorm => "thunderstorm",
+            WeatherKind::Snow => "snow",
+            WeatherKind::Ice => "ice",
+            WeatherKind::Fog => "fog",
+            WeatherKind::Wind => "wind",
+        }
+    }
+
     /// `WeatherKind(value)`: the condition for a spoken value, if any.
     pub fn from_value(value: &str) -> Option<WeatherKind> {
         WeatherKind::ALL

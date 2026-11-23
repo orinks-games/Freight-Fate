@@ -1022,8 +1022,9 @@ fn test_chained_jake_holds_the_icy_grade() {
 
 #[test]
 fn test_chains_grind_apart_on_bare_pavement_and_snap() {
-    // Chains left on at highway speed on dry pavement destroy themselves in a
-    // couple of miles: the set snaps, takes a bite of the fender, and is scrap.
+    // Chains left on at highway speed on dry pavement destroy themselves a
+    // few miles past the grace: the set snaps, takes a bite of the fender,
+    // and is scrap.
     let mut t = make_auto_truck();
     t.chains_on = true;
     t.surface = "dry".to_string();

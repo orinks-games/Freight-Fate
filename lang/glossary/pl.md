@@ -71,7 +71,6 @@ for example `{count} {count:mila|mile|mil}` (see "Plurals" in
 | passing | wyprzedzanie | |
 | hazard | zagrożenie | |
 | stopping distance | droga zatrzymania | Not "droga hamowania", a shorter distance. |
-| low bridge | niski wiadukt | |
 | weight limit | limit masy | |
 | exit speed | prędkość na zjeździe | |
 | ramp curve | łuk zjazdu | |

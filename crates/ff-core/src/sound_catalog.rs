@@ -826,6 +826,14 @@ pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
         "vehicle/bridge_joint",
         "The joint at a bridge end: texture, not a decision.",
     ),
+    (
+        "vehicle/tined_whine",
+        "Tires on concrete grooved across the lane: texture, not a decision.",
+    ),
+    (
+        "vehicle/grate_hum",
+        "Tires on a steel grate bridge deck: texture, not a decision.",
+    ),
     ("vehicle/truck_door", "A door."),
     (
         "cab/*",
