@@ -10,6 +10,7 @@
 
 ### Fixed
 
+- **Town streets at the start and end of a road no longer get the highway's speed limit.** Where no sign is mapped, the town limit applies instead.
 - **Chains no longer wear fast in the first 2 miles of bare road.** That leaves room to stop and take them off.
 - **Holding chain speed on cruise no longer wears the chains as if you were speeding.**
 - **Cruise now keeps the truck at chain speed downhill.** It used to drift over and wear the chains faster.

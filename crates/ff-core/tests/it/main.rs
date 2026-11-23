@@ -63,6 +63,7 @@ mod sim_scale_check_in_guidance;
 mod sim_speech_clocks;
 mod sim_steer_build;
 mod sim_street_detail;
+mod sim_town_limits;
 mod sim_traffic_bubble;
 mod sim_traffic_manager;
 mod sim_trip_cues;

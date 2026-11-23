@@ -246,6 +246,9 @@ pub struct DrivingObservation {
     /// The limit enforcement is holding the truck to, once one has been
     /// read off the road (None on a drive's first frames).
     pub speed_limit_mph: Option<f64>,
+    /// True when the limit is an assumed town figure rather than a posting
+    /// (`sim::town_limits`).
+    pub town_limit_assumed: bool,
     /// Adaptive cruise's set point, when it is engaged.
     pub cruise_set_mph: Option<f64>,
     /// The speed keeper's hold, when it has the zone.
@@ -1034,6 +1037,10 @@ impl App {
             cargo_damage_pct: drive.trip.truck.cargo_damage_pct,
             speed_mph: drive.trip.truck.speed_mph(),
             speed_limit_mph: drive.enforced_limit_prev,
+            town_limit_assumed: drive
+                .trip
+                .town_limit_source_at(drive.trip.position_mi)
+                .is_some(),
             cruise_set_mph: drive.cruise_mph,
             keeper_mph: drive.keeper_mph,
             keeper_following: drive.keeper_follow.following(),

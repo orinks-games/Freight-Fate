@@ -998,8 +998,13 @@ impl AgentPolicy {
                              {}. Off pavement: {}. Truck damage: {:.0}%. Cargo damage: {:.0}%. {}",
                             o.position_mi,
                             o.speed_mph,
-                            o.speed_limit_mph
-                                .map_or("not read yet".to_string(), |mph| format!("{mph:.0}")),
+                            o.speed_limit_mph.map_or("not read yet".to_string(), |mph| {
+                                if o.town_limit_assumed {
+                                    format!("{mph:.0} (assumed town limit)")
+                                } else {
+                                    format!("{mph:.0}")
+                                }
+                            }),
                             o.air_ready,
                             o.parking_brake,
                             o.speed_control_armed,

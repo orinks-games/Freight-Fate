@@ -15035,6 +15035,24 @@ msgstr ""
 msgid "shifting"
 msgstr ""
 
+#. placeholders: {state}, {citation}
+#: crates/ff-core/src/sim/town_limits.rs
+msgid ""
+"assumed: no posting read on the town streets; {state}'s district limit, "
+"{citation}"
+msgstr ""
+
+#. placeholders: {state}
+#: crates/ff-core/src/sim/town_limits.rs
+msgid ""
+"assumed: no posting read on the town streets and no district limit on file "
+"for {state}; the street fallback"
+msgstr ""
+
+#: crates/ff-core/src/sim/town_limits.rs
+msgid "this state"
+msgstr ""
+
 #: crates/ff-core/src/sim/traffic_manager.rs
 msgid "minivan"
 msgstr ""

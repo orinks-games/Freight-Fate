@@ -939,17 +939,22 @@ fn test_relaxed_mode_reduces_merge_exit_pressure() {
     let normal = make_trip(4, 1.0);
     let relaxed = make_trip(4, RELAXED_HAZARD_SCALE);
 
+    // One on the open road: in town both sit at the town limit.
     let normal_exit = normal
         .traffic_pressures
         .iter()
-        .find(|p| p.kind == "exit")
+        .find(|p| p.kind == "exit" && normal.corridor_limit_at(p.start_mi) > 45.0)
         .expect("an exit pressure")
         .clone();
     let stop_mile = normal.stops[0].at_mi - 2.0;
 
     let expected = normal.traffic_pressure_intensity(stop_mile, "exit") * RELAXED_HAZARD_SCALE;
     assert!((relaxed.traffic_pressure_intensity(stop_mile, "exit") - expected).abs() < 1e-9);
-    if let Some(relaxed_exit) = relaxed.traffic_pressures.iter().find(|p| p.kind == "exit") {
+    if let Some(relaxed_exit) = relaxed
+        .traffic_pressures
+        .iter()
+        .find(|p| p.kind == "exit" && p.start_mi == normal_exit.start_mi)
+    {
         assert!(relaxed_exit.intensity < normal_exit.intensity);
         assert!(relaxed_exit.target_speed_mph > normal_exit.target_speed_mph);
     }

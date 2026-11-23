@@ -306,6 +306,9 @@ pub struct Trip {
     pub chain_law_areas: Vec<(f64, f64)>,
     pub posts: Vec<EnforcementPost>,
     pub curves: Vec<RouteCurve>,
+    /// Per route leg: where the town streets at each end take the district
+    /// limit because no posting was read there. See `sim::town_limits`.
+    pub town_ends: Vec<crate::sim::town_limits::TownEnds>,
     /// True while the player is on an exit ramp that ends in a light or a
     /// stop sign; pins the clock to real time.
     pub controlled_ramp: bool,
@@ -509,6 +512,7 @@ impl Trip {
             chain_law_areas: Vec::new(),
             posts: Vec::new(),
             curves: Vec::new(),
+            town_ends: Vec::new(),
             controlled_ramp: false,
             dock_run_in: false,
             pull_over_active: false,
@@ -562,6 +566,8 @@ impl Trip {
             state_codes,
             world,
         };
+        // Before anything reads a limit: the zones, posts and stops do.
+        trip.town_ends = trip.place_town_ends();
         // The same order as the Python constructor: every seeded draw below
         // happens in this sequence.
         let (start_timezone, crossings) = trip.compute_timezone_crossings();
