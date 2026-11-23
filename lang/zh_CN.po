@@ -29752,187 +29752,193 @@ msgstr "Meridian"
 msgid "trainer"
 msgstr "教练"
 
-#. placeholders: {name}
-msgid "{name} has the truck at the receiver's gate."
-msgstr "{name}已把卡车开到收货方大门。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} has the truck at the receiver's gate."
+msgstr "{co_driver_name}已把卡车开到收货方大门。"
 
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "搭档的工时用完了。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} has parked and hands you the wheel."
-msgstr "{name}已停车，把方向盘交给你。"
+msgid "{co_driver_name} has parked and hands you the wheel."
+msgstr "{co_driver_name}已停车，把方向盘交给你。"
 
-#. placeholders: {name}
-msgid "{name} has parked and hands you the wheel. Their hours are up."
-msgstr "{name}已停好车，把方向盘交给你。对方的工时已用完。"
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} has parked and hands you the wheel. Their hours are up."
+msgstr "{co_driver_name}已停好车，把方向盘交给你。对方的工时已用完。"
 
 #. one sentence of a longer line
 msgid "Their hours are up, and yours reach the receiver."
 msgstr "对方的工时已用完，你的工时够开到收货方。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} has parked and hands you the wheel. Their hours are up, and yours "
-"reach the receiver."
-msgstr "{name}已停好车，把方向盘交给你。对方的工时已用完，你的工时够开到收货方。"
+"{co_driver_name} has parked and hands you the wheel. Their hours are up, "
+"and yours reach the receiver."
+msgstr "{co_driver_name}已停好车，把方向盘交给你。对方的工时已用完，你的工时够开到收货方。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the wheel."
-msgstr "附近没有停车场，{name}停在路肩上，把方向盘交给你。"
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel."
+msgstr "附近没有停车场，{co_driver_name}停在路肩上，把方向盘交给你。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the "
-"wheel. Their hours are up."
-msgstr "附近没有停车场，{name}停在路肩上，把方向盘交给你。对方的工时已用完。"
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel. Their hours are up."
+msgstr "附近没有停车场，{co_driver_name}停在路肩上，把方向盘交给你。对方的工时已用完。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the "
-"wheel. Their hours are up, and yours reach the receiver."
-msgstr "附近没有停车场，{name}停在路肩上，把方向盘交给你。对方的工时已用完，你的工时够开到收货方。"
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel. Their hours are up, and yours reach the receiver."
+msgstr "附近没有停车场，{co_driver_name}停在路肩上，把方向盘交给你。对方的工时已用完，你的工时够开到收货方。"
 
 #. one sentence of a longer line
 msgid "Their break is due."
 msgstr "搭档该中途休息了。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} stopped on the shoulder and hands you the wheel."
-msgstr "{name}停在路肩上，把方向盘交给你。"
+msgid "{co_driver_name} stopped on the shoulder and hands you the wheel."
+msgstr "{co_driver_name}停在路肩上，把方向盘交给你。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} stopped on the shoulder and hands you the wheel. Their break is due."
-msgstr "{name}停在路肩上，把方向盘交给你。对方该中途休息了。"
+"{co_driver_name} stopped on the shoulder and hands you the wheel. Their "
+"break is due."
+msgstr "{co_driver_name}停在路肩上，把方向盘交给你。对方该中途休息了。"
 
-#. placeholders: {name}
-msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
-msgstr "{name}已停车，把方向盘交给你。你已休息满10小时。"
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} has parked and hands you the wheel. Your 10-hour rest is "
+"in."
+msgstr "{co_driver_name}已停车，把方向盘交给你。你已休息满10小时。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} parked when their hours ran out, and you slept on."
-msgstr "{name}工时用完后停了车，你继续睡。"
+msgid "{co_driver_name} parked when their hours ran out, and you slept on."
+msgstr "{co_driver_name}工时用完后停了车，你继续睡。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} parked when their hours ran out, and you slept on. Your 10-hour rest "
-"is in."
-msgstr "{name}工时用完后停了车，你继续睡。你已休息满10小时。"
+"{co_driver_name} parked when their hours ran out, and you slept on. Your "
+"10-hour rest is in."
+msgstr "{co_driver_name}工时用完后停了车，你继续睡。你已休息满10小时。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 msgid ""
-"{name} pulled onto the shoulder when their hours ran out, with no lot in "
-"reach, and you slept on there."
-msgstr "{name}工时用完时，附近没有能到的停车场，就停到路肩上，你继续在那里睡。"
+"{co_driver_name} pulled onto the shoulder when their hours ran out, with no "
+"lot in reach, and you slept on there."
+msgstr "{co_driver_name}工时用完时，附近没有能到的停车场，就停到路肩上，你继续在那里睡。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} pulled onto the shoulder when their hours ran out, with no lot in "
-"reach, and you slept on there. Your 10-hour rest is in."
-msgstr "{name}工时用完时，附近没有能到的停车场，就停到路肩上，你继续在那里睡。你已休息满10小时。"
+"{co_driver_name} pulled onto the shoulder when their hours ran out, with no "
+"lot in reach, and you slept on there. Your 10-hour rest is in."
+msgstr "{co_driver_name}工时用完时，附近没有能到的停车场，就停到路肩上，你继续在那里睡。你已休息满10小时。"
 
 #. one sentence of a longer line
 msgid "Their hours run out before the next place to park."
 msgstr "到下一个能停车的地方之前，搭档的工时就会用完。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} has parked for the end of their shift."
-msgstr "{name}已停车，结束本班驾驶。"
+msgid "{co_driver_name} has parked for the end of their shift."
+msgstr "{co_driver_name}已停车，结束本班驾驶。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} has parked for the end of their shift. Their hours run out before "
-"the next place to park."
-msgstr "{name}已停车，结束本班驾驶。到下一个能停车的地方之前，搭档的工时就会用完。"
+"{co_driver_name} has parked for the end of their shift. Their hours run out "
+"before the next place to park."
+msgstr "{co_driver_name}已停车，结束本班驾驶。到下一个能停车的地方之前，搭档的工时就会用完。"
 
 #. one sentence of a longer line
 msgid "The truck took damage."
 msgstr "卡车受损了。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} needs you."
-msgstr "{name}需要你。"
+msgid "{co_driver_name} needs you."
+msgstr "{co_driver_name}需要你。"
 
-#. placeholders: {name}
-msgid "{name} needs you. The truck took damage."
-msgstr "{name}需要你。卡车受损了。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The truck took damage."
+msgstr "{co_driver_name}需要你。卡车受损了。"
 
 #. one sentence of a longer line
 msgid "The tank is empty."
 msgstr "油箱空了。"
 
-#. placeholders: {name}
-msgid "{name} needs you. The tank is empty."
-msgstr "{name}需要你。油箱空了。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The tank is empty."
+msgstr "{co_driver_name}需要你。油箱空了。"
 
 #. one sentence of a longer line
 msgid "The truck has left the road."
 msgstr "卡车冲出了道路。"
 
-#. placeholders: {name}
-msgid "{name} needs you. The truck has left the road."
-msgstr "{name}需要你。卡车冲出了道路。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The truck has left the road."
+msgstr "{co_driver_name}需要你。卡车冲出了道路。"
 
 #. one sentence of a longer line
 msgid "The truck is stopped and will not go on."
 msgstr "卡车停住了，无法继续行驶。"
 
-#. placeholders: {name}
-msgid "{name} needs you. The truck is stopped and will not go on."
-msgstr "{name}需要你。卡车停住了，无法继续行驶。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The truck is stopped and will not go on."
+msgstr "{co_driver_name}需要你。卡车停住了，无法继续行驶。"
 
 #. one sentence of a longer line
 msgid "There is not enough money for fuel."
 msgstr "钱不够加油。"
 
-#. placeholders: {name}
-msgid "{name} needs you. There is not enough money for fuel."
-msgstr "{name}需要你。钱不够加油。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. There is not enough money for fuel."
+msgstr "{co_driver_name}需要你。钱不够加油。"
 
 #. one sentence of a longer line
 msgid "A trooper has the truck stopped."
 msgstr "巡警拦停了卡车。"
 
-#. placeholders: {name}
-msgid "{name} needs you. A trooper has the truck stopped."
-msgstr "{name}需要你。巡警拦停了卡车。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. A trooper has the truck stopped."
+msgstr "{co_driver_name}需要你。巡警拦停了卡车。"
 
 #. one sentence of a longer line
 msgid "The lot is full."
 msgstr "停车场满了。"
 
-#. placeholders: {name}
-msgid "{name} needs you. The lot is full."
-msgstr "{name}需要你。停车场满了。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The lot is full."
+msgstr "{co_driver_name}需要你。停车场满了。"
 
 #. one sentence of a longer line
 msgid ""
 "The chain control is holding the truck, and there are no chains aboard."
 msgstr "防滑链检查站扣住了卡车，车上没有防滑链。"
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} needs you. The chain control is holding the truck, and there are no "
-"chains aboard."
-msgstr "{name}需要你。防滑链检查站扣住了卡车，车上没有防滑链。"
+"{co_driver_name} needs you. The chain control is holding the truck, and "
+"there are no chains aboard."
+msgstr "{co_driver_name}需要你。防滑链检查站扣住了卡车，车上没有防滑链。"
 
-#. placeholders: {name}
-msgid "{name} has the truck stopped and needs you to choose what to do."
-msgstr "{name}已停下卡车，需要你决定接下来怎么办。"
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} has the truck stopped and needs you to choose what to do."
+msgstr "{co_driver_name}已停下卡车，需要你决定接下来怎么办。"
 
-#. placeholders: {name}
-msgid "{name} needs you to decide this one."
-msgstr "{name}需要你来做这个决定。"
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you to decide this one."
+msgstr "{co_driver_name}需要你来做这个决定。"
 
 #. placeholders: {duration_text}
 msgid "{duration_text} of your 10-hour rest still to go."
@@ -29950,9 +29956,9 @@ msgstr "你睡了{f}小时。"
 msgid "You slept {game_minutes} minutes."
 msgstr "你睡了{game_minutes}分钟。"
 
-#. placeholders: {name}, {distance_text}
-msgid "{name} drove {distance_text}"
-msgstr "{name}开了{distance_text}"
+#. placeholders: {co_driver_name}, {distance_text}
+msgid "{co_driver_name} drove {distance_text}"
+msgstr "{co_driver_name}开了{distance_text}"
 
 #. placeholders: {stop}
 msgid " and fueled at {stop}"
@@ -40326,6 +40332,108 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid "{name} has the truck at the receiver's gate."
+#~ msgstr "{name}已把卡车开到收货方大门。"
+
+#~ msgid "{name} has parked and hands you the wheel."
+#~ msgstr "{name}已停车，把方向盘交给你。"
+
+#~ msgid "{name} has parked and hands you the wheel. Their hours are up."
+#~ msgstr "{name}已停好车，把方向盘交给你。对方的工时已用完。"
+
+#~ msgid ""
+#~ "{name} has parked and hands you the wheel. Their hours are up, and yours "
+#~ "reach the receiver."
+#~ msgstr "{name}已停好车，把方向盘交给你。对方的工时已用完，你的工时够开到收货方。"
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder with no lot in reach and hands you the wheel."
+#~ msgstr "附近没有停车场，{name}停在路肩上，把方向盘交给你。"
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder with no lot in reach and hands you the "
+#~ "wheel. Their hours are up."
+#~ msgstr "附近没有停车场，{name}停在路肩上，把方向盘交给你。对方的工时已用完。"
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder with no lot in reach and hands you the "
+#~ "wheel. Their hours are up, and yours reach the receiver."
+#~ msgstr "附近没有停车场，{name}停在路肩上，把方向盘交给你。对方的工时已用完，你的工时够开到收货方。"
+
+#~ msgid "{name} stopped on the shoulder and hands you the wheel."
+#~ msgstr "{name}停在路肩上，把方向盘交给你。"
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder and hands you the wheel. Their break is due."
+#~ msgstr "{name}停在路肩上，把方向盘交给你。对方该中途休息了。"
+
+#~ msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
+#~ msgstr "{name}已停车，把方向盘交给你。你已休息满10小时。"
+
+#~ msgid "{name} parked when their hours ran out, and you slept on."
+#~ msgstr "{name}工时用完后停了车，你继续睡。"
+
+#~ msgid ""
+#~ "{name} parked when their hours ran out, and you slept on. Your 10-hour rest "
+#~ "is in."
+#~ msgstr "{name}工时用完后停了车，你继续睡。你已休息满10小时。"
+
+#~ msgid ""
+#~ "{name} pulled onto the shoulder when their hours ran out, with no lot in "
+#~ "reach, and you slept on there."
+#~ msgstr "{name}工时用完时，附近没有能到的停车场，就停到路肩上，你继续在那里睡。"
+
+#~ msgid ""
+#~ "{name} pulled onto the shoulder when their hours ran out, with no lot in "
+#~ "reach, and you slept on there. Your 10-hour rest is in."
+#~ msgstr "{name}工时用完时，附近没有能到的停车场，就停到路肩上，你继续在那里睡。你已休息满10小时。"
+
+#~ msgid "{name} has parked for the end of their shift."
+#~ msgstr "{name}已停车，结束本班驾驶。"
+
+#~ msgid ""
+#~ "{name} has parked for the end of their shift. Their hours run out before "
+#~ "the next place to park."
+#~ msgstr "{name}已停车，结束本班驾驶。到下一个能停车的地方之前，搭档的工时就会用完。"
+
+#~ msgid "{name} needs you."
+#~ msgstr "{name}需要你。"
+
+#~ msgid "{name} needs you. The truck took damage."
+#~ msgstr "{name}需要你。卡车受损了。"
+
+#~ msgid "{name} needs you. The tank is empty."
+#~ msgstr "{name}需要你。油箱空了。"
+
+#~ msgid "{name} needs you. The truck has left the road."
+#~ msgstr "{name}需要你。卡车冲出了道路。"
+
+#~ msgid "{name} needs you. The truck is stopped and will not go on."
+#~ msgstr "{name}需要你。卡车停住了，无法继续行驶。"
+
+#~ msgid "{name} needs you. There is not enough money for fuel."
+#~ msgstr "{name}需要你。钱不够加油。"
+
+#~ msgid "{name} needs you. A trooper has the truck stopped."
+#~ msgstr "{name}需要你。巡警拦停了卡车。"
+
+#~ msgid "{name} needs you. The lot is full."
+#~ msgstr "{name}需要你。停车场满了。"
+
+#~ msgid ""
+#~ "{name} needs you. The chain control is holding the truck, and there are no "
+#~ "chains aboard."
+#~ msgstr "{name}需要你。防滑链检查站扣住了卡车，车上没有防滑链。"
+
+#~ msgid "{name} has the truck stopped and needs you to choose what to do."
+#~ msgstr "{name}已停下卡车，需要你决定接下来怎么办。"
+
+#~ msgid "{name} needs you to decide this one."
+#~ msgstr "{name}需要你来做这个决定。"
+
+#~ msgid "{name} drove {distance_text}"
+#~ msgstr "{name}开了{distance_text}"
 
 #~ msgid "{whole} feet {inches} inches"
 #~ msgstr "{whole}英尺{inches}英寸"

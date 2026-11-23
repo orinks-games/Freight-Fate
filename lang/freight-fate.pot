@@ -37135,9 +37135,9 @@ msgstr ""
 msgid "trainer"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has the truck at the receiver's gate."
+msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37145,15 +37145,16 @@ msgstr ""
 msgid "Their hours are up."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has parked and hands you the wheel."
+msgid "{co_driver_name} has parked and hands you the wheel."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has parked and hands you the wheel. Their hours are up."
+msgid ""
+"{co_driver_name} has parked and hands you the wheel. Their hours are up."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37161,32 +37162,33 @@ msgstr ""
 msgid "Their hours are up, and yours reach the receiver."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} has parked and hands you the wheel. Their hours are up, and yours "
-"reach the receiver."
+"{co_driver_name} has parked and hands you the wheel. Their hours are up, "
+"and yours reach the receiver."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the wheel."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the "
-"wheel. Their hours are up."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel. Their hours are up."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the "
-"wheel. Their hours are up, and yours reach the receiver."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel. Their hours are up, and yours reach the receiver."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37194,49 +37196,52 @@ msgstr ""
 msgid "Their break is due."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} stopped on the shoulder and hands you the wheel."
+msgid "{co_driver_name} stopped on the shoulder and hands you the wheel."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} stopped on the shoulder and hands you the wheel. Their break is due."
+"{co_driver_name} stopped on the shoulder and hands you the wheel. Their "
+"break is due."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
+msgid ""
+"{co_driver_name} has parked and hands you the wheel. Your 10-hour rest is "
+"in."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} parked when their hours ran out, and you slept on."
+msgid "{co_driver_name} parked when their hours ran out, and you slept on."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} parked when their hours ran out, and you slept on. Your 10-hour rest "
-"is in."
+"{co_driver_name} parked when their hours ran out, and you slept on. Your "
+"10-hour rest is in."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} pulled onto the shoulder when their hours ran out, with no lot in "
-"reach, and you slept on there."
+"{co_driver_name} pulled onto the shoulder when their hours ran out, with no "
+"lot in reach, and you slept on there."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} pulled onto the shoulder when their hours ran out, with no lot in "
-"reach, and you slept on there. Your 10-hour rest is in."
+"{co_driver_name} pulled onto the shoulder when their hours ran out, with no "
+"lot in reach, and you slept on there. Your 10-hour rest is in."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37244,17 +37249,17 @@ msgstr ""
 msgid "Their hours run out before the next place to park."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has parked for the end of their shift."
+msgid "{co_driver_name} has parked for the end of their shift."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} has parked for the end of their shift. Their hours run out before "
-"the next place to park."
+"{co_driver_name} has parked for the end of their shift. Their hours run out "
+"before the next place to park."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37262,15 +37267,15 @@ msgstr ""
 msgid "The truck took damage."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you."
+msgid "{co_driver_name} needs you."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. The truck took damage."
+msgid "{co_driver_name} needs you. The truck took damage."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37278,9 +37283,9 @@ msgstr ""
 msgid "The tank is empty."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. The tank is empty."
+msgid "{co_driver_name} needs you. The tank is empty."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37288,9 +37293,9 @@ msgstr ""
 msgid "The truck has left the road."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. The truck has left the road."
+msgid "{co_driver_name} needs you. The truck has left the road."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37298,9 +37303,9 @@ msgstr ""
 msgid "The truck is stopped and will not go on."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. The truck is stopped and will not go on."
+msgid "{co_driver_name} needs you. The truck is stopped and will not go on."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37308,9 +37313,9 @@ msgstr ""
 msgid "There is not enough money for fuel."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. There is not enough money for fuel."
+msgid "{co_driver_name} needs you. There is not enough money for fuel."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37318,9 +37323,9 @@ msgstr ""
 msgid "A trooper has the truck stopped."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. A trooper has the truck stopped."
+msgid "{co_driver_name} needs you. A trooper has the truck stopped."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37328,9 +37333,9 @@ msgstr ""
 msgid "The lot is full."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. The lot is full."
+msgid "{co_driver_name} needs you. The lot is full."
 msgstr ""
 
 #. one sentence of a longer line
@@ -37339,21 +37344,22 @@ msgid ""
 "The chain control is holding the truck, and there are no chains aboard."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} needs you. The chain control is holding the truck, and there are no "
-"chains aboard."
+"{co_driver_name} needs you. The chain control is holding the truck, and "
+"there are no chains aboard."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has the truck stopped and needs you to choose what to do."
+msgid ""
+"{co_driver_name} has the truck stopped and needs you to choose what to do."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you to decide this one."
+msgid "{co_driver_name} needs you to decide this one."
 msgstr ""
 
 #. placeholders: {duration_text}
@@ -37376,9 +37382,9 @@ msgstr ""
 msgid "You slept {game_minutes} minutes."
 msgstr ""
 
-#. placeholders: {name}, {distance_text}
+#. placeholders: {co_driver_name}, {distance_text}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} drove {distance_text}"
+msgid "{co_driver_name} drove {distance_text}"
 msgstr ""
 
 #. placeholders: {stop}

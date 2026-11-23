@@ -33184,189 +33184,200 @@ msgstr "meridian"
 msgid "trainer"
 msgstr "instruktor"
 
-#. placeholders: {name}
-msgid "{name} has the truck at the receiver's gate."
-msgstr "{name} stoi ciężarówką przy bramie odbiorcy."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} has the truck at the receiver's gate."
+msgstr "{co_driver_name} stoi ciężarówką przy bramie odbiorcy."
 
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Czas pracy zmiennika się skończył."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} has parked and hands you the wheel."
-msgstr "{name} parkuje i oddaje ci kierownicę."
+msgid "{co_driver_name} has parked and hands you the wheel."
+msgstr "{co_driver_name} parkuje i oddaje ci kierownicę."
 
-#. placeholders: {name}
-msgid "{name} has parked and hands you the wheel. Their hours are up."
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} has parked and hands you the wheel. Their hours are up."
 msgstr ""
-"{name} parkuje i oddaje ci kierownicę. Jego czas pracy się skończył."
+"{co_driver_name} parkuje i oddaje ci kierownicę. Jego czas pracy się "
+"skończył."
 
 #. one sentence of a longer line
 msgid "Their hours are up, and yours reach the receiver."
 msgstr "Jego czas pracy się skończył, a twój wystarczy do odbiorcy."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} has parked and hands you the wheel. Their hours are up, and yours "
-"reach the receiver."
+"{co_driver_name} has parked and hands you the wheel. Their hours are up, "
+"and yours reach the receiver."
 msgstr ""
-"{name} parkuje i oddaje ci kierownicę. Jego czas pracy się skończył, a twój "
-"wystarczy do odbiorcy."
+"{co_driver_name} parkuje i oddaje ci kierownicę. Jego czas pracy się "
+"skończył, a twój wystarczy do odbiorcy."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the wheel."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel."
 msgstr ""
-"{name} zatrzymuje się na poboczu, bo parking jest poza zasięgiem, i oddaje "
-"ci kierownicę."
+"{co_driver_name} zatrzymuje się na poboczu, bo parking jest poza zasięgiem, "
+"i oddaje ci kierownicę."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the "
-"wheel. Their hours are up."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel. Their hours are up."
 msgstr ""
-"{name} zatrzymuje się na poboczu, bo parking jest poza zasięgiem, i oddaje "
-"ci kierownicę. Jego czas pracy się skończył."
+"{co_driver_name} zatrzymuje się na poboczu, bo parking jest poza zasięgiem, "
+"i oddaje ci kierownicę. Jego czas pracy się skończył."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the "
-"wheel. Their hours are up, and yours reach the receiver."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel. Their hours are up, and yours reach the receiver."
 msgstr ""
-"{name} zatrzymuje się na poboczu, bo parking jest poza zasięgiem, i oddaje "
-"ci kierownicę. Jego czas pracy się skończył, a twój wystarczy do odbiorcy."
+"{co_driver_name} zatrzymuje się na poboczu, bo parking jest poza zasięgiem, "
+"i oddaje ci kierownicę. Jego czas pracy się skończył, a twój wystarczy do "
+"odbiorcy."
 
 #. one sentence of a longer line
 msgid "Their break is due."
 msgstr "Zmiennikowi należy się przerwa."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} stopped on the shoulder and hands you the wheel."
-msgstr "{name} zatrzymuje się na poboczu i oddaje ci kierownicę."
+msgid "{co_driver_name} stopped on the shoulder and hands you the wheel."
+msgstr "{co_driver_name} zatrzymuje się na poboczu i oddaje ci kierownicę."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} stopped on the shoulder and hands you the wheel. Their break is due."
+"{co_driver_name} stopped on the shoulder and hands you the wheel. Their "
+"break is due."
 msgstr ""
-"{name} zatrzymuje się na poboczu i oddaje ci kierownicę. Należy mu się "
-"przerwa."
+"{co_driver_name} zatrzymuje się na poboczu i oddaje ci kierownicę. Należy "
+"mu się przerwa."
 
-#. placeholders: {name}
-msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} has parked and hands you the wheel. Your 10-hour rest is "
+"in."
 msgstr ""
-"{name} parkuje i oddaje ci kierownicę. Twój 10-godzinny odpoczynek jest "
-"zakończony."
+"{co_driver_name} parkuje i oddaje ci kierownicę. Twój 10-godzinny "
+"odpoczynek jest zakończony."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} parked when their hours ran out, and you slept on."
-msgstr "{name} parkuje po wyczerpaniu czasu pracy, a ty śpisz dalej."
-
-#. placeholders: {name}
-msgid ""
-"{name} parked when their hours ran out, and you slept on. Your 10-hour rest "
-"is in."
+msgid "{co_driver_name} parked when their hours ran out, and you slept on."
 msgstr ""
-"{name} parkuje po wyczerpaniu czasu pracy, a ty śpisz dalej. Twój "
+"{co_driver_name} parkuje po wyczerpaniu czasu pracy, a ty śpisz dalej."
+
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} parked when their hours ran out, and you slept on. Your "
+"10-hour rest is in."
+msgstr ""
+"{co_driver_name} parkuje po wyczerpaniu czasu pracy, a ty śpisz dalej. Twój "
 "10-godzinny odpoczynek jest zakończony."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 msgid ""
-"{name} pulled onto the shoulder when their hours ran out, with no lot in "
-"reach, and you slept on there."
+"{co_driver_name} pulled onto the shoulder when their hours ran out, with no "
+"lot in reach, and you slept on there."
 msgstr ""
-"{name} zatrzymuje się na poboczu po wyczerpaniu czasu pracy, bez parkingu w "
-"zasięgu, a ty dalej tam śpisz."
+"{co_driver_name} zatrzymuje się na poboczu po wyczerpaniu czasu pracy, bez "
+"parkingu w zasięgu, a ty dalej tam śpisz."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} pulled onto the shoulder when their hours ran out, with no lot in "
-"reach, and you slept on there. Your 10-hour rest is in."
+"{co_driver_name} pulled onto the shoulder when their hours ran out, with no "
+"lot in reach, and you slept on there. Your 10-hour rest is in."
 msgstr ""
-"{name} zatrzymuje się na poboczu po wyczerpaniu czasu pracy, bez parkingu w "
-"zasięgu, a ty dalej tam śpisz. Twój 10-godzinny odpoczynek jest zakończony."
+"{co_driver_name} zatrzymuje się na poboczu po wyczerpaniu czasu pracy, bez "
+"parkingu w zasięgu, a ty dalej tam śpisz. Twój 10-godzinny odpoczynek jest "
+"zakończony."
 
 #. one sentence of a longer line
 msgid "Their hours run out before the next place to park."
 msgstr "Czas pracy skończy się przed następnym miejscem do zaparkowania."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} has parked for the end of their shift."
-msgstr "{name} parkuje na koniec swojej zmiany."
+msgid "{co_driver_name} has parked for the end of their shift."
+msgstr "{co_driver_name} parkuje na koniec swojej zmiany."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} has parked for the end of their shift. Their hours run out before "
-"the next place to park."
+"{co_driver_name} has parked for the end of their shift. Their hours run out "
+"before the next place to park."
 msgstr ""
-"{name} parkuje na koniec swojej zmiany. Czas pracy skończy się przed "
-"następnym miejscem do zaparkowania."
+"{co_driver_name} parkuje na koniec swojej zmiany. Czas pracy skończy się "
+"przed następnym miejscem do zaparkowania."
 
 #. one sentence of a longer line
 msgid "The truck took damage."
 msgstr "Ciężarówka jest uszkodzona."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} needs you."
-msgstr "{name} cię potrzebuje."
+msgid "{co_driver_name} needs you."
+msgstr "{co_driver_name} cię potrzebuje."
 
-#. placeholders: {name}
-msgid "{name} needs you. The truck took damage."
-msgstr "{name} cię potrzebuje. Ciężarówka jest uszkodzona."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The truck took damage."
+msgstr "{co_driver_name} cię potrzebuje. Ciężarówka jest uszkodzona."
 
 #. one sentence of a longer line
 msgid "The tank is empty."
 msgstr "Bak jest pusty."
 
-#. placeholders: {name}
-msgid "{name} needs you. The tank is empty."
-msgstr "{name} cię potrzebuje. Bak jest pusty."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The tank is empty."
+msgstr "{co_driver_name} cię potrzebuje. Bak jest pusty."
 
 #. one sentence of a longer line
 msgid "The truck has left the road."
 msgstr "Ciężarówka zjechała z drogi."
 
-#. placeholders: {name}
-msgid "{name} needs you. The truck has left the road."
-msgstr "{name} cię potrzebuje. Ciężarówka zjechała z drogi."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The truck has left the road."
+msgstr "{co_driver_name} cię potrzebuje. Ciężarówka zjechała z drogi."
 
 #. one sentence of a longer line
 msgid "The truck is stopped and will not go on."
 msgstr "Ciężarówka stoi i nie jedzie dalej."
 
-#. placeholders: {name}
-msgid "{name} needs you. The truck is stopped and will not go on."
-msgstr "{name} cię potrzebuje. Ciężarówka stoi i nie jedzie dalej."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The truck is stopped and will not go on."
+msgstr ""
+"{co_driver_name} cię potrzebuje. Ciężarówka stoi i nie jedzie dalej."
 
 #. one sentence of a longer line
 msgid "There is not enough money for fuel."
 msgstr "Brakuje pieniędzy na paliwo."
 
-#. placeholders: {name}
-msgid "{name} needs you. There is not enough money for fuel."
-msgstr "{name} cię potrzebuje. Brakuje pieniędzy na paliwo."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. There is not enough money for fuel."
+msgstr "{co_driver_name} cię potrzebuje. Brakuje pieniędzy na paliwo."
 
 #. one sentence of a longer line
 msgid "A trooper has the truck stopped."
 msgstr "Patrol zatrzymuje ciężarówkę do kontroli."
 
-#. placeholders: {name}
-msgid "{name} needs you. A trooper has the truck stopped."
-msgstr "{name} cię potrzebuje. Patrol zatrzymuje ciężarówkę do kontroli."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. A trooper has the truck stopped."
+msgstr ""
+"{co_driver_name} cię potrzebuje. Patrol zatrzymuje ciężarówkę do kontroli."
 
 #. one sentence of a longer line
 msgid "The lot is full."
 msgstr "Parking jest pełny."
 
-#. placeholders: {name}
-msgid "{name} needs you. The lot is full."
-msgstr "{name} cię potrzebuje. Parking jest pełny."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The lot is full."
+msgstr "{co_driver_name} cię potrzebuje. Parking jest pełny."
 
 #. one sentence of a longer line
 msgid ""
@@ -33374,21 +33385,24 @@ msgid ""
 msgstr ""
 "Kontrola łańcuchów zatrzymuje ciężarówkę, a na pokładzie nie ma łańcuchów."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} needs you. The chain control is holding the truck, and there are no "
-"chains aboard."
+"{co_driver_name} needs you. The chain control is holding the truck, and "
+"there are no chains aboard."
 msgstr ""
-"{name}: potrzebuje cię. Kontrola łańcuchów zatrzymuje ciężarówkę, a na "
-"pokładzie nie ma łańcuchów."
+"{co_driver_name}: potrzebuje cię. Kontrola łańcuchów zatrzymuje ciężarówkę, "
+"a na pokładzie nie ma łańcuchów."
 
-#. placeholders: {name}
-msgid "{name} has the truck stopped and needs you to choose what to do."
-msgstr "{name} zatrzymuje ciężarówkę i potrzebuje twojej decyzji, co dalej."
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} has the truck stopped and needs you to choose what to do."
+msgstr ""
+"{co_driver_name} zatrzymuje ciężarówkę i potrzebuje twojej decyzji, co "
+"dalej."
 
-#. placeholders: {name}
-msgid "{name} needs you to decide this one."
-msgstr "{name} potrzebuje twojej decyzji."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you to decide this one."
+msgstr "{co_driver_name} potrzebuje twojej decyzji."
 
 #. placeholders: {duration_text}
 msgid "{duration_text} of your 10-hour rest still to go."
@@ -33406,9 +33420,9 @@ msgstr "Sen: {f} {f:godzina|godziny|godzin}."
 msgid "You slept {game_minutes} minutes."
 msgstr "Sen: {game_minutes} {game_minutes:minuta|minuty|minut}."
 
-#. placeholders: {name}, {distance_text}
-msgid "{name} drove {distance_text}"
-msgstr "{name}: przejechane {distance_text}"
+#. placeholders: {co_driver_name}, {distance_text}
+msgid "{co_driver_name} drove {distance_text}"
+msgstr "{co_driver_name}: przejechane {distance_text}"
 
 #. placeholders: {stop}
 msgid " and fueled at {stop}"
@@ -45349,6 +45363,131 @@ msgstr ""
 "Przytrzymaj left bumper, aby użyć drugiej warstwy przycisków. {pad_engine} "
 "steruje silnikiem, {pad_fuel} podaje paliwo, a {pad_speed_limit} "
 "ograniczenie prędkości."
+
+#~ msgid "{name} has the truck at the receiver's gate."
+#~ msgstr "{name} stoi ciężarówką przy bramie odbiorcy."
+
+#~ msgid "{name} has parked and hands you the wheel."
+#~ msgstr "{name} parkuje i oddaje ci kierownicę."
+
+#~ msgid "{name} has parked and hands you the wheel. Their hours are up."
+#~ msgstr ""
+#~ "{name} parkuje i oddaje ci kierownicę. Jego czas pracy się skończył."
+
+#~ msgid ""
+#~ "{name} has parked and hands you the wheel. Their hours are up, and yours "
+#~ "reach the receiver."
+#~ msgstr ""
+#~ "{name} parkuje i oddaje ci kierownicę. Jego czas pracy się skończył, a twój "
+#~ "wystarczy do odbiorcy."
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder with no lot in reach and hands you the wheel."
+#~ msgstr ""
+#~ "{name} zatrzymuje się na poboczu, bo parking jest poza zasięgiem, i oddaje "
+#~ "ci kierownicę."
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder with no lot in reach and hands you the "
+#~ "wheel. Their hours are up."
+#~ msgstr ""
+#~ "{name} zatrzymuje się na poboczu, bo parking jest poza zasięgiem, i oddaje "
+#~ "ci kierownicę. Jego czas pracy się skończył."
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder with no lot in reach and hands you the "
+#~ "wheel. Their hours are up, and yours reach the receiver."
+#~ msgstr ""
+#~ "{name} zatrzymuje się na poboczu, bo parking jest poza zasięgiem, i oddaje "
+#~ "ci kierownicę. Jego czas pracy się skończył, a twój wystarczy do odbiorcy."
+
+#~ msgid "{name} stopped on the shoulder and hands you the wheel."
+#~ msgstr "{name} zatrzymuje się na poboczu i oddaje ci kierownicę."
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder and hands you the wheel. Their break is due."
+#~ msgstr ""
+#~ "{name} zatrzymuje się na poboczu i oddaje ci kierownicę. Należy mu się "
+#~ "przerwa."
+
+#~ msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
+#~ msgstr ""
+#~ "{name} parkuje i oddaje ci kierownicę. Twój 10-godzinny odpoczynek jest "
+#~ "zakończony."
+
+#~ msgid "{name} parked when their hours ran out, and you slept on."
+#~ msgstr "{name} parkuje po wyczerpaniu czasu pracy, a ty śpisz dalej."
+
+#~ msgid ""
+#~ "{name} parked when their hours ran out, and you slept on. Your 10-hour rest "
+#~ "is in."
+#~ msgstr ""
+#~ "{name} parkuje po wyczerpaniu czasu pracy, a ty śpisz dalej. Twój "
+#~ "10-godzinny odpoczynek jest zakończony."
+
+#~ msgid ""
+#~ "{name} pulled onto the shoulder when their hours ran out, with no lot in "
+#~ "reach, and you slept on there."
+#~ msgstr ""
+#~ "{name} zatrzymuje się na poboczu po wyczerpaniu czasu pracy, bez parkingu w "
+#~ "zasięgu, a ty dalej tam śpisz."
+
+#~ msgid ""
+#~ "{name} pulled onto the shoulder when their hours ran out, with no lot in "
+#~ "reach, and you slept on there. Your 10-hour rest is in."
+#~ msgstr ""
+#~ "{name} zatrzymuje się na poboczu po wyczerpaniu czasu pracy, bez parkingu w "
+#~ "zasięgu, a ty dalej tam śpisz. Twój 10-godzinny odpoczynek jest zakończony."
+
+#~ msgid "{name} has parked for the end of their shift."
+#~ msgstr "{name} parkuje na koniec swojej zmiany."
+
+#~ msgid ""
+#~ "{name} has parked for the end of their shift. Their hours run out before "
+#~ "the next place to park."
+#~ msgstr ""
+#~ "{name} parkuje na koniec swojej zmiany. Czas pracy skończy się przed "
+#~ "następnym miejscem do zaparkowania."
+
+#~ msgid "{name} needs you."
+#~ msgstr "{name} cię potrzebuje."
+
+#~ msgid "{name} needs you. The truck took damage."
+#~ msgstr "{name} cię potrzebuje. Ciężarówka jest uszkodzona."
+
+#~ msgid "{name} needs you. The tank is empty."
+#~ msgstr "{name} cię potrzebuje. Bak jest pusty."
+
+#~ msgid "{name} needs you. The truck has left the road."
+#~ msgstr "{name} cię potrzebuje. Ciężarówka zjechała z drogi."
+
+#~ msgid "{name} needs you. The truck is stopped and will not go on."
+#~ msgstr "{name} cię potrzebuje. Ciężarówka stoi i nie jedzie dalej."
+
+#~ msgid "{name} needs you. There is not enough money for fuel."
+#~ msgstr "{name} cię potrzebuje. Brakuje pieniędzy na paliwo."
+
+#~ msgid "{name} needs you. A trooper has the truck stopped."
+#~ msgstr "{name} cię potrzebuje. Patrol zatrzymuje ciężarówkę do kontroli."
+
+#~ msgid "{name} needs you. The lot is full."
+#~ msgstr "{name} cię potrzebuje. Parking jest pełny."
+
+#~ msgid ""
+#~ "{name} needs you. The chain control is holding the truck, and there are no "
+#~ "chains aboard."
+#~ msgstr ""
+#~ "{name}: potrzebuje cię. Kontrola łańcuchów zatrzymuje ciężarówkę, a na "
+#~ "pokładzie nie ma łańcuchów."
+
+#~ msgid "{name} has the truck stopped and needs you to choose what to do."
+#~ msgstr "{name} zatrzymuje ciężarówkę i potrzebuje twojej decyzji, co dalej."
+
+#~ msgid "{name} needs you to decide this one."
+#~ msgstr "{name} potrzebuje twojej decyzji."
+
+#~ msgid "{name} drove {distance_text}"
+#~ msgstr "{name}: przejechane {distance_text}"
 
 #~ msgid "{whole} feet {inches} inches"
 #~ msgstr "{whole} {whole:stopa|stopy|stóp} {inches} {inches:cal|cale|cali}"
