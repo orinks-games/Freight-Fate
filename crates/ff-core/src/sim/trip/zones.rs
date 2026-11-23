@@ -490,14 +490,16 @@ impl Trip {
             }
             self.announced_chain_law.insert(key);
             let rule = chain_law_sign_rule(self.state_code_at(start.max(0.0)).as_deref(), level);
-            let (where_, pullout) = if inside {
-                ("", "")
+            // No "ahead" (owner rule, 2026-11-09): the chain-up area says
+            // where the law starts.
+            let pullout = if inside {
+                ""
             } else {
-                (" ahead", " Chain-up area on the right.")
+                " Chain-up area on the right."
             };
             self.emit(
                 TripEventKind::GpsCue,
-                SpokenMessage::new(format!("Chain law{where_}, {rule}.{pullout}")),
+                SpokenMessage::new(format!("Chain law, {rule}.{pullout}")),
                 TripEventData {
                     chain_law: Some(level),
                     chain_law_area: Some(i),

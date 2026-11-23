@@ -295,6 +295,9 @@ pub struct DrivingObservation {
     /// The chain law posted at the truck, and the chains against the road.
     pub chain_control: ff_core::sim::chain_control::ChainControl,
     pub chains: ff_core::sim::chain_control::ChainSet,
+    /// Who does the chain work now, and the chain stop they are making.
+    pub chain_worker: ff_core::sim::chain_work::ChainWorker,
+    pub chain_stop: Option<ff_core::sim::chain_work::ChainStopKind>,
     /// The lane the truck is in, by its spoken name, and whether a stick or
     /// a tilt has asked for one lane and not come back yet.
     pub lane: &'static str,
@@ -1060,6 +1063,8 @@ impl App {
             structure: drive.trip.structure_at_mile(drive.trip.position_mi),
             chain_control: drive.trip.chain_control,
             chains: drive.chain_set,
+            chain_worker: drive.chain_worker(&self.ctx),
+            chain_stop: drive.chain_stop.as_ref().map(|stop| stop.kind),
             lane: drive.lane.lane_name(),
             lane_push: drive.lane_push,
         })

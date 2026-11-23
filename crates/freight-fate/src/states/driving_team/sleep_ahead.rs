@@ -77,6 +77,10 @@ impl DrivingState {
             && self.pull_over.is_none()
             && self.hazard_deadline.is_none()
             && !self.chain_checkpoint_hold
+            // Chains on, or a chain stop coming: driven live, so the
+            // bare-road cue and the stop happen on the road.
+            && !self.trip.truck.chains_on
+            && self.chain_stop.is_none()
             && !self.departure_chain
             && !self.trip.truck.parking_brake
             && self.decel_lane_brake <= 0.0

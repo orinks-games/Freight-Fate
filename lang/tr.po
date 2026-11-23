@@ -11679,6 +11679,21 @@ msgstr "kaldırıldı"
 msgid "broken"
 msgstr "koptu"
 
+msgid "install"
+msgstr ""
+
+msgid "remove"
+msgstr ""
+
+msgid "tighten"
+msgstr ""
+
+msgid "driver"
+msgstr "şoför"
+
+msgid "assist"
+msgstr ""
+
 msgid "yield"
 msgstr "yol ver"
 
@@ -13703,12 +13718,9 @@ msgstr "Zincir zorunluluğu kalktı."
 msgid " Chain-up area on the right."
 msgstr " Zincir takma alanı sağda."
 
-msgid " ahead"
-msgstr " ileride"
-
-#. placeholders: {where_}, {rule}, {pullout}
-msgid "Chain law{where_}, {rule}.{pullout}"
-msgstr "Zincir kuralı{where_}, {rule}.{pullout}"
+#. placeholders: {rule}, {pullout}
+msgid "Chain law, {rule}.{pullout}"
+msgstr "Zincir kuralı, {rule}.{pullout}"
 
 msgid "default"
 msgstr "varsayılan"
@@ -15532,6 +15544,9 @@ msgstr "Girilen yer: "
 
 msgid "Passing "
 msgstr "Geçilen yer: "
+
+msgid " ahead"
+msgstr " ileride"
 
 msgid "tap"
 msgstr "dokunma"
@@ -26103,6 +26118,19 @@ msgstr ""
 msgid "Pulling over to tighten, about {f} minutes on duty."
 msgstr "Sıkmak için kenara çekiliyor, yaklaşık {f} dakika görevde."
 
+#. one sentence of a longer line
+msgid "Bare road."
+msgstr "Yol açık."
+
+#. placeholders: {f}
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
+msgstr "Yol açık. Zincirler çıkarılıyor, yaklaşık {f} dakika görevde."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Taking chains off, about {f} minutes on duty."
+msgstr "Zincirler çıkarılıyor, yaklaşık {f} dakika görevde."
+
 msgid "No chains aboard. Facility stopping can't chain you up."
 msgstr "Tırda zincir yok. Bir tesiste durmak size zincir taktırmaz."
 
@@ -26125,6 +26153,10 @@ msgstr ""
 msgid "Find a place to stop."
 msgstr "Duracak bir yer bulun."
 
+#. placeholders: {f}
+msgid "Stopping to put chains on, about {f} minutes on duty."
+msgstr "Zincir takmak için duruluyor, yaklaşık {f} dakika görevde."
+
 #. one sentence of a longer line
 msgid "Chain-up area."
 msgstr "Zincir takma alanı."
@@ -26134,24 +26166,6 @@ msgid "Chain-up area. Stopping to put chains on, about {f} minutes on duty."
 msgstr ""
 "Zincir takma alanı. Zincir takmak için duruluyor, yaklaşık {f} dakika "
 "görevde."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Stopping to put chains on, about {f} minutes on duty."
-msgstr "Zincir takmak için duruluyor, yaklaşık {f} dakika görevde."
-
-#. one sentence of a longer line
-msgid "Bare road."
-msgstr "Yol açık."
-
-#. placeholders: {f}
-msgid "Bare road. Taking chains off, about {f} minutes on duty."
-msgstr "Yol açık. Zincirler çıkarılıyor, yaklaşık {f} dakika görevde."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Taking chains off, about {f} minutes on duty."
-msgstr "Zincirler çıkarılıyor, yaklaşık {f} dakika görevde."
 
 msgid "Chain stop canceled. Chains are yours."
 msgstr "Zincir molası iptal edildi. Zincirler sizde."
@@ -28894,9 +28908,6 @@ msgstr "Teslimat hesap kesiminden önce durmanız gerekir."
 
 msgid "Route"
 msgstr "Güzergâh"
-
-msgid "driver"
-msgstr "şoför"
 
 msgid "Map"
 msgstr "Harita"
@@ -32772,6 +32783,41 @@ msgstr "{capitalize} tırın önünden karşıya geçti."
 msgid "{name} put the chains on at the chain control."
 msgstr "{name} kontrol noktasında zincirleri taktı."
 
+#. placeholders: {name}
+msgid "{name} put the chains on when the chain law posted."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} put the chains on before the chain control."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} took the chains off on bare road."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} tightened a slapping chain."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} fixed a broken chain with a spare link."
+msgstr ""
+
+#. placeholders: {name}, {damage_pct}
+msgid ""
+"{name} fixed a broken chain with a spare link. Damage {damage_pct} percent."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A chain broke and there is no spare link."
+msgstr ""
+
+#. placeholders: {damage_pct}
+msgid ""
+"A chain broke and there is no spare link. Damage {damage_pct} percent."
+msgstr ""
+
 #. placeholders: {name}, {animal}
 #. one sentence of a longer line
 msgid "{name} drove on after a collision with {animal}."
@@ -33167,20 +33213,20 @@ msgstr "Zincirle bu hız çok fazla. {speed_text} altında kalın."
 
 #. placeholders: {highway}
 #. one sentence of a longer line
-msgid "Chain law ahead on {highway}."
-msgstr "İleride zincir zorunluluğu var, yol: {highway}."
+msgid "Chain law on {highway}."
+msgstr "Zincir zorunluluğu var, yol: {highway}."
 
 #. placeholders: {highway}
-msgid "Chain law ahead on {highway}. You have no chains."
-msgstr "İleride zincir zorunluluğu var, yol: {highway}. Zinciriniz yok."
+msgid "Chain law on {highway}. You have no chains."
+msgstr "Zincir zorunluluğu var, yol: {highway}. Zinciriniz yok."
 
 #. placeholders: {highway}, {exit}
 #. one sentence of a longer line
-msgid "Chain law ahead on {highway} at {exit}."
-msgstr "İleride zincir zorunluluğu var, yol: {highway}, çıkış: {exit}."
+msgid "Chain law on {highway} at {exit}."
+msgstr "Zincir zorunluluğu var, yol: {highway}, çıkış: {exit}."
 
 #. placeholders: {highway}, {exit}
-msgid "Chain law ahead on {highway} at {exit}. You have no chains."
+msgid "Chain law on {highway} at {exit}. You have no chains."
 msgstr ""
 "İleride zincir zorunluluğu var, yol: {highway}, çıkış: {exit}. Zinciriniz "
 "yok."

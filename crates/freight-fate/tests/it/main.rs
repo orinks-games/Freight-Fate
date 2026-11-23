@@ -105,6 +105,7 @@ mod states_assist_picker;
 mod states_career_close_out;
 mod states_carrier_move;
 mod states_chain_assist;
+mod states_chain_work;
 mod states_city;
 mod states_city_garage;
 mod states_city_hos;

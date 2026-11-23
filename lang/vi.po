@@ -12123,6 +12123,21 @@ msgstr "đã cất"
 msgid "broken"
 msgstr "đã đứt"
 
+msgid "install"
+msgstr ""
+
+msgid "remove"
+msgstr ""
+
+msgid "tighten"
+msgstr ""
+
+msgid "driver"
+msgstr "tài xế"
+
+msgid "assist"
+msgstr ""
+
 msgid "yield"
 msgstr "nhường đường"
 
@@ -14148,12 +14163,9 @@ msgstr "Đã bỏ quy định bắt buộc xích lốp."
 msgid " Chain-up area on the right."
 msgstr " Có bãi lắp xích lốp bên phải."
 
-msgid " ahead"
-msgstr " phía trước"
-
-#. placeholders: {where_}, {rule}, {pullout}
-msgid "Chain law{where_}, {rule}.{pullout}"
-msgstr "Quy định lắp xích lốp{where_}, {rule}.{pullout}"
+#. placeholders: {rule}, {pullout}
+msgid "Chain law, {rule}.{pullout}"
+msgstr "Quy định lắp xích lốp, {rule}.{pullout}"
 
 msgid "default"
 msgstr "mặc định"
@@ -15998,6 +16010,9 @@ msgstr "Đang vào "
 
 msgid "Passing "
 msgstr "Đang đi qua "
+
+msgid " ahead"
+msgstr " phía trước"
 
 msgid "tap"
 msgstr "chạm"
@@ -26669,6 +26684,20 @@ msgstr ""
 msgid "Pulling over to tighten, about {f} minutes on duty."
 msgstr "Đang tấp lề để siết lại, mất khoảng {f} phút làm việc."
 
+#. one sentence of a longer line
+msgid "Bare road."
+msgstr "Đường đã sạch tuyết."
+
+#. placeholders: {f}
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
+msgstr ""
+"Đường đã sạch tuyết. Đang dừng để tháo xích, mất khoảng {f} phút làm việc."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Taking chains off, about {f} minutes on duty."
+msgstr "Đang dừng để tháo xích, mất khoảng {f} phút làm việc."
+
 msgid "No chains aboard. Facility stopping can't chain you up."
 msgstr ""
 "Trên xe không có xích đi tuyết. Hỗ trợ dừng tại cơ sở không thể tự lắp xích "
@@ -26693,6 +26722,10 @@ msgstr ""
 msgid "Find a place to stop."
 msgstr "Hãy tìm chỗ dừng nghỉ."
 
+#. placeholders: {f}
+msgid "Stopping to put chains on, about {f} minutes on duty."
+msgstr "Đang dừng lại để lắp xích, mất khoảng {f} phút làm việc."
+
 #. one sentence of a longer line
 msgid "Chain-up area."
 msgstr "Khu vực lắp xích."
@@ -26701,25 +26734,6 @@ msgstr "Khu vực lắp xích."
 msgid "Chain-up area. Stopping to put chains on, about {f} minutes on duty."
 msgstr ""
 "Khu vực lắp xích. Đang dừng lại để lắp xích, mất khoảng {f} phút làm việc."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Stopping to put chains on, about {f} minutes on duty."
-msgstr "Đang dừng lại để lắp xích, mất khoảng {f} phút làm việc."
-
-#. one sentence of a longer line
-msgid "Bare road."
-msgstr "Đường đã sạch tuyết."
-
-#. placeholders: {f}
-msgid "Bare road. Taking chains off, about {f} minutes on duty."
-msgstr ""
-"Đường đã sạch tuyết. Đang dừng để tháo xích, mất khoảng {f} phút làm việc."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Taking chains off, about {f} minutes on duty."
-msgstr "Đang dừng để tháo xích, mất khoảng {f} phút làm việc."
 
 msgid "Chain stop canceled. Chains are yours."
 msgstr "Đã hủy điểm dừng lắp xích. Bạn tự xử lý xích nhé."
@@ -29477,9 +29491,6 @@ msgstr "Cần dừng hẳn xe trước khi quyết toán giao hàng."
 
 msgid "Route"
 msgstr "Tuyến đường"
-
-msgid "driver"
-msgstr "tài xế"
 
 msgid "Map"
 msgstr "Bản đồ"
@@ -33393,6 +33404,41 @@ msgstr "{capitalize} đã băng qua đường ngay trước mũi xe."
 msgid "{name} put the chains on at the chain control."
 msgstr "{name} đã lắp xích lốp tại trạm kiểm soát xích."
 
+#. placeholders: {name}
+msgid "{name} put the chains on when the chain law posted."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} put the chains on before the chain control."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} took the chains off on bare road."
+msgstr ""
+
+#. placeholders: {name}
+msgid "{name} tightened a slapping chain."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} fixed a broken chain with a spare link."
+msgstr ""
+
+#. placeholders: {name}, {damage_pct}
+msgid ""
+"{name} fixed a broken chain with a spare link. Damage {damage_pct} percent."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A chain broke and there is no spare link."
+msgstr ""
+
+#. placeholders: {damage_pct}
+msgid ""
+"A chain broke and there is no spare link. Damage {damage_pct} percent."
+msgstr ""
+
 #. placeholders: {name}, {animal}
 #. one sentence of a longer line
 msgid "{name} drove on after a collision with {animal}."
@@ -33788,22 +33834,22 @@ msgstr "Chạy quá nhanh khi đang lắp xích lốp. Giữ tốc độ dưới
 
 #. placeholders: {highway}
 #. one sentence of a longer line
-msgid "Chain law ahead on {highway}."
-msgstr "Phía trước trên {highway} có quy định bắt buộc xích lốp."
+msgid "Chain law on {highway}."
+msgstr "Trên {highway} có quy định bắt buộc xích lốp."
 
 #. placeholders: {highway}
-msgid "Chain law ahead on {highway}. You have no chains."
+msgid "Chain law on {highway}. You have no chains."
 msgstr ""
 "Phía trước trên {highway} có quy định bắt buộc xích lốp. Xe bạn chưa có "
 "xích."
 
 #. placeholders: {highway}, {exit}
 #. one sentence of a longer line
-msgid "Chain law ahead on {highway} at {exit}."
-msgstr "Phía trước trên {highway} tại {exit} có quy định bắt buộc xích lốp."
+msgid "Chain law on {highway} at {exit}."
+msgstr "Trên {highway} tại {exit} có quy định bắt buộc xích lốp."
 
 #. placeholders: {highway}, {exit}
-msgid "Chain law ahead on {highway} at {exit}. You have no chains."
+msgid "Chain law on {highway} at {exit}. You have no chains."
 msgstr ""
 "Phía trước trên {highway} tại {exit} có quy định bắt buộc xích lốp. Xe bạn "
 "chưa có xích."
