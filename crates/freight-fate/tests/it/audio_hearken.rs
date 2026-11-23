@@ -91,7 +91,7 @@ fn test_hearken_engine_model_matches_available_cuts() {
         return;
     }
     let mut r = hearken_rig();
-    r.engine.engine_start();
+    r.engine.engine_start_with(false);
     assert!(r.engine.engine_running());
     if all_engine_cuts() {
         assert_eq!(r.hearken().engine_bands().len(), ENGINE_BANDS.len());
@@ -211,7 +211,7 @@ fn test_hearken_engine_falls_back_to_pitched_loop_without_cuts() {
     r.hearken_mut().set_key_filter(Some(Box::new(|key: &str| {
         !(is_engine_band_key(key) && key != "engine/idle")
     })));
-    r.engine.engine_start();
+    r.engine.engine_start_with(false);
     assert!(r.engine.engine_running());
     assert!(r.hearken().engine_bands().is_empty());
     let sound = r.hearken().engine_sound().expect("the pitched loop");
@@ -235,6 +235,8 @@ fn test_hearken_requested_keys_keep_their_order_for_a_start_and_a_drive() {
     let mut r = hearken_rig();
     r.hearken_mut().record_requested_keys(true);
     r.engine.engine_start(); // deliberate: the crank first, then the ring
+    r.rec.finish(r.channel("engine/start"));
+    r.engine.update(0.05);
     r.engine.set_road_noise(15.0);
     r.engine.horn_start();
     r.engine.horn_start(); // autorepeat asks for nothing
@@ -278,7 +280,7 @@ fn test_hearken_silent_engine_start_skips_the_ignition_crank() {
 }
 
 #[test]
-fn test_hearken_deliberate_start_plays_crank_and_crossfades_over_time() {
+fn test_hearken_deliberate_start_waits_for_crank_completion() {
     if !shipped_sounds() {
         return;
     }
@@ -296,20 +298,19 @@ fn test_hearken_deliberate_start_plays_crank_and_crossfades_over_time() {
         "the crank at engine x master"
     );
     let h = r.hearken();
-    assert_eq!(h.fade_count(), 3);
     assert_eq!(h.engine_intro_gain(), 0.0);
-    assert_eq!(h.engine_intro_load(), 1.0);
     assert!(r.engine.engine_starting());
-    for _ in 0..400 {
-        r.engine.update(0.05);
-    }
+    assert!(h.engine_bands().is_empty());
+    assert!(h.engine_sound().is_none());
+    r.rec.finish(crank);
+    r.engine.update(0.05);
+    r.engine.update(0.1);
     let h = r.hearken();
     assert_eq!(h.engine_intro_gain(), 1.0);
     assert_eq!(h.fade_count(), 0);
     assert!(!r.engine.engine_starting());
     assert!(r.engine.engine_running());
-    // The crank was faded down by the crossfade, never left at its level.
-    assert!(r.rec.last_mix(crank).unwrap().gain < 1e-6);
+    assert!(!r.rec.is_playing(crank));
     r.engine.engine_stop();
 }
 
@@ -318,7 +319,7 @@ fn test_hearken_engine_stop_clears_starting_and_pending_fades() {
     let mut r = hearken_rig();
     r.engine.engine_start();
     assert!(r.engine.engine_starting());
-    assert!(r.hearken().fade_count() > 0);
+    assert!(r.rec.is_playing(r.channel("engine/start")));
     r.engine.engine_stop();
     assert!(!r.engine.engine_starting());
     assert_eq!(r.hearken().fade_count(), 0);

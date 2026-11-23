@@ -568,6 +568,9 @@ impl CloudSlotState {
     }
 
     fn speak_outcome(&mut self, ctx: &mut GameContext, outcome: &str) {
+        if outcome == "restored" {
+            ctx.cloud_saves_service().restore_succeeded(&self.save_name);
+        }
         match outcome {
             "restored" if !self.replaces_local => {
                 self.status = "Backup restored and verified.".to_string();

@@ -28,6 +28,8 @@ use crate::controller::sdl::{axis_from_sdl, button_from_sdl};
 use crate::states::base::{InputEvent, Key, Mods};
 #[cfg(feature = "visuals")]
 use crate::visuals::Visuals;
+#[cfg(touch_screen)]
+use ff_core::app_lifecycle::AppEvent;
 
 use super::context::Clipboard;
 use super::WINDOW_SIZE;
@@ -37,6 +39,7 @@ pub use hearken::sdl_shell::{key_from_keycode, mods_from};
 mod display;
 #[cfg(target_os = "ios")]
 mod ios;
+mod tilt_sensor;
 #[cfg(target_os = "ios")]
 use ios::{install_touch_surface, next_gesture};
 #[cfg(target_os = "ios")]
@@ -105,12 +108,17 @@ pub struct SdlShell {
     geometry_failed: bool,
     #[cfg(target_os = "windows")]
     window_handle: Option<isize>,
+    /// The motion sensor and the screen lock, for tilt steering.
+    tilt: tilt_sensor::TiltSensor,
     #[cfg(touch_screen)]
     touch: crate::touch::TouchInput,
     /// SDL's finger events through the gesture recognizer (iOS recognizes
     /// natively instead).
     #[cfg(target_os = "android")]
     android_touch: super::android_touch::AndroidTouch,
+    /// The raw fingers, for New gesture reading.
+    #[cfg(target_os = "ios")]
+    fingers: ios::SharedFingers,
     #[cfg(touch_screen)]
     keyboard_shown: bool,
     #[cfg(touch_screen)]
@@ -195,10 +203,7 @@ impl SdlShell {
         // keep swipe directions matching their hand. (Android reads the
         // same hint.)
         #[cfg(touch_screen)]
-        sdl2::hint::set(
-            "SDL_IOS_ORIENTATIONS",
-            "Portrait PortraitUpsideDown LandscapeLeft LandscapeRight",
-        );
+        sdl2::hint::set("SDL_IOS_ORIENTATIONS", tilt_sensor::ALL_ORIENTATIONS);
         let sdl = sdl2::init()?;
         let video = sdl.video()?;
         // Resizable, and drawn at the display's own resolution (Retina on
@@ -276,10 +281,13 @@ impl SdlShell {
             geometry_failed: false,
             #[cfg(target_os = "windows")]
             window_handle,
+            tilt: tilt_sensor::TiltSensor::default(),
             #[cfg(touch_screen)]
             touch: crate::touch::TouchInput::new(),
             #[cfg(target_os = "android")]
             android_touch: super::android_touch::AndroidTouch::new(),
+            #[cfg(target_os = "ios")]
+            fingers: ios::SharedFingers::new(),
             #[cfg(touch_screen)]
             keyboard_shown: false,
             #[cfg(touch_screen)]
@@ -420,7 +428,10 @@ impl SdlShell {
         if on != self.report_travel {
             self.report_travel = on;
             #[cfg(target_os = "ios")]
-            ios::set_report_travel(on);
+            {
+                ios::set_report_travel(on);
+                self.fingers.set_report_travel(on);
+            }
             #[cfg(target_os = "android")]
             self.android_touch.set_report_travel(on);
         }
@@ -429,6 +440,32 @@ impl SdlShell {
     /// Only a phone or tablet's touch surface measures swipes.
     #[cfg(not(touch_screen))]
     pub fn set_report_travel(&mut self, _on: bool) {}
+
+    /// Follow Touch gestures, New gesture reading: on iPhone and iPad the
+    /// shared recognizer reads the raw fingers instead of UIKit's.
+    pub fn set_shared_recogniser(&mut self, _on: bool) {
+        #[cfg(target_os = "ios")]
+        self.fingers.want(_on);
+    }
+
+    /// This frame's motion sensor reading for tilt steering; `running` is
+    /// the switch on with the app in the foreground, and without it the
+    /// sensor stops.
+    pub fn read_tilt(&mut self, running: bool) -> crate::app::tilt::TiltRead {
+        self.tilt.read(&self.sdl, running)
+    }
+
+    /// Hold the screen's orientation while tilt steering is at the wheel.
+    /// Only iPhone and iPad can change it once the window is up.
+    pub fn lock_orientation(&mut self, lock: bool) {
+        if !cfg!(target_os = "ios") {
+            return;
+        }
+        if self.tilt.lock(lock).is_some() {
+            #[cfg(target_os = "ios")]
+            ios::refresh_orientations(self.canvas.window());
+        }
+    }
 
     /// Append this frame's gestures to the SDL events. A
     /// lost focus (the app leaving the foreground) lets go of a held pedal.
@@ -439,9 +476,15 @@ impl SdlShell {
             .any(|event| matches!(event, InputEvent::WindowFocusLost))
         {
             self.touch.release_into(&mut events);
+            self.fingers.cancel();
         }
         while let Some(gesture) = next_gesture() {
             events.extend(self.touch.handle(gesture).events);
+        }
+        self.fingers.read(&mut self.touch, &mut events);
+        // The sound session's interruptions and lost outputs.
+        while let Some(event) = super::lifecycle::native::next_event() {
+            events.push(InputEvent::App(event));
         }
         events
     }
@@ -585,6 +628,26 @@ pub fn translate_events_with(raw: Vec<Event>, soft_keyboard: bool) -> Vec<InputE
                 win_event: WindowEvent::FocusLost,
                 ..
             } => out.push(InputEvent::WindowFocusLost),
+            // A phone app leaving and coming back (`ff_core::app_lifecycle`).
+            // SDL names iOS's resign-active "will enter background" and its
+            // become-active "did enter foreground"; Android sends all four
+            // on pause and resume. A desktop never sends them.
+            #[cfg(touch_screen)]
+            Event::AppWillEnterBackground { .. } => {
+                out.push(InputEvent::App(AppEvent::WillResignActive));
+            }
+            #[cfg(touch_screen)]
+            Event::AppDidEnterBackground { .. } => {
+                out.push(InputEvent::App(AppEvent::DidEnterBackground));
+            }
+            #[cfg(touch_screen)]
+            Event::AppWillEnterForeground { .. } => {
+                out.push(InputEvent::App(AppEvent::WillEnterForeground));
+            }
+            #[cfg(touch_screen)]
+            Event::AppDidEnterForeground { .. } => {
+                out.push(InputEvent::App(AppEvent::DidBecomeActive));
+            }
             Event::Quit { .. } => out.push(InputEvent::Quit),
             _ => {}
         }

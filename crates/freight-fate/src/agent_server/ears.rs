@@ -259,9 +259,9 @@ impl TeeAudio {
     /// nothing, because the tee still remembered "left" for the channel.
     fn loop_stopped(&mut self, channel: u32) {
         let key = self.loop_keys.remove(&channel);
-        // The outside beds stop as a fact under test; other loops' stops
-        // are not reported, as before.
-        if let Some(key) = key.filter(|_| crate::audio::CH_OUTSIDE.contains(&channel)) {
+        // The outside beds and the tires' song stop as a fact under test;
+        // other loops' stops are not reported, as before.
+        if let Some(key) = key.filter(|_| super::bed_levels::reports_level(channel)) {
             self.hear(format!("[sound bed] {key} stops"));
         }
         self.bed_levels.stopped(channel);
@@ -406,6 +406,11 @@ impl Audio for TeeAudio {
         self.inner.set_engine_pan(pan);
     }
     fn set_loop_rate(&mut self, channel: u32, rate: f64) {
+        if let Some(key) = self.loop_keys.get(&channel).cloned() {
+            if let Some(line) = self.bed_levels.rate_heard(channel, &key, rate) {
+                self.hear(line);
+            }
+        }
         self.inner.set_loop_rate(channel, rate);
     }
     fn stop_loop_with(&mut self, channel: u32, fade_ms: u32) {

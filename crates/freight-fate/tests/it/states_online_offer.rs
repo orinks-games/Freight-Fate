@@ -266,9 +266,10 @@ fn test_the_welcome_is_heard_in_full_and_then_the_offer() {
 }
 
 #[test]
-fn test_saying_no_is_heard_before_the_city_menu_announcement() {
-    // The one line naming where to find Online later must survive the move
-    // into the world -- it is the whole of saying no.
+fn test_saying_no_goes_straight_to_the_terminal() {
+    // The offer's own help already said Online connects later, so Not now
+    // adds no line of its own: the terminal speaks at once, cutting the
+    // offer (phone walk N4).
     let mut app = first_run_app();
     let _identity = install_identity(&app, None);
     open_city_picker(&mut app, "Rookie");
@@ -283,12 +284,11 @@ fn test_saying_no_is_heard_before_the_city_menu_announcement() {
     assert!(menus::is::<CityMenuState>(&app));
     let calls = app.main_calls();
     let lines: Vec<String> = calls.iter().map(|(text, _)| text.clone()).collect();
-    assert_eq!(lines[0], "Online on the main menu connects any time.");
-    assert!(lines[1].ends_with(" dollars."), "{lines:?}");
-    assert!(lines[2].starts_with("Dispatch board."), "{lines:?}");
+    assert!(lines[0].ends_with(" dollars."), "{lines:?}");
+    assert!(lines[1].starts_with("Dispatch board."), "{lines:?}");
     let interrupts: Vec<bool> = calls.iter().map(|(_, interrupt)| *interrupt).collect();
     let mut expected = vec![false; interrupts.len()];
     expected[0] = true;
     assert_eq!(interrupts, expected, "{lines:?}");
-    assert_eq!(lines.len(), 3, "{lines:?}");
+    assert_eq!(lines.len(), 2, "{lines:?}");
 }

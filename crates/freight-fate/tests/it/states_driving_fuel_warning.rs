@@ -314,7 +314,7 @@ fn test_a_range_short_of_the_next_fuel_stop_says_so_once() {
 
     assert_eq!(
         range_lines(&app),
-        vec!["Fuel range about 60 miles, short of the next fuel stop, 80 miles ahead.".to_string()]
+        vec!["Fuel range about 60 miles, short of the next fuel stop, 80 miles.".to_string()]
     );
     assert!(drive.fuel_range_short_said);
 
@@ -376,7 +376,7 @@ fn test_the_range_uses_the_runs_own_miles_per_gallon_once_it_has_one() {
     drive.check_fuel_range_warning(&mut app.ctx);
     assert_eq!(
         range_lines(&app),
-        vec!["Fuel range about 40 miles, short of the next fuel stop, 50 miles ahead.".to_string()]
+        vec!["Fuel range about 40 miles, short of the next fuel stop, 50 miles.".to_string()]
     );
 }
 

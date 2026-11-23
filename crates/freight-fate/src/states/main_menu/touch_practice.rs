@@ -45,6 +45,8 @@ pub(super) struct GesturePractice {
     leave: TouchLeave,
     /// The swipe down being held, so its length can be read as it lifts.
     swipe_down: Option<Gesture>,
+    /// A tilt past half of full names itself once per push.
+    tilt_push: ff_core::sim::lane_push::LanePush,
 }
 
 impl GesturePractice {
@@ -90,6 +92,36 @@ impl GesturePractice {
             self.say_gesture(ctx, gesture);
         }
         false
+    }
+
+    /// With tilt steering on, a tilt past half of full steering names
+    /// itself and its angle once per push, so the sensor's direction can be
+    /// checked: the angle is from the screen's edges level. Coming back
+    /// says nothing.
+    pub(super) fn poll_tilt(&mut self, ctx: &mut GameContext) {
+        use ff_core::sim::lane_push::LaneSide;
+        use ff_core::sim::tilt_steering::steering_curve;
+        let degrees = match ctx.tilt.degrees() {
+            Some(degrees) if crate::app::tilt::wanted(&ctx.settings) => degrees,
+            _ => {
+                self.tilt_push = ff_core::sim::lane_push::LanePush::Centred;
+                return;
+            }
+        };
+        let value = steering_curve(degrees, ctx.settings.touch_tilt_full());
+        let (push, side) = self.tilt_push.next(value);
+        self.tilt_push = push;
+        let whole = degrees.abs().round() as i64;
+        let text = match side {
+            Some(LaneSide::Left) => format!(
+                "Tilt left, {whole} degrees. Steers left, or changes one lane with lane keeping on full."
+            ),
+            Some(LaneSide::Right) => format!(
+                "Tilt right, {whole} degrees. Steers right, or changes one lane with lane keeping on full."
+            ),
+            None => return,
+        };
+        ctx.say(&text);
     }
 
     /// The length of a swipe down as it lifts, and where the deep swipe

@@ -3,7 +3,7 @@
 use std::sync::Arc;
 
 use crate::data_support::world;
-use ff_core::data::pavement::{StructureKind, SurfaceGroup};
+use ff_core::data::pavement::{Deck, Grooves, StructureKind, SurfaceGroup};
 use ff_core::data::world_models::Leg;
 
 fn leg<'a>(legs: &'a [Arc<Leg>], a: &str, b: &str) -> &'a Leg {
@@ -101,4 +101,86 @@ fn the_turnpike_tunnels_west_of_carlisle_are_on_the_leg() {
         );
         assert_eq!(p.structure_at(59.0, forward), Some(StructureKind::Tunnel));
     }
+}
+
+#[test]
+fn most_long_bridges_carry_a_deck_reading_and_none_contradicts_itself() {
+    let world = world();
+    let (mut long, mut decked, mut grates) = (0, 0, 0);
+    for leg in &world.legs {
+        let Some(p) = leg.pavement() else { continue };
+        for (a, z, kind) in p.structures_for(true) {
+            if kind == StructureKind::Tunnel || z - a < 0.05 {
+                continue;
+            }
+            long += 1;
+            if p.deck_at((a + z) / 2.0, true).is_some() {
+                decked += 1;
+            }
+        }
+        for s in &p.structures {
+            assert!(
+                s.kind != StructureKind::Tunnel || s.deck.is_none(),
+                "{} to {}",
+                leg.a,
+                leg.b
+            );
+            if s.deck == Some(Deck::OpenGrating) {
+                grates += 1;
+            }
+        }
+    }
+    // 80.7 percent on the 2026-11-22 write.
+    assert!(decked * 4 >= long * 3, "{decked} of {long} long bridges");
+    assert!((5..=40).contains(&grates), "{grates} open grating records");
+}
+
+#[test]
+fn the_main_street_bridge_grating_is_its_lift_span() {
+    let world = world();
+    let p = leg(&world.legs, "jacksonville_fl_us", "miami_fl_us")
+        .pavement()
+        .expect("HPMS reads US-1 in Jacksonville");
+    let s = p
+        .structures
+        .iter()
+        .find(|s| s.nbi.as_deref() == Some("12-720022"))
+        .expect("the Main Street Bridge, NBI 12-720022");
+    let (a, z) = s.grate.expect("a lift bridge has a movable span");
+    assert!(s.from_mi < a && z < s.to_mi, "{a} {z} inside {s:?}");
+    let mid = (a + z) / 2.0;
+    for forward in [true, false] {
+        assert!(p.on_grating(mid, forward));
+        assert!(!p.on_grating(s.from_mi + 0.01, forward), "the fixed spans");
+        assert_eq!(p.cross_grooved_at(mid, forward, "Florida"), None);
+    }
+}
+
+#[test]
+fn some_concrete_reads_grooved_by_each_route_and_california_pavement_never() {
+    let world = world();
+    let (mut derived, mut assumed, mut california) = (0, 0, 0);
+    for leg in &world.legs {
+        let Some(p) = leg.pavement() else { continue };
+        for r in &p.surface {
+            let mid = (r.from_mi + r.to_mi) / 2.0;
+            if p.structure_at(mid, true).is_some() || !r.ways.holds(true) {
+                continue;
+            }
+            if p.cross_grooved_at(mid, true, "California").is_some() {
+                california += 1;
+            }
+            if p.cross_grooved_at(mid, true, "Ohio") == Some(Grooves::DerivedFromBuildYear) {
+                derived += 1;
+            }
+        }
+        for (a, z, _) in p.structures_for(true) {
+            if p.cross_grooved_at((a + z) / 2.0, true, "Ohio") == Some(Grooves::AssumedDeck) {
+                assumed += 1;
+            }
+        }
+    }
+    assert_eq!(california, 0);
+    assert!(derived > 100, "{derived} runs grooved by build year");
+    assert!(assumed > 1000, "{assumed} concrete decks");
 }

@@ -63,7 +63,8 @@ pub use input_practice::{
     InputPracticeState,
 };
 pub use settings::{
-    GameplaySettingsState, SettingsCategoryState, SettingsState, SETTINGS_LAYOUT_NOTICES,
+    settings_help, updates_category, GameplaySettingsState, SettingsCategoryState, SettingsState,
+    SETTINGS_LAYOUT_NOTICES,
 };
 pub use shortcuts::{ShortcutDevice, ShortcutsState};
 pub use touch_gestures::{TouchCommandPickerState, TouchGesturesState};
