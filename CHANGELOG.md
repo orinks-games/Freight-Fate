@@ -107,7 +107,7 @@
 - **Alligator Alley now charges one toll per trip.** It was charging for both plazas.
 - **The Ohio Turnpike toll between Cleveland and Toledo is now the 2026 five-axle fare.** It drops from $28.00 to $17.50.
 - **Boston to Portsmouth now charges the Hampton toll.** Only the trip back charged it before.
-- **6 trips on Oklahoma and Kansas turnpikes now charge their tolls.** Tulsa to Muskogee and Lawrence to Kansas City are among them.
+- **Six trips on Oklahoma and Kansas turnpikes now charge their tolls.** Tulsa to Muskogee and Lawrence to Kansas City are among them.
 - **Deliveries no longer end at a freeway exit miles short of town.** Dallas to Tyler now drives US 69 into Tyler.
 - **Toll estimates no longer charge a one-way bridge in both directions.** The estimate now matches what the drive charges.
 - **The truck dealer no longer offers the standard rig for nothing.** It is listed only if you own it.
