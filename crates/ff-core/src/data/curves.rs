@@ -39,13 +39,20 @@
 //! curves cannot meet with no straight between them. Terrain cannot excuse
 //! either, so unlike the two above, this one does look at mountain roads --
 //! which is where it was found (`ARC_CONSISTENCY_MIN`).
+//!
+//! The fifth, `data::curve_road`, is the only one that looks at the road
+//! itself: it reads the leg's archived polyline and drops a sharp bend whose
+//! road does not turn across the span the record claims -- the half of a
+//! carriageway step where a divided road becomes one, which put a rollover
+//! on a straight stretch of Freeman Mill Road in Greensboro.
 
 use std::collections::{HashMap, HashSet};
 
 use once_cell::sync::OnceCell;
 use serde::Deserialize;
 
-use super::data_resources::{baked, read_data_text};
+use super::curve_road;
+use super::data_resources::{baked, data_path, read_data_text};
 use super::world::{get_world, World};
 use super::world_models::{Leg, Route};
 
@@ -813,23 +820,28 @@ pub fn load() -> &'static HashMap<String, Vec<CurveRecord>> {
         let curve_text = read_data_text("world_data/us/gameplay/curves.jsonl");
         let artifact_text =
             read_data_text("world_data/us/gameplay/curve_artifacts.jsonl").unwrap_or_default();
+        let geometry = curve_road::read_leg_geometry(&data_path("world_data"));
         build_from_sources(
             curve_text.as_deref().unwrap_or(""),
             &artifact_text,
+            &geometry,
             get_world(),
         )
     })
 }
 
 /// The screened per-leg curve table built from the two JSONL texts and the
-/// world they were baked against.
+/// world they were baked against, plus the legs' archived road
+/// (`geometry_jsonl`, the texts of `world_data/*/geometry/*.jsonl`; empty
+/// skips the fifth screen, see `data::curve_road`).
 ///
 /// This is the body of [`load`], lifted out so the baker can call it with the
-/// world it loaded and the files it read. One implementation of the four
+/// world it loaded and the files it read. One implementation of the five
 /// screens, so the container and the JSON tree cannot screen differently.
 pub fn build_from_sources(
     curves_jsonl: &str,
     artifacts_jsonl: &str,
+    geometry_jsonl: &[String],
     world: &World,
 ) -> HashMap<String, Vec<CurveRecord>> {
     {
@@ -900,9 +912,25 @@ pub fn build_from_sources(
         }
         // Third screen, needing neighbours and so running per leg once the rows
         // are gathered rather than line by line above.
-        by_leg
+        let by_leg: HashMap<String, Vec<CurveRecord>> = by_leg
             .into_iter()
             .map(|(key, rows)| (key, screen_geometry(&rows)))
+            .collect();
+        // Fifth screen: does the road under a sharp bend turn at all? It reads
+        // the archived road, so only the legs carrying a bend it judges have
+        // their archive decoded.
+        let roads = curve_road::leg_roads_from(geometry_jsonl, &|leg| {
+            by_leg.get(leg).is_some_and(|rows| {
+                rows.iter()
+                    .any(|r| !r.connector && r.advisory_mph <= SHARP_MAX_MPH)
+            })
+        });
+        by_leg
+            .into_iter()
+            .map(|(key, rows)| {
+                let kept = curve_road::screen_against_road(&rows, roads.get(&key));
+                (key, kept)
+            })
             .collect()
     }
 }

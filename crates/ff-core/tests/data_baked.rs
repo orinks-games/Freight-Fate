@@ -247,8 +247,12 @@ fn baked_curves_match_the_screened_jsonl_table() {
             .join("world_data/us/gameplay/curve_artifacts.jsonl"),
     )
     .expect("curve_artifacts.jsonl");
-    let want: HashMap<String, Vec<CurveRecord>> =
-        curves::build_from_sources(&curves_text, &artifacts_text, &json);
+    let want: HashMap<String, Vec<CurveRecord>> = curves::build_from_sources(
+        &curves_text,
+        &artifacts_text,
+        &ff_core::data::curve_road::read_leg_geometry(&fixture().json_dir.join("world_data")),
+        &json,
+    );
     let got = curves::load();
     assert!(want.len() > 100, "{} curve legs", want.len());
     assert_eq!(got.len(), want.len(), "legs carrying curves");

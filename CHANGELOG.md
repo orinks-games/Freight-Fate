@@ -25,6 +25,7 @@
 - **A chain control no longer cites a truck that was already on the grade when the snow began.**
 - **The chain law call no longer says "ahead".**
 - **A stop with a full lot at night still offers the 30-minute break and Save at this stop.** Only sleeping there is turned away.
+- **Sharp bend calls no longer come on straight road where a divided highway narrows to one road.**
 
 ### Changed
 
