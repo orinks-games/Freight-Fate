@@ -18,6 +18,7 @@ mod sim_support;
 
 mod carrier_slice3;
 mod carrier_spread;
+mod data_alabama_mississippi_south_carolina;
 mod data_border_yards;
 mod data_canada;
 mod data_city_keys;
@@ -26,7 +27,6 @@ mod data_curve_management;
 mod data_domestic_routes;
 mod data_facility_approaches;
 mod data_facility_endpoints;
-mod data_alabama_mississippi_south_carolina;
 mod data_florida_georgia;
 mod data_gameplay_layer_meta;
 mod data_great_lakes;
