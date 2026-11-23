@@ -3,7 +3,7 @@
 //! tolls it paid. Each lands on the settlement (or, for a toll, the plaza)
 //! of the run that meets it, and not on the near miss before it.
 
-use chrono::{DateTime, TimeZone, Utc};
+use chrono::{DateTime, Local, TimeZone, Utc};
 use ff_core::data::world_models::Route;
 use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::sim::trip_models::TripEventKind;
@@ -268,9 +268,17 @@ fn april_first_is_april_first_on_the_career_calendar() {
     date_earns("april_first", "March 31", "April 1");
 }
 
-/// orinks.net's clock at noon Eastern on a real date.
+/// orinks.net's clock at noon on a real date, on this computer's clock: the
+/// badges read the player's own date, so a fixed UTC hour would fall on the
+/// next day east of UTC+7 (it did, in Manila).
 fn server_on(y: i32, m: u32, d: u32) -> Option<DateTime<Utc>> {
-    Some(Utc.with_ymd_and_hms(y, m, d, 16, 0, 0).unwrap())
+    Some(
+        Local
+            .with_ymd_and_hms(y, m, d, 12, 0, 0)
+            .earliest()
+            .expect("noon exists on every date")
+            .with_timezone(&Utc),
+    )
 }
 
 #[test]
