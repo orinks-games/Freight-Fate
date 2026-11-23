@@ -32,6 +32,7 @@
 - **Florida and Georgia have 50 new roads.** Sebring, Port Canaveral, Crystal River and Gainesville, Georgia join the map.
 - **California and the Southwest have 35 new roads.** Page to Saint George is now 155 miles on US 89, down from 513.
 - **The Great Lakes states have 61 new roads.** Joliet, Alpena, Ashtabula and Sandusky join the map.
+- **The Northeast has 63 new roads.** Thirteen towns join the map, among them Lancaster, Reading, Newburgh and Johnstown.
 - **The Mountain West and Northwest have 45 new roads.** Aberdeen, Washington joins the map, and Pagosa Springs to Santa Fe drops 282 miles.
 - **Units has a new Automatic choice, the default in 2.0:** miles in the United States, kilometers in Canada, said once at the border.
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
@@ -105,6 +106,7 @@
 
 - **Alligator Alley now charges one toll per trip.** It was charging for both plazas.
 - **The Ohio Turnpike toll between Cleveland and Toledo is now the 2026 five-axle fare.** It drops from $28.00 to $17.50.
+- **Boston to Portsmouth now charges the Hampton toll.** Only the trip back charged it before.
 - **Deliveries no longer end at a freeway exit miles short of town.** Dallas to Tyler now drives US 69 into Tyler.
 - **Toll estimates no longer charge a one-way bridge in both directions.** The estimate now matches what the drive charges.
 - **The truck dealer no longer offers the standard rig for nothing.** It is listed only if you own it.

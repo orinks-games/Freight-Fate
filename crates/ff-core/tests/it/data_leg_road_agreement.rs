@@ -8,8 +8,10 @@ use std::sync::OnceLock;
 use crate::data_support::data_dir;
 use serde_json::Value;
 
-const BUFFALO_NY_TO_NEW_YORK: &str = "buffalo_ny_us:new_york_ny_us";
-const ROCHESTER_NY_TO_NEW_YORK: &str = "rochester_ny_us:new_york_ny_us";
+/// The Thruway west of Newburgh; Buffalo and Rochester to New York were split
+/// at Newburgh (Northeast roads, 2026-11-23) and these pieces keep the Thruway.
+const BUFFALO_NY_TO_NEW_YORK: &str = "buffalo_ny_us:newburgh_ny_us";
+const ROCHESTER_NY_TO_NEW_YORK: &str = "rochester_ny_us:newburgh_ny_us";
 const DALLAS_TX_TO_ST_LOUIS: &str = "dallas_tx_us:st_louis_mo_us";
 const WASHINGTON_DC_TO_CHARLOTTESVILLE: &str = "washington_dc_us:charlottesville_va_us";
 const HARRISBURG_PA_TO_WILMINGTON: &str = "harrisburg_pa_us:wilmington_de_us";

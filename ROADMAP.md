@@ -6806,13 +6806,57 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) The older Ohio Turnpike legs cite "class 6"
       from the retired fare calculator; the 2026 schedule calls a high
       five-axle truck class 5. Re-price them from the schedule.
-- [ ] (Found along the way) Youngstown to DuBois (I-80) waits for the
-      Northeast build, where DuBois becomes a city.
+- [x] Youngstown to DuBois (I-80) is built in the Northeast roads below.
 - [ ] (Found along the way) Three through roads the list leaves undone,
       each over 200 miles between cities with no junction town on it: US 36
       from Springfield, Illinois to Kansas City (a town near Quincy would
       fix it), US 250 from Charleston, West Virginia to Toledo (near Akron)
       and US 27 from Richmond, Indiana to Kalamazoo (near Richmond).
+
+### Northeast roads (missing roads brief 3, November 23)
+
+- [x] Newburgh, Lancaster, Reading, Gloucester, DuBois, Elmira, Hanover,
+      Ithaca, Johnstown, Lexington Park, Pittsfield, Riverhead and Cranberry
+      Township are cities, each keeping only the plants, warehouses and
+      stores read from the map for it. Ithaca and Lexington Park show only
+      stores, so freight is delivered there and none starts there.
+- [x] 63 new legs between neighbours the map routed far around, Youngstown
+      to DuBois among them, routed by the truck router over the
+      OpenStreetMap planet of 2026-11-16 and built with every layer. The
+      detours that shrank most: Williamsport to Scranton (184 miles to 102),
+      Baltimore to Winchester (119 to 98) and Worcester to Portsmouth (102
+      to 89).
+- [x] Nine long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: New York to Albany, Buffalo to New York and
+      Rochester to New York at Newburgh; Allentown to Baltimore at Reading
+      and Lancaster; Newport to New Haven at New London; Albany to
+      Montpelier at Rutland; Meadville and Youngstown to Pittsburgh and
+      Pittsburgh to Cleveland at Cranberry Township.
+- [x] Legs renamed for the road they ride, among them Albany to Bridgeport
+      (CT-8), Burlington to Albany (VT-22A), Boston to Hartford (I-90) and
+      the Newburgh pieces of the Thruway.
+- [x] Northeast stops list (`docs/stops/northeast.json`), 368 stops.
+- [x] Tolls: the Pennsylvania Turnpike on the new Turnpike legs from its
+      2026 schedule; the Gateway and Eastgate plazas and the Ohio Turnpike
+      on the Cranberry Township legs; the Delaware Water Gap,
+      Newburgh-Beacon and Chesapeake Bay bridges, charged the way they
+      collect; Hampton on the roads into Portsmouth; the Garden State
+      Parkway on Toms River to Vineland. Thruway fares on the Newburgh
+      pieces are the old fare shared by Thruway miles, marked estimated.
+- [ ] (Found along the way) Tolls still unread: the Massachusetts Turnpike
+      on Pittsfield to Springfield, Hooksett on Manchester to St.
+      Johnsbury, the Throgs Neck Bridge on Riverhead to New York, the Tobin
+      Bridge, the Pell Bridge on Newport to New London, and a Thruway
+      reading for exit 17 to replace the estimated fares.
+- Two chains run longer than the legs they replaced, and they are right:
+      Allentown to Baltimore by 16 miles and New York to Albany by 14 (the
+      Thruway puts exit 17 at mile 60 and exit 24 at mile 148, before the
+      Bronx). The old legs were short; do not shorten the chains.
+- [ ] (Found along the way) Gaps of 52 to 65 miles with no truck stop:
+      Elmira to Jamestown, Newburgh to Binghamton, Altoona to Cumberland,
+      Plattsburgh to Watertown.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
 
 ### Mountain and Northwest roads (missing roads brief 3, November 23)
 

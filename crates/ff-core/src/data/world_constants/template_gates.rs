@@ -441,6 +441,23 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "alpena_mi_us",
     "ashtabula_oh_us",
     "sandusky_oh_us",
+    // Northeast (missing roads, 2026-11-23): each new town keeps the plants,
+    // warehouses and stores read from the map for it. Ithaca and Lexington
+    // Park show only stores on the map, so freight is delivered there and
+    // none starts there.
+    "newburgh_ny_us",
+    "lancaster_pa_us",
+    "reading_pa_us",
+    "gloucester_ma_us",
+    "dubois_pa_us",
+    "elmira_ny_us",
+    "hanover_pa_us",
+    "johnstown_pa_us",
+    "pittsfield_ma_us",
+    "riverhead_ny_us",
+    "cranberry_township_pa_us",
+    "ithaca_ny_us",
+    "lexington_park_md_us",
     // Mountain and Northwest (missing roads, 2026-11-23): the Port of Grays
     // Harbor's Terminal 4 and AGP's export terminal, the Sierra Pacific
     // sawmill, a shopping centre and a Westport cold store, each surveyed.

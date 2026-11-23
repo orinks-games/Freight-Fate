@@ -11,6 +11,9 @@
 //! The Florida and Georgia roads (2026-11-22) split West Palm Beach to Palm
 //! Bay (110 miles), which passed Port Saint Lucie 1.2 miles off: 51 miles on
 //! Florida's Turnpike, then the existing 65-mile leg on I-95.
+//!
+//! The Northeast roads (2026-11-23) split Buffalo to New York, a 468-mile
+//! Thruway leg, at Newburgh: about 465 miles of the same road.
 
 use ff_core::models::profile::Profile;
 use freight_fate::app::testing::TestApp;
@@ -135,4 +138,22 @@ fn a_save_on_the_old_west_palm_beach_leg_resumes_on_the_port_saint_lucie_chain()
         ]
     );
     assert_eq!(drive.trip.position_mi, 80.0);
+}
+
+#[test]
+fn a_save_on_the_old_buffalo_to_new_york_leg_resumes_on_its_pieces() {
+    // 300 miles in lands on the Thruway, short of Newburgh.
+    let app = resume("Buffalo", "New York", 468.0, 300.0);
+    let state = app.state().expect("a state");
+    let state = state.borrow();
+    let drive = state
+        .as_any()
+        .downcast_ref::<DrivingState>()
+        .expect("the save resumes at the wheel");
+    assert!(drive.resumed);
+    assert_eq!(
+        drive.route.cities,
+        ["buffalo_ny_us", "newburgh_ny_us", "new_york_ny_us"]
+    );
+    assert_eq!(drive.trip.position_mi, 300.0);
 }
