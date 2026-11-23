@@ -13198,9 +13198,6 @@ msgstr "za każdym razem"
 msgid "once"
 msgstr "raz"
 
-msgid "partial"
-msgstr "częściowe"
-
 msgid "full, the truck holds the lane and takes your exits"
 msgstr "pełne, ciężarówka trzyma pas i sama zjeżdża na twoich zjazdach"
 
@@ -13209,9 +13206,6 @@ msgstr "częściowe, łagodne znoszenie, a ty kierujesz z pomocą"
 
 msgid "off, you hold the lane and take your own exits"
 msgstr "wyłączone, trzymasz pas i zjeżdżasz na zjazdach samodzielnie"
-
-msgid "realistic"
-msgstr "realistyczny"
 
 msgid "close"
 msgstr "blisko"
@@ -13227,12 +13221,6 @@ msgstr "wyraźny"
 
 msgid "subtle"
 msgstr "subtelny"
-
-msgid "balanced"
-msgstr "zrównoważony"
-
-msgid "interactive"
-msgstr "interaktywny"
 
 msgid "alpha"
 msgstr "alfa"
@@ -13262,8 +13250,26 @@ msgstr "jedną milę"
 msgid "{meters} meters"
 msgstr "{meters} {meters:metr|metry|metrów}"
 
+msgid "manual"
+msgstr "ręczna"
+
+msgid "partial"
+msgstr "częściowe"
+
+msgid "strong"
+msgstr "silny"
+
 msgid "custom"
 msgstr "własne"
+
+msgid "realistic"
+msgstr "realistyczny"
+
+msgid "balanced"
+msgstr "zrównoważony"
+
+msgid "interactive"
+msgstr "interaktywny"
 
 msgid "mile"
 msgstr "mila"
@@ -14327,6 +14333,9 @@ msgstr "{lane_part}, {side} skraj pasa."
 msgid "{lane_part}, crossing the {side} lane line."
 msgstr "{lane_part}, przekraczasz {side} skraj pasa."
 
+msgid "idle"
+msgstr ""
+
 msgid "median"
 msgstr "pas rozdziału"
 
@@ -14493,6 +14502,9 @@ msgstr "zablokowany"
 
 msgid "released"
 msgstr "zwolniony"
+
+msgid "cruising"
+msgstr "jazda ze stałą prędkością"
 
 msgid "diesel-price"
 msgstr "diesel-price"
@@ -15210,9 +15222,6 @@ msgstr "laweta"
 
 msgid "service vehicle"
 msgstr "pojazd serwisowy"
-
-msgid "cruising"
-msgstr "jazda ze stałą prędkością"
 
 msgid "merging"
 msgstr "włączanie się do ruchu"
@@ -16282,9 +16291,6 @@ msgstr "Ruch: {status_label}, {gap_text} przed tobą, {speed_text}."
 
 msgid "traffic"
 msgstr "ruch"
-
-msgid "strong"
-msgstr "silny"
 
 msgid "ordinary"
 msgstr "zwykły"
@@ -18012,9 +18018,6 @@ msgstr "dotknięcie"
 
 msgid "lift"
 msgstr "uniesienie palca"
-
-msgid "idle"
-msgstr ""
 
 msgid "deciding"
 msgstr ""
@@ -25373,9 +25376,6 @@ msgstr "powietrze gotowe"
 msgid "air {air_pressure_psi} psi"
 msgstr "powietrze {air_pressure_psi} psi"
 
-msgid "manual"
-msgstr "ręczna"
-
 msgid "pickup drive"
 msgstr "jazda po ładunek"
 
@@ -26821,6 +26821,12 @@ msgstr "Luz."
 msgid "On the exit ramp. No lanes to change."
 msgstr "Na zjeździe. Nie ma pasów do zmiany."
 
+msgid "Lane change canceled."
+msgstr ""
+
+msgid "Already waiting for a gap."
+msgstr ""
+
 msgid "Still changing lanes."
 msgstr "Wciąż trwa zmiana pasa."
 
@@ -26839,6 +26845,15 @@ msgstr "{name} pas kończy się w strefie robót."
 #. placeholders: {name}
 msgid "The {name} lane is closed here."
 msgstr "{name} pas jest tu zamknięty."
+
+#. placeholders: {side_word}
+#. one sentence of a longer line
+msgid "Signaling {side_word}, waiting for a gap."
+msgstr ""
+
+#. placeholders: {prefix}, {side_word}
+msgid "{prefix}. Signaling {side_word}, waiting for a gap."
+msgstr ""
 
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
@@ -38167,6 +38182,27 @@ msgstr "Zwalniam przed zakrętem."
 msgid "Ramp assistance released."
 msgstr "Asystent łącznic zwolniony."
 
+#. one sentence of a longer line
+msgid "Gap open."
+msgstr ""
+
+#. placeholders: {lane_label}
+msgid "Gap open. Gliding to the {lane_label} lane."
+msgstr ""
+
+#. placeholders: {lane_label}
+#. one sentence of a longer line
+msgid "Gliding to the {lane_label} lane."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "No gap opened."
+msgstr ""
+
+#. placeholders: {lane_name}
+msgid "No gap opened. Staying in the {lane_name} lane."
+msgstr ""
+
 #. placeholders: {lane_name}
 #. one sentence of a longer line
 msgid "Staying in the {lane_name} lane."
@@ -39779,6 +39815,15 @@ msgstr "Wszyscy asystenci"
 msgid "Custom"
 msgstr "Własny"
 
+msgid "Manual"
+msgstr ""
+
+msgid "Partial"
+msgstr ""
+
+msgid "Full"
+msgstr ""
+
 msgid "Light"
 msgstr "Lekki"
 
@@ -41079,6 +41124,28 @@ msgstr ""
 "Zmiana jednego asystenta przełącza to na Własny. Trasy dalej wybierasz ty i "
 "to ty obsługujesz place i rampy. Ustawienia wstępne nigdy nie zmieniają "
 "tempa, zasad czasu pracy, skrzyni biegów, pogody ani zagrożeń."
+
+#. placeholders: {steering_assist_label}
+msgid "Steering assist: {steering_assist_label}"
+msgstr ""
+
+msgid ""
+"Sets steering and lane keeping independently of speed assists. Manual "
+"leaves steering and lane changes to you. Partial follows bends while you "
+"hold the lane. Full centers the lane and assists lane changes. Pair this "
+"with any speed assist level."
+msgstr ""
+
+#. placeholders: {speed_assist_label}
+msgid "Speed assist: {speed_assist_label}"
+msgstr ""
+
+msgid ""
+"Sets speed, braking, and descent control independently of steering. Manual "
+"leaves speed and jake braking to you. Light, Standard, and Strong step up "
+"descent, curve, exit, and emergency braking assistance. Pair this with any "
+"steering assist level."
+msgstr ""
 
 #. placeholders: {lane_keeping_label}
 msgid "Lane keeping: {lane_keeping_label}"

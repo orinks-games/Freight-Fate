@@ -81,6 +81,7 @@ impl DrivingState {
         // `_enforcement_init` opened with this; the synthesized signature has
         // to exist before the first enforcement cue can play.
         register_enforcement_sounds();
+        assist_cues::register_assist_cues();
 
         let mut truck = TruckState::new(profile_of(ctx).truck_specs());
         // Loaded delivery runs carry the job's payload; pickup deadheads and
@@ -763,6 +764,17 @@ impl DrivingState {
             keeper_snub: 0.0,
             keeper_corner_braking: false,
             keeper_follow: Default::default(),
+            predictive_cruise: ctx.playtest_predictive_cruise.unwrap_or_default(),
+            assisted_lane_change: ctx.playtest_assisted_lane_change.unwrap_or_default(),
+            lane_keep_availability: ctx.playtest_lane_keep_availability.unwrap_or_else(|| {
+                if ctx.settings.lane_keeping == "off" {
+                    ff_core::sim::lane_keep_status::LaneKeepAvailability::Off
+                } else {
+                    ff_core::sim::lane_keep_status::LaneKeepAvailability::Active
+                }
+            }),
+            keeper_jake_stage: 0,
+            last_zone_was_work_zone: false,
             keeper_snub_target_mph: 0.0,
             keeper_droop_s: 0.0,
             keeper_droop_said: false,

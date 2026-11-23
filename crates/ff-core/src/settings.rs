@@ -43,7 +43,9 @@ pub mod paths;
 pub use touch::{DEEP_SWIPE_MAX_POINTS, DEEP_SWIPE_MIN_POINTS, DEEP_SWIPE_STEP_POINTS};
 mod touch;
 mod units;
-pub use assists::AssistStash;
+pub use assists::{
+    AssistStash, SpeedAssistMode, SteeringAssistMode, SPEED_ASSIST_MODES, STEERING_ASSIST_MODES,
+};
 #[cfg(test)]
 mod tests;
 
@@ -505,6 +507,13 @@ settings_fields! {
     /// the truth about the ruleset it is running -- the whole point of the
     /// 2026-08-09 ruling.
     driving_assistance_preset: String = "all" => str_checked,
+    /// Independent steering-assist toggle ("manual", "partial", "full", or
+    /// "custom" when individual steering rows diverge). Lets players pair
+    /// lane-centering with manual speed/jake braking, or vice versa.
+    steering_assist_mode: String = "full" => str_checked,
+    /// Independent speed-assist toggle ("manual", "light", "standard",
+    /// "strong", or "custom" when individual speed rows diverge).
+    speed_assist_mode: String = "strong" => str_checked,
     automatic_emergency_braking: bool = true => bool_strict,
     lane_departure_warning: bool = true => bool_strict,
     stop_and_go_assist: bool = true => bool_strict,
@@ -845,14 +854,13 @@ impl Settings {
     }
 
     /// Whether something supplies the wheel a bend asks for, so the truck
-    /// follows the road's curve without the driver steering it: curve
-    /// assistance, or partial lane keeping, which steers through the road's
-    /// curve the same way while lane changes and speed stay the driver's
-    /// (owner ruling, 2026-09-24). Lane keeping off adds nothing, so with
-    /// curve assistance off too the bend is the driver's own wheel; full
-    /// holds the lane outright.
+    /// follows the road's curve without the driver steering it: partial lane
+    /// keeping, or curve assistance when steering assist is not explicitly
+    /// Manual. Pairing Manual steering with Standard/Strong speed assist keeps
+    /// curve braking active while leaving bend steering to the driver.
     pub fn road_steers_the_bend(&self) -> bool {
-        self.curve_speed_assist || self.lane_keeping == "partial"
+        self.lane_keeping == "partial"
+            || (self.curve_speed_assist && self.steering_assist_mode != "manual")
     }
 
     /// The spoken value with the clause that says what it costs you.

@@ -177,6 +177,10 @@ pub struct GameContext {
     pub playtest_drive_traction: Option<ff_core::sim::vehicle::DriveTractionState>,
     pub playtest_trailer_sway: Option<ff_core::sim::vehicle::TrailerSwayState>,
     pub playtest_mirror_glance: Option<ff_core::sim::mirror_glance::MirrorGlance>,
+    pub playtest_predictive_cruise: Option<ff_core::sim::predictive_cruise::PredictiveCruiseState>,
+    pub playtest_assisted_lane_change: Option<ff_core::sim::lane_change_assist::AssistedLaneChange>,
+    pub playtest_lane_keep_availability:
+        Option<ff_core::sim::lane_keep_status::LaneKeepAvailability>,
     /// The co-driver's logbook counters a sandbox scenario asked for, put
     /// on the next co-driver paired for a load. `None` in the shipped game.
     pub playtest_co_driver_hos: Option<crate::playtest::scenario::CoDriverHos>,
@@ -334,6 +338,9 @@ impl GameContext {
             playtest_drive_traction: None,
             playtest_trailer_sway: None,
             playtest_mirror_glance: None,
+            playtest_predictive_cruise: None,
+            playtest_assisted_lane_change: None,
+            playtest_lane_keep_availability: None,
             playtest_co_driver_hos: None,
             crash_offer_pending: crate::problem_reports::take_crash_offer(),
             dispatch_board_seed: None,

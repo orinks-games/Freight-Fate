@@ -494,7 +494,11 @@ impl SettingsCategoryState {
                 .map(|(_, action)| action.unwrap_or_else(|| adjust(|_s, _ctx, _d| {})))
                 .collect(),
             "assistance" => {
-                let mut actions = vec![adjust(|s, ctx, d| s.cycle_assist_preset(ctx, d))];
+                let mut actions = vec![
+                    adjust(|s, ctx, d| s.cycle_assist_preset(ctx, d)),
+                    adjust(|s, ctx, d| s.cycle_steering_assist(ctx, d)),
+                    adjust(|s, ctx, d| s.cycle_speed_assist(ctx, d)),
+                ];
                 for (field, _, _) in DRIVING_ASSIST_SPECS {
                     actions.push(adjust(move |s, ctx, d| {
                         s.toggle_driving_assist(ctx, field, d)

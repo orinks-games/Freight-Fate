@@ -2766,7 +2766,7 @@ msgstr ""
 msgid "{key}, sound_taken"
 msgstr ""
 
-#: crates/ff-core/src/app_lifecycle.rs
+#: crates/ff-core/src/app_lifecycle.rs crates/ff-core/src/sim/lane_keep_status.rs
 msgid "active"
 msgstr ""
 
@@ -8280,7 +8280,7 @@ msgstr ""
 msgid "facility access road"
 msgstr ""
 
-#: crates/ff-core/src/engine_audio.rs crates/ff-core/src/radio/state.rs crates/ff-core/src/settings.rs crates/ff-core/src/sim/hos.rs
+#: crates/ff-core/src/engine_audio.rs crates/ff-core/src/radio/state.rs crates/ff-core/src/settings/assists.rs crates/ff-core/src/settings.rs
 msgid "off"
 msgstr ""
 
@@ -8992,7 +8992,7 @@ msgstr ""
 msgid "insurance reserve"
 msgstr ""
 
-#: crates/ff-core/src/models/career.rs crates/ff-core/src/models/carrier_fleet.rs crates/ff-core/src/models/enforcement.rs crates/ff-core/src/settings.rs
+#: crates/ff-core/src/models/career.rs crates/ff-core/src/models/carrier_fleet.rs crates/ff-core/src/models/enforcement.rs crates/ff-core/src/settings/assists.rs
 msgid "full"
 msgstr ""
 
@@ -12682,7 +12682,7 @@ msgstr ""
 msgid "Plan to stop here."
 msgstr ""
 
-#: crates/ff-core/src/models/jobs/urgency.rs crates/ff-core/src/models/trucks.rs crates/ff-core/src/settings.rs crates/ff-core/src/sim/driving_modes.rs
+#: crates/ff-core/src/models/jobs/urgency.rs crates/ff-core/src/models/trucks.rs crates/ff-core/src/settings/assists.rs crates/ff-core/src/settings.rs
 msgid "standard"
 msgstr ""
 
@@ -13887,7 +13887,7 @@ msgstr ""
 msgid "sleeper"
 msgstr ""
 
-#: crates/ff-core/src/models/trucks.rs crates/ff-core/src/settings.rs crates/freight-fate/src/states/driving_events/ramp_crossing.rs
+#: crates/ff-core/src/models/trucks.rs crates/ff-core/src/settings/assists.rs crates/ff-core/src/settings.rs crates/freight-fate/src/states/driving_events/ramp_crossing.rs
 msgid "light"
 msgstr ""
 
@@ -14772,10 +14772,6 @@ msgid "once"
 msgstr ""
 
 #: crates/ff-core/src/settings.rs
-msgid "partial"
-msgstr ""
-
-#: crates/ff-core/src/settings.rs
 msgid "full, the truck holds the lane and takes your exits"
 msgstr ""
 
@@ -14785,10 +14781,6 @@ msgstr ""
 
 #: crates/ff-core/src/settings.rs
 msgid "off, you hold the lane and take your own exits"
-msgstr ""
-
-#: crates/ff-core/src/settings.rs crates/ff-core/src/sim/hos.rs crates/freight-fate/src/states/assist_picker.rs crates/freight-fate/src/states/main_menu/settings_actions.rs
-msgid "realistic"
 msgstr ""
 
 #: crates/ff-core/src/settings.rs
@@ -14809,14 +14801,6 @@ msgstr ""
 
 #: crates/ff-core/src/settings.rs crates/ff-core/src/sim/lane_guidance.rs crates/freight-fate/src/states/main_menu/settings_actions.rs
 msgid "subtle"
-msgstr ""
-
-#: crates/ff-core/src/settings.rs crates/freight-fate/src/states/assist_picker.rs crates/freight-fate/src/states/main_menu/settings_actions.rs
-msgid "balanced"
-msgstr ""
-
-#: crates/ff-core/src/settings.rs crates/freight-fate/src/states/main_menu/settings_actions.rs
-msgid "interactive"
 msgstr ""
 
 #: crates/ff-core/src/settings.rs crates/freight-fate/src/states/main_menu/settings_items/dynamic.rs
@@ -14856,8 +14840,32 @@ msgstr ""
 msgid "{meters} meters"
 msgstr ""
 
+#: crates/ff-core/src/settings/assists.rs crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs
+msgid "manual"
+msgstr ""
+
+#: crates/ff-core/src/settings/assists.rs crates/ff-core/src/settings.rs
+msgid "partial"
+msgstr ""
+
+#: crates/ff-core/src/settings/assists.rs crates/ff-core/src/sim/trip_traffic.rs
+msgid "strong"
+msgstr ""
+
 #: crates/ff-core/src/settings/assists.rs crates/ff-core/src/settings.rs
 msgid "custom"
+msgstr ""
+
+#: crates/ff-core/src/settings/assists.rs crates/ff-core/src/settings.rs crates/ff-core/src/sim/hos.rs crates/freight-fate/src/states/assist_picker.rs
+msgid "realistic"
+msgstr ""
+
+#: crates/ff-core/src/settings/assists.rs crates/ff-core/src/settings.rs crates/freight-fate/src/states/assist_picker.rs crates/freight-fate/src/states/main_menu/settings_actions.rs
+msgid "balanced"
+msgstr ""
+
+#: crates/ff-core/src/settings/assists.rs crates/ff-core/src/settings.rs crates/freight-fate/src/states/main_menu/settings_actions.rs
+msgid "interactive"
 msgstr ""
 
 #: crates/ff-core/src/settings/units.rs crates/ff-core/src/settings.rs crates/ff-core/src/sim/trip/placement.rs crates/ff-core/src/sim/trip.rs
@@ -16163,6 +16171,10 @@ msgstr ""
 msgid "{lane_part}, crossing the {side} lane line."
 msgstr ""
 
+#: crates/ff-core/src/sim/lane_change_assist.rs crates/ff-core/src/touch/recognizer.rs
+msgid "idle"
+msgstr ""
+
 #: crates/ff-core/src/sim/lane_guidance.rs
 msgid "median"
 msgstr ""
@@ -16368,6 +16380,10 @@ msgstr ""
 
 #: crates/ff-core/src/sim/pedal_latch.rs
 msgid "released"
+msgstr ""
+
+#: crates/ff-core/src/sim/predictive_cruise.rs crates/ff-core/src/sim/traffic_manager.rs crates/ff-core/src/sim/trip_models.rs
+msgid "cruising"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_fuel_price.rs
@@ -17297,10 +17313,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/traffic_manager.rs crates/freight-fate/src/states/driving_traffic_sounds.rs crates/freight-fate/src/visuals/scene_drive.rs
 msgid "service vehicle"
-msgstr ""
-
-#: crates/ff-core/src/sim/traffic_manager.rs crates/ff-core/src/sim/trip_models.rs
-msgid "cruising"
 msgstr ""
 
 #: crates/ff-core/src/sim/traffic_manager.rs crates/ff-core/src/sim/trip_models.rs
@@ -18660,10 +18672,6 @@ msgstr ""
 
 #: crates/ff-core/src/sim/trip_traffic.rs crates/ff-core/src/speech_pacing.rs crates/freight-fate/src/states/driving_core.rs crates/freight-fate/src/states/driving_menu_states/apps.rs
 msgid "traffic"
-msgstr ""
-
-#: crates/ff-core/src/sim/trip_traffic.rs
-msgid "strong"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip_traffic.rs
@@ -20518,10 +20526,6 @@ msgstr ""
 
 #: crates/ff-core/src/touch.rs
 msgid "lift"
-msgstr ""
-
-#: crates/ff-core/src/touch/recognizer.rs
-msgid "idle"
 msgstr ""
 
 #: crates/ff-core/src/touch/recognizer.rs
@@ -28607,10 +28611,6 @@ msgstr ""
 msgid "air {air_pressure_psi} psi"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_menu_states/status.rs crates/freight-fate/src/states/driving_updates/frame.rs crates/freight-fate/src/states/main_menu/settings_items/controls.rs
-msgid "manual"
-msgstr ""
-
 #: crates/freight-fate/src/states/driving/lifecycle.rs crates/freight-fate/src/states/driving_pause_states.rs
 msgid "pickup drive"
 msgstr ""
@@ -30162,6 +30162,14 @@ msgid "On the exit ramp. No lanes to change."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_controls/keys.rs
+msgid "Lane change canceled."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/keys.rs
+msgid "Already waiting for a gap."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_controls/keys.rs
 msgid "Still changing lanes."
 msgstr ""
 
@@ -30183,6 +30191,17 @@ msgstr ""
 #. placeholders: {name}
 #: crates/freight-fate/src/states/driving_controls/keys.rs
 msgid "The {name} lane is closed here."
+msgstr ""
+
+#. placeholders: {side_word}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_controls/keys.rs
+msgid "Signaling {side_word}, waiting for a gap."
+msgstr ""
+
+#. placeholders: {prefix}, {side_word}
+#: crates/freight-fate/src/states/driving_controls/keys.rs
+msgid "{prefix}. Signaling {side_word}, waiting for a gap."
 msgstr ""
 
 #. placeholders: {lane_label}
@@ -42659,6 +42678,32 @@ msgstr ""
 msgid "Ramp assistance released."
 msgstr ""
 
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Gap open."
+msgstr ""
+
+#. placeholders: {lane_label}
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Gap open. Gliding to the {lane_label} lane."
+msgstr ""
+
+#. placeholders: {lane_label}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "Gliding to the {lane_label} lane."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "No gap opened."
+msgstr ""
+
+#. placeholders: {lane_name}
+#: crates/freight-fate/src/states/driving_updates/lanes.rs
+msgid "No gap opened. Staying in the {lane_name} lane."
+msgstr ""
+
 #. placeholders: {lane_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/lanes.rs
@@ -44433,6 +44478,18 @@ msgid "Custom"
 msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_actions.rs
+msgid "Manual"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_actions.rs
+msgid "Partial"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_actions.rs
+msgid "Full"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_actions.rs
 msgid "Light"
 msgstr ""
 
@@ -45724,6 +45781,32 @@ msgid ""
 "assist makes this Custom. You still choose routes and handle yards and "
 "docks. Presets never change pacing, hours rules, transmission, weather, or "
 "hazards."
+msgstr ""
+
+#. placeholders: {steering_assist_label}
+#: crates/freight-fate/src/states/main_menu/settings_items/dynamic.rs
+msgid "Steering assist: {steering_assist_label}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items/dynamic.rs
+msgid ""
+"Sets steering and lane keeping independently of speed assists. Manual "
+"leaves steering and lane changes to you. Partial follows bends while you "
+"hold the lane. Full centers the lane and assists lane changes. Pair this "
+"with any speed assist level."
+msgstr ""
+
+#. placeholders: {speed_assist_label}
+#: crates/freight-fate/src/states/main_menu/settings_items/dynamic.rs
+msgid "Speed assist: {speed_assist_label}"
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/settings_items/dynamic.rs
+msgid ""
+"Sets speed, braking, and descent control independently of steering. Manual "
+"leaves speed and jake braking to you. Light, Standard, and Strong step up "
+"descent, curve, exit, and emergency braking assistance. Pair this with any "
+"steering assist level."
 msgstr ""
 
 #. placeholders: {lane_keeping_label}

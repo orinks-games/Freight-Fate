@@ -365,6 +365,15 @@ impl DrivingState {
             if self.approach_pull_ahead_available(ctx) {
                 self.approach_pull_ahead = true;
             }
+            let resume_mph = self
+                .cruise_mph
+                .or(self.speed_control_target_mph)
+                .unwrap_or_else(|| self.trip.speed_limit_at(self.trip.position_mi).0);
+            self.predictive_cruise = self.predictive_cruise.next(
+                ff_core::sim::predictive_cruise::PredictiveCruiseEvent::TriggerSmoothResume {
+                    target_mph: resume_mph,
+                },
+            );
             ctx.audio.play_with("events/ramp_light_green", 0.8, 0.0);
             self.say_route_navigation(ctx, "Light green.");
             return;

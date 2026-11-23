@@ -315,6 +315,9 @@ pub struct DrivingObservation {
     pub drive_traction: ff_core::sim::vehicle::DriveTractionState,
     pub trailer_sway: ff_core::sim::vehicle::TrailerSwayState,
     pub mirror_glance: ff_core::sim::mirror_glance::MirrorGlance,
+    pub predictive_cruise: ff_core::sim::predictive_cruise::PredictiveCruiseState,
+    pub assisted_lane_change: ff_core::sim::lane_change_assist::AssistedLaneChange,
+    pub lane_keep_availability: ff_core::sim::lane_keep_status::LaneKeepAvailability,
 }
 
 /// The state of a cattle load, for the agent server's inspector.
@@ -1055,7 +1058,7 @@ impl App {
         self.operator_keys_ignored = false;
     }
 
-    fn driving_observation(&self) -> Option<DrivingObservation> {
+    pub fn driving_observation(&self) -> Option<DrivingObservation> {
         let state = self.state()?;
         let state = state.borrow();
         // A Driving School lesson is a drive in a wrapper.
@@ -1139,6 +1142,9 @@ impl App {
             drive_traction: drive.trip.truck.drive_traction_state,
             trailer_sway: drive.trip.truck.trailer_sway_state,
             mirror_glance: drive.mirror_glance,
+            predictive_cruise: drive.predictive_cruise,
+            assisted_lane_change: drive.assisted_lane_change,
+            lane_keep_availability: drive.lane_keep_availability,
         })
     }
 

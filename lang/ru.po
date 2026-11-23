@@ -13161,9 +13161,6 @@ msgstr "каждый"
 msgid "once"
 msgstr "один раз"
 
-msgid "partial"
-msgstr "частичное"
-
 msgid "full, the truck holds the lane and takes your exits"
 msgstr "полное, грузовик держит полосу и сам выполняет съезды"
 
@@ -13172,9 +13169,6 @@ msgstr "частичное, мягкий снос, и вы рулите с по�
 
 msgid "off, you hold the lane and take your own exits"
 msgstr "выключено, вы сами держите полосу и выполняете съезды"
-
-msgid "realistic"
-msgstr "реалистично"
 
 msgid "close"
 msgstr "близко"
@@ -13190,12 +13184,6 @@ msgstr "заметно"
 
 msgid "subtle"
 msgstr "едва заметно"
-
-msgid "balanced"
-msgstr "сбалансированно"
-
-msgid "interactive"
-msgstr "интерактивно"
 
 msgid "alpha"
 msgstr "альфа"
@@ -13225,8 +13213,26 @@ msgstr "одна миля"
 msgid "{meters} meters"
 msgstr "{meters} {meters:метр|метра|метров}"
 
+msgid "manual"
+msgstr "manual"
+
+msgid "partial"
+msgstr "частичное"
+
+msgid "strong"
+msgstr "уверенно"
+
 msgid "custom"
 msgstr "настраиваемый"
+
+msgid "realistic"
+msgstr "реалистично"
+
+msgid "balanced"
+msgstr "сбалансированно"
+
+msgid "interactive"
+msgstr "интерактивно"
 
 msgid "mile"
 msgstr "миля"
@@ -14279,6 +14285,9 @@ msgstr "{lane_part}, у края полосы, {side}."
 msgid "{lane_part}, crossing the {side} lane line."
 msgstr "{lane_part}, пересекаете линию разметки, {side}."
 
+msgid "idle"
+msgstr ""
+
 msgid "median"
 msgstr "разделительная полоса"
 
@@ -14441,6 +14450,9 @@ msgstr "зафиксировано"
 
 msgid "released"
 msgstr "отпущено"
+
+msgid "cruising"
+msgstr "движется"
 
 msgid "diesel-price"
 msgstr "diesel-price"
@@ -15158,9 +15170,6 @@ msgstr "автовоз"
 
 msgid "service vehicle"
 msgstr "служебная машина"
-
-msgid "cruising"
-msgstr "движется"
 
 msgid "merging"
 msgstr "перестраивается"
@@ -16235,9 +16244,6 @@ msgstr "Движение: {status_label}, {gap_text} впереди, {speed_text
 
 msgid "traffic"
 msgstr "движение"
-
-msgid "strong"
-msgstr "уверенно"
 
 msgid "ordinary"
 msgstr "обычно"
@@ -17976,9 +17982,6 @@ msgstr "касание"
 
 msgid "lift"
 msgstr "бодрость"
-
-msgid "idle"
-msgstr ""
 
 msgid "deciding"
 msgstr ""
@@ -25381,9 +25384,6 @@ msgstr ""
 "воздух {air_pressure_psi} {air_pressure_psi:фунт|фунта|фунтов} на "
 "квадратный дюйм"
 
-msgid "manual"
-msgstr "manual"
-
 msgid "pickup drive"
 msgstr "поездка к погрузке"
 
@@ -26844,6 +26844,12 @@ msgstr "Нейтраль."
 msgid "On the exit ramp. No lanes to change."
 msgstr "Вы на съезде. Перестраиваться некуда."
 
+msgid "Lane change canceled."
+msgstr ""
+
+msgid "Already waiting for a gap."
+msgstr ""
+
 msgid "Still changing lanes."
 msgstr "Перестроение ещё идёт."
 
@@ -26862,6 +26868,15 @@ msgstr "Полоса {name} закрывается у зоны работ."
 #. placeholders: {name}
 msgid "The {name} lane is closed here."
 msgstr "Полоса {name} здесь закрыта."
+
+#. placeholders: {side_word}
+#. one sentence of a longer line
+msgid "Signaling {side_word}, waiting for a gap."
+msgstr ""
+
+#. placeholders: {prefix}, {side_word}
+msgid "{prefix}. Signaling {side_word}, waiting for a gap."
+msgstr ""
 
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
@@ -38282,6 +38297,27 @@ msgstr "Снижаем скорость перед поворотом."
 msgid "Ramp assistance released."
 msgstr "Помощь на съездах отпустила."
 
+#. one sentence of a longer line
+msgid "Gap open."
+msgstr ""
+
+#. placeholders: {lane_label}
+msgid "Gap open. Gliding to the {lane_label} lane."
+msgstr ""
+
+#. placeholders: {lane_label}
+#. one sentence of a longer line
+msgid "Gliding to the {lane_label} lane."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "No gap opened."
+msgstr ""
+
+#. placeholders: {lane_name}
+msgid "No gap opened. Staying in the {lane_name} lane."
+msgstr ""
+
 #. placeholders: {lane_name}
 #. one sentence of a longer line
 msgid "Staying in the {lane_name} lane."
@@ -39906,6 +39942,15 @@ msgstr "Все помощники"
 msgid "Custom"
 msgstr "Свой"
 
+msgid "Manual"
+msgstr ""
+
+msgid "Partial"
+msgstr ""
+
+msgid "Full"
+msgstr ""
+
 msgid "Light"
 msgstr "Лёгкий"
 
@@ -41205,6 +41250,28 @@ msgstr ""
 "«Свой». Маршруты по-прежнему выбираете вы, и площадки с доками за вами. "
 "Предустановки никогда не меняют темп, правила по часам, коробку передач, "
 "погоду или опасности."
+
+#. placeholders: {steering_assist_label}
+msgid "Steering assist: {steering_assist_label}"
+msgstr ""
+
+msgid ""
+"Sets steering and lane keeping independently of speed assists. Manual "
+"leaves steering and lane changes to you. Partial follows bends while you "
+"hold the lane. Full centers the lane and assists lane changes. Pair this "
+"with any speed assist level."
+msgstr ""
+
+#. placeholders: {speed_assist_label}
+msgid "Speed assist: {speed_assist_label}"
+msgstr ""
+
+msgid ""
+"Sets speed, braking, and descent control independently of steering. Manual "
+"leaves speed and jake braking to you. Light, Standard, and Strong step up "
+"descent, curve, exit, and emergency braking assistance. Pair this with any "
+"steering assist level."
+msgstr ""
 
 #. placeholders: {lane_keeping_label}
 msgid "Lane keeping: {lane_keeping_label}"

@@ -15,6 +15,10 @@
 
 ### Added
 
+- **Predictive cruise now prepares the jake brake before crests and downgrades.** It also resumes smoothly out of work zones and green lights.
+- **Steering toward an occupied lane now plays a directional blind-spot chirp.** On All assists, a tap signals, waits for a gap, and glides over.
+- **Driving assistance settings now let you set Steering assist and Speed assist independently.** Existing presets still work, and saved settings carry over.
+- **Assist handoffs now play short tones** when speed keeper locks onto traffic, curve assistance brakes, or lane keeping drops out on snow.
 - **The map now reaches Alaska,** from Tok and Fairbanks to Deadhorse, Anchorage, the Kenai Peninsula and Valdez, with real freight sites and highways.
 - **Skagway and Haines cross into the Yukon,** and Whittier is reached through the Anton Anderson Memorial Tunnel, with its one-lane gate and toll.
 - **Alaska's spring weight limits now apply.** From April to mid-June, offers on thawing highways carry lighter loads and name the road.
@@ -28,17 +32,8 @@
 - **Trucks now stop for customs at every border crossing, both ways.** Driving past the booth brings a penalty, which a company driver's carrier pays.
 - **Dispatch now offers loads into Canada and back,** with customs time in the deadline. A US carrier may not haul between Canadian towns.
 - **A route between two US cities stays in the United States when a US road exists.** Alaska routes still run through Canada.
-- **South Jersey has new roads.** Drive the Turnpike or I-295 to Carneys Point, cross the Delaware Memorial Bridge, or haul to Cape May.
-- **Florida and Georgia have 50 new roads.** Sebring, Port Canaveral, Crystal River and Gainesville, Georgia join the map.
-- **California and the Southwest have 35 new roads.** Page to Saint George is now 155 miles on US 89, down from 513.
-- **The Great Lakes states have 61 new roads.** Joliet, Alpena, Ashtabula and Sandusky join the map.
-- **The Northeast has 63 new roads.** Thirteen towns join the map, among them Lancaster, Reading, Newburgh and Johnstown.
-- **The South Central states have 50 new roads.** Sikeston joins the map, and Boise City to Raton drops 397 miles.
-- **The Mountain West and Northwest have 45 new roads.** Aberdeen, Washington joins the map, and Pagosa Springs to Santa Fe drops 282 miles.
-- **The Upper Midwest and Northern Plains have 35 new roads.** Aberdeen to Jamestown is now 104 miles, down from 348.
-- **Alabama, Mississippi and South Carolina have 25 new roads.** Pascagoula and Beaufort join the map.
-- **Texas and Louisiana have 61 new roads.** Denton, Galveston, Freeport, Point Comfort, Port Fourchon and Venice, Louisiana join the map.
-- **Appalachia and the Mid-South have 61 new roads.** Morehead City, Pinehurst and Reedville join the map.
+- **More than 500 new roads link nearby cities across the lower 48.** Thirty-six towns join the map, including Cape May, Galveston and Joliet.
+- **Towns a short drive apart no longer need a long detour.** Boise City to Raton is now 126 miles, down from 523.
 - **Units has a new Automatic choice, the default in 2.0:** miles in the United States, kilometers in Canada, said once at the border.
 - **Kilometers now reach fuel, weights and signs.** Fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters.
 - **The cruise dial steps in the units you hear.** In kilometers it walks 95, 100, 105.

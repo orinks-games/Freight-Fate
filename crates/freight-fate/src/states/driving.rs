@@ -842,6 +842,11 @@ pub struct DrivingState {
     /// window starts it and only the lead itself ends it
     /// (`ff_core::sim::keeper_follow`).
     pub keeper_follow: ff_core::sim::keeper_follow::KeeperFollow,
+    pub predictive_cruise: ff_core::sim::predictive_cruise::PredictiveCruiseState,
+    pub assisted_lane_change: ff_core::sim::lane_change_assist::AssistedLaneChange,
+    pub lane_keep_availability: ff_core::sim::lane_keep_status::LaneKeepAvailability,
+    pub keeper_jake_stage: i32,
+    pub last_zone_was_work_zone: bool,
     // The service-brake snub the keeper is holding (0.0 = off the pedal),
     // and how long it has been out of authority with the truck still over
     // the number -- past which it owns up rather than riding it out.
