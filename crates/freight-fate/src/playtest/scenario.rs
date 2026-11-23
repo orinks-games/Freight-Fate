@@ -165,6 +165,9 @@ pub struct Scenario {
     pub drive_traction: Option<ff_core::sim::vehicle::DriveTractionState>,
     pub trailer_sway: Option<ff_core::sim::vehicle::TrailerSwayState>,
     pub mirror_glance: Option<ff_core::sim::mirror_glance::MirrorGlance>,
+    pub predictive_cruise: Option<ff_core::sim::predictive_cruise::PredictiveCruiseState>,
+    pub assisted_lane_change: Option<ff_core::sim::lane_change_assist::AssistedLaneChange>,
+    pub lane_keep_availability: Option<ff_core::sim::lane_keep_status::LaneKeepAvailability>,
     /// The calendar date the career shows, as (month, day): what dated
     /// rules read (spring weight limits, the Whittier tunnel's seasons).
     /// Career time, deadlines and hours of service do not move.
@@ -348,6 +351,45 @@ impl Scenario {
                 ))
             }
         };
+        let predictive_cruise = match text(args, "predictive_cruise")?.as_deref() {
+            None => None,
+            Some(tag) => match ff_core::sim::predictive_cruise::PredictiveCruiseState::from_tag(tag)
+            {
+                Some(state) => Some(state),
+                None => {
+                    return Err(format!(
+                        "predictive_cruise must be cruising, building_for_climb, holding_crest, jake_anticipating or resuming_smooth, not {tag}"
+                    ))
+                }
+            },
+        };
+        let assisted_lane_change =
+            match text(args, "assisted_lane_change")?.as_deref() {
+                None => None,
+                Some(tag) => {
+                    match ff_core::sim::lane_change_assist::AssistedLaneChange::from_tag(tag) {
+                    Some(state) => Some(state),
+                    None => {
+                        return Err(format!(
+                            "assisted_lane_change must be idle, blind_spot_left, blind_spot_right, waiting_for_gap_left, waiting_for_gap_right, gliding_left or gliding_right, not {tag}"
+                        ))
+                    }
+                }
+                }
+            };
+        let lane_keep_availability = match text(args, "lane_keep_availability")?.as_deref() {
+            None => None,
+            Some(tag) => {
+                match ff_core::sim::lane_keep_status::LaneKeepAvailability::from_tag(tag) {
+                    Some(state) => Some(state),
+                    None => {
+                        return Err(format!(
+                        "lane_keep_availability must be off, active or dropped_out_snow, not {tag}"
+                    ))
+                    }
+                }
+            }
+        };
         let settings = match args.get("settings") {
             None | Some(Value::Null) => Map::new(),
             Some(Value::Object(map)) => map.clone(),
@@ -497,6 +539,9 @@ impl Scenario {
             drive_traction,
             trailer_sway,
             mirror_glance,
+            predictive_cruise,
+            assisted_lane_change,
+            lane_keep_availability,
             date: text(args, "date")?
                 .map(|value| parse_date(&value))
                 .transpose()?,
@@ -813,6 +858,27 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             glance.label()
         ));
     }
+    if let Some(pcc) = scenario.predictive_cruise {
+        ctx.playtest_predictive_cruise = Some(pcc);
+        notes.push(format!(
+            "Drives start with predictive cruise {}.",
+            pcc.key()
+        ));
+    }
+    if let Some(alc) = scenario.assisted_lane_change {
+        ctx.playtest_assisted_lane_change = Some(alc);
+        notes.push(format!(
+            "Drives start with assisted lane change {}.",
+            alc.key()
+        ));
+    }
+    if let Some(lk) = scenario.lane_keep_availability {
+        ctx.playtest_lane_keep_availability = Some(lk);
+        notes.push(format!(
+            "Drives start with lane keep availability {}.",
+            lk.key()
+        ));
+    }
     if let Some(jointed) = scenario.road_jointed {
         ctx.playtest_road_jointed = Some(jointed);
         notes.push(if jointed {
@@ -914,12 +980,44 @@ mod tests {
         assert!(bad(r#"{"drive_traction": "slip"}"#).contains("drive_traction"));
         assert!(bad(r#"{"trailer_sway": "jackknife"}"#).contains("trailer_sway"));
         assert!(bad(r#"{"mirror_glance": "rear"}"#).contains("mirror_glance"));
+        assert!(bad(r#"{"predictive_cruise": "coasting"}"#).contains("predictive_cruise"));
+        assert!(bad(r#"{"assisted_lane_change": "swerving"}"#).contains("assisted_lane_change"));
+        assert!(bad(r#"{"lane_keep_availability": "broken"}"#).contains("lane_keep_availability"));
         let args: Map<String, Value> = serde_json::from_str(
             r#"{"abs": "modulating", "drive_traction": "spinning",
-                "trailer_sway": "off_tracking", "mirror_glance": "left"}"#,
+                "trailer_sway": "off_tracking", "mirror_glance": "left",
+                "predictive_cruise": "jake_anticipating",
+                "assisted_lane_change": "waiting_for_gap_left",
+                "lane_keep_availability": "dropped_out_snow"}"#,
         )
         .unwrap();
         let staged = Scenario::from_json(&args).unwrap();
+        assert_eq!(
+            staged.predictive_cruise,
+            Some(
+                ff_core::sim::predictive_cruise::PredictiveCruiseState::JakeAnticipating {
+                    target_stage: 1,
+                }
+            )
+        );
+        assert_eq!(
+            staged.assisted_lane_change,
+            Some(
+                ff_core::sim::lane_change_assist::AssistedLaneChange::WaitingForGap {
+                    target_lane: 1,
+                    side: ff_core::sim::lane_change_assist::BlindSpotSide::Left,
+                    waited_s: 0.0,
+                }
+            )
+        );
+        assert_eq!(
+            staged.lane_keep_availability,
+            Some(
+                ff_core::sim::lane_keep_status::LaneKeepAvailability::DroppedOut {
+                    reason: ff_core::sim::lane_keep_status::LaneKeepDropoutReason::SnowCovered,
+                }
+            )
+        );
         assert_eq!(
             staged.abs,
             Some(ff_core::sim::vehicle::AbsState::Modulating { phase_s: 0.0 })

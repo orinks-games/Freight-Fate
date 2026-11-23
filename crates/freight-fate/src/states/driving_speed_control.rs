@@ -107,6 +107,9 @@ impl DrivingState {
         self.cruise_jake_last_step = 0;
         self.cruise_snubbing = false;
         self.pcc_phase = String::new();
+        self.predictive_cruise = self
+            .predictive_cruise
+            .next(ff_core::sim::predictive_cruise::PredictiveCruiseEvent::Disengaged);
         self.climb_cue_said = false;
         self.limp_cruise_said = false;
         self.acc_following = false;
@@ -134,6 +137,15 @@ impl DrivingState {
         self.keeper_snub = 0.0;
         self.keeper_corner_braking = false;
         self.keeper_follow = Default::default();
+        if self.keeper_jake_stage > 0 {
+            self.keeper_jake_stage = 0;
+            self.trip.truck.engine_brake_stage = 0;
+        }
+        if self.cruise_mph.is_none() {
+            self.predictive_cruise = self
+                .predictive_cruise
+                .next(ff_core::sim::predictive_cruise::PredictiveCruiseEvent::Disengaged);
+        }
         self.keeper_droop_s = 0.0;
         self.keeper_droop_said = false;
         self.keeper_overrun_s = 0.0;

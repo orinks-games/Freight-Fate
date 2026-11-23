@@ -2340,7 +2340,7 @@ fn test_the_servo_holds_a_bend_on_a_downgrade_on_one_application() {
     for _ in 0..(45.0 / DT) as usize {
         d.trip.truck.grade = -0.061; // the trip normally stamps this each frame
         d.trip.truck.brake = 0.0; // no pedal: the servo is the only thing braking
-        d.update_curve_speed_servo(&app.ctx);
+        d.update_curve_speed_servo(&mut app.ctx);
         applied_total += (d.trip.truck.brake - last).max(0.0);
         last = d.trip.truck.brake;
         d.trip.truck.update(DT);
@@ -2391,7 +2391,7 @@ fn test_the_servo_never_fans_the_pedal_on_any_grade_at_any_advisory() {
                     // a light push on the truck the whole way through, so the
                     // hold never quite balances and the band edge is revisited.
                     d.trip.truck.throttle = push;
-                    d.update_curve_speed_servo(&app.ctx);
+                    d.update_curve_speed_servo(&mut app.ctx);
                     applied_total += (d.trip.truck.brake - last).max(0.0);
                     last = d.trip.truck.brake;
                     d.trip.truck.update(DT);

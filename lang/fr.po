@@ -13466,9 +13466,6 @@ msgstr "chaque fois"
 msgid "once"
 msgstr "une fois"
 
-msgid "partial"
-msgstr "partiel"
-
 msgid "full, the truck holds the lane and takes your exits"
 msgstr "complet, le camion tient la voie et prend vos sorties"
 
@@ -13477,9 +13474,6 @@ msgstr "partiel, légère dérive et vous dirigez avec de l'aide"
 
 msgid "off, you hold the lane and take your own exits"
 msgstr "désactivé, vous tenez la voie et prenez vos sorties vous-même"
-
-msgid "realistic"
-msgstr "réaliste"
 
 msgid "close"
 msgstr "proche"
@@ -13495,12 +13489,6 @@ msgstr "marqué"
 
 msgid "subtle"
 msgstr "discret"
-
-msgid "balanced"
-msgstr "équilibré"
-
-msgid "interactive"
-msgstr "interactif"
 
 msgid "alpha"
 msgstr "alpha"
@@ -13530,8 +13518,26 @@ msgstr "un mile"
 msgid "{meters} meters"
 msgstr "{meters} mètres"
 
+msgid "manual"
+msgstr "manuelle"
+
+msgid "partial"
+msgstr "partiel"
+
+msgid "strong"
+msgstr "fort"
+
 msgid "custom"
 msgstr "personnalisé"
+
+msgid "realistic"
+msgstr "réaliste"
+
+msgid "balanced"
+msgstr "équilibré"
+
+msgid "interactive"
+msgstr "interactif"
 
 msgid "mile"
 msgstr "mile"
@@ -14607,6 +14613,9 @@ msgstr "{lane_part}, au bord {side} de la voie."
 msgid "{lane_part}, crossing the {side} lane line."
 msgstr "{lane_part}, vous franchissez la ligne de voie à {side}."
 
+msgid "idle"
+msgstr ""
+
 msgid "median"
 msgstr "terre-plein central"
 
@@ -14768,6 +14777,9 @@ msgstr "verrouillée"
 
 msgid "released"
 msgstr "relâchée"
+
+msgid "cruising"
+msgstr "en croisière"
 
 msgid "diesel-price"
 msgstr "diesel-price"
@@ -15487,9 +15499,6 @@ msgstr "porte-voitures"
 
 msgid "service vehicle"
 msgstr "véhicule de service"
-
-msgid "cruising"
-msgstr "en croisière"
 
 msgid "merging"
 msgstr "en insertion"
@@ -16561,9 +16570,6 @@ msgstr "Circulation : {status_label}, {gap_text} devant, {speed_text}."
 
 msgid "traffic"
 msgstr "circulation"
-
-msgid "strong"
-msgstr "fort"
 
 msgid "ordinary"
 msgstr "ordinaire"
@@ -18325,9 +18331,6 @@ msgstr "toucher"
 
 msgid "lift"
 msgstr "relâcher"
-
-msgid "idle"
-msgstr ""
 
 msgid "deciding"
 msgstr ""
@@ -25731,9 +25734,6 @@ msgstr "air prêt"
 msgid "air {air_pressure_psi} psi"
 msgstr "air {air_pressure_psi} psi"
 
-msgid "manual"
-msgstr "manuelle"
-
 msgid "pickup drive"
 msgstr "conduite vers l'enlèvement"
 
@@ -27187,6 +27187,12 @@ msgstr "Point mort."
 msgid "On the exit ramp. No lanes to change."
 msgstr "Sur la bretelle de sortie. Pas de voie à changer."
 
+msgid "Lane change canceled."
+msgstr ""
+
+msgid "Already waiting for a gap."
+msgstr ""
+
 msgid "Still changing lanes."
 msgstr "Changement de voie toujours en cours."
 
@@ -27205,6 +27211,15 @@ msgstr "La voie {name} se ferme à la zone de travaux."
 #. placeholders: {name}
 msgid "The {name} lane is closed here."
 msgstr "La voie {name} est fermée ici."
+
+#. placeholders: {side_word}
+#. one sentence of a longer line
+msgid "Signaling {side_word}, waiting for a gap."
+msgstr ""
+
+#. placeholders: {prefix}, {side_word}
+msgid "{prefix}. Signaling {side_word}, waiting for a gap."
+msgstr ""
 
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
@@ -38551,6 +38566,27 @@ msgstr "Ralentissement pour le virage."
 msgid "Ramp assistance released."
 msgstr "Assistance sur bretelle relâchée."
 
+#. one sentence of a longer line
+msgid "Gap open."
+msgstr ""
+
+#. placeholders: {lane_label}
+msgid "Gap open. Gliding to the {lane_label} lane."
+msgstr ""
+
+#. placeholders: {lane_label}
+#. one sentence of a longer line
+msgid "Gliding to the {lane_label} lane."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "No gap opened."
+msgstr ""
+
+#. placeholders: {lane_name}
+msgid "No gap opened. Staying in the {lane_name} lane."
+msgstr ""
+
 #. placeholders: {lane_name}
 #. one sentence of a longer line
 msgid "Staying in the {lane_name} lane."
@@ -40190,6 +40226,15 @@ msgstr "Toutes les assistances"
 msgid "Custom"
 msgstr "Personnalisé"
 
+msgid "Manual"
+msgstr ""
+
+msgid "Partial"
+msgstr ""
+
+msgid "Full"
+msgstr ""
+
 msgid "Light"
 msgstr "Léger"
 
@@ -41513,6 +41558,28 @@ msgstr ""
 "Vous choisissez toujours les itinéraires et vous gérez les cours et les "
 "quais. Les préréglages ne changent jamais le rythme, les règles d'heures, "
 "la transmission, la météo ni les dangers."
+
+#. placeholders: {steering_assist_label}
+msgid "Steering assist: {steering_assist_label}"
+msgstr ""
+
+msgid ""
+"Sets steering and lane keeping independently of speed assists. Manual "
+"leaves steering and lane changes to you. Partial follows bends while you "
+"hold the lane. Full centers the lane and assists lane changes. Pair this "
+"with any speed assist level."
+msgstr ""
+
+#. placeholders: {speed_assist_label}
+msgid "Speed assist: {speed_assist_label}"
+msgstr ""
+
+msgid ""
+"Sets speed, braking, and descent control independently of steering. Manual "
+"leaves speed and jake braking to you. Light, Standard, and Strong step up "
+"descent, curve, exit, and emergency braking assistance. Pair this with any "
+"steering assist level."
+msgstr ""
 
 #. placeholders: {lane_keeping_label}
 msgid "Lane keeping: {lane_keeping_label}"

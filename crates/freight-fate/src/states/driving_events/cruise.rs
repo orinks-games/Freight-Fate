@@ -584,7 +584,14 @@ impl DrivingState {
         // a few miles an hour off, and the keeper let go, throttled up and
         // braked again: a fresh application every cycle, and the spring
         // brakes behind a car doing 21 in a work zone (issue 520).
+        let prev_follow = self.keeper_follow.clone();
         self.keeper_follow = self.keeper_follow.next(follow);
+        if ff_core::sim::keeper_follow::KeeperFollow::locked_on_from(
+            &prev_follow,
+            &self.keeper_follow,
+        ) {
+            ctx.audio.play(assist_cues::KEEPER_LOCK_KEY);
+        }
         if let Some(context) = context.as_ref() {
             if self.keeper_follow.following() || context.gap_seconds() <= KEEPER_GAP_SECONDS {
                 // Creep along with the queue, all the way down to a stop, and roll
@@ -618,6 +625,18 @@ impl DrivingState {
             self.cancel_keeper(ctx, true);
             self.engage_departure_cruise(ctx, target_mph);
             return;
+        }
+        if let ff_core::sim::predictive_cruise::PredictiveCruiseState::ResumingSmooth {
+            ramp_mph_per_s,
+            ..
+        } = self.predictive_cruise
+        {
+            let floor = self
+                .cruise_working_mph
+                .unwrap_or_else(|| self.trip.truck.speed_mph());
+            let ramped = (floor + ramp_mph_per_s * dt).min(target_mph);
+            self.cruise_working_mph = Some(ramped);
+            target_mph = target_mph.min(ramped);
         }
         let error = target_mph - self.trip.truck.speed_mph();
         // Feed-forward first, exactly as adaptive cruise does: the truck's own
@@ -680,6 +699,61 @@ impl DrivingState {
         }
         self.trip.truck.throttle = applied;
         self.say_keeper_out_of_truck(ctx, dt, error, applied);
+        // Grade-aware jake anticipation for speed keeper: stage the retarder
+        // before service brakes when descending or cresting into a downgrade.
+        let keeper_stalk_open = ctx.settings.predictive_cruise
+            && ctx.settings.descent_speed_control != "off"
+            && self.assist_jake_allowed(ctx);
+        let keeper_ceiling = JAKE_STAGES.min(0.max(self.auto_jake_max_stage()));
+        let preview_grade = self.preview_grade_ahead().map(|(g, _)| g).unwrap_or(0.0);
+        let climb_ahead = preview_grade.max(0.0);
+        let descent_ahead = preview_grade.min(0.0);
+        let crest_preview = if self.trip.truck.grade > 0.01 && descent_ahead < 0.0 {
+            descent_ahead
+        } else {
+            0.0
+        };
+        let jake_warranted_or_steep = self.retarder_warranted()
+            || self.descent_safe_mph.is_some()
+            || descent_ahead <= -ff_core::sim::predictive_cruise::JAKE_ANTICIPATE_STEEP_GRADE;
+        if self.cruise_mph.is_none() {
+            if ctx.settings.predictive_cruise {
+                self.predictive_cruise = self.predictive_cruise.next(
+                    ff_core::sim::predictive_cruise::PredictiveCruiseEvent::Update {
+                        speed_mph: self.trip.truck.speed_mph(),
+                        target_mph,
+                        grade_here: self.trip.truck.grade,
+                        climb_ahead,
+                        descent_ahead,
+                        crest_preview,
+                        jake_available: keeper_stalk_open && jake_warranted_or_steep,
+                        jake_ceiling: keeper_ceiling,
+                    },
+                );
+            } else {
+                self.predictive_cruise = self
+                    .predictive_cruise
+                    .next(ff_core::sim::predictive_cruise::PredictiveCruiseEvent::Disengaged);
+            }
+        }
+        let driver_owns_jake = self.auto_jake
+            || (self.keeper_jake_stage == 0
+                && self.cruise_jake_stage == 0
+                && self.trip.truck.engine_brake_stage > 0);
+        if !driver_owns_jake {
+            let wanted_keeper_jake =
+                if keeper_stalk_open && jake_warranted_or_steep && -error > -1.0 {
+                    self.predictive_cruise
+                        .anticipated_jake_stage()
+                        .min(keeper_ceiling)
+                } else {
+                    0
+                };
+            if wanted_keeper_jake != self.keeper_jake_stage {
+                self.keeper_jake_stage = wanted_keeper_jake;
+                self.trip.truck.engine_brake_stage = wanted_keeper_jake;
+            }
+        }
         self.keeper_snub_brakes(ctx, dt, -error, target_mph);
         self.keeper_corner_brakes();
     }

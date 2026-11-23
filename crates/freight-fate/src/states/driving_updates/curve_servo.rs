@@ -160,7 +160,7 @@ impl DrivingState {
     /// The servo's pedal for this frame. Runs with the other assists' floors,
     /// after cruise and the keeper and ahead of the physics step, so the
     /// application it sets is the one the truck integrates.
-    pub fn update_curve_speed_servo(&mut self, ctx: &GameContext) {
+    pub fn update_curve_speed_servo(&mut self, ctx: &mut GameContext) {
         self.arm_curve_servo_ahead(ctx);
         let Some(servo) = self.curve_servo.as_ref() else {
             self.trip.curve_shed_active = false;
@@ -277,9 +277,13 @@ impl DrivingState {
             }
             None => None,
         };
+        let prev_brake = servo.brake;
         let applied = demand.map_or(0.0, |demand| {
             arrival_servo_brake(servo.brake, demand, &self.trip.truck)
         });
+        if prev_brake <= 0.0 && applied > 0.0 {
+            ctx.audio.play(assist_cues::CURVE_SERVO_KEY);
+        }
         if let Some(servo) = self.curve_servo.as_mut() {
             servo.brake = applied;
         }

@@ -1,5 +1,6 @@
 //! Settings categories whose rows depend on player choices.
 use super::*;
+use crate::states::main_menu::settings_actions::{speed_assist_label, steering_assist_label};
 
 impl SettingsCategoryState {
     pub(super) fn update_items(&self, ctx: &GameContext) -> Vec<Row> {
@@ -63,12 +64,24 @@ impl SettingsCategoryState {
     }
 
     pub(super) fn assistance_items(&self) -> Vec<Row> {
-        let mut items = vec![row(
-            dyn_label(|s| format!("Driving assistance preset: {}", assist_preset_label(s))),
-            adjust(|s, ctx, d| s.cycle_assist_preset(ctx, d)),
-            "Realistic turns on every assist except facility stopping assistance, sets descent speed control to Light, and leaves lane keeping off. Balanced adds partial lane keeping, Standard descent speed control, and facility stopping assistance. All assists turns on every assist, sets descent speed control to Strong, and sets lane keeping to full: the truck holds the lane, a tap changes lanes, and your destination exit is taken for you. Changing one assist makes this Custom. You still choose routes and handle yards and docks. Presets never change pacing, hours rules, transmission, weather, or hazards.",
-        )
-        .touch_help(touch_help::ASSIST_PRESET)];
+        let mut items = vec![
+            row(
+                dyn_label(|s| format!("Driving assistance preset: {}", assist_preset_label(s))),
+                adjust(|s, ctx, d| s.cycle_assist_preset(ctx, d)),
+                "Realistic turns on every assist except facility stopping assistance, sets descent speed control to Light, and leaves lane keeping off. Balanced adds partial lane keeping, Standard descent speed control, and facility stopping assistance. All assists turns on every assist, sets descent speed control to Strong, and sets lane keeping to full: the truck holds the lane, a tap changes lanes, and your destination exit is taken for you. Changing one assist makes this Custom. You still choose routes and handle yards and docks. Presets never change pacing, hours rules, transmission, weather, or hazards.",
+            )
+            .touch_help(touch_help::ASSIST_PRESET),
+            row(
+                dyn_label(|s| format!("Steering assist: {}", steering_assist_label(s))),
+                adjust(|s, ctx, d| s.cycle_steering_assist(ctx, d)),
+                "Sets steering and lane keeping independently of speed assists. Manual leaves steering and lane changes to you. Partial follows bends while you hold the lane. Full centers the lane and assists lane changes. Pair this with any speed assist level.",
+            ),
+            row(
+                dyn_label(|s| format!("Speed assist: {}", speed_assist_label(s))),
+                adjust(|s, ctx, d| s.cycle_speed_assist(ctx, d)),
+                "Sets speed, braking, and descent control independently of steering. Manual leaves speed and jake braking to you. Light, Standard, and Strong step up descent, curve, exit, and emergency braking assistance. Pair this with any steering assist level.",
+            ),
+        ];
         for (field, label, help_text) in DRIVING_ASSIST_SPECS {
             let row = row(
                 dyn_label(move |s| format!("{label}: {}", assist_value_text(s, field))),

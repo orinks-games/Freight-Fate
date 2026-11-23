@@ -177,12 +177,13 @@ fn the_struct_carries_the_persisted_fields_in_python_order() {
     // driving_hints (2026-11-08) and crash_report_offer (2026-11-13), and
     // main_backend (2026-11-17), cloud_resume, and left_bumper_layer
     // (2026-11-18), the two tilt fields, outside_volume,
-    // road_surface_volume and touch_shared_recogniser (2026-11-22).
-    assert_eq!(Settings::FIELD_NAMES.len(), 110);
+    // road_surface_volume and touch_shared_recogniser (2026-11-22), and
+    // steering_assist_mode and speed_assist_mode (2026-11-22).
+    assert_eq!(Settings::FIELD_NAMES.len(), 112);
     assert_eq!(Settings::FIELD_NAMES[0], "online_services");
-    assert_eq!(Settings::FIELD_NAMES[86], "settings_layout_notice_from");
+    assert_eq!(Settings::FIELD_NAMES[88], "settings_layout_notice_from");
     let pairs = Settings::default().ordered_values();
-    assert_eq!(pairs.len(), 110);
+    assert_eq!(pairs.len(), 112);
     for ((name, _), field) in pairs.iter().zip(Settings::FIELD_NAMES) {
         assert_eq!(name, field);
     }
@@ -208,7 +209,9 @@ fn the_defaults_match_the_python_dataclass() {
         "hos_mode": "realistic", "score_display": "Both", "hos_planning_hints": false,
         "lane_keeping": "full", "lane_keeping_rename_notice_left": 0,
         "lane_cue_loudness": "standard", "lane_guide_tone": false,
-        "driving_assistance_preset": "all", "automatic_emergency_braking": true,
+        "driving_assistance_preset": "all",
+        "steering_assist_mode": "full", "speed_assist_mode": "strong",
+        "automatic_emergency_braking": true,
         "lane_departure_warning": true, "stop_and_go_assist": true,
         "descent_speed_control": "interactive",
         "exit_speed_assist": true, "destination_approach_assist": true,
@@ -250,7 +253,7 @@ fn the_defaults_match_the_python_dataclass() {
     let Value::Object(expected) = expected else {
         unreachable!()
     };
-    assert_eq!(expected.len(), 110);
+    assert_eq!(expected.len(), 112);
     for (name, value) in s.ordered_values() {
         assert_eq!(Some(&value), expected.get(name), "{name}");
     }
