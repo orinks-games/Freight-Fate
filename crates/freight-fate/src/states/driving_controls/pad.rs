@@ -151,6 +151,12 @@ impl DrivingState {
                 ctx.say(&text);
             }
             Action::LaneLocator => self.toggle_lane_locator(ctx),
+            Action::MirrorLeft => {
+                self.glance_mirror(ctx, ff_core::sim::mirror_glance::MirrorSide::Left)
+            }
+            Action::MirrorRight => {
+                self.glance_mirror(ctx, ff_core::sim::mirror_glance::MirrorSide::Right)
+            }
             Action::Grade => self.speak_grade(ctx),
             Action::Upcoming => self.speak_upcoming(ctx, 15.0),
             Action::LastAnnouncement => self.speak_last_announcement(ctx),

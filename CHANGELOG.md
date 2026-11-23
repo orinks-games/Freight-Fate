@@ -64,9 +64,11 @@
 - **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
 - **Page Up and Page Down now move ten options at a time in every menu.**
 - **Tires whine on grooved concrete and hum on steel grate bridge decks.** The pitch rises and falls with your speed.
+- **Alt+Left and Alt+Right check your left or right mirror.** You hear whether that lane is clear while traffic audio focuses on that side.
 
 ### Changed
 
+- **Slick roads, high crosswinds, and tight ramps now trigger ABS, wheelspin, trailer sway, and off-tracking.** Automatic shifts also hold lower gears longer on downgrades.
 - **Traffic glides smoothly between lanes, passes on two-lane highways, yields to your turn signal, and launches in waves from red lights.**
 - **Freeway traffic, passing vehicles and ramp cross traffic now use real recordings.** Vehicles driving alongside hold a steady exterior sound by lane.
 - **The recorded truck engine has stereo cab sound and follows rev changes more closely.** Gear changes use clacks recorded inside the cab.

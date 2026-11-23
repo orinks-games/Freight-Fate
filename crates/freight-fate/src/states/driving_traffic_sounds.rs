@@ -327,6 +327,9 @@ impl DrivingState {
     /// vehicle is. Runs after the trip has stepped the bubble, so the
     /// positions are this frame's.
     pub fn update_traffic_sounds(&mut self, ctx: &mut GameContext, dt: f64) {
+        self.mirror_glance = self
+            .mirror_glance
+            .next(ff_core::sim::mirror_glance::MirrorGlanceEvent::Tick(dt));
         if self.ramp_mi.is_some() {
             self.traffic_ramp_rolled_ft += self.trip.truck.velocity_mps.abs() * dt * 3.28084;
         } else {
@@ -363,8 +366,9 @@ impl DrivingState {
             let channel = CH_TRAFFIC_SOUNDS[index];
             // start_loop dedupes on a running key, so this is also the level
             // update, and it restarts the loop if anything stopped it.
-            ctx.audio
-                .start_loop_with(channel, vehicle.key, vehicle.volume, 150);
+            let glance_gain = self.mirror_glance.audio_gain_for_pan(vehicle.pan);
+            let volume = (vehicle.volume * glance_gain).clamp(0.0, 1.0);
+            ctx.audio.start_loop_with(channel, vehicle.key, volume, 150);
             ctx.audio.set_loop_pan(channel, vehicle.pan);
             ctx.audio.set_loop_rate(channel, vehicle.rate);
             if let Some(id) = vehicle.id.strip_prefix("cross:") {

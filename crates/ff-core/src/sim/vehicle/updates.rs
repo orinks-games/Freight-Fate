@@ -6,16 +6,16 @@ use std::f64::consts::PI;
 use crate::sim::transmission::NEUTRAL;
 
 use super::{
-    TruckState, AMBIENT_C, BRAKE_COOL_BASE_PER_S, BRAKE_COOL_SPEED_PER_S, BRAKE_WEAR_HOT_MULT,
-    BRAKE_WEAR_PCT_PER_MJ, CARGO_BRAKE_PCT_PER_G_S, CARGO_CORNER_PCT_PER_G_S, CARGO_HARD_BRAKE_G,
-    CHAIN_SAFE_MPH, CHAIN_SNAP_DAMAGE_PCT, CHAIN_WEAR_BARE_MULT, CHAIN_WEAR_OVERSPEED_MULT,
-    CHAIN_WEAR_PCT_PER_MILE, CRUISE_MPG, ENGINE_MOTORING_DRAG_FRACTION,
-    ENGINE_ROTATING_INERTIA_KG_M2, ENGINE_WEAR_FUEL_PENALTY, ENGINE_WEAR_LUG_PCT_PER_S,
-    ENGINE_WEAR_OVER_REV_PCT_PER_S, ENGINE_WEAR_PCT_PER_H_FULL_LOAD, ENGINE_WEAR_PCT_PER_H_IDLE, G,
-    LUG_RPM_FRACTION, LUG_THROTTLE, MAX_REVERSE_MPS, OVER_REV_RPM_MULT, ROAD_OVERSPEED_RPM_MULT,
-    ROLL_WARN_SHARE, RUNAWAY_DAMAGE_PCT_PER_S, RUNAWAY_SPEED_MPH, SHIFT_SYNC_BRAKE_FRACTION,
-    SHIFT_SYNC_FUEL_FRACTION, TIRE_WEAR_BRAKING_PCT, TIRE_WEAR_PCT_PER_MILE, TIRE_WINTER,
-    WINTER_TREAD_WEAR_MULT,
+    AbsEvent, DriveTractionEvent, TruckState, AMBIENT_C, BRAKE_COOL_BASE_PER_S,
+    BRAKE_COOL_SPEED_PER_S, BRAKE_WEAR_HOT_MULT, BRAKE_WEAR_PCT_PER_MJ, CARGO_BRAKE_PCT_PER_G_S,
+    CARGO_CORNER_PCT_PER_G_S, CARGO_HARD_BRAKE_G, CHAIN_SAFE_MPH, CHAIN_SNAP_DAMAGE_PCT,
+    CHAIN_WEAR_BARE_MULT, CHAIN_WEAR_OVERSPEED_MULT, CHAIN_WEAR_PCT_PER_MILE, CRUISE_MPG,
+    ENGINE_MOTORING_DRAG_FRACTION, ENGINE_ROTATING_INERTIA_KG_M2, ENGINE_WEAR_FUEL_PENALTY,
+    ENGINE_WEAR_LUG_PCT_PER_S, ENGINE_WEAR_OVER_REV_PCT_PER_S, ENGINE_WEAR_PCT_PER_H_FULL_LOAD,
+    ENGINE_WEAR_PCT_PER_H_IDLE, G, LUG_RPM_FRACTION, LUG_THROTTLE, MAX_REVERSE_MPS,
+    OVER_REV_RPM_MULT, ROAD_OVERSPEED_RPM_MULT, ROLL_WARN_SHARE, RUNAWAY_DAMAGE_PCT_PER_S,
+    RUNAWAY_SPEED_MPH, SHIFT_SYNC_BRAKE_FRACTION, SHIFT_SYNC_FUEL_FRACTION, TIRE_WEAR_BRAKING_PCT,
+    TIRE_WEAR_PCT_PER_MILE, TIRE_WINTER, WINTER_TREAD_WEAR_MULT,
 };
 
 impl TruckState {
@@ -24,6 +24,24 @@ impl TruckState {
     pub fn update(&mut self, dt: f64) {
         self.transmission.update(dt);
         self.update_air_system(dt);
+
+        let grip = self.effective_grip();
+        let (brake_demand, brake_grip_limit) = self.service_brake_demand_and_grip_limit();
+        self.abs_state = self.abs_state.next(AbsEvent {
+            braking_demand_n: brake_demand,
+            grip_limit_n: brake_grip_limit,
+            effective_grip: grip,
+            speed_mph: self.speed_mph(),
+            dt,
+        });
+        let drive_demand = self.drive_force_demand();
+        let drive_limit = self.drive_traction_limit();
+        self.drive_traction_state = self.drive_traction_state.next(DriveTractionEvent {
+            drive_demand_n: drive_demand,
+            traction_limit_n: drive_limit,
+            effective_grip: grip,
+            throttle: self.throttle,
+        });
 
         // Four terms, not three. A liquid load pushes forward exactly when the
         // brakes are trying to stop -- it belongs here as its own force and not

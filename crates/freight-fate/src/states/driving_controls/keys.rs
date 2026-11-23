@@ -274,6 +274,12 @@ impl DrivingState {
             Action::CopyLastSpoken => crate::states::base::copy_last_spoken(ctx),
             Action::Grade => self.speak_grade(ctx),
             Action::LaneLocator => self.toggle_lane_locator(ctx),
+            Action::MirrorLeft => {
+                self.glance_mirror(ctx, ff_core::sim::mirror_glance::MirrorSide::Left)
+            }
+            Action::MirrorRight => {
+                self.glance_mirror(ctx, ff_core::sim::mirror_glance::MirrorSide::Right)
+            }
             Action::Upcoming => self.speak_upcoming(ctx, 15.0),
             Action::Radio => self.toggle_radio(ctx),
             Action::RadioFavorite => self.toggle_radio_favorite(ctx),
