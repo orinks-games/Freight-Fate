@@ -89,7 +89,7 @@
 
 ### Fixed
 
-- **Deliveries no longer end at a freeway exit miles short of town.** Casa Grande to Globe now drives US 60 past Superior to Globe.
+- **Deliveries no longer end at a freeway exit miles short of town.** Dallas to Tyler now drives US 69 into Tyler.
 - **Toll estimates no longer charge a one-way bridge in both directions.** The estimate now matches what the drive charges.
 - **The truck's starter gives way to a brief idle before the engine revs up to build air.**
 - **Automatic gear changes start with a softer clunk so the drop in revs is easier to hear.**
