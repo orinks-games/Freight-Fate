@@ -1042,13 +1042,7 @@ impl DrivingState {
     /// hears when crosswind is pushing an empty/light box or when the trailer
     /// tandems are cutting inside on a tight ramp curve. Doubles use
     /// `rear_trailer_whip` instead.
-    fn single_trailer_stability(
-        &mut self,
-        ctx: &mut GameContext,
-        dt: f64,
-        curve: f64,
-        wind: f64,
-    ) {
+    fn single_trailer_stability(&mut self, ctx: &mut GameContext, dt: f64, curve: f64, wind: f64) {
         use ff_core::sim::vehicle::{crosswind_lateral_g, TrailerSwayState};
 
         let wind_g = crosswind_lateral_g(wind, self.lane.wind_lateral_g);

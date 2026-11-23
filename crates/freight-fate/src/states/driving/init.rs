@@ -383,6 +383,22 @@ impl DrivingState {
         if let Some(down) = ctx.playtest_window_down {
             cab.set_window(down);
         }
+        if let Some(abs) = ctx.playtest_abs {
+            trip.truck.abs_state = abs;
+        }
+        if let Some(traction) = ctx.playtest_drive_traction {
+            trip.truck.drive_traction_state = traction;
+        }
+        if let Some(sway) = ctx.playtest_trailer_sway {
+            trip.truck.trailer_sway_state = sway;
+            if sway == ff_core::sim::vehicle::TrailerSwayState::Swaying {
+                trip.truck.trailer_sway_deg =
+                    ff_core::sim::vehicle::traction::TRAILER_SWAY_WARN_DEG;
+            }
+        }
+        let mirror_glance = ctx
+            .playtest_mirror_glance
+            .unwrap_or(ff_core::sim::mirror_glance::MirrorGlance::Forward);
 
         DrivingState {
             job,
@@ -496,7 +512,7 @@ impl DrivingState {
             abs_active: false,
             wheelspin_active: false,
             trailer_sway_state: ff_core::sim::vehicle::TrailerSwayState::Steady,
-            mirror_glance: ff_core::sim::mirror_glance::MirrorGlance::Forward,
+            mirror_glance,
             jake_selected_stage: JAKE_STAGES,
             chains_fast_active: false,
             chain_cap_cruise_mph: None,

@@ -122,6 +122,11 @@ fn scenario_properties() -> Value {
     ] {
         properties[key] = json!({"type": "number"});
     }
+    properties["abs"] = json!({"type": "string", "enum": ["inactive", "modulating"]});
+    properties["drive_traction"] = json!({"type": "string", "enum": ["grip", "spinning"]});
+    properties["trailer_sway"] =
+        json!({"type": "string", "enum": ["steady", "swaying", "off_tracking"]});
+    properties["mirror_glance"] = json!({"type": "string", "enum": ["forward", "left", "right"]});
     properties
 }
 
@@ -463,7 +468,9 @@ fn tools_list() -> Value {
              the driver window there), road_surface (jointed or smooth: every \
              drive from here on keeps that surface the whole way, over what the \
              pavement layer reads), tire_song (quiet, whine or hum: every drive \
-             from here on holds that song the whole way), and name (the career created when none is \
+             from here on holds that song the whole way), abs (inactive or modulating), \
+             drive_traction (grip or spinning), trailer_sway (steady, swaying or off_tracking), \
+             mirror_glance (forward, left or right), and name (the career created when none is \
              loaded; default Playtest). Nothing is refused for being unreasonable: this is the \
              audited sandbox. Listen afterwards for the terminal.",
             scenario_properties(),

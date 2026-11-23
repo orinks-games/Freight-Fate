@@ -156,6 +156,12 @@ pub struct Scenario {
     /// The simulated sky every drive from here on starts under:
     /// `Some(Some(kind))` forced, `Some(None)` free (`parse_weather`).
     pub weather: Option<Option<WeatherKind>>,
+    /// Initial ABS, drive-traction, single-trailer sway, and mirror-glance
+    /// states staged onto each new drive.
+    pub abs: Option<ff_core::sim::vehicle::AbsState>,
+    pub drive_traction: Option<ff_core::sim::vehicle::DriveTractionState>,
+    pub trailer_sway: Option<ff_core::sim::vehicle::TrailerSwayState>,
+    pub mirror_glance: Option<ff_core::sim::mirror_glance::MirrorGlance>,
     /// The calendar date the career shows, as (month, day): what dated
     /// rules read (spring weight limits, the Whittier tunnel's seasons).
     /// Career time, deadlines and hours of service do not move.
@@ -295,6 +301,50 @@ impl Scenario {
         let weather = text(args, "weather")?
             .map(|value| parse_weather(&value))
             .transpose()?;
+        let abs = match text(args, "abs")?.as_deref() {
+            None => None,
+            Some("inactive") => Some(ff_core::sim::vehicle::AbsState::Inactive),
+            Some("modulating") => {
+                Some(ff_core::sim::vehicle::AbsState::Modulating { phase_s: 0.0 })
+            }
+            Some(other) => return Err(format!("abs must be inactive or modulating, not {other}")),
+        };
+        let drive_traction = match text(args, "drive_traction")?.as_deref() {
+            None => None,
+            Some("grip") => Some(ff_core::sim::vehicle::DriveTractionState::Grip),
+            Some("spinning") => Some(ff_core::sim::vehicle::DriveTractionState::Spinning),
+            Some(other) => {
+                return Err(format!(
+                    "drive_traction must be grip or spinning, not {other}"
+                ))
+            }
+        };
+        let trailer_sway = match text(args, "trailer_sway")?.as_deref() {
+            None => None,
+            Some("steady") => Some(ff_core::sim::vehicle::TrailerSwayState::Steady),
+            Some("swaying") => Some(ff_core::sim::vehicle::TrailerSwayState::Swaying),
+            Some("off_tracking") => Some(ff_core::sim::vehicle::TrailerSwayState::OffTracking),
+            Some(other) => {
+                return Err(format!(
+                    "trailer_sway must be steady, swaying or off_tracking, not {other}"
+                ))
+            }
+        };
+        let mirror_glance = match text(args, "mirror_glance")?.as_deref() {
+            None => None,
+            Some("forward") => Some(ff_core::sim::mirror_glance::MirrorGlance::Forward),
+            Some("left") => Some(ff_core::sim::mirror_glance::MirrorGlance::Left {
+                remaining_s: ff_core::sim::mirror_glance::MIRROR_GLANCE_DURATION_S,
+            }),
+            Some("right") => Some(ff_core::sim::mirror_glance::MirrorGlance::Right {
+                remaining_s: ff_core::sim::mirror_glance::MIRROR_GLANCE_DURATION_S,
+            }),
+            Some(other) => {
+                return Err(format!(
+                    "mirror_glance must be forward, left or right, not {other}"
+                ))
+            }
+        };
         let settings = match args.get("settings") {
             None | Some(Value::Null) => Map::new(),
             Some(Value::Object(map)) => map.clone(),
@@ -414,6 +464,10 @@ impl Scenario {
             road_jointed,
             tire_song,
             weather,
+            abs,
+            drive_traction,
+            trailer_sway,
+            mirror_glance,
             date: text(args, "date")?
                 .map(|value| parse_date(&value))
                 .transpose()?,
@@ -692,6 +746,28 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             None => "Drives start under a free sky.".to_string(),
         });
     }
+    if let Some(abs) = scenario.abs {
+        ctx.playtest_abs = Some(abs);
+        notes.push(format!("Drives start with ABS {}.", abs.label()));
+    }
+    if let Some(traction) = scenario.drive_traction {
+        ctx.playtest_drive_traction = Some(traction);
+        notes.push(format!(
+            "Drives start with drive traction {}.",
+            traction.label()
+        ));
+    }
+    if let Some(sway) = scenario.trailer_sway {
+        ctx.playtest_trailer_sway = Some(sway);
+        notes.push(format!("Drives start with trailer sway {}.", sway.label()));
+    }
+    if let Some(glance) = scenario.mirror_glance {
+        ctx.playtest_mirror_glance = Some(glance);
+        notes.push(format!(
+            "Drives start with mirror glance {}.",
+            glance.label()
+        ));
+    }
     if let Some(jointed) = scenario.road_jointed {
         ctx.playtest_road_jointed = Some(jointed);
         notes.push(if jointed {
@@ -787,6 +863,34 @@ mod tests {
         assert_eq!(scenario.level, Some(5));
         assert_eq!(scenario.business.as_deref(), Some(LEASED_OWNER_OPERATOR));
         assert_eq!(scenario.endorsements, Some(vec!["hazmat".to_string()]));
+        assert!(bad(r#"{"abs": "pulsing"}"#).contains("abs"));
+        assert!(bad(r#"{"drive_traction": "slip"}"#).contains("drive_traction"));
+        assert!(bad(r#"{"trailer_sway": "jackknife"}"#).contains("trailer_sway"));
+        assert!(bad(r#"{"mirror_glance": "rear"}"#).contains("mirror_glance"));
+        let args: Map<String, Value> = serde_json::from_str(
+            r#"{"abs": "modulating", "drive_traction": "spinning",
+                "trailer_sway": "off_tracking", "mirror_glance": "left"}"#,
+        )
+        .unwrap();
+        let staged = Scenario::from_json(&args).unwrap();
+        assert_eq!(
+            staged.abs,
+            Some(ff_core::sim::vehicle::AbsState::Modulating { phase_s: 0.0 })
+        );
+        assert_eq!(
+            staged.drive_traction,
+            Some(ff_core::sim::vehicle::DriveTractionState::Spinning)
+        );
+        assert_eq!(
+            staged.trailer_sway,
+            Some(ff_core::sim::vehicle::TrailerSwayState::OffTracking)
+        );
+        assert_eq!(
+            staged.mirror_glance,
+            Some(ff_core::sim::mirror_glance::MirrorGlance::Left {
+                remaining_s: ff_core::sim::mirror_glance::MIRROR_GLANCE_DURATION_S,
+            })
+        );
         assert!(scenario.rested);
         assert_eq!(scenario.fatigue, Some(64.0));
         assert_eq!(

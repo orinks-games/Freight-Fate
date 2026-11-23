@@ -378,7 +378,7 @@ fn fatigue_state_line(
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
          rest_call {rest_call}; runaway {}{gate}{co_driver}; jake_zone {}; touch_mode {}; recognizer {recognizer}; road_offer {}; \
-         touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; tire song {}; structure {}; chain_control {}; chains {}; app {}.",
+         touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {}; road_surface {}, {}; tire song {}; structure {}; chain_control {}; chains {}; abs {}; drive_traction {}; trailer_sway {}; mirror_glance {}; app {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -402,6 +402,10 @@ fn fatigue_state_line(
             .map_or("none".to_string(), |(kind, mi)| format!("{} {mi:.2} mi", kind.name())),
         o.chain_control.key(),
         o.chains.key(),
+        o.abs.label(),
+        o.drive_traction.label(),
+        o.trailer_sway.label(),
+        o.mirror_glance.label(),
         place.key()
     )
 }
