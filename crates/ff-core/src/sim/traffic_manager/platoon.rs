@@ -199,7 +199,7 @@ impl TrafficManager {
         // is an open lane further left, glide over to open the merge lane.
         let player_gap = vehicle.position_mi - position_mi;
         if self.player_signal_lane == Some(vehicle.lane)
-            && (-0.22..=-0.015).contains(&player_gap)
+            && (-super::SIGNAL_COURTESY_BEHIND_MI..=-0.015).contains(&player_gap)
             && super::courteous_to_signal(&vehicle.key)
         {
             let left = vehicle.lane + 1;

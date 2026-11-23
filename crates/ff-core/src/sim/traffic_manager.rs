@@ -119,6 +119,11 @@ const MERGE_SAFE_HEADWAY_S: f64 = 4.0;
 pub const EXIT_AFTER_MIN_MI: f64 = 2.5;
 pub const EXIT_AFTER_MAX_MI: f64 = 11.0;
 
+/// How far behind the truck a courteous driver in the signaled lane keeps
+/// yielding (or shifting left) so the player's `vehicle_in_lane` clearance
+/// check opens cleanly rather than getting re-blocked by early re-acceleration.
+pub const SIGNAL_COURTESY_BEHIND_MI: f64 = 0.45;
+
 /// Deterministic courtesy trait for a bubble vehicle key (~75% of drivers
 /// yield or change lanes when the player signals into their lane; ~25% hold
 /// steady so merging still requires checking mirrors).
@@ -1577,7 +1582,7 @@ impl TrafficManager {
             vehicle.relative_lane = self.player_lane - vehicle.lane;
             let pace = follow.as_ref().map_or(f64::INFINITY, |f| f.pace_mph);
             let signal_yield_mph = if self.player_signal_lane == Some(vehicle.lane)
-                && (-0.22..=-0.015).contains(&gap)
+                && (-SIGNAL_COURTESY_BEHIND_MI..=-0.015).contains(&gap)
                 && courteous_to_signal(&vehicle.key)
             {
                 (self.truck_speed_mph.abs() * 0.85).max(25.0)
