@@ -215,7 +215,9 @@ impl TrafficManager {
             if home >= vehicle.lane {
                 // The road folded the lanes back under it; nothing to return to.
                 vehicle.home_lane = None;
-            } else if self.lane_has_room(road, index, vehicle, home) {
+            } else if self.player_signal_lane != Some(home)
+                && self.lane_has_room(road, index, vehicle, home)
+            {
                 vehicle.lane = home;
                 vehicle.home_lane = None;
             }
