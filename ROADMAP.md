@@ -6961,6 +6961,15 @@ a carrier slice (owner, 2026-10-26).
       Newport to New London: it starts with 20 miles of I-55 and 15 of MS 32
       before MS 7, so "Merge onto MS-7" was untrue for its first 35 miles.
       Heard: "Merge onto I-55 / MS-7 North toward Oxford, then 59 miles on it."
+      osm-speed-limits now reads a combined label as an interstate only
+      where its interstate runs, so the 30 and 20 posted into Oxford stay.
+- [ ] (Found along the way) A leg labelled for an Interstate it rides for
+      only part of its miles (Tacoma to Yakima, Newberg to Woodburn) loses
+      real postings under 45 mph on its other miles and on the town streets
+      at its ends: osm-speed-limits treats the whole leg as an interstate.
+      HPMS traffic reads the label the same way (its own starts-with-"I-"
+      test). Both are left for the fix thread on false open-road limits
+      leaving town.
 
 ### Texas and Louisiana roads (missing roads brief 3, November 23)
 
