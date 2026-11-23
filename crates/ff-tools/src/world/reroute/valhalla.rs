@@ -269,9 +269,19 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
     const DIRECTIONS: &[&str] = &["N", "S", "E", "W", "NORTH", "SOUTH", "EAST", "WEST"];
     let text = name.replace('.', " ").replace('-', " - ");
     let mut words: Vec<&str> = text.split_whitespace().collect();
-    while words
-        .first()
-        .is_some_and(|w| DIRECTIONS.contains(&w.to_uppercase().as_str()))
+    // Nebraska signs its state highways with an N ("N 92", "N-2"), which
+    // reads as a direction word: a lone N straight before the number is
+    // the shield, not a heading.
+    let nebraska = words.len() >= 2
+        && words[0] == "N"
+        && words[1..]
+            .iter()
+            .find(|w| **w != "-")
+            .is_some_and(|w| w.chars().all(|c| c.is_ascii_digit()));
+    while !nebraska
+        && words
+            .first()
+            .is_some_and(|w| DIRECTIONS.contains(&w.to_uppercase().as_str()))
     {
         words.remove(0);
     }
@@ -306,6 +316,8 @@ pub fn shield_key(name: &str) -> Option<(&'static str, String)> {
         "A" | "AUTOROUTE" => "STATE",
         // Michigan signs its state trunklines with an M ("M 32", "M-115").
         "M" => "STATE",
+        // Nebraska's state highways ("N 92", "N-71").
+        "N" => "STATE",
         "CR" | "COUNTY ROAD" | "COUNTY ROUTE" => "CR",
         p if p.ends_with(" ROUTE") || p.ends_with(" HIGHWAY") || p.ends_with(" ROAD") => "STATE",
         p if p.len() == 2 && p.chars().all(|c| c.is_ascii_alphabetic()) => "STATE",
@@ -430,6 +442,10 @@ mod tests {
         assert!(matches_shield("M 115 West", "M-115"));
         assert!(matches_shield("M 32", "M-32"));
         assert!(!matches_shield("M 32", "US-23"));
+        assert!(matches_shield("N 92", "N-92"));
+        assert!(matches_shield("N-2 East", "N-2"));
+        assert!(!matches_shield("N 92", "US-77"));
+        assert!(matches_shield("N US 81", "US-81"));
     }
 
     #[test]
