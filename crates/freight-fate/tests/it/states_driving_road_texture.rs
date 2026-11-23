@@ -456,6 +456,7 @@ fn turbocharger_spools_under_load_and_stays_silent_on_trainer_day_cab() {
     let (mut drive, log) = a_drive(&mut app, "Jacksonville", "Miami", 10.0);
     drive.trip.truck.specs = heavy;
     drive.trip.truck.engine_on = true;
+    drive.trip.truck.transmission.gear = 6;
     drive.trip.truck.rpm = 1_650.0;
     drive.trip.truck.throttle = 0.95;
     for _ in 0..15 {
@@ -474,6 +475,22 @@ fn turbocharger_spools_under_load_and_stays_silent_on_trainer_day_cab() {
         !plays(&log, "vehicle/turbo_blowoff").is_empty(),
         "expected vehicle/turbo_blowoff on lift-off"
     );
+
+    // Revving in neutral has no driveline load and must not spool or blow off.
+    let mut neutral_app = TestApp::new();
+    let (mut neutral_drive, neutral_log) = a_drive(&mut neutral_app, "Jacksonville", "Miami", 10.0);
+    neutral_drive.trip.truck.specs = build_truck_specs("heavy_hauler", &NO_UPGRADES);
+    neutral_drive.trip.truck.engine_on = true;
+    neutral_drive.trip.truck.transmission.gear = 0;
+    neutral_drive.trip.truck.rpm = 1_800.0;
+    neutral_drive.trip.truck.throttle = 1.0;
+    for _ in 0..15 {
+        neutral_drive.update_audio(&mut neutral_app.ctx, 0.1);
+    }
+    assert!(!neutral_log.borrow().loops.contains_key(&CH_TURBO));
+    neutral_drive.trip.truck.throttle = 0.0;
+    neutral_drive.update_audio(&mut neutral_app.ctx, 0.05);
+    assert!(plays(&neutral_log, "vehicle/turbo_blowoff").is_empty());
 
     // Trainer day cab has no audible turbo.
     drive.trip.truck.specs = trainer;

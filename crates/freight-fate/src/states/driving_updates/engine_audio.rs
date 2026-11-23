@@ -483,7 +483,7 @@ impl DrivingState {
             max_rpm: t.specs.max_rpm,
             throttle: t.throttle,
             shifting,
-            clutch_out,
+            clutch_out: clutch_out || t.transmission.in_neutral(),
             turbo_level: t.specs.turbo_level,
             dt,
         });
