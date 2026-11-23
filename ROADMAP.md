@@ -6858,6 +6858,49 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Billboards on the new legs: a sheet needs
       Orinks's approval.
 
+### South Central roads (missing roads brief 3, November 23)
+
+- [x] Sikeston, Missouri is a city on I-55 at US 60, keeping only the
+      warehouse, plant and store read from the map for it.
+- [x] 50 new legs between Oklahoma, Kansas, Missouri and Arkansas towns the
+      map routed far around, five of them from Sikeston, routed by the truck
+      router over the OpenStreetMap planet of 2026-11-16 and built with
+      every layer. The detours that shrank most: Boise City to Raton (523
+      miles to 126), Garden City to Lamar (444 to 100) and Coffeyville to
+      Lawrence (400 to 148).
+- [x] Six long legs split at a city they pass, with saves on the old leg
+      resuming on the pieces: Altus to Wichita Falls at Vernon, El Dorado to
+      Monroe at Ruston, Garden City to Amarillo at Liberal, Stratford and
+      Dumas, Dodge City to Salina at Great Bend, Poplar Bluff to Cape
+      Girardeau at Sikeston, and Little Rock to Oklahoma City at Henryetta.
+- [x] Legs renamed for the road they ride, among them Tulsa to Muskogee
+      (OK-351), Enid to Wichita (I-35), Lawrence to Kansas City (the Kansas
+      Turnpike) and Jonesboro to Little Rock (US-63); Dodge City to Hays
+      re-routed onto US 183 (116 miles to 105).
+- [x] South Central stops list (`docs/stops/south-central.json`), 426
+      stops. QuikTrip and Buc-ee's are left out of it.
+- [x] Tolls: the Turner, Chickasaw, Cimarron, Indian Nation, Will Rogers
+      and Muskogee turnpikes on the legs that ride them, from the Oklahoma
+      Turnpike Authority's 2024 rates (marked estimated), and the Kansas
+      Turnpike from the per-mile rate the map already uses.
+- [ ] (Found along the way) Toll still unread: Stillwater to Oklahoma City
+      rides 4 miles of the Kilpatrick Turnpike on its stored road, and the
+      truck router no longer finds a toll there. A fresh OTA schedule would
+      also replace the estimated Oklahoma fares.
+- Dodge City to Salina runs 15 miles shorter over Great Bend than the leg
+      it replaced (182 to 167): the old leg went north to I-70. The
+      chain is right.
+- [ ] (Found along the way) Legs of 60 miles or more with no stop a
+      tractor-trailer can use (most have a fuel station now): Ada to Lawton,
+      Ada to Stillwater, Ada to McAlester, Coffeyville to Joplin and to
+      Wichita, El Dorado to Hot Springs, Hot Springs to Pine Bluff, Pine
+      Bluff, Little Rock and Texarkana to El Dorado, Conway and Fayetteville
+      to Harrison, Poplar Bluff to Rolla and to Jonesboro, Rolla to Sedalia,
+      Sedalia to Kansas City, Kirksville to Quincy, Columbia and Ottumwa,
+      St. Joseph to Topeka, Ponca City to Bartlesville, Great Bend to Hays.
+- [ ] (Found along the way) Billboards on the new legs: a sheet needs
+      Orinks's approval.
+
 ### Winter cab, wipers and ice roads (designed November 22)
 
 The owner asked for heat and air that do something (frost with the heat
