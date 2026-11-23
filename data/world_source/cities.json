@@ -14109,6 +14109,60 @@
           "source_note": "Read: OpenStreetMap relation 7276490 (landuse=retail, name Cranberry Mall), OpenStreetMap planet file of 2026-11-16; pin is the centroid of that outline. Operation not confirmed from a second source. Roles derived: store deliveries of dry and chilled freight, as the mall type receives; it ships nothing."
         }
       ]
+    },
+    "sikeston_mo_us": {
+      "spoken_city": "Sikeston",
+      "state": "MO",
+      "country": "US",
+      "region": "heartland",
+      "lat": 36.87225,
+      "lon": -89.53772,
+      "source_note": "Pin on Route AA (MO AA) where the exit 66B ramp from Interstate 55 meets it, beside the interchange where I-57 and US 60 leave I-55 for Charleston and US 60 turns west for Poplar Bluff, so legs north and south on I-55, east on I-57 and west on US 60 leave from one corner. Position read from the MO AA way and the exit 66B ramp, OpenStreetMap planet file of 2026-11-16. Approved by name as the I-55 and US 60 junction city (missing roads decision 9); region heartland, as Cape Girardeau.",
+      "locations": [
+        {
+          "name": "Do it Best Sikeston Retail Service Center",
+          "type": "distribution",
+          "lat": 36.93237,
+          "lon": -89.62427,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: OpenStreetMap building=warehouse named Do-It-Best Corporation Sikeston Retail Service Center, 2600 Rose Parkway, Sikeston, OpenStreetMap planet file of 2026-11-16; not confirmed from a second source. Roles derived: a hardware cooperative's distribution warehouse receives and ships store goods."
+        },
+        {
+          "name": "Carlisle Construction Materials Sikeston",
+          "type": "manufacturing_plant",
+          "lat": 36.84743,
+          "lon": -89.58984,
+          "ships": [
+            "construction"
+          ],
+          "receives": [
+            "chemicals",
+            "general"
+          ],
+          "source_note": "Read: Carlisle Construction Materials opened a nearly 500,000 square foot plant in Sikeston in June 2023 that makes insulation products (Missouri Department of Economic Development, https://ded.mo.gov/press-room/carlisle-construction-materials-opens-new-manufacturing-facility-sikeston, read 2026-11-23). Position read from the OpenStreetMap landuse=industrial area named Carlisle Construction Materials, OpenStreetMap planet file of 2026-11-16. Roles derived: an insulation plant ships building materials and receives chemicals and supplies."
+        },
+        {
+          "name": "Walmart Supercenter Sikeston",
+          "type": "shopping_mall",
+          "lat": 36.85704,
+          "lon": -89.58665,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Read: OpenStreetMap building tagged shop=supermarket, brand Walmart, Walmart Supercenter, 1303 South Main Street, Sikeston, OpenStreetMap planet file of 2026-11-16. Roles derived: store deliveries of dry and chilled freight, as the store type receives; it ships nothing."
+        }
+      ]
     }
   }
 }

@@ -458,6 +458,9 @@ pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
     "cranberry_township_pa_us",
     "ithaca_ny_us",
     "lexington_park_md_us",
+    // South Central (missing roads, 2026-11-23): Sikeston keeps the
+    // warehouse, plant and store read from the map for it.
+    "sikeston_mo_us",
 ];
 
 /// Whether this city keeps only its authored freight locations. See
