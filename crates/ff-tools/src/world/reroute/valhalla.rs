@@ -45,7 +45,12 @@ fn truck_options(height_m: Option<f64>) -> serde_json::Value {
         "height": height_m.unwrap_or(4.11),
         "width": 2.59,
         "length": 21.64,
-        "weight": 36.29,
+        // 80,000 lb is 36.287 t, and a bridge tagged maxweight=40 st (40
+        // short tons, also 80,000 lb) is the same number. Rounded up to 36.29
+        // the truck was 3 kg over every such posting, so legal roads were
+        // refused (Charleston to Pikeville went 150 miles round instead of
+        // 108 on US 119).
+        "weight": 36.28,
         "axle_load": 15.42,
         "hazmat": false,
         "use_tolls": 1.0,
