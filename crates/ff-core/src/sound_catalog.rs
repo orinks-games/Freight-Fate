@@ -60,8 +60,11 @@ const LANE: SoundCategory = SoundCategory {
         SoundEntry::new(
             "The engine lean",
             &[
-                Cue::new("engine/mid").volume(0.6).pan(-0.8).hold_s(2.0),
-                Cue::new("engine/mid")
+                Cue::new("engine_stereo/mid")
+                    .volume(0.6)
+                    .pan(-0.8)
+                    .hold_s(2.0),
+                Cue::new("engine_stereo/mid")
                     .volume(0.6)
                     .pan(0.8)
                     .delay_s(2.4)
@@ -764,20 +767,18 @@ pub fn catalog_keys() -> std::collections::BTreeSet<&'static str> {
 // vehicle/road is in NEITHER list as a plain bed -- it is catalogued once, as
 // the road lean, because what teaches a player something is its pan.
 pub const SELF_EXPLANATORY: &[(&str, &str)] = &[
-    // Listed one by one rather than as "engine/*": the jake ring lives in the
-    // same folder and IS taught, and a folder glob here would mark it excluded
-    // and taught at once.
-    ("engine/idle", "It is an engine and it sounds like one."),
+    (
+        "engine_stereo/start",
+        "An engine starting, immediately after you started it.",
+    ),
+    ("engine_stereo/idle", "It is the running engine."),
+    ("engine_stereo/low", "It is the running engine."),
+    ("engine_stereo/midhigh", "It is the running engine."),
+    ("engine_stereo/high", "It is the running engine."),
     (
         "engine_classic/idle",
         "The same engine, in its earlier sound.",
     ),
-    (
-        "engine/low",
-        "As the idle loop: an engine at an engine speed.",
-    ),
-    ("engine/midhigh", "As the idle loop."),
-    ("engine/high", "As the idle loop."),
     (
         "engine/start",
         "An engine starting, immediately after you started it.",

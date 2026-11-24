@@ -1,9 +1,9 @@
 //! Engine-audio state: maps the truck's physical state to what the engine
 //! should SOUND like, independent of any audio backend or sample set.
 //!
-//! Today the engine is one idle loop pitch-slid by rpm (`audio.engine_freq_mult`),
-//! so it cannot tell a truck parked and warming up from one pulling a grade. This
-//! module is the small brain that names the situation instead:
+//! The playback layer selects cab recordings by RPM and tracks within each
+//! recording's bounded range. This module separately names the truck's
+//! operating situation:
 //!
 //! ```text
 //!   off         engine not running
@@ -22,9 +22,8 @@
 //!
 //! Pure logic: [`classify`] takes primitives so it is trivially testable, and
 //! [`reading_from_truck`] adapts a live truck through the [`EngineTruck`]
-//! trait. The playback layer (multisample selection, pitch tracking,
-//! crossfades) consumes the result; this module owns the gameplay contract
-//! that the engine voice and the parking feature both read.
+//! trait. The playback layer consumes the result; this module owns the
+//! gameplay contract that the engine voice and the parking feature both read.
 //!
 //! Port of `freight_fate/engine_audio.py`.
 

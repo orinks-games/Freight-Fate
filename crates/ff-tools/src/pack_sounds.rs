@@ -17,10 +17,18 @@ use ff_core::assets_pack::{write_pack_with_base, SoundPack};
 use crate::cli::{Args, Spec};
 use crate::util::{self, Result};
 
-/// The five calibrated stereo cab engine loops required in every licensed
-/// release `sounds.pak` (PR #781). Missing any one makes the runtime fall back
-/// silently to the legacy 1.9 mono ring.
+const LEGACY_ENGINE_STEMS: &[&str] = &[
+    "engine/idle",
+    "engine/low",
+    "engine/mid",
+    "engine/midhigh",
+    "engine/high",
+];
+
+/// The calibrated stereo cab engine loops and synchronized starter required
+/// in every licensed release `sounds.pak`.
 pub const REQUIRED_LICENSED_ENGINE_ENTRIES: &[&str] = &[
+    "engine_stereo/start.wav",
     "engine_stereo/idle.wav",
     "engine_stereo/low.wav",
     "engine_stereo/mid.wav",
@@ -37,8 +45,7 @@ pub fn missing_licensed_engine_entries(names: &[String]) -> Vec<&'static str> {
         .collect()
 }
 
-/// Fail loudly if `path` is missing any of the five licensed stereo cab engine
-/// loops.
+/// Fail loudly if `path` is missing any licensed stereo cab engine entry.
 pub fn verify_licensed_engine_in_pack(path: &Path) -> Result<()> {
     let pack = SoundPack::open(path).map_err(|e| format!("{}: {e}", path.display()))?;
     let missing = missing_licensed_engine_entries(&pack.names());
@@ -46,8 +53,7 @@ pub fn verify_licensed_engine_in_pack(path: &Path) -> Result<()> {
         return Err(format!(
             "Sound pack {} is missing required licensed stereo cab engine cuts ({}); \
              provide assets/sounds-licensed (or FREIGHT_FATE_LICENSED_SOUNDS) and rebuild \
-             with `cargo tools pack-sounds --require-licensed` so the build cannot silently \
-             fall back to the 1.9 mono engine",
+             with `cargo tools pack-sounds --require-licensed`",
             path.display(),
             missing.join(", ")
         ));
@@ -80,17 +86,13 @@ pub fn stage_effects_pack(
     let base_pack = assets_dir.join("sounds.pak");
     let sounds = assets_dir.join("sounds");
     let overlay = resolve_licensed_overlay(assets_dir, overlay_override);
-    if overlay.is_dir() {
-        pack(
-            base_pack.is_file().then_some(base_pack.as_path()),
-            &sounds,
-            &overlay,
-            out,
-            false,
-        )
-    } else {
-        util::copy_file(&base_pack, out)
-    }
+    pack(
+        base_pack.is_file().then_some(base_pack.as_path()),
+        &sounds,
+        &overlay,
+        out,
+        false,
+    )
 }
 
 fn pack(
@@ -100,7 +102,14 @@ fn pack(
     out: &Path,
     music: bool,
 ) -> Result<()> {
-    let include = move |name: &str| name.starts_with("music/") == music;
+    let include = move |name: &str| {
+        name.starts_with("music/") == music
+            && (music
+                || !LEGACY_ENGINE_STEMS.iter().any(|stem| {
+                    name.strip_prefix(stem)
+                        .is_some_and(|rest| rest.starts_with('.'))
+                }))
+    };
     write_pack_with_base(base_pack, sounds, out, Some(overlay), Some(&include))
         .map_err(|e| format!("could not write {}: {e}", out.display()))?;
     Ok(())
@@ -195,8 +204,10 @@ mod tests {
         let sounds = assets.join("sounds");
         let overlay = assets.join("sounds-licensed");
         std::fs::create_dir_all(sounds.join("vehicle")).unwrap();
+        std::fs::create_dir_all(sounds.join("engine")).unwrap();
         std::fs::create_dir_all(overlay.join("engine_stereo")).unwrap();
         std::fs::write(sounds.join("vehicle/horn.ogg"), b"base-horn").unwrap();
+        std::fs::write(sounds.join("engine/idle.wav"), b"legacy-engine").unwrap();
         let base_pack = assets.join("sounds.pak");
         pack(None, &sounds, &dir.path().join("none"), &base_pack, false).unwrap();
 
@@ -211,6 +222,7 @@ mod tests {
         verify_licensed_engine_in_pack(&staged).unwrap();
         let names = SoundPack::open(&staged).unwrap().names().to_vec();
         assert!(names.iter().any(|n| n == "vehicle/horn.ogg"));
+        assert!(!names.iter().any(|n| n == "engine/idle.wav"));
         for entry in REQUIRED_LICENSED_ENGINE_ENTRIES {
             assert!(names.iter().any(|n| n == entry));
         }

@@ -184,10 +184,10 @@ fn stem(name: &str) -> &str {
 ///
 /// `overlay_dir` (the licensed-audio tree) is merged on top and wins by
 /// sound KEY (path stem), not just exact path: the loader prefers ogg over
-/// wav inside the pack, so a committed `engine/mid.ogg` fallback would
-/// shadow a licensed `engine/mid.wav` if both shipped. A build made on a
-/// machine that owns the licensed libraries ships them; a clean clone packs
-/// the committed fallback recordings alone. Editor backups (`*.bak`) never ship:
+/// wav inside the pack, so a public file with the same stem would shadow a
+/// licensed WAV if both shipped. A build made on a machine that owns the
+/// licensed libraries can merge them into the staged pack. Editor backups
+/// (`*.bak`) never ship:
 /// one already rode a builder's loose tree into a released pack.
 ///
 /// `include`, when given, keeps only pack-relative names it accepts --
@@ -1163,7 +1163,8 @@ mod tests {
         crate::lane_guide_tone::register_lane_guide_tone();
         let ships = |key: &str| {
             !key.is_empty()
-                && (key.starts_with("enforcement/")
+                && (key.starts_with("engine_stereo/")
+                    || key.starts_with("enforcement/")
                     || ["ogg", "wav"]
                         .iter()
                         .any(|ext| pack.has(&format!("{key}.{ext}")))

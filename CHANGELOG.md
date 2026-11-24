@@ -77,7 +77,7 @@
 ### Changed
 
 - **Gearshifts, turbocharger cues, and the engine brake now use real vehicle recordings instead of synthesized sounds.** Saved classic engine-brake settings migrate to recorded playback.
-- **The main engine now uses the approved stereo cab recordings in installed builds.**
+- **The main engine and startup now use approved stereo cab recordings in installed builds.**
 - **Bridge crossings now play a concrete deck bed, recorded steel-grate hum, and clearer water ambience.** Grooved concrete and highway seams now use recorded bumps and textured tire hum.
 
 - **Slick roads, high crosswinds, and tight ramps now trigger ABS, wheelspin, trailer sway, and off-tracking.** Automatic shifts also hold lower gears longer on downgrades.
@@ -110,6 +110,7 @@
 
 ### Fixed
 
+- **The main engine no longer has metallic pitch stretching or phasing between recordings.**
 - **The Golden Gate Bridge is now named on northbound trips.**
 - **Alligator Alley now charges one toll per trip.** It was charging for both plazas.
 - **The Ohio Turnpike toll between Cleveland and Toledo is now the 2026 five-axle fare.** It drops from $28.00 to $17.50.

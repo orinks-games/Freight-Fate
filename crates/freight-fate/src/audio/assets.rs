@@ -14,11 +14,10 @@ use std::path::{Path, PathBuf};
 use std::sync::{Arc, Mutex};
 
 use ff_core::assets_pack::{self, generated_sound, generated_sound_version, CombinedPack};
-use ff_core::cab_filter;
 use ff_core::data::data_resources::data_root;
 use once_cell::sync::Lazy;
 
-use super::{engine_band_keys, is_engine_band_key, AudioError, STEREO_ENGINE_BANDS};
+use super::{AudioError, STEREO_ENGINE_BANDS};
 
 /// The bytes behind a sound key and the extension they were found under.
 pub type AssetBytes = (Arc<[u8]>, String);
@@ -92,18 +91,8 @@ pub fn asset_path(key: &str, extensions: &[&str]) -> Option<PathBuf> {
     asset_path_in(&asset_roots(), key, extensions)
 }
 
-/// Whether `pack` holds every engine band cut. Membership only, so nothing
-/// is decompressed.
-pub fn pack_carries_whole_ring(pack: &CombinedPack) -> bool {
-    engine_band_keys().iter().all(|key| {
-        SFX_EXTENSIONS
-            .iter()
-            .any(|ext| pack.has(&format!("{key}.{ext}")))
-    })
-}
-
 /// Stereo is a complete, calibrated ring of WAV cuts. Check membership
-/// before opening tracks so a missing overlay quietly uses the old ring.
+/// before opening tracks so a partial overlay never starts.
 pub(super) fn stereo_engine_available() -> bool {
     let pack = assets_pack::open_default();
     let roots = asset_roots();
@@ -118,12 +107,6 @@ pub(super) fn stereo_engine_available() -> bool {
 
 /// Bytes and extension for a sound key, from `pack` or the loose `roots`.
 ///
-/// The engine bands are the one exception to pack-then-loose: they
-/// crossfade into each other, so they have to come from one recording. A
-/// pack that predates the checkout beside it would otherwise serve four
-/// bands from the pack and the fifth off disk, blending two different
-/// engines. Unless the pack carries the whole ring, the ring reads from the
-/// loose tree.
 pub fn asset_bytes_from(
     pack: Option<&CombinedPack>,
     roots: &[PathBuf],
@@ -133,7 +116,6 @@ pub fn asset_bytes_from(
     if let Some((data, ext)) = generated_sound(key) {
         return Some((Arc::from(data.as_slice()), ext));
     }
-    let pack = pack.filter(|pack| !is_engine_band_key(key) || pack_carries_whole_ring(pack));
     if let Some(pack) = pack {
         for ext in extensions {
             if let Some(data) = pack.read(&format!("{key}.{ext}")) {
@@ -200,50 +182,18 @@ impl<T> VersionedCache<T> {
     }
 }
 
-/// Engine band cuts with the sealed-cab transfer applied, by key. The
-/// transfer is deterministic and the cuts change only on a repack, so
-/// sealing each cut once per process is enough for every engine start after
-/// the first.
-static CAB_SEALED: Lazy<Mutex<VersionedCache<AssetBytes>>> =
-    Lazy::new(|| Mutex::new(VersionedCache::new()));
-
 /// Measured playing times, by sound key. See [`asset_length_s`].
 static LENGTHS: Lazy<Mutex<VersionedCache<f64>>> = Lazy::new(|| Mutex::new(VersionedCache::new()));
 
 /// Bytes for a sound as the player should HEAR it.
 ///
-/// The engine band cuts pass through the sealed-cab transfer
-/// (`cab_filter`, owner's ear 2026-08-13): the recorded voice reads as a
-/// truck heard from outside, and the cab between engine and ear is applied
-/// here, at load, rather than baked into assets -- feedback rounds are
-/// parameter tweaks. The classic voice's ogg keeps its old sound untouched,
-/// and non-engine keys pass straight through.
+/// The licensed stereo engine cuts are WAV recordings and never fall through
+/// to an older format with the same key.
 pub fn playback_bytes(key: &str, extensions: &[&str]) -> Option<AssetBytes> {
     if STEREO_ENGINE_BANDS.iter().any(|(band, _)| *band == key) {
-        // These loops were recorded inside the cab.
         return asset_bytes(key, &["wav"]);
     }
-    if !is_engine_band_key(key) {
-        return asset_bytes(key, extensions);
-    }
-    if let Some(cached) = CAB_SEALED
-        .lock()
-        .unwrap_or_else(|e| e.into_inner())
-        .get(key)
-    {
-        return Some(cached.clone());
-    }
-    let (data, ext) = asset_bytes(key, extensions)?;
-    let found: AssetBytes = if ext == "wav" {
-        (Arc::from(cab_filter::seal_wav(&data)), ext)
-    } else {
-        (data, ext)
-    };
-    CAB_SEALED
-        .lock()
-        .unwrap_or_else(|e| e.into_inner())
-        .insert(key, found.clone());
-    Some(found)
+    asset_bytes(key, extensions)
 }
 
 fn u16_at(data: &[u8], at: usize) -> Option<u16> {

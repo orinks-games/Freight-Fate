@@ -30,7 +30,6 @@ use std::sync::Arc;
 
 use ff_core::audio_fades::FadeScheduler;
 use ff_core::audio_loops::SustainLoopSpec;
-use ff_core::pyrandom::PyRandom;
 use hearken::audio::{
     Audio as Pool, Backend, Bus, CabSpeakers, CabSpeakersParams, GainCurve, Insert, KiraBackend,
     LoopRegion, PanLaw, SilentBackend, Sound, Start,
@@ -141,8 +140,7 @@ pub(super) struct EngineBand {
 pub struct HearkenEngineBand {
     pub native: f64,
     pub sound: Sound,
-    /// The playback-rate target of the last slide (`rate` x the wobble):
-    /// BASS's `last_rate_target` over the cut's own frequency.
+    /// The playback rate last applied to the recording.
     pub last_rate: f64,
     /// The last volume applied to the band.
     pub last_volume: f64,
@@ -206,7 +204,7 @@ pub struct HearkenBackend {
     pub(super) device_notice: bool,
     pub(super) engine_pan: f64,
     pub(super) engine_running: bool,
-    /// The legacy single pitched loop, when that model is running.
+    /// The recorded classic loop, when that voice is selected.
     pub(super) engine_sound: Option<Sound>,
     pub(super) engine_bands: Vec<EngineBand>,
     pub(super) engine_stereo_ring: bool,
@@ -220,8 +218,6 @@ pub struct HearkenBackend {
     pub(super) road_lift: f64,
     pub(super) engine_duck: f64,
     pub(super) fades: FadeScheduler,
-    pub(super) engine_wobble: Vec<[f64; 2]>,
-    pub(super) wobble_rng: PyRandom,
     pub(super) key_filter: Option<KeyProbe>,
     pub(super) requested_keys: Option<Vec<String>>,
     /// The cab-speaker voicing the radio plays through while driving,
@@ -321,8 +317,6 @@ impl HearkenBackend {
             road_lift: 1.0,
             engine_duck: 1.0,
             fades: FadeScheduler::new(),
-            engine_wobble: Vec::new(),
-            wobble_rng: PyRandom::new_unseeded(),
             key_filter: None,
             requested_keys: None,
             radio_cab,
@@ -764,23 +758,13 @@ impl HearkenBackend {
             .collect()
     }
 
-    /// The legacy single pitched loop, when that model is running.
+    /// The recorded classic loop, when that voice is selected.
     pub fn engine_sound(&self) -> Option<Sound> {
         self.engine_sound
     }
 
     pub fn engine_intro_gain(&self) -> f64 {
         self.engine_intro_gain.get()
-    }
-
-    /// The per-band `[rate walk, gain walk]` pairs.
-    pub fn engine_wobble(&self) -> Vec<[f64; 2]> {
-        self.engine_wobble.clone()
-    }
-
-    /// Seed the anti-repetition walk.
-    pub fn set_wobble_rng(&mut self, rng: PyRandom) {
-        self.wobble_rng = rng;
     }
 
     /// The road loop's last playback-rate target: BASS's slide target over
