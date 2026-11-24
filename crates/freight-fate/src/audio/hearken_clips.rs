@@ -15,7 +15,7 @@ use std::sync::Arc;
 use hearken::audio::ClipSource;
 
 use super::assets::{asset_bytes, playback_bytes, AssetBytes, MUSIC_EXTENSIONS, SFX_EXTENSIONS};
-use super::STEREO_ENGINE_BANDS;
+use super::{is_stereo_cab_loop, STEREO_HIGH_COAST, STEREO_HIGH_PULL};
 
 pub(super) const CAB_SAMPLE_RATE: u32 = 48_000;
 pub(super) const CAB_START_MAX_FRAMES: usize = CAB_SAMPLE_RATE as usize * 10;
@@ -25,7 +25,7 @@ const CAB_FRAME_BYTES: usize = 4;
 // cab recordings. Cropping there avoids the comb filtering that a long
 // head/tail crossfade added to the steady engine note. The frame count guards
 // against applying an old recording's edit points to a replacement.
-const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 9] = [
+const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 11] = [
     ("engine_stereo/idle", 141_773, 28_359, 108_091),
     ("engine_stereo/low", 23_516, 0, 23_516),
     ("engine_stereo/low", 115_761, 804, 84_393),
@@ -35,6 +35,8 @@ const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 9] = [
     ("engine_stereo/midhigh", 175_932, 1_923, 141_387),
     ("engine_stereo/high", 49_472, 0, 49_472),
     ("engine_stereo/high", 136_293, 1_466, 128_564),
+    (STEREO_HIGH_PULL.0, 17_702, 0, 17_702),
+    (STEREO_HIGH_COAST.0, 16_372, 0, 16_372),
 ];
 
 /// The game's sound lookup as a Hearken [`ClipSource`]. Stateless, so it
@@ -62,13 +64,13 @@ impl FfClips {
 impl ClipSource for FfClips {
     fn load(&mut self, key: &str) -> Option<Arc<[u8]>> {
         if let Some((band, frames)) = key.split_once('@') {
-            if STEREO_ENGINE_BANDS.iter().any(|(key, _)| *key == band) {
+            if is_stereo_cab_loop(band) {
                 let frames = frames.parse::<usize>().ok()?;
                 let (bytes, _) = Self::sfx(band)?;
                 return cab_band_with_preroll(band, &bytes, frames);
             }
         }
-        if STEREO_ENGINE_BANDS.iter().any(|(band, _)| *band == key) {
+        if is_stereo_cab_loop(key) {
             let (bytes, _) = Self::sfx(key)?;
             return cab_loop_wav(key, &bytes);
         }

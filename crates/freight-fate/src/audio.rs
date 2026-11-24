@@ -152,6 +152,16 @@ pub const STEREO_ENGINE_BANDS: [(&str, f64); 5] = [
     ("engine_stereo/high", 1988.0),
 ];
 
+const STEREO_HIGH_PULL: (&str, f64) = ("engine_stereo/high_pull", 2160.0);
+const STEREO_HIGH_COAST: (&str, f64) = ("engine_stereo/high_coast", 2115.0);
+const STEREO_HIGH_INDEX: usize = STEREO_ENGINE_BANDS.len() - 1;
+
+fn is_stereo_cab_loop(key: &str) -> bool {
+    key == STEREO_HIGH_PULL.0
+        || key == STEREO_HIGH_COAST.0
+        || STEREO_ENGINE_BANDS.iter().any(|(band, _)| *band == key)
+}
+
 // The recorded engine-brake growl replaces every obsolete per-RPM and classic
 // synthesized key.
 pub const JAKE_RECORDED_KEY: &str = "engine/jake_1600";
