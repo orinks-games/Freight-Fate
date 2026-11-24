@@ -25,7 +25,7 @@ const CAB_FRAME_BYTES: usize = 4;
 // cab recordings. Cropping there avoids the comb filtering that a long
 // head/tail crossfade added to the steady engine note. The frame count guards
 // against applying an old recording's edit points to a replacement.
-const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 8] = [
+const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 9] = [
     ("engine_stereo/idle", 141_773, 28_359, 108_091),
     ("engine_stereo/low", 23_516, 0, 23_516),
     ("engine_stereo/low", 115_761, 804, 84_393),
@@ -33,6 +33,7 @@ const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 8] = [
     ("engine_stereo/mid", 121_569, 3_925, 118_938),
     ("engine_stereo/midhigh", 68_512, 0, 68_512),
     ("engine_stereo/midhigh", 175_932, 1_923, 141_387),
+    ("engine_stereo/high", 49_472, 0, 49_472),
     ("engine_stereo/high", 136_293, 1_466, 128_564),
 ];
 
