@@ -88,7 +88,7 @@ fn scenario_properties() -> Value {
         "fuel_pct": {"type": "number"},
         "window": {"type": "string", "enum": ["up", "down"]},
         "road_surface": {"type": "string", "enum": ["jointed", "smooth"]},
-        "tire_song": {"type": "string", "enum": ["quiet", "whine", "hum"]},
+        "tire_song": {"type": "string", "enum": ["quiet", "hum"]},
         "weather": {"type": "string", "description": "the simulated sky every drive starts under, forced: snow, ice, cloudy, clear, rain, heavy_rain, thunderstorm, fog or wind; free unlocks it"},
         "damage_pct": {"type": "number"},
         "tire_wear_pct": {"type": "number"},
@@ -402,7 +402,7 @@ fn tools_list() -> Value {
              feature must be one of: downgrade, upgrade, zone, limit-drop, stop, \
              scale, curve, interchange, toll, chain-law, destination, departure, river, \
              bridge (one with joints, longest first), jointed (road with seams, longest \
-             first), grooved (road the tires whine on, longest first), grating (an \
+             first), grooved (concrete with grooves across the lane, longest first), grating (an \
              open steel grate deck the tires hum on). \
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
@@ -459,7 +459,7 @@ fn tools_list() -> Value {
              session), window (up or down: every drive from here on starts with \
              the driver window there), road_surface (jointed or smooth: every \
              drive from here on keeps that surface the whole way, over what the \
-             pavement layer reads), tire_song (quiet, whine or hum: every drive \
+             pavement layer reads), tire_song (quiet or hum: every drive \
              from here on holds that song the whole way), and name (the career created when none is \
              loaded; default Playtest). Nothing is refused for being unreasonable: this is the \
              audited sandbox. Listen afterwards for the terminal.",

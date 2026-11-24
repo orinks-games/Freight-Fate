@@ -585,7 +585,7 @@ pub fn find_feature(
             "river" => hits.extend(self::river::river_hits(&mut trip, origin, destination)),
             "bridge" => hits.extend(self::pavement::bridge_hits(&mut trip, origin, destination)),
             "jointed" => hits.extend(self::pavement::jointed_hits(&mut trip, origin, destination)),
-            "grooved" | "grating" => hits.extend(self::pavement::song_hits(
+            "grooved" | "grating" => hits.extend(self::pavement::surface_hits(
                 &mut trip,
                 origin,
                 destination,

@@ -2,8 +2,8 @@
 //! on jointed road each seam is two thumps, the steer axle and then the
 //! drives a wheelbase later, as hard as the surface and its faulting say,
 //! and each end of a bridge the truck hears is a heavier joint under all
-//! three axles. On concrete grooved across the lane the tires whine, and on
-//! an open steel grating they hum, at a pitch that follows the speed. Pure
+//! three axles. On an open steel grating the tires hum, at a pitch that
+//! follows the speed. Pure
 //! ambience: nothing here is spoken.
 
 use ff_core::sim::road_texture::joints::{joints_heard, JointSpan};
@@ -148,9 +148,9 @@ impl DrivingState {
 }
 
 impl DrivingState {
-    /// The whine or the hum, one loop on the Road surface volume. Ramps are
-    /// outside the highway soundscape, as for the seams. `dt` is real
-    /// seconds, which the song's holds count.
+    /// The grate hum, one loop on the Road surface volume. Ramps are outside
+    /// the highway soundscape, as for the seams. `dt` is real seconds, which
+    /// the song's holds count.
     fn update_tire_song(&mut self, ctx: &mut GameContext, speed: f64, dt: f64) {
         let under = if self.trip.on_ramp {
             ff_core::sim::road_texture::song::Underfoot::Plain
