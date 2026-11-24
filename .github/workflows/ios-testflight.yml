@@ -245,7 +245,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          cargo build -p ff-tools --no-default-features --locked
+          cargo build -p ff-tools --locked
           echo "FF_TOOLS=$PWD/target/debug/ff-tools" >> "$GITHUB_ENV"
           # The bundle id every step uses is the one the iOS build stamps.
           bundle_id="$(target/debug/ff-tools build-ios --bundle-id)"
