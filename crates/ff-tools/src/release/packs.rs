@@ -178,12 +178,39 @@ pub fn missing_licensed_engine_entries(names: &[String]) -> Vec<&'static str> {
 /// `assets/sounds.pak` when present, never touching the tracked repo pack.
 #[cfg(feature = "world")]
 pub fn stage_effects_pack(assets_dir: &Path, out: &Path) -> Result<()> {
-    crate::pack_sounds::stage_effects_pack(assets_dir, out, None)
+    crate::pack_sounds::stage_effects_pack(assets_dir, out, None)?;
+    verify_staged_engine_pack(out)
 }
 
 #[cfg(not(feature = "world"))]
 pub fn stage_effects_pack(assets_dir: &Path, out: &Path) -> Result<()> {
-    util::copy_file(&assets_dir.join("sounds.pak"), out)
+    util::copy_file(&assets_dir.join("sounds.pak"), out)?;
+    verify_staged_engine_pack(out)
+}
+
+fn allow_unlicensed_release() -> bool {
+    std::env::var("FREIGHT_FATE_ALLOW_UNLICENSED_RELEASE").is_ok_and(|value| value.trim() == "1")
+}
+
+#[cfg(feature = "world")]
+fn verify_staged_engine_pack(path: &Path) -> Result<()> {
+    if allow_unlicensed_release() {
+        return Ok(());
+    }
+    crate::pack_sounds::verify_licensed_engine_in_pack(path)
+}
+
+#[cfg(not(feature = "world"))]
+fn verify_staged_engine_pack(_path: &Path) -> Result<()> {
+    if allow_unlicensed_release() {
+        Ok(())
+    } else {
+        Err(
+            "this build of ff-tools has no `world` feature, so it cannot verify the licensed \
+             stereo engine in the staged sound pack"
+                .into(),
+        )
+    }
 }
 
 /// Open the staged packs and prove they carry what the game reads.
@@ -209,9 +236,7 @@ pub fn verify_sound_packs(build: &Path) -> Result<()> {
                 .into(),
         );
     }
-    let allow_unlicensed =
-        std::env::var("FREIGHT_FATE_ALLOW_UNLICENSED_RELEASE").is_ok_and(|v| v.trim() == "1");
-    if !allow_unlicensed {
+    if !allow_unlicensed_release() {
         let missing = missing_licensed_engine_entries(&names);
         if !missing.is_empty() {
             return Err(format!(
@@ -266,6 +291,23 @@ mod tests {
         let sha = util::file_sha256(&pack).unwrap();
         // An unroutable URL: reaching the network would fail the test.
         ensure_pinned_pack(&pack, "http://127.0.0.1:9/never", &sha, "Test").unwrap();
+    }
+
+    #[cfg(feature = "world")]
+    #[test]
+    fn staged_effects_pack_rejects_missing_licensed_engine() {
+        let dir = tempfile::tempdir().unwrap();
+        let sounds = dir.path().join("sounds");
+        std::fs::create_dir_all(&sounds).unwrap();
+        std::fs::write(sounds.join("horn.ogg"), b"horn").unwrap();
+        let pack = dir.path().join("sounds.pak");
+        ff_core::assets_pack::write_pack(&sounds, &pack, None, None).unwrap();
+
+        let err = verify_staged_engine_pack(&pack).unwrap_err();
+        assert!(
+            err.contains("engine_stereo/idle.wav"),
+            "expected missing stereo engine error, got: {err}"
+        );
     }
 
     #[cfg(feature = "world")]
