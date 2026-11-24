@@ -331,7 +331,7 @@ fn test_engine_audio_load_eases_without_dropping_out_during_automatic_shift() {
 
     let (rpm, load) = last_rpm(&log);
     assert_eq!(rpm, 1700.0);
-    assert!(close(load, 0.45), "{load}");
+    assert!(close(load, SHIFT_LOAD_CAP), "{load}");
     assert!(engine_load_gain(load) >= 0.75);
 }
 

@@ -640,7 +640,7 @@ impl DrivingState {
         // was the light announcing green twice (owner, agent drive into
         // Milwaukee, 2026-10-04).
         let green_heard = self.ramp_light_announced && self.ramp_light_last_phase == "green";
-        if !(green_heard && !on_yellow && speed <= GREEN_ROLL_MPH) {
+        if !on_yellow && !(green_heard && speed <= GREEN_ROLL_MPH) {
             ctx.audio.play_with("events/ramp_light_green", 0.7, 0.0);
         }
         let message = if speed > GREEN_ROLL_MPH {

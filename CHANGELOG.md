@@ -111,7 +111,7 @@
 
 ### Fixed
 
-- **Removed repeating beeps from highway ambience and quieted bridge crossings.** Bridges now play expansion joints and concrete deck resonance without highway slab seams underneath.
+- **Removed repeating beeps from highway ambience, smoothed automatic shifts, and quieted bridges.** Crossing a ramp light on yellow no longer chimes green.
 - **The main engine no longer has metallic pitch stretching or phasing between recordings.**
 - **The Golden Gate Bridge is now named on northbound trips.**
 - **Alligator Alley now charges one toll per trip.** It was charging for both plazas.

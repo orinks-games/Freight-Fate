@@ -971,8 +971,11 @@ fn test_automatic_shift_uses_shift_cue_not_brake_air() {
         .map(|(key, volume, _)| (key.clone(), *volume))
         .collect();
     assert!(!shifts.is_empty(), "{played:?}");
+    let expected_start_vol = freight_fate::states::driving_updates::AUTO_SHIFT_START_CLUNK_VOLUME;
     assert!(
-        shifts.iter().all(|(_, vol)| (0.18..=0.26).contains(vol)),
+        shifts
+            .iter()
+            .all(|(_, vol)| (*vol - expected_start_vol).abs() < 1e-6),
         "{shifts:?}"
     );
     assert!(played.iter().all(|(key, _, _)| key != "vehicle/brake_air"));

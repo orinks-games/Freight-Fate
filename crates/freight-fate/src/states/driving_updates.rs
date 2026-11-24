@@ -149,30 +149,23 @@ pub use crate::states::driving_core::OVERREV_GRACE_S;
 pub const OVERREV_REPEAT_S: f64 = 10.0;
 
 // An automatic shift caps audible engine load so the bed doesn't duck out.
-pub const SHIFT_LOAD_CAP: f64 = 0.45;
+pub const SHIFT_LOAD_CAP: f64 = 0.58;
 // ...but the load floor (0.68) keeps a capped engine at 82 percent of full
 // level -- the "undertone at the last rpm" the owner heard through every
 // shift. The disengage duck drops the whole bed below that floor through
 // the torque interrupt, then rides the same recovery curve back up: the
 // engine genuinely falls away and returns, like a clutch actually opening.
-// How far it falls is bounded by the game's own model: a torque interrupt
-// is an UNLOADED engine, so the gap sits a little under the off-throttle
-// bed (cap x duck = 0.54 of full, 2 dB under coasting), never a cliff
-// below it. The 0.35 it shipped with put the gap 7.5 dB under coasting and
-// 11 dB under full load -- more than the whole full-to-idle span -- and a
-// one-second downshift at that level was "the engine cuts out when it
-// shifts" (testers, 2026-09-03).
-pub const SHIFT_DISENGAGE_DUCK: f64 = 0.65;
-// On an automatic shift, let the RPM drop carry the interruption and give
-// the engagement clunk more presence than the initial release.
-pub const AUTO_SHIFT_START_CLUNK_VOLUME: f64 = 0.22;
-pub const SHIFT_END_CLUNK_VOLUME: f64 = 0.4;
+// Keep the duck gentle enough that an upshift sighs into the next gear
+// without sounding like a power cut or hesitation.
+pub const SHIFT_DISENGAGE_DUCK: f64 = 0.78;
+// On an automatic shift, let the RPM drop carry the interruption and keep
+// the mechanical linkage clicks subtle so quick upshifts do not double-clunk.
+pub const AUTO_SHIFT_START_CLUNK_VOLUME: f64 = 0.12;
+pub const SHIFT_END_CLUNK_VOLUME: f64 = 0.22;
 // When the shift completes the cap eases from SHIFT_LOAD_CAP back to full over
 // this window. The curve (a key into audio_fades.CURVES) shapes the return: an
-// ease-out leaves the shift level quickly -- so the engine doesn't sit soft --
-// while still arriving at full load gently instead of snapping. A plain "linear"
-// ramp had to be stretched long to hide the snap, which sounded too soft.
-pub const SHIFT_LOAD_RECOVERY_S: f64 = 0.032;
+// ease-out leaves the shift level smoothly without snapping or hesitating.
+pub const SHIFT_LOAD_RECOVERY_S: f64 = 0.12;
 pub const SHIFT_LOAD_RECOVERY_CURVE: &str = "ease_out";
 
 /// `_shift_recovery_curve`: resolved once, as the Python module resolved it
