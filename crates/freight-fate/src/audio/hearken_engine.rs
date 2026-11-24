@@ -14,7 +14,7 @@ use super::hearken_clips::{cab_loop_wav, cab_start_frames, CAB_SAMPLE_RATE};
 use super::{
     engine_band_weights, engine_load_gain, ENGINE_CLASSIC_LOOP_KEY, ENGINE_LOOP_GAIN,
     ENGINE_RESUME_FADE_S, ENGINE_RPM_IDLE, SFX_EXTENSIONS, STEREO_ENGINE_BANDS,
-    STEREO_ENGINE_START_KEY,
+    STEREO_ENGINE_SHUTDOWN_KEY, STEREO_ENGINE_START_KEY,
 };
 
 const STEREO_RATE_MIN: f64 = 0.82;
@@ -24,6 +24,7 @@ const STEREO_RATE_SNAP_MS: u32 = 20;
 const STEREO_RATE_SNAP_RPM: f64 = 150.0;
 const STEREO_GAIN_SLIDE_MS: u32 = 35;
 const IGNITION_HANDOFF_GAIN_MS: u32 = 10;
+const SHUTDOWN_HANDOFF_MS: u32 = 80;
 
 enum EngineLoopEntry {
     AfterIgnition,
@@ -248,6 +249,7 @@ impl HearkenBackend {
         if !self.engine_running {
             return;
         }
+        let stereo_shutdown = shutdown_sound && self.engine_stereo_ring;
         self.engine_running = false;
         self.fades.clear();
         self.engine_intro_gain.set(1.0);
@@ -256,7 +258,9 @@ impl HearkenBackend {
         if let Some(sound) = intro {
             self.audio.stop(sound, 0);
         }
-        let fade_ms = if shutdown_sound || intro.is_some() {
+        let fade_ms = if stereo_shutdown {
+            SHUTDOWN_HANDOFF_MS
+        } else if shutdown_sound || intro.is_some() {
             0
         } else {
             250
@@ -268,8 +272,25 @@ impl HearkenBackend {
             self.audio.stop(sound, fade_ms);
         }
         if shutdown_sound {
-            self.play("engine/shutdown", 1.0, 0.0);
+            if stereo_shutdown {
+                let bus = bus_of(Category::Engine);
+                let start = Start::ONCE.volume(0.0).pan(self.engine_pan as f32);
+                if let Some(sound) = self.start_sfx(STEREO_ENGINE_SHUTDOWN_KEY, bus, start) {
+                    self.audio.set_volume_over(
+                        sound,
+                        level(&self.buses, Category::Engine, 1.0),
+                        SHUTDOWN_HANDOFF_MS,
+                    );
+                } else {
+                    log::error!(
+                        "licensed stereo engine shutdown is unavailable; stopping silently"
+                    );
+                }
+            } else {
+                self.play("engine/shutdown", 1.0, 0.0);
+            }
         }
+        self.engine_stereo_ring = false;
     }
 
     /// Update only pan; retain it across stops and voice changes.
@@ -381,7 +402,7 @@ impl HearkenBackend {
 mod tests {
     use ff_core::assets_pack::{register_generated_sound, unregister_generated_sound};
     use ff_core::wav::pcm16_wav;
-    use hearken::audio::RecordingBackend;
+    use hearken::audio::{Call, RecordingBackend};
 
     use super::*;
 
@@ -414,5 +435,27 @@ mod tests {
             .map(|(index, _)| index)
             .collect();
         assert_eq!(active, vec![3]);
+    }
+
+    #[test]
+    fn stereo_engine_uses_its_matching_shutdown() {
+        let source = pcm16_wav(&[512, -256, -512, 256].repeat(100), 2, 48_000);
+        for (key, _) in STEREO_ENGINE_BANDS {
+            register_generated_sound(key, source.clone(), "wav");
+        }
+        register_generated_sound(STEREO_ENGINE_SHUTDOWN_KEY, source, "wav");
+        let (backend, recording) = RecordingBackend::new();
+        let mut engine = HearkenBackend::with_backend(Box::new(backend));
+
+        engine.engine_start(false);
+        engine.engine_stop(true);
+
+        for (key, _) in STEREO_ENGINE_BANDS {
+            unregister_generated_sound(key);
+        }
+        unregister_generated_sound(STEREO_ENGINE_SHUTDOWN_KEY);
+        assert!(recording.calls().iter().any(
+            |call| matches!(call, Call::Play { key, .. } if key == STEREO_ENGINE_SHUTDOWN_KEY)
+        ));
     }
 }

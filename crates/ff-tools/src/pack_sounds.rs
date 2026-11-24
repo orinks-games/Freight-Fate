@@ -29,6 +29,7 @@ const LEGACY_ENGINE_STEMS: &[&str] = &[
 /// in every licensed release `sounds.pak`.
 pub const REQUIRED_LICENSED_ENGINE_ENTRIES: &[&str] = &[
     "engine_stereo/start.wav",
+    "engine_stereo/shutdown.wav",
     "engine_stereo/idle.wav",
     "engine_stereo/low.wav",
     "engine_stereo/mid.wav",

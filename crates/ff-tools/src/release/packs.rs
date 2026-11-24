@@ -153,10 +153,11 @@ fn pack_names(_path: &Path) -> Result<Vec<String>> {
     Err("this build of ff-tools has no `world` feature, so it cannot read sound packs".into())
 }
 
-/// The five calibrated stereo cab engine loops required in every licensed
-/// release `sounds.pak` (PR #781). Missing any one makes the runtime fall back
-/// silently to the legacy 1.9 mono ring.
+/// The calibrated stereo cab engine startup, shutdown, and running loops
+/// required in every licensed release `sounds.pak`.
 pub const REQUIRED_LICENSED_ENGINE_ENTRIES: &[&str] = &[
+    "engine_stereo/start.wav",
+    "engine_stereo/shutdown.wav",
     "engine_stereo/idle.wav",
     "engine_stereo/low.wav",
     "engine_stereo/mid.wav",

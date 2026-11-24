@@ -27,9 +27,9 @@ const CAB_FRAME_BYTES: usize = 4;
 // against applying an old recording's edit points to a replacement.
 const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 5] = [
     ("engine_stereo/idle", 141_773, 28_359, 108_091),
-    ("engine_stereo/low", 115_761, 804, 84_393),
-    ("engine_stereo/mid", 121_569, 3_925, 118_938),
-    ("engine_stereo/midhigh", 175_932, 1_923, 141_387),
+    ("engine_stereo/low", 23_516, 0, 23_516),
+    ("engine_stereo/mid", 95_062, 0, 95_062),
+    ("engine_stereo/midhigh", 68_512, 0, 68_512),
     ("engine_stereo/high", 136_293, 1_466, 128_564),
 ];
 

@@ -147,7 +147,7 @@ pub const HORN_LOOP: SustainLoopSpec =
 pub const STEREO_ENGINE_BANDS: [(&str, f64); 5] = [
     ("engine_stereo/idle", 650.0),
     ("engine_stereo/low", 898.0),
-    ("engine_stereo/mid", 1279.0),
+    ("engine_stereo/mid", 1274.0),
     ("engine_stereo/midhigh", 1473.0),
     ("engine_stereo/high", 1988.0),
 ];
@@ -169,6 +169,7 @@ pub const ENGINE_LOOP_GAIN: f64 = 1.0;
 
 // The ignition cue finishes before the running engine starts.
 const STEREO_ENGINE_START_KEY: &str = "engine_stereo/start";
+const STEREO_ENGINE_SHUTDOWN_KEY: &str = "engine_stereo/shutdown";
 // Soft return when the engine was already running, such as after a menu.
 pub const ENGINE_RESUME_FADE_S: f64 = 0.25;
 
