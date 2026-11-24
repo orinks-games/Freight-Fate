@@ -111,6 +111,7 @@
 
 ### Fixed
 
+- **Automatic upshifts under power now clunk once, as the next gear takes hold.**
 - **Removed repeating beeps from highway ambience, smoothed automatic shifts, and quieted bridges.** Crossing a ramp light on yellow no longer chimes green.
 - **The main engine no longer has metallic pitch stretching or phasing between recordings.**
 - **The Golden Gate Bridge is now named on northbound trips.**
