@@ -5,12 +5,12 @@ use std::rc::Rc;
 
 use ff_core::audio_fades::Fade;
 use ff_core::engine_audio::{IgnitionEvent, IgnitionPlayback};
-use hearken::audio::{Bus, LoopRegion, Sound, Start};
+use hearken::audio::{Bus, ClipSource, LoopRegion, Sound, Start};
 
 use super::assets::{asset_bytes, stereo_engine_available};
 use super::backend::Category;
 use super::hearken_backend::{bus_of, level, EngineBand, HearkenBackend};
-use super::hearken_clips::{cab_start_frames, CAB_SAMPLE_RATE};
+use super::hearken_clips::{cab_start_frames, FfClips, CAB_SAMPLE_RATE};
 use super::{
     engine_band_weights, engine_load_gain, ENGINE_CLASSIC_LOOP_KEY, ENGINE_LOOP_GAIN,
     ENGINE_RESUME_FADE_S, ENGINE_RPM_IDLE, SFX_EXTENSIONS, STEREO_ENGINE_BANDS,
@@ -34,6 +34,26 @@ impl HearkenBackend {
     /// One engine loop, silent, at the engine's pan.
     fn start_engine_loop(&mut self, key: &str) -> Option<hearken::audio::Sound> {
         let start = Start::LOOP.volume(0.0).pan(self.engine_pan as f32);
+        if STEREO_ENGINE_BANDS
+            .iter()
+            .any(|(candidate, _)| *candidate == key)
+        {
+            if let Some(recorder) = self.requested_keys.as_mut() {
+                recorder.push(key.to_string());
+            }
+            if self.key_filter.as_ref().is_some_and(|filter| !filter(key)) {
+                return None;
+            }
+            let data = FfClips.load(key)?;
+            let sound = self
+                .audio
+                .play_clip(key, data, bus_of(Category::Engine), start);
+            if sound == Sound::NONE {
+                log::warn!("Could not play {key}");
+                return None;
+            }
+            return Some(sound);
+        }
         self.start_sfx(key, bus_of(Category::Engine), start)
     }
 
