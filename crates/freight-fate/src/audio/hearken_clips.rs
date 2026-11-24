@@ -25,11 +25,14 @@ const CAB_FRAME_BYTES: usize = 4;
 // cab recordings. Cropping there avoids the comb filtering that a long
 // head/tail crossfade added to the steady engine note. The frame count guards
 // against applying an old recording's edit points to a replacement.
-const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 5] = [
+const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 8] = [
     ("engine_stereo/idle", 141_773, 28_359, 108_091),
     ("engine_stereo/low", 23_516, 0, 23_516),
+    ("engine_stereo/low", 115_761, 804, 84_393),
     ("engine_stereo/mid", 95_062, 0, 95_062),
+    ("engine_stereo/mid", 121_569, 3_925, 118_938),
     ("engine_stereo/midhigh", 68_512, 0, 68_512),
+    ("engine_stereo/midhigh", 175_932, 1_923, 141_387),
     ("engine_stereo/high", 136_293, 1_466, 128_564),
 ];
 
@@ -129,17 +132,15 @@ pub(super) fn cab_loop_wav(key: &str, bytes: &[u8]) -> Option<Arc<[u8]>> {
 fn cab_loop_samples(key: &str, bytes: &[u8]) -> Option<Vec<u8>> {
     let samples = cab_wav_samples(bytes)?;
     let frames = samples.len() / CAB_FRAME_BYTES;
-    if let Some(&(_, expected, start, end)) = CAB_LOOP_RANGES
+    if let Some(&(_, _, start, end)) = CAB_LOOP_RANGES
         .iter()
-        .find(|(candidate, _, _, _)| *candidate == key)
+        .find(|(candidate, expected, _, _)| *candidate == key && *expected == frames)
     {
-        if frames == expected {
-            return Some(
-                samples
-                    .get(start * CAB_FRAME_BYTES..end * CAB_FRAME_BYTES)?
-                    .to_vec(),
-            );
-        }
+        return Some(
+            samples
+                .get(start * CAB_FRAME_BYTES..end * CAB_FRAME_BYTES)?
+                .to_vec(),
+        );
     }
     let fade_bytes = CAB_LOOP_CROSSFADE_FRAMES * CAB_FRAME_BYTES;
     let middle = samples.get(fade_bytes..samples.len().checked_sub(fade_bytes)?)?;
@@ -251,6 +252,24 @@ mod tests {
             .collect();
         let wav = ff_core::wav::pcm16_wav(&pcm, 2, CAB_SAMPLE_RATE);
         let looped = cab_loop_samples("engine_stereo/idle", &wav).unwrap();
+        assert_eq!(looped.len(), (end - start) * CAB_FRAME_BYTES);
+        assert_eq!(
+            &looped[..CAB_FRAME_BYTES],
+            &cab_wav_samples(&wav).unwrap()[start * CAB_FRAME_BYTES..(start + 1) * CAB_FRAME_BYTES]
+        );
+    }
+
+    #[test]
+    fn retained_cab_loop_uses_its_original_phase_matched_boundaries() {
+        let (_, frames, start, end) = CAB_LOOP_RANGES[2];
+        let pcm: Vec<i16> = (0..frames)
+            .flat_map(|frame| {
+                let sample = (frame % i16::MAX as usize) as i16;
+                [sample, -sample]
+            })
+            .collect();
+        let wav = ff_core::wav::pcm16_wav(&pcm, 2, CAB_SAMPLE_RATE);
+        let looped = cab_loop_samples("engine_stereo/low", &wav).unwrap();
         assert_eq!(looped.len(), (end - start) * CAB_FRAME_BYTES);
         assert_eq!(
             &looped[..CAB_FRAME_BYTES],
