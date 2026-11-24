@@ -12,9 +12,10 @@ use super::backend::Category;
 use super::hearken_backend::{bus_of, level, EngineBand, HearkenBackend};
 use super::hearken_clips::{cab_loop_wav, cab_start_frames, CAB_SAMPLE_RATE};
 use super::{
-    engine_band_weights, engine_load_gain, ENGINE_CLASSIC_LOOP_KEY, ENGINE_LOOP_GAIN,
-    ENGINE_RESUME_FADE_S, ENGINE_RPM_IDLE, SFX_EXTENSIONS, STEREO_ENGINE_BANDS,
-    STEREO_ENGINE_SHUTDOWN_KEY, STEREO_ENGINE_START_KEY,
+    engine_band_weights, engine_load_gain, is_stereo_cab_loop, ENGINE_CLASSIC_LOOP_KEY,
+    ENGINE_LOOP_GAIN, ENGINE_RESUME_FADE_S, ENGINE_RPM_IDLE, SFX_EXTENSIONS, STEREO_ENGINE_BANDS,
+    STEREO_ENGINE_SHUTDOWN_KEY, STEREO_ENGINE_START_KEY, STEREO_HIGH_COAST, STEREO_HIGH_INDEX,
+    STEREO_HIGH_PULL,
 };
 
 const STEREO_RATE_MIN: f64 = 0.82;
@@ -31,14 +32,25 @@ enum EngineLoopEntry {
     Resume,
 }
 
+fn stereo_bands() -> Vec<(&'static str, f64)> {
+    let valid_loop = |key| {
+        asset_bytes(key, &["wav"]).is_some_and(|(bytes, _)| cab_loop_wav(key, &bytes).is_some())
+    };
+    let mut bands = STEREO_ENGINE_BANDS.to_vec();
+    if valid_loop(STEREO_HIGH_PULL.0) {
+        bands[STEREO_HIGH_INDEX] = STEREO_HIGH_PULL;
+        if valid_loop(STEREO_HIGH_COAST.0) {
+            bands.push(STEREO_HIGH_COAST);
+        }
+    }
+    bands
+}
+
 impl HearkenBackend {
     /// One engine loop, silent, at the engine's pan.
     fn start_engine_loop(&mut self, key: &str) -> Option<hearken::audio::Sound> {
         let start = Start::LOOP.volume(0.0).pan(self.engine_pan as f32);
-        if STEREO_ENGINE_BANDS
-            .iter()
-            .any(|(candidate, _)| *candidate == key)
-        {
+        if is_stereo_cab_loop(key) {
             let data = self.sfx_bytes(key)?;
             let data = cab_loop_wav(key, &data).unwrap_or(data);
             let sound = self
@@ -56,7 +68,13 @@ impl HearkenBackend {
     fn start_engine_bands(&mut self, bands: &[(&str, f64)]) {
         for &(key, native) in bands {
             let Some(sound) = self.start_engine_loop(key) else {
-                continue;
+                if key == STEREO_HIGH_COAST.0 {
+                    break;
+                }
+                for band in self.engine_bands.drain(..) {
+                    self.audio.stop(band.sound, 0);
+                }
+                break;
             };
             self.engine_bands.push(EngineBand {
                 native,
@@ -123,13 +141,17 @@ impl HearkenBackend {
             .volume(0.0)
             .pan(self.engine_pan as f32)
             .region(LoopRegion::from(loop_start));
-        let keys = STEREO_ENGINE_BANDS.map(|(key, _)| format!("{key}@{frames}"));
+        let bands = stereo_bands();
+        let keys: Vec<_> = bands
+            .iter()
+            .map(|(key, _)| format!("{key}@{frames}"))
+            .collect();
         let mut starts = vec![(STEREO_ENGINE_START_KEY, bus, start)];
         starts.extend(keys.iter().map(|key| (key.as_str(), bus, loop_config)));
         // These WAVs carry exactly the starter's length in silence. Start
         // them on the same sample so the handoff happens in the mixer.
         let sounds = self.audio.start_together(&starts);
-        if sounds.contains(&Sound::NONE) {
+        if sounds[..=STEREO_ENGINE_BANDS.len()].contains(&Sound::NONE) {
             for sound in sounds {
                 self.audio.stop(sound, 0);
             }
@@ -137,23 +159,23 @@ impl HearkenBackend {
         }
         if let Some(requested) = self.requested_keys.as_mut() {
             requested.push(STEREO_ENGINE_START_KEY.into());
-            requested.extend(STEREO_ENGINE_BANDS.map(|(key, _)| key.to_string()));
+            requested.extend(bands.iter().map(|(key, _)| key.to_string()));
         }
         self.engine_ignition = self
             .engine_ignition
             .next(IgnitionEvent::PlayCabStarter(sounds[0]));
-        self.engine_bands
-            .extend(
-                STEREO_ENGINE_BANDS
-                    .iter()
-                    .zip(&sounds[1..])
-                    .map(|(&(_, native), &sound)| EngineBand {
-                        native,
-                        sound,
-                        last_rate: 1.0,
-                        last_volume: 0.0,
-                    }),
-            );
+        self.engine_bands.extend(
+            bands
+                .iter()
+                .zip(&sounds[1..])
+                .filter(|(_, sound)| **sound != Sound::NONE)
+                .map(|(&(_, native), &sound)| EngineBand {
+                    native,
+                    sound,
+                    last_rate: 1.0,
+                    last_volume: 0.0,
+                }),
+        );
         self.engine_stereo_ring = true;
         self.engine_intro_gain.set(1.0);
         self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
@@ -186,12 +208,9 @@ impl HearkenBackend {
                 log::warn!("Classic engine cut {ENGINE_CLASSIC_LOOP_KEY} is not in this build");
             }
         } else if stereo_engine_available() {
-            self.start_engine_bands(&STEREO_ENGINE_BANDS);
-            self.engine_stereo_ring = self.engine_bands.len() == STEREO_ENGINE_BANDS.len();
+            self.start_engine_bands(&stereo_bands());
+            self.engine_stereo_ring = !self.engine_bands.is_empty();
             if !self.engine_stereo_ring {
-                for band in self.engine_bands.drain(..) {
-                    self.audio.stop(band.sound, 0);
-                }
                 log::error!("Licensed stereo engine ring could not be started");
             }
         } else {
@@ -341,7 +360,22 @@ impl HearkenBackend {
             } else {
                 0
             });
-            let natives: Vec<f64> = self.engine_bands.iter().map(|band| band.native).collect();
+            let coast_index = STEREO_ENGINE_BANDS.len();
+            if self
+                .engine_bands
+                .get(coast_index)
+                .is_some_and(|band| !self.audio.is_playing(band.sound))
+            {
+                self.engine_bands.pop();
+            }
+            let has_coast = self.engine_bands.len() > coast_index;
+            let pull = throttle.clamp(0.0, 1.0);
+            let natives: Vec<f64> = self
+                .engine_bands
+                .iter()
+                .take(coast_index)
+                .map(|band| band.native)
+                .collect();
             let weights = engine_band_weights(rpm, &natives);
             let rate_ms = if rpm_delta > STEREO_RATE_SNAP_RPM {
                 STEREO_RATE_SNAP_MS
@@ -354,7 +388,13 @@ impl HearkenBackend {
                     failed = true;
                     break;
                 }
-                let w = weights[i];
+                let w = if i == coast_index {
+                    weights[STEREO_HIGH_INDEX] * (1.0 - pull).sqrt()
+                } else if has_coast && i == STEREO_HIGH_INDEX {
+                    weights[i] * pull.sqrt()
+                } else {
+                    weights[i]
+                };
                 let volume = level * w;
                 let rate = if i == 0 && rpm <= band.native {
                     1.0
@@ -400,14 +440,19 @@ impl HearkenBackend {
 
 #[cfg(test)]
 mod tests {
+    use std::sync::Mutex;
+
     use ff_core::assets_pack::{register_generated_sound, unregister_generated_sound};
     use ff_core::wav::pcm16_wav;
     use hearken::audio::{Call, RecordingBackend};
 
     use super::*;
 
+    static ENGINE_FIXTURES: Mutex<()> = Mutex::new(());
+
     #[test]
     fn stereo_engine_tracks_rpm_inside_a_narrow_band_blend() {
+        let _fixtures = ENGINE_FIXTURES.lock().unwrap();
         let source = pcm16_wav(&[512, -256, -512, 256].repeat(100), 2, 48_000);
         for (key, _) in STEREO_ENGINE_BANDS {
             register_generated_sound(key, source.clone(), "wav");
@@ -439,6 +484,7 @@ mod tests {
 
     #[test]
     fn stereo_engine_uses_its_matching_shutdown() {
+        let _fixtures = ENGINE_FIXTURES.lock().unwrap();
         let source = pcm16_wav(&[512, -256, -512, 256].repeat(100), 2, 48_000);
         for (key, _) in STEREO_ENGINE_BANDS {
             register_generated_sound(key, source.clone(), "wav");
@@ -457,5 +503,56 @@ mod tests {
         assert!(recording.calls().iter().any(
             |call| matches!(call, Call::Play { key, .. } if key == STEREO_ENGINE_SHUTDOWN_KEY)
         ));
+    }
+
+    #[test]
+    fn high_cab_band_blends_by_load_and_survives_a_missing_coast() {
+        let _fixtures = ENGINE_FIXTURES.lock().unwrap();
+        let source = pcm16_wav(&[512, -256, -512, 256].repeat(6_000), 2, 48_000);
+        for (key, _) in STEREO_ENGINE_BANDS
+            .into_iter()
+            .chain([STEREO_HIGH_PULL, STEREO_HIGH_COAST])
+        {
+            register_generated_sound(key, source.clone(), "wav");
+        }
+        register_generated_sound(STEREO_ENGINE_START_KEY, source, "wav");
+        let (backend, recording) = RecordingBackend::new();
+        let mut engine = HearkenBackend::with_backend(Box::new(backend));
+        engine.engine_start(true);
+        assert!(engine.engine_ignition.starter().is_some());
+        assert_eq!(engine.engine_bands.len(), STEREO_ENGINE_BANDS.len() + 1);
+        assert!(recording.calls().iter().any(|call| matches!(
+            call, Call::Play { key, .. } if key.starts_with("engine_stereo/high_coast@")
+        )));
+        engine.engine_stop(false);
+        engine.engine_start(false);
+        engine.engine_intro_gain.set(1.0);
+
+        for load in [0.0, 0.5, 1.0] {
+            engine.set_engine_rpm(2_200.0, load);
+            let pull = &engine.engine_bands[STEREO_HIGH_INDEX];
+            let coast = &engine.engine_bands[STEREO_ENGINE_BANDS.len()];
+            assert!((pull.last_rate - 2_200.0 / STEREO_HIGH_PULL.1).abs() < 1e-9);
+            assert!((coast.last_rate - 2_200.0 / STEREO_HIGH_COAST.1).abs() < 1e-9);
+            let level = pull.last_volume.hypot(coast.last_volume);
+            assert!(level > 0.0);
+            assert!((pull.last_volume / level - load.sqrt()).abs() < 1e-9);
+            assert!((coast.last_volume / level - (1.0 - load).sqrt()).abs() < 1e-9);
+        }
+
+        engine.engine_stop(false);
+        unregister_generated_sound(STEREO_HIGH_COAST.0);
+        engine.engine_start(false);
+        engine.engine_intro_gain.set(1.0);
+        engine.set_engine_rpm(2_200.0, 0.0);
+        assert_eq!(engine.engine_bands.len(), STEREO_ENGINE_BANDS.len());
+        let pull = &engine.engine_bands[STEREO_HIGH_INDEX];
+        assert_eq!(pull.native, STEREO_HIGH_PULL.1);
+        assert!(pull.last_volume > 0.0);
+
+        for (key, _) in STEREO_ENGINE_BANDS.into_iter().chain([STEREO_HIGH_PULL]) {
+            unregister_generated_sound(key);
+        }
+        unregister_generated_sound(STEREO_ENGINE_START_KEY);
     }
 }

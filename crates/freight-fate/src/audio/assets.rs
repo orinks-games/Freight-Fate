@@ -17,7 +17,7 @@ use ff_core::assets_pack::{self, generated_sound, generated_sound_version, Combi
 use ff_core::data::data_resources::data_root;
 use once_cell::sync::Lazy;
 
-use super::{AudioError, STEREO_ENGINE_BANDS};
+use super::{is_stereo_cab_loop, AudioError, STEREO_ENGINE_BANDS};
 
 /// The bytes behind a sound key and the extension they were found under.
 pub type AssetBytes = (Arc<[u8]>, String);
@@ -190,7 +190,7 @@ static LENGTHS: Lazy<Mutex<VersionedCache<f64>>> = Lazy::new(|| Mutex::new(Versi
 /// The licensed stereo engine cuts are WAV recordings and never fall through
 /// to an older format with the same key.
 pub fn playback_bytes(key: &str, extensions: &[&str]) -> Option<AssetBytes> {
-    if STEREO_ENGINE_BANDS.iter().any(|(band, _)| *band == key) {
+    if is_stereo_cab_loop(key) {
         return asset_bytes(key, &["wav"]);
     }
     asset_bytes(key, extensions)
