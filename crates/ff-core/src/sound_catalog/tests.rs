@@ -216,7 +216,7 @@ fn test_a_folder_glob_excludes_the_whole_folder() {
     assert!(is_excluded("weather/rain_loop"));
     assert!(is_excluded("music/open_road"));
     assert!(!is_excluded("engine/jake_1600"));
-    assert!(is_excluded("engine/idle"));
+    assert!(!is_excluded("engine/idle"));
 }
 
 // Entries whose cue a setting can silence, delay or change the meaning of.

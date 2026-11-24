@@ -15,7 +15,6 @@ use std::time::Duration;
 
 use ff_core::lane_guide_tone::{register_lane_guide_tone, LANE_GUIDE_TONE_KEY};
 use ff_core::music::ALL_MUSIC_TRACKS;
-use ff_core::pyrandom::PyRandom;
 use freight_fate::audio::*;
 
 use hearken::audio::Call;
@@ -83,56 +82,35 @@ fn test_fallback_to_the_null_backend_keeps_every_call_safe() {
 }
 
 #[test]
-fn test_engine_freq_mult_mapping() {
-    assert_eq!(engine_freq_mult(ENGINE_RPM_IDLE), 1.0);
-    assert!((engine_freq_mult(ENGINE_RPM_MAX) - ENGINE_FREQ_MAX_MULT).abs() < 1e-9);
-    assert_eq!(engine_freq_mult(0.0), 1.0); // clamped below idle
-    assert_eq!(engine_freq_mult(99_999.0), ENGINE_FREQ_MAX_MULT); // clamped above redline
-    let mid = engine_freq_mult((ENGINE_RPM_IDLE + ENGINE_RPM_MAX) / 2.0);
-    assert!((mid - (1.0 + ENGINE_FREQ_MAX_MULT) / 2.0).abs() < 1e-9);
-}
-
-#[test]
-fn test_engine_band_weights_edges_blend_and_pure_zones() {
-    let natives: Vec<f64> = ENGINE_BANDS.iter().map(|(_k, rpm)| *rpm).collect();
+fn test_engine_band_weights_keep_native_points_pure_and_blend_midpoints() {
+    let natives: Vec<f64> = STEREO_ENGINE_BANDS.iter().map(|(_key, rpm)| *rpm).collect();
     let n = natives.len();
     let solo = |index: usize| {
         let mut expected = vec![0.0; n];
         expected[index] = 1.0;
         expected
     };
-    // Outside the ring the nearest band carries alone.
     assert_eq!(engine_band_weights(0.0, &natives), solo(0));
     assert_eq!(engine_band_weights(natives[0], &natives), solo(0));
     assert_eq!(engine_band_weights(natives[n - 1], &natives), solo(n - 1));
     assert_eq!(engine_band_weights(9999.0, &natives), solo(n - 1));
-    // At the geometric midpoint of a gap exactly two bands blend equal-power.
-    let mid = (natives[1] * natives[2]).sqrt();
-    let w = engine_band_weights(mid, &natives);
-    assert!(w[1] > 0.0 && w[2] > 0.0);
-    assert_eq!(w.iter().filter(|x| **x > 0.0).count(), 2);
-    assert!((w.iter().map(|x| x * x).sum::<f64>() - 1.0).abs() < 1e-6);
-    // Just off a native rpm the band is PURE -- the crossfade windows are
-    // narrow, so a cut near its recorded speed never shares the mix (this
-    // is what kills both the formant smear and the two-pitch beat).
-    for (i, native) in natives[..n - 1].iter().enumerate() {
-        assert_eq!(engine_band_weights(native + 10.0, &natives), solo(i));
-        if i > 0 {
-            assert_eq!(engine_band_weights(native - 10.0, &natives), solo(i));
-        }
+    for (index, native) in natives.iter().enumerate() {
+        assert_eq!(engine_band_weights(*native, &natives), solo(index));
     }
-    // A sweep never needs more than a bounded stretch from any sounding
-    // band: wherever a band has weight, rpm/native stays inside the
-    // safety clamps.
-    let mut rpm = 300.0;
-    while rpm < 2400.0 {
-        for (weight, native) in engine_band_weights(rpm, &natives).iter().zip(&natives) {
-            if *weight > 1e-6 && natives[0] <= rpm && rpm <= natives[n - 1] {
-                let ratio = rpm / native;
-                assert!((ENGINE_BAND_RATE_MIN..=ENGINE_BAND_RATE_MAX).contains(&ratio));
-            }
-        }
-        rpm += 7.0;
+    for i in 0..n - 1 {
+        let midpoint = (natives[i] * natives[i + 1]).sqrt();
+        let weights = engine_band_weights(midpoint, &natives);
+        assert!((weights[i] - std::f64::consts::FRAC_1_SQRT_2).abs() < 1e-9);
+        assert!((weights[i + 1] - std::f64::consts::FRAC_1_SQRT_2).abs() < 1e-9);
+        assert_eq!(
+            weights
+                .iter()
+                .enumerate()
+                .filter(|(_, weight)| **weight > 0.0)
+                .map(|(index, _)| index)
+                .collect::<Vec<_>>(),
+            vec![i, i + 1]
+        );
     }
 }
 
@@ -205,15 +183,16 @@ fn test_main_menu_ambience_ships_in_the_pack() {
 }
 
 #[test]
-fn test_engine_recordings_resolve_for_the_ring_and_one_shots() {
-    // Looping beds may resolve to WAV (lossy edges break loop seams --
-    // tools/fix_loop_seams.py); the licensed overlay's file wins where
-    // present. One-shots stay ogg.
+fn test_engine_recordings_resolve_for_the_stereo_ring_and_one_shots() {
     if !shipped_sounds() {
         return;
     }
-    let idle = asset_bytes("engine/idle", SFX_EXTENSIONS).unwrap().1;
-    assert!(idle == "ogg" || idle == "wav");
+    assert!(asset_bytes("engine/idle", SFX_EXTENSIONS).is_none());
+    for (key, _) in STEREO_ENGINE_BANDS {
+        if let Some((_, ext)) = asset_bytes(key, SFX_EXTENSIONS) {
+            assert_eq!(ext, "wav", "{key}");
+        }
+    }
     assert_eq!(
         asset_bytes("engine/start", SFX_EXTENSIONS).unwrap().1,
         "ogg"
@@ -414,42 +393,6 @@ fn test_hearken_radio_names_freight_fate_to_the_station() {
 }
 
 #[test]
-fn test_hearken_engine_wobble_meanders_and_shapes_the_ring_at_its_rate() {
-    // Anti-repetition: each band's rate and gain take a slow bounded
-    // random walk so a seam-clean loop's period is never exactly fixed --
-    // the ear cannot lock onto the recurrence. Rate stays within ~5 cents.
-    let Some(mut r) = recordings_rig() else {
-        return;
-    };
-    r.engine
-        .set_volumes(&VolumeUpdate::default().master(1.0).engine(1.0));
-    r.hearken_mut().set_wobble_rng(PyRandom::new_from_i64(7));
-    r.engine.engine_start_with(false);
-    if r.hearken().engine_bands().len() < 2 {
-        eprintln!("the multisample ring is not installed; skipping");
-        return;
-    }
-    for _ in 0..120 {
-        // ~2 s of frames
-        r.engine.update(1.0 / 60.0);
-    }
-    // Past the resume fade: intro gain is 1, so the level is the load alone.
-    let h = r.hearken();
-    assert_eq!(h.engine_intro_gain(), 1.0);
-    let [rate_walk, gain_walk] = h.engine_wobble()[1]; // the 950 band's walks
-    assert!(rate_walk != 0.0 && rate_walk.abs() <= ENGINE_WOBBLE_RATE_MAX);
-    assert!(gain_walk != 0.0 && gain_walk.abs() <= ENGINE_WOBBLE_GAIN_MAX);
-
-    r.engine.set_engine_rpm_with(950.0, 0.0);
-    let band = r.hearken().engine_bands()[1]; // the 950 cut, pure at its native rpm
-    assert_eq!(band.native, 950.0);
-    // At its own rpm a band plays at its recorded rate, times the walk.
-    assert!((band.last_rate - (1.0 + rate_walk)).abs() < 1e-6);
-    let base_level = engine_load_gain(0.0);
-    assert!((band.last_volume - base_level * (1.0 + gain_walk)).abs() < 1e-9);
-}
-
-#[test]
 fn test_hearken_radio_stream_recreates_a_stalled_stream() {
     // Re-tuning the SAME url must rebuild a dead connection (the dock bed
     // or a network stall killed it); only a live stream is allowed to
@@ -487,25 +430,22 @@ fn test_hearken_radio_stream_recreates_a_stalled_stream() {
 
 #[test]
 fn test_hearken_engine_model_matches_available_cuts_on_the_facade() {
-    // With the multisample cuts installed the engine comes up as the
-    // crossfade ring; a clean clone (synthesized engine/idle only) falls
-    // back to the single pitched loop. Either way rpm tracking must be
-    // safe.
+    // The default engine uses only the complete licensed stereo ring.
     let Some(mut r) = recordings_rig() else {
         return;
     };
-    let have_all_cuts = ENGINE_BANDS
+    let have_all_cuts = STEREO_ENGINE_BANDS
         .iter()
         .all(|(key, _rpm)| asset_bytes(key, SFX_EXTENSIONS).is_some());
     r.engine.engine_start_with(false);
     assert!(r.engine.engine_running());
     let h = r.hearken();
     if have_all_cuts {
-        assert_eq!(h.engine_bands().len(), ENGINE_BANDS.len());
+        assert_eq!(h.engine_bands().len(), STEREO_ENGINE_BANDS.len());
         assert!(h.engine_sound().is_none());
     } else {
         assert!(h.engine_bands().is_empty());
-        assert!(h.engine_sound().is_some());
+        assert!(h.engine_sound().is_none());
     }
     // rate targets follow RPM; repeated slides must be safe
     for rpm in [600.0, 1100.0, 1800.0, 2200.0, 900.0] {
@@ -523,17 +463,17 @@ fn test_engine_voice_setting_switches_models_live() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
-    let have_all_cuts = ENGINE_BANDS
+    let have_all_cuts = STEREO_ENGINE_BANDS
         .iter()
         .all(|(key, _rpm)| asset_bytes(key, SFX_EXTENSIONS).is_some());
     r.engine.set_engine_voice(true); // classic
     r.engine.engine_start_with(false);
     assert!(r.hearken().engine_bands().is_empty());
-    assert!(r.hearken().engine_sound().is_some()); // the classic pitched loop
+    assert!(r.hearken().engine_sound().is_some());
     if have_all_cuts {
         r.engine.set_engine_voice(false); // back to real, live, mid-run
         assert!(r.engine.engine_running());
-        assert_eq!(r.hearken().engine_bands().len(), ENGINE_BANDS.len());
+        assert_eq!(r.hearken().engine_bands().len(), STEREO_ENGINE_BANDS.len());
         assert!(r.hearken().engine_sound().is_none());
     }
     r.engine.engine_stop();
@@ -548,61 +488,37 @@ fn test_both_1600_jake_cuts_ship() {
         return;
     }
     assert!(asset_bytes(JAKE_RECORDED_KEY, SFX_EXTENSIONS).is_some());
-    assert!(asset_bytes(JAKE_CLASSIC_KEY, SFX_EXTENSIONS).is_some());
+    for removed in [
+        "engine/jake_1600_synth",
+        "engine/jake_1200",
+        "engine/jake_1400",
+        "engine/jake_1800",
+        "engine/jake_2000",
+        "engine/jake_2200",
+    ] {
+        assert!(
+            asset_bytes(removed, SFX_EXTENSIONS).is_none(),
+            "synthesized jake asset {removed} should be removed from shipped sounds"
+        );
+    }
 }
 
 #[test]
-fn test_jake_voice_setting_routes_the_synth_key_and_applies_live() {
+fn test_jake_bands_always_route_to_recorded_jake() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
-    // has_asset resolves the key the player-facing catalog and the real
-    // drive both use -- the routing must be invisible to callers.
     assert!(r.engine.has_asset(JAKE_RECORDED_KEY));
-    r.engine.set_jake_voice(true); // classic, before anything is sounding
-    assert!(r.engine.has_asset(JAKE_RECORDED_KEY));
-
-    r.engine.set_jake_voice(false); // real again
-    r.engine
-        .start_loop_with(CH_JAKE, JAKE_RECORDED_KEY, 0.5, 300);
-    let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
-    assert_eq!(entry.0, JAKE_RECORDED_KEY);
-
-    r.engine.set_jake_voice(true); // classic, live, mid-growl
-    let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
-    assert_eq!(entry.0, JAKE_CLASSIC_KEY);
-    assert_eq!(entry.1, 0.5); // the level carries across the re-voice
-
-    r.engine.set_jake_voice(false); // back to real, live
-    let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
-    assert_eq!(entry.0, JAKE_RECORDED_KEY);
-
-    r.engine.stop_loop(CH_JAKE);
-}
-
-#[test]
-fn test_the_jake_toggle_re_voices_whatever_band_is_sounding() {
-    // A loop on a NON-jake channel is none of this toggle's business;
-    // every jake band is (see the Python docstring's history).
-    let Some(mut r) = recordings_rig() else {
-        return;
-    };
-    r.engine.set_jake_voice(false);
-    // Asking for the 1800 band on "real" sounds the one recording -- that
-    // is the routing. What this pins is that the toggle re-voices it.
-    r.engine
-        .start_loop_with(CH_JAKE, "engine/jake_1800", 0.4, 300);
-    assert_eq!(
-        r.engine.backend().loop_entry(CH_JAKE).unwrap().0,
-        JAKE_RECORDED_KEY
-    );
-    r.engine.set_jake_voice(true);
-    let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
-    assert_eq!(
-        entry.0, JAKE_CLASSIC_KEY,
-        "the 1800 band kept the old voice"
-    );
-    assert_eq!(entry.1, 0.4);
+    for key in [
+        JAKE_RECORDED_KEY,
+        "engine/jake_1800",
+        "engine/jake_1600_synth",
+    ] {
+        r.engine.start_loop_with(CH_JAKE, key, 0.5, 300);
+        let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
+        assert_eq!(entry.0, JAKE_RECORDED_KEY);
+        assert_eq!(entry.1, 0.5);
+    }
     r.engine.stop_loop(CH_JAKE);
 }
 
@@ -629,20 +545,23 @@ fn test_classic_voice_prefers_the_original_recording() {
 }
 
 #[test]
-fn test_hearken_engine_falls_back_to_pitched_loop_without_cuts_on_the_facade() {
-    // A clean clone carries only the synthesized engine/idle: the ring
-    // cannot form, and the legacy single pitched loop must come up
-    // instead.
+fn test_hearken_engine_has_no_legacy_fallback_without_stereo_cuts() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
     r.hearken_mut().set_key_filter(Some(Box::new(|key: &str| {
-        !(is_engine_band_key(key) && key != "engine/idle")
+        !key.starts_with("engine_stereo/")
     })));
+    r.hearken_mut().record_requested_keys(true);
     r.engine.engine_start_with(false);
     assert!(r.engine.engine_running());
     assert!(r.hearken().engine_bands().is_empty());
-    assert!(r.hearken().engine_sound().is_some());
+    assert!(r.hearken().engine_sound().is_none());
+    assert!(r
+        .hearken()
+        .requested_keys()
+        .iter()
+        .all(|key| !key.starts_with("engine/")));
     for rpm in [600.0, 1500.0, 2200.0] {
         r.engine.set_engine_rpm_with(rpm, 0.5);
     }
@@ -659,17 +578,43 @@ fn test_silent_engine_start_skips_the_ignition_crank() {
     assert!(r.engine.engine_running());
     let h = r.hearken();
     assert!(!h.requested_keys().iter().any(|k| k == "engine/start")); // the crank must not replay
-                                                                      // The engine voice still comes up: the ring when the cuts are
-                                                                      // installed, the legacy loop otherwise.
-    assert!(!h.engine_bands().is_empty() || h.engine_sound().is_some());
+    let have_stereo = STEREO_ENGINE_BANDS
+        .iter()
+        .all(|(key, _)| asset_bytes(key, SFX_EXTENSIONS).is_some());
+    assert_eq!(
+        h.engine_bands().len(),
+        usize::from(have_stereo) * STEREO_ENGINE_BANDS.len()
+    );
+    assert!(h.engine_sound().is_none());
     r.engine.engine_stop();
 }
 
 #[test]
-fn test_deliberate_engine_start_plays_only_the_crank() {
+fn test_default_engine_start_does_not_fall_back_to_the_old_crank() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
+    r.hearken_mut().set_key_filter(Some(Box::new(|key: &str| {
+        !key.starts_with("engine_stereo/")
+    })));
+    r.hearken_mut().record_requested_keys(true);
+    r.engine.engine_start();
+    assert!(r.engine.engine_running());
+    assert!(!r.engine.engine_starting());
+    assert!(r
+        .hearken()
+        .requested_keys()
+        .iter()
+        .all(|key| key != "engine/start"));
+    r.engine.engine_stop();
+}
+
+#[test]
+fn test_classic_engine_start_plays_only_the_crank() {
+    let Some(mut r) = recordings_rig() else {
+        return;
+    };
+    r.engine.set_engine_voice(true);
     r.hearken_mut().record_requested_keys(true);
     r.engine.engine_start(); // deliberate ignition
     let h = r.hearken();
@@ -681,10 +626,11 @@ fn test_deliberate_engine_start_plays_only_the_crank() {
 }
 
 #[test]
-fn test_running_engine_starts_only_after_crank_finishes() {
+fn test_classic_running_engine_starts_only_after_crank_finishes() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
+    r.engine.set_engine_voice(true);
     r.engine.engine_start();
     let crank = r.channel("engine/start");
     assert_eq!(r.hearken().engine_intro_gain(), 0.0);
@@ -696,7 +642,8 @@ fn test_running_engine_starts_only_after_crank_finishes() {
     let before = r.rec.calls().len();
     r.engine.update(0.0);
     assert!(!r.engine.engine_starting());
-    assert!(!r.hearken().engine_bands().is_empty() || r.hearken().engine_sound().is_some());
+    assert!(r.hearken().engine_bands().is_empty());
+    assert!(r.hearken().engine_sound().is_some());
     assert!(r.rec.calls()[before..].iter().any(|call| matches!(
         call,
         Call::SetMixRamped { mix, ramps, .. } if mix.gain > 0.0 && ramps.gain_ms == 10
@@ -708,10 +655,11 @@ fn test_running_engine_starts_only_after_crank_finishes() {
 }
 
 #[test]
-fn test_engine_starting_true_during_crank_then_clears() {
+fn test_classic_engine_starting_true_during_crank_then_clears() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
+    r.engine.set_engine_voice(true);
     r.engine.engine_start(); // deliberate ignition
     assert!(r.engine.engine_starting());
     r.rec.finish(r.channel("engine/start"));
@@ -732,10 +680,11 @@ fn test_silent_engine_start_is_never_marked_starting() {
 }
 
 #[test]
-fn test_engine_stop_clears_engine_starting() {
+fn test_classic_engine_stop_clears_engine_starting() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
+    r.engine.set_engine_voice(true);
     r.engine.engine_start();
     assert!(r.engine.engine_starting());
     r.engine.engine_stop(); // stopping mid-crank must leave clean state
@@ -752,6 +701,7 @@ fn test_engine_stop_clears_pending_ignition() {
     let Some(mut r) = recordings_rig() else {
         return;
     };
+    r.engine.set_engine_voice(true);
     r.engine.engine_start();
     let crank = r.channel("engine/start");
     assert!(r.rec.is_playing(crank));

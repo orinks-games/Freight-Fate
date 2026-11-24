@@ -109,14 +109,12 @@ fn test_hearken_engine_pan_is_inherited_and_moves_without_restarting() {
         r.engine.engine_start_with(false);
         r.engine.update(1.0);
         r.engine.set_engine_rpm_with(1150.0, 0.7);
-        let keys: Vec<&str> = if classic || !all_engine_cuts() {
-            vec![if classic {
-                ENGINE_CLASSIC_LOOP_KEY
-            } else {
-                ENGINE_LOOP_KEY
-            }]
+        let keys: Vec<&str> = if classic {
+            vec![ENGINE_CLASSIC_LOOP_KEY]
+        } else if all_engine_cuts() {
+            STEREO_ENGINE_BANDS.iter().map(|(key, _)| *key).collect()
         } else {
-            ENGINE_BANDS.iter().map(|(key, _)| *key).collect()
+            Vec::new()
         };
         let channels: Vec<u64> = keys.iter().map(|key| r.channel(key)).collect();
         let plays = play_count(&r);
@@ -125,7 +123,6 @@ fn test_hearken_engine_pan_is_inherited_and_moves_without_restarting() {
             .map(|c| r.rec.last_mix(*c).unwrap().gain)
             .collect();
         let bands = r.hearken().engine_bands();
-        let wobble = r.hearken().engine_wobble();
         for (pan, expected) in [
             (-0.6, -0.6),
             (0.0, 0.0),
@@ -142,7 +139,6 @@ fn test_hearken_engine_pan_is_inherited_and_moves_without_restarting() {
                 assert!((f64::from(mix.pan) - expected).abs() < 1e-6);
                 assert_eq!(mix.gain, gains[i]);
             }
-            assert_eq!(r.hearken().engine_wobble(), wobble);
             for (before, after) in bands.iter().zip(r.hearken().engine_bands()) {
                 assert_eq!(before.last_rate, after.last_rate);
                 assert_eq!(before.last_volume, after.last_volume);

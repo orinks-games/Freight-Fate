@@ -353,9 +353,6 @@ impl Audio for TeeAudio {
     fn set_engine_voice(&mut self, classic: bool) {
         self.inner.set_engine_voice(classic);
     }
-    fn set_jake_voice(&mut self, classic: bool) {
-        self.inner.set_jake_voice(classic);
-    }
     fn has_asset(&mut self, key: &str) -> bool {
         self.inner.has_asset(key)
     }

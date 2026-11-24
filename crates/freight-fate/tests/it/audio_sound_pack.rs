@@ -13,8 +13,8 @@ use std::sync::Arc;
 
 use ff_core::assets_pack::{write_pack, CombinedPack, SoundPack};
 use freight_fate::audio::{
-    asset_bytes, asset_bytes_from, asset_path_in, engine_band_keys, verify_sound_assets,
-    MUSIC_EXTENSIONS, SFX_EXTENSIONS,
+    asset_bytes, asset_bytes_from, asset_path_in, verify_sound_assets, MUSIC_EXTENSIONS,
+    SFX_EXTENSIONS,
 };
 
 use crate::audio_support::shipped_sounds;
@@ -105,79 +105,21 @@ fn test_verify_sound_assets_passes_in_source_checkout() {
     assert!(asset_bytes("ui/menu_select", SFX_EXTENSIONS).is_some());
 }
 
-/// A pack carrying every engine band but one -- an older pack's ring --
-/// and a loose tree carrying the whole ring.
-fn ring_fixture(tmp: &Path, partial: bool) -> (CombinedPack, PathBuf) {
-    let sounds = write_fixture_sounds(tmp);
-    std::fs::create_dir_all(sounds.join("engine")).unwrap();
-    for key in engine_band_keys() {
-        if partial && key == "engine/midhigh" {
-            continue; // the band the checkout added later
-        }
-        let name = key.split_once('/').unwrap().1;
-        std::fs::write(
-            sounds.join("engine").join(format!("{name}.ogg")),
-            format!("{} {name} band", if partial { "old" } else { "packed" }),
-        )
-        .unwrap();
-    }
-    let pack = pack_from(&sounds, &tmp.join("sounds.pak"));
-    let loose = tmp.join("loose");
-    std::fs::create_dir_all(loose.join("engine")).unwrap();
-    for key in engine_band_keys() {
-        let name = key.split_once('/').unwrap().1;
-        std::fs::write(
-            loose.join("engine").join(format!("{name}.wav")),
-            format!("loose {name} band"),
-        )
-        .unwrap();
-    }
-    (pack, loose)
-}
-
 #[test]
-fn test_partial_ring_in_pack_is_not_blended_with_the_loose_tree() {
-    // Bands crossfade into each other, so a pack that is missing one band
-    // must not supply the other four: the whole ring comes off the loose
-    // tree.
-    let tmp = tempfile::tempdir().unwrap();
-    let (pack, loose) = ring_fixture(tmp.path(), true);
-    let roots = [loose.clone()];
-    for key in engine_band_keys() {
-        let (data, ext) = asset_bytes_from(Some(&pack), &roots, key, SFX_EXTENSIONS)
-            .unwrap_or_else(|| panic!("{key}"));
+fn test_default_pack_has_no_legacy_engine_samples() {
+    if !shipped_sounds() {
+        return;
+    }
+    for key in [
+        "engine/idle",
+        "engine/low",
+        "engine/mid",
+        "engine/midhigh",
+        "engine/high",
+    ] {
         assert!(
-            !data.starts_with(b"old "),
-            "{key} came from the partial pack"
-        );
-        let loose_path = asset_path_in(&roots, key, SFX_EXTENSIONS).unwrap();
-        assert_eq!(loose_path.extension().unwrap().to_str().unwrap(), ext);
-        assert_eq!(&data[..], &std::fs::read(loose_path).unwrap()[..]);
-    }
-    // Everything outside the ring still prefers the pack, as before.
-    let found = asset_bytes_from(Some(&pack), &roots, "ui/menu_select", SFX_EXTENSIONS).unwrap();
-    assert_eq!(
-        (&found.0[..], found.1.as_str()),
-        (&b"fake ogg for menu select"[..], "ogg")
-    );
-}
-
-#[test]
-fn test_complete_ring_in_pack_is_used() {
-    let tmp = tempfile::tempdir().unwrap();
-    let (pack, loose) = ring_fixture(tmp.path(), false);
-    for key in engine_band_keys() {
-        let name = key.split_once('/').unwrap().1;
-        let found = asset_bytes_from(
-            Some(&pack),
-            std::slice::from_ref(&loose),
-            key,
-            SFX_EXTENSIONS,
-        )
-        .unwrap();
-        assert_eq!(
-            (&found.0[..], found.1.as_str()),
-            (format!("packed {name} band").as_bytes(), "ogg")
+            asset_bytes(key, SFX_EXTENSIONS).is_none(),
+            "{key} remained in the default pack"
         );
     }
 }

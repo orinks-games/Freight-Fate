@@ -17830,33 +17830,17 @@ msgstr ""
 "avanti e indietro perché è quello che ribalta i camion. Arriva quando hai "
 "già svoltato o cambiato corsia."
 
-msgid "It is an engine and it sounds like one."
-msgstr "È un motore e suona come un motore."
+msgid "An engine starting, immediately after you started it."
+msgstr "Un motore che si accende, subito dopo che l'hai acceso."
+
+msgid "It is the running engine."
+msgstr ""
 
 msgid "The same engine, in its earlier sound."
 msgstr "Lo stesso motore, con il suo suono di prima."
 
-msgid "As the idle loop: an engine at an engine speed."
-msgstr "Come il suono del minimo: un motore a un certo regime."
-
-msgid "As the idle loop."
-msgstr "Come il suono del minimo."
-
-msgid "An engine starting, immediately after you started it."
-msgstr "Un motore che si accende, subito dopo che l'hai acceso."
-
 msgid "An engine stopping, immediately after you stopped it."
 msgstr "Un motore che si spegne, subito dopo che l'hai spento."
-
-msgid ""
-"The classic jake sound: the same three staged entries play it when "
-"Settings, Audio has Engine brake sound set to classic, through the same "
-"key-resolution routing the drive uses. Not a second cue."
-msgstr ""
-"Il classico suono del jake: le stesse tre voci a stadi lo riproducono "
-"quando in Impostazioni, Audio, il Suono del freno motore è impostato su "
-"classico, con lo stesso instradamento dei tasti usato alla guida. Non è un "
-"secondo segnale."
 
 msgid "Rain, wind, snow and thunder name themselves."
 msgstr "Pioggia, vento, neve e tuoni si riconoscono da soli."
@@ -40859,22 +40843,6 @@ msgstr ""
 "giri. Classico è il suono del motore originale. Le modifiche si applicano "
 "subito, anche durante la guida."
 
-#. placeholders: {else}
-msgid "Engine brake sound: {else}"
-msgstr "Suono del freno motore: {else}"
-
-msgid "recorded"
-msgstr "registrato"
-
-msgid ""
-"Recorded is the real engine brake growl, the jake. Classic is the "
-"synthesized growl from earlier versions. Changes apply at once, even while "
-"driving."
-msgstr ""
-"Registrato è il vero ruggito del freno motore. Classico è il ruggito "
-"sintetizzato delle versioni precedenti. Le modifiche si applicano subito, "
-"anche durante la guida."
-
 #. placeholders: {pct}
 msgid "Music volume: {pct} percent"
 msgstr "Volume della musica: {pct} percento"
@@ -48906,6 +48874,40 @@ msgstr ""
 "Tieni premuto il left bumper per un secondo livello di pulsanti. "
 "{pad_engine} controlla il motore, {pad_fuel} legge il carburante e "
 "{pad_speed_limit} legge il limite."
+
+#~ msgid "It is an engine and it sounds like one."
+#~ msgstr "È un motore e suona come un motore."
+
+#~ msgid "As the idle loop: an engine at an engine speed."
+#~ msgstr "Come il suono del minimo: un motore a un certo regime."
+
+#~ msgid "As the idle loop."
+#~ msgstr "Come il suono del minimo."
+
+#~ msgid ""
+#~ "The classic jake sound: the same three staged entries play it when "
+#~ "Settings, Audio has Engine brake sound set to classic, through the same "
+#~ "key-resolution routing the drive uses. Not a second cue."
+#~ msgstr ""
+#~ "Il classico suono del jake: le stesse tre voci a stadi lo riproducono "
+#~ "quando in Impostazioni, Audio, il Suono del freno motore è impostato su "
+#~ "classico, con lo stesso instradamento dei tasti usato alla guida. Non è un "
+#~ "secondo segnale."
+
+#~ msgid "Engine brake sound: {else}"
+#~ msgstr "Suono del freno motore: {else}"
+
+#~ msgid "recorded"
+#~ msgstr "registrato"
+
+#~ msgid ""
+#~ "Recorded is the real engine brake growl, the jake. Classic is the "
+#~ "synthesized growl from earlier versions. Changes apply at once, even while "
+#~ "driving."
+#~ msgstr ""
+#~ "Registrato è il vero ruggito del freno motore. Classico è il ruggito "
+#~ "sintetizzato delle versioni precedenti. Le modifiche si applicano subito, "
+#~ "anche durante la guida."
 
 #~ msgid ""
 #~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "

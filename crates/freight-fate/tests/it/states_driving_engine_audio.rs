@@ -130,7 +130,6 @@ impl Audio for TrackingAudio {
     }
     fn set_speech_duck(&mut self, _duck: f64) {}
     fn set_engine_voice(&mut self, _classic: bool) {}
-    fn set_jake_voice(&mut self, _classic: bool) {}
     fn has_asset(&mut self, _key: &str) -> bool {
         true
     }

@@ -204,14 +204,9 @@ pub const JAKE_MIN_RPM: f64 = 950.0;
 // longer than a shift or a cruise throttle pulse, short enough that a jake
 // switched off is simply off.
 pub const JAKE_CUE_HOLD_S: f64 = 2.0;
-// Both jake voices are 1600 rpm cuts (the one real recording and the one
-// synth kept beside it), and one voice stands for every band, so the growl
-// used to sit on one note however the revs moved. It is re-pitched from
-// this native speed every frame instead: a downshift on a grade now climbs
-// with the revs and a gear run down to the shift point falls with them,
-// which is what a manual driver listens for. Clamped so 950 rpm and redline
-// stay inside what a re-pitched recording can carry without sounding like
-// tape.
+// The recorded jake is a 1600 rpm cut, so it tracks the live revs instead of
+// sitting on one note. The clamp keeps 950 rpm and redline inside what the
+// recording can carry cleanly.
 pub const JAKE_VOICE_NATIVE_RPM: f64 = 1600.0;
 pub const JAKE_RATE_MIN: f64 = 0.55;
 pub const JAKE_RATE_MAX: f64 = 1.4;

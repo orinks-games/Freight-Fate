@@ -5,10 +5,8 @@
 //!
 //! * **Hearken** ([`HearkenBackend`]) -- the real one: Hearken's pool of
 //!   sounds over Kira, with live radio through Hearken's streams. The truck
-//!   engine is a multisample ring: one real cab loop per rpm band,
-//!   crossfaded equal-power with per-band playback-rate tracking. When the
-//!   licensed cuts are absent it falls back to the single idle loop pitched
-//!   up with RPM. With no audio device (headless CI) it plays through
+//!   engine blends bounded stereo cab recordings across RPM. With
+//!   no audio device (headless CI) it plays through
 //!   Hearken's silent backend, so the full code path still runs.
 //! * **null** ([`NullBackend`]) -- every primitive a no-op, so game logic
 //!   never needs to check for audio availability. The Python build had a
@@ -28,8 +26,6 @@
 //! `freight_fate/assets/sounds/ui/menu_select.ogg` (or its packed twin).
 
 use std::fmt;
-
-use ff_core::pyrandom::PyRandom;
 
 pub mod assets;
 mod backend;
@@ -147,97 +143,33 @@ pub const HORN_LOOP_END: u32 = 12379;
 pub const HORN_LOOP: SustainLoopSpec =
     SustainLoopSpec::samples(HORN_LOOP_START as f64, HORN_LOOP_END as f64);
 
-/// The multisample engine voice: one steady cab loop per band, cut from the
-/// real 896 recording at these native rpms. The Hearken backend crossfades the
-/// ring with [`engine_band_weights`] and slides each band's playback rate to
-/// track rpm inside the band (see `ENGINE_BAND_RATE_*`).
-pub const ENGINE_BANDS: [(&str, f64); 5] = [
-    ("engine/idle", 680.0),
-    ("engine/low", 950.0),
-    ("engine/mid", 1150.0),
-    ("engine/midhigh", 1425.0),
-    ("engine/high", 1900.0),
-];
-
-/// The cab stereo cuts have their own keys so the existing recordings keep
-/// their own pitch calibration in older packs.
+/// The licensed cab engine: one calibrated stereo loop per RPM band.
 pub const STEREO_ENGINE_BANDS: [(&str, f64); 5] = [
     ("engine_stereo/idle", 650.0),
     ("engine_stereo/low", 898.0),
-    ("engine_stereo/mid", 1279.0),
+    ("engine_stereo/mid", 1274.0),
     ("engine_stereo/midhigh", 1473.0),
     ("engine_stereo/high", 1988.0),
 ];
 
-/// Whether `key` is one of the original five engine band cuts.
-pub fn is_engine_band_key(key: &str) -> bool {
-    ENGINE_BANDS.iter().any(|(band, _native)| *band == key)
-}
-
-/// The five engine band keys, in ring order.
-pub fn engine_band_keys() -> Vec<&'static str> {
-    ENGINE_BANDS.iter().map(|(key, _native)| *key).collect()
-}
-
-// The jake voice A/B: only the 1600 rpm band has a classic alternative -- it
-// is the one representative cut kept from the original synthesized jake, not
-// a full second ring -- so this is a single key swap, not a per-band table.
+// The recorded engine-brake growl replaces every obsolete per-RPM and classic
+// synthesized key.
 pub const JAKE_RECORDED_KEY: &str = "engine/jake_1600";
-pub const JAKE_CLASSIC_KEY: &str = "engine/jake_1600_synth";
-/// Every recorded jake cut is `engine/jake_<rpm band>`; the classic voice is
-/// the one synthesized cut that stands in for all of them. Derived from
-/// [`JAKE_RECORDED_KEY`] rather than written out: a bare prefix literal
-/// reads as a sound key to the asset-existence sweep, and there is no file
-/// by that name.
+/// Every obsolete engine-brake key is `engine/jake_<suffix>`. Derived from
+/// [`JAKE_RECORDED_KEY`] rather than written out: a bare prefix literal reads
+/// as a sound key to the asset-existence sweep, and there is no file by that
+/// name.
 pub const JAKE_BAND_PREFIX: &str = "engine/jake_";
-// Crossfades live in a narrow window around each adjacent pair's GEOMETRIC
-// midpoint (log-space), this fraction of the gap wide. Two things follow:
-// a cut never plays far from its recorded speed (rate excursions stay under
-// ~16 percent -- past that the moving formants smear, the launch-pull
-// weirdness the owner heard), and the two members of a blend always track
-// the same rpm honestly, so there is no clamped-versus-tracking pitch clash
-// (the ~10 Hz "stop-start" beat at 1700-1800 under the old full-gap fade).
-pub const ENGINE_XFADE_LOG_FRAC: f64 = 0.30;
-// Safety clamp only -- the windows above keep normal tracking well inside.
-// 0.78 covers the widest pair's window edge (the 950 cut entering at ~764);
-// 1.30 up lets the 1800 cut reach redline (2200/1800 = 1.22).
-pub const ENGINE_BAND_RATE_MIN: f64 = 0.78;
-pub const ENGINE_BAND_RATE_MAX: f64 = 1.30;
-
-// Legacy engine model: one idle loop, pitched up with RPM. Still the
-// fallback when the licensed multisample cuts are absent (a clean clone has
-// only the synthesized engine/idle).
-pub const ENGINE_LOOP_KEY: &str = "engine/idle";
 // The classic voice: the 1.8.x recording under its own key, because the
-// licensed overlay owns "engine/idle" -- when the rebuilt cuts are installed
-// the shared key IS the rebuilt idle, and the Settings "classic" promise
-// (the original engine sound) must not quietly follow it.
+// default engine uses the licensed stereo ring. It stays at its recorded
+// speed rather than being pitched across the RPM range.
 pub const ENGINE_CLASSIC_LOOP_KEY: &str = "engine_classic/idle";
 pub const ENGINE_RPM_IDLE: f64 = 600.0;
-pub const ENGINE_RPM_MAX: f64 = 2200.0;
-pub const ENGINE_FREQ_MAX_MULT: f64 = 1.75;
-pub const ENGINE_SLIDE_MS: u32 = 120;
-// A large rpm jump is a shift re-entry: the engine is ALREADY at the new
-// speed when the clutch hooks up, so the voice must step, not glide -- the
-// 120 ms slide across a 400 rpm drop reads as a little meow on every shift,
-// machine-gunned through a launch (owner's ear, 2026-07-22).
-pub const ENGINE_SLIDE_SNAP_MS: u32 = 25;
-pub const ENGINE_SLIDE_SNAP_RPM: f64 = 150.0;
 pub const ENGINE_LOOP_GAIN: f64 = 1.0;
-// Loop-repetition camouflage (owner + outside review, 2026-07-27): even a
-// seam-clean 1-2 s loop is recognizable -- the ear locks onto its spectral
-// fingerprint recurring at a perfectly fixed period. Each band's playback
-// rate and gain take a slow, bounded random walk, so the loop period is
-// never exactly the same twice and the recurrence stops landing where the
-// ear predicted. Rate stays within ~5 cents (well under the formant-smear
-// threshold); gain within ~0.5 dB. Multisample ring only.
-pub const ENGINE_WOBBLE_RATE_MAX: f64 = 0.003; // +/- fraction of playback rate (~5 cents)
-pub const ENGINE_WOBBLE_RATE_STEP: f64 = 0.004; // random-walk speed, fraction per second
-pub const ENGINE_WOBBLE_GAIN_MAX: f64 = 0.06; // +/- fraction of band gain (~0.5 dB)
-pub const ENGINE_WOBBLE_GAIN_STEP: f64 = 0.10;
 
 // The ignition cue finishes before the running engine starts.
 const STEREO_ENGINE_START_KEY: &str = "engine_stereo/start";
+const STEREO_ENGINE_SHUTDOWN_KEY: &str = "engine_stereo/shutdown";
 // Soft return when the engine was already running, such as after a menu.
 pub const ENGINE_RESUME_FADE_S: f64 = 0.25;
 
@@ -414,58 +346,44 @@ fn quoted_field<'a>(raw: &'a str, key: &str) -> Option<&'a str> {
     Some(value[..value.find('"')?].trim())
 }
 
-/// Playback-frequency multiplier for the legacy engine loop at `rpm`.
+/// Crossfade adjacent engine recordings in a narrow window around their
+/// logarithmic midpoint.
 ///
-/// Linear from 1.0 at idle (600 RPM) to 1.75x at redline (2200 RPM), clamped
-/// at both ends.
-pub fn engine_freq_mult(rpm: f64) -> f64 {
-    let t = (rpm - ENGINE_RPM_IDLE) / (ENGINE_RPM_MAX - ENGINE_RPM_IDLE);
-    (1.0 + t * (ENGINE_FREQ_MAX_MULT - 1.0)).clamp(1.0, ENGINE_FREQ_MAX_MULT)
-}
-
-/// Crossfade weights for the engine band ring at `rpm`.
-///
-/// Below the first native rpm the first band carries alone, above the last
-/// the last does. Between neighbours, one band carries alone until the rpm
-/// enters the pair's narrow log-space window around their geometric midpoint
-/// (ENGINE_XFADE_LOG_FRAC of the gap); inside it the pair blends equal-power
-/// (the loops are uncorrelated recordings, so cos/sin keeps the summed level
-/// flat). The pure zones either side of each window are what keep every
-/// sounding cut close to its recorded speed.
+/// Both recordings track the same RPM while they overlap, so the transition
+/// changes timbre without making the engine note step between fixed pitches.
 pub fn engine_band_weights(rpm: f64, natives: &[f64]) -> Vec<f64> {
-    engine_band_weights_with_width(rpm, natives, ENGINE_XFADE_LOG_FRAC)
-}
+    const XFADE_LOG_FRAC: f64 = 0.08;
 
-fn engine_band_weights_with_width(rpm: f64, natives: &[f64], width: f64) -> Vec<f64> {
-    let n = natives.len();
-    let mut weights = vec![0.0; n];
-    if n == 0 {
+    let mut weights = vec![0.0; natives.len()];
+    if natives.is_empty() {
         return weights;
     }
     if rpm <= natives[0] {
         weights[0] = 1.0;
-    } else if rpm >= natives[n - 1] {
-        weights[n - 1] = 1.0;
-    } else {
-        for i in 0..n - 1 {
-            if rpm <= natives[i + 1] {
-                // Position within the gap in log space, remapped through the
-                // centered window: below it the lower band is pure, above it
-                // the upper band is pure.
-                let t = (rpm / natives[i]).ln() / (natives[i + 1] / natives[i]).ln();
-                let half = width / 2.0;
-                let s = (t - (0.5 - half)) / width;
-                if s <= 0.0 {
-                    weights[i] = 1.0;
-                } else if s >= 1.0 {
-                    weights[i + 1] = 1.0;
-                } else {
-                    weights[i] = (s * std::f64::consts::PI / 2.0).cos();
-                    weights[i + 1] = (s * std::f64::consts::PI / 2.0).sin();
-                }
-                break;
-            }
+        return weights;
+    }
+    if rpm >= natives[natives.len() - 1] {
+        weights[natives.len() - 1] = 1.0;
+        return weights;
+    }
+    for i in 0..natives.len() - 1 {
+        if rpm > natives[i + 1] {
+            continue;
         }
+        let position = (rpm / natives[i]).ln() / (natives[i + 1] / natives[i]).ln();
+        let start = 0.5 - XFADE_LOG_FRAC / 2.0;
+        let blend = ((position - start) / XFADE_LOG_FRAC).clamp(0.0, 1.0);
+        if blend <= 0.0 {
+            weights[i] = 1.0;
+            return weights;
+        }
+        if blend >= 1.0 {
+            weights[i + 1] = 1.0;
+            return weights;
+        }
+        weights[i] = (blend * std::f64::consts::FRAC_PI_2).cos();
+        weights[i + 1] = (blend * std::f64::consts::FRAC_PI_2).sin();
+        return weights;
     }
     weights
 }
@@ -493,32 +411,6 @@ pub fn facility_ambient_key(facility_type: &str) -> &'static str {
 /// reaches this envelope, not by flattening the range.
 pub fn engine_load_gain(throttle: f64) -> f64 {
     0.68 + 0.32 * throttle.clamp(0.0, 1.0)
-}
-
-/// Advance the per-band anti-repetition walks by `dt` seconds.
-///
-/// Each entry is `[rate walk, gain walk]`. Diffusion scales with `sqrt(dt)`
-/// so the walk speed is frame-rate independent; the clamp keeps each walk
-/// meandering inside its box. The Hearken backend calls this from `update` and
-/// applies the walks in `set_engine_rpm`; it is public so the walk can be
-/// pinned without a device.
-pub fn advance_engine_wobble(wobble: &mut [[f64; 2]], dt: f64, rng: &mut PyRandom) {
-    if wobble.is_empty() || dt <= 0.0 {
-        return;
-    }
-    let scale = dt.sqrt();
-    for wob in wobble.iter_mut() {
-        for (i, (step, bound)) in [
-            (ENGINE_WOBBLE_RATE_STEP, ENGINE_WOBBLE_RATE_MAX),
-            (ENGINE_WOBBLE_GAIN_STEP, ENGINE_WOBBLE_GAIN_MAX),
-        ]
-        .into_iter()
-        .enumerate()
-        {
-            wob[i] += rng.uniform(-step, step) * scale;
-            wob[i] = wob[i].clamp(-bound, bound);
-        }
-    }
 }
 
 /// The `AudioEngine` facade surface: what the rest of the game calls.
@@ -610,7 +502,6 @@ pub trait Audio {
     fn set_engine_duck(&mut self, duck: f64);
     fn set_speech_duck(&mut self, duck: f64);
     fn set_engine_voice(&mut self, classic: bool);
-    fn set_jake_voice(&mut self, classic: bool);
     /// Whether a sound key resolves (pack, licensed overlay, or loose).
     fn has_asset(&mut self, key: &str) -> bool;
     fn start_loop_with(&mut self, channel: u32, key: &str, volume: f64, fade_ms: u32);
@@ -789,22 +680,6 @@ mod tests {
     #[test]
     fn reservation_covers_every_named_slot() {
         assert_eq!(RESERVED, 20);
-    }
-
-    #[test]
-    fn wobble_walks_stay_inside_their_boxes() {
-        let mut rng = PyRandom::new_from_i64(7);
-        let mut wobble = vec![[0.0, 0.0]];
-        for _ in 0..120 {
-            advance_engine_wobble(&mut wobble, 1.0 / 60.0, &mut rng);
-        }
-        let [rate, gain] = wobble[0];
-        assert!(rate != 0.0 && rate.abs() <= ENGINE_WOBBLE_RATE_MAX);
-        assert!(gain != 0.0 && gain.abs() <= ENGINE_WOBBLE_GAIN_MAX);
-        // Nothing moves with no time.
-        let before = wobble.clone();
-        advance_engine_wobble(&mut wobble, 0.0, &mut rng);
-        assert_eq!(before, wobble);
     }
 
     #[test]

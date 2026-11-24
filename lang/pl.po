@@ -17675,33 +17675,17 @@ msgstr ""
 "Ładunek uderza w bok cysterny. Brzmi inaczej niż uderzenie w przód i w tył, "
 "bo to ono przewraca ciężarówki. Przychodzi już po skręcie albo zmianie pasa."
 
-msgid "It is an engine and it sounds like one."
-msgstr "To silnik i brzmi jak silnik."
+msgid "An engine starting, immediately after you started it."
+msgstr "Uruchamiający się silnik, zaraz po uruchomieniu."
+
+msgid "It is the running engine."
+msgstr ""
 
 msgid "The same engine, in its earlier sound."
 msgstr "Ten sam silnik, w swoim wcześniejszym brzmieniu."
 
-msgid "As the idle loop: an engine at an engine speed."
-msgstr "Jak pętla biegu jałowego: silnik przy jakichś obrotach."
-
-msgid "As the idle loop."
-msgstr "Jak pętla biegu jałowego."
-
-msgid "An engine starting, immediately after you started it."
-msgstr "Uruchamiający się silnik, zaraz po uruchomieniu."
-
 msgid "An engine stopping, immediately after you stopped it."
 msgstr "Gasnący silnik, zaraz po zgaszeniu."
-
-msgid ""
-"The classic jake sound: the same three staged entries play it when "
-"Settings, Audio has Engine brake sound set to classic, through the same "
-"key-resolution routing the drive uses. Not a second cue."
-msgstr ""
-"Klasyczny dźwięk jake: te same trzy stopnie odtwarzają go, gdy w "
-"Ustawieniach, w sekcji Dźwięk, dźwięk hamulca silnikowego jest ustawiony na "
-"klasyczny, przez to samo przypisanie dźwięków, którego używa jazda. To nie "
-"druga wskazówka."
 
 msgid "Rain, wind, snow and thunder name themselves."
 msgstr "Deszcz, wiatr, śnieg i grzmoty mówią same za siebie."
@@ -40815,22 +40799,6 @@ msgstr ""
 "obrotami. Klasyczny to oryginalny dźwięk silnika. Zmiany działają od razu, "
 "nawet w czasie jazdy."
 
-#. placeholders: {else}
-msgid "Engine brake sound: {else}"
-msgstr "Dźwięk hamulca silnikowego: {else}"
-
-msgid "recorded"
-msgstr "nagrany"
-
-msgid ""
-"Recorded is the real engine brake growl, the jake. Classic is the "
-"synthesized growl from earlier versions. Changes apply at once, even while "
-"driving."
-msgstr ""
-"Nagrany to prawdziwy pomruk hamulca silnikowego. Klasyczny to syntetyzowany "
-"pomruk z wcześniejszych wersji. Zmiany działają od razu, nawet w czasie "
-"jazdy."
-
 #. placeholders: {pct}
 msgid "Music volume: {pct} percent"
 msgstr "Głośność muzyki: {pct} procent"
@@ -48811,6 +48779,40 @@ msgstr ""
 "Przytrzymaj left bumper, aby użyć drugiej warstwy przycisków. {pad_engine} "
 "steruje silnikiem, {pad_fuel} podaje paliwo, a {pad_speed_limit} "
 "ograniczenie prędkości."
+
+#~ msgid "It is an engine and it sounds like one."
+#~ msgstr "To silnik i brzmi jak silnik."
+
+#~ msgid "As the idle loop: an engine at an engine speed."
+#~ msgstr "Jak pętla biegu jałowego: silnik przy jakichś obrotach."
+
+#~ msgid "As the idle loop."
+#~ msgstr "Jak pętla biegu jałowego."
+
+#~ msgid ""
+#~ "The classic jake sound: the same three staged entries play it when "
+#~ "Settings, Audio has Engine brake sound set to classic, through the same "
+#~ "key-resolution routing the drive uses. Not a second cue."
+#~ msgstr ""
+#~ "Klasyczny dźwięk jake: te same trzy stopnie odtwarzają go, gdy w "
+#~ "Ustawieniach, w sekcji Dźwięk, dźwięk hamulca silnikowego jest ustawiony na "
+#~ "klasyczny, przez to samo przypisanie dźwięków, którego używa jazda. To nie "
+#~ "druga wskazówka."
+
+#~ msgid "Engine brake sound: {else}"
+#~ msgstr "Dźwięk hamulca silnikowego: {else}"
+
+#~ msgid "recorded"
+#~ msgstr "nagrany"
+
+#~ msgid ""
+#~ "Recorded is the real engine brake growl, the jake. Classic is the "
+#~ "synthesized growl from earlier versions. Changes apply at once, even while "
+#~ "driving."
+#~ msgstr ""
+#~ "Nagrany to prawdziwy pomruk hamulca silnikowego. Klasyczny to syntetyzowany "
+#~ "pomruk z wcześniejszych wersji. Zmiany działają od razu, nawet w czasie "
+#~ "jazdy."
 
 #~ msgid ""
 #~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "

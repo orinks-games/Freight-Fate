@@ -1,6 +1,5 @@
-//! The Hearken backend's truck engine: the multisample ring with per-band
-//! rate tracking, the legacy single pitched loop, the ignition handoff,
-//! and the per-frame `update`.
+//! The Hearken backend's truck engine: stereo cab recordings with bounded
+//! RPM tracking, the synchronized ignition handoff, and per-frame updates.
 
 use std::rc::Rc;
 
@@ -11,23 +10,21 @@ use hearken::audio::{Bus, LoopRegion, Sound, Start};
 use super::assets::{asset_bytes, stereo_engine_available};
 use super::backend::Category;
 use super::hearken_backend::{bus_of, level, EngineBand, HearkenBackend};
-use super::hearken_clips::{cab_start_frames, CAB_LOOP_FADE_FRAMES, CAB_SAMPLE_RATE};
+use super::hearken_clips::{cab_loop_wav, cab_start_frames, CAB_SAMPLE_RATE};
 use super::{
-    advance_engine_wobble, engine_band_weights, engine_band_weights_with_width, engine_freq_mult,
-    engine_load_gain, ENGINE_BANDS, ENGINE_BAND_RATE_MAX, ENGINE_BAND_RATE_MIN,
-    ENGINE_CLASSIC_LOOP_KEY, ENGINE_LOOP_GAIN, ENGINE_LOOP_KEY, ENGINE_RESUME_FADE_S,
-    ENGINE_RPM_IDLE, ENGINE_SLIDE_MS, ENGINE_SLIDE_SNAP_MS, ENGINE_SLIDE_SNAP_RPM, SFX_EXTENSIONS,
-    STEREO_ENGINE_BANDS, STEREO_ENGINE_START_KEY,
+    engine_band_weights, engine_load_gain, ENGINE_CLASSIC_LOOP_KEY, ENGINE_LOOP_GAIN,
+    ENGINE_RESUME_FADE_S, ENGINE_RPM_IDLE, SFX_EXTENSIONS, STEREO_ENGINE_BANDS,
+    STEREO_ENGINE_SHUTDOWN_KEY, STEREO_ENGINE_START_KEY,
 };
 
-// The recorded cab engine follows the live clutch-out rev fall closely.
-// Blend level separately so differently recorded bands enter smoothly.
-const STEREO_REV_SLIDE_MS: u32 = 55;
-const STEREO_GAIN_SLIDE_MS: u32 = 30;
+const STEREO_RATE_MIN: f64 = 0.82;
+const STEREO_RATE_MAX: f64 = 1.22;
+const STEREO_RATE_SLIDE_MS: u32 = 45;
+const STEREO_RATE_SNAP_MS: u32 = 20;
+const STEREO_RATE_SNAP_RPM: f64 = 150.0;
+const STEREO_GAIN_SLIDE_MS: u32 = 35;
 const IGNITION_HANDOFF_GAIN_MS: u32 = 10;
-// The cab takes differ in tone. Blend a little longer while keeping all
-// audible cuts inside the rate clamp, even across the widest band gap.
-const STEREO_XFADE_LOG_FRAC: f64 = 0.40;
+const SHUTDOWN_HANDOFF_MS: u32 = 80;
 
 enum EngineLoopEntry {
     AfterIgnition,
@@ -38,6 +35,21 @@ impl HearkenBackend {
     /// One engine loop, silent, at the engine's pan.
     fn start_engine_loop(&mut self, key: &str) -> Option<hearken::audio::Sound> {
         let start = Start::LOOP.volume(0.0).pan(self.engine_pan as f32);
+        if STEREO_ENGINE_BANDS
+            .iter()
+            .any(|(candidate, _)| *candidate == key)
+        {
+            let data = self.sfx_bytes(key)?;
+            let data = cab_loop_wav(key, &data).unwrap_or(data);
+            let sound = self
+                .audio
+                .play_clip(key, data, bus_of(Category::Engine), start);
+            if sound == Sound::NONE {
+                log::warn!("Could not play {key}");
+                return None;
+            }
+            return Some(sound);
+        }
         self.start_sfx(key, bus_of(Category::Engine), start)
     }
 
@@ -66,16 +78,27 @@ impl HearkenBackend {
         if play_start_sound {
             let bus = bus_of(Category::Engine);
             let start = Start::ONCE.volume(level(&self.buses, Category::Engine, 1.0));
-            let mut intro = None;
             if !self.engine_voice_classic && stereo_engine_available() {
                 if self.start_stereo_ignition(bus, start) {
                     return;
                 }
                 if asset_bytes(STEREO_ENGINE_START_KEY, SFX_EXTENSIONS).is_some() {
-                    intro = self.start_sfx(STEREO_ENGINE_START_KEY, bus, start);
+                    if let Some(sound) = self.start_sfx(STEREO_ENGINE_START_KEY, bus, start) {
+                        self.engine_ignition =
+                            self.engine_ignition.next(IgnitionEvent::PlayOneShot(sound));
+                        self.engine_intro_gain.set(0.0);
+                        return;
+                    }
                 }
             }
-            if let Some(sound) = intro.or_else(|| self.start_sfx("engine/start", bus, start)) {
+            if !self.engine_voice_classic {
+                log::error!(
+                    "licensed stereo engine starter is unavailable; starting the engine silently"
+                );
+                self.start_running_engine(EngineLoopEntry::Resume);
+                return;
+            }
+            if let Some(sound) = self.start_sfx("engine/start", bus, start) {
                 self.engine_ignition = self.engine_ignition.next(IgnitionEvent::PlayOneShot(sound));
                 self.engine_intro_gain.set(0.0);
                 return;
@@ -95,7 +118,7 @@ impl HearkenBackend {
         else {
             return false;
         };
-        let loop_start = (frames + CAB_LOOP_FADE_FRAMES) as f64 / f64::from(CAB_SAMPLE_RATE);
+        let loop_start = frames as f64 / f64::from(CAB_SAMPLE_RATE);
         let loop_config = Start::LOOP
             .volume(0.0)
             .pan(self.engine_pan as f32)
@@ -132,7 +155,6 @@ impl HearkenBackend {
                     }),
             );
         self.engine_stereo_ring = true;
-        self.engine_wobble.resize(self.engine_bands.len(), [0.0; 2]);
         self.engine_intro_gain.set(1.0);
         self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
         true
@@ -158,41 +180,25 @@ impl HearkenBackend {
             }
         };
         self.engine_stereo_ring = false;
-        if !self.engine_voice_classic {
-            if stereo_engine_available() {
-                self.start_engine_bands(&STEREO_ENGINE_BANDS);
-                self.engine_stereo_ring = self.engine_bands.len() == STEREO_ENGINE_BANDS.len();
-                if !self.engine_stereo_ring {
-                    for band in self.engine_bands.drain(..) {
-                        self.audio.stop(band.sound, 0);
-                    }
-                }
+        if self.engine_voice_classic {
+            self.engine_sound = self.start_engine_loop(ENGINE_CLASSIC_LOOP_KEY);
+            if self.engine_sound.is_none() {
+                log::warn!("Classic engine cut {ENGINE_CLASSIC_LOOP_KEY} is not in this build");
             }
+        } else if stereo_engine_available() {
+            self.start_engine_bands(&STEREO_ENGINE_BANDS);
+            self.engine_stereo_ring = self.engine_bands.len() == STEREO_ENGINE_BANDS.len();
             if !self.engine_stereo_ring {
-                self.start_engine_bands(&ENGINE_BANDS);
-            }
-        }
-        if self.engine_bands.len() < 2 {
-            // Not enough cuts for a crossfade ring (a clean clone carries
-            // only the synthesized engine/idle): legacy single pitched loop.
-            for band in self.engine_bands.drain(..) {
-                self.audio.stop(band.sound, 0);
-            }
-            let mut sound = None;
-            if self.engine_voice_classic {
-                sound = self.start_engine_loop(ENGINE_CLASSIC_LOOP_KEY);
-                if sound.is_none() {
-                    log::warn!(
-                        "Classic engine cut {ENGINE_CLASSIC_LOOP_KEY} is not in this build; using {ENGINE_LOOP_KEY} pitched instead"
-                    );
+                for band in self.engine_bands.drain(..) {
+                    self.audio.stop(band.sound, 0);
                 }
+                log::error!("Licensed stereo engine ring could not be started");
             }
-            if sound.is_none() {
-                sound = self.start_engine_loop(ENGINE_LOOP_KEY);
-            }
-            self.engine_sound = sound;
+        } else {
+            log::error!(
+                "Licensed stereo engine ring is missing; the default engine will remain silent"
+            );
         }
-        self.engine_wobble.resize(self.engine_bands.len(), [0.0; 2]);
         self.apply_engine_rpm(
             self.engine_last_rpm,
             self.engine_last_throttle,
@@ -236,9 +242,6 @@ impl HearkenBackend {
             }
             _ => {}
         }
-        // Advance the per-band anti-repetition walks; set_engine_rpm
-        // applies them.
-        advance_engine_wobble(&mut self.engine_wobble, dt, &mut self.wobble_rng);
     }
 
     pub(super) fn engine_stop(&mut self, shutdown_sound: bool) {
@@ -246,6 +249,7 @@ impl HearkenBackend {
         if !self.engine_running {
             return;
         }
+        let stereo_shutdown = shutdown_sound && self.engine_stereo_ring;
         self.engine_running = false;
         self.fades.clear();
         self.engine_intro_gain.set(1.0);
@@ -254,7 +258,9 @@ impl HearkenBackend {
         if let Some(sound) = intro {
             self.audio.stop(sound, 0);
         }
-        let fade_ms = if shutdown_sound || intro.is_some() {
+        let fade_ms = if stereo_shutdown {
+            SHUTDOWN_HANDOFF_MS
+        } else if shutdown_sound || intro.is_some() {
             0
         } else {
             250
@@ -262,13 +268,29 @@ impl HearkenBackend {
         for band in std::mem::take(&mut self.engine_bands) {
             self.audio.stop(band.sound, fade_ms);
         }
-        self.engine_wobble.clear();
         if let Some(sound) = self.engine_sound.take() {
             self.audio.stop(sound, fade_ms);
         }
         if shutdown_sound {
-            self.play("engine/shutdown", 1.0, 0.0);
+            if stereo_shutdown {
+                let bus = bus_of(Category::Engine);
+                let start = Start::ONCE.volume(0.0).pan(self.engine_pan as f32);
+                if let Some(sound) = self.start_sfx(STEREO_ENGINE_SHUTDOWN_KEY, bus, start) {
+                    self.audio.set_volume_over(
+                        sound,
+                        level(&self.buses, Category::Engine, 1.0),
+                        SHUTDOWN_HANDOFF_MS,
+                    );
+                } else {
+                    log::error!(
+                        "licensed stereo engine shutdown is unavailable; stopping silently"
+                    );
+                }
+            } else {
+                self.play("engine/shutdown", 1.0, 0.0);
+            }
         }
+        self.engine_stereo_ring = false;
     }
 
     /// Update only pan; retain it across stops and voice changes.
@@ -285,11 +307,7 @@ impl HearkenBackend {
         }
     }
 
-    /// Track RPM: crossfade the multisample ring, or pitch the legacy loop.
-    ///
-    /// With the ring, each band's playback rate also slides toward
-    /// `rpm / native_rpm` (clamped) so the pitch is continuous through a
-    /// crossfade instead of stepping between the cuts' recorded speeds.
+    /// Track RPM through the nearest cab recordings.
     pub(super) fn set_engine_rpm(&mut self, rpm: f64, throttle: f64) {
         self.apply_engine_rpm(rpm, throttle, None);
     }
@@ -298,16 +316,7 @@ impl HearkenBackend {
         if !self.engine_running {
             return;
         }
-        // A step-sized rpm change (shift re-entry) snaps; wander glides.
-        let slide_ms = if (rpm - self.engine_last_rpm).abs() > ENGINE_SLIDE_SNAP_RPM
-            || (self.engine_stereo_ring && self.engine_duck < 1.0)
-        {
-            ENGINE_SLIDE_SNAP_MS
-        } else if self.engine_stereo_ring {
-            STEREO_REV_SLIDE_MS
-        } else {
-            ENGINE_SLIDE_MS
-        };
+        let rpm_delta = (rpm - self.engine_last_rpm).abs();
         self.engine_last_rpm = rpm;
         self.engine_last_throttle = throttle;
         self.engine_ignition = self.engine_ignition.next(IgnitionEvent::Update {
@@ -333,10 +342,11 @@ impl HearkenBackend {
                 0
             });
             let natives: Vec<f64> = self.engine_bands.iter().map(|band| band.native).collect();
-            let weights = if self.engine_stereo_ring {
-                engine_band_weights_with_width(rpm, &natives, STEREO_XFADE_LOG_FRAC)
+            let weights = engine_band_weights(rpm, &natives);
+            let rate_ms = if rpm_delta > STEREO_RATE_SNAP_RPM {
+                STEREO_RATE_SNAP_MS
             } else {
-                engine_band_weights(rpm, &natives)
+                STEREO_RATE_SLIDE_MS
             };
             let mut failed = false;
             for (i, band) in self.engine_bands.iter_mut().enumerate() {
@@ -345,13 +355,14 @@ impl HearkenBackend {
                     break;
                 }
                 let w = weights[i];
-                let wob = self.engine_wobble.get(i).copied().unwrap_or([0.0, 0.0]);
-                let mut rate =
-                    (rpm / band.native).clamp(ENGINE_BAND_RATE_MIN, ENGINE_BAND_RATE_MAX);
-                rate *= 1.0 + wob[0];
-                let volume = level * w * (1.0 + wob[1]);
+                let volume = level * w;
+                let rate = if i == 0 && rpm <= band.native {
+                    1.0
+                } else {
+                    (rpm / band.native).clamp(STEREO_RATE_MIN, STEREO_RATE_MAX)
+                };
                 if self.engine_ignition.starter().is_none() {
-                    self.audio.set_pitch_over(band.sound, rate as f32, slide_ms);
+                    self.audio.set_pitch_over(band.sound, rate as f32, rate_ms);
                     band.last_rate = rate;
                 }
                 self.audio
@@ -372,8 +383,6 @@ impl HearkenBackend {
             self.engine_sound = None;
             return;
         }
-        self.audio
-            .set_pitch_over(sound, engine_freq_mult(rpm) as f32, slide_ms);
         self.audio
             .set_volume_over(sound, level as f32, gain_ramp_ms.unwrap_or(0));
     }
@@ -398,12 +407,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn stereo_engine_uses_native_rpms_and_tracks_the_unloaded_shift() {
+    fn stereo_engine_tracks_rpm_inside_a_narrow_band_blend() {
         let source = pcm16_wav(&[512, -256, -512, 256].repeat(100), 2, 48_000);
         for (key, _) in STEREO_ENGINE_BANDS {
             register_generated_sound(key, source.clone(), "wav");
         }
-        let (backend, recorder) = RecordingBackend::new();
+        let (backend, _) = RecordingBackend::new();
         let mut engine = HearkenBackend::with_backend(Box::new(backend));
         engine.engine_start(false);
         for (key, _) in STEREO_ENGINE_BANDS {
@@ -412,24 +421,41 @@ mod tests {
         assert!(engine.engine_stereo_ring);
         assert_eq!(engine.engine_bands.len(), STEREO_ENGINE_BANDS.len());
 
-        let (key, native) = STEREO_ENGINE_BANDS[3];
-        let channel = recorder.channel_of(key).expect("stereo upper-mid loop");
+        let (_, native) = STEREO_ENGINE_BANDS[3];
         assert_eq!(engine.engine_bands[3].native, native);
 
-        for (rpm, duck, expected_ms) in [
-            (native, 1.0, ENGINE_SLIDE_SNAP_MS),
-            (native + 50.0, 1.0, STEREO_REV_SLIDE_MS),
-            (native - 50.0, 0.65, ENGINE_SLIDE_SNAP_MS),
-        ] {
-            engine.set_engine_duck(duck);
-            let before = recorder.calls().len();
-            engine.set_engine_rpm(rpm, 0.5);
-            assert!(recorder.calls()[before..].iter().any(|call| matches!(
-                call,
-                Call::SetMixRamped { channel: id, mix, ramps }
-                    if *id == channel && ramps.pitch_ms == expected_ms
-                        && (f64::from(mix.pitch) - rpm / native).abs() < 1e-6
-            )));
+        engine.engine_intro_gain.set(1.0);
+        engine.set_engine_rpm(native + 50.0, 0.5);
+        assert!((engine.engine_bands[3].last_rate - (native + 50.0) / native).abs() < 1e-9);
+        let active: Vec<_> = engine
+            .engine_bands
+            .iter()
+            .enumerate()
+            .filter(|(_, band)| band.last_volume > 0.0)
+            .map(|(index, _)| index)
+            .collect();
+        assert_eq!(active, vec![3]);
+    }
+
+    #[test]
+    fn stereo_engine_uses_its_matching_shutdown() {
+        let source = pcm16_wav(&[512, -256, -512, 256].repeat(100), 2, 48_000);
+        for (key, _) in STEREO_ENGINE_BANDS {
+            register_generated_sound(key, source.clone(), "wav");
         }
+        register_generated_sound(STEREO_ENGINE_SHUTDOWN_KEY, source, "wav");
+        let (backend, recording) = RecordingBackend::new();
+        let mut engine = HearkenBackend::with_backend(Box::new(backend));
+
+        engine.engine_start(false);
+        engine.engine_stop(true);
+
+        for (key, _) in STEREO_ENGINE_BANDS {
+            unregister_generated_sound(key);
+        }
+        unregister_generated_sound(STEREO_ENGINE_SHUTDOWN_KEY);
+        assert!(recording.calls().iter().any(
+            |call| matches!(call, Call::Play { key, .. } if key == STEREO_ENGINE_SHUTDOWN_KEY)
+        ));
     }
 }

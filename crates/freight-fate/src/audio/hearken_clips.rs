@@ -4,10 +4,11 @@
 //! Hearken knows nothing of the game's packs. The generated-sound registry,
 //! `sounds.pak`, the licensed overlay and the loose tree are searched here in
 //! the order [`playback_bytes`] and [`asset_bytes`] always searched them,
-//! engine cuts come back cab-sealed exactly as BASS was given them, and a
-//! miss is never cached: a sound the game generates and registers as it runs
-//! (the lane guide tone, the siren signature, a synthesized music piece) is
-//! heard the first time it is asked for after it exists.
+//! stereo engine loops use tuned phase-matched boundaries, and a miss is never
+//! cached:
+//! a sound the game generates and registers as it runs (the lane guide tone,
+//! the siren signature, a synthesized music piece) is heard the first time it
+//! is asked for after it exists.
 
 use std::sync::Arc;
 
@@ -18,8 +19,22 @@ use super::STEREO_ENGINE_BANDS;
 
 pub(super) const CAB_SAMPLE_RATE: u32 = 48_000;
 pub(super) const CAB_START_MAX_FRAMES: usize = CAB_SAMPLE_RATE as usize * 10;
-pub(super) const CAB_LOOP_FADE_FRAMES: usize = 384;
+const CAB_LOOP_CROSSFADE_FRAMES: usize = 4_800;
 const CAB_FRAME_BYTES: usize = 4;
+// These boundaries are zero-crossing and phase matches in the five approved
+// cab recordings. Cropping there avoids the comb filtering that a long
+// head/tail crossfade added to the steady engine note. The frame count guards
+// against applying an old recording's edit points to a replacement.
+const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 8] = [
+    ("engine_stereo/idle", 141_773, 28_359, 108_091),
+    ("engine_stereo/low", 23_516, 0, 23_516),
+    ("engine_stereo/low", 115_761, 804, 84_393),
+    ("engine_stereo/mid", 95_062, 0, 95_062),
+    ("engine_stereo/mid", 121_569, 3_925, 118_938),
+    ("engine_stereo/midhigh", 68_512, 0, 68_512),
+    ("engine_stereo/midhigh", 175_932, 1_923, 141_387),
+    ("engine_stereo/high", 136_293, 1_466, 128_564),
+];
 
 /// The game's sound lookup as a Hearken [`ClipSource`]. Stateless, so it
 /// caches nothing, misses included.
@@ -49,8 +64,12 @@ impl ClipSource for FfClips {
             if STEREO_ENGINE_BANDS.iter().any(|(key, _)| *key == band) {
                 let frames = frames.parse::<usize>().ok()?;
                 let (bytes, _) = Self::sfx(band)?;
-                return cab_band_with_preroll(&bytes, frames);
+                return cab_band_with_preroll(band, &bytes, frames);
             }
+        }
+        if STEREO_ENGINE_BANDS.iter().any(|(band, _)| *band == key) {
+            let (bytes, _) = Self::sfx(key)?;
+            return cab_loop_wav(key, &bytes);
         }
         FfClips::sfx(key).map(|(bytes, _ext)| bytes)
     }
@@ -90,32 +109,60 @@ pub(super) fn cab_start_frames(bytes: &[u8]) -> Option<usize> {
     (frames <= CAB_START_MAX_FRAMES).then_some(frames)
 }
 
-fn cab_band_with_preroll(bytes: &[u8], frames: usize) -> Option<Arc<[u8]>> {
+fn cab_band_with_preroll(key: &str, bytes: &[u8], frames: usize) -> Option<Arc<[u8]>> {
     if !(1..=CAB_START_MAX_FRAMES).contains(&frames) {
         return None;
     }
-    let samples = cab_wav_samples(bytes)?;
-    let fade_bytes = CAB_LOOP_FADE_FRAMES * CAB_FRAME_BYTES;
-    let head = samples.get(..fade_bytes)?;
+    let samples = cab_loop_samples(key, bytes)?;
     let silence_bytes = frames * CAB_FRAME_BYTES;
-    let mut out = ff_core::wav::pcm16_header(
-        (silence_bytes + samples.len() + fade_bytes) / 2,
-        2,
-        CAB_SAMPLE_RATE,
-    );
+    let mut out =
+        ff_core::wav::pcm16_header((silence_bytes + samples.len()) / 2, 2, CAB_SAMPLE_RATE);
     out.resize(out.len() + silence_bytes, 0);
-    for (i, frame) in head.as_chunks::<CAB_FRAME_BYTES>().0.iter().enumerate() {
-        let gain = i as f64 / (CAB_LOOP_FADE_FRAMES - 1) as f64;
-        for &sample in frame.as_chunks::<2>().0 {
-            let value = i16::from_le_bytes(sample);
-            out.extend_from_slice(&((f64::from(value) * gain).round() as i16).to_le_bytes());
+    out.extend_from_slice(&samples);
+    Some(out.into())
+}
+
+pub(super) fn cab_loop_wav(key: &str, bytes: &[u8]) -> Option<Arc<[u8]>> {
+    let samples = cab_loop_samples(key, bytes)?;
+    let mut out = ff_core::wav::pcm16_header(samples.len() / 2, 2, CAB_SAMPLE_RATE);
+    out.extend_from_slice(&samples);
+    Some(out.into())
+}
+
+fn cab_loop_samples(key: &str, bytes: &[u8]) -> Option<Vec<u8>> {
+    let samples = cab_wav_samples(bytes)?;
+    let frames = samples.len() / CAB_FRAME_BYTES;
+    if let Some(&(_, _, start, end)) = CAB_LOOP_RANGES
+        .iter()
+        .find(|(candidate, expected, _, _)| *candidate == key && *expected == frames)
+    {
+        return Some(
+            samples
+                .get(start * CAB_FRAME_BYTES..end * CAB_FRAME_BYTES)?
+                .to_vec(),
+        );
+    }
+    let fade_bytes = CAB_LOOP_CROSSFADE_FRAMES * CAB_FRAME_BYTES;
+    let middle = samples.get(fade_bytes..samples.len().checked_sub(fade_bytes)?)?;
+    let tail = samples.get(samples.len() - fade_bytes..)?;
+    let head = samples.get(..fade_bytes)?;
+    let mut out = Vec::with_capacity(samples.len() - fade_bytes);
+    out.extend_from_slice(middle);
+    for i in 0..CAB_LOOP_CROSSFADE_FRAMES {
+        let progress = (i + 1) as f64 / (CAB_LOOP_CROSSFADE_FRAMES + 1) as f64;
+        let tail_gain = (progress * std::f64::consts::FRAC_PI_2).cos();
+        let head_gain = (progress * std::f64::consts::FRAC_PI_2).sin();
+        for channel in 0..2 {
+            let offset = (i * 2 + channel) * 2;
+            let tail_sample = i16::from_le_bytes(tail[offset..offset + 2].try_into().ok()?);
+            let head_sample = i16::from_le_bytes(head[offset..offset + 2].try_into().ok()?);
+            let sample = (f64::from(tail_sample) * tail_gain + f64::from(head_sample) * head_gain)
+                .round()
+                .clamp(f64::from(i16::MIN), f64::from(i16::MAX)) as i16;
+            out.extend_from_slice(&sample.to_le_bytes());
         }
     }
-    // The repeated region starts after the faded entry and wraps from
-    // the original head to the replay of its next sample.
-    out.extend_from_slice(&samples[fade_bytes..]);
-    out.extend_from_slice(head);
-    Some(out.into())
+    Some(out)
 }
 
 /// The sample rate a clip was recorded at, read from its own headers: what
@@ -161,27 +208,73 @@ mod tests {
     }
 
     #[test]
-    fn cab_band_is_silent_for_the_intro_and_repeats_the_original_samples() {
-        let intro_frames = 960;
-        let pcm: Vec<i16> = (0..1200).flat_map(|i| [100 + i, -100 - i]).collect();
+    fn cab_band_is_silent_for_the_intro_and_uses_the_prepared_loop() {
+        let intro_frames = 9_600;
+        let pcm: Vec<i16> = (0..12_000).flat_map(|i| [100 + i, -100 - i]).collect();
         let wav = ff_core::wav::pcm16_wav(&pcm, 2, CAB_SAMPLE_RATE);
-        assert_eq!(cab_start_frames(&wav), Some(1200));
-        let prepared = cab_band_with_preroll(&wav, intro_frames).unwrap();
-        let source = cab_wav_samples(&wav).unwrap();
+        assert_eq!(cab_start_frames(&wav), Some(12_000));
+        let prepared = cab_band_with_preroll("engine_stereo/test", &wav, intro_frames).unwrap();
         let samples = cab_wav_samples(&prepared).unwrap();
         let silence_end = intro_frames * CAB_FRAME_BYTES;
-        let fade_end = silence_end + CAB_LOOP_FADE_FRAMES * CAB_FRAME_BYTES;
-        let wrap = CAB_LOOP_FADE_FRAMES * CAB_FRAME_BYTES;
         assert!(samples[..silence_end].iter().all(|&byte| byte == 0));
         assert_eq!(
-            &samples[silence_end..silence_end + CAB_FRAME_BYTES],
-            &[0; 4]
+            &samples[silence_end..],
+            cab_loop_samples("engine_stereo/test", &wav)
+                .unwrap()
+                .as_slice()
+        );
+    }
+
+    #[test]
+    fn cab_loop_crossfades_its_tail_into_its_head() {
+        let pcm: Vec<i16> = (0..12_000).flat_map(|i| [100 + i, -100 - i]).collect();
+        let wav = ff_core::wav::pcm16_wav(&pcm, 2, CAB_SAMPLE_RATE);
+        let looped = cab_loop_samples("engine_stereo/test", &wav).unwrap();
+        assert_eq!(
+            looped.len(),
+            (12_000 - CAB_LOOP_CROSSFADE_FRAMES) * CAB_FRAME_BYTES
         );
         assert_eq!(
-            &samples[fade_end..silence_end + source.len()],
-            &source[wrap..]
+            &looped[..CAB_FRAME_BYTES],
+            &cab_wav_samples(&wav).unwrap()[CAB_LOOP_CROSSFADE_FRAMES * CAB_FRAME_BYTES..]
+                [..CAB_FRAME_BYTES]
         );
-        assert_eq!(&samples[silence_end + source.len()..], &source[..wrap]);
+    }
+
+    #[test]
+    fn approved_cab_loop_uses_its_phase_matched_boundaries() {
+        let (_, frames, start, end) = CAB_LOOP_RANGES[0];
+        let pcm: Vec<i16> = (0..frames)
+            .flat_map(|frame| {
+                let sample = (frame % i16::MAX as usize) as i16;
+                [sample, -sample]
+            })
+            .collect();
+        let wav = ff_core::wav::pcm16_wav(&pcm, 2, CAB_SAMPLE_RATE);
+        let looped = cab_loop_samples("engine_stereo/idle", &wav).unwrap();
+        assert_eq!(looped.len(), (end - start) * CAB_FRAME_BYTES);
+        assert_eq!(
+            &looped[..CAB_FRAME_BYTES],
+            &cab_wav_samples(&wav).unwrap()[start * CAB_FRAME_BYTES..(start + 1) * CAB_FRAME_BYTES]
+        );
+    }
+
+    #[test]
+    fn retained_cab_loop_uses_its_original_phase_matched_boundaries() {
+        let (_, frames, start, end) = CAB_LOOP_RANGES[2];
+        let pcm: Vec<i16> = (0..frames)
+            .flat_map(|frame| {
+                let sample = (frame % i16::MAX as usize) as i16;
+                [sample, -sample]
+            })
+            .collect();
+        let wav = ff_core::wav::pcm16_wav(&pcm, 2, CAB_SAMPLE_RATE);
+        let looped = cab_loop_samples("engine_stereo/low", &wav).unwrap();
+        assert_eq!(looped.len(), (end - start) * CAB_FRAME_BYTES);
+        assert_eq!(
+            &looped[..CAB_FRAME_BYTES],
+            &cab_wav_samples(&wav).unwrap()[start * CAB_FRAME_BYTES..(start + 1) * CAB_FRAME_BYTES]
+        );
     }
 
     #[test]

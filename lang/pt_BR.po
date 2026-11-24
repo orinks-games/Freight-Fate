@@ -17748,33 +17748,17 @@ msgstr ""
 "para trás porque é esta que tomba caminhões. Ela chega depois que você já "
 "virou ou trocou de faixa."
 
-msgid "It is an engine and it sounds like one."
-msgstr "É um motor e soa como um."
+msgid "An engine starting, immediately after you started it."
+msgstr "Um motor dando partida, logo depois de você dar a partida."
+
+msgid "It is the running engine."
+msgstr ""
 
 msgid "The same engine, in its earlier sound."
 msgstr "O mesmo motor, com o som antigo."
 
-msgid "As the idle loop: an engine at an engine speed."
-msgstr "Igual ao loop de marcha lenta: um motor numa rotação de motor."
-
-msgid "As the idle loop."
-msgstr "Igual ao loop de marcha lenta."
-
-msgid "An engine starting, immediately after you started it."
-msgstr "Um motor dando partida, logo depois de você dar a partida."
-
 msgid "An engine stopping, immediately after you stopped it."
 msgstr "Um motor desligando, logo depois de você desligar."
-
-msgid ""
-"The classic jake sound: the same three staged entries play it when "
-"Settings, Audio has Engine brake sound set to classic, through the same "
-"key-resolution routing the drive uses. Not a second cue."
-msgstr ""
-"O som clássico do freio motor: as mesmas três entradas por estágio tocam "
-"esse som quando, em Configurações, Áudio, o Som do freio motor está em "
-"clássico, pelo mesmo roteamento de teclas de som que a viagem usa. Não é um "
-"segundo aviso."
 
 msgid "Rain, wind, snow and thunder name themselves."
 msgstr "Chuva, vento, neve e trovão se apresentam sozinhos."
@@ -40661,21 +40645,6 @@ msgstr ""
 "acompanhando as RPM. Clássico é o som original do motor. As mudanças valem "
 "na hora, até dirigindo."
 
-#. placeholders: {else}
-msgid "Engine brake sound: {else}"
-msgstr "Som do freio motor: {else}"
-
-msgid "recorded"
-msgstr "gravado"
-
-msgid ""
-"Recorded is the real engine brake growl, the jake. Classic is the "
-"synthesized growl from earlier versions. Changes apply at once, even while "
-"driving."
-msgstr ""
-"Gravado é o ronco real do freio motor. Clássico é o ronco sintetizado das "
-"versões anteriores. As mudanças valem na hora, até dirigindo."
-
 #. placeholders: {pct}
 msgid "Music volume: {pct} percent"
 msgstr "Volume da música: {pct} por cento"
@@ -48674,6 +48643,39 @@ msgstr ""
 "Segure o left bumper para uma segunda camada de botões. {pad_engine} "
 "controla o motor, {pad_fuel} lê o combustível e {pad_speed_limit} lê o "
 "limite."
+
+#~ msgid "It is an engine and it sounds like one."
+#~ msgstr "É um motor e soa como um."
+
+#~ msgid "As the idle loop: an engine at an engine speed."
+#~ msgstr "Igual ao loop de marcha lenta: um motor numa rotação de motor."
+
+#~ msgid "As the idle loop."
+#~ msgstr "Igual ao loop de marcha lenta."
+
+#~ msgid ""
+#~ "The classic jake sound: the same three staged entries play it when "
+#~ "Settings, Audio has Engine brake sound set to classic, through the same "
+#~ "key-resolution routing the drive uses. Not a second cue."
+#~ msgstr ""
+#~ "O som clássico do freio motor: as mesmas três entradas por estágio tocam "
+#~ "esse som quando, em Configurações, Áudio, o Som do freio motor está em "
+#~ "clássico, pelo mesmo roteamento de teclas de som que a viagem usa. Não é um "
+#~ "segundo aviso."
+
+#~ msgid "Engine brake sound: {else}"
+#~ msgstr "Som do freio motor: {else}"
+
+#~ msgid "recorded"
+#~ msgstr "gravado"
+
+#~ msgid ""
+#~ "Recorded is the real engine brake growl, the jake. Classic is the "
+#~ "synthesized growl from earlier versions. Changes apply at once, even while "
+#~ "driving."
+#~ msgstr ""
+#~ "Gravado é o ronco real do freio motor. Clássico é o ronco sintetizado das "
+#~ "versões anteriores. As mudanças valem na hora, até dirigindo."
 
 #~ msgid ""
 #~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "

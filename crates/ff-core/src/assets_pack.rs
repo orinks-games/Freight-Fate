@@ -184,10 +184,10 @@ fn stem(name: &str) -> &str {
 ///
 /// `overlay_dir` (the licensed-audio tree) is merged on top and wins by
 /// sound KEY (path stem), not just exact path: the loader prefers ogg over
-/// wav inside the pack, so a committed `engine/mid.ogg` fallback would
-/// shadow a licensed `engine/mid.wav` if both shipped. A build made on a
-/// machine that owns the licensed libraries ships them; a clean clone packs
-/// the synthesized fallbacks alone. Editor backups (`*.bak`) never ship:
+/// wav inside the pack, so a public file with the same stem would shadow a
+/// licensed WAV if both shipped. A build made on a machine that owns the
+/// licensed libraries can merge them into the staged pack. Editor backups
+/// (`*.bak`) never ship:
 /// one already rode a builder's loose tree into a released pack.
 ///
 /// `include`, when given, keeps only pack-relative names it accepts --
@@ -201,7 +201,42 @@ pub fn write_pack(
     overlay_dir: Option<&Path>,
     include: Option<&dyn Fn(&str) -> bool>,
 ) -> Result<PathBuf, PackError> {
-    let mut entries = walk_files(sounds_dir)?;
+    write_pack_with_base(None, sounds_dir, output, overlay_dir, include)
+}
+
+/// Like [`write_pack`], but starts from an existing `base_pack` when present,
+/// then overlays `sounds_dir` (if it exists) and `overlay_dir` (if it exists),
+/// replacing matching sound stems at each layer.
+pub fn write_pack_with_base(
+    base_pack: Option<&Path>,
+    sounds_dir: &Path,
+    output: &Path,
+    overlay_dir: Option<&Path>,
+    include: Option<&dyn Fn(&str) -> bool>,
+) -> Result<PathBuf, PackError> {
+    enum EntrySource {
+        Bytes(Vec<u8>),
+        File(PathBuf),
+    }
+
+    let mut entries: BTreeMap<String, EntrySource> = BTreeMap::new();
+    if let Some(base) = base_pack.filter(|p| p.is_file()) {
+        let pack = SoundPack::open(base)?;
+        for name in pack.names() {
+            if let Some(bytes) = pack.read(&name) {
+                entries.insert(name, EntrySource::Bytes(bytes));
+            }
+        }
+    }
+    if sounds_dir.is_dir() {
+        let loose = walk_files(sounds_dir)?;
+        let loose_stems: HashSet<String> =
+            loose.keys().map(|name| stem(name).to_string()).collect();
+        entries.retain(|name, _| !loose_stems.contains(stem(name)));
+        for (name, path) in loose {
+            entries.insert(name, EntrySource::File(path));
+        }
+    }
     if let Some(overlay) = overlay_dir.filter(|dir| dir.is_dir()) {
         let overlay_entries = walk_files(overlay)?;
         let overlay_stems: HashSet<String> = overlay_entries
@@ -209,7 +244,9 @@ pub fn write_pack(
             .map(|name| stem(name).to_string())
             .collect();
         entries.retain(|name, _| !overlay_stems.contains(stem(name)));
-        entries.extend(overlay_entries);
+        for (name, path) in overlay_entries {
+            entries.insert(name, EntrySource::File(path));
+        }
     }
     if let Some(include) = include {
         entries.retain(|name, _| include(name));
@@ -226,9 +263,12 @@ pub fn write_pack(
         );
     let mut writer = ZipWriter::new(Cursor::new(Vec::new()));
     // BTreeMap iterates sorted, like Python's sorted(entries).
-    for (name, path) in &entries {
+    for (name, source) in &entries {
         writer.start_file(name.as_str(), options)?;
-        writer.write_all(&std::fs::read(path)?)?;
+        match source {
+            EntrySource::Bytes(bytes) => writer.write_all(bytes)?,
+            EntrySource::File(path) => writer.write_all(&std::fs::read(path)?)?,
+        }
     }
     let payload = writer.finish()?.into_inner();
     if let Some(parent) = output.parent() {
@@ -1123,7 +1163,8 @@ mod tests {
         crate::lane_guide_tone::register_lane_guide_tone();
         let ships = |key: &str| {
             !key.is_empty()
-                && (key.starts_with("enforcement/")
+                && (key.starts_with("engine_stereo/")
+                    || key.starts_with("enforcement/")
                     || ["ogg", "wav"]
                         .iter()
                         .any(|ext| pack.has(&format!("{key}.{ext}")))

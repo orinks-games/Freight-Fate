@@ -14,7 +14,7 @@ use super::{
     CH_AMBIENT, CH_BRIDGE_DECK, CH_CAB_FAN, CH_CAB_WIND, CH_EDGE, CH_HORN, CH_JAKE, CH_LANE_GUIDE,
     CH_OUTSIDE, CH_RADIO_FX, CH_ROAD, CH_ROAD_SONG, CH_SCALE, CH_SURGE, CH_TRAFFIC_BED,
     CH_TRAFFIC_SOUNDS, CH_TURBO, CH_WEATHER, CH_WEATHER_B, CUE_HOLD_TIMEOUT_S, HORN_LOOP,
-    JAKE_BAND_PREFIX, JAKE_CLASSIC_KEY, JAKE_RECORDED_KEY, SFX_EXTENSIONS,
+    JAKE_BAND_PREFIX, JAKE_RECORDED_KEY, SFX_EXTENSIONS,
 };
 
 /// The level a bank multiplies each trigger by, so no two clunks land
@@ -36,7 +36,6 @@ pub struct AudioEngine {
     alert_hold_key: String,          // continuous alert tone being re-asserted
     alert_hold_s: f64,               // time left before the hold lapses
     cue_holds: HashMap<String, f64>, // caller-owned held cues, name -> time left
-    jake_voice_classic: bool,        // Settings: real (recorded) or classic (synth)
     rng: PyRandom,
     // Test seam: the asset universe `has_asset` and `play_bank` probe, in
     // place of the real pack-and-loose lookup (the Python tests monkeypatched
@@ -87,7 +86,6 @@ impl AudioEngine {
             alert_hold_key: String::new(),
             alert_hold_s: 0.0,
             cue_holds: HashMap::new(),
-            jake_voice_classic: false,
             rng: PyRandom::new_unseeded(),
             asset_probe: None,
             silence_notice: false,
@@ -154,10 +152,6 @@ impl AudioEngine {
         self.asset_probe = probe;
     }
 
-    pub fn jake_voice_classic(&self) -> bool {
-        self.jake_voice_classic
-    }
-
     fn asset_exists(&self, key: &str) -> bool {
         match &self.asset_probe {
             Some(probe) => probe(key),
@@ -165,49 +159,12 @@ impl AudioEngine {
         }
     }
 
-    /// Route a sound key through the player's chosen jake voice.
-    ///
-    /// Every caller -- the real drive and the Learn game sounds demo alike --
-    /// asks for `engine/jake_1600` by name; this is the one place that swaps
-    /// it for the classic synth cut when the setting calls for it, so
-    /// neither call site needs to know the A/B exists.
+    /// Route every jake-brake band key to the single recorded jake cut.
     fn route_voice_key(&self, key: &str) -> String {
-        if key == JAKE_CLASSIC_KEY {
-            // Asked for the classic cut BY NAME -- the Learn game sounds entry
-            // that exists to demo it. Never re-voiced, or the demo of one
-            // voice would play the other.
-            return key.to_string();
+        if key.starts_with(JAKE_BAND_PREFIX) {
+            return JAKE_RECORDED_KEY.to_string();
         }
-        if !key.starts_with(JAKE_BAND_PREFIX) {
-            return key.to_string();
-        }
-        // ONE voice per setting, whatever the rpm -- and that is true in BOTH
-        // directions, which is what took three goes to get right.
-        //
-        // There is exactly one real jake recording (engine/jake_1600) and one
-        // synth cut kept from before it (engine/jake_1600_synth). The other
-        // five band files -- 1200, 1400, 1800, 2000, 2200 -- are all synths.
-        //
-        // 2026-08-17 fixed the classic direction: every band maps to the
-        // synth, so "classic" stopped meaning "synth at 1600, Jerry's
-        // recording everywhere else". The REAL direction was left alone, and
-        // it had the same fault in mirror image -- band keys passed straight
-        // through, so "real" meant the recording at 1600 and a synth at every
-        // other band. Rpm moves constantly on a descent, so the two voices
-        // alternated and the owner heard both, whichever setting he chose
-        // (2026-08-19: "both the synth and the recording play when the jake is
-        // used despite the setting").
-        //
-        // The single recording therefore stands for every band on "real", the
-        // way the single synth already stood for every band on "classic".
-        // Level still tracks rpm and retard stage (JAKE_STAGE_GAIN), so the
-        // growl still answers the grade; what it no longer does is change
-        // voice halfway down one.
-        if self.jake_voice_classic {
-            JAKE_CLASSIC_KEY.to_string()
-        } else {
-            JAKE_RECORDED_KEY.to_string()
-        }
+        key.to_string()
     }
 
     /// Discover a numbered round-robin bank (`base_01`..) once, cached.
@@ -419,41 +376,6 @@ impl Audio for AudioEngine {
             self.backend.engine_start(false);
             self.backend.set_engine_rpm(rpm, throttle);
         }
-    }
-
-    /// Pick the jake voice: the recorded 1600 jake or the classic synth.
-    ///
-    /// Applies live -- a jake growl already sounding on the descent restarts
-    /// on the new cut in place, the same instant A/B the engine voice
-    /// setting gives.
-    fn set_jake_voice(&mut self, classic: bool) {
-        if self.jake_voice_classic == classic {
-            return;
-        }
-        self.jake_voice_classic = classic;
-        let Some((key, volume)) = self.backend.loop_entry(CH_JAKE) else {
-            return;
-        };
-        if !key.starts_with(JAKE_BAND_PREFIX) {
-            return; // not a jake loop at all; nothing to swap
-        }
-        // EVERY band, not just 1600. A descent runs through 1200 to 2200, so
-        // guarding on the one band meant flipping the setting anywhere else
-        // did nothing at all -- the old voice kept sounding until rpm next
-        // crossed a boundary, and the driver heard the setting they had just
-        // left (owner, 2026-08-19: "either the synthesized brake plays or the
-        // recorded one, not both"). Restart on the band that is actually
-        // sounding; the voice routing picks the voice.
-        // Leaving classic, the synth stood in for every band, so 1600 -- the
-        // cut it was made from -- is the honest band to come back on. Leaving
-        // real, restart the band that is sounding and let the routing pick
-        // the voice.
-        let band = if key == JAKE_CLASSIC_KEY {
-            JAKE_RECORDED_KEY.to_string()
-        } else {
-            key
-        };
-        self.start_loop_with(CH_JAKE, &band, volume, 120);
     }
 
     /// Cached; call sites use it to prefer a licensed cue and fall back to

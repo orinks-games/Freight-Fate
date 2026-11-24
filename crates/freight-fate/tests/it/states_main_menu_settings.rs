@@ -493,20 +493,15 @@ fn test_settings_menu_toggles_speed_keeper() {
 }
 
 #[test]
-fn test_settings_menu_toggles_jake_voice_and_persists() {
+fn test_settings_menu_omits_removed_classic_jake_voice_option() {
     let mut app = TestApp::new();
     assert_eq!(app.ctx.settings.jake_voice, "real");
     open_settings_category(&mut app, "Audio");
-    move_to::<Cat>(&mut app, "Engine brake sound");
-    assert_eq!(current_label::<Cat>(&app), "Engine brake sound: recorded");
-    assert!(current_help::<Cat>(&app).starts_with("Recorded is the real engine brake growl"));
-    key(&mut app, Key::Return);
-    assert_eq!(app.ctx.settings.jake_voice, "classic");
-    assert_eq!(Settings::load().jake_voice, "classic");
-    assert_eq!(current_label::<Cat>(&app), "Engine brake sound: classic");
-    key(&mut app, Key::Left);
-    assert_eq!(app.ctx.settings.jake_voice, "real");
-    assert_eq!(current_label::<Cat>(&app), "Engine brake sound: recorded");
+    let items = labels::<Cat>(&app);
+    assert!(
+        !items.iter().any(|l| l.starts_with("Engine brake sound")),
+        "synthesized engine-brake voice toggle should be removed: {items:?}"
+    );
 }
 
 #[test]

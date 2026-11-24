@@ -9,7 +9,6 @@
 //! order, because the swap was meant to be invisible to the game.
 
 use ff_core::lane_guide_tone::{register_lane_guide_tone, LANE_GUIDE_TONE_KEY};
-use ff_core::pyrandom::PyRandom;
 use freight_fate::audio::hearken_clips::clip_sample_rate;
 use freight_fate::audio::*;
 use hearken::audio::{Call, LoopRegion};
@@ -46,7 +45,7 @@ fn exercise(a: &mut AudioEngine) {
 }
 
 fn all_engine_cuts() -> bool {
-    let all = ENGINE_BANDS
+    let all = STEREO_ENGINE_BANDS
         .iter()
         .all(|(key, _rpm)| asset_bytes(key, SFX_EXTENSIONS).is_some());
     if !all {
@@ -94,9 +93,9 @@ fn test_hearken_engine_model_matches_available_cuts() {
     r.engine.engine_start_with(false);
     assert!(r.engine.engine_running());
     if all_engine_cuts() {
-        assert_eq!(r.hearken().engine_bands().len(), ENGINE_BANDS.len());
+        assert_eq!(r.hearken().engine_bands().len(), STEREO_ENGINE_BANDS.len());
         assert!(r.hearken().engine_sound().is_none());
-        for (key, _rpm) in ENGINE_BANDS {
+        for (key, _rpm) in STEREO_ENGINE_BANDS {
             let Call::Play { looping, mix, .. } = play_call(&r, r.channel(key)) else {
                 unreachable!()
             };
@@ -105,7 +104,7 @@ fn test_hearken_engine_model_matches_available_cuts() {
         }
     } else {
         assert!(r.hearken().engine_bands().is_empty());
-        assert!(r.hearken().engine_sound().is_some());
+        assert!(r.hearken().engine_sound().is_none());
     }
     for rpm in [600.0, 1100.0, 1800.0, 2200.0, 900.0] {
         r.engine.set_engine_rpm_with(rpm, 0.7);
@@ -117,59 +116,18 @@ fn test_hearken_engine_model_matches_available_cuts() {
 }
 
 #[test]
-fn test_hearken_band_pitch_slides_follow_rpm() {
+fn test_hearken_engine_tracks_rpm_within_a_recording() {
     if !shipped_sounds() || !all_engine_cuts() {
         return;
     }
     let mut r = hearken_rig();
     r.engine.engine_start_with(false);
-    let (key, native) = ENGINE_BANDS[1];
+    let (key, native) = STEREO_ENGINE_BANDS[1];
     let channel = r.channel(key);
-    let before = r.rec.calls().len();
     r.engine.set_engine_rpm_with(native * 1.02, 0.0);
-    // A pitch slide toward rpm/native over a ramp of its own, so the
-    // level set beside it cannot snap it.
-    let slide = r.rec.calls()[before..]
-        .iter()
-        .find_map(|call| match call {
-            Call::SetMixRamped {
-                channel: c,
-                mix,
-                ramps,
-            } if *c == channel && ramps.pitch_ms > 0 => Some((*mix, *ramps)),
-            _ => None,
-        })
-        .expect("a pitch slide");
     let band = r.hearken().engine_bands()[1];
-    assert!((f64::from(slide.0.pitch) - band.last_rate).abs() < 1e-6);
-    assert!((band.last_rate - 1.02).abs() < 0.02);
-}
-
-#[test]
-fn test_hearken_engine_wobble_meanders_and_shapes_the_ring() {
-    if !shipped_sounds() || !all_engine_cuts() {
-        return;
-    }
-    let mut r = hearken_rig();
-    r.engine
-        .set_volumes(&VolumeUpdate::default().master(1.0).engine(1.0));
-    r.hearken_mut().set_wobble_rng(PyRandom::new_from_i64(7));
-    r.engine.engine_start_with(false);
-    for _ in 0..120 {
-        r.engine.update(1.0 / 60.0);
-    }
-    let h = r.hearken();
-    assert_eq!(h.engine_intro_gain(), 1.0);
-    let [rate_walk, gain_walk] = h.engine_wobble()[1];
-    assert!(rate_walk != 0.0 && rate_walk.abs() <= ENGINE_WOBBLE_RATE_MAX);
-    assert!(gain_walk != 0.0 && gain_walk.abs() <= ENGINE_WOBBLE_GAIN_MAX);
-
-    r.engine.set_engine_rpm_with(950.0, 0.0);
-    let band = r.hearken().engine_bands()[1];
-    assert_eq!(band.native, 950.0);
-    assert!((band.last_rate - (1.0 + rate_walk)).abs() < 1e-6);
-    let base_level = engine_load_gain(0.0);
-    assert!((band.last_volume - base_level * (1.0 + gain_walk)).abs() < 1e-9);
+    assert!((band.last_rate - 1.02).abs() < 1e-9);
+    assert!((r.rec.last_mix(channel).unwrap().pitch - 1.02).abs() < 1e-6);
 }
 
 #[test]
@@ -185,7 +143,7 @@ fn test_hearken_engine_voice_setting_switches_models_live() {
     if all_engine_cuts() {
         r.engine.set_engine_voice(false);
         assert!(r.engine.engine_running());
-        assert_eq!(r.hearken().engine_bands().len(), ENGINE_BANDS.len());
+        assert_eq!(r.hearken().engine_bands().len(), STEREO_ENGINE_BANDS.len());
         assert!(r.hearken().engine_sound().is_none());
     }
     r.engine.engine_stop();
@@ -206,24 +164,21 @@ fn test_hearken_classic_voice_prefers_the_original_recording() {
 }
 
 #[test]
-fn test_hearken_engine_falls_back_to_pitched_loop_without_cuts() {
+fn test_hearken_engine_does_not_fall_back_to_legacy_samples() {
     let mut r = hearken_rig();
     r.hearken_mut().set_key_filter(Some(Box::new(|key: &str| {
-        !(is_engine_band_key(key) && key != "engine/idle")
+        !key.starts_with("engine_stereo/")
     })));
+    r.hearken_mut().record_requested_keys(true);
     r.engine.engine_start_with(false);
     assert!(r.engine.engine_running());
     assert!(r.hearken().engine_bands().is_empty());
-    let sound = r.hearken().engine_sound().expect("the pitched loop");
-    let channel = r.channel(ENGINE_LOOP_KEY);
-    let Call::Play { looping, .. } = play_call(&r, channel) else {
-        unreachable!()
-    };
-    assert!(looping);
-    r.engine.set_engine_rpm_with(ENGINE_RPM_MAX, 0.5);
-    let pitch = r.rec.last_mix(channel).unwrap().pitch;
-    assert!((f64::from(pitch) - ENGINE_FREQ_MAX_MULT).abs() < 1e-6);
-    assert!(r.hearken().pool().is_playing(sound));
+    assert!(r.hearken().engine_sound().is_none());
+    assert!(r
+        .hearken()
+        .requested_keys()
+        .iter()
+        .all(|key| !key.starts_with("engine/")));
     r.engine.engine_stop();
 }
 
@@ -233,6 +188,7 @@ fn test_hearken_requested_keys_keep_their_order_for_a_start_and_a_drive() {
         return;
     }
     let mut r = hearken_rig();
+    r.engine.set_engine_voice(true);
     r.hearken_mut().record_requested_keys(true);
     r.engine.engine_start(); // deliberate: the crank first, then the ring
     r.rec.finish(r.channel("engine/start"));
@@ -243,11 +199,10 @@ fn test_hearken_requested_keys_keep_their_order_for_a_start_and_a_drive() {
     r.engine.horn_stop();
     r.engine.play("ui/menu_move");
     r.engine.set_ambient(Some("poi/facility_gate"));
-    let mut expected = vec!["engine/start".to_string()];
-    expected.extend(ENGINE_BANDS.iter().map(|(key, _)| key.to_string()));
-    if !all_engine_cuts() {
-        expected.push(ENGINE_LOOP_KEY.to_string());
-    }
+    let mut expected = vec![
+        "engine/start".to_string(),
+        ENGINE_CLASSIC_LOOP_KEY.to_string(),
+    ];
     expected.extend(
         [
             "vehicle/road",
@@ -274,7 +229,12 @@ fn test_hearken_silent_engine_start_skips_the_ignition_crank() {
         .requested_keys()
         .iter()
         .any(|k| k == "engine/start"));
-    assert!(!r.hearken().engine_bands().is_empty() || r.hearken().engine_sound().is_some());
+    if all_engine_cuts() {
+        assert_eq!(r.hearken().engine_bands().len(), STEREO_ENGINE_BANDS.len());
+    } else {
+        assert!(r.hearken().engine_bands().is_empty());
+        assert!(r.hearken().engine_sound().is_none());
+    }
     assert!(!r.engine.engine_starting());
     r.engine.engine_stop();
 }
@@ -285,6 +245,7 @@ fn test_hearken_deliberate_start_waits_for_crank_completion() {
         return;
     }
     let mut r = hearken_rig();
+    r.engine.set_engine_voice(true);
     r.engine
         .set_volumes(&VolumeUpdate::default().master(0.8).engine(0.5));
     r.engine.engine_start();
@@ -311,12 +272,14 @@ fn test_hearken_deliberate_start_waits_for_crank_completion() {
     assert!(!r.engine.engine_starting());
     assert!(r.engine.engine_running());
     assert!(!r.rec.is_playing(crank));
+    assert!(h.engine_sound().is_some());
     r.engine.engine_stop();
 }
 
 #[test]
 fn test_hearken_engine_stop_clears_starting_and_pending_fades() {
     let mut r = hearken_rig();
+    r.engine.set_engine_voice(true);
     r.engine.engine_start();
     assert!(r.engine.engine_starting());
     assert!(r.rec.is_playing(r.channel("engine/start")));
@@ -466,30 +429,18 @@ fn test_hearken_stop_world_drops_the_surge_scale_and_lane_guide() {
 }
 
 #[test]
-fn test_hearken_jake_voice_routes_and_applies_live() {
+fn test_hearken_jake_routes_to_recorded_cut() {
     if !shipped_sounds() {
         return;
     }
     let mut r = hearken_rig();
-    r.engine.set_jake_voice(false);
     r.engine
         .start_loop_with(CH_JAKE, "engine/jake_1400", 0.5, 300);
     assert_eq!(
-        r.engine.backend().loop_entry(CH_JAKE).unwrap().0,
-        JAKE_RECORDED_KEY
+        r.engine.backend().loop_entry(CH_JAKE).unwrap(),
+        (JAKE_RECORDED_KEY.to_string(), 0.5)
     );
-    r.engine.set_jake_voice(true);
-    let entry = r.engine.backend().loop_entry(CH_JAKE).unwrap();
-    assert_eq!(entry, (JAKE_CLASSIC_KEY.to_string(), 0.5));
-    assert!(r.rec.channel_of(JAKE_CLASSIC_KEY).is_some());
-    r.engine.set_jake_voice(false);
-    assert!(r
-        .engine
-        .backend()
-        .loop_entry(CH_JAKE)
-        .unwrap()
-        .0
-        .starts_with(JAKE_BAND_PREFIX));
+    assert!(r.rec.channel_of(JAKE_RECORDED_KEY).is_some());
     r.engine.stop_loop(CH_JAKE);
     assert!(r.engine.backend().loop_entry(CH_JAKE).is_none());
 }

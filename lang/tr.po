@@ -17372,32 +17372,17 @@ msgstr ""
 "çünkü kamyonları deviren budur. Siz dönüşü ya da şerit değişikliğini "
 "yaptıktan sonra gelir."
 
-msgid "It is an engine and it sounds like one."
-msgstr "Bu bir motor ve motor gibi ses çıkarır."
+msgid "An engine starting, immediately after you started it."
+msgstr "Siz çalıştırdıktan hemen sonra çalışan bir motor."
+
+msgid "It is the running engine."
+msgstr ""
 
 msgid "The same engine, in its earlier sound."
 msgstr "Aynı motor, önceki sesiyle."
 
-msgid "As the idle loop: an engine at an engine speed."
-msgstr "Rölanti döngüsü gibi: bir devirde çalışan bir motor."
-
-msgid "As the idle loop."
-msgstr "Rölanti döngüsü gibi."
-
-msgid "An engine starting, immediately after you started it."
-msgstr "Siz çalıştırdıktan hemen sonra çalışan bir motor."
-
 msgid "An engine stopping, immediately after you stopped it."
 msgstr "Siz durdurduktan hemen sonra duran bir motor."
-
-msgid ""
-"The classic jake sound: the same three staged entries play it when "
-"Settings, Audio has Engine brake sound set to classic, through the same "
-"key-resolution routing the drive uses. Not a second cue."
-msgstr ""
-"Klasik motor freni sesi: Ayarlar, Ses bölümünde motor freni sesi klasik "
-"olarak ayarlıyken, sürüşün kullandığı aynı tuş eşleme yoluyla aynı üç "
-"kademe girişi onu çalar. İkinci bir işaret değil."
 
 msgid "Rain, wind, snow and thunder name themselves."
 msgstr "Yağmur, rüzgar, kar ve gök gürültüsü kendini belli eder."
@@ -39932,21 +39917,6 @@ msgstr ""
 "sesidir. Klasik özgün motor sesidir. Değişiklikler sürüş sırasında bile "
 "hemen uygulanır."
 
-#. placeholders: {else}
-msgid "Engine brake sound: {else}"
-msgstr "Motor freni sesi: {else}"
-
-msgid "recorded"
-msgstr "kayıtlı"
-
-msgid ""
-"Recorded is the real engine brake growl, the jake. Classic is the "
-"synthesized growl from earlier versions. Changes apply at once, even while "
-"driving."
-msgstr ""
-"Kayıtlı, gerçek motor freninin hırıltısıdır. Klasik, önceki sürümlerdeki "
-"sentezlenmiş hırıltıdır. Değişiklikler sürüş sırasında bile hemen uygulanır."
-
 #. placeholders: {pct}
 msgid "Music volume: {pct} percent"
 msgstr "Müzik ses düzeyi: yüzde {pct}"
@@ -47825,6 +47795,38 @@ msgstr ""
 "İkinci bir düğme katmanı için sol omuz tuşunu basılı tutun. {pad_engine} "
 "motoru kontrol eder, {pad_fuel} yakıtı okur ve {pad_speed_limit} hız "
 "sınırını okur."
+
+#~ msgid "It is an engine and it sounds like one."
+#~ msgstr "Bu bir motor ve motor gibi ses çıkarır."
+
+#~ msgid "As the idle loop: an engine at an engine speed."
+#~ msgstr "Rölanti döngüsü gibi: bir devirde çalışan bir motor."
+
+#~ msgid "As the idle loop."
+#~ msgstr "Rölanti döngüsü gibi."
+
+#~ msgid ""
+#~ "The classic jake sound: the same three staged entries play it when "
+#~ "Settings, Audio has Engine brake sound set to classic, through the same "
+#~ "key-resolution routing the drive uses. Not a second cue."
+#~ msgstr ""
+#~ "Klasik motor freni sesi: Ayarlar, Ses bölümünde motor freni sesi klasik "
+#~ "olarak ayarlıyken, sürüşün kullandığı aynı tuş eşleme yoluyla aynı üç "
+#~ "kademe girişi onu çalar. İkinci bir işaret değil."
+
+#~ msgid "Engine brake sound: {else}"
+#~ msgstr "Motor freni sesi: {else}"
+
+#~ msgid "recorded"
+#~ msgstr "kayıtlı"
+
+#~ msgid ""
+#~ "Recorded is the real engine brake growl, the jake. Classic is the "
+#~ "synthesized growl from earlier versions. Changes apply at once, even while "
+#~ "driving."
+#~ msgstr ""
+#~ "Kayıtlı, gerçek motor freninin hırıltısıdır. Klasik, önceki sürümlerdeki "
+#~ "sentezlenmiş hırıltıdır. Değişiklikler sürüş sırasında bile hemen uygulanır."
 
 #~ msgid ""
 #~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "

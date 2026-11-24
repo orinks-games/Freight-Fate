@@ -17634,33 +17634,17 @@ msgstr ""
 "назад, потому что именно этот удар опрокидывает грузовики. Он приходит, "
 "когда вы уже повернули или сменили полосу."
 
-msgid "It is an engine and it sounds like one."
-msgstr "Это двигатель, и он звучит как двигатель."
+msgid "An engine starting, immediately after you started it."
+msgstr "Запуск двигателя сразу после того, как вы его запустили."
+
+msgid "It is the running engine."
+msgstr ""
 
 msgid "The same engine, in its earlier sound."
 msgstr "Тот же двигатель, в своём прежнем звучании."
 
-msgid "As the idle loop: an engine at an engine speed."
-msgstr "Как и цикл холостого хода: двигатель на определённых оборотах."
-
-msgid "As the idle loop."
-msgstr "Как и цикл холостого хода."
-
-msgid "An engine starting, immediately after you started it."
-msgstr "Запуск двигателя сразу после того, как вы его запустили."
-
 msgid "An engine stopping, immediately after you stopped it."
 msgstr "Остановка двигателя сразу после того, как вы его заглушили."
-
-msgid ""
-"The classic jake sound: the same three staged entries play it when "
-"Settings, Audio has Engine brake sound set to classic, through the same "
-"key-resolution routing the drive uses. Not a second cue."
-msgstr ""
-"Классический звук джейка: те же три записи ступеней воспроизводят его, "
-"когда в разделе «Настройки», «Звук» для звука моторного тормоза выбрано "
-"«классический», через ту же маршрутизацию клавиш, что и в поездке. Это не "
-"вторая подсказка."
 
 msgid "Rain, wind, snow and thunder name themselves."
 msgstr "Дождь, ветер, снег и гром говорят сами за себя."
@@ -40943,22 +40927,6 @@ msgstr ""
 "следует за оборотами. «Классический» это исходный звук двигателя. Изменения "
 "действуют сразу, даже во время езды."
 
-#. placeholders: {else}
-msgid "Engine brake sound: {else}"
-msgstr "Звук моторного тормоза: {else}"
-
-msgid "recorded"
-msgstr "записанный"
-
-msgid ""
-"Recorded is the real engine brake growl, the jake. Classic is the "
-"synthesized growl from earlier versions. Changes apply at once, even while "
-"driving."
-msgstr ""
-"«Записанный» это настоящий рык моторного тормоза, джейка. «Классический» "
-"это синтезированный рык из прежних версий. Изменения действуют сразу, даже "
-"во время езды."
-
 #. placeholders: {pct}
 msgid "Music volume: {pct} percent"
 msgstr "Громкость музыки: {pct} {pct:процент|процента|процентов}"
@@ -48952,6 +48920,40 @@ msgstr ""
 "Удерживайте left bumper для второго слоя кнопок. {pad_engine} управляет "
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
+
+#~ msgid "It is an engine and it sounds like one."
+#~ msgstr "Это двигатель, и он звучит как двигатель."
+
+#~ msgid "As the idle loop: an engine at an engine speed."
+#~ msgstr "Как и цикл холостого хода: двигатель на определённых оборотах."
+
+#~ msgid "As the idle loop."
+#~ msgstr "Как и цикл холостого хода."
+
+#~ msgid ""
+#~ "The classic jake sound: the same three staged entries play it when "
+#~ "Settings, Audio has Engine brake sound set to classic, through the same "
+#~ "key-resolution routing the drive uses. Not a second cue."
+#~ msgstr ""
+#~ "Классический звук джейка: те же три записи ступеней воспроизводят его, "
+#~ "когда в разделе «Настройки», «Звук» для звука моторного тормоза выбрано "
+#~ "«классический», через ту же маршрутизацию клавиш, что и в поездке. Это не "
+#~ "вторая подсказка."
+
+#~ msgid "Engine brake sound: {else}"
+#~ msgstr "Звук моторного тормоза: {else}"
+
+#~ msgid "recorded"
+#~ msgstr "записанный"
+
+#~ msgid ""
+#~ "Recorded is the real engine brake growl, the jake. Classic is the "
+#~ "synthesized growl from earlier versions. Changes apply at once, even while "
+#~ "driving."
+#~ msgstr ""
+#~ "«Записанный» это настоящий рык моторного тормоза, джейка. «Классический» "
+#~ "это синтезированный рык из прежних версий. Изменения действуют сразу, даже "
+#~ "во время езды."
 
 #~ msgid ""
 #~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "

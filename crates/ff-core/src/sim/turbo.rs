@@ -23,9 +23,9 @@ const LIFT_THROTTLE: f64 = 0.12;
 /// Boost threshold below which the spool loop fades out.
 const AUDIBLE_BOOST: f64 = 0.04;
 /// Peak loop level at full boost and `turbo_level = 1.0`.
-const MAX_SPOOL_LEVEL: f64 = 0.44;
+const MAX_SPOOL_LEVEL: f64 = 0.18;
 /// Peak one-shot level for the release cue at full boost and `turbo_level = 1.0`.
-const MAX_BLOWOFF_LEVEL: f64 = 0.50;
+const MAX_BLOWOFF_LEVEL: f64 = 0.24;
 /// Loop fade time in milliseconds.
 pub const TURBO_FADE_MS: u32 = 160;
 
@@ -159,7 +159,7 @@ impl TurboState {
         } else {
             (self.boost * self.boost.sqrt() * level * MAX_SPOOL_LEVEL).clamp(0.0, MAX_SPOOL_LEVEL)
         };
-        let spool_rate = 0.62 + 0.78 * self.boost;
+        let spool_rate = 0.86 + 0.28 * self.boost;
 
         TurboOutput {
             spool_level,

@@ -525,7 +525,6 @@ impl SettingsCategoryState {
                     adjust(|s, ctx, d| s.volume(ctx, "road_surface_volume", 0.1 * d as f64)),
                     adjust(|s, ctx, d| s.volume(ctx, "engine_volume", 0.1 * d as f64)),
                     adjust(|s, ctx, d| s.toggle_engine_voice(ctx, d)),
-                    adjust(|s, ctx, d| s.toggle_jake_voice(ctx, d)),
                     adjust(|s, ctx, d| s.volume(ctx, "music_volume", 0.1 * d as f64)),
                     adjust(|s, ctx, d| s.toggle_music_source(ctx, d)),
                     adjust(|s, ctx, d| s.roll_music_seed(ctx, d)),
@@ -869,18 +868,6 @@ impl SettingsCategoryState {
                 adjust(|s, ctx, d| s.toggle_engine_voice(ctx, d)),
                 "Real is the engine recorded from a working truck cab, \
                  following the rpm. Classic is the original engine sound. \
-                 Changes apply at once, even while driving.",
-            ),
-            row(
-                dyn_label(|s| {
-                    format!(
-                        "Engine brake sound: {}",
-                        if s.jake_voice == "real" { "recorded" } else { "classic" }
-                    )
-                }),
-                adjust(|s, ctx, d| s.toggle_jake_voice(ctx, d)),
-                "Recorded is the real engine brake growl, the jake. \
-                 Classic is the synthesized growl from earlier versions. \
                  Changes apply at once, even while driving.",
             ),
             row(

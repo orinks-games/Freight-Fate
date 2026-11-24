@@ -16140,31 +16140,17 @@ msgid ""
 msgstr ""
 "積み荷がタンクの側面に当たる音です。前後の衝撃とは違う音です。トラックを横転させるのはこちらだからです。曲がった後や車線を変えた後に来ます。"
 
-msgid "It is an engine and it sounds like one."
-msgstr "エンジンで、エンジンの音がします。"
+msgid "An engine starting, immediately after you started it."
+msgstr "エンジンをかけた直後の、エンジンの始動音です。"
+
+msgid "It is the running engine."
+msgstr ""
 
 msgid "The same engine, in its earlier sound."
 msgstr "同じエンジンの、以前の音です。"
 
-msgid "As the idle loop: an engine at an engine speed."
-msgstr "アイドリングのループと同じ。エンジン回転数に応じたエンジンです。"
-
-msgid "As the idle loop."
-msgstr "アイドリングのループと同じ。"
-
-msgid "An engine starting, immediately after you started it."
-msgstr "エンジンをかけた直後の、エンジンの始動音です。"
-
 msgid "An engine stopping, immediately after you stopped it."
 msgstr "エンジンを止めた直後の、エンジンの停止音です。"
-
-msgid ""
-"The classic jake sound: the same three staged entries play it when "
-"Settings, Audio has Engine brake sound set to classic, through the same "
-"key-resolution routing the drive uses. Not a second cue."
-msgstr ""
-"昔ながらのジェイクの音です。設定のオーディオでエンジンブレーキの音がクラシックのとき、同じ3段階がこれを鳴らし、走行中と同じキーの割り当てを通ります。二"
-"つ目の合図ではありません。"
 
 msgid "Rain, wind, snow and thunder name themselves."
 msgstr "雨、風、雪、雷は、聞けばそれと分かります。"
@@ -37064,20 +37050,6 @@ msgstr ""
 "リアルは、実際に使われているトラックの運転席で録音したエンジン音で、回転数に合わせて変わります。クラシックは元のエンジン音です。変更は運転中でもすぐに反"
 "映されます。"
 
-#. placeholders: {else}
-msgid "Engine brake sound: {else}"
-msgstr "エンジンブレーキの音：{else}"
-
-msgid "recorded"
-msgstr "録音"
-
-msgid ""
-"Recorded is the real engine brake growl, the jake. Classic is the "
-"synthesized growl from earlier versions. Changes apply at once, even while "
-"driving."
-msgstr ""
-"録音は、本物のエンジンブレーキ、ジェイクのうなりです。クラシックは、以前のバージョンの合成したうなりです。変更は運転中でもすぐに反映されます。"
-
 #. placeholders: {pct}
 msgid "Music volume: {pct} percent"
 msgstr "音楽の音量：{pct}パーセント"
@@ -44246,6 +44218,36 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid "It is an engine and it sounds like one."
+#~ msgstr "エンジンで、エンジンの音がします。"
+
+#~ msgid "As the idle loop: an engine at an engine speed."
+#~ msgstr "アイドリングのループと同じ。エンジン回転数に応じたエンジンです。"
+
+#~ msgid "As the idle loop."
+#~ msgstr "アイドリングのループと同じ。"
+
+#~ msgid ""
+#~ "The classic jake sound: the same three staged entries play it when "
+#~ "Settings, Audio has Engine brake sound set to classic, through the same "
+#~ "key-resolution routing the drive uses. Not a second cue."
+#~ msgstr ""
+#~ "昔ながらのジェイクの音です。設定のオーディオでエンジンブレーキの音がクラシックのとき、同じ3段階がこれを鳴らし、走行中と同じキーの割り当てを通ります。二"
+#~ "つ目の合図ではありません。"
+
+#~ msgid "Engine brake sound: {else}"
+#~ msgstr "エンジンブレーキの音：{else}"
+
+#~ msgid "recorded"
+#~ msgstr "録音"
+
+#~ msgid ""
+#~ "Recorded is the real engine brake growl, the jake. Classic is the "
+#~ "synthesized growl from earlier versions. Changes apply at once, even while "
+#~ "driving."
+#~ msgstr ""
+#~ "録音は、本物のエンジンブレーキ、ジェイクのうなりです。クラシックは、以前のバージョンの合成したうなりです。変更は運転中でもすぐに反映されます。"
 
 #~ msgid ""
 #~ "Save {grouped} dollars: {grouped2} for the truck buy-in and {grouped3} for "
