@@ -10,6 +10,7 @@
 
 ### Fixed
 
+- **The engine cab sound no longer has a short, phasey echo.**
 - **The Logbook now includes driving, unloading and 30-minute breaks in its entries and daily totals.**
 - **Weather reports and alerts now use the selected language.** Players hear over a thousand fewer English lines.
 - **Town streets at the start and end of a road no longer get the highway's speed limit.** Where no sign is mapped, the town limit applies instead.
