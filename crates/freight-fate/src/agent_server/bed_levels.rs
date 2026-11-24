@@ -80,19 +80,19 @@ mod tests {
     #[test]
     fn the_tire_song_reports_its_level_and_rate() {
         let mut levels = BedLevels::default();
-        let key = "vehicle/tined_whine";
+        let key = "vehicle/grate_hum";
         assert_eq!(
             levels.heard(CH_ROAD_SONG, key, 0.36).as_deref(),
-            Some("[bed] vehicle/tined_whine level 0.4")
+            Some("[bed] vehicle/grate_hum level 0.4")
         );
         assert_eq!(
             levels.rate_heard(CH_ROAD_SONG, key, 1.0).as_deref(),
-            Some("[bed] vehicle/tined_whine rate 1.0")
+            Some("[bed] vehicle/grate_hum rate 1.0")
         );
         assert_eq!(levels.rate_heard(CH_ROAD_SONG, key, 1.02), None);
         assert_eq!(
             levels.rate_heard(CH_ROAD_SONG, key, 0.54).as_deref(),
-            Some("[bed] vehicle/tined_whine rate 0.5")
+            Some("[bed] vehicle/grate_hum rate 0.5")
         );
         assert_eq!(levels.rate_heard(CH_ROAD, "vehicle/road", 0.5), None);
     }

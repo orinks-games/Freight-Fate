@@ -8,7 +8,7 @@ use ff_core::models::jobs::{Job, CARGO_CATALOG};
 use ff_core::models::profile::Profile;
 use ff_core::sim::outside::RIVER_SPAN_MI;
 use ff_core::sim::road_texture::joints::{JointSpan, SpanOrigin, MIN_SPAN_MI};
-use ff_core::sim::road_texture::song::{HeldSong, TireSong, HUM, HUM_MIN_S, WHINE};
+use ff_core::sim::road_texture::song::{HeldSong, TireSong, HUM, HUM_MIN_S};
 use ff_core::sim::road_texture::{
     Axle, Crossing, Hit, RoadSurface, AXLE_GAP_M, OVERLAY_SEAM_FACTOR, POOR_SEAM_FACTOR,
     TRAILER_GAP_M,
@@ -361,28 +361,23 @@ fn song(log: &AudioLog) -> Option<(String, f64, f64)> {
 }
 
 #[test]
-fn a_held_song_plays_its_loop_at_a_pitch_that_follows_speed() {
+fn a_held_hum_plays_its_loop_at_a_pitch_that_follows_speed() {
     let mut app = TestApp::new();
     let (mut drive, log) = a_drive(&mut app, "Kenosha", "Chicago", 5.0);
-    drive.road_texture.song = TireSong::Held(HeldSong::Whine);
-    cruise(&mut drive, &mut app, WHINE.reference_mps, 1.0, 0.5);
-    let (key, level, rate) = song(&log).expect("the whine plays");
-    assert_eq!(key, WHINE.key);
+    drive.road_texture.song = TireSong::Held(HeldSong::Hum);
+    cruise(&mut drive, &mut app, HUM.reference_mps, 1.0, 0.5);
+    let (key, level, rate) = song(&log).expect("the hum plays");
+    assert_eq!(key, HUM.key);
     assert!((rate - 1.0).abs() < 1e-9, "{rate}");
-    assert!((level - WHINE.level).abs() < 1e-9, "{level}");
-    // 35 mph: the note and the level drop with the speed.
+    assert!((level - HUM.level).abs() < 1e-9, "{level}");
     cruise(&mut drive, &mut app, 15.65, 1.0, 0.5);
-    let (_, level, rate) = song(&log).expect("still whining");
-    assert!((rate - 15.65 / WHINE.reference_mps).abs() < 1e-9);
-    assert!(level < WHINE.level * 0.5);
+    let (_, level, rate) = song(&log).expect("still humming");
+    assert!((rate - 15.65 / HUM.reference_mps).abs() < 1e-9);
+    assert!((level - HUM.level * (15.65_f64 / HUM.reference_mps).powf(1.5)).abs() < 1e-9);
     // Under the seam speed it stops.
     cruise(&mut drive, &mut app, 4.0, 1.0, 0.2);
     assert_eq!(song(&log), None);
 
-    // The hum swaps the loop on the same channel.
-    drive.road_texture.song = TireSong::Held(HeldSong::Hum);
-    cruise(&mut drive, &mut app, HUM.reference_mps, 1.0, 0.5);
-    assert_eq!(song(&log).map(|s| s.0), Some(HUM.key.to_string()));
     drive.road_texture.song = TireSong::Held(HeldSong::Quiet);
     cruise(&mut drive, &mut app, HUM.reference_mps, 1.0, 0.2);
     assert_eq!(song(&log), None);

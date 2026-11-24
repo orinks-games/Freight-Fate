@@ -6,7 +6,11 @@
 
 - **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
 - **Page Up and Page Down now move ten options at a time in every menu.**
-- **Tires whine on grooved concrete and hum on steel grate bridge decks.** The pitch rises and falls with your speed.
+- **Tires hum on steel grate bridge decks.** The pitch rises and falls with your speed.
+
+### Removed
+
+- **Tires no longer whine on grooved concrete.**
 
 ### Fixed
 

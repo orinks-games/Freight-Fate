@@ -14555,24 +14555,7 @@ msgid "assumed, concrete deck"
 msgstr ""
 
 #: crates/ff-core/src/sim/road_texture/song.rs
-msgid "whine"
-msgstr ""
-
-#: crates/ff-core/src/sim/road_texture/song.rs
 msgid "hum"
-msgstr ""
-
-#: crates/ff-core/src/sim/road_texture/song.rs
-msgid ", holding"
-msgstr ""
-
-#: crates/ff-core/src/sim/road_texture/song.rs
-msgid "quiet (resting after a deck)"
-msgstr ""
-
-#. placeholders: {grooves_origin}, {holding}
-#: crates/ff-core/src/sim/road_texture/song.rs
-msgid "whine ({grooves_origin}{holding})"
 msgstr ""
 
 #: crates/ff-core/src/sim/road_texture/song.rs
@@ -17690,10 +17673,6 @@ msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
 msgid "The joint at a bridge end: texture, not a decision."
-msgstr ""
-
-#: crates/ff-core/src/sound_catalog.rs
-msgid "Tires on concrete grooved across the lane: texture, not a decision."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -41647,7 +41626,7 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid ""
 "The thump of pavement seams and bridge joints under the wheels, and the "
-"tires' whine on grooved concrete and hum on steel grate decks."
+"tires' hum on steel grate decks."
 msgstr ""
 
 #. placeholders: {pct}

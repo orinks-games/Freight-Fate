@@ -262,7 +262,7 @@ impl Scenario {
             None => None,
             Some(name) => Some(
                 HeldSong::from_name(name)
-                    .ok_or_else(|| format!("tire_song must be quiet, whine or hum, not {name}"))?,
+                    .ok_or_else(|| format!("tire_song must be quiet or hum, not {name}"))?,
             ),
         };
         let weather = text(args, "weather")?
