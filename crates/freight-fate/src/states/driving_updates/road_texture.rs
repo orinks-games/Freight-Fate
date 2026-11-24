@@ -24,7 +24,7 @@ pub const SEAM_LEVEL: f64 = 0.5;
 /// The drive tandem lands a little harder than the steer axle.
 pub const DRIVE_AXLE_GAIN: f64 = 1.25;
 /// A bridge end joint, every axle. Orinks's ear sets it.
-pub const BRIDGE_JOINT_LEVEL: f64 = 0.75;
+pub const BRIDGE_JOINT_LEVEL: f64 = 0.58;
 /// The small jolt a bridge joint gives the wheel, under the steer axle.
 const BRIDGE_JOINT_IMPACT: f64 = 0.2;
 /// No hit asks for more than this, so the bank's own level variation never
@@ -47,7 +47,7 @@ const BRIDGE_DECK: &str = "vehicle/bridge_deck";
 /// Reference speed (60 mph) for the concrete bridge deck resonance bed.
 const BRIDGE_DECK_REF_MPS: f64 = 26.82;
 /// Level of the concrete bridge deck bed at and above reference speed.
-const BRIDGE_DECK_LEVEL: f64 = 0.42;
+const BRIDGE_DECK_LEVEL: f64 = 0.30;
 /// Fade time in milliseconds when entering or leaving a concrete bridge deck.
 const BRIDGE_DECK_FADE_MS: u32 = 220;
 /// A pack without the banks still has the old seam.
@@ -110,9 +110,11 @@ impl DrivingState {
             &mut self.road_texture_rng,
         );
 
-        // Ramps are outside the highway soundscape.
+        // Ramps and bridge spans are outside the highway slab seam cadence;
+        // bridges play their own expansion joints and concrete deck resonance.
+        let on_span = self.on_bridge_span(position);
         let seam = self.road_texture.surface.seam_factor();
-        if let (Some(factor), true, false) = (seam, rolling, self.trip.on_ramp) {
+        if let (Some(factor), true, false, false) = (seam, rolling, self.trip.on_ramp, on_span) {
             self.road_joint_accumulator_m += metres;
             if self.road_joint_accumulator_m >= self.next_joint_distance_m {
                 self.road_joint_accumulator_m %= self.next_joint_distance_m;
@@ -177,6 +179,17 @@ impl DrivingState {
         }
     }
 
+    fn on_bridge_span(&self, position: f64) -> bool {
+        matches!(
+            self.trip.bridge,
+            ff_core::sim::bridges::BridgeCrossing::On { .. }
+        ) || self
+            .road_texture
+            .spans
+            .iter()
+            .any(|s| position >= s.from_mi && position <= s.to_mi)
+    }
+
     /// Hollow concrete resonance bed while rolling across a bridge span.
     /// Open steel grates keep their own grate hum instead.
     fn update_bridge_deck(&mut self, ctx: &mut GameContext, speed: f64, position: f64) {
@@ -187,14 +200,7 @@ impl DrivingState {
             self.road_texture.song,
             TireSong::Held(ff_core::sim::road_texture::song::HeldSong::Hum)
         );
-        let on_span = matches!(
-            self.trip.bridge,
-            ff_core::sim::bridges::BridgeCrossing::On { .. }
-        ) || self
-            .road_texture
-            .spans
-            .iter()
-            .any(|s| position >= s.from_mi && position <= s.to_mi);
+        let on_span = self.on_bridge_span(position);
         if !self.trip.on_ramp && !on_grate && on_span && speed > SEAM_MIN_SPEED_MPS {
             let ratio = speed / BRIDGE_DECK_REF_MPS;
             let rate = ratio.clamp(0.55, 1.35);
