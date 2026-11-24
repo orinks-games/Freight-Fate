@@ -36,9 +36,13 @@ starts or ends, a heavy click for the deep swipe, and a double click for the
 engine key. Touch gestures in Settings turns them off.
 
 [Tilt steering](../ios/README.md#tilt-steering) reads the accelerometer
-through the same SDL path as on iPhone, but it has not been tried on an
-Android phone, and the screen keeps turning with the phone at the wheel:
-SDL reads Android's orientation setting only when the window is made.
+through the same SDL path as on iPhone. SDL 2.26's Android sensor code calls
+`ALooper_pollAll`, which NDK r27 and later refuse to compile, so the SDL
+toolchain file forces in a header that stands in for it with
+`ALooper_pollOnce` (`crates/freight-fate-android/cmake`). SDL reads
+Android's orientation setting only when the window is made, so while tilt
+steering is at the wheel the activity holds the screen in the orientation
+it has, and puts SDL's own request back when tilt stops.
 
 ## Voices
 

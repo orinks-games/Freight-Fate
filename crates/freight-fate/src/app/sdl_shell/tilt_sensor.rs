@@ -14,7 +14,9 @@
 //! `UIKit_GetSupportedOrientations`), so locking sets the hint to the
 //! orientation the screen has and asks UIKit to ask again
 //! (`ios/ff_orientation.m`); unlocking puts all four back. Android reads that
-//! hint only when the window is made, so there the screen is not locked.
+//! hint only when the window is made, so there the activity asks Android to
+//! hold the orientation it has (`android::lock_orientation`) and puts back
+//! SDL's own request when the lock ends.
 
 use std::time::Instant;
 

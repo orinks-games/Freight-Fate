@@ -456,14 +456,16 @@ impl SdlShell {
     }
 
     /// Hold the screen's orientation while tilt steering is at the wheel.
-    /// Only iPhone and iPad can change it once the window is up.
+    /// Only a phone or tablet changes it.
     pub fn lock_orientation(&mut self, lock: bool) {
-        if !cfg!(target_os = "ios") {
+        if !cfg!(touch_screen) {
             return;
         }
         if self.tilt.lock(lock).is_some() {
             #[cfg(target_os = "ios")]
             ios::refresh_orientations(self.canvas.window());
+            #[cfg(target_os = "android")]
+            crate::android::lock_orientation(lock);
         }
     }
 
