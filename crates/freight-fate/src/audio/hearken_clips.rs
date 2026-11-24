@@ -119,7 +119,7 @@ fn cab_band_with_preroll(key: &str, bytes: &[u8], frames: usize) -> Option<Arc<[
     Some(out.into())
 }
 
-fn cab_loop_wav(key: &str, bytes: &[u8]) -> Option<Arc<[u8]>> {
+pub(super) fn cab_loop_wav(key: &str, bytes: &[u8]) -> Option<Arc<[u8]>> {
     let samples = cab_loop_samples(key, bytes)?;
     let mut out = ff_core::wav::pcm16_header(samples.len() / 2, 2, CAB_SAMPLE_RATE);
     out.extend_from_slice(&samples);
