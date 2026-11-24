@@ -322,7 +322,7 @@ fn stage_app(
     let assets = repo.join(super::SOURCE_ASSETS);
     let package = app.join("freight_fate");
     super::packs::require_real_pack(&assets.join("sounds.pak"))?;
-    util::copy_file(&assets.join("sounds.pak"), &package.join("sounds.pak"))?;
+    super::packs::stage_effects_pack(&assets, &package.join("sounds.pak"))?;
     if music {
         super::packs::ensure_music_pack(None)?;
         util::copy_file(&assets.join("music.pak"), &package.join("music.pak"))?;

@@ -77,6 +77,7 @@
 ### Changed
 
 - **Gearshifts, turbocharger cues, and the engine brake now use real vehicle recordings instead of synthesized sounds.** Saved classic engine-brake settings migrate to recorded playback.
+- **The main engine now uses the approved stereo cab recordings in installed builds.**
 - **Bridge crossings now play a concrete deck bed, recorded steel-grate hum, and clearer water ambience.** Grooved concrete and highway seams now use recorded bumps and textured tire hum.
 
 - **Slick roads, high crosswinds, and tight ramps now trigger ABS, wheelspin, trailer sway, and off-tracking.** Automatic shifts also hold lower gears longer on downgrades.

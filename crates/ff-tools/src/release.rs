@@ -325,7 +325,8 @@ fn stage_release_docs(root: &Path) -> Result<()> {
 fn stage_sound_pack(root: &Path) -> Result<()> {
     let assets = util::repo_root().join(SOURCE_ASSETS);
     let package = root.join("freight_fate");
-    for pack in ["sounds.pak", "music.pak", "channel3000.pak"] {
+    packs::stage_effects_pack(&assets, &package.join("sounds.pak"))?;
+    for pack in ["music.pak", "channel3000.pak"] {
         util::copy_file(&assets.join(pack), &package.join(pack))?;
     }
     let credits = assets.join("sounds").join("CREDITS.md");

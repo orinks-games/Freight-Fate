@@ -153,6 +153,39 @@ fn pack_names(_path: &Path) -> Result<Vec<String>> {
     Err("this build of ff-tools has no `world` feature, so it cannot read sound packs".into())
 }
 
+/// The five calibrated stereo cab engine loops required in every licensed
+/// release `sounds.pak` (PR #781). Missing any one makes the runtime fall back
+/// silently to the legacy 1.9 mono ring.
+pub const REQUIRED_LICENSED_ENGINE_ENTRIES: &[&str] = &[
+    "engine_stereo/idle.wav",
+    "engine_stereo/low.wav",
+    "engine_stereo/mid.wav",
+    "engine_stereo/midhigh.wav",
+    "engine_stereo/high.wav",
+];
+
+/// Return any required licensed stereo cab engine entries missing from `names`.
+pub fn missing_licensed_engine_entries(names: &[String]) -> Vec<&'static str> {
+    REQUIRED_LICENSED_ENGINE_ENTRIES
+        .iter()
+        .copied()
+        .filter(|req| !names.iter().any(|n| n == req))
+        .collect()
+}
+
+/// Stage the runtime `sounds.pak` by overlaying the private licensed sound tree
+/// (`FREIGHT_FATE_LICENSED_SOUNDS` or `<assets>/sounds-licensed`) onto the base
+/// `assets/sounds.pak` when present, never touching the tracked repo pack.
+#[cfg(feature = "world")]
+pub fn stage_effects_pack(assets_dir: &Path, out: &Path) -> Result<()> {
+    crate::pack_sounds::stage_effects_pack(assets_dir, out, None)
+}
+
+#[cfg(not(feature = "world"))]
+pub fn stage_effects_pack(assets_dir: &Path, out: &Path) -> Result<()> {
+    util::copy_file(&assets_dir.join("sounds.pak"), out)
+}
+
 /// Open the staged packs and prove they carry what the game reads.
 pub fn verify_sound_packs(build: &Path) -> Result<()> {
     let root = if build.extension().is_some_and(|e| e == "app") {
@@ -175,6 +208,20 @@ pub fn verify_sound_packs(build: &Path) -> Result<()> {
              `cargo tools pack-sounds` on a builder machine and commit it"
                 .into(),
         );
+    }
+    let allow_unlicensed =
+        std::env::var("FREIGHT_FATE_ALLOW_UNLICENSED_RELEASE").is_ok_and(|v| v.trim() == "1");
+    if !allow_unlicensed {
+        let missing = missing_licensed_engine_entries(&names);
+        if !missing.is_empty() {
+            return Err(format!(
+                "Packaged sound pack is missing licensed stereo cab engine cuts ({}), so \
+                 the build would fall back silently to the 1.9 mono engine; provide \
+                 assets/sounds-licensed (or FREIGHT_FATE_LICENSED_SOUNDS) when staging \
+                 (or set FREIGHT_FATE_ALLOW_UNLICENSED_RELEASE=1 for an open test build)",
+                missing.join(", ")
+            ));
+        }
     }
     if !pack_names(&package.join("music.pak"))?
         .iter()
@@ -219,5 +266,63 @@ mod tests {
         let sha = util::file_sha256(&pack).unwrap();
         // An unroutable URL: reaching the network would fail the test.
         ensure_pinned_pack(&pack, "http://127.0.0.1:9/never", &sha, "Test").unwrap();
+    }
+
+    #[cfg(feature = "world")]
+    #[test]
+    fn verify_sound_packs_requires_licensed_stereo_engine() {
+        let dir = tempfile::tempdir().unwrap();
+        let build = dir.path().join("build");
+        let pkg = build.join("freight_fate");
+        let src = dir.path().join("src");
+        std::fs::create_dir_all(src.join("engine_classic")).unwrap();
+        std::fs::create_dir_all(src.join("music")).unwrap();
+        std::fs::create_dir_all(src.join("c3k")).unwrap();
+        std::fs::write(src.join("engine_classic/idle.ogg"), b"idle").unwrap();
+        std::fs::write(src.join("music/track.ogg"), b"music").unwrap();
+        std::fs::write(src.join("c3k/clip.ogg"), b"c3k").unwrap();
+
+        ff_core::assets_pack::write_pack(
+            &src,
+            &pkg.join("sounds.pak"),
+            None,
+            Some(&|n| !n.starts_with("music/") && !n.starts_with("c3k/")),
+        )
+        .unwrap();
+        ff_core::assets_pack::write_pack(
+            &src,
+            &pkg.join("music.pak"),
+            None,
+            Some(&|n| n.starts_with("music/")),
+        )
+        .unwrap();
+        ff_core::assets_pack::write_pack(
+            &src,
+            &pkg.join("channel3000.pak"),
+            None,
+            Some(&|n| n.starts_with("c3k/")),
+        )
+        .unwrap();
+
+        let err = verify_sound_packs(&build).unwrap_err();
+        assert!(
+            err.contains("engine_stereo/idle.wav"),
+            "expected missing stereo engine error, got: {err}"
+        );
+
+        let overlay = dir.path().join("overlay");
+        std::fs::create_dir_all(overlay.join("engine_stereo")).unwrap();
+        for entry in REQUIRED_LICENSED_ENGINE_ENTRIES {
+            std::fs::write(overlay.join(entry), b"wav").unwrap();
+        }
+        ff_core::assets_pack::write_pack_with_base(
+            Some(&pkg.join("sounds.pak")),
+            &src,
+            &pkg.join("sounds.pak"),
+            Some(&overlay),
+            Some(&|n| !n.starts_with("music/") && !n.starts_with("c3k/")),
+        )
+        .unwrap();
+        verify_sound_packs(&build).unwrap();
     }
 }

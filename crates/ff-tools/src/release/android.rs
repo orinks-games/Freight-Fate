@@ -320,7 +320,7 @@ fn stage_game_files(assets: &Path, label: &str, music: bool) -> Result<()> {
         util::copy_file(&repo.join(&relative), &package.join(&relative))?;
     }
     super::packs::require_real_pack(&assets_dir.join("sounds.pak"))?;
-    util::copy_file(&assets_dir.join("sounds.pak"), &package.join("sounds.pak"))?;
+    super::packs::stage_effects_pack(&assets_dir, &package.join("sounds.pak"))?;
     if music {
         super::packs::ensure_music_pack(None)?;
         util::copy_file(&assets_dir.join("music.pak"), &package.join("music.pak"))?;
