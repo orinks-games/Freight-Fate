@@ -28,7 +28,7 @@ const CAB_FRAME_BYTES: usize = 4;
 const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 5] = [
     ("engine_stereo/idle", 141_773, 28_359, 108_091),
     ("engine_stereo/low", 115_761, 804, 84_393),
-    ("engine_stereo/mid", 121_569, 797, 113_334),
+    ("engine_stereo/mid", 121_569, 3_925, 118_938),
     ("engine_stereo/midhigh", 175_932, 1_923, 141_387),
     ("engine_stereo/high", 136_293, 1_466, 128_564),
 ];
