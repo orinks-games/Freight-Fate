@@ -980,3 +980,62 @@ fn test_automatic_shift_uses_shift_cue_not_brake_air() {
     );
     assert!(played.iter().all(|(key, _, _)| key != "vehicle/brake_air"));
 }
+
+#[test]
+fn test_powered_upshift_clunks_only_when_the_next_gear_takes() {
+    let mut harness = bench_drive("Powered Upshift", 200.0, 0.0);
+    let log = harness.app.record_audio();
+    harness.with_drive(|d, _| {
+        let truck = d.truck_mut();
+        truck.start_engine();
+        truck.cargo_kg = 18_000.0;
+        truck.transmission.gear = 3;
+        truck.velocity_mps = 4.3;
+        truck.rpm = truck.coupled_rpm(None);
+        truck.throttle = 1.0;
+    });
+    hold(&mut harness, &[Key::Up]);
+
+    let shift_volumes = || -> Vec<f64> {
+        log.borrow()
+            .played
+            .iter()
+            .filter(|(key, _, _)| {
+                key == "vehicle/gear_shift" || key.starts_with("vehicle/shift_auto")
+            })
+            .map(|(_, volume, _)| *volume)
+            .collect()
+    };
+    let shifting =
+        |d: &freight_fate::states::driving::DrivingState| d.truck().transmission.shifting();
+    for _ in 0..60 {
+        frame(&mut harness, DT);
+        if harness.read_drive(shifting) {
+            break;
+        }
+    }
+    assert!(
+        harness.read_drive(shifting),
+        "the truck must start an upshift"
+    );
+    assert!(harness.read_drive(|d| d.truck().transmission.gear) > 3);
+    assert!(
+        shift_volumes().is_empty(),
+        "cue at torque cut: {:?}",
+        shift_volumes()
+    );
+    for _ in 0..60 {
+        frame(&mut harness, DT);
+        if !harness.read_drive(shifting) {
+            break;
+        }
+        assert!(shift_volumes().is_empty(), "cue during rev-match");
+    }
+    assert!(!harness.read_drive(shifting), "the next gear must engage");
+    assert_eq!(
+        shift_volumes(),
+        [freight_fate::states::driving_updates::SHIFT_END_CLUNK_VOLUME]
+    );
+    frames(&mut harness, 2, DT);
+    assert_eq!(shift_volumes().len(), 1, "no repeat after engagement");
+}

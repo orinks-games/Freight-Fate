@@ -550,9 +550,15 @@ impl DrivingState {
 
         self.update_auto_jake(ctx, dt);
         self.track_driving_badges(ctx, dt);
-        if self.trip.truck.transmission.automatic && self.trip.truck.engine_on {
-            let new_gear = self.trip.truck.auto_shift();
-            if new_gear.is_some() {
+        let truck = &mut self.trip.truck;
+        let old_gear = truck.transmission.gear;
+        if let Some(new_gear) = truck.auto_shift() {
+            let powered_upshift = old_gear > 0
+                && new_gear > old_gear
+                && truck.throttle > 0.05
+                && truck.brake <= 0.01
+                && !truck.air_brakes_holding();
+            if !powered_upshift {
                 ctx.audio.play_bank_with(
                     "vehicle/shift_auto",
                     "vehicle/gear_shift",

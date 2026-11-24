@@ -229,10 +229,10 @@ impl DrivingState {
         // glissando sliding through the change (the meow), but never a
         // frozen hang either (the owner's 2026-07-24 catch: the voice used
         // to hold the pre-shift rpm for the whole interrupt, then cliff).
-        // Automatic: the voice follows the live physics rpm, which eases
-        // unloaded toward the new gear's road speed -- ducked to 0.35 the
-        // whole way, it reads as the real between-gears fall -- and the
-        // engagement plays its own soft clunk as the load swells back.
+        // Automatic: the unloaded voice follows the live physics rpm
+        // toward the new gear's road speed. On a powered upshift the RPM
+        // drop marks release, and a soft clunk marks engagement as the
+        // load swells back.
         // Manual: the player owns the revs while the clutch is out (blips
         // and rev-matching stay audible, and the physics already sinks
         // toward idle), so only the load ducks -- the engine falls back
@@ -266,9 +266,7 @@ impl DrivingState {
             cap = SHIFT_LOAD_CAP + (1.0 - SHIFT_LOAD_CAP) * recovered;
             duck = SHIFT_DISENGAGE_DUCK + (1.0 - SHIFT_DISENGAGE_DUCK) * recovered;
             if self.shift_hold_rpm.is_some() {
-                // Engagement: the gear takes. The interrupt's clunk played a
-                // second ago at shift START, so without this the actual
-                // moment the truck picks the load back up was silent.
+                // Engagement: the gear takes.
                 ctx.audio.play_bank_with(
                     "vehicle/shift_auto",
                     "vehicle/gear_shift",

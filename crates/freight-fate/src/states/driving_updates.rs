@@ -158,8 +158,8 @@ pub const SHIFT_LOAD_CAP: f64 = 0.58;
 // Keep the duck gentle enough that an upshift sighs into the next gear
 // without sounding like a power cut or hesitation.
 pub const SHIFT_DISENGAGE_DUCK: f64 = 0.78;
-// On an automatic shift, let the RPM drop carry the interruption and keep
-// the mechanical linkage clicks subtle so quick upshifts do not double-clunk.
+// Powered upshifts use the RPM drop at release and a clunk at engagement.
+// Other automatic shifts also cue the opening of the driveline.
 pub const AUTO_SHIFT_START_CLUNK_VOLUME: f64 = 0.12;
 pub const SHIFT_END_CLUNK_VOLUME: f64 = 0.22;
 // When the shift completes the cap eases from SHIFT_LOAD_CAP back to full over
