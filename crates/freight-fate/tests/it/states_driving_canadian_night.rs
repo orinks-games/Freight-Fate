@@ -338,3 +338,30 @@ fn the_split_sentence_follows_the_us_line_under_canadian_rules() {
         }
     }
 }
+
+/// The ELD route note plans from the limit that comes first on the road
+/// ahead: with the US counts nearly spent, a load to Grand Forks is told it
+/// needs a rest stop, and a load that stays in Canada is not.
+#[test]
+fn the_route_note_counts_the_us_hours_when_the_road_enters_the_us() {
+    for (cities, us_ahead) in [
+        (&["winnipeg_mb_ca", "grand_forks_nd_us"][..], true),
+        (&["winnipeg_mb_ca", "portage_la_prairie_mb_ca"][..], false),
+    ] {
+        let mut harness = a_drive(cities, Some("longspur_transport"));
+        harness.app.ctx.settings.hos_mode = "realistic".to_string();
+        spend_a_shift(&mut harness, 5.0, HosRules::CanadaSouth60, 10.5);
+        harness.with_drive(|_, ctx| {
+            let hos = &mut ctx.profile.as_mut().expect("a career").hos;
+            hos.ca_driving_min = 0.0;
+            hos.ca_on_duty_min = 0.0;
+            hos.since_break_min = 0.0;
+        });
+        let note = harness.with_drive(|d, ctx| d.hos_route_context(ctx));
+        assert_eq!(
+            note.contains("No rest stop needed first"),
+            !us_ahead,
+            "{cities:?}: {note}"
+        );
+    }
+}

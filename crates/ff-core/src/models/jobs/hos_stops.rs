@@ -175,7 +175,20 @@ pub fn plan_hos_stop(
     clock: &HosClock,
     mode: &str,
 ) -> Option<HosStopAdvice> {
-    let limit = clock.next_limit(mode)?;
+    plan_hos_stop_ahead(request, clock, mode, true)
+}
+
+/// [`plan_hos_stop`] against the limit that comes first on the road ahead
+/// ([`HosClock::next_limit_ahead`]): under Canadian rules on a road that
+/// enters the United States, a US limit nearer than the Canadian ones plans
+/// the stop.
+pub fn plan_hos_stop_ahead(
+    request: &StopPlanningRoute<'_>,
+    clock: &HosClock,
+    mode: &str,
+    road_ahead_stays_in_canada: bool,
+) -> Option<HosStopAdvice> {
+    let limit = clock.next_limit_ahead(mode, road_ahead_stays_in_canada)?;
     let (_, duty_limit, _) = limits(mode)?;
     let needs_sleep = limit.kind != "break"
         || duty_limit - clock.duty_min <= limit.remaining_min + BREAK_MIN + STOP_MARGIN_MIN;

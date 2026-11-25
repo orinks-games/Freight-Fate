@@ -2514,3 +2514,31 @@ fn test_us_hours_line_and_the_split_under_canadian_rules() {
     c.set_rules(HosRules::Us);
     assert_eq!(c.split_pending_spoken(), Some(pending));
 }
+
+/// Under Canadian rules on a road into the United States the US limit can
+/// come first; on a road that stays in Canada only the Canadian ones count.
+#[test]
+fn test_next_limit_ahead_takes_the_nearer_us_limit_toward_the_border() {
+    let mut c = HosClock::default();
+    c.set_rules(HosRules::CanadaSouth60);
+    c.drive(10.0 * 60.0 + 21.0);
+    // An 8-hour night in Canada: the Canadian counts and the break are
+    // fresh, the US driving and duty counts are not.
+    c.ca_driving_min = 0.0;
+    c.ca_on_duty_min = 0.0;
+    c.since_break_min = 0.0;
+    let canada = c.next_limit_ahead("realistic", true).expect("enforced");
+    assert_eq!(
+        canada.remaining_min,
+        c.next_limit("realistic").unwrap().remaining_min
+    );
+    assert!(canada.remaining_min > 60.0, "{canada:?}");
+    let border = c.next_limit_ahead("realistic", false).expect("enforced");
+    assert_eq!(border.kind, "drive");
+    assert_eq!(border.remaining_min, 39.0);
+    c.set_rules(HosRules::Us);
+    assert_eq!(
+        c.next_limit_ahead("realistic", false),
+        c.next_limit("realistic")
+    );
+}

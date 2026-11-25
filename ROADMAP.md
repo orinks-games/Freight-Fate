@@ -5400,6 +5400,11 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       it is silent in the preview, the wake line and the readout.
       Five-by-Two still takes 10 hours in the bunk; the 8-hour night does
       not earn it.
+      The ELD route note and the last-stop warning plan from the limit that
+      comes first on the road ahead (`HosClock::next_limit_ahead`): with
+      the United States ahead, a US limit nearer than the Canadian ones.
+      Before, a driver with 33 minutes of US driving left was told "No rest
+      stop needed first" on a load to Fargo.
 - [ ] **Alaska cycle restart.** The 34-hour restart is an assumption; verify
       its applicability under Alaska's rules.
 - [x] **Whittier tunnel.** Whittier is connected through the Anton Anderson

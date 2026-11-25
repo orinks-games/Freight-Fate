@@ -880,38 +880,65 @@ impl HosClock {
 
     // -- rule queries ----------------------------------------------------------
 
-    /// (kind, minutes remaining, what is due) per enforced limit.
-    pub(crate) fn statuses(&self, mode: &str) -> Vec<HosLimit> {
+    /// The US limits from the US counts, whatever rules are in force.
+    fn us_statuses(&self, mode: &str) -> Vec<HosLimit> {
         let Some((us_drive_limit, us_duty_limit, break_after)) = limits(mode) else {
             return Vec::new();
         };
+        let mut limits = vec![
+            HosLimit {
+                kind: "break",
+                remaining_min: break_after - self.since_break_min,
+                due: "you must take a 30 minute break at a rest stop",
+            },
+            HosLimit {
+                kind: "drive",
+                remaining_min: us_drive_limit - self.driving_min,
+                due: "your driving time for this shift ends. You need 10 hours of sleep",
+            },
+            HosLimit {
+                kind: "duty",
+                remaining_min: us_duty_limit - self.duty_min,
+                due: "your duty window closes. You need 10 hours of sleep",
+            },
+            HosLimit {
+                kind: "cycle",
+                remaining_min: cycle_limit(mode).unwrap_or(0.0) - self.cycle_used_min(),
+                due: "your 70-hour cycle is used up. You need a 34-hour restart",
+            },
+        ];
+        if self.break_waived {
+            limits.retain(|limit| limit.kind != "break");
+        }
+        limits
+    }
+
+    /// The limit that comes first on the road ahead. Under Canadian rules on
+    /// a road that enters the United States the US counts decide too, so the
+    /// nearer of the two rule sets' limits (director, 2026-11-25); otherwise
+    /// [`Self::next_limit`].
+    pub fn next_limit_ahead(
+        &self,
+        mode: &str,
+        road_ahead_stays_in_canada: bool,
+    ) -> Option<HosLimit> {
+        let here = self.next_limit(mode);
+        if !self.rules.is_canadian() || road_ahead_stays_in_canada {
+            return here;
+        }
+        self.us_statuses(mode)
+            .into_iter()
+            .chain(here)
+            .min_by(|a, b| a.remaining_min.total_cmp(&b.remaining_min))
+    }
+
+    /// (kind, minutes remaining, what is due) per enforced limit.
+    pub(crate) fn statuses(&self, mode: &str) -> Vec<HosLimit> {
+        if limits(mode).is_none() {
+            return Vec::new();
+        }
         if self.rules == HosRules::Us {
-            let mut limits = vec![
-                HosLimit {
-                    kind: "break",
-                    remaining_min: break_after - self.since_break_min,
-                    due: "you must take a 30 minute break at a rest stop",
-                },
-                HosLimit {
-                    kind: "drive",
-                    remaining_min: us_drive_limit - self.driving_min,
-                    due: "your driving time for this shift ends. You need 10 hours of sleep",
-                },
-                HosLimit {
-                    kind: "duty",
-                    remaining_min: us_duty_limit - self.duty_min,
-                    due: "your duty window closes. You need 10 hours of sleep",
-                },
-                HosLimit {
-                    kind: "cycle",
-                    remaining_min: cycle_limit(mode).unwrap_or(0.0) - self.cycle_used_min(),
-                    due: "your 70-hour cycle is used up. You need a 34-hour restart",
-                },
-            ];
-            if self.break_waived {
-                limits.retain(|limit| limit.kind != "break");
-            }
-            return limits;
+            return self.us_statuses(mode);
         }
 
         let rule_limits = self.non_us_limits().expect("non-US rules selected");
