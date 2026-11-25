@@ -27,10 +27,15 @@ const FRAMES_PER_S: usize = 30;
 /// of the destination exit, every speed assist off and Facility streets off,
 /// the way the drive was set up.
 fn oshawa(cruise_mph: f64) -> PlaytestHarness {
+    staged("toronto_on_ca", "oshawa_on_ca", "exit 415", cruise_mph)
+}
+
+/// A destination exit staged the same way, on any corridor.
+fn staged(origin: &str, destination: &str, exit: &str, cruise_mph: f64) -> PlaytestHarness {
     let opts = RoadOptions {
         feature: "destination".to_string(),
-        origin: Some("toronto_on_ca".to_string()),
-        destination: Some("oshawa_on_ca".to_string()),
+        origin: Some(origin.to_string()),
+        destination: Some(destination.to_string()),
         seed: Some(7),
         trip_seed: Some(7),
         cargo: 14.0,
@@ -41,12 +46,12 @@ fn oshawa(cruise_mph: f64) -> PlaytestHarness {
         sandbox: false,
         ..Default::default()
     };
-    let pairs = vec![("toronto_on_ca".to_string(), "oshawa_on_ca".to_string())];
+    let pairs = vec![(origin.to_string(), destination.to_string())];
     let hit = find_feature_seeded(get_world(), &pairs, "destination", &opts)
         .into_iter()
         .next()
-        .expect("the Oshawa destination exit");
-    assert!(hit.label.contains("exit 415"), "{}", hit.label);
+        .expect("the destination exit");
+    assert!(hit.label.contains(exit), "{}", hit.label);
     let mut harness = PlaytestHarness::new();
     {
         let s = &mut harness.app.ctx.settings;
@@ -239,4 +244,23 @@ fn test_the_limit_past_the_exit_is_not_called_on_the_way_to_it() {
         "a limit drop past the exit was called\n{}",
         run.text
     );
+}
+
+#[test]
+fn test_cruise_lets_go_of_a_limit_past_the_exit_caught_before_the_exit_was_set() {
+    // Boston to Worcester, exit 96 at mile 38.8: the staged start found
+    // Worcester's 35 at mile 39.4 before the exit was set, held it, and the
+    // truck sank to 38 on I-90 and built to 58 into a 25 ramp.
+    let run = run(
+        staged("boston_ma_us", "worcester_ma_us", "exit 96", 65.0),
+        true,
+        None,
+    );
+    assert!(
+        run.slowest_mainline > 50.0,
+        "cruise held a limit past the exit: {:.1} mph\n{}",
+        run.slowest_mainline,
+        run.text
+    );
+    assert!(!run.rolled, "{}", run.text);
 }
