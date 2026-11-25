@@ -127,6 +127,15 @@ impl<'w> JobBoard<'w> {
         cross_border::LaneSea::between(oc, os, dc, ds)
     }
 
+    /// Whether any site in the city receives this cargo, at any level.
+    pub(crate) fn city_receives(&self, city: &str, cargo: &CargoType) -> bool {
+        self.world.cities.get(city).is_some_and(|c| {
+            c.locations
+                .iter()
+                .any(|loc| Self::cargo_for_location(loc, "receives", None).contains(&cargo.key))
+        })
+    }
+
     /// Whether two cities are in the same state or province.
     pub(crate) fn same_state(&self, a: &str, b: &str) -> bool {
         let state = |key: &str| {

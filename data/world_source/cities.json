@@ -8845,7 +8845,10 @@
           "type": "company_yard",
           "lat": 61.5997,
           "lon": -149.1128,
-          "source_note": "Palmer AK Mat-Su market stand-in yard. No verified public tractor-stop pin: Palmer Chevron on Glenn (~MP 42) remains unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. City is the sole Mat-Su market node on B1."
+          "source_note": "Palmer AK Mat-Su market stand-in yard. No verified public tractor-stop pin: Palmer Chevron on Glenn (~MP 42) remains unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. City is the sole Mat-Su market node on B1. ships_in_state: DERIVED from the site's kind (a company yard in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -9087,7 +9090,10 @@
           "type": "company_yard",
           "lat": 64.5635293,
           "lon": -149.0959778,
-          "source_note": "Nenana AK Parks Highway pass-through stand-in. No verified public tractor-stop pin: A-Frame SVC / Parks fuel remains unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. Not a job-board market."
+          "source_note": "Nenana AK Parks Highway pass-through stand-in. No verified public tractor-stop pin: A-Frame SVC / Parks fuel remains unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. Not a job-board market. ships_in_state: DERIVED from the site's kind (a company yard in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -9121,7 +9127,10 @@
           "type": "company_yard",
           "lat": 61.5824216,
           "lon": -149.442563,
-          "source_note": "Wasilla AK Parks Highway pass-through stand-in. Not a Mat-Su job-board market \u2014 Palmer remains the sole Mat-Su market. Holiday / Three Bears / Fishers Big Lake lots remain unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. No fuel pin."
+          "source_note": "Wasilla AK Parks Highway pass-through stand-in. Not a Mat-Su job-board market \u2014 Palmer remains the sole Mat-Su market. Holiday / Three Bears / Fishers Big Lake lots remain unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. No fuel pin. ships_in_state: DERIVED from the site's kind (a company yard in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -9167,7 +9176,10 @@
             "general",
             "construction"
           ],
-          "source_note": "City of Valdez terminal page https://www.valdezak.gov/296/Ryan-J-Sontag-Valdez-Container-Terminal and its official terminal brochure (1460 Container Terminal Road; published coordinates 61.1271,-146.2972; floating freight pier). The local Geofabrik Alaska OSM extract identifies terminal relation 11301693; Overture did not identify the exact terminal. Container, general, and construction freight roles follow the official terminal description."
+          "source_note": "City of Valdez terminal page https://www.valdezak.gov/296/Ryan-J-Sontag-Valdez-Container-Terminal and its official terminal brochure (1460 Container Terminal Road; published coordinates 61.1271,-146.2972; floating freight pier). The local Geofabrik Alaska OSM extract identifies terminal relation 11301693; Overture did not identify the exact terminal. Container, general, and construction freight roles follow the official terminal description. ships_in_state: DERIVED from the site's kind (a container terminal in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         },
         {
           "name": "Silver Bay Seafoods Valdez South",
@@ -9205,7 +9217,10 @@
           "receives": [
             "general"
           ],
-          "source_note": "Alaska Railroad 2024 Seward Freight Dock Expansion fact sheet https://www.alaskarailroad.com/sites/default/files/FCTSHT_2024_Seward_Freight_Dock_Expansion_FactSheet.pdf documents cargo staging/transfer and roll-on/roll-off freight operations. The berth location is matched to local Geofabrik Alaska OSM freight-dock track features 1157424039 and 1157424040; Overture did not return an exact dock. General freight roles only."
+          "source_note": "Alaska Railroad 2024 Seward Freight Dock Expansion fact sheet https://www.alaskarailroad.com/sites/default/files/FCTSHT_2024_Seward_Freight_Dock_Expansion_FactSheet.pdf documents cargo staging/transfer and roll-on/roll-off freight operations. The berth location is matched to local Geofabrik Alaska OSM freight-dock track features 1157424039 and 1157424040; Overture did not return an exact dock. General freight roles only. ships_in_state: DERIVED from the site's kind (a freight dock in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         },
         {
           "name": "Essential One Seward",
@@ -9241,7 +9256,10 @@
             "container",
             "general"
           ],
-          "source_note": "Alaska Railroad Seward rail yard behind the freight dock: position read from the screened local Geofabrik Alaska OSM railway-land endpoint way 464455056 (\"Seward Yard\"); the Alaska Railroad 2024 Seward Freight Dock Expansion fact sheet https://www.alaskarailroad.com/sites/default/files/FCTSHT_2024_Seward_Freight_Dock_Expansion_FactSheet.pdf documents rail cargo transfer there. Container and general roles only; automotive, retail and parcel template roles are not claimed."
+          "source_note": "Alaska Railroad Seward rail yard behind the freight dock: position read from the screened local Geofabrik Alaska OSM railway-land endpoint way 464455056 (\"Seward Yard\"); the Alaska Railroad 2024 Seward Freight Dock Expansion fact sheet https://www.alaskarailroad.com/sites/default/files/FCTSHT_2024_Seward_Freight_Dock_Expansion_FactSheet.pdf documents rail cargo transfer there. Container and general roles only; automotive, retail and parcel template roles are not claimed. ships_in_state: DERIVED from the site's kind (a rail yard in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -9283,7 +9301,10 @@
           "receives": [
             "general"
           ],
-          "source_note": "Carlile operator page https://www.carlile.biz/contact-and-terminals/kenai/ confirms 1216 Bridge Access Road and freight receiving, storage, distribution, FTL and LTL service. Local Geofabrik Alaska OSM building way 424614663 matches the address/name; Overture also returned Carlile at that address. General freight only; no unsupported cargo classes inferred."
+          "source_note": "Carlile operator page https://www.carlile.biz/contact-and-terminals/kenai/ confirms 1216 Bridge Access Road and freight receiving, storage, distribution, FTL and LTL service. Local Geofabrik Alaska OSM building way 424614663 matches the address/name; Overture also returned Carlile at that address. General freight only; no unsupported cargo classes inferred. ships_in_state: DERIVED from the site's kind (a carrier terminal in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         },
         {
           "name": "Inlet Fish Producers Kenai",
@@ -9321,7 +9342,10 @@
           "receives": [
             "general"
           ],
-          "source_note": "City of Homer page https://www.cityofhomer-ak.gov/port/deep-water-dock-scheduling identifies the Deep Water Dock as the Freight Dock at 4667 Freight Dock Road and publishes dockage, berth, depth, and crane details; official city dock material gives 59\u00b036\u203225\u2033N, 151\u00b025\u203240\u2033W. Local OSM contains Freight Dock Road but no exact berth feature; Overture returned Port & Harbor records but no exact freight dock. General freight only, from the official Freight Dock designation; no commodity classes inferred."
+          "source_note": "City of Homer page https://www.cityofhomer-ak.gov/port/deep-water-dock-scheduling identifies the Deep Water Dock as the Freight Dock at 4667 Freight Dock Road and publishes dockage, berth, depth, and crane details; official city dock material gives 59\u00b036\u203225\u2033N, 151\u00b025\u203240\u2033W. Local OSM contains Freight Dock Road but no exact berth feature; Overture returned Port & Harbor records but no exact freight dock. General freight only, from the official Freight Dock designation; no commodity classes inferred. ships_in_state: DERIVED from the site's kind (a freight dock in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         },
         {
           "name": "Essential One Homer",
@@ -9467,7 +9491,10 @@
           "receives": [
             "general"
           ],
-          "source_note": "Read: OpenStreetMap way 743711655 (industrial=refinery, name Petro Star Refinery) south of North Pole, OpenStreetMap planet file of 2026-11-16; Petro Star names its refineries in North Pole and Valdez and says the North Pole refinery makes heating oil, jet fuel and diesel (https://www.petrostar.com/locations, read 2026-11-22). Position is the centre of the mapped site. Roles derived: bulk fuel out by truck, general supplies in; crude arrives by pipeline, so no crude role."
+          "source_note": "Read: OpenStreetMap way 743711655 (industrial=refinery, name Petro Star Refinery) south of North Pole, OpenStreetMap planet file of 2026-11-16; Petro Star names its refineries in North Pole and Valdez and says the North Pole refinery makes heating oil, jet fuel and diesel (https://www.petrostar.com/locations, read 2026-11-22). Position is the centre of the mapped site. Roles derived: bulk fuel out by truck, general supplies in; crude arrives by pipeline, so no crude role. ships_in_state: DERIVED from the site's kind (a refinery in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -9491,7 +9518,10 @@
           "receives": [
             "general"
           ],
-          "source_note": "Read: OpenStreetMap way 573930303 (industrial=refinery, name Kenai Refinery, operator Marathon Petroleum) at Port Nikiski on the Kenai Spur Highway, OpenStreetMap planet file of 2026-11-16; Marathon Petroleum lists Kenai, Alaska among its refineries at 68,000 barrels a day (https://www.marathonpetroleum.com/Operations/Refining/, read 2026-11-22). Position is the centre of the mapped site. Roles derived: bulk fuel out by truck, general supplies in."
+          "source_note": "Read: OpenStreetMap way 573930303 (industrial=refinery, name Kenai Refinery, operator Marathon Petroleum) at Port Nikiski on the Kenai Spur Highway, OpenStreetMap planet file of 2026-11-16; Marathon Petroleum lists Kenai, Alaska among its refineries at 68,000 barrels a day (https://www.marathonpetroleum.com/Operations/Refining/, read 2026-11-22). Position is the centre of the mapped site. Roles derived: bulk fuel out by truck, general supplies in. ships_in_state: DERIVED from the site's kind (a refinery in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -9518,7 +9548,10 @@
             "construction",
             "steel"
           ],
-          "source_note": "Read: OpenStreetMap relation 16916230 (industrial=port, port=cargo, port:type=deep_water, name Port Mackenzie) on Knik Arm, OpenStreetMap planet file of 2026-11-16. Roles assumed from a deep-water bulk port with no published cargo list read: aggregate and construction material both ways, steel and pipe in; no container or food roles claimed."
+          "source_note": "Read: OpenStreetMap relation 16916230 (industrial=port, port=cargo, port:type=deep_water, name Port Mackenzie) on Knik Arm, OpenStreetMap planet file of 2026-11-16. Roles assumed from a deep-water bulk port with no published cargo list read: aggregate and construction material both ways, steel and pipe in; no container or food roles claimed. ships_in_state: DERIVED from the site's kind (a port in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },

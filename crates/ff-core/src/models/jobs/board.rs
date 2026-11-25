@@ -357,7 +357,10 @@ impl<'w> JobBoard<'w> {
                 continue;
             }
             // A site whose freight stays in its own state (`ships_in_state`)
-            // draws from the in-state cities instead, with the same weights.
+            // draws from the in-state cities instead, with the same weights,
+            // and steps past a town with no receiver for the cargo: most
+            // small Alaska towns have only a fuel stop, and a slot that kept
+            // landing on one thinned the board (Wasilla 3.6 loads to 1.7).
             let in_state = location.traits.iter().any(|t| t == SHIPS_IN_STATE);
             if in_state && in_state_cycle.is_none() {
                 in_state_cycle = Some(self.in_state_spread(
@@ -385,7 +388,10 @@ impl<'w> JobBoard<'w> {
             // board near the border thins out.
             let Some((destination, miles, _legs)) = (0..cycle.len())
                 .map(|step| &cycle[(slot + step) % cycle.len()])
-                .find(|c| self.cargo_fits(carrier_key, &city, &c.0, cargo))
+                .find(|c| {
+                    self.cargo_fits(carrier_key, &city, &c.0, cargo)
+                        && (!in_state || self.city_receives(&c.0, cargo))
+                })
                 .cloned()
             else {
                 continue;

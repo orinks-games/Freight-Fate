@@ -245,14 +245,24 @@ States) takes any freight that may cross (`cross_border::LaneSea`, director
 ruling 2026-11-25). No lower 48 pair routes through Canada today, so a
 carrier without authority loses only the Alaska towns.
 
-Which Alaska towns post loads out of Alaska (level 20, 150 boards of 8):
-Anchorage, Fairbanks and Deadhorse none, for any carrier (every freight site
-there ships in state). Kenai 57 to 58 percent of loads, Homer 50 to 55, Valdez 67 to
-71, Seward 52 to 54 and Skagway 85 for Northstar and an owner-operator,
-most of it to Canada on border lanes and the rest road freight to the lower
-48. Chatanika Freight, which does not run to Canada, posts none from Kenai,
-Homer, Valdez or Seward, and only Whitehorse loads from Skagway. Tok and
-Haines have no freight site and post nothing.
+Every site in Alaska that ships, authored or stand-in, ships inside Alaska
+(director ruling 2026-11-25): the port, the barge and carrier terminals, the
+Mat-Su yards, Port MacKenzie, the Homer dock, the Seward and Valdez docks and
+the refineries carry `ships_in_state`, derived from the site's kind and said
+so in each source note. The exceptions are the seafood plants at Kenai,
+Seward and Valdez (assumed: frozen and canned fish leaves by road as well as
+by sea) and the Skagway and Haines sites, whose road is the Klondike or
+Haines Highway into the Yukon. A board slot that would ship in state steps
+past any town with no site that receives that cargo, so no board thins.
+
+Which Alaska towns post loads out of Alaska (level 20, 150 boards of 8, every
+board full): Anchorage, Fairbanks, Deadhorse, Homer, Nenana, Palmer, Wasilla
+and Port MacKenzie none, for any carrier. Kenai about 29 percent of loads,
+Valdez 28 to 30 and Seward about 14, all seafood (food and refrigerated) to
+Canada and the lower 48, for Northstar and an owner-operator. Skagway 85,
+general freight to Whitehorse. Chatanika Freight, which does not run to
+Canada, posts none out of Alaska except its Whitehorse loads from Skagway.
+Tok and Haines have no freight site and post nothing.
 
 Sources for this section:
 

@@ -5329,6 +5329,12 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       carrier without authority loses those and nothing else (688 US
       destinations for Northstar, 663 for Great Lakes Training, Ecorse River
       Cartage and Kittatinny Crossroads).
+- [x] Every Alaska site that ships, authored or stand-in, ships inside
+      Alaska (director ruling, 2026-11-25), DERIVED from the site's kind;
+      exceptions are the Kenai, Seward and Valdez seafood plants (ASSUMED:
+      seafood leaves by road) and the Skagway and Haines sites. An in-state
+      slot steps past towns with no receiver for its cargo, so every Alaska
+      board with a site stays full (Wasilla 3.6 to 8.0 a board at level 20).
 - [ ] (Found along the way) The Canadian carrier's transit rule is ASSUMED:
       a Canadian load through the United States is allowed in bond, the
       mirror of the US rule; no page read says either way.

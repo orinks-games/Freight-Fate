@@ -38,7 +38,7 @@
 - **Whitehorse and Prince George now ship freight,** from a building supply yard, a recycling depot, a freight terminal and the CN intermodal yard.
 - **Trucks now stop for customs at every border crossing, both ways.** Driving past the booth brings a penalty, which a company driver's carrier pays.
 - **Dispatch now offers loads into Canada and back,** with customs time in the deadline. A US carrier may not haul between Canadian towns.
-- **Alaska freight now comes off the ship at Anchorage and stays in Alaska.** The TOTE and Matson terminals at the Port of Alaska ship it.
+- **Alaska freight now comes off the ship at Anchorage and stays in Alaska.** Only seafood from Kenai, Seward and Valdez, and Skagway loads to Whitehorse, leave by road.
 - **Tacoma and Seattle have the Alaska ship and barge terminals,** where loads from across the West are delivered.
 - **Road loads between Alaska and the lower 48 are flatbed and refrigerated freight,** and cross Canada in bond.
 - **Anchorage, Fairbanks and Deadhorse have more real freight sites,** including the Carlile, Lynden and Sourdough Express terminals.
