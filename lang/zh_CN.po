@@ -9831,6 +9831,23 @@ msgstr "{join}和{last}"
 msgid "cattle"
 msgstr "牛"
 
+msgid "home"
+msgstr "home"
+
+msgid "cabotage"
+msgstr ""
+
+msgid "READ: Mercer Transportation, as for steel"
+msgstr ""
+
+msgid ""
+"ASSUMED: seafood and other food going south by truck; no page read gives a "
+"figure"
+msgstr ""
+
+msgid "ASSUMED: as for food"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} driving hours"
 msgstr "{f} 行驶时间"
@@ -11934,6 +11951,12 @@ msgstr "已停车"
 
 msgid "holding"
 msgstr "holding"
+
+msgid "filed"
+msgstr ""
+
+msgid "closed"
+msgstr ""
 
 # leave empty: loose frame; it caught "Crossing into" time zone lines and left "into" English
 #. placeholders: {name}
@@ -19689,6 +19712,14 @@ msgid "It is {clock_text}, {time_of_day}.{cycle}"
 msgstr "现在是{clock_text}，{time_of_day}。{cycle}"
 
 #. one sentence of a longer line
+msgid "Slept 8 hours."
+msgstr "睡了8个小时。"
+
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
+msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
+msgstr "睡了8小时。现在是{clock_text}，{time_of_day}。{cycle}"
+
+#. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "睡了10个小时。"
 
@@ -19899,6 +19930,14 @@ msgstr "驾驶日志"
 
 msgid "Recent logbook entries."
 msgstr "最近的值班状态记录条目。"
+
+msgid "Sleep 8 hours"
+msgstr "睡8小时"
+
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 8 hours."
+msgstr "驾驶工时已重置。睡眠每小时消除8点疲劳。时钟前进8小时。"
 
 msgid "Sleep 10 hours"
 msgstr "睡10小时"
@@ -22958,6 +22997,9 @@ msgstr "现在是{now}。"
 msgid "delivery"
 msgstr "delivery"
 
+msgid "bond"
+msgstr ""
+
 msgid "alertness"
 msgstr "清醒度"
 
@@ -23020,25 +23062,17 @@ msgid ""
 msgstr "{grouped}加元的罚款，折合{grouped2}美元收取"
 
 #. one sentence of a longer line
-msgid ""
-"The officer asks for your passport and checks the eManifest filed for this "
-"load."
-msgstr "官员要你的护照，并核对这单货提交的eManifest。"
+msgid "Cleared."
+msgstr "已放行。"
 
-#. placeholders: {name}, {agency}
-msgid ""
-"{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest filed for this load."
-msgstr "{name}，{agency}。官员要你的护照，并核对这单货提交的eManifest。"
+#. placeholders: {country}
+msgid "Cleared. Welcome to {country}."
+msgstr "已放行。欢迎来到{country}。"
 
-msgid "customs clearance"
-msgstr "海关清关"
-
-msgid "Canada"
-msgstr "加拿大"
-
-msgid "the United States"
-msgstr "美国"
+#. placeholders: {country}
+#. one sentence of a longer line
+msgid "Welcome to {country}."
+msgstr "欢迎来到{country}。"
 
 #. one sentence of a longer line
 msgid "Officers examine the trailer for 45 minutes, then clear you."
@@ -23054,18 +23088,82 @@ msgid ""
 "minutes, then clear you. Welcome to {country}."
 msgstr "转入二次检查。官员检查挂车45分钟后放行。欢迎来到{country}。"
 
-#. placeholders: {country}
 #. one sentence of a longer line
-msgid "Welcome to {country}."
-msgstr "欢迎来到{country}。"
-
-#. one sentence of a longer line
-msgid "Cleared."
-msgstr "已放行。"
+msgid "Cleared in bond."
+msgstr ""
 
 #. placeholders: {country}
-msgid "Cleared. Welcome to {country}."
-msgstr "已放行。欢迎来到{country}。"
+msgid "Cleared in bond. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Officers examine the trailer for 45 minutes, then clear you in bond."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you in bond. Welcome to {country}."
+msgstr ""
+
+#. placeholders: {country}
+msgid "Cleared. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The bond is closed."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
+msgstr "官员要你的护照，并核对这单货提交的eManifest。"
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"eManifest filed for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest and "
+"bond for this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest and bond for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest for "
+"this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest for this load."
+msgstr ""
+
+msgid "customs clearance"
+msgstr "海关清关"
+
+msgid "Canada"
+msgstr "加拿大"
+
+msgid "the United States"
+msgstr "美国"
 
 msgid "Answer the officer's questions and hand over your documents"
 msgstr "回答官员的问题，并交出证件"
@@ -31182,7 +31280,9 @@ msgstr "{engine_off}Motel，{grouped} 元，8小时。"
 msgid ""
 "{engine_off}Motel, {grouped} dollars, 8 hours. {clock_text}. Driving and "
 "duty clocks reset. {grouped2} dollars. {control_hint} starts the engine."
-msgstr "{engine_off}Motel，{grouped} 元，8小时。{clock_text}。驾驶和值班时钟重置。{grouped2} 美元。{control_hint} 启动发动机。"
+msgstr ""
+"{engine_off}Motel，{grouped} 元，8小时。{clock_text}。驾驶和值班时钟重置。{grouped2} "
+"美元。{control_hint} 启动发动机。"
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
@@ -31319,9 +31419,6 @@ msgid ""
 "Select a choice. Sleep reads a preview. Select again to sleep. Breaks and "
 "sleep move the clock and the deadline."
 msgstr "选择一个选择。睡眠时阅读预览。再次选择睡眠。休息和睡眠会影响时钟和截止日期。"
-
-msgid "Sleep 8 hours"
-msgstr "睡8小时"
 
 #. one sentence of a longer line
 msgid "You are already rested."
@@ -31663,7 +31760,9 @@ msgstr "{clocks}{grouped2}美元。"
 msgid ""
 "{engine_off}Motel, {grouped} dollars, 8 hours. {clock_text}. {clocks} "
 "{grouped2} dollars. {deadline_text}{wake_air_instruction}"
-msgstr "{engine_off}汽车旅馆，{grouped}美元，8小时。{clock_text}。{clocks}{grouped2}美元。{deadline_text}{wake_air_instruction}"
+msgstr ""
+"{engine_off}汽车旅馆，{grouped}美元，8小时。{clock_text}。{clocks}{grouped2}美元。{deadline"
+"_text}{wake_air_instruction}"
 
 #. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
 msgid ""
@@ -31687,7 +31786,9 @@ msgstr "{engine_off}在停车场睡了8个小时。"
 msgid ""
 "{engine_off}Slept 8 hours in the lot. {clock_text}. {clocks} Rest was poor. "
 "{deadline_text}{wake_air_instruction}"
-msgstr "{engine_off}在停车场睡了8小时。{clock_text}。{clocks}休息得不好。{deadline_text}{wake_air_instruction}"
+msgstr ""
+"{engine_off}在停车场睡了8小时。{clock_text}。{clocks}休息得不好。{deadline_text}{wake_air_in"
+"struction}"
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
@@ -43490,9 +43591,6 @@ msgstr "Right arrow"
 msgid "Home"
 msgstr "Home"
 
-msgid "home"
-msgstr "home"
-
 msgid "end"
 msgstr "end"
 
@@ -43759,6 +43857,11 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid ""
+#~ "{name}, {agency}. The officer asks for your passport and checks the "
+#~ "eManifest filed for this load."
+#~ msgstr "{name}，{agency}。官员要你的护照，并核对这单货提交的eManifest。"
 
 #~ msgid "Diesel here is {f2} Canadian dollars a liter."
 #~ msgstr "这里的柴油每升 {f2} 加元。"

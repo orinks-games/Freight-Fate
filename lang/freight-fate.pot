@@ -6813,7 +6813,7 @@ msgstr ""
 msgid "no truck parking"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/business.rs crates/ff-core/src/models/settlement.rs crates/ff-core/src/speech_text.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/business.rs crates/ff-core/src/models/settlement.rs crates/ff-core/src/sim/bond.rs
 msgid "none"
 msgstr ""
 
@@ -6921,7 +6921,7 @@ msgstr ""
 msgid "break"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs/deadline.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs/cross_border.rs
 msgid "food"
 msgstr ""
 
@@ -7296,7 +7296,7 @@ msgstr ""
 msgid "automotive"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/market.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs/cross_border.rs
 msgid "machinery"
 msgstr ""
 
@@ -7304,7 +7304,7 @@ msgstr ""
 msgid "hazardous"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/market.rs crates/ff-core/src/models/trailers.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs/cross_border.rs crates/ff-core/src/models/market.rs
 msgid "steel"
 msgstr ""
 
@@ -7328,7 +7328,7 @@ msgstr ""
 msgid "retail"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/market.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs/cross_border.rs
 msgid "construction"
 msgstr ""
 
@@ -7547,7 +7547,7 @@ msgstr ""
 msgid "chemical"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/catalog.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs/cross_border.rs
 msgid "border"
 msgstr ""
 
@@ -12412,6 +12412,28 @@ msgstr ""
 msgid "cattle"
 msgstr ""
 
+#: crates/ff-core/src/models/jobs/cross_border.rs
+msgid "home"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/cross_border.rs
+msgid "cabotage"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/cross_border.rs
+msgid "READ: Mercer Transportation, as for steel"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/cross_border.rs
+msgid ""
+"ASSUMED: seafood and other food going south by truck; no page read gives a "
+"figure"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/cross_border.rs
+msgid "ASSUMED: as for food"
+msgstr ""
+
 #. placeholders: {f}
 #: crates/ff-core/src/models/jobs/deadline.rs
 msgid "{f} driving hours"
@@ -15022,6 +15044,14 @@ msgstr ""
 
 #: crates/ff-core/src/sim/arrival_gate.rs crates/freight-fate/src/states/driving_events/cruise_loop.rs
 msgid "holding"
+msgstr ""
+
+#: crates/ff-core/src/sim/bond.rs
+msgid "filed"
+msgstr ""
+
+#: crates/ff-core/src/sim/bond.rs
+msgid "closed"
 msgstr ""
 
 #. placeholders: {name}
@@ -24736,6 +24766,16 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city/terminal.rs
+msgid "Slept 8 hours."
+msgstr ""
+
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/terminal.rs
 msgid "Slept 10 hours."
 msgstr ""
 
@@ -24990,6 +25030,16 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid "Recent logbook entries."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Sleep 8 hours"
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 8 hours."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -28770,6 +28820,10 @@ msgid "delivery"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving/snapshot.rs
+msgid "bond"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving/snapshot.rs
 msgid "alertness"
 msgstr ""
 
@@ -28847,28 +28901,18 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_border.rs
-msgid ""
-"The officer asks for your passport and checks the eManifest filed for this "
-"load."
+msgid "Cleared."
 msgstr ""
 
-#. placeholders: {name}, {agency}
+#. placeholders: {country}
 #: crates/freight-fate/src/states/driving_border.rs
-msgid ""
-"{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest filed for this load."
+msgid "Cleared. Welcome to {country}."
 msgstr ""
 
+#. placeholders: {country}
+#. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_border.rs
-msgid "customs clearance"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_border.rs
-msgid "Canada"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_border.rs
-msgid "the United States"
+msgid "Welcome to {country}."
 msgstr ""
 
 #. one sentence of a longer line
@@ -28888,20 +28932,97 @@ msgid ""
 "minutes, then clear you. Welcome to {country}."
 msgstr ""
 
-#. placeholders: {country}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_border.rs
-msgid "Welcome to {country}."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_border.rs
-msgid "Cleared."
+msgid "Cleared in bond."
 msgstr ""
 
 #. placeholders: {country}
 #: crates/freight-fate/src/states/driving_border.rs
-msgid "Cleared. Welcome to {country}."
+msgid "Cleared in bond. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "Officers examine the trailer for 45 minutes, then clear you in bond."
+msgstr ""
+
+#. placeholders: {country}
+#: crates/freight-fate/src/states/driving_border.rs
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you in bond. Welcome to {country}."
+msgstr ""
+
+#. placeholders: {country}
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "Cleared. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "The bond is closed."
+msgstr ""
+
+#. placeholders: {country}
+#: crates/freight-fate/src/states/driving_border.rs
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_border.rs
+msgid ""
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+#: crates/freight-fate/src/states/driving_border.rs
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"eManifest filed for this load."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_border.rs
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest and "
+"bond for this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+#: crates/freight-fate/src/states/driving_border.rs
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest and bond for this load."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_border.rs
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest for "
+"this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+#: crates/freight-fate/src/states/driving_border.rs
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest for this load."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "customs clearance"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "Canada"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "the United States"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_border.rs
@@ -39077,10 +39198,6 @@ msgstr ""
 msgid ""
 "Select a choice. Sleep reads a preview. Select again to sleep. Breaks and "
 "sleep move the clock and the deadline."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Sleep 8 hours"
 msgstr ""
 
 #. one sentence of a longer line
@@ -53569,10 +53686,6 @@ msgstr ""
 
 #: lang/extra.pot
 msgid "Home"
-msgstr ""
-
-#: lang/extra.pot
-msgid "home"
 msgstr ""
 
 #: lang/extra.pot

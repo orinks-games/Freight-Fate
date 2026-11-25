@@ -11242,6 +11242,23 @@ msgstr "{join} và {last}"
 msgid "cattle"
 msgstr "bò"
 
+msgid "home"
+msgstr "home"
+
+msgid "cabotage"
+msgstr ""
+
+msgid "READ: Mercer Transportation, as for steel"
+msgstr ""
+
+msgid ""
+"ASSUMED: seafood and other food going south by truck; no page read gives a "
+"figure"
+msgstr ""
+
+msgid "ASSUMED: as for food"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} driving hours"
 msgstr "{f} giờ lái"
@@ -13612,6 +13629,12 @@ msgstr "đã dừng"
 
 msgid "holding"
 msgstr "holding"
+
+msgid "filed"
+msgstr ""
+
+msgid "closed"
+msgstr ""
 
 # leave empty: loose frame; it caught "Crossing into" time zone lines and left "into" English
 #. placeholders: {name}
@@ -21823,7 +21846,8 @@ msgid "Based in {lane_area}."
 msgstr "Đặt tại {lane_area}."
 
 msgid "No carrier hires near your home or in your province right now"
-msgstr "Hiện không có hãng vận tải nào tuyển gần nơi bạn ở hoặc trong tỉnh của bạn"
+msgstr ""
+"Hiện không có hãng vận tải nào tuyển gần nơi bạn ở hoặc trong tỉnh của bạn"
 
 msgid "No carrier hires near your home or in your state right now"
 msgstr ""
@@ -21939,6 +21963,14 @@ msgstr " Đã đặt lại đồng hồ chu kỳ."
 #. one sentence of a longer line
 msgid "It is {clock_text}, {time_of_day}.{cycle}"
 msgstr "Bây giờ là {clock_text}, {time_of_day}.{cycle}"
+
+#. one sentence of a longer line
+msgid "Slept 8 hours."
+msgstr "Đã ngủ 8 giờ."
+
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
+msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
+msgstr "Đã ngủ 8 giờ. Bây giờ là {clock_text}, {time_of_day}.{cycle}"
 
 #. one sentence of a longer line
 msgid "Slept 10 hours."
@@ -22190,6 +22222,14 @@ msgstr "Nhật ký hành trình"
 
 msgid "Recent logbook entries."
 msgstr "Các mục nhật ký hành trình gần đây."
+
+msgid "Sleep 8 hours"
+msgstr "Ngủ 8 giờ"
+
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 8 hours."
+msgstr "Giờ lái quy định được làm mới. Mỗi giờ ngủ giảm 8 điểm mệt mỏi. Đồng hồ tiến thêm 8 giờ."
 
 msgid "Sleep 10 hours"
 msgstr "Ngủ 10 giờ"
@@ -23386,7 +23426,9 @@ msgstr "Đổ {liters_text} với giá {grouped} đô la."
 msgid ""
 "Refuel {liters_text} for {grouped} dollars. Diesel here is {f} Canadian "
 "dollars a liter."
-msgstr "Đổ {liters_text} với giá {grouped} đô la. Dầu diesel ở đây giá {f} đô la Canada mỗi lít."
+msgstr ""
+"Đổ {liters_text} với giá {grouped} đô la. Dầu diesel ở đây giá {f} đô la "
+"Canada mỗi lít."
 
 #. placeholders: {f}, {grouped}
 msgid "Refuel {f} gallons for {grouped} dollars"
@@ -25577,6 +25619,9 @@ msgstr "Bây giờ là {now}."
 msgid "delivery"
 msgstr "giao hàng"
 
+msgid "bond"
+msgstr ""
+
 msgid "alertness"
 msgstr "độ tỉnh táo"
 
@@ -25643,29 +25688,17 @@ msgid ""
 msgstr "khoản phạt {grouped} đô la Canada, tính thành {grouped2} đô la Mỹ"
 
 #. one sentence of a longer line
-msgid ""
-"The officer asks for your passport and checks the eManifest filed for this "
-"load."
-msgstr ""
-"Nhân viên xin hộ chiếu của bạn và kiểm tra eManifest đã nộp cho lô hàng này."
+msgid "Cleared."
+msgstr "Đã thông quan."
 
-#. placeholders: {name}, {agency}
-msgid ""
-"{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest filed for this load."
-msgstr ""
-"{name}, {agency}. Nhân viên xin hộ chiếu của bạn và kiểm tra eManifest đã "
-"nộp cho lô hàng này."
+#. placeholders: {country}
+msgid "Cleared. Welcome to {country}."
+msgstr "Đã thông quan. Chào mừng đến {country}."
 
-msgid "customs clearance"
-msgstr "thông quan"
-
-# same as English
-msgid "Canada"
-msgstr "Canada"
-
-msgid "the United States"
-msgstr "Hoa Kỳ"
+#. placeholders: {country}
+#. one sentence of a longer line
+msgid "Welcome to {country}."
+msgstr "Chào mừng đến {country}."
 
 #. one sentence of a longer line
 msgid "Officers examine the trailer for 45 minutes, then clear you."
@@ -25683,18 +25716,84 @@ msgstr ""
 "Bị chuyển sang kiểm tra thứ cấp. Nhân viên kiểm tra rơ-moóc 45 phút rồi cho "
 "bạn qua. Chào mừng đến {country}."
 
-#. placeholders: {country}
 #. one sentence of a longer line
-msgid "Welcome to {country}."
-msgstr "Chào mừng đến {country}."
-
-#. one sentence of a longer line
-msgid "Cleared."
-msgstr "Đã thông quan."
+msgid "Cleared in bond."
+msgstr ""
 
 #. placeholders: {country}
-msgid "Cleared. Welcome to {country}."
-msgstr "Đã thông quan. Chào mừng đến {country}."
+msgid "Cleared in bond. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Officers examine the trailer for 45 minutes, then clear you in bond."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you in bond. Welcome to {country}."
+msgstr ""
+
+#. placeholders: {country}
+msgid "Cleared. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The bond is closed."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
+msgstr ""
+"Nhân viên xin hộ chiếu của bạn và kiểm tra eManifest đã nộp cho lô hàng này."
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"eManifest filed for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest and "
+"bond for this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest and bond for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest for "
+"this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest for this load."
+msgstr ""
+
+msgid "customs clearance"
+msgstr "thông quan"
+
+# same as English
+msgid "Canada"
+msgstr "Canada"
+
+msgid "the United States"
+msgstr "Hoa Kỳ"
 
 msgid "Answer the officer's questions and hand over your documents"
 msgstr "Trả lời các câu hỏi của nhân viên và nộp giấy tờ"
@@ -34270,7 +34369,9 @@ msgstr "Đổ {volume_text} bằng thẻ dầu của hãng vận tải. {margin}
 msgid ""
 "Refuel {liters_text} for {grouped} dollars. Diesel here is {f} Canadian "
 "dollars a liter. {margin}"
-msgstr "Đổ {liters_text} với giá {grouped} đô la. Dầu diesel ở đây giá {f} đô la Canada mỗi lít. {margin}"
+msgstr ""
+"Đổ {liters_text} với giá {grouped} đô la. Dầu diesel ở đây giá {f} đô la "
+"Canada mỗi lít. {margin}"
 
 #. placeholders: {f}, {grouped}
 #. one sentence of a longer line
@@ -34493,7 +34594,9 @@ msgstr "Phòng nhà nghỉ: ngủ 8 giờ với giá {f} đô la"
 msgid ""
 "A motel near the exit, paid from your own pocket. Legal 8-hour reset, and "
 "sleep takes off 8 points of fatigue an hour."
-msgstr "Một nhà nghỉ gần lối ra, tự bỏ tiền túi. Đặt lại ca 8 giờ hợp lệ, và mỗi giờ ngủ giảm 8 điểm mệt mỏi."
+msgstr ""
+"Một nhà nghỉ gần lối ra, tự bỏ tiền túi. Đặt lại ca 8 giờ hợp lệ, và mỗi "
+"giờ ngủ giảm 8 điểm mệt mỏi."
 
 #. placeholders: {f}
 msgid "Motel room: sleep 10 hours for {f} dollars"
@@ -34529,7 +34632,10 @@ msgstr "{engine_off}Nhà nghỉ, {grouped} đô la, 8 giờ."
 msgid ""
 "{engine_off}Motel, {grouped} dollars, 8 hours. {clock_text}. Driving and "
 "duty clocks reset. {grouped2} dollars. {control_hint} starts the engine."
-msgstr "{engine_off}Nhà nghỉ, {grouped} đô la, 8 giờ. Bây giờ là {clock_text}. Đồng hồ giờ lái và khung giờ làm việc đã được đặt lại. Còn {grouped2} đô la. Nhấn {control_hint} để nổ máy."
+msgstr ""
+"{engine_off}Nhà nghỉ, {grouped} đô la, 8 giờ. Bây giờ là {clock_text}. Đồng "
+"hồ giờ lái và khung giờ làm việc đã được đặt lại. Còn {grouped2} đô la. "
+"Nhấn {control_hint} để nổ máy."
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
@@ -34577,7 +34683,8 @@ msgstr " nữa"
 
 msgid ""
 "A full 8-hour sleep resets your driving hours and legal driving window."
-msgstr "Ngủ đủ 8 giờ sẽ đặt lại toàn bộ giờ lái và khung giờ làm việc hợp lệ."
+msgstr ""
+"Ngủ đủ 8 giờ sẽ đặt lại toàn bộ giờ lái và khung giờ làm việc hợp lệ."
 
 msgid ""
 "A full 10-hour sleep resets your driving hours and legal driving window."
@@ -34680,9 +34787,6 @@ msgstr ""
 "Chọn một mục. Chọn ngủ lần đầu để xem trước. Chọn lại lần nữa để ngủ thật. "
 "Giờ nghỉ và giấc ngủ đều làm đồng hồ và hạn giao hàng trôi tiếp."
 
-msgid "Sleep 8 hours"
-msgstr "Ngủ 8 giờ"
-
 #. one sentence of a longer line
 msgid "You are already rested."
 msgstr "Bạn đã nghỉ ngơi đầy đủ rồi."
@@ -34733,7 +34837,9 @@ msgstr ""
 msgid ""
 "Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
 "an hour. Clock and deadline advance 8 hours."
-msgstr "Đặt lại ca đầy đủ và giờ lái quy định được làm mới. Mỗi giờ ngủ giảm 8 điểm mệt mỏi. Đồng hồ và hạn giao hàng tiến thêm 8 giờ."
+msgstr ""
+"Đặt lại ca đầy đủ và giờ lái quy định được làm mới. Mỗi giờ ngủ giảm 8 điểm "
+"mệt mỏi. Đồng hồ và hạn giao hàng tiến thêm 8 giờ."
 
 msgid "Sleep 8 hours in the lot"
 msgstr "Ngủ 8 giờ ngoài bãi xe"
@@ -34741,7 +34847,9 @@ msgstr "Ngủ 8 giờ ngoài bãi xe"
 msgid ""
 "A legal 8-hour reset with poor rest: 5 points of fatigue off an hour, never "
 "below 30. Clock and deadline advance 8 hours."
-msgstr "Đặt lại ca 8 giờ hợp lệ nhưng nghỉ không ngon: mỗi giờ giảm 5 điểm mệt mỏi, không bao giờ xuống dưới 30. Đồng hồ và hạn giao hàng tiến thêm 8 giờ."
+msgstr ""
+"Đặt lại ca 8 giờ hợp lệ nhưng nghỉ không ngon: mỗi giờ giảm 5 điểm mệt mỏi, "
+"không bao giờ xuống dưới 30. Đồng hồ và hạn giao hàng tiến thêm 8 giờ."
 
 msgid "Sleep 10 hours in the lot"
 msgstr "Ngủ 10 giờ ngoài bãi xe"
@@ -34756,7 +34864,9 @@ msgstr ""
 msgid ""
 "A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
 "points of fatigue an hour. Clock and deadline advance 8 hours."
-msgstr "Một chiếc giường thật, tự bỏ tiền túi. Đặt lại ca hợp lệ, và mỗi giờ ngủ giảm 8 điểm mệt mỏi. Đồng hồ và hạn giao hàng tiến thêm 8 giờ."
+msgstr ""
+"Một chiếc giường thật, tự bỏ tiền túi. Đặt lại ca hợp lệ, và mỗi giờ ngủ "
+"giảm 8 điểm mệt mỏi. Đồng hồ và hạn giao hàng tiến thêm 8 giờ."
 
 msgid ""
 "A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
@@ -35022,13 +35132,17 @@ msgstr ""
 #. placeholders: {duration_text}
 msgid ""
 "You slept {duration_text} more, 8 hours of rest in a row, and woke rested."
-msgstr "Bạn đã ngủ thêm {duration_text}, đủ 8 giờ nghỉ liên tục, và thức dậy tỉnh táo."
+msgstr ""
+"Bạn đã ngủ thêm {duration_text}, đủ 8 giờ nghỉ liên tục, và thức dậy tỉnh "
+"táo."
 
 #. placeholders: {duration_text}
 msgid ""
 "You slept {duration_text} more, 8 hours of rest in a row, and woke still "
 "tired."
-msgstr "Bạn ngủ thêm {duration_text}, đủ 8 giờ nghỉ liên tục, mà tỉnh dậy vẫn còn mệt."
+msgstr ""
+"Bạn ngủ thêm {duration_text}, đủ 8 giờ nghỉ liên tục, mà tỉnh dậy vẫn còn "
+"mệt."
 
 msgid "You slept 10 hours and woke rested."
 msgstr "Bạn đã ngủ đủ 10 tiếng và thức dậy tỉnh táo."
@@ -35064,7 +35178,9 @@ msgstr "{clocks} {grouped2} đô la."
 msgid ""
 "{engine_off}Motel, {grouped} dollars, 8 hours. {clock_text}. {clocks} "
 "{grouped2} dollars. {deadline_text}{wake_air_instruction}"
-msgstr "{engine_off}Nhà nghỉ, {grouped} đô la, 8 giờ. {clock_text}. {clocks} {grouped2} đô la. {deadline_text}{wake_air_instruction}"
+msgstr ""
+"{engine_off}Nhà nghỉ, {grouped} đô la, 8 giờ. {clock_text}. {clocks} "
+"{grouped2} đô la. {deadline_text}{wake_air_instruction}"
 
 #. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
 msgid ""
@@ -35088,7 +35204,9 @@ msgstr "{engine_off}Đã ngủ 8 giờ ngoài bãi xe."
 msgid ""
 "{engine_off}Slept 8 hours in the lot. {clock_text}. {clocks} Rest was poor. "
 "{deadline_text}{wake_air_instruction}"
-msgstr "{engine_off}Đã ngủ 8 giờ trong bãi đỗ. {clock_text}. {clocks} Giấc ngủ không đủ. {deadline_text}{wake_air_instruction}"
+msgstr ""
+"{engine_off}Đã ngủ 8 giờ trong bãi đỗ. {clock_text}. {clocks} Giấc ngủ "
+"không đủ. {deadline_text}{wake_air_instruction}"
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
@@ -48905,9 +49023,6 @@ msgstr "phím mũi tên phải"
 msgid "Home"
 msgstr "Home"
 
-msgid "home"
-msgstr "home"
-
 msgid "end"
 msgstr "end"
 
@@ -49181,6 +49296,13 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid ""
+#~ "{name}, {agency}. The officer asks for your passport and checks the "
+#~ "eManifest filed for this load."
+#~ msgstr ""
+#~ "{name}, {agency}. Nhân viên xin hộ chiếu của bạn và kiểm tra eManifest đã "
+#~ "nộp cho lô hàng này."
 
 #~ msgid "Diesel here is {f2} Canadian dollars a liter."
 #~ msgstr "Dầu diesel ở đây giá {f2} đô la Canada mỗi lít."

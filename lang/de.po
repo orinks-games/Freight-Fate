@@ -11211,6 +11211,23 @@ msgstr "{join} und {last}"
 msgid "cattle"
 msgstr "Rinder"
 
+msgid "home"
+msgstr "home"
+
+msgid "cabotage"
+msgstr ""
+
+msgid "READ: Mercer Transportation, as for steel"
+msgstr ""
+
+msgid ""
+"ASSUMED: seafood and other food going south by truck; no page read gives a "
+"figure"
+msgstr ""
+
+msgid "ASSUMED: as for food"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} driving hours"
 msgstr "{f} Lenkstunden"
@@ -13614,6 +13631,12 @@ msgstr "angehalten"
 
 msgid "holding"
 msgstr "holding"
+
+msgid "filed"
+msgstr ""
+
+msgid "closed"
+msgstr ""
 
 # leave empty: loose frame; it caught "Crossing into" time zone lines and left "into" English
 #. placeholders: {name}
@@ -21913,7 +21936,9 @@ msgid "Based in {lane_area}."
 msgstr "Sitz in {lane_area}."
 
 msgid "No carrier hires near your home or in your province right now"
-msgstr "Keine Spedition stellt gerade in der Nähe deines Zuhauses oder in deiner Provinz ein"
+msgstr ""
+"Keine Spedition stellt gerade in der Nähe deines Zuhauses oder in deiner "
+"Provinz ein"
 
 msgid "No carrier hires near your home or in your state right now"
 msgstr ""
@@ -22031,6 +22056,14 @@ msgstr " Zyklusuhr zurückgesetzt."
 #. one sentence of a longer line
 msgid "It is {clock_text}, {time_of_day}.{cycle}"
 msgstr "Es ist {clock_text}, {time_of_day}.{cycle}"
+
+#. one sentence of a longer line
+msgid "Slept 8 hours."
+msgstr "8 Stunden geschlafen."
+
+#. placeholders: {clock_text}, {time_of_day}, {cycle}
+msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
+msgstr "8 Stunden geschlafen. Es ist {clock_text}, {time_of_day}.{cycle}"
 
 #. one sentence of a longer line
 msgid "Slept 10 hours."
@@ -22284,6 +22317,14 @@ msgstr "Fahrtenbuch"
 
 msgid "Recent logbook entries."
 msgstr "Die letzten Einträge im Fahrtenbuch."
+
+msgid "Sleep 8 hours"
+msgstr "8 Stunden schlafen"
+
+msgid ""
+"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+"advances 8 hours."
+msgstr "Frische Lenk- und Ruhezeiten. Schlaf senkt die Müdigkeit um 8 Punkte pro Stunde. Die Uhr springt 8 Stunden vor."
 
 msgid "Sleep 10 hours"
 msgstr "10 Stunden schlafen"
@@ -23498,7 +23539,9 @@ msgstr "{liters_text} tanken für {grouped} Dollar."
 msgid ""
 "Refuel {liters_text} for {grouped} dollars. Diesel here is {f} Canadian "
 "dollars a liter."
-msgstr "{liters_text} tanken für {grouped} Dollar. Diesel kostet hier {f} kanadische Dollar pro Liter."
+msgstr ""
+"{liters_text} tanken für {grouped} Dollar. Diesel kostet hier {f} "
+"kanadische Dollar pro Liter."
 
 #. placeholders: {f}, {grouped}
 msgid "Refuel {f} gallons for {grouped} dollars"
@@ -25750,6 +25793,9 @@ msgstr "Es ist {now}."
 msgid "delivery"
 msgstr "delivery"
 
+msgid "bond"
+msgstr ""
+
 msgid "alertness"
 msgstr "Wachheit"
 
@@ -25820,29 +25866,17 @@ msgstr ""
 "US-Dollar"
 
 #. one sentence of a longer line
-msgid ""
-"The officer asks for your passport and checks the eManifest filed for this "
-"load."
-msgstr ""
-"Der Beamte verlangt deinen Pass und prüft das eManifest, das für diese "
-"Ladung eingereicht wurde."
+msgid "Cleared."
+msgstr "Abgefertigt."
 
-#. placeholders: {name}, {agency}
-msgid ""
-"{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest filed for this load."
-msgstr ""
-"{name}, {agency}. Der Beamte verlangt deinen Pass und prüft das eManifest, "
-"das für diese Ladung eingereicht wurde."
+#. placeholders: {country}
+msgid "Cleared. Welcome to {country}."
+msgstr "Abgefertigt. Willkommen in {country}."
 
-msgid "customs clearance"
-msgstr "Zollabfertigung"
-
-msgid "Canada"
-msgstr "Kanada"
-
-msgid "the United States"
-msgstr "den Vereinigten Staaten"
+#. placeholders: {country}
+#. one sentence of a longer line
+msgid "Welcome to {country}."
+msgstr "Willkommen in {country}."
 
 #. one sentence of a longer line
 msgid "Officers examine the trailer for 45 minutes, then clear you."
@@ -25862,18 +25896,84 @@ msgstr ""
 "Zur Nachkontrolle verwiesen. Die Beamten durchsuchen den Auflieger 45 "
 "Minuten lang und lassen dich dann passieren. Willkommen in {country}."
 
-#. placeholders: {country}
 #. one sentence of a longer line
-msgid "Welcome to {country}."
-msgstr "Willkommen in {country}."
-
-#. one sentence of a longer line
-msgid "Cleared."
-msgstr "Abgefertigt."
+msgid "Cleared in bond."
+msgstr ""
 
 #. placeholders: {country}
-msgid "Cleared. Welcome to {country}."
-msgstr "Abgefertigt. Willkommen in {country}."
+msgid "Cleared in bond. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Officers examine the trailer for 45 minutes, then clear you in bond."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you in bond. Welcome to {country}."
+msgstr ""
+
+#. placeholders: {country}
+msgid "Cleared. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The bond is closed."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
+msgstr ""
+"Der Beamte verlangt deinen Pass und prüft das eManifest, das für diese "
+"Ladung eingereicht wurde."
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"eManifest filed for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest and "
+"bond for this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest and bond for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest for "
+"this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest for this load."
+msgstr ""
+
+msgid "customs clearance"
+msgstr "Zollabfertigung"
+
+msgid "Canada"
+msgstr "Kanada"
+
+msgid "the United States"
+msgstr "den Vereinigten Staaten"
 
 msgid "Answer the officer's questions and hand over your documents"
 msgstr "Beantworte die Fragen des Beamten und übergib deine Papiere"
@@ -34574,7 +34674,9 @@ msgstr "{volume_text} tanken, mit der Tankkarte der Spedition. {margin}"
 msgid ""
 "Refuel {liters_text} for {grouped} dollars. Diesel here is {f} Canadian "
 "dollars a liter. {margin}"
-msgstr "{liters_text} tanken für {grouped} Dollar. Diesel kostet hier {f} kanadische Dollar pro Liter. {margin}"
+msgstr ""
+"{liters_text} tanken für {grouped} Dollar. Diesel kostet hier {f} "
+"kanadische Dollar pro Liter. {margin}"
 
 #. placeholders: {f}, {grouped}
 #. one sentence of a longer line
@@ -34799,7 +34901,9 @@ msgstr "Motelzimmer: 8 Stunden schlafen für {f} Dollar"
 msgid ""
 "A motel near the exit, paid from your own pocket. Legal 8-hour reset, and "
 "sleep takes off 8 points of fatigue an hour."
-msgstr "Ein Motel nahe der Ausfahrt, aus eigener Tasche bezahlt. Gültige 8-Stunden-Ruhepause, und Schlaf senkt die Müdigkeit um 8 Punkte pro Stunde."
+msgstr ""
+"Ein Motel nahe der Ausfahrt, aus eigener Tasche bezahlt. Gültige "
+"8-Stunden-Ruhepause, und Schlaf senkt die Müdigkeit um 8 Punkte pro Stunde."
 
 #. placeholders: {f}
 msgid "Motel room: sleep 10 hours for {f} dollars"
@@ -34835,7 +34939,10 @@ msgstr "{engine_off}Motel, {grouped} Dollar, 8 Stunden."
 msgid ""
 "{engine_off}Motel, {grouped} dollars, 8 hours. {clock_text}. Driving and "
 "duty clocks reset. {grouped2} dollars. {control_hint} starts the engine."
-msgstr "{engine_off}Motel, {grouped} Dollar, 8 Stunden. {clock_text}. Lenk- und Dienstzeit zurückgesetzt. {grouped2} Dollar. {control_hint} startet den Motor."
+msgstr ""
+"{engine_off}Motel, {grouped} Dollar, 8 Stunden. {clock_text}. Lenk- und "
+"Dienstzeit zurückgesetzt. {grouped2} Dollar. {control_hint} startet den "
+"Motor."
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
@@ -34884,7 +34991,9 @@ msgstr " länger"
 
 msgid ""
 "A full 8-hour sleep resets your driving hours and legal driving window."
-msgstr "Ein voller Schlaf von 8 Stunden setzt deine Lenkzeit und dein legales Fahrfenster zurück."
+msgstr ""
+"Ein voller Schlaf von 8 Stunden setzt deine Lenkzeit und dein legales "
+"Fahrfenster zurück."
 
 msgid ""
 "A full 10-hour sleep resets your driving hours and legal driving window."
@@ -34991,9 +35100,6 @@ msgstr ""
 "Wähl eine Option. Schlafen liest eine Vorschau vor. Wähl noch einmal, um zu "
 "schlafen. Pausen und Schlaf lassen Uhr und Liefertermin vorrücken."
 
-msgid "Sleep 8 hours"
-msgstr "8 Stunden schlafen"
-
 #. one sentence of a longer line
 msgid "You are already rested."
 msgstr "Du bist schon ausgeruht."
@@ -35033,7 +35139,8 @@ msgstr ""
 
 #. placeholders: {duration_text}
 msgid "Sleep {duration_text} more to finish an 8-hour reset"
-msgstr "Noch {duration_text} schlafen, um eine Ruhezeit von 8 Stunden abzuschließen"
+msgstr ""
+"Noch {duration_text} schlafen, um eine Ruhezeit von 8 Stunden abzuschließen"
 
 msgid ""
 "Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
@@ -35046,7 +35153,9 @@ msgstr ""
 msgid ""
 "Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
 "an hour. Clock and deadline advance 8 hours."
-msgstr "Volle Ruhepause und frische Lenk- und Ruhezeiten. Schlaf senkt die Müdigkeit um 8 Punkte pro Stunde. Uhr und Liefertermin rücken 8 Stunden vor."
+msgstr ""
+"Volle Ruhepause und frische Lenk- und Ruhezeiten. Schlaf senkt die "
+"Müdigkeit um 8 Punkte pro Stunde. Uhr und Liefertermin rücken 8 Stunden vor."
 
 msgid "Sleep 8 hours in the lot"
 msgstr "8 Stunden auf dem Parkplatz schlafen"
@@ -35054,7 +35163,9 @@ msgstr "8 Stunden auf dem Parkplatz schlafen"
 msgid ""
 "A legal 8-hour reset with poor rest: 5 points of fatigue off an hour, never "
 "below 30. Clock and deadline advance 8 hours."
-msgstr "Eine gültige 8-Stunden-Ruhepause mit schlechtem Schlaf: 5 Punkte Müdigkeit weniger pro Stunde, nie unter 30. Uhr und Liefertermin rücken 8 Stunden vor."
+msgstr ""
+"Eine gültige 8-Stunden-Ruhepause mit schlechtem Schlaf: 5 Punkte Müdigkeit "
+"weniger pro Stunde, nie unter 30. Uhr und Liefertermin rücken 8 Stunden vor."
 
 msgid "Sleep 10 hours in the lot"
 msgstr "10 Stunden auf dem Parkplatz schlafen"
@@ -35070,7 +35181,10 @@ msgstr ""
 msgid ""
 "A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
 "points of fatigue an hour. Clock and deadline advance 8 hours."
-msgstr "Ein richtiges Bett, aus eigener Tasche bezahlt. Gültige Ruhepause, und Schlaf senkt die Müdigkeit um 8 Punkte pro Stunde. Uhr und Liefertermin rücken 8 Stunden vor."
+msgstr ""
+"Ein richtiges Bett, aus eigener Tasche bezahlt. Gültige Ruhepause, und "
+"Schlaf senkt die Müdigkeit um 8 Punkte pro Stunde. Uhr und Liefertermin "
+"rücken 8 Stunden vor."
 
 msgid ""
 "A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
@@ -35245,7 +35359,9 @@ msgstr ""
 
 #. placeholders: {duration_text}
 msgid "sleep {duration_text} more here to finish an 8-hour reset"
-msgstr "noch {duration_text} hier schlafen, um eine Ruhezeit von 8 Stunden abzuschließen"
+msgstr ""
+"noch {duration_text} hier schlafen, um eine Ruhezeit von 8 Stunden "
+"abzuschließen"
 
 msgid "take a full 10-hour reset"
 msgstr "eine volle Ruhezeit von 10 Stunden machen"
@@ -35348,13 +35464,17 @@ msgstr ""
 #. placeholders: {duration_text}
 msgid ""
 "You slept {duration_text} more, 8 hours of rest in a row, and woke rested."
-msgstr "Du hast noch {duration_text} geschlafen, 8 Stunden Ruhe am Stück, und bist ausgeruht aufgewacht."
+msgstr ""
+"Du hast noch {duration_text} geschlafen, 8 Stunden Ruhe am Stück, und bist "
+"ausgeruht aufgewacht."
 
 #. placeholders: {duration_text}
 msgid ""
 "You slept {duration_text} more, 8 hours of rest in a row, and woke still "
 "tired."
-msgstr "Du hast noch {duration_text} geschlafen, 8 Stunden Ruhe am Stück, und bist trotzdem müde aufgewacht."
+msgstr ""
+"Du hast noch {duration_text} geschlafen, 8 Stunden Ruhe am Stück, und bist "
+"trotzdem müde aufgewacht."
 
 msgid "You slept 10 hours and woke rested."
 msgstr "Du hast 10 Stunden geschlafen und bist ausgeruht aufgewacht."
@@ -35390,7 +35510,9 @@ msgstr "{clocks} {grouped2} Dollar."
 msgid ""
 "{engine_off}Motel, {grouped} dollars, 8 hours. {clock_text}. {clocks} "
 "{grouped2} dollars. {deadline_text}{wake_air_instruction}"
-msgstr "{engine_off}Motel, {grouped} Dollar, 8 Stunden. {clock_text}. {clocks} {grouped2} Dollar. {deadline_text}{wake_air_instruction}"
+msgstr ""
+"{engine_off}Motel, {grouped} Dollar, 8 Stunden. {clock_text}. {clocks} "
+"{grouped2} Dollar. {deadline_text}{wake_air_instruction}"
 
 #. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
 msgid ""
@@ -35414,7 +35536,9 @@ msgstr "{engine_off}8 Stunden auf dem Parkplatz geschlafen."
 msgid ""
 "{engine_off}Slept 8 hours in the lot. {clock_text}. {clocks} Rest was poor. "
 "{deadline_text}{wake_air_instruction}"
-msgstr "{engine_off}8 Stunden auf dem Parkplatz geschlafen. {clock_text}. {clocks} Die Erholung war schlecht. {deadline_text}{wake_air_instruction}"
+msgstr ""
+"{engine_off}8 Stunden auf dem Parkplatz geschlafen. {clock_text}. {clocks} "
+"Die Erholung war schlecht. {deadline_text}{wake_air_instruction}"
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
@@ -49482,9 +49606,6 @@ msgstr "die Pfeiltaste Right"
 msgid "Home"
 msgstr "Home"
 
-msgid "home"
-msgstr "home"
-
 msgid "end"
 msgstr "end"
 
@@ -49761,6 +49882,13 @@ msgstr ""
 "Halte den left bumper für eine zweite Ebene von Tasten. {pad_engine} "
 "steuert den Motor, {pad_fuel} liest den Kraftstoff vor und "
 "{pad_speed_limit} das Limit."
+
+#~ msgid ""
+#~ "{name}, {agency}. The officer asks for your passport and checks the "
+#~ "eManifest filed for this load."
+#~ msgstr ""
+#~ "{name}, {agency}. Der Beamte verlangt deinen Pass und prüft das eManifest, "
+#~ "das für diese Ladung eingereicht wurde."
 
 #~ msgid "Diesel here is {f2} Canadian dollars a liter."
 #~ msgstr "Diesel kostet hier {f2} kanadische Dollar pro Liter."

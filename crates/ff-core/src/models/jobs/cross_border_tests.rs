@@ -412,6 +412,54 @@ fn a_driver_who_delivers_to_watson_lake_is_sent_on_empty() {
     assert!(!company_board(&reposition.destination, "northstar", 1, 0).is_empty());
 }
 
+fn in_canada(city: &str) -> bool {
+    country(city).eq_ignore_ascii_case("CA")
+}
+
+/// A Canadian carrier in a Canadian town that ships nothing is sent empty to
+/// a Canadian city, not across the line (brief 2, the real carriers).
+#[test]
+fn a_canadian_carrier_with_an_empty_board_is_sent_on_in_canada() {
+    for (city, carrier) in [
+        ("fort_st_john_bc_ca", "longspur_transport"),
+        ("watson_lake_yt_ca", "liard_river_freight"),
+    ] {
+        for level in [1, 8, 20] {
+            for seed in 0..5 {
+                let board = company_board(city, carrier, level, seed);
+                for job in &board {
+                    assert!(
+                        in_canada(&job.destination),
+                        "{carrier} at {city}, level {level}, seed {seed}: {job:?}"
+                    );
+                }
+                if level == 1 && seed == 0 {
+                    assert!(
+                        board.iter().any(|j| j.bobtail),
+                        "{carrier} at {city} is sent on empty: {board:?}"
+                    );
+                }
+            }
+        }
+    }
+}
+
+/// The owner-operator start leased to Longspur takes Longspur's Canadian
+/// base: in Chicago it is offered Canadian destinations only, no cabotage.
+#[test]
+fn the_longspur_owner_operator_in_chicago_is_offered_canada_only() {
+    let mut loads = 0;
+    for level in [1, 8, 20] {
+        for seed in 0..10 {
+            for job in board_at("chicago_il_us", seed, level, "longspur_owner_operator") {
+                loads += 1;
+                assert!(in_canada(&job.destination), "level {level}: {job:?}");
+            }
+        }
+    }
+    assert!(loads > 0, "Chicago offers the Longspur lease no load at all");
+}
+
 fn in_alaska(city: &str) -> bool {
     get_world().city(city).expect("a map city").state_code == "AK"
 }
