@@ -1,9 +1,11 @@
 //! Driving simulation (port of `freight_fate/sim/`).
 pub mod alertness;
 pub mod arrival_gate;
+pub mod bend_approach;
 pub mod bridges;
 pub mod cab;
 pub mod chain_control;
+pub mod chain_work;
 pub mod cross_traffic;
 pub mod driving_modes;
 pub mod enforcement_observe;
@@ -37,12 +39,14 @@ pub mod route_roadwork;
 pub mod runaway;
 pub mod season;
 pub mod stimulant;
+pub mod stop_lot;
 pub mod surge;
 pub mod team_shift;
 pub mod tilt_sensor;
 pub mod tilt_steering;
 pub mod timezones;
 pub mod touch_clutch;
+pub mod town_limits;
 pub mod traffic_manager;
 pub mod transmission;
 pub mod trip;

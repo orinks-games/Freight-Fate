@@ -387,7 +387,8 @@ fn fatigue_state_line(
          rest_call {rest_call}; runaway {}{gate}{arrival}{co_driver}; jake_zone {}; touch_mode {}; recognizer {recognizer}; road_offer {}; \
          touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {}; bridge {}; road_surface {}, {}; \
          tire song {}; structure {}; chain_control {}; chains {}; abs {}; drive_traction {}; trailer_sway {}; mirror_glance {}; \
-         predictive_cruise {}; assisted_lane_change {}; lane_keep_availability {}; app {}.",
+         predictive_cruise {}; assisted_lane_change {}; lane_keep_availability {}; chain_worker {}; chain_stop {}; chain_wear {:.3} at {:.2} mph; \
+         air {:.1} psi; brake {:.2}{}; jake {}; app {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -422,6 +423,14 @@ fn fatigue_state_line(
         o.predictive_cruise.key(),
         o.assisted_lane_change.key(),
         o.lane_keep_availability.key(),
+        o.chain_worker.key(),
+        o.chain_stop.map_or("none", |kind| kind.key()),
+        o.chain_wear_pct,
+        o.speed_mph,
+        o.air_psi,
+        o.brake,
+        if o.cruise_snubbing { ", cruise snubbing" } else { "" },
+        o.jake_stage,
         place.key()
     )
 }
@@ -1096,8 +1105,13 @@ impl AgentPolicy {
                              {:.0}%. {}{cattle}",
                                 o.position_mi,
                                 o.speed_mph,
-                                o.speed_limit_mph
-                                    .map_or("not read yet".to_string(), |mph| format!("{mph:.0}")),
+                                o.speed_limit_mph.map_or("not read yet".to_string(), |mph| {
+                                    if o.town_limit_assumed {
+                                        format!("{mph:.0} (assumed town limit)")
+                                    } else {
+                                        format!("{mph:.0}")
+                                    }
+                                }),
                                 o.air_ready,
                                 o.parking_brake,
                                 o.speed_control_armed,

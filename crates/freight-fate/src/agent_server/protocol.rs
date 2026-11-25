@@ -72,8 +72,8 @@ fn parse_key(name: &str) -> Option<(Key, Option<char>)> {
 }
 
 /// The `scenario` tool's fields: one `json!` for the whole tool list would
-/// pass the macro's recursion limit, so the co-driver's counters are added
-/// to the rest here.
+/// pass the macro's recursion limit, so the co-driver's counters, the chain
+/// fields and the assist states are added to the rest here.
 fn scenario_properties() -> Value {
     let mut properties = json!({
         "name": {"type": "string"},
@@ -91,7 +91,7 @@ fn scenario_properties() -> Value {
         "fuel_pct": {"type": "number"},
         "window": {"type": "string", "enum": ["up", "down"]},
         "road_surface": {"type": "string", "enum": ["jointed", "smooth"]},
-        "tire_song": {"type": "string", "enum": ["quiet", "whine", "hum"]},
+        "tire_song": {"type": "string", "enum": ["quiet", "hum"]},
         "weather": {"type": "string", "description": "the simulated sky every drive starts under, forced: snow, ice, cloudy, clear, rain, heavy_rain, thunderstorm, fog or wind; free unlocks it"},
         "damage_pct": {"type": "number"},
         "tire_wear_pct": {"type": "number"},
@@ -129,6 +129,9 @@ fn scenario_properties() -> Value {
     properties["first_delivery_city"] = json!({"type": "string", "description": "the city the first delivery loaded in, as a 1.9 save records it; empty string clears the record"});
     properties["copied_from_1_9"] = json!({"type": "boolean", "description": "true runs the 1.9 copy's carry-over on the career as staged (home fix and carryover state), after carrier, home_city and first_delivery_city"});
     properties["carryover"] = json!({"type": "string", "enum": ["native", "settled", "carrier_choice_due"], "description": "the carry-over state, set directly, last"});
+    properties["chains"] = json!({"type": "boolean"});
+    properties["chain_wear_pct"] = json!({"type": "number"});
+    properties["chain_repair_links"] = json!({"type": "integer"});
     properties["abs"] = json!({"type": "string", "enum": ["inactive", "modulating"]});
     properties["drive_traction"] = json!({"type": "string", "enum": ["grip", "spinning"]});
     properties["trailer_sway"] =
@@ -353,7 +356,13 @@ fn tools_list() -> Value {
              lugging in a tall gear: the clutch a touch shift works in a manual \
              truck), chain_control (clear, level_1 or level_2: the chain law posted \
              at the truck, which follows snow or ice on the road) and chains \
-             (stowed, on_snow, on_bare or broken), and app (active, inactive or \
+             (stowed, on_snow, on_bare inside the 2 mile bare-road grace, on_bare_wearing past it, or broken), chain_worker (driver, assist \
+             or co_driver: who does the chain work, whoever holds the wheel) and \
+             chain_stop (none, install, remove, tighten or repair: the roadside \
+             chain stop the assist or the co-driver is making), chain_wear (the set's \
+             wear in percent, at the truck's exact speed in mph), air (the air supply in psi), \
+             brake (the service brake demand, 0 to 1, with \"cruise snubbing\" while \
+             cruise holds the drums on), jake (the engine brake stage, 0 for off), and app (active, inactive or \
              background: where a phone app is, moved by app_event, with \
              sound_taken after it while an interruption holds the sound). \
              Off the wheel the \
@@ -428,8 +437,8 @@ fn tools_list() -> Value {
              bridge (one with joints, longest first), jointed (road with seams, longest \
              first), border (a customs booth at a land crossing; pass origin and \
              destination, e.g. bellingham_wa_us and surrey_bc_ca), state-line (a state \
-             or province line, in the order driven), grooved (road the tires whine on, \
-             longest first), grating (an open steel grate deck the tires hum on). \
+             or province line, in the order driven), grooved (concrete with grooves \
+             across the lane, longest first), grating (an open steel grate deck the tires hum on). \
              Same seed, same road. pick chooses among multiple matches (1-based). \
              unit plants a staffed enforcement unit unit_ahead_mi up the road (default \
              3) so an encounter can be staged on purpose; the road's own seeded posts \
@@ -474,7 +483,10 @@ fn tools_list() -> Value {
              first driven, with fresh wear and a full tank), endorsements (a list of \
              credential keys bought outright, replacing what was held), hour (local \
              clock 0 to 24, moved forward to), fuel_pct, damage_pct, tire_wear_pct and \
-             brake_wear_pct (0 to 100, what a roadside inspection reads), citations and \
+             brake_wear_pct (0 to 100, what a roadside inspection reads), chains (true \
+             puts a set of snow chains aboard, false takes them away), chain_wear_pct \
+             (0 to 100, how worn the set is; near 100 a set snaps soon) and \
+             chain_repair_links (spare links for a broken chain), citations and \
              out_of_service_events (counts on the record, dated now; with damage they set the \
              safety band that decides who is pulled into the inspection lane), \
              rested (true takes a full sleep), first_run (true teaches the first-run \
@@ -498,7 +510,7 @@ fn tools_list() -> Value {
              session), window (up or down: every drive from here on starts with \
              the driver window there), road_surface (jointed or smooth: every \
              drive from here on keeps that surface the whole way, over what the \
-             pavement layer reads), tire_song (quiet, whine or hum: every drive \
+             pavement layer reads), tire_song (quiet or hum: every drive \
              from here on holds that song the whole way), abs (inactive or modulating), \
              drive_traction (grip or spinning), trailer_sway (steady, swaying or off_tracking), \
              mirror_glance (forward, left or right), and name (the career created when none is \

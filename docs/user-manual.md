@@ -684,7 +684,14 @@ Snow, ice, and freezing rain leave you less grip, particularly on worn tires. St
 
 To fit or remove chains, stop and open the pause menu. The work counts on duty, and doing it in darkness takes longer and adds fatigue. Once they're fitted, keep near thirty miles per hour. Take them off when you reach a bare road, before they break.
 
-A chain law is posted only while snow or ice is on the road, on steep grades in California, Colorado, Idaho, Montana, Nevada, Oregon, Utah, Washington and Wyoming. You hear "Chain law lifted" when the road clears, and "Bare road" when chains are still on with no snow under them. Level 1 requires chains on your truck in California, Idaho, Montana, Nevada, Utah and Washington. Colorado and Oregon apply Level 1 to single-drive-axle trucks only, so yours passes without chains. Wyoming's Level 1 accepts winter tires or chains. Level 2 requires chains in every one of these states. Ignoring the requirement brings a base citation of 580 dollars before multipliers.
+### Chain laws
+
+Chain laws apply only on steep grades while snow or ice is on the road in nine states: California, Colorado, Idaho, Montana, Nevada, Oregon, Utah, Washington, and Wyoming.
+
+- **Level 1:** Chains are required on your truck in California, Idaho, Montana, Nevada, Utah, and Washington. Wyoming accepts winter tires or chains. Colorado and Oregon apply Level 1 only to single-drive-axle trucks, so your tandem-axle truck passes without chains.
+- **Level 2:** Chains are required in all nine states.
+
+You will hear "Chain law lifted" when the road clears, and "Bare road" if your chains are still mounted with no snow under them. On a bare road you have about 2 miles to stop and take the chains off before they start to wear fast. A co-driver at the wheel does the chain work themselves: chains on at the chain-up area before the control, and off again on bare road. If snow starts while you are already on the grade, the control does not cite you for that stretch. Running past an active chain law carries a 580-dollar base citation before multipliers.
 
 ## Traffic and sharing the road
 
@@ -1078,7 +1085,7 @@ If one sound is covering another, adjust that sound's volume rather than lowerin
 | Lane guide sound | What leans toward the side to steer: the engine, the default, or a soft tone panned the same way, for setups where the engine is hard to place. |
 | Weather sounds volume | Rain, wind, thunder, snow, and fog sounds. |
 | Outside sounds volume | Birds by day, insects at night, and the rivers you pass. Raising the driver window muffles them. |
-| Road surface volume | The thump of pavement seams and bridge joints under the wheels, and the tires whining on grooved concrete and humming on steel grate decks. |
+| Road surface volume | The thump of pavement seams and bridge joints under the wheels, and the tires humming on steel grate decks. |
 | Engine sounds volume | Engine start, shutdown, and running engine sounds. |
 | Engine sound | Real plays the engine recorded from a working truck cab, following the RPM through its range. Classic keeps the original engine sound. Changes apply immediately, even while driving. |
 | Engine brake sound | Recorded, the default, plays the real engine brake growl. Classic plays the synthesized growl from earlier versions. Changes apply at once, even while driving. |
@@ -1321,6 +1328,15 @@ Yes. Choose the Realistic preset, or set lane keeping to off, under Settings, Ga
 ### Can I play in braille only?
 
 Set Output to braille only under Settings, Speech. It needs NVDA or JAWS.
+
+### Why is menu text missing from my braille display?
+
+If you hear Freight Fate's menu text but do not see it on your braille display, open **NVDA Settings, Braille** and try either:
+
+- Set **Braille mode** to **Display speech output**. The display shows what NVDA speaks instead of following the cursor.
+- Set **Show messages** to **Use timeout** to display messages for the chosen **Message Timeout (sec)**, or **Show indefinitely** to keep messages visible rather than timing them out.
+
+You can keep Freight Fate's **Output** set to **Speech and braille**; **Braille only** is not required. See the [NVDA User Guide](https://download.nvaccess.org/releases/2026.3.1/documentation/userGuide.html) for details.
 
 ## When you need help
 

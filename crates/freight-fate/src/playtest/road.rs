@@ -617,7 +617,7 @@ pub fn find_feature(
                 origin,
                 destination,
             )),
-            "grooved" | "grating" => hits.extend(self::pavement::song_hits(
+            "grooved" | "grating" => hits.extend(self::pavement::surface_hits(
                 &mut trip,
                 origin,
                 destination,

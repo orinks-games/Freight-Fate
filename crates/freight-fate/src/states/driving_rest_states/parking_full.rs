@@ -1,8 +1,11 @@
-//! The overnight lot is full: fuel anyway, push on, or risk the shoulder
-//! (`ParkingFullState`).
+//! The overnight lot is full: fuel, eat, take the 30-minute break or save
+//! anyway, push on, or risk the shoulder (`ParkingFullState`). What a full
+//! lot withholds is [`StopLot::offers`], the same rule the co-driver
+//! follows.
 
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
 use ff_core::sim::hos;
+use ff_core::sim::stop_lot::StopLot;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
 
@@ -17,7 +20,9 @@ use crate::states::driving_core::{
 use crate::states::driving_menu_states::{keep_rows, DriveRef};
 use crate::states::driving_rest_states::back_on_the_road_line;
 use crate::states::driving_rest_states::fuel_pump::FuelPump;
+use crate::states::driving_rest_states::short_stay::{ShortStay, BREAK_ROW, FOOD_ROW};
 use crate::states::driving_rest_states::shoulder::ShoulderSleepConfirmationState;
+use crate::states::driving_rest_states::RestFocus;
 
 const PARKING_FULL_INTRO_HELP: &str = "Enter selects. Escape returns to the road.";
 
@@ -25,14 +30,18 @@ pub struct ParkingFullState {
     menu: MenuCore<Self>,
     driving: DriveRef,
     pub stop: RoadStop,
+    /// The row the arrival lands on, once: the break row for a stop
+    /// planned for the break, as at an open lot.
+    preferred: RestFocus,
 }
 
 impl ParkingFullState {
-    pub fn new(ctx: &GameContext, stop: RoadStop) -> Self {
+    pub fn new(ctx: &GameContext, stop: RoadStop, preferred: RestFocus) -> Self {
         ParkingFullState {
             menu: MenuCore::new("Parking full").with_intro_help(PARKING_FULL_INTRO_HELP),
             driving: DriveRef::active(ctx),
             stop,
+            preferred,
         }
     }
 
@@ -42,18 +51,43 @@ impl ParkingFullState {
             menu: MenuCore::new("Parking full").with_intro_help(PARKING_FULL_INTRO_HELP),
             driving,
             stop,
+            preferred: RestFocus::Default,
         }
+    }
+
+    /// The row the arrival lands on (tests).
+    pub fn focused(mut self, preferred: RestFocus) -> Self {
+        self.preferred = preferred;
+        self
     }
 
     /// `enter()` run while the drive is still in hand -- see `drive_ref`.
     pub fn enter_over_drive(&mut self, ctx: &mut GameContext, driving: &mut DrivingState) {
         let items = self.rows(ctx, driving);
         self.menu.items = items;
-        self.menu.index = self.menu.index.min(self.menu.items.len().saturating_sub(1));
+        self.place_cursor(ctx);
         if let Some(key) = self.menu.open_sound_key.clone() {
             ctx.audio.play(&key);
         }
         self.announce_over_drive(ctx, driving);
+    }
+
+    fn place_cursor(&mut self, ctx: &GameContext) {
+        let focus = std::mem::replace(&mut self.preferred, RestFocus::Default);
+        let wanted = |text: &str| match focus {
+            RestFocus::Break => text == BREAK_ROW,
+            RestFocus::Fuel => text.starts_with("Refuel ") || text.starts_with("Fuel: "),
+            RestFocus::Food => text == FOOD_ROW,
+            RestFocus::Sleep | RestFocus::Default => false,
+        };
+        let found = self
+            .menu
+            .items
+            .iter()
+            .position(|item| wanted(&item.text(self, ctx)));
+        self.menu.index = found
+            .unwrap_or(self.menu.index)
+            .min(self.menu.items.len().saturating_sub(1));
     }
 
     fn announce_over_drive(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
@@ -76,7 +110,9 @@ impl ParkingFullState {
 
     fn rows(&mut self, ctx: &mut GameContext, d: &mut DrivingState) -> Vec<MenuItem<Self>> {
         let mut items: Vec<MenuItem<Self>> = Vec::new();
-        if self.stop.actions.iter().any(|a| a == "fuel") {
+        let actions = &self.stop.actions;
+        let offers = |action: &str| StopLot::FullTonight.offers(actions, action);
+        if offers("fuel") {
             // Kill switch while parked: the road's engine key is out of reach
             // under this menu, and the fuel island refuses a running tractor.
             items.push(self.facility_engine_item_for(d.trip.truck.engine_on));
@@ -87,6 +123,12 @@ impl ParkingFullState {
                 MenuItem::new(label, |s: &mut Self, ctx| s.refuel(ctx))
                     .help(self.fuel_help(ctx, d)),
             );
+        }
+        if offers("food") {
+            items.push(Self::food_item());
+        }
+        if offers("break") {
+            items.push(Self::break_item());
         }
         items.push(
             MenuItem::new("Drive on to the next stop", |s: &mut Self, ctx| {
@@ -116,6 +158,9 @@ impl ParkingFullState {
                  truck damage.",
             ),
         );
+        if offers("save") {
+            items.push(Self::save_item());
+        }
         items
     }
 
@@ -252,6 +297,8 @@ impl FuelPump for ParkingFullState {
         &self.stop
     }
 }
+
+impl ShortStay for ParkingFullState {}
 
 impl Menu for ParkingFullState {
     /// A prompt to answer: Escape answers it, so touch adds no Back row.

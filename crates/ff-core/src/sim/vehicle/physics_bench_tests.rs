@@ -11,7 +11,7 @@
 use std::collections::BTreeMap;
 use std::sync::OnceLock;
 
-use super::{TruckState, CHAIN_SAFE_MPH};
+use super::{TruckState, CHAIN_OVERSPEED_MPH, CHAIN_SAFE_MPH};
 use crate::pyfmt::round_py_int;
 use crate::sim::weather::{effects, WeatherKind};
 
@@ -559,7 +559,7 @@ impl Watcher {
             }
         }
 
-        if tk.chains_on && mph > CHAIN_SAFE_MPH + 2.0 && !self.chains_fast_said {
+        if tk.chains_on && mph > CHAIN_OVERSPEED_MPH && !self.chains_fast_said {
             self.chains_fast_said = true;
             let text = format!(
                 "cue: chains hammering past chain speed ({mph:.0} mph, limit {CHAIN_SAFE_MPH:.0})"

@@ -667,7 +667,16 @@ impl DrivingState {
         // The yard is announced when the truck has turned into it, not when
         // it rolls over the driveway's milepost on its way past the turn.
         self.trip.yard_entry_held = self.driveway_turn_pending();
+        // The lower of the two when both hold: a low-speed zone's keeper
+        // governs under an open-road cruise set point.
+        self.trip.speed_control_target_mph = match (self.cruise_mph, self.keeper_mph) {
+            (Some(cruise), Some(keeper)) => Some(cruise.min(keeper)),
+            (cruise, keeper) => cruise.or(keeper),
+        };
+        let frame_start_hour = self.absolute_game_hour(ctx, None);
         let mut events = self.trip.update(dt);
+        let frame_end_hour = self.absolute_game_hour(ctx, None);
+        record_driving_frame(self, ctx, frame_start_hour, frame_end_hour);
         // A chain law posted or lifted by the sky changing is said before
         // the weather line of the same frame: with the weather first, the
         // sign call was lost behind it, and a driver heard the snow begin
@@ -832,6 +841,10 @@ impl DrivingState {
         live::set_damage_pct(self.trip.truck.damage_pct);
         live::set_position_mi(self.trip.position_mi);
         live::set_speed_mph(self.trip.truck.speed_mph());
+        live::set_gaining(
+            self.trip.truck.net_accel_mph_per_s(),
+            self.trip.speed_control_target_mph,
+        );
         live::set_hazard_active(self.hazard_deadline.is_some());
         live::set_move_lockout(if !self.trip.truck.engine_on {
             live::LOCKOUT_ENGINE_OFF

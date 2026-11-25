@@ -100,9 +100,18 @@ pub fn unposted_truck_cap(leg: &Leg, offset_mi: f64) -> Option<(f64, String)> {
     Some((cap, state))
 }
 
-/// Whether a leg offset has no posting in force: a coverage gap, or a leg
-/// with no profile at all.
+/// Whether a leg offset lies short of the leg's first posting: the town
+/// streets and the road out of town before the map read any number.
+pub fn before_first_posting(leg: &Leg, offset_mi: f64) -> bool {
+    leg.speed_limits()
+        .first()
+        .is_some_and(|first| offset_mi < first.at_mi)
+}
+
+/// Whether a leg offset has no posting in force: a coverage gap, the miles
+/// before the first posting, or a leg with no profile at all.
 pub fn is_unposted(leg: &Leg, offset_mi: f64) -> bool {
     let samples = leg.speed_limits();
-    posting_index(samples, offset_mi).is_none_or(|i| samples[i].mph.is_none())
+    before_first_posting(leg, offset_mi)
+        || posting_index(samples, offset_mi).is_none_or(|i| samples[i].mph.is_none())
 }

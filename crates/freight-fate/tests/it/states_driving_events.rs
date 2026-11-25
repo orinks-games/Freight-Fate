@@ -1556,6 +1556,8 @@ fn test_the_acceleration_lane_closes_with_a_merge_line() {
     // anything, so the line names the gap you need.
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
+    // Staged at the end of the facility streets, on the on-ramp.
+    d.trip.join_highway_after_streets();
     d.departure_ramp_mi = Some(0.05);
     d.trip.truck.start_engine();
     d.trip.truck.velocity_mps = mph_to_mps(20.0);
@@ -1599,6 +1601,8 @@ fn test_a_loaded_yard_mule_keeps_the_merge_handoff_on_the_real_clock() {
     d.trip.truck.transmission.automatic = true;
     d.trip.truck.trailer_attached = true;
     d.weather_mut().current = WeatherKind::Clear;
+    // Staged at the end of the facility streets, on the on-ramp.
+    d.trip.join_highway_after_streets();
     d.departure_ramp_mi = Some(0.05);
     d.trip.truck.start_engine();
     let position = d.trip.position_mi;
@@ -1628,6 +1632,8 @@ fn test_a_loaded_yard_mule_keeps_the_merge_handoff_on_the_real_clock() {
 fn test_a_truck_up_to_speed_gets_the_plain_merge_line() {
     let mut app = TestApp::new();
     let mut d = a_real_drive(&mut app);
+    // Staged at the end of the facility streets, on the on-ramp.
+    d.trip.join_highway_after_streets();
     d.departure_ramp_mi = Some(0.05);
     d.trip.truck.start_engine();
     let position = d.trip.position_mi;

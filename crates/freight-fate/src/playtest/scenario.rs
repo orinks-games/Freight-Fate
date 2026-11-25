@@ -114,6 +114,11 @@ pub struct Scenario {
     /// inspection reads.
     pub tire_wear_pct: Option<f64>,
     pub brake_wear_pct: Option<f64>,
+    /// A set of snow chains aboard (true) or none (false), how worn the set
+    /// is, 0 to 100, and its spare repair links.
+    pub chains: Option<bool>,
+    pub chain_wear_pct: Option<f64>,
+    pub chain_repair_links: Option<i64>,
     /// The driving record's lifetime citation count and the career's
     /// out-of-service events: together with damage they set the safety
     /// record band that decides who gets pulled into the inspection lane.
@@ -325,7 +330,7 @@ impl Scenario {
             None => None,
             Some(name) => Some(
                 HeldSong::from_name(name)
-                    .ok_or_else(|| format!("tire_song must be quiet, whine or hum, not {name}"))?,
+                    .ok_or_else(|| format!("tire_song must be quiet or hum, not {name}"))?,
             ),
         };
         let weather = text(args, "weather")?
@@ -436,6 +441,7 @@ impl Scenario {
             "damage_pct",
             "tire_wear_pct",
             "brake_wear_pct",
+            "chain_wear_pct",
             "fatigue",
         ] {
             if let Some(pct) = number(args, key)? {
@@ -548,6 +554,9 @@ impl Scenario {
             damage_pct: number(args, "damage_pct")?,
             tire_wear_pct: number(args, "tire_wear_pct")?,
             brake_wear_pct: number(args, "brake_wear_pct")?,
+            chains: args.get("chains").and_then(Value::as_bool),
+            chain_wear_pct: number(args, "chain_wear_pct")?,
+            chain_repair_links: integer(args, "chain_repair_links")?,
             citations: integer(args, "citations")?,
             out_of_service_events: integer(args, "out_of_service_events")?,
             rested: args.get("rested").and_then(Value::as_bool).unwrap_or(false),
@@ -822,6 +831,43 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
                     record.insert((*key).to_string(), Value::from(*value));
                 }
             }
+        }
+        if scenario.chains.is_some()
+            || scenario.chain_wear_pct.is_some()
+            || scenario.chain_repair_links.is_some()
+        {
+            // Every truck record, for the same reason as the wear meters.
+            let fields: Vec<(&str, Value)> = [
+                ("chains_owned", scenario.chains.map(Value::from)),
+                ("chain_wear_pct", scenario.chain_wear_pct.map(Value::from)),
+                (
+                    "chain_repair_links",
+                    scenario.chain_repair_links.map(|n| Value::from(n.max(0))),
+                ),
+            ]
+            .into_iter()
+            .filter_map(|(key, value)| value.map(|v| (key, v)))
+            .collect();
+            if let Some(owned) = scenario.chains {
+                p.set_chains_owned(owned);
+            }
+            if let Some(pct) = scenario.chain_wear_pct {
+                p.set_chain_wear_pct(pct);
+            }
+            if let Some(links) = scenario.chain_repair_links {
+                p.set_chain_repair_links(links);
+            }
+            for record in p.truck_conditions.values_mut() {
+                for (key, value) in &fields {
+                    record.insert((*key).to_string(), value.clone());
+                }
+            }
+            notes.push(format!(
+                "Snow chains: {}, {} percent worn, {} spare links.",
+                if p.chains_owned() { "aboard" } else { "none" },
+                p.chain_wear_pct().round(),
+                p.chain_repair_links()
+            ));
         }
         // Dated now, so the safety record's window counts them.
         if let Some(count) = scenario.citations {

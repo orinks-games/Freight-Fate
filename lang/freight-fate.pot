@@ -2849,7 +2849,7 @@ msgstr ""
 msgid "prime"
 msgstr ""
 
-#: crates/ff-core/src/channel3000.rs crates/freight-fate/src/states/driving_menu_states/arrival.rs
+#: crates/ff-core/src/channel3000.rs crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
 msgid "late"
 msgstr ""
 
@@ -2951,7 +2951,7 @@ msgstr ""
 msgid "a truck repair shop"
 msgstr ""
 
-#: crates/ff-core/src/data/amenities.rs crates/ff-core/src/data/world_constants.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/ff-core/src/data/amenities.rs crates/ff-core/src/data/world_constants.rs crates/ff-core/src/sim/chain_work.rs crates/freight-fate/src/states/driving_core/constants.rs
 msgid "repair"
 msgstr ""
 
@@ -5383,7 +5383,7 @@ msgid ""
 "This mile of highway is sponsored by {carrier}. The litter is not ours."
 msgstr ""
 
-#: crates/ff-core/src/data/border_yards.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/truck_parking.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/ff-core/src/data/border_yards.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/truck_parking.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "id"
 msgstr ""
 
@@ -6901,15 +6901,15 @@ msgstr ""
 msgid "inspect"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/sim/stop_lot.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "park"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/ff-core/src/data/world_constants.rs crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/parking_full.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "save"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/deadline.rs crates/ff-core/src/models/jobs/hos_stops.rs crates/freight-fate/src/states/driving_controls/clock.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/models/jobs/deadline.rs crates/ff-core/src/models/jobs/hos_stops.rs crates/ff-core/src/sim/stop_lot.rs
 msgid "sleep"
 msgstr ""
 
@@ -10736,29 +10736,30 @@ msgstr ""
 msgid "lou"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/ff-core/src/models/co_driver.rs
-msgid "{name}, from your training class."
+msgid "{co_driver_name}, from your training class."
 msgstr ""
 
-#. placeholders: {name}, {carrier_name}
+#. placeholders: {co_driver_name}, {carrier_name}
 #: crates/ff-core/src/models/co_driver.rs
-msgid "{name}, from your training class, drives for {carrier_name} now."
+msgid ""
+"{co_driver_name}, from your training class, drives for {carrier_name} now."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/ff-core/src/models/co_driver.rs
-msgid "{name}, your co-driver."
+msgid "{co_driver_name}, your co-driver."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/ff-core/src/models/co_driver.rs
-msgid "{name}, back from Meridian with a story."
+msgid "{co_driver_name}, back from Meridian with a story."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/ff-core/src/models/co_driver.rs
-msgid "{name}, your old trainer, along for one load."
+msgid "{co_driver_name}, your old trainer, along for one load."
 msgstr ""
 
 #: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/dispatch_fit.rs
@@ -11081,7 +11082,7 @@ msgid "free"
 msgstr ""
 
 #. placeholders: {grouped}
-#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/solvency.rs crates/freight-fate/src/states/driving_menu_states/arrival.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/cat_scale.rs
+#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/solvency.rs crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/cat_scale.rs
 msgid "{grouped} dollars"
 msgstr ""
 
@@ -15221,6 +15222,26 @@ msgstr ""
 msgid "broken"
 msgstr ""
 
+#: crates/ff-core/src/sim/chain_work.rs
+msgid "install"
+msgstr ""
+
+#: crates/ff-core/src/sim/chain_work.rs
+msgid "remove"
+msgstr ""
+
+#: crates/ff-core/src/sim/chain_work.rs
+msgid "tighten"
+msgstr ""
+
+#: crates/ff-core/src/sim/chain_work.rs crates/freight-fate/src/states/driving_menu_states/status.rs
+msgid "driver"
+msgstr ""
+
+#: crates/ff-core/src/sim/chain_work.rs
+msgid "assist"
+msgstr ""
+
 #: crates/ff-core/src/sim/cross_traffic.rs crates/freight-fate/src/states/driving_events/ramp_crossing.rs crates/freight-fate/src/states/driving_events/ramp_terminal.rs crates/freight-fate/src/states/driving_events/street_controls.rs
 msgid "yield"
 msgstr ""
@@ -16962,20 +16983,7 @@ msgid "assumed, concrete deck"
 msgstr ""
 
 #: crates/ff-core/src/sim/road_texture/song.rs
-msgid "whine"
-msgstr ""
-
-#: crates/ff-core/src/sim/road_texture/song.rs
 msgid "hum"
-msgstr ""
-
-#: crates/ff-core/src/sim/road_texture/song.rs
-msgid ", holding"
-msgstr ""
-
-#. placeholders: {grooves_origin}, {holding}
-#: crates/ff-core/src/sim/road_texture/song.rs
-msgid "whine ({grooves_origin}{holding})"
 msgstr ""
 
 #: crates/ff-core/src/sim/road_texture/song.rs
@@ -17293,7 +17301,7 @@ msgstr ""
 msgid "amount"
 msgstr ""
 
-#: crates/ff-core/src/sim/stimulant.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/ff-core/src/sim/stimulant.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "group"
 msgstr ""
 
@@ -17425,6 +17433,24 @@ msgstr ""
 
 #: crates/ff-core/src/sim/touch_clutch.rs
 msgid "shifting"
+msgstr ""
+
+#. placeholders: {state}, {citation}
+#: crates/ff-core/src/sim/town_limits.rs
+msgid ""
+"assumed: no posting read on the town streets; {state}'s district limit, "
+"{citation}"
+msgstr ""
+
+#. placeholders: {state}
+#: crates/ff-core/src/sim/town_limits.rs
+msgid ""
+"assumed: no posting read on the town streets and no district limit on file "
+"for {state}; the street fallback"
+msgstr ""
+
+#: crates/ff-core/src/sim/town_limits.rs
+msgid "this state"
 msgstr ""
 
 #: crates/ff-core/src/sim/traffic_manager.rs
@@ -18381,13 +18407,9 @@ msgstr ""
 msgid " Chain-up area on the right."
 msgstr ""
 
-#: crates/ff-core/src/sim/trip/zones.rs crates/ff-core/src/speech_text.rs
-msgid " ahead"
-msgstr ""
-
-#. placeholders: {where_}, {rule}, {pullout}
+#. placeholders: {rule}, {pullout}
 #: crates/ff-core/src/sim/trip/zones.rs
-msgid "Chain law{where_}, {rule}.{pullout}"
+msgid "Chain law, {rule}.{pullout}"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip_models.rs crates/freight-fate/src/states/main_menu/settings_items/voice_groups.rs crates/freight-fate/src/states/main_menu/settings_items.rs crates/freight-fate/src/states/main_menu/speech_voices.rs
@@ -20271,10 +20293,6 @@ msgid "The joint at a bridge end: texture, not a decision."
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
-msgid "Tires on concrete grooved across the lane: texture, not a decision."
-msgstr ""
-
-#: crates/ff-core/src/sound_catalog.rs
 msgid "Tires on a steel grate bridge deck: texture, not a decision."
 msgstr ""
 
@@ -20660,6 +20678,10 @@ msgstr ""
 
 #: crates/ff-core/src/speech_text.rs
 msgid "Passing "
+msgstr ""
+
+#: crates/ff-core/src/speech_text.rs
+msgid " ahead"
 msgstr ""
 
 #: crates/ff-core/src/touch.rs crates/freight-fate/src/bindings/touch.rs
@@ -24196,7 +24218,7 @@ msgid "Distance: {distance_text}."
 msgstr ""
 
 #. placeholders: {pay_label}, {grouped}
-#: crates/freight-fate/src/states/city/board/details.rs crates/freight-fate/src/states/driving_menu_states/arrival.rs
+#: crates/freight-fate/src/states/city/board/details.rs crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
 msgid "{pay_label}: {grouped} dollars."
 msgstr ""
 
@@ -24837,7 +24859,7 @@ msgstr ""
 msgid "Time and weather"
 msgstr ""
 
-#: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "pre-trip walk-around"
 msgstr ""
 
@@ -26593,11 +26615,11 @@ msgstr ""
 msgid "Wash truck: {f} percent road grime for {grouped} dollars"
 msgstr ""
 
-#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "The tires are already in top shape."
 msgstr ""
 
-#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "tire service"
 msgstr ""
 
@@ -26767,15 +26789,15 @@ msgstr ""
 msgid "brake service"
 msgstr ""
 
-#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "The brakes are already in top shape."
 msgstr ""
 
-#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_damage/maintenance.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_damage/maintenance.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "relined the brakes"
 msgstr ""
 
-#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/city_garage.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "Brakes relined."
 msgstr ""
 
@@ -27783,9 +27805,9 @@ msgstr ""
 msgid "waiting for the evening"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/city_pickup_team.rs
-msgid "Depart with {name} driving, and ride along"
+msgid "Depart with {co_driver_name} driving, and ride along"
 msgstr ""
 
 #. placeholders: {who}
@@ -27799,21 +27821,23 @@ msgstr ""
 msgid "{who} You rest in the sleeper and hear the road. {terms}"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/city_pickup_team.rs
-msgid "Depart with {name} driving, and sleep"
+msgid "Depart with {co_driver_name} driving, and sleep"
 msgstr ""
 
-#. placeholders: {who}, {name}
+#. placeholders: {who}, {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_pickup_team.rs
-msgid "{who} You wake when {name} needs you, with a summary of the drive."
+msgid ""
+"{who} You wake when {co_driver_name} needs you, with a summary of the drive."
 msgstr ""
 
-#. placeholders: {who}, {name}, {terms}
+#. placeholders: {who}, {co_driver_name}, {terms}
 #: crates/freight-fate/src/states/city_pickup_team.rs crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{who} You wake when {name} needs you, with a summary of the drive. {terms}"
+"{who} You wake when {co_driver_name} needs you, with a summary of the "
+"drive. {terms}"
 msgstr ""
 
 #: crates/freight-fate/src/states/cloud_save_states.rs
@@ -31028,7 +31052,7 @@ msgstr ""
 msgid "save point"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/driving_core/constants.rs crates/freight-fate/src/states/driving_rest_states/short_stay.rs
 msgid "food and coffee"
 msgstr ""
 
@@ -31399,7 +31423,7 @@ msgstr ""
 msgid "{cargo_condition_text}, {condition} percent"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_damage.rs crates/freight-fate/src/states/driving_menu_states/arrival.rs
+#: crates/freight-fate/src/states/driving_damage.rs crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
 msgid "Exception on the bill."
 msgstr ""
 
@@ -32076,7 +32100,7 @@ msgstr ""
 msgid "overhaul the engine"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_damage/maintenance.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/driving_damage/maintenance.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "replaced the tires"
 msgstr ""
 
@@ -32468,12 +32492,12 @@ msgstr ""
 msgid "trailer repair"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_dispatch_call.rs crates/freight-fate/src/states/driving_enforcement/inspections.rs crates/freight-fate/src/states/driving_pause_states.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/driving_dispatch_call.rs crates/freight-fate/src/states/driving_enforcement/inspections.rs crates/freight-fate/src/states/driving_pause_states.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "on the carrier breakdown account"
 msgstr ""
 
 #. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_dispatch_call.rs crates/freight-fate/src/states/driving_enforcement/inspections.rs crates/freight-fate/src/states/driving_events/arrival.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/driving_dispatch_call.rs crates/freight-fate/src/states/driving_enforcement/inspections.rs crates/freight-fate/src/states/driving_events/arrival.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "for {grouped} dollars"
 msgstr ""
 
@@ -33520,6 +33544,22 @@ msgstr ""
 msgid "Pulling over to tighten, about {f} minutes on duty."
 msgstr ""
 
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/chain_stop.rs
+msgid "Bare road."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_events/chain_stop.rs
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
+msgstr ""
+
+#. placeholders: {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_events/chain_stop.rs
+msgid "Taking chains off, about {f} minutes on duty."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs
 msgid "No chains aboard. Facility stopping can't chain you up."
 msgstr ""
@@ -33542,6 +33582,11 @@ msgstr ""
 msgid "Find a place to stop."
 msgstr ""
 
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_events/chain_stop.rs
+msgid "Stopping to put chains on, about {f} minutes on duty."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs
 msgid "Chain-up area."
@@ -33550,28 +33595,6 @@ msgstr ""
 #. placeholders: {f}
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs
 msgid "Chain-up area. Stopping to put chains on, about {f} minutes on duty."
-msgstr ""
-
-#. placeholders: {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Stopping to put chains on, about {f} minutes on duty."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Bare road."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Bare road. Taking chains off, about {f} minutes on duty."
-msgstr ""
-
-#. placeholders: {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_events/chain_stop.rs
-msgid "Taking chains off, about {f} minutes on duty."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/chain_stop.rs
@@ -36056,563 +36079,6 @@ msgstr ""
 msgid "Delivery complete"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Repositioned"
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Fines carried over from earlier loads: {grouped} dollars, settled."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Pay for driving empty: {grouped} dollars. You now have {grouped2} dollars. "
-msgstr ""
-
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "You now have {grouped2} dollars."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "No load and no pay. "
-msgstr ""
-
-#. placeholders: {destination}, {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Drove without a trailer to {destination} in {f} hours."
-msgstr ""
-
-#. placeholders: {destination}, {f}, {clock_text}, {pay_clause}, {service_area_phrase}, {destination2}, {f2}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Drove without a trailer to {destination} in {f} hours. It is {clock_text}. "
-"{pay_clause}Parked {service_area_phrase}. {destination2} dispatch board "
-"available. Fuel {f2} percent."
-msgstr ""
-
-#. placeholders: {f2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Fuel {f2} percent."
-msgstr ""
-
-#. placeholders: {destination2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "{destination2} dispatch board available."
-msgstr ""
-
-#. placeholders: {pay_clause}, {service_area_phrase}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "{pay_clause}Parked {service_area_phrase}."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "The empty run added {f} percent truck damage."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Claim against your own business"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Carrier carries the claim, on your record"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Freight claim."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Load refused."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid " Claim {grouped} dollars."
-msgstr ""
-
-#. placeholders: {grouped}, {claim}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Pay down {grouped} dollars.{claim}"
-msgstr ""
-
-#. placeholders: {head}, {cargo_condition_text}, {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "{head} Load {cargo_condition_text}, {f} percent."
-msgstr ""
-
-#. placeholders: {head}, {cargo_condition_text}, {f}, {grouped}, {claim}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"{head} Load {cargo_condition_text}, {f} percent. Pay down {grouped} "
-"dollars.{claim}"
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "No pay, {grouped} dollars gone, claim about {grouped2}."
-msgstr ""
-
-#. placeholders: {cargo_condition_text}, {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Receiver refused the load, {cargo_condition_text} at {f} percent."
-msgstr ""
-
-#. placeholders: {cargo_condition_text}, {f}, {grouped}, {grouped2}, {claim_holder}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Receiver refused the load, {cargo_condition_text} at {f} percent. No pay, "
-"{grouped} dollars gone, claim about {grouped2}. {claim_holder}."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Claim about {grouped} dollars, {grouped2} off this settlement."
-msgstr ""
-
-#. placeholders: {cargo_condition_text}, {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Receiver took the load but noted damage, {cargo_condition_text} at {f} "
-"percent."
-msgstr ""
-
-#. placeholders: {cargo_condition_text}, {f}, {grouped}, {grouped2}, {claim_holder}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Receiver took the load but noted damage, {cargo_condition_text} at {f} "
-"percent. Claim about {grouped} dollars, {grouped2} off this settlement. "
-"{claim_holder}."
-msgstr ""
-
-#. placeholders: {cargo_condition_text}, {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"The receiver noted damage on the paperwork: load arrived "
-"{cargo_condition_text} at {f} percent."
-msgstr ""
-
-#. placeholders: {cargo_condition_text}, {f}, {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"The receiver noted damage on the paperwork: load arrived "
-"{cargo_condition_text} at {f} percent. {grouped} dollars held back."
-msgstr ""
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "{grouped} dollars held back."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Carrier covers the repair."
-msgstr ""
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Deductible {grouped} dollars, safety bonus void."
-msgstr ""
-
-#. placeholders: {damage_reason}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Preventable damage, {damage_reason}."
-msgstr ""
-
-#. placeholders: {damage_reason}, {grouped}, {f}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Preventable damage, {damage_reason}. Carrier covers the repair. Deductible "
-"{grouped} dollars, safety bonus void. Reputation down {f}."
-msgstr ""
-
-#. placeholders: {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Reputation down {f}."
-msgstr ""
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "This load covered {grouped} dollars of those charges."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"This load covered {grouped} dollars of those charges. {grouped2} dollars "
-"stays owed, paid down at a quarter of each settlement at most."
-msgstr ""
-
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"{grouped2} dollars stays owed, paid down at a quarter of each settlement at "
-"most."
-msgstr ""
-
-#. placeholders: {speeding_tickets}, {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"On-the-spot speeding tickets this trip: {speeding_tickets}, already paid, "
-"{grouped} dollars."
-msgstr ""
-
-#. placeholders: {jake_zone_fines}, {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Engine brake citations this trip: {jake_zone_fines}, already paid, "
-"{grouped} dollars."
-msgstr ""
-
-#. placeholders: {business_charge_summary}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Owner-operator business costs: {business_charge_summary}."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Manual transmission bonus: {grouped} dollars."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Balance owed: {grouped} dollars of this settlement paid it down, a quarter "
-"at most."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid " {grouped} dollars of advance still outstanding."
-msgstr ""
-
-#. placeholders: {grouped}, {outstanding}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Pay advance repaid from this settlement: {grouped} dollars.{outstanding}"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "demanding freight"
-msgstr ""
-
-#. placeholders: {on_time_streak}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "a {on_time_streak}-delivery on-time streak"
-msgstr ""
-
-#. placeholders: {join}, {tail}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Career experience bonus for {join}{tail}."
-msgstr ""
-
-#. placeholders: {rate_clause}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Career experience is coming in {rate_clause}."
-msgstr ""
-
-#. placeholders: {grouped}, {reputation_text}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Dispatch trust bonus: {grouped} dollars for your reputation: "
-"{reputation_text}"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "receiver unloading"
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid " Receiver service after check-in took {f} hours."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "These came off this settlement."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Billed to the carrier, not deducted from driver pay."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}, {charge_summary}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Charges {grouped}: tolls {grouped2}, extra charges {charge_summary}."
-msgstr ""
-
-#. placeholders: {grouped3}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Costs {grouped3}."
-msgstr ""
-
-#. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Delivered {tons_text} of {cargo_label} to {destination} in {f} hours, "
-"{else}.{yard_drop}{receiver_service_clause} {clock_text}."
-msgstr ""
-
-#. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}, {pay_label}, {format}, {grouped}, {grouped2}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped3}, {grouped4}, {grouped5}, {grouped6}, {service_area_phrase}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Delivered {tons_text} of {cargo_label} to {destination} in {f} hours, "
-"{else}.{yard_drop}{receiver_service_clause} {clock_text}. {pay_label}: "
-"{format}. Charges {grouped}: tolls {grouped2}, extra charges "
-"{charge_summary}. {accessorial_clause} Business status: {status_label}. "
-"Costs {grouped3}. Fines {grouped4}. Net {grouped5}, you have {grouped6}. "
-"Parked {service_area_phrase}."
-msgstr ""
-
-#. placeholders: {grouped4}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Fines {grouped4}."
-msgstr ""
-
-#. placeholders: {grouped5}, {grouped6}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Net {grouped5}, you have {grouped6}."
-msgstr ""
-
-#. placeholders: {accessorial_clause}, {status_label}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "{accessorial_clause} Business status: {status_label}."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "refused by the receiver"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "on time"
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "On-time delivery bonus: {grouped} dollars."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Early delivery bonus: {grouped} dollars."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "tire wear"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "brake wear"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "engine wear"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "road grime"
-msgstr ""
-
-#. placeholders: {f}, {meter}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "{f} percent {meter}"
-msgstr ""
-
-#. placeholders: {join}, {wear_parts}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "{join}, and {wear_parts}"
-msgstr ""
-
-#. placeholders: {joined}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "The run added {joined}."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "No delivery bonus on this run."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Truck damage added on this run: {f} percent."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Fuel remaining: {f} percent."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Truck damage now: {f} percent."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Pay advance repaid: {grouped} dollars."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Pay advance still outstanding: {grouped} dollars."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Driver-responsibility charges this load: {grouped} dollars."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid ""
-"Balance owed: {grouped} dollars of this settlement paid it down, leaving "
-"{grouped2} dollars owed."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Business costs: {grouped} dollars."
-msgstr ""
-
-#. placeholders: {business_charge_summary}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Business cost detail: {business_charge_summary}."
-msgstr ""
-
-#. placeholders: {destination}, {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "In {destination}. Net {grouped} dollars."
-msgstr ""
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Net {grouped} dollars."
-msgstr ""
-
-#. placeholders: {destination}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "On time in {destination}."
-msgstr ""
-
-#. placeholders: {destination}, {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "On time in {destination}. Net {grouped} dollars."
-msgstr ""
-
-#. placeholders: {destination}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Late in {destination}."
-msgstr ""
-
-#. placeholders: {destination}, {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Late in {destination}. Net {grouped} dollars."
-msgstr ""
-
-#. placeholders: {tons_text}, {cargo_label}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Load: {tons_text} of {cargo_label}."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Trip time: {f} hours."
-msgstr ""
-
-#. placeholders: {clock_text}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "It is {clock_text}."
-msgstr ""
-
-#. placeholders: {service_area_phrase}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Parked {service_area_phrase}."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "The receiver refused it."
-msgstr ""
-
-#. placeholders: {pay_label}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "{pay_label}: none."
-msgstr ""
-
-#. placeholders: {pay_label}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "{pay_label}: none. The receiver refused it."
-msgstr ""
-
-#. placeholders: {status_label}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Business status: {status_label}."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Tolls: {grouped} dollars."
-msgstr ""
-
-#. placeholders: {label}, {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "{label}: {grouped} dollars."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Unloading took {f} minutes."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Money after settlement: {grouped} dollars."
-msgstr ""
-
-#. placeholders: {join}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Route: {join}."
-msgstr ""
-
-#. placeholders: {distance_text}
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Distance credited: {distance_text}."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/arrival.rs
-msgid "Load refused"
-msgstr ""
-
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
 msgid "The balance holds where it is."
@@ -36681,6 +36147,559 @@ msgstr ""
 #. placeholders: {name}
 #: crates/freight-fate/src/states/driving_menu_states/arrival.rs
 msgid "Continue to {name}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Repositioned"
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Fines carried over from earlier loads: {grouped} dollars, settled."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Pay for driving empty: {grouped} dollars. You now have {grouped2} dollars. "
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "You now have {grouped2} dollars."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "No load and no pay. "
+msgstr ""
+
+#. placeholders: {destination}, {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Drove without a trailer to {destination} in {f} hours."
+msgstr ""
+
+#. placeholders: {destination}, {f}, {clock_text}, {pay_clause}, {service_area_phrase}, {destination2}, {f2}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Drove without a trailer to {destination} in {f} hours. It is {clock_text}. "
+"{pay_clause}Parked {service_area_phrase}. {destination2} dispatch board "
+"available. Fuel {f2} percent."
+msgstr ""
+
+#. placeholders: {f2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Fuel {f2} percent."
+msgstr ""
+
+#. placeholders: {destination2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "{destination2} dispatch board available."
+msgstr ""
+
+#. placeholders: {pay_clause}, {service_area_phrase}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "{pay_clause}Parked {service_area_phrase}."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "The empty run added {f} percent truck damage."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Claim against your own business"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Carrier carries the claim, on your record"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Freight claim."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Load refused."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid " Claim {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}, {claim}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Pay down {grouped} dollars.{claim}"
+msgstr ""
+
+#. placeholders: {head}, {cargo_condition_text}, {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "{head} Load {cargo_condition_text}, {f} percent."
+msgstr ""
+
+#. placeholders: {head}, {cargo_condition_text}, {f}, {grouped}, {claim}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"{head} Load {cargo_condition_text}, {f} percent. Pay down {grouped} "
+"dollars.{claim}"
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "No pay, {grouped} dollars gone, claim about {grouped2}."
+msgstr ""
+
+#. placeholders: {cargo_condition_text}, {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Receiver refused the load, {cargo_condition_text} at {f} percent."
+msgstr ""
+
+#. placeholders: {cargo_condition_text}, {f}, {grouped}, {grouped2}, {claim_holder}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Receiver refused the load, {cargo_condition_text} at {f} percent. No pay, "
+"{grouped} dollars gone, claim about {grouped2}. {claim_holder}."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Claim about {grouped} dollars, {grouped2} off this settlement."
+msgstr ""
+
+#. placeholders: {cargo_condition_text}, {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Receiver took the load but noted damage, {cargo_condition_text} at {f} "
+"percent."
+msgstr ""
+
+#. placeholders: {cargo_condition_text}, {f}, {grouped}, {grouped2}, {claim_holder}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Receiver took the load but noted damage, {cargo_condition_text} at {f} "
+"percent. Claim about {grouped} dollars, {grouped2} off this settlement. "
+"{claim_holder}."
+msgstr ""
+
+#. placeholders: {cargo_condition_text}, {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"The receiver noted damage on the paperwork: load arrived "
+"{cargo_condition_text} at {f} percent."
+msgstr ""
+
+#. placeholders: {cargo_condition_text}, {f}, {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"The receiver noted damage on the paperwork: load arrived "
+"{cargo_condition_text} at {f} percent. {grouped} dollars held back."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "{grouped} dollars held back."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Carrier covers the repair."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Deductible {grouped} dollars, safety bonus void."
+msgstr ""
+
+#. placeholders: {damage_reason}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Preventable damage, {damage_reason}."
+msgstr ""
+
+#. placeholders: {damage_reason}, {grouped}, {f}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Preventable damage, {damage_reason}. Carrier covers the repair. Deductible "
+"{grouped} dollars, safety bonus void. Reputation down {f}."
+msgstr ""
+
+#. placeholders: {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Reputation down {f}."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "This load covered {grouped} dollars of those charges."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"This load covered {grouped} dollars of those charges. {grouped2} dollars "
+"stays owed, paid down at a quarter of each settlement at most."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"{grouped2} dollars stays owed, paid down at a quarter of each settlement at "
+"most."
+msgstr ""
+
+#. placeholders: {speeding_tickets}, {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"On-the-spot speeding tickets this trip: {speeding_tickets}, already paid, "
+"{grouped} dollars."
+msgstr ""
+
+#. placeholders: {jake_zone_fines}, {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Engine brake citations this trip: {jake_zone_fines}, already paid, "
+"{grouped} dollars."
+msgstr ""
+
+#. placeholders: {business_charge_summary}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Owner-operator business costs: {business_charge_summary}."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Manual transmission bonus: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Balance owed: {grouped} dollars of this settlement paid it down, a quarter "
+"at most."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid " {grouped} dollars of advance still outstanding."
+msgstr ""
+
+#. placeholders: {grouped}, {outstanding}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Pay advance repaid from this settlement: {grouped} dollars.{outstanding}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "demanding freight"
+msgstr ""
+
+#. placeholders: {on_time_streak}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "a {on_time_streak}-delivery on-time streak"
+msgstr ""
+
+#. placeholders: {join}, {tail}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Career experience bonus for {join}{tail}."
+msgstr ""
+
+#. placeholders: {rate_clause}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Career experience is coming in {rate_clause}."
+msgstr ""
+
+#. placeholders: {grouped}, {reputation_text}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Dispatch trust bonus: {grouped} dollars for your reputation: "
+"{reputation_text}"
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid " Receiver service after check-in took {f} hours."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "These came off this settlement."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Billed to the carrier, not deducted from driver pay."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}, {charge_summary}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Charges {grouped}: tolls {grouped2}, extra charges {charge_summary}."
+msgstr ""
+
+#. placeholders: {grouped3}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Costs {grouped3}."
+msgstr ""
+
+#. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Delivered {tons_text} of {cargo_label} to {destination} in {f} hours, "
+"{else}.{yard_drop}{receiver_service_clause} {clock_text}."
+msgstr ""
+
+#. placeholders: {tons_text}, {cargo_label}, {destination}, {f}, {else}, {yard_drop}, {receiver_service_clause}, {clock_text}, {pay_label}, {format}, {grouped}, {grouped2}, {charge_summary}, {accessorial_clause}, {status_label}, {grouped3}, {grouped4}, {grouped5}, {grouped6}, {service_area_phrase}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Delivered {tons_text} of {cargo_label} to {destination} in {f} hours, "
+"{else}.{yard_drop}{receiver_service_clause} {clock_text}. {pay_label}: "
+"{format}. Charges {grouped}: tolls {grouped2}, extra charges "
+"{charge_summary}. {accessorial_clause} Business status: {status_label}. "
+"Costs {grouped3}. Fines {grouped4}. Net {grouped5}, you have {grouped6}. "
+"Parked {service_area_phrase}."
+msgstr ""
+
+#. placeholders: {grouped4}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Fines {grouped4}."
+msgstr ""
+
+#. placeholders: {grouped5}, {grouped6}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Net {grouped5}, you have {grouped6}."
+msgstr ""
+
+#. placeholders: {accessorial_clause}, {status_label}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "{accessorial_clause} Business status: {status_label}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "refused by the receiver"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "on time"
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "On-time delivery bonus: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Early delivery bonus: {grouped} dollars."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "tire wear"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "brake wear"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "engine wear"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "road grime"
+msgstr ""
+
+#. placeholders: {f}, {meter}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "{f} percent {meter}"
+msgstr ""
+
+#. placeholders: {join}, {wear_parts}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "{join}, and {wear_parts}"
+msgstr ""
+
+#. placeholders: {joined}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "The run added {joined}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "No delivery bonus on this run."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Truck damage added on this run: {f} percent."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Fuel remaining: {f} percent."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Truck damage now: {f} percent."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Pay advance repaid: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Pay advance still outstanding: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Driver-responsibility charges this load: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid ""
+"Balance owed: {grouped} dollars of this settlement paid it down, leaving "
+"{grouped2} dollars owed."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Business costs: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {business_charge_summary}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Business cost detail: {business_charge_summary}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "In {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {destination}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "On time in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "On time in {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {destination}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Late in {destination}."
+msgstr ""
+
+#. placeholders: {destination}, {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Late in {destination}. Net {grouped} dollars."
+msgstr ""
+
+#. placeholders: {tons_text}, {cargo_label}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Load: {tons_text} of {cargo_label}."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Trip time: {f} hours."
+msgstr ""
+
+#. placeholders: {clock_text}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "It is {clock_text}."
+msgstr ""
+
+#. placeholders: {service_area_phrase}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Parked {service_area_phrase}."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "The receiver refused it."
+msgstr ""
+
+#. placeholders: {pay_label}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "{pay_label}: none."
+msgstr ""
+
+#. placeholders: {pay_label}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "{pay_label}: none. The receiver refused it."
+msgstr ""
+
+#. placeholders: {status_label}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Business status: {status_label}."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Tolls: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {label}, {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "{label}: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Unloading took {f} minutes."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Money after settlement: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {join}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Route: {join}."
+msgstr ""
+
+#. placeholders: {distance_text}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Distance credited: {distance_text}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Load refused"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/badges.rs
@@ -36915,6 +36934,10 @@ msgid "Docked. Unloading cargo."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
+msgid "receiver unloading"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_menu_states/facility_arrival.rs
 msgid "Trailer dropped. Hooked to an empty, paperwork signed."
 msgstr ""
 
@@ -37081,10 +37104,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
 msgid "Route"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_menu_states/status.rs
-msgid "driver"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/status.rs
@@ -39185,14 +39204,6 @@ msgid ""
 "sleep move the clock and the deadline."
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs crates/freight-fate/src/states/driving_team/overlay.rs
-msgid "Take a 30-minute break"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Food and coffee break"
-msgstr ""
-
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "You are already rested."
@@ -39218,19 +39229,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "Loyalty points, shower credits, and rewards."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
-"off in two hours, and a second coffee before then adds nothing. Does not "
-"satisfy the 30-minute break rule."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
-"advance half an hour."
 msgstr ""
 
 #. placeholders: {hours}
@@ -39394,14 +39392,6 @@ msgid "{walk_min} minutes on duty."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Save at this stop"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Saves the drive at this stop."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "Cash against this load, repaid from the delivery settlement."
 msgstr ""
 
@@ -39425,57 +39415,6 @@ msgstr ""
 msgid ""
 "Advance {grouped} dollars on the {destination} load, due at delivery. You "
 "have {grouped2}, owe {grouped3}."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Break requirement reset."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "You took a 30-minute break."
-msgstr ""
-
-#. placeholders: {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"You took a 30-minute break. It is {clock_text}. Break requirement reset. "
-"{deadline_text}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Coffee break."
-msgstr ""
-
-#. placeholders: {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Coffee break. {clock_text}. Eases fatigue. Does not count as your 30-minute "
-"break. {deadline_text}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Does not count as your 30-minute break."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Eases fatigue."
-msgstr ""
-
-#. placeholders: {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
-"count as your 30-minute break. {deadline_text}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "No lift while the last coffee lasts."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -39643,340 +39582,6 @@ msgid ""
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "The truck does not need repair."
-msgstr ""
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Repair costs {grouped} dollars."
-msgstr ""
-
-#. placeholders: {grouped}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Repair costs {grouped} dollars. You cannot afford it."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "You cannot afford it."
-msgstr ""
-
-#. placeholders: {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Truck repaired for {grouped} dollars."
-msgstr ""
-
-#. placeholders: {grouped}, {clock_text}, {grouped2}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Truck repaired for {grouped} dollars. It is {clock_text}. You have "
-"{grouped2} dollars. {deadline_text}"
-msgstr ""
-
-#. placeholders: {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Shop repaired {f} percent damage on the carrier account."
-msgstr ""
-
-#. placeholders: {f}, {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Shop repaired {f} percent damage on the carrier account. It is "
-"{clock_text}. {deadline_text}"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "The truck does not need roadside assistance."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "A repair shop can."
-msgstr ""
-
-#. placeholders: {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "A roadside patch cannot bring the truck under {f} percent damage."
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"A roadside patch cannot bring the truck under {f} percent damage. A repair "
-"shop can."
-msgstr ""
-
-#. placeholders: {grouped}, {grouped2}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Roadside assistance costs {grouped} dollars and you have {grouped2} dollars."
-msgstr ""
-
-#. placeholders: {f}, {billing}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Roadside assistance patched the truck to {f} percent damage {billing}."
-msgstr ""
-
-#. placeholders: {f}, {billing}, {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Roadside assistance patched the truck to {f} percent damage {billing}. It "
-"is {clock_text}. {deadline_text}"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Tires: top shape"
-msgstr ""
-
-#. placeholders: {f}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Replace tires: {f} percent wear, carrier billed"
-msgstr ""
-
-#. placeholders: {f}, {grouped}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Replace tires: {f} percent wear for {grouped} dollars"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "road tire service"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Tires replaced."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "road brake service"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "a brake job"
-msgstr ""
-
-#. placeholders: {py_capitalize}, {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{py_capitalize} costs {grouped} dollars here."
-msgstr ""
-
-#. placeholders: {py_capitalize}, {grouped}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{py_capitalize} costs {grouped} dollars here. You cannot afford it."
-msgstr ""
-
-#. placeholders: {carrier_done}, {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "The shop {carrier_done} at {f} percent wear on the carrier account."
-msgstr ""
-
-#. placeholders: {carrier_done}, {f}, {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"The shop {carrier_done} at {f} percent wear on the carrier account. It is "
-"{clock_text}. {deadline_text}"
-msgstr ""
-
-#. placeholders: {done_say}, {grouped}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{done_say} {grouped} dollars."
-msgstr ""
-
-#. placeholders: {done_say}, {grouped}, {clock_text}, {grouped2}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"{done_say} {grouped} dollars. It is {clock_text}. You have {grouped2} "
-"dollars. {deadline_text}"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "1 cent"
-msgstr ""
-
-#. placeholders: {cents}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{cents} cents"
-msgstr ""
-
-#. placeholders: {label}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{label}: free with your fuel purchase"
-msgstr ""
-
-#. placeholders: {label}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{label}: free with your loyalty reward"
-msgstr ""
-
-#. placeholders: {label}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{label}: free"
-msgstr ""
-
-#. placeholders: {label}, {buff_price_amount}, {grouped}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"The {label} costs {buff_price_amount} and you have {grouped} dollars."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs crates/freight-fate/src/states/online_states/profile.rs
-msgid "label"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "rate"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Free with your loyalty reward."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Free with your fuel purchase."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Free."
-msgstr ""
-
-#. placeholders: {buff_price_amount}, {grouped}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{buff_price_amount}. You have {grouped} dollars."
-msgstr ""
-
-#. placeholders: {purchased}, {billing}, {clock_text}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{purchased} {billing} It is {clock_text}."
-msgstr ""
-
-#. placeholders: {purchased}, {billing}, {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{purchased} {billing} It is {clock_text}. {deadline_text}"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "No lift while the last stimulant lasts."
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Pull back onto the highway."
-msgstr ""
-
-#. placeholders: {name}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{name} is closed."
-msgstr ""
-
-#. placeholders: {name}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{name} is closed. Pull back onto the highway."
-msgstr ""
-
-#. placeholders: {name}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Inspection check-in complete at {name}."
-msgstr ""
-
-#. placeholders: {name}, {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Inspection check-in complete at {name}. The inspection decal on the "
-"windshield gets you waved straight back onto the highway. It is "
-"{clock_text}. {deadline_text}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"The inspection decal on the windshield gets you waved straight back onto "
-"the highway."
-msgstr ""
-
-#. placeholders: {name}, {safety_record_line}, {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Inspection check-in complete at {name}. Officers wave you straight back "
-"onto the highway. {safety_record_line} It is {clock_text}. {deadline_text}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Officers wave you straight back onto the highway."
-msgstr ""
-
-#. placeholders: {safety_record_line}, {clock_text}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{safety_record_line} It is {clock_text}."
-msgstr ""
-
-#. placeholders: {name}, {outcome}, {safety_record_line}, {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Inspection check-in complete at {name}. Officers pull you into the "
-"inspection lane. {outcome} {safety_record_line} It is {clock_text}. "
-"{deadline_text}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Officers pull you into the inspection lane."
-msgstr ""
-
-#. placeholders: {outcome}, {safety_record_line}, {clock_text}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{outcome} {safety_record_line} It is {clock_text}."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Nothing to write up."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Nothing to write up: tires, brakes, lights and the trailer would all pass."
-msgstr ""
-
-#. placeholders: {f}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Walk-around done, both trailers and the converter dolly, {f} minutes."
-msgstr ""
-
-#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Walk-around done, both trailers and the converter dolly, {f} minutes. "
-"{body} It is {clock_text}. {deadline_text}"
-msgstr ""
-
-#. placeholders: {body}, {clock_text}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "{body} It is {clock_text}."
-msgstr ""
-
-#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid ""
-"Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "No real-time parking data nearby."
 msgstr ""
 
@@ -40078,7 +39683,7 @@ msgstr ""
 msgid "CAT Scale weigh"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_rest_states/rest_stop/cat_scale.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/chains.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/cat_scale.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/chains.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
 msgid "Billed to the carrier."
 msgstr ""
 
@@ -40163,6 +39768,340 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop/chains.rs
 msgid "{billing} It is {clock_text}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "The truck does not need repair."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Repair costs {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Repair costs {grouped} dollars. You cannot afford it."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "You cannot afford it."
+msgstr ""
+
+#. placeholders: {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Truck repaired for {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}, {clock_text}, {grouped2}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Truck repaired for {grouped} dollars. It is {clock_text}. You have "
+"{grouped2} dollars. {deadline_text}"
+msgstr ""
+
+#. placeholders: {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Shop repaired {f} percent damage on the carrier account."
+msgstr ""
+
+#. placeholders: {f}, {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Shop repaired {f} percent damage on the carrier account. It is "
+"{clock_text}. {deadline_text}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "The truck does not need roadside assistance."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "A repair shop can."
+msgstr ""
+
+#. placeholders: {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "A roadside patch cannot bring the truck under {f} percent damage."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"A roadside patch cannot bring the truck under {f} percent damage. A repair "
+"shop can."
+msgstr ""
+
+#. placeholders: {grouped}, {grouped2}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Roadside assistance costs {grouped} dollars and you have {grouped2} dollars."
+msgstr ""
+
+#. placeholders: {f}, {billing}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Roadside assistance patched the truck to {f} percent damage {billing}."
+msgstr ""
+
+#. placeholders: {f}, {billing}, {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Roadside assistance patched the truck to {f} percent damage {billing}. It "
+"is {clock_text}. {deadline_text}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Tires: top shape"
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Replace tires: {f} percent wear, carrier billed"
+msgstr ""
+
+#. placeholders: {f}, {grouped}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Replace tires: {f} percent wear for {grouped} dollars"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "road tire service"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Tires replaced."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "road brake service"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "a brake job"
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{py_capitalize} costs {grouped} dollars here."
+msgstr ""
+
+#. placeholders: {py_capitalize}, {grouped}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{py_capitalize} costs {grouped} dollars here. You cannot afford it."
+msgstr ""
+
+#. placeholders: {carrier_done}, {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "The shop {carrier_done} at {f} percent wear on the carrier account."
+msgstr ""
+
+#. placeholders: {carrier_done}, {f}, {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"The shop {carrier_done} at {f} percent wear on the carrier account. It is "
+"{clock_text}. {deadline_text}"
+msgstr ""
+
+#. placeholders: {done_say}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{done_say} {grouped} dollars."
+msgstr ""
+
+#. placeholders: {done_say}, {grouped}, {clock_text}, {grouped2}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"{done_say} {grouped} dollars. It is {clock_text}. You have {grouped2} "
+"dollars. {deadline_text}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "1 cent"
+msgstr ""
+
+#. placeholders: {cents}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{cents} cents"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{label}: free with your fuel purchase"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{label}: free with your loyalty reward"
+msgstr ""
+
+#. placeholders: {label}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{label}: free"
+msgstr ""
+
+#. placeholders: {label}, {buff_price_amount}, {grouped}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"The {label} costs {buff_price_amount} and you have {grouped} dollars."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs crates/freight-fate/src/states/online_states/profile.rs
+msgid "label"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "rate"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Free with your loyalty reward."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Free with your fuel purchase."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Free."
+msgstr ""
+
+#. placeholders: {buff_price_amount}, {grouped}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{buff_price_amount}. You have {grouped} dollars."
+msgstr ""
+
+#. placeholders: {purchased}, {billing}, {clock_text}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{purchased} {billing} It is {clock_text}."
+msgstr ""
+
+#. placeholders: {purchased}, {billing}, {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{purchased} {billing} It is {clock_text}. {deadline_text}"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "No lift while the last stimulant lasts."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Pull back onto the highway."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{name} is closed."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{name} is closed. Pull back onto the highway."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Inspection check-in complete at {name}."
+msgstr ""
+
+#. placeholders: {name}, {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Inspection check-in complete at {name}. The inspection decal on the "
+"windshield gets you waved straight back onto the highway. It is "
+"{clock_text}. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"The inspection decal on the windshield gets you waved straight back onto "
+"the highway."
+msgstr ""
+
+#. placeholders: {name}, {safety_record_line}, {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Inspection check-in complete at {name}. Officers wave you straight back "
+"onto the highway. {safety_record_line} It is {clock_text}. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Officers wave you straight back onto the highway."
+msgstr ""
+
+#. placeholders: {safety_record_line}, {clock_text}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{safety_record_line} It is {clock_text}."
+msgstr ""
+
+#. placeholders: {name}, {outcome}, {safety_record_line}, {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Inspection check-in complete at {name}. Officers pull you into the "
+"inspection lane. {outcome} {safety_record_line} It is {clock_text}. "
+"{deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Officers pull you into the inspection lane."
+msgstr ""
+
+#. placeholders: {outcome}, {safety_record_line}, {clock_text}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{outcome} {safety_record_line} It is {clock_text}."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "Nothing to write up."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Nothing to write up: tires, brakes, lights and the trailer would all pass."
+msgstr ""
+
+#. placeholders: {f}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Walk-around done, both trailers and the converter dolly, {f} minutes."
+msgstr ""
+
+#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Walk-around done, both trailers and the converter dolly, {f} minutes. "
+"{body} It is {clock_text}. {deadline_text}"
+msgstr ""
+
+#. placeholders: {body}, {clock_text}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid "{body} It is {clock_text}."
+msgstr ""
+
+#. placeholders: {f}, {body}, {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/services.rs
+msgid ""
+"Walk-around done, {f} minutes. {body} It is {clock_text}. {deadline_text}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs
@@ -40563,6 +40502,86 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/roadside.rs
 msgid "Continue from where the truck is parked."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs crates/freight-fate/src/states/driving_team/overlay.rs
+msgid "Take a 30-minute break"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Food and coffee break"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Save at this stop"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid ""
+"Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
+"advance half an hour."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid ""
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
+"satisfy the 30-minute break rule."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Saves the drive at this stop."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Break requirement reset."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "You took a 30-minute break."
+msgstr ""
+
+#. placeholders: {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid ""
+"You took a 30-minute break. It is {clock_text}. Break requirement reset. "
+"{deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Coffee break."
+msgstr ""
+
+#. placeholders: {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid ""
+"Coffee break. {clock_text}. Eases fatigue. Does not count as your 30-minute "
+"break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Does not count as your 30-minute break."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "Eases fatigue."
+msgstr ""
+
+#. placeholders: {clock_text}, {deadline_text}
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/short_stay.rs
+msgid "No lift while the last coffee lasts."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/shoulder.rs
@@ -41157,9 +41176,9 @@ msgstr ""
 msgid "trainer"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has the truck at the receiver's gate."
+msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41167,15 +41186,16 @@ msgstr ""
 msgid "Their hours are up."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has parked and hands you the wheel."
+msgid "{co_driver_name} has parked and hands you the wheel."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has parked and hands you the wheel. Their hours are up."
+msgid ""
+"{co_driver_name} has parked and hands you the wheel. Their hours are up."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41183,32 +41203,33 @@ msgstr ""
 msgid "Their hours are up, and yours reach the receiver."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} has parked and hands you the wheel. Their hours are up, and yours "
-"reach the receiver."
+"{co_driver_name} has parked and hands you the wheel. Their hours are up, "
+"and yours reach the receiver."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the wheel."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the "
-"wheel. Their hours are up."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel. Their hours are up."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the "
-"wheel. Their hours are up, and yours reach the receiver."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel. Their hours are up, and yours reach the receiver."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41216,49 +41237,52 @@ msgstr ""
 msgid "Their break is due."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} stopped on the shoulder and hands you the wheel."
+msgid "{co_driver_name} stopped on the shoulder and hands you the wheel."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} stopped on the shoulder and hands you the wheel. Their break is due."
+"{co_driver_name} stopped on the shoulder and hands you the wheel. Their "
+"break is due."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
+msgid ""
+"{co_driver_name} has parked and hands you the wheel. Your 10-hour rest is "
+"in."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} parked when their hours ran out, and you slept on."
+msgid "{co_driver_name} parked when their hours ran out, and you slept on."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} parked when their hours ran out, and you slept on. Your 10-hour rest "
-"is in."
+"{co_driver_name} parked when their hours ran out, and you slept on. Your "
+"10-hour rest is in."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} pulled onto the shoulder when their hours ran out, with no lot in "
-"reach, and you slept on there."
+"{co_driver_name} pulled onto the shoulder when their hours ran out, with no "
+"lot in reach, and you slept on there."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} pulled onto the shoulder when their hours ran out, with no lot in "
-"reach, and you slept on there. Your 10-hour rest is in."
+"{co_driver_name} pulled onto the shoulder when their hours ran out, with no "
+"lot in reach, and you slept on there. Your 10-hour rest is in."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41266,17 +41290,17 @@ msgstr ""
 msgid "Their hours run out before the next place to park."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has parked for the end of their shift."
+msgid "{co_driver_name} has parked for the end of their shift."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} has parked for the end of their shift. Their hours run out before "
-"the next place to park."
+"{co_driver_name} has parked for the end of their shift. Their hours run out "
+"before the next place to park."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41284,15 +41308,15 @@ msgstr ""
 msgid "The truck took damage."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you."
+msgid "{co_driver_name} needs you."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. The truck took damage."
+msgid "{co_driver_name} needs you. The truck took damage."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41300,9 +41324,9 @@ msgstr ""
 msgid "The tank is empty."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. The tank is empty."
+msgid "{co_driver_name} needs you. The tank is empty."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41310,9 +41334,9 @@ msgstr ""
 msgid "The truck has left the road."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. The truck has left the road."
+msgid "{co_driver_name} needs you. The truck has left the road."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41320,9 +41344,9 @@ msgstr ""
 msgid "The truck is stopped and will not go on."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. The truck is stopped and will not go on."
+msgid "{co_driver_name} needs you. The truck is stopped and will not go on."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41330,9 +41354,9 @@ msgstr ""
 msgid "There is not enough money for fuel."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. There is not enough money for fuel."
+msgid "{co_driver_name} needs you. There is not enough money for fuel."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41340,9 +41364,9 @@ msgstr ""
 msgid "A trooper has the truck stopped."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. A trooper has the truck stopped."
+msgid "{co_driver_name} needs you. A trooper has the truck stopped."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41350,9 +41374,9 @@ msgstr ""
 msgid "The lot is full."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you. The lot is full."
+msgid "{co_driver_name} needs you. The lot is full."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41361,21 +41385,22 @@ msgid ""
 "The chain control is holding the truck, and there are no chains aboard."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid ""
-"{name} needs you. The chain control is holding the truck, and there are no "
-"chains aboard."
+"{co_driver_name} needs you. The chain control is holding the truck, and "
+"there are no chains aboard."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} has the truck stopped and needs you to choose what to do."
+msgid ""
+"{co_driver_name} has the truck stopped and needs you to choose what to do."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} needs you to decide this one."
+msgid "{co_driver_name} needs you to decide this one."
 msgstr ""
 
 #. placeholders: {duration_text}
@@ -41398,9 +41423,9 @@ msgstr ""
 msgid "You slept {game_minutes} minutes."
 msgstr ""
 
-#. placeholders: {name}, {distance_text}
+#. placeholders: {co_driver_name}, {distance_text}
 #: crates/freight-fate/src/states/driving_team.rs
-msgid "{name} drove {distance_text}"
+msgid "{co_driver_name} drove {distance_text}"
 msgstr ""
 
 #. placeholders: {stop}
@@ -41408,21 +41433,22 @@ msgstr ""
 msgid " and fueled at {stop}"
 msgstr ""
 
-#. placeholders: {name}, {round}
+#. placeholders: {co_driver_name}, {round}
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"You pay {name} {round} percent of the settlement for the miles they drive."
+"You pay {co_driver_name} {round} percent of the settlement for the miles "
+"they drive."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/handover.rs
-msgid "Miles {name} drives pay you half."
+msgid "Miles {co_driver_name} drives pay you half."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/handover.rs
-msgid "While {name} drives, you are logged in the sleeper berth."
+msgid "While {co_driver_name} drives, you are logged in the sleeper berth."
 msgstr ""
 
 #. placeholders: {pay}
@@ -41431,11 +41457,11 @@ msgstr ""
 msgid "{pay} Those miles earn you half the experience."
 msgstr ""
 
-#. placeholders: {pay}, {name}
+#. placeholders: {pay}, {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{pay} Those miles earn you half the experience. While {name} drives, you "
-"are logged in the sleeper berth."
+"{pay} Those miles earn you half the experience. While {co_driver_name} "
+"drives, you are logged in the sleeper berth."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41443,41 +41469,42 @@ msgstr ""
 msgid "Your own hours reach the receiver from there."
 msgstr ""
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{name} has {left} of driving left, then parks and hands you the wheel."
+"{co_driver_name} has {left} of driving left, then parks and hands you the "
+"wheel."
 msgstr ""
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{name} has {left} of driving left, then parks and hands you the wheel. Your "
-"own hours reach the receiver from there."
+"{co_driver_name} has {left} of driving left, then parks and hands you the "
+"wheel. Your own hours reach the receiver from there."
 msgstr ""
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{name} has {left} of driving left and no truck lot in reach, so they stop "
-"on the shoulder and hand you the wheel."
+"{co_driver_name} has {left} of driving left and no truck lot in reach, so "
+"they stop on the shoulder and hand you the wheel."
 msgstr ""
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{name} has {left} of driving left and no truck lot in reach, so they stop "
-"on the shoulder and hand you the wheel. Your own hours reach the receiver "
-"from there."
+"{co_driver_name} has {left} of driving left and no truck lot in reach, so "
+"they stop on the shoulder and hand you the wheel. Your own hours reach the "
+"receiver from there."
 msgstr ""
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{name} has {left} of driving left, short of your 10-hour rest, so they park "
-"and you finish it there."
+"{co_driver_name} has {left} of driving left, short of your 10-hour rest, so "
+"they park and you finish it there."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41485,33 +41512,35 @@ msgstr ""
 msgid "Shoulder rest is poor and risks a ticket or minor damage."
 msgstr ""
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{name} has {left} of driving left, short of your 10-hour rest, and no truck "
-"lot in reach, so they stop on the shoulder and you finish it there."
+"{co_driver_name} has {left} of driving left, short of your 10-hour rest, "
+"and no truck lot in reach, so they stop on the shoulder and you finish it "
+"there."
 msgstr ""
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{name} has {left} of driving left, short of your 10-hour rest, and no truck "
-"lot in reach, so they stop on the shoulder and you finish it there. "
-"Shoulder rest is poor and risks a ticket or minor damage."
+"{co_driver_name} has {left} of driving left, short of your 10-hour rest, "
+"and no truck lot in reach, so they stop on the shoulder and you finish it "
+"there. Shoulder rest is poor and risks a ticket or minor damage."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{name} can drive from here, or take over later from the pause menu, while "
-"you rest in the sleeper."
+"{co_driver_name} can drive from here, or take over later from the pause "
+"menu, while you rest in the sleeper."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/handover.rs
 msgid ""
-"{name} can take the wheel from this menu while you rest in the sleeper."
+"{co_driver_name} can take the wheel from this menu while you rest in the "
+"sleeper."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41524,19 +41553,21 @@ msgstr ""
 msgid "This load is long enough to share with a co-driver. {take}"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/handover.rs
-msgid "{name} drives to the receiver's gate unless something needs you."
+msgid ""
+"{co_driver_name} drives to the receiver's gate unless something needs you."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/handover.rs
-msgid "{name} drives until their own hours run out."
+msgid "{co_driver_name} drives until their own hours run out."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/handover.rs
-msgid "{name} hands the wheel back once you have had your 10-hour rest."
+msgid ""
+"{co_driver_name} hands the wheel back once you have had your 10-hour rest."
 msgstr ""
 
 #. placeholders: {status}
@@ -41556,24 +41587,24 @@ msgstr ""
 msgid "Take the wheel back"
 msgstr ""
 
-#. placeholders: {name}, {time}
+#. placeholders: {co_driver_name}, {time}
 #: crates/freight-fate/src/states/driving_team/handover.rs
-msgid "Hand the wheel to {name} for {time} and ride along"
+msgid "Hand the wheel to {co_driver_name} for {time} and ride along"
 msgstr ""
 
-#. placeholders: {name}, {time}
+#. placeholders: {co_driver_name}, {time}
 #: crates/freight-fate/src/states/driving_team/handover.rs
-msgid "Hand the wheel to {name} for {time} and sleep"
+msgid "Hand the wheel to {co_driver_name} for {time} and sleep"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/handover.rs
-msgid "Hand the wheel to {name} and ride along"
+msgid "Hand the wheel to {co_driver_name} and ride along"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/handover.rs
-msgid "Hand the wheel to {name} and sleep"
+msgid "Hand the wheel to {co_driver_name} and sleep"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/handover.rs
@@ -41596,9 +41627,9 @@ msgstr ""
 msgid "to park for the end of their shift"
 msgstr ""
 
-#. placeholders: {name}, {place}, {distance}, {why}
+#. placeholders: {co_driver_name}, {place}, {distance}, {why}
 #: crates/freight-fate/src/states/driving_team/notes.rs
-msgid "{name} plans to stop at {place} in {distance}, {why}."
+msgid "{co_driver_name} plans to stop at {place} in {distance}, {why}."
 msgstr ""
 
 #. placeholders: {capitalize}
@@ -41606,21 +41637,66 @@ msgstr ""
 msgid "{capitalize} got across ahead of the truck."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/notes.rs
-msgid "{name} put the chains on at the chain control."
+msgid "{co_driver_name} put the chains on at the chain control."
 msgstr ""
 
-#. placeholders: {name}, {animal}
+#. placeholders: {co_driver_name}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "{co_driver_name} put the chains on when the chain law posted."
+msgstr ""
+
+#. placeholders: {co_driver_name}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "{co_driver_name} put the chains on before the chain control."
+msgstr ""
+
+#. placeholders: {co_driver_name}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "{co_driver_name} took the chains off on bare road."
+msgstr ""
+
+#. placeholders: {co_driver_name}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "{co_driver_name} tightened a slapping chain."
+msgstr ""
+
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/notes.rs
-msgid "{name} drove on after a collision with {animal}."
+msgid "{co_driver_name} fixed a broken chain with a spare link."
 msgstr ""
 
-#. placeholders: {name}, {animal}, {damage}
+#. placeholders: {co_driver_name}, {damage_pct}
 #: crates/freight-fate/src/states/driving_team/notes.rs
 msgid ""
-"{name} drove on after a collision with {animal}. Damage {damage} percent."
+"{co_driver_name} fixed a broken chain with a spare link. Damage "
+"{damage_pct} percent."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "A chain broke and there is no spare link."
+msgstr ""
+
+#. placeholders: {damage_pct}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid ""
+"A chain broke and there is no spare link. Damage {damage_pct} percent."
+msgstr ""
+
+#. placeholders: {co_driver_name}, {animal}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid "{co_driver_name} drove on after a collision with {animal}."
+msgstr ""
+
+#. placeholders: {co_driver_name}, {animal}, {damage}
+#: crates/freight-fate/src/states/driving_team/notes.rs
+msgid ""
+"{co_driver_name} drove on after a collision with {animal}. Damage {damage} "
+"percent."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/overlay.rs
@@ -41643,9 +41719,9 @@ msgstr ""
 msgid "off the road"
 msgstr ""
 
-#. placeholders: {name}, {duration_text}
+#. placeholders: {co_driver_name}, {duration_text}
 #: crates/freight-fate/src/states/driving_team/readouts.rs
-msgid "{name} needs you back in {duration_text}."
+msgid "{co_driver_name} needs you back in {duration_text}."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41653,16 +41729,17 @@ msgstr ""
 msgid "Your 10-hour rest is in."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/readouts.rs
 msgid ""
-"Your 10-hour rest is in. {name} hands back at the next place to park."
+"Your 10-hour rest is in. {co_driver_name} hands back at the next place to "
+"park."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/readouts.rs
-msgid "{name} hands back at the next place to park."
+msgid "{co_driver_name} hands back at the next place to park."
 msgstr ""
 
 #. placeholders: {rested}
@@ -41671,39 +41748,41 @@ msgstr ""
 msgid "Rest: {rested} of 10 hours."
 msgstr ""
 
-#. placeholders: {rested}, {name}, {duration_text}
+#. placeholders: {rested}, {co_driver_name}, {duration_text}
 #: crates/freight-fate/src/states/driving_team/readouts.rs
 msgid ""
-"Rest: {rested} of 10 hours. {name} hands back in about {duration_text}."
+"Rest: {rested} of 10 hours. {co_driver_name} hands back in about "
+"{duration_text}."
 msgstr ""
 
-#. placeholders: {name}, {duration_text}
+#. placeholders: {co_driver_name}, {duration_text}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/readouts.rs
-msgid "{name} hands back in about {duration_text}."
+msgid "{co_driver_name} hands back in about {duration_text}."
 msgstr ""
 
-#. placeholders: {rested}, {name}, {duration_text}
+#. placeholders: {rested}, {co_driver_name}, {duration_text}
 #: crates/freight-fate/src/states/driving_team/readouts.rs
 msgid ""
-"Rest: {rested} of 10 hours. {name} needs you back in {duration_text}, "
-"before your rest is in."
+"Rest: {rested} of 10 hours. {co_driver_name} needs you back in "
+"{duration_text}, before your rest is in."
 msgstr ""
 
-#. placeholders: {name}, {duration_text}
+#. placeholders: {co_driver_name}, {duration_text}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/readouts.rs
-msgid "{name} needs you back in {duration_text}, before your rest is in."
+msgid ""
+"{co_driver_name} needs you back in {duration_text}, before your rest is in."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/readouts.rs
-msgid "Co-driver: {name}, driving"
+msgid "Co-driver: {co_driver_name}, driving"
 msgstr ""
 
-#. placeholders: {name}, {bio}
+#. placeholders: {co_driver_name}, {bio}
 #: crates/freight-fate/src/states/driving_team/readouts.rs
-msgid "About {name}: {bio}"
+msgid "About {co_driver_name}: {bio}"
 msgstr ""
 
 #. placeholders: {join}
@@ -41711,27 +41790,27 @@ msgstr ""
 msgid "Last shift: {join}"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/readouts.rs
-msgid "Co-driver: {name}, in the sleeper"
+msgid "Co-driver: {co_driver_name}, in the sleeper"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/readouts.rs
-msgid "Co-driver: {name}, in the sleeper, rested."
+msgid "Co-driver: {co_driver_name}, in the sleeper, rested."
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/readouts.rs
-msgid "Co-driver: {name}, in the sleeper."
+msgid "Co-driver: {co_driver_name}, in the sleeper."
 msgstr ""
 
-#. placeholders: {name}, {duration_text}, {duration_text2}
+#. placeholders: {co_driver_name}, {duration_text}, {duration_text2}
 #: crates/freight-fate/src/states/driving_team/readouts.rs
 msgid ""
-"Co-driver: {name}, in the sleeper. Rest: {duration_text} of 10 hours. "
-"{duration_text2} of driving left."
+"Co-driver: {co_driver_name}, in the sleeper. Rest: {duration_text} of 10 "
+"hours. {duration_text2} of driving left."
 msgstr ""
 
 #. placeholders: {duration_text}
@@ -41746,9 +41825,9 @@ msgstr ""
 msgid "{duration_text2} of driving left."
 msgstr ""
 
-#. placeholders: {name}, {trim_end_matches}
+#. placeholders: {co_driver_name}, {trim_end_matches}
 #: crates/freight-fate/src/states/driving_team/readouts.rs
-msgid "ELD, {name}: {trim_end_matches}"
+msgid "ELD, {co_driver_name}: {trim_end_matches}"
 msgstr ""
 
 #. placeholders: {round}
@@ -41760,16 +41839,16 @@ msgstr ""
 msgid "their half of the pay"
 msgstr ""
 
-#. placeholders: {name}, {miles}, {share}, {grouped}
+#. placeholders: {co_driver_name}, {miles}, {share}, {grouped}
 #: crates/freight-fate/src/states/driving_team/settle.rs
 msgid ""
-"{name} drove {miles} of this load: {share} is {grouped} dollars, and those "
-"miles earn you half the experience."
+"{co_driver_name} drove {miles} of this load: {share} is {grouped} dollars, "
+"and those miles earn you half the experience."
 msgstr ""
 
-#. placeholders: {name}, {f}
+#. placeholders: {co_driver_name}, {f}
 #: crates/freight-fate/src/states/driving_team/settle.rs
-msgid "Team load: {name} drove {f} of the miles"
+msgid "Team load: {co_driver_name} drove {f} of the miles"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/shift.rs crates/freight-fate/src/states/driving_team.rs
@@ -41792,44 +41871,46 @@ msgstr ""
 msgid "shoulder hours, yours reach"
 msgstr ""
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #: crates/freight-fate/src/states/driving_team/shoulder.rs
-msgid "{name} took a 30-minute break on the shoulder."
+msgid "{co_driver_name} took a 30-minute break on the shoulder."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/stop_work.rs crates/freight-fate/src/states/driving_team.rs
 msgid "slept on"
 msgstr ""
 
-#. placeholders: {name}, {gallons}, {place}
+#. placeholders: {co_driver_name}, {gallons}, {place}
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
 msgid ""
-"{name} fueled {gallons} gallons and took a 30-minute break at {place}."
+"{co_driver_name} fueled {gallons} gallons and took a 30-minute break at "
+"{place}."
 msgstr ""
 
-#. placeholders: {name}, {gallons}, {place}
+#. placeholders: {co_driver_name}, {gallons}, {place}
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "{name} fueled {gallons} gallons at {place}."
+msgid "{co_driver_name} fueled {gallons} gallons at {place}."
 msgstr ""
 
-#. placeholders: {name}, {volume_text}, {place}
+#. placeholders: {co_driver_name}, {volume_text}, {place}
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "{name} fueled {volume_text} and took a 30-minute break at {place}."
+msgid ""
+"{co_driver_name} fueled {volume_text} and took a 30-minute break at {place}."
 msgstr ""
 
-#. placeholders: {name}, {volume_text}, {place}
+#. placeholders: {co_driver_name}, {volume_text}, {place}
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "{name} fueled {volume_text} at {place}."
+msgid "{co_driver_name} fueled {volume_text} at {place}."
 msgstr ""
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "{name} took a 30-minute break at {place}."
+msgid "{co_driver_name} took a 30-minute break at {place}."
 msgstr ""
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "{name} stopped at {place}."
+msgid "{co_driver_name} stopped at {place}."
 msgstr ""
 
 #. one sentence of a longer line
@@ -41837,33 +41918,34 @@ msgstr ""
 msgid "The inspection decal got the truck waved through."
 msgstr ""
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "{name} checked in at {place}."
+msgid "{co_driver_name} checked in at {place}."
 msgstr ""
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
 msgid ""
-"{name} checked in at {place}. The inspection decal got the truck waved "
-"through."
+"{co_driver_name} checked in at {place}. The inspection decal got the truck "
+"waved through."
 msgstr ""
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "{name} checked in at {place} and was waved through."
+msgid "{co_driver_name} checked in at {place} and was waved through."
 msgstr ""
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "{name} was pulled in for an inspection at {place}."
+msgid "{co_driver_name} was pulled in for an inspection at {place}."
 msgstr ""
 
-#. placeholders: {name}, {place}, {outcome}
+#. placeholders: {co_driver_name}, {place}, {outcome}
 #: crates/freight-fate/src/states/driving_team/stop_work.rs
-msgid "{name} was pulled in for an inspection at {place}. {outcome}"
+msgid ""
+"{co_driver_name} was pulled in for an inspection at {place}. {outcome}"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_turns.rs
@@ -42101,23 +42183,23 @@ msgstr ""
 #. placeholders: {highway}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
-msgid "Chain law ahead on {highway}."
+msgid "Chain law on {highway}."
 msgstr ""
 
 #. placeholders: {highway}
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
-msgid "Chain law ahead on {highway}. You have no chains."
+msgid "Chain law on {highway}. You have no chains."
 msgstr ""
 
 #. placeholders: {highway}, {exit}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
-msgid "Chain law ahead on {highway} at {exit}."
+msgid "Chain law on {highway} at {exit}."
 msgstr ""
 
 #. placeholders: {highway}, {exit}
 #: crates/freight-fate/src/states/driving_updates/conditions.rs
-msgid "Chain law ahead on {highway} at {exit}. You have no chains."
+msgid "Chain law on {highway} at {exit}. You have no chains."
 msgstr ""
 
 #. placeholders: {need}
@@ -45618,7 +45700,7 @@ msgstr ""
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid ""
 "The thump of pavement seams and bridge joints under the wheels, and the "
-"tires' whine on grooved concrete and hum on steel grate decks."
+"tires' hum on steel grate decks."
 msgstr ""
 
 #. placeholders: {pct}

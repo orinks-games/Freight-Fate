@@ -129,7 +129,7 @@ impl FrameClock {
 }
 
 /// The rest of the frame, asleep.
-#[cfg(not(target_os = "ios"))]
+#[cfg(not(any(target_os = "ios", target_os = "macos")))]
 fn wait_out_frame(rest: Duration) {
     std::thread::sleep(rest);
 }
@@ -140,7 +140,16 @@ fn wait_out_frame(rest: Duration) {
 /// main run loop runs. Sleeping made each of those questions wait for the
 /// next event pump, and a swipe's beep and line came about a quarter of a
 /// second late. Speech handed to the main thread waits on it the same way.
-#[cfg(target_os = "ios")]
+///
+/// A Mac is the same: AppKit answers VoiceOver's accessibility questions
+/// only while the main run loop runs, one per question. Asleep, each waited
+/// up to a frame (17.6 ms measured), and VoiceOver asks a couple of hundred
+/// of them when the player switches back to the game, so the game sat deaf
+/// to the keyboard for about three seconds after every Command-Tab.
+/// VoiceOver announcements are posted on the main queue and wait the same.
+/// Off the main thread (the tests) the run loop has nothing to run, and
+/// this sleeps as before.
+#[cfg(any(target_os = "ios", target_os = "macos"))]
 fn wait_out_frame(rest: Duration) {
     use std::ffi::c_void;
 
@@ -247,6 +256,9 @@ pub struct DrivingObservation {
     /// The limit enforcement is holding the truck to, once one has been
     /// read off the road (None on a drive's first frames).
     pub speed_limit_mph: Option<f64>,
+    /// True when the limit is an assumed town figure rather than a posting
+    /// (`sim::town_limits`).
+    pub town_limit_assumed: bool,
     /// Adaptive cruise's set point, when it is engaged.
     pub cruise_set_mph: Option<f64>,
     /// The speed keeper's hold, when it has the zone.
@@ -308,6 +320,18 @@ pub struct DrivingObservation {
     /// The chain law posted at the truck, and the chains against the road.
     pub chain_control: ff_core::sim::chain_control::ChainControl,
     pub chains: ff_core::sim::chain_control::ChainSet,
+    /// Who does the chain work now, and the chain stop they are making.
+    pub chain_worker: ff_core::sim::chain_work::ChainWorker,
+    pub chain_stop: Option<ff_core::sim::chain_work::ChainStopKind>,
+    /// The set's wear in percent.
+    pub chain_wear_pct: f64,
+    /// The air supply in psi, the service brake demand (0 to 1), and
+    /// whether cruise is snubbing the drums now.
+    pub air_psi: f64,
+    pub brake: f64,
+    pub cruise_snubbing: bool,
+    /// The engine brake stage now (0 is off).
+    pub jake_stage: i32,
     /// The lane the truck is in, by its spoken name, and whether a stick or
     /// a tilt has asked for one lane and not come back yet.
     pub lane: &'static str,
@@ -1111,6 +1135,10 @@ impl App {
             cargo_damage_pct: drive.trip.truck.cargo_damage_pct,
             speed_mph: drive.trip.truck.speed_mph(),
             speed_limit_mph: drive.enforced_limit_prev,
+            town_limit_assumed: drive
+                .trip
+                .town_limit_source_at(drive.trip.position_mi)
+                .is_some(),
             cruise_set_mph: drive.cruise_mph,
             keeper_mph: drive.keeper_mph,
             imperial: self.ctx.settings.imperial(),
@@ -1171,6 +1199,13 @@ impl App {
             structure: drive.trip.structure_at_mile(drive.trip.position_mi),
             chain_control: drive.trip.chain_control,
             chains: drive.chain_set,
+            chain_worker: drive.chain_worker(&self.ctx),
+            chain_stop: drive.chain_stop.as_ref().map(|stop| stop.kind),
+            chain_wear_pct: drive.trip.truck.chain_wear_pct,
+            air_psi: drive.trip.truck.air_pressure_psi(),
+            brake: drive.trip.truck.brake,
+            cruise_snubbing: drive.cruise_snubbing,
+            jake_stage: drive.trip.truck.engine_brake_stage,
             lane: drive.lane.lane_name(),
             lane_push: drive.lane_push,
             abs: drive.trip.truck.abs_state,

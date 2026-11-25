@@ -93,7 +93,15 @@ fn ways_of(block: &PrimitiveBlock) -> Vec<RawWay> {
             if !highway.is_some_and(|h| WAY_CLASSES.contains(&h)) {
                 continue;
             }
-            if maxspeed.is_none() && maxspeed_hgv.is_none() {
+            // An unposted motorway that carries an Interstate number stays in,
+            // with no limit: the bake reads no number off it, but its being
+            // there is what tells a frontage road from a town street.
+            let interstate_motorway = highway == Some("motorway")
+                && route_ref.split(';').any(|r| {
+                    let r = r.trim().to_uppercase();
+                    r.starts_with("I ") || r.starts_with("I-")
+                });
+            if maxspeed.is_none() && maxspeed_hgv.is_none() && !interstate_motorway {
                 continue;
             }
             let hint = bare_unit_is_kmh(maxspeed_type, &route_ref);

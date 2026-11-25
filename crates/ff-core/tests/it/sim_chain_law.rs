@@ -151,6 +151,13 @@ fn test_chain_law_sign_speaks_on_approach_and_escalates() {
     assert!(spoken[0].contains("level 1"), "{}", spoken[0]);
     assert!(!spoken[0].contains("winter tires"), "{}", spoken[0]);
     assert!(spoken[0].contains("Chain-up area"), "{}", spoken[0]);
+    // No "ahead" (owner rule, 2026-11-09): the chain-up area says where.
+    assert!(
+        spoken[0].starts_with("Chain law, level 1: "),
+        "{}",
+        spoken[0]
+    );
+    assert!(!spoken[0].contains("ahead"), "{}", spoken[0]);
     // The same sign does not repeat, but an escalation to ice speaks again.
     trip.check_chain_law();
     trip.weather.current = WeatherKind::Ice;

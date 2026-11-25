@@ -498,7 +498,9 @@ impl DrivingState {
             );
             return;
         }
-        let target = self.speed_control_target_mph.unwrap_or(limit);
+        let target = self
+            .speed_control_target_mph
+            .unwrap_or_else(|| self.handoff_cruise_target(limit));
         self.engage_cruise(ctx, target, true);
     }
 

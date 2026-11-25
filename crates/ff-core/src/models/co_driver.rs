@@ -369,20 +369,24 @@ pub fn record_team_load(stats: &mut Map<String, Value>, key: &str, business_stat
 
 /// The line that introduces the co-driver when the wheel is handed over.
 pub fn pairing_line(pairing: &Pairing, carrier_name: &str) -> String {
-    let name = pairing.co_driver.name;
+    let co_driver_name = pairing.co_driver.name;
     match pairing.reason {
         PairingReason::FirstTeam | PairingReason::Classmate => {
             if carrier_name.is_empty() {
-                format!("{name}, from your training class.")
+                format!("{co_driver_name}, from your training class.")
             } else {
-                format!("{name}, from your training class, drives for {carrier_name} now.")
+                format!(
+                    "{co_driver_name}, from your training class, drives for {carrier_name} now."
+                )
             }
         }
-        PairingReason::Hire => format!("{name}, your co-driver."),
+        PairingReason::Hire => format!("{co_driver_name}, your co-driver."),
         PairingReason::Meridian => {
-            format!("{name}, back from Meridian with a story.")
+            format!("{co_driver_name}, back from Meridian with a story.")
         }
-        PairingReason::Trainer => format!("{name}, your old trainer, along for one load."),
+        PairingReason::Trainer => {
+            format!("{co_driver_name}, your old trainer, along for one load.")
+        }
     }
 }
 

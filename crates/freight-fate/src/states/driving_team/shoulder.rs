@@ -59,7 +59,7 @@ impl DrivingState {
 
     /// The co-driver's 30-minute break, taken stopped on the shoulder.
     pub(crate) fn co_driver_shoulder_break(&mut self, ctx: &mut GameContext) {
-        let Some(name) = self.co_driver_at_wheel_name() else {
+        let Some(co_driver_name) = self.co_driver_at_wheel_name() else {
             return;
         };
         advance_rest_clock(self, ctx, hos::BREAK_MIN, None, "");
@@ -71,7 +71,7 @@ impl DrivingState {
         );
         self.co_driver_note(
             ctx,
-            format!("{name} took a 30-minute break on the shoulder."),
+            format!("{co_driver_name} took a 30-minute break on the shoulder."),
             NoteWeight::Passing,
         );
     }
