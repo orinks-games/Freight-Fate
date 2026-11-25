@@ -146,6 +146,18 @@ impl Profile {
                 origin::forget_origin(&profile.name);
             }
         }
+        // A 1.9 career an earlier 2.0 build copied, before the carry-over
+        // existed: the same home fix and choice, once (the resave writes the
+        // field).
+        if persist
+            && !data.contains_key("carryover")
+            && profile.created_line == CREATED_LINE
+            && profile.home_city.trim().is_empty()
+            && super::copy_forward::copied_by_an_earlier_build(&profile.name)
+        {
+            profile.carry_over_from_1_9();
+            profile.needs_migration_resave = true;
+        }
         if tampered && !profile.integrity_modified {
             profile.integrity_modified = true;
             profile.integrity_notice_pending = true;

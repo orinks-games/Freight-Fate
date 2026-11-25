@@ -91,6 +91,19 @@ pub struct Scenario {
     /// Tractors the career owns, replacing what it held; the first is the
     /// one driven. Wear and fuel are fresh. `buy_in_paid` is left alone.
     pub owned_trucks: Option<Vec<String>>,
+    /// A `carriers.json` key the career drives for (or, as an
+    /// owner-operator, is leased to). The truck stays where it is.
+    pub carrier: Option<String>,
+    /// The driver's home city; `Some("")` blanks it, as on a 1.9 save.
+    pub home_city: Option<String>,
+    /// The city a 1.9 save records the first delivery loading in;
+    /// `Some("")` clears the record.
+    pub first_delivery_city: Option<String>,
+    /// Run the 1.9 copy's carry-over (home fix and state) on the career as
+    /// staged, after the three fields above.
+    pub copied_from_1_9: bool,
+    /// The carry-over state, set directly, last.
+    pub carryover: Option<ff_core::models::carryover::Carryover>,
     /// Credential keys bought outright, replacing what the career held.
     pub endorsements: Option<Vec<String>>,
     /// Local clock, 0 to 24, moved forward to.
@@ -248,6 +261,17 @@ fn text(args: &Map<String, Value>, key: &str) -> Result<Option<String>, String> 
             .map(|s| s.trim().to_string())
             .filter(|s| !s.is_empty())
             .map(Some)
+            .ok_or_else(|| format!("{key} must be text")),
+    }
+}
+
+/// A text field where an empty string means "blank" rather than an error.
+fn text_or_blank(args: &Map<String, Value>, key: &str) -> Result<Option<String>, String> {
+    match args.get(key) {
+        None | Some(Value::Null) => Ok(None),
+        Some(value) => value
+            .as_str()
+            .map(|s| Some(s.trim().to_string()))
             .ok_or_else(|| format!("{key} must be text")),
     }
 }
@@ -483,7 +507,33 @@ impl Scenario {
             }
             Some(_) => return Err("owned_trucks must be a list of truck keys".to_string()),
         };
+        let carrier = text(args, "carrier")?;
+        if let Some(key) = &carrier {
+            if ff_core::models::carriers::carrier(key).is_none() {
+                return Err(format!("no carrier with the key {key}"));
+            }
+        }
+        let carryover = match text(args, "carryover")? {
+            None => None,
+            Some(key) => Some(
+                ff_core::models::carryover::Carryover::from_key(&key.to_lowercase()).ok_or_else(
+                    || {
+                        format!(
+                            "carryover must be native, settled or carrier_choice_due, not {key}"
+                        )
+                    },
+                )?,
+            ),
+        };
         Ok(Scenario {
+            carrier,
+            home_city: text_or_blank(args, "home_city")?,
+            first_delivery_city: text_or_blank(args, "first_delivery_city")?,
+            copied_from_1_9: args
+                .get("copied_from_1_9")
+                .and_then(Value::as_bool)
+                .unwrap_or(false),
+            carryover,
             name: text(args, "name")?,
             city: text(args, "city")?,
             level,
@@ -667,6 +717,56 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             } else {
                 format!("Tractors owned: {}.", trucks.join(", "))
             });
+        }
+        if let Some(key) = &scenario.carrier {
+            let name = ff_core::models::carriers::carrier(key)
+                .map(|c| c.name.clone())
+                .unwrap_or_default();
+            p.change_carrier(key, &name);
+            notes.push(format!("Carrier {name}."));
+        }
+        for (city, field) in [
+            (&scenario.home_city, "home city"),
+            (&scenario.first_delivery_city, "first delivery city"),
+        ] {
+            let Some(city) = city else {
+                continue;
+            };
+            let key = if city.trim().is_empty() {
+                String::new()
+            } else {
+                let key = resolve_city_forgiving(world, city);
+                if !world.cities.contains_key(&key) {
+                    return Err(format!("no city called {city}"));
+                }
+                key
+            };
+            notes.push(if key.is_empty() {
+                format!("No {field} on file.")
+            } else {
+                format!("The {field} is {}.", world.spoken_city(&key, Some(true)))
+            });
+            if field == "home city" {
+                p.home_city = key;
+            } else if key.is_empty() {
+                p.achievement_stats.remove("home_city");
+            } else {
+                p.achievement_stats
+                    .insert("home_city".to_string(), Value::from(key));
+            }
+        }
+        if scenario.copied_from_1_9 {
+            p.carryover = ff_core::models::carryover::Carryover::Native;
+            p.carry_over_from_1_9();
+            notes.push(format!(
+                "Carried over from 1.9: {}; home terminal city {}.",
+                p.carryover.key(),
+                p.home_terminal_city
+            ));
+        }
+        if let Some(state) = scenario.carryover {
+            p.carryover = state;
+            notes.push(format!("Carry-over {}.", state.key()));
         }
         if let Some(endorsements) = &scenario.endorsements {
             p.career.purchased_endorsements = endorsements.clone();

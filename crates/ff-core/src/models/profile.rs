@@ -60,9 +60,13 @@ mod stage;
 mod stimulant;
 mod traits;
 
+mod carryover;
 mod copy_forward;
+pub use carryover::CarrierChoiceRow;
 #[cfg(test)]
 pub(crate) mod tests;
+#[cfg(test)]
+mod tests_carryover;
 #[cfg(test)]
 mod tests_compat;
 #[cfg(test)]
@@ -178,6 +182,7 @@ pub const PROFILE_FIELDS: &[&str] = &[
     "turnpike_program_notice_seen",
     "owner_operator_declined",
     "buy_in_paid",
+    "carryover",
     "career",
     "driving_record",
     "selection_score",
@@ -545,6 +550,9 @@ pub struct Profile {
     /// owner-operator start, or a driver who owns nothing; going back to
     /// company driving and repossession set it back to 0.
     pub buy_in_paid: f64,
+    /// Where a career copied from 1.9 stands (see `models::carryover`):
+    /// native for a 2.0 start, settled, or a carrier choice still owed.
+    pub carryover: crate::models::carryover::Carryover,
     pub career: Career,
     // Citations, serious violations, and CDL standing. Enforcement outlives a
     // trip: the old build kept the felony count on the trip snapshot and then
@@ -632,6 +640,7 @@ impl Default for Profile {
             turnpike_program_notice_seen: true,
             owner_operator_declined: false,
             buy_in_paid: 0.0,
+            carryover: crate::models::carryover::Carryover::Native,
             career: Career::new(),
             driving_record: DrivingRecord::new(),
             selection_score: SAFETY_RECORD_BASELINE,
@@ -732,6 +741,7 @@ impl Profile {
         };
         self.home_terminal_city =
             serialize::migrate_home_terminal_city(self.hiring_carrier(), "", &lives);
+        self.note_carrier_changed();
     }
 
     /// Where this driver lives: `home_city`, else the home terminal city,
@@ -796,6 +806,7 @@ impl Profile {
         self.driving_record.let_go_by = firing_key.to_string();
         self.parked_facility.clear();
         self.dispatch_board_cache = None;
+        self.note_carrier_changed();
         match crate::models::carriers::fallback_carrier_for(world, &pick_from, firing_key) {
             Some(carrier) => {
                 self.carrier_key = carrier.key.clone();
@@ -844,6 +855,7 @@ impl Profile {
         if crate::models::enforcement::carrier_termination_due(self) {
             self.driving_record.sufferance_carrier_key = opening.carrier.key.clone();
         }
+        self.note_carrier_changed();
     }
 
     /// The carrier's home terminal ("{Carrier} {City} terminal"), if any.

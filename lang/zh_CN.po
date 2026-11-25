@@ -8420,6 +8420,9 @@ msgstr ""
 msgid "inert"
 msgstr "inert"
 
+msgid "native"
+msgstr ""
+
 msgid "dan"
 msgstr "dan"
 
@@ -10253,6 +10256,119 @@ msgstr "你在{city}的家"
 msgid "your terminal in {city}"
 msgstr "你在{city}的场站"
 
+#. one sentence of a longer line
+msgid "Stay with them or choose another carrier."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your money, level, trucks and driving record stay."
+msgstr ""
+
+#. placeholders: {name}, {area}
+#. one sentence of a longer line
+msgid "{name} now runs freight only in {area}."
+msgstr ""
+
+#. placeholders: {name}, {area}
+msgid ""
+"{name} now runs freight only in {area}. Stay with them or choose another "
+"carrier. Your money, level, trucks and driving record stay."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Choose a carrier to keep driving."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid "It no longer dispatches from {city}."
+msgstr ""
+
+#. placeholders: {name}, {area}, {city}
+msgid ""
+"{name} now runs freight only in {area}. It no longer dispatches from "
+"{city}. Choose a carrier to keep driving. Your money, level, trucks and "
+"driving record stay."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}, {city}
+#. one sentence of a longer line
+msgid "You are now leased on to {name}, out of their {city} terminal."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You are now leased on to {name}, out of their {city} terminal. Your truck "
+"stays where it is parked. The dispatch board is open again."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your truck stays where it is parked."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid ""
+"You start at their {city} terminal, where your assigned truck is waiting."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} has taken you on."
+msgstr "{name}已经接纳了你。"
+
+#. placeholders: {name}, {city}
+msgid ""
+"{name} has taken you on. You start at their {city} terminal, where your "
+"assigned truck is waiting. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You stay leased on to {name}."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay leased on to {name}. Your home is now {city}. Your truck stays "
+"where it is parked. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid "Your home is now {city}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "You stay leased on to {name}. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You stay with {name}."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay with {name}. Your home is now {city}. You start at their {city} "
+"terminal, where your assigned truck is waiting. The dispatch board is open "
+"again."
+msgstr ""
+
+#. placeholders: {name}
+msgid "You stay with {name}. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay with {name}. You start at their {city} terminal, where your "
+"assigned truck is waiting. The dispatch board is open again."
+msgstr ""
+
 #. placeholders: {target}
 msgid ""
 "Freight Fate moved the saves that were in this folder to:\n"
@@ -10309,6 +10425,9 @@ msgstr "money"
 msgid "upgrades"
 msgstr "upgrades"
 
+msgid "carryover"
+msgstr ""
+
 msgid "standing"
 msgstr "standing"
 
@@ -10341,6 +10460,16 @@ msgstr "存档文件已损坏，无法读取。"
 
 msgid "Save file is not a profile object."
 msgstr "存档文件不是有效的档案对象。"
+
+msgid "Carried"
+msgstr ""
+
+msgid "Prairie Link Regional"
+msgstr "Prairie Link Regional"
+
+# same as English
+msgid "apu"
+msgstr "apu"
 
 msgid "Legacy Driver"
 msgstr "旧版司机"
@@ -10819,9 +10948,6 @@ msgstr "Milwaukee"
 
 msgid "Prairie Link Regional: regional company driver"
 msgstr "Prairie Link Regional：区域性公司司机"
-
-msgid "Prairie Link Regional"
-msgstr "Prairie Link Regional"
 
 msgid ""
 "A better per-mile floor, lower stop pay, and more same-region grain and "
@@ -16424,6 +16550,15 @@ msgstr "你会在前方{start_mi}英里处接手驾驶。"
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
+#. placeholders: {key}, {carrier_key}, {home_city}, {home_terminal_city}
+msgid ""
+"{key}; carrier {carrier_key}; home_city {home_city}; home_terminal_city "
+"{home_terminal_city}"
+msgstr ""
+
+msgid "blank"
+msgstr ""
+
 #. placeholders: {i}
 msgid "job {i}"
 msgstr "任务 {i}"
@@ -16940,10 +17075,6 @@ msgstr "发动机开关"
 
 msgid "Reefer on or off"
 msgstr "冷藏机组开关"
-
-# same as English
-msgid "apu"
-msgstr "apu"
 
 msgid "APU on or off"
 msgstr "APU开关"
@@ -19338,6 +19469,44 @@ msgid ""
 "gross."
 msgstr " {highway}的春季限重把这辆卡车的总重限制在{weight_text}。"
 
+msgid "Choose a carrier"
+msgstr ""
+
+msgid ""
+"Carriers that hire where you live. Choosing one puts you on their payroll "
+"at the terminal named, and it is final. Escape returns to the terminal."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid "Stay with {carrier}: {city} terminal"
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid "Stay with {carrier}: moves your home to {city}"
+msgstr ""
+
+#. placeholders: {t}
+msgid " Truck starts at {t}."
+msgstr " 卡车从{t}出发。"
+
+#. placeholders: {name}, {summary}, {starts}
+msgid "{name}. {summary}{starts} Double tap again to choose."
+msgstr ""
+
+#. placeholders: {summary}, {starts}
+#. one sentence of a longer line
+msgid "{summary}{starts} Double tap again to choose."
+msgstr ""
+
+#. placeholders: {name}, {summary}, {starts}
+msgid "{name}. {summary}{starts} Press Enter again to choose."
+msgstr ""
+
+#. placeholders: {summary}, {starts}
+#. one sentence of a longer line
+msgid "{summary}{starts} Press Enter again to choose."
+msgstr ""
+
 msgid "Close out this career"
 msgstr "结束这段职业生涯"
 
@@ -19569,11 +19738,6 @@ msgid ""
 "waiting.{moved} The dispatch board is open again."
 msgstr "你从他们在{city}的场站出发，分配给你的卡车已经在那里等着。{moved}调度板重新开放了。"
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "{name} has taken you on."
-msgstr "{name}已经接纳了你。"
-
 #. placeholders: {name}, {city}, {moved}
 msgid ""
 "{name} has taken you on. You start at their {city} terminal, where your "
@@ -19612,6 +19776,34 @@ msgstr "第一天简报"
 
 msgid "Career plan"
 msgstr "职业规划"
+
+#. one sentence of a longer line
+msgid "Stay, or pick who you drive for next."
+msgstr ""
+
+#. placeholders: {carrier}
+#. one sentence of a longer line
+msgid "{carrier} changed where it runs."
+msgstr ""
+
+#. placeholders: {carrier}
+msgid ""
+"{carrier} changed where it runs. Stay, or pick who you drive for next."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Pick who you drive for next."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+#. one sentence of a longer line
+msgid "{carrier} no longer dispatches from {city}."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid ""
+"{carrier} no longer dispatches from {city}. Pick who you drive for next."
+msgstr ""
 
 msgid "No nearby cities are reachable from here."
 msgstr "从这里到不了附近任何城市。"
@@ -20727,10 +20919,6 @@ msgstr "换到{carrier_name}：再按一次Enter确认"
 #. placeholders: {label}
 msgid "Move to {label}"
 msgstr "换到{label}"
-
-#. placeholders: {t}
-msgid " Truck starts at {t}."
-msgstr " 卡车从{t}出发。"
 
 #. placeholders: {carrier_name}, {menu_summary}, {starts}
 msgid "{carrier_name}. {menu_summary}{starts} Double tap again to move."

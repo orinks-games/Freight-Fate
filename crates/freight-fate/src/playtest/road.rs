@@ -1334,6 +1334,12 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
         profile.buy_in_paid = previous.buy_in_paid;
         profile.carrier_key = previous.carrier_key.clone();
         profile.carrier_name = previous.carrier_name.clone();
+        // And a staged 1.9 carry-over: where the driver lives and the choice
+        // still owed, so the delivery's terminal visit hears it.
+        profile.carryover = previous.carryover;
+        profile.home_city = previous.home_city.clone();
+        profile.home_terminal_city = previous.home_terminal_city.clone();
+        profile.achievement_stats = previous.achievement_stats.clone();
         // A slip-seating driver's yard spares are drawn from the career's
         // own name, so this bench career's pool is not the scenario's: the
         // record the scenario set would sit under keys this drive never

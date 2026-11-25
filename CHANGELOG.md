@@ -6,6 +6,8 @@
 
 - **Freight Fate now requires iOS or iPadOS 15 or later.**
 - **1.9 careers carry over on your first 2.0 start.** Your original copy stays playable in 1.9.
+- **Carried 1.9 Prairie Link drivers now choose a carrier at the terminal.** Stay with Prairie Link or pick another; money, level, trucks and record stay.
+- **Carried 1.9 careers keep the home city their first delivery left from,** instead of wherever the truck was parked.
 - **Recoverable set-aside 1.9 careers now carry over to 2.0.** Their original files stay untouched.
 - **Imported careers keep their last-played order.** Continue selects the most recently played 1.9 career after copying it into 2.0.
 - **2.0 careers have their own cloud backups,** with names such as Road Star (Career 2), so a 1.9 career's backup stays its own.

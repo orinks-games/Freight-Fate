@@ -67,7 +67,7 @@ msgid ""
 "Rest breaks, inspections, traffic, and the rules that keep a driver legal."
 msgstr ""
 
-#: crates/ff-core/src/achievements/catalog.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
+#: crates/ff-core/src/achievements/catalog.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_carryover.rs crates/ff-core/src/models/profile/tests_compat.rs
 msgid "career"
 msgstr ""
 
@@ -9139,7 +9139,7 @@ msgstr ""
 msgid "Chicago"
 msgstr ""
 
-#: crates/ff-core/src/models/career/test_profile.rs crates/ff-core/src/models/carrier_fleet.rs crates/ff-core/src/models/profile/condition.rs crates/ff-core/src/models/profile/tests_compat.rs
+#: crates/ff-core/src/models/career/test_profile.rs crates/ff-core/src/models/carrier_fleet.rs crates/ff-core/src/models/profile/condition.rs crates/ff-core/src/models/profile/tests_carryover.rs
 msgid "rig"
 msgstr ""
 
@@ -10248,7 +10248,7 @@ msgstr ""
 msgid "worked"
 msgstr ""
 
-#: crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/sim/livestock/footing.rs crates/freight-fate/src/states/driving_liquid.rs
+#: crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/carryover.rs crates/ff-core/src/sim/livestock/footing.rs crates/freight-fate/src/states/driving_liquid.rs
 msgid "settled"
 msgstr ""
 
@@ -10572,6 +10572,10 @@ msgstr ""
 
 #: crates/ff-core/src/models/carriers.rs
 msgid "inert"
+msgstr ""
+
+#: crates/ff-core/src/models/carryover.rs
+msgid "native"
 msgstr ""
 
 #: crates/ff-core/src/models/co_driver.rs
@@ -10925,7 +10929,7 @@ msgid ""
 "it, and liquid food at level 21."
 msgstr ""
 
-#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs.rs
+#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs.rs crates/ff-core/src/models/profile/tests_carryover.rs
 msgid "hazmat"
 msgstr ""
 
@@ -12865,6 +12869,141 @@ msgstr ""
 msgid "your terminal in {city}"
 msgstr ""
 
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "Stay with them or choose another carrier."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "Your money, level, trucks and driving record stay."
+msgstr ""
+
+#. placeholders: {name}, {area}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "{name} now runs freight only in {area}."
+msgstr ""
+
+#. placeholders: {name}, {area}
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid ""
+"{name} now runs freight only in {area}. Stay with them or choose another "
+"carrier. Your money, level, trucks and driving record stay."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "Choose a carrier to keep driving."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "It no longer dispatches from {city}."
+msgstr ""
+
+#. placeholders: {name}, {area}, {city}
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid ""
+"{name} now runs freight only in {area}. It no longer dispatches from "
+"{city}. Choose a carrier to keep driving. Your money, level, trucks and "
+"driving record stay."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}, {city}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "You are now leased on to {name}, out of their {city} terminal."
+msgstr ""
+
+#. placeholders: {name}, {city}
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid ""
+"You are now leased on to {name}, out of their {city} terminal. Your truck "
+"stays where it is parked. The dispatch board is open again."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "Your truck stays where it is parked."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid ""
+"You start at their {city} terminal, where your assigned truck is waiting."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "{name} has taken you on."
+msgstr ""
+
+#. placeholders: {name}, {city}
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid ""
+"{name} has taken you on. You start at their {city} terminal, where your "
+"assigned truck is waiting. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "You stay leased on to {name}."
+msgstr ""
+
+#. placeholders: {name}, {city}
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid ""
+"You stay leased on to {name}. Your home is now {city}. Your truck stays "
+"where it is parked. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "Your home is now {city}."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "You stay leased on to {name}. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "You stay with {name}."
+msgstr ""
+
+#. placeholders: {name}, {city}
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid ""
+"You stay with {name}. Your home is now {city}. You start at their {city} "
+"terminal, where your assigned truck is waiting. The dispatch board is open "
+"again."
+msgstr ""
+
+#. placeholders: {name}
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid "You stay with {name}. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}, {city}
+#: crates/ff-core/src/models/profile/carryover.rs
+msgid ""
+"You stay with {name}. You start at their {city} terminal, where your "
+"assigned truck is waiting. The dispatch board is open again."
+msgstr ""
+
 #. placeholders: {target}
 #: crates/ff-core/src/models/profile/paths.rs
 msgid ""
@@ -12923,12 +13062,16 @@ msgstr ""
 msgid "version"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs crates/ff-core/src/speech_pacing.rs
+#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_carryover.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
 msgid "money"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
+#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_carryover.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
 msgid "upgrades"
+msgstr ""
+
+#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile.rs
+msgid "carryover"
 msgstr ""
 
 #: crates/ff-core/src/models/profile/serialize.rs
@@ -12947,7 +13090,7 @@ msgstr ""
 msgid "loyalty"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
+#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_carryover.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
 msgid "achievements"
 msgstr ""
 
@@ -12973,6 +13116,18 @@ msgstr ""
 
 #: crates/ff-core/src/models/profile/signing.rs
 msgid "Save file is not a profile object."
+msgstr ""
+
+#: crates/ff-core/src/models/profile/tests_carryover.rs
+msgid "Carried"
+msgstr ""
+
+#: crates/ff-core/src/models/profile/tests_carryover.rs crates/ff-core/src/models/start_options.rs
+msgid "Prairie Link Regional"
+msgstr ""
+
+#: crates/ff-core/src/models/profile/tests_carryover.rs crates/freight-fate/src/bindings.rs
+msgid "apu"
 msgstr ""
 
 #: crates/ff-core/src/models/profile/tests_compat.rs
@@ -13548,10 +13703,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
 msgid "Prairie Link Regional: regional company driver"
-msgstr ""
-
-#: crates/ff-core/src/models/start_options.rs
-msgid "Prairie Link Regional"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
@@ -20672,6 +20823,17 @@ msgstr ""
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
+#. placeholders: {key}, {carrier_key}, {home_city}, {home_terminal_city}
+#: crates/freight-fate/src/app.rs
+msgid ""
+"{key}; carrier {carrier_key}; home_city {home_city}; home_terminal_city "
+"{home_terminal_city}"
+msgstr ""
+
+#: crates/freight-fate/src/app.rs
+msgid "blank"
+msgstr ""
+
 #. placeholders: {i}
 #: crates/freight-fate/src/app.rs
 msgid "job {i}"
@@ -21310,10 +21472,6 @@ msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
 msgid "Reefer on or off"
-msgstr ""
-
-#: crates/freight-fate/src/bindings.rs
-msgid "apu"
 msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
@@ -23670,7 +23828,7 @@ msgid ""
 "{assignment_ends}."
 msgstr ""
 
-#: crates/freight-fate/src/states/city/board.rs crates/freight-fate/src/states/city/extras.rs crates/freight-fate/src/states/driving_school.rs
+#: crates/freight-fate/src/states/city/board.rs crates/freight-fate/src/states/city/choose_carrier.rs crates/freight-fate/src/states/city/extras.rs crates/freight-fate/src/states/driving_school.rs
 msgid "Back to terminal"
 msgstr ""
 
@@ -24243,6 +24401,53 @@ msgid ""
 "gross."
 msgstr ""
 
+#: crates/freight-fate/src/states/city/choose_carrier.rs crates/freight-fate/src/states/city/terminal.rs
+msgid "Choose a carrier"
+msgstr ""
+
+#: crates/freight-fate/src/states/city/choose_carrier.rs
+msgid ""
+"Carriers that hire where you live. Choosing one puts you on their payroll "
+"at the terminal named, and it is final. Escape returns to the terminal."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+#: crates/freight-fate/src/states/city/choose_carrier.rs
+msgid "Stay with {carrier}: {city} terminal"
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+#: crates/freight-fate/src/states/city/choose_carrier.rs
+msgid "Stay with {carrier}: moves your home to {city}"
+msgstr ""
+
+#. placeholders: {t}
+#: crates/freight-fate/src/states/city/choose_carrier.rs crates/freight-fate/src/states/city_business/carrier_move.rs crates/freight-fate/src/states/main_menu_career.rs
+msgid " Truck starts at {t}."
+msgstr ""
+
+#. placeholders: {name}, {summary}, {starts}
+#: crates/freight-fate/src/states/city/choose_carrier.rs
+msgid "{name}. {summary}{starts} Double tap again to choose."
+msgstr ""
+
+#. placeholders: {summary}, {starts}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/choose_carrier.rs
+msgid "{summary}{starts} Double tap again to choose."
+msgstr ""
+
+#. placeholders: {name}, {summary}, {starts}
+#: crates/freight-fate/src/states/city/choose_carrier.rs
+msgid "{name}. {summary}{starts} Press Enter again to choose."
+msgstr ""
+
+#. placeholders: {summary}, {starts}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/choose_carrier.rs
+msgid "{summary}{starts} Press Enter again to choose."
+msgstr ""
+
 #: crates/freight-fate/src/states/city/close_out.rs crates/freight-fate/src/states/city/terminal.rs
 msgid "Close out this career"
 msgstr ""
@@ -24526,12 +24731,6 @@ msgid ""
 "waiting.{moved} The dispatch board is open again."
 msgstr ""
 
-#. placeholders: {name}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/extras.rs
-msgid "{name} has taken you on."
-msgstr ""
-
 #. placeholders: {name}, {city}, {moved}
 #: crates/freight-fate/src/states/city/extras.rs
 msgid ""
@@ -24580,6 +24779,40 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid "Career plan"
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "Stay, or pick who you drive for next."
+msgstr ""
+
+#. placeholders: {carrier}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "{carrier} changed where it runs."
+msgstr ""
+
+#. placeholders: {carrier}
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid ""
+"{carrier} changed where it runs. Stay, or pick who you drive for next."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "Pick who you drive for next."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "{carrier} no longer dispatches from {city}."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid ""
+"{carrier} no longer dispatches from {city}. Pick who you drive for next."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
@@ -25952,11 +26185,6 @@ msgstr ""
 #. placeholders: {label}
 #: crates/freight-fate/src/states/city_business/carrier_move.rs
 msgid "Move to {label}"
-msgstr ""
-
-#. placeholders: {t}
-#: crates/freight-fate/src/states/city_business/carrier_move.rs crates/freight-fate/src/states/main_menu_career.rs
-msgid " Truck starts at {t}."
 msgstr ""
 
 #. placeholders: {carrier_name}, {menu_summary}, {starts}
