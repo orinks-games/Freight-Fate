@@ -7428,9 +7428,9 @@ a carrier slice (owner, 2026-10-26).
 - [x] The Roadhouse airs hiring ads for fifteen carriers (Northstar, Prairie
       Link, Summit Value, Great Lakes Training, Winterset, Double Springs,
       Open Hearth, Longspur, Great Shield, Chehalis, Tehachapi, Lone Mesa,
-      Androscoggin, Chatanika and Olentangy Valley), and no other ads. The
-      country, classic rock, gospel, Tejano, blues and jazz stations carry
-      them beside their own ads; Meridian stays off the Roadhouse.
+      Androscoggin, Chatanika and Olentangy Valley). The country, classic
+      rock, gospel, Tejano, blues and jazz stations carry them beside their
+      own ads; Meridian stays off the Roadhouse.
 - [x] New Roadhouse host breaks and legal ID, two spoken liners
       (`id_roadhouse_09`, `_10`) and the sung Coast to Coast ID (`_08`). The
       clips are kept in `assets/radio-2.0/pack-overlay/` as the source of
@@ -7441,6 +7441,9 @@ a carrier slice (owner, 2026-10-26).
       yet.
 - [ ] (Found along the way) Air a regional or local carrier's spot only on
       stations inside its hiring area.
+- [ ] (Found along the way) "What's playing" could name the carrier during
+      a spot on a built-in station; today it says the station sends no song
+      information.
 
 ### Winter cab, wipers and ice roads (designed November 22)
 

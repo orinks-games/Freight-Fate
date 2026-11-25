@@ -570,7 +570,8 @@ const AD_ROWS: &[(&str, &str, f64)] = &[
 /// the one list of them: they join the shared rotation in [`ContentTables`],
 /// air on every [`HIRING_AD_FORMATS`] pool, and are the whole of the
 /// Roadhouse's ad pool (see [`ContentTables::station_ads`]). The title is the
-/// carrier's name, which "what's playing" reads during the spot.
+/// carrier's name; nothing reads it aloud yet, since built-in stations send
+/// no song information.
 const CARRIER_HIRING_ADS: &[(&str, &str, f64)] = &[
     (
         "ad_northstar_freight_hiring",
