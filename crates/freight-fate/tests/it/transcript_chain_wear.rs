@@ -121,5 +121,9 @@ fn chains_left_on_bare_road_still_slap_and_snap_later() {
         (snap_at - 14.45).abs() < 0.4,
         "snap {snap_at} miles into bare road"
     );
-    assert!(said_any(&harness, "Damage 4 percent."));
+    // The snap line ends with the truck's damage (issue 533). On the 2.0
+    // map lane keeping drops out on snow, so the unsteered bench truck can
+    // pick up shoulder damage first: read the figure off the truck.
+    let damage = harness.read_drive(|d| d.truck().damage_pct);
+    assert!(said_any(&harness, &format!("Damage {damage:.0} percent.")));
 }

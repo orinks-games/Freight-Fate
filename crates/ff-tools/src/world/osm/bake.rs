@@ -616,11 +616,13 @@ mod tests {
         let samples = bake(ways.clone(), "I-55 / MS-7");
         let mph: Vec<_> = samples.iter().map(|s| s.mph).collect();
         assert_eq!(mph, [Some(70), Some(30)], "{samples:?}");
-        // A whole-interstate label still refuses the street: past the
-        // interstate there is only a gap.
+        // A whole-interstate label still refuses the street mid-leg, and
+        // keeps it only in the town reach at the leg's end (dev PR 811).
         let samples = bake(ways, "I-55");
         let mph: Vec<_> = samples.iter().map(|s| s.mph).collect();
-        assert_eq!(mph, [Some(70), None], "{samples:?}");
+        assert_eq!(mph, [Some(70), Some(30)], "{samples:?}");
+        let total = leg_line().length_m() / M_PER_MI;
+        assert!(samples[1].at_mi >= total - TOWN_REACH_MI - 0.5, "{samples:?}");
     }
 
     #[test]

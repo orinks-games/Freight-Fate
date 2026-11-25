@@ -397,7 +397,7 @@ mod tests {
              # leave empty: a loose frame\nmsgid \"{c} left\"\nmsgstr \"\"\n",
         )
         .unwrap();
-        let (problems, total, translated) = check_file("es", &path).unwrap();
+        let (problems, total, translated, _) = check_file("es", &path).unwrap();
         std::fs::remove_dir_all(&dir).ok();
         assert_eq!((total, translated), (2, 1));
         assert_eq!(problems.len(), 1, "{problems:?}");

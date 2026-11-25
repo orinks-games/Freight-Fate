@@ -22,7 +22,9 @@ fn chain_drive(
     at: f64,
     areas: Vec<(f64, f64)>,
 ) -> SharedState {
-    app.ctx.settings.imperial_units = true;
+    app.ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     app.ctx.settings.destination_approach_assist = assist;
     let drive = a_drive_between(app, "Denver", "Silverthorne", "Carrier");
     {

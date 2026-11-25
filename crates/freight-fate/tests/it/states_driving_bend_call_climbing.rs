@@ -18,7 +18,12 @@ const MPS_PER_MPH: f64 = 0.44704;
 /// Pull away under cruise set to `set_mph` from 25 mph, a 30 mph sharp left
 /// half a mile ahead, and return the truck's speed when the call was spoken.
 fn call_speed_climbing_to(set_mph: f64) -> Option<f64> {
-    let corridor = corridors(1).pop().expect("the world has a corridor");
+    // A US corridor, in miles per hour: on the 2.0 map the first corridor
+    // alphabetically is Canadian, where cruise steps in kilometres.
+    let corridor = corridors(60)
+        .into_iter()
+        .find(|c| c.origin.ends_with("_us"))
+        .expect("the world has a US corridor");
     let mut harness = PlaytestHarness::new();
     harness.app.ctx.settings.time_scale = 1.0;
     harness.app.ctx.settings.automatic_transmission = true;

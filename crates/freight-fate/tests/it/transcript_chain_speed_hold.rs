@@ -49,7 +49,11 @@ fn chained_descent(name: &str, grade: f64, weather: WeatherKind, cargo_kg: f64) 
         d.trip.position_mi = at;
     });
     harness.app.ctx.settings.time_scale = 10.0;
-    harness.app.ctx.settings.imperial_units = true;
+    harness
+        .app
+        .ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     harness.app.ctx.settings.destination_approach_assist = false;
     harness.with_drive(move |d, ctx| {
         d.weather_mut().current = weather;
@@ -134,7 +138,11 @@ fn cruise_holds_a_chained_truck_under_chain_speed_down_a_mountain_grade() {
 #[test]
 fn too_fast_for_chains_speaks_at_each_new_onset() {
     let mut harness = bench_drive("Chain onsets", 55.0, 0.0);
-    harness.app.ctx.settings.imperial_units = true;
+    harness
+        .app
+        .ctx
+        .settings
+        .set_units_mode(ff_core::units::UnitsMode::Imperial);
     harness.with_drive(|d, _| {
         d.weather_mut().current = WeatherKind::Snow;
         d.weather_mut().forced = Some(WeatherKind::Snow);
