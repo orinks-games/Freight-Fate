@@ -622,7 +622,10 @@ mod tests {
         let mph: Vec<_> = samples.iter().map(|s| s.mph).collect();
         assert_eq!(mph, [Some(70), Some(30)], "{samples:?}");
         let total = leg_line().length_m() / M_PER_MI;
-        assert!(samples[1].at_mi >= total - TOWN_REACH_MI - 0.5, "{samples:?}");
+        assert!(
+            samples[1].at_mi >= total - TOWN_REACH_MI - 0.5,
+            "{samples:?}"
+        );
     }
 
     #[test]
