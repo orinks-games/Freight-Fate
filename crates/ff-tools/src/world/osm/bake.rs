@@ -25,9 +25,12 @@ pub const MATCH_CORRIDOR_M: f64 = 90.0;
 pub const SAMPLE_M: f64 = 402.0;
 /// A posting-free run longer than this becomes an explicit gap.
 pub const SPEED_GAP_MI: f64 = 4.0;
-/// No US interstate mainline posts below this, so a lower match on an
-/// interstate leg is a frontage road or a ramp.
+/// No US interstate mainline posts below this, so a lower match beside the
+/// leg's Interstate is a frontage road or a ramp.
 pub const INTERSTATE_MIN_PLAUSIBLE_MPH: f64 = 45.0;
+/// How far from a leg's end its town streets may run: the game's urban
+/// radius (`ff_core::sim::trip_models::URBAN_RADIUS_MI`).
+pub const TOWN_REACH_MI: f64 = 6.0;
 
 const KMH_TO_MPH: f64 = 0.621371;
 const NON_NUMERIC: &[&str] = &["none", "signals", "walk", "variable", "no", "unknown"];
@@ -180,6 +183,13 @@ pub fn bake_leg(
     };
     let mile = |m: f64| round_py_n(m / M_PER_MI * scale, 1);
     let shield = digit_groups(highway);
+    // The floor applies only where the Interstate itself is in the
+    // corridor. A leg is labelled for the road it rides most, but its first
+    // and last miles are town streets from the city pin to the freeway, and
+    // their real 20 to 40 mph postings must survive (2026-11-23: the floor
+    // on the whole leg threw them out and the open-road figure filled the
+    // town).
+    let interstate_nums = interstate_numbers(highway);
     let interstate = is_interstate(highway);
     // A combined label's interstate numbers: there the street floor holds
     // only where one of its interstates is in the corridor.
@@ -232,8 +242,22 @@ pub fn bake_leg(
                 best = Some((mph, hgv, on_shield, d, way.sign_kmh(canada)));
             }
         }
+        let beside_interstate = !interstate_nums.is_empty()
+            && index
+                .near(lat, lon, MATCH_CORRIDOR_M + 1e-9, coslat)
+                .iter()
+                .any(|(way, _)| ref_matches_shield(&way.route_ref, &interstate_nums));
+        // Away from the towns at its ends an Interstate leg keeps the floor
+        // even where no Interstate way is in reach: measured on the
+        // 2026-10-19 planet, the sub-45 matches left mid-leg that way were
+        // mostly beside the freeway itself (I-90 over the Des Moines River,
+        // I-95 at Mystic), where the archived route runs wide of the way.
+        let mid_leg = interstate && at_mi > TOWN_REACH_MI && at_mi < total_mi - TOWN_REACH_MI;
+        // A combined label floors where one of its interstates is in the
+        // corridor (`on_interstate`), as before.
+        let floored = beside_interstate || mid_leg || (on_interstate && !interstate);
         let read = best
-            .filter(|b| !(on_interstate && b.0 < INTERSTATE_MIN_PLAUSIBLE_MPH))
+            .filter(|b| !(floored && b.0 < INTERSTATE_MIN_PLAUSIBLE_MPH))
             .map(|(mph, hgv, _, _, kmh)| (mph as i64, hgv, None, kmh));
         let unposted = || {
             regions
@@ -299,18 +323,17 @@ const SURFACE_MIN_SPAN_MI: f64 = 5.0;
 const SURFACE_SOLE_SAMPLE_MIN_LEG_MI: f64 = 15.0;
 
 /// The anchor repair (`repair_interstate_anchor_limits.py`), applied to one
-/// fresh profile: interstate legs lose every sub-45 posting; a surface leg
+/// fresh profile. An Interstate leg is left as `bake_leg` read it: the
+/// sub-45 floor already ran there, sample by sample, wherever the
+/// Interstate was in the corridor, and a sub-45 posting it kept is a town
+/// street at the leg's end, not a frontage road. A surface leg
 /// loses a city-street mile-0 anchor that the road's own character
 /// contradicts, or a lone street posting owning a long leg. Returns how
 /// many postings it dropped.
 pub fn repair(highway: &str, leg_miles: f64, samples: &mut Vec<Sample>) -> usize {
     let before = samples.len();
     if is_interstate(highway) {
-        samples.retain(|s| {
-            s.mph
-                .is_none_or(|m| m as f64 >= INTERSTATE_MIN_PLAUSIBLE_MPH)
-        });
-        return before - samples.len();
+        return 0;
     }
     let numeric: Vec<&Sample> = samples.iter().filter(|s| s.mph.is_some()).collect();
     let mph = |s: &Sample| s.mph.map(|m| m as f64).unwrap_or(0.0);
@@ -542,9 +565,44 @@ mod tests {
     }
 
     #[test]
-    fn interstate_legs_never_take_a_street_limit() {
+    fn a_street_beside_the_interstate_is_not_its_limit() {
+        // A 30 frontage road 60 m off a 70 mph I-80 that has no other way.
+        let samples = bake(
+            vec![
+                way(1, "", 30.0, 40.0, -100.1, -99.5),
+                way(2, "I 80", 70.0, 40.00055, -100.1, -99.5),
+            ],
+            "I-80",
+        );
+        assert!(samples.iter().all(|s| s.mph != Some(30)), "{samples:?}");
+    }
+
+    #[test]
+    fn an_unposted_interstate_still_marks_the_frontage_road() {
+        let mut interstate = way(2, "I 80", 70.0, 40.00055, -100.1, -99.5);
+        interstate.mph = None;
+        let samples = bake(
+            vec![way(1, "", 30.0, 40.0, -100.1, -99.5), interstate],
+            "I-80",
+        );
+        assert!(samples.iter().all(|s| s.mph != Some(30)), "{samples:?}");
+    }
+
+    #[test]
+    fn town_streets_on_an_interstate_leg_keep_their_postings() {
+        // The leg starts on a 30 town street with no Interstate in reach.
         let samples = bake(vec![way(1, "", 30.0, 40.0, -100.1, -99.5)], "I-80");
-        assert!(samples.is_empty(), "{samples:?}");
+        assert_eq!(samples.first().and_then(|s| s.mph), Some(30), "{samples:?}");
+        let combined = bake(vec![way(1, "", 30.0, 40.0, -100.1, -99.5)], "MS-7 / I-55");
+        assert_eq!(combined.first().and_then(|s| s.mph), Some(30));
+    }
+
+    #[test]
+    fn interstate_numbers_come_from_every_part_of_the_label() {
+        assert_eq!(interstate_numbers("I-55 / MS-7"), vec!["55"]);
+        assert_eq!(interstate_numbers("US-61 / I-55"), vec!["55"]);
+        assert_eq!(interstate_numbers("I-80"), vec!["80"]);
+        assert!(interstate_numbers("US-60").is_empty());
     }
 
     #[test]
@@ -603,8 +661,9 @@ mod tests {
         assert_eq!(samples, vec![s(22.0, 65)]);
         let mut town = vec![s(0.0, 25), s(2.0, 65)];
         assert_eq!(repair("US-60", 40.0, &mut town), 0);
-        let mut interstate = vec![s(0.0, 70), s(3.0, 40), s(4.0, 70)];
-        assert_eq!(repair("I-55", 40.0, &mut interstate), 1);
+        // The floor ran in bake_leg; what it kept on an Interstate leg stays.
+        let mut interstate = vec![s(0.0, 30), s(3.0, 70)];
+        assert_eq!(repair("I-55", 40.0, &mut interstate), 0);
         // A combined label is not an interstate leg: its town limits stay.
         let mut mixed = vec![s(0.0, 70), s(50.0, 55), s(58.7, 30)];
         assert_eq!(repair("I-55 / MS-7", 59.0, &mut mixed), 0);

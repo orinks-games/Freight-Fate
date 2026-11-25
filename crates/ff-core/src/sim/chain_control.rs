@@ -20,13 +20,18 @@
 //! - [`ChainSet`] is the chains against the road. It emits one cue,
 //!   [`ChainSetCue::BareRoad`], once chains on have run
 //!   [`CHAIN_OFF_BARE_MI`] of bare road, and re-arms only after the road
-//!   returns to snow or ice or the chains come off.
+//!   returns to snow or ice or the chains come off. Past
+//!   [`CHAIN_BARE_GRACE_MI`] it reads `on_bare_wearing`: the set wears at
+//!   the bare rate from there.
 //!
 //! `truck.chains_on` and `truck.chains_just_snapped` stay the physics'
-//! inputs (wear, grip, the snap): `ChainSet` owns only the bare-road run.
+//! inputs (wear, grip, the snap), and `truck.chain_bare_mi` is the bare
+//! stretch's one counter: the physics keeps it, `ChainSet` reads it.
 
 /// Bare road a chained truck runs before it is told to take them off.
 pub const CHAIN_OFF_BARE_MI: f64 = 0.5;
+
+pub use crate::sim::vehicle::CHAIN_BARE_GRACE_MI;
 
 /// What the road says at the truck: its surface ("dry", "wet", "snow",
 /// "ice") and whether a live warning calls for chains on every truck.
@@ -130,16 +135,19 @@ impl ChainControl {
 }
 
 /// Where the truck's chains stand against the road.
-#[derive(Clone, Copy, Debug, Default, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub enum ChainSet {
     /// In the side box (or none aboard).
     #[default]
     Stowed,
     /// On, over snow or ice.
     OnSnow,
-    /// On, over bare road since route mile `since_mi`; `cued` once the
-    /// bare-road cue went out for this stretch.
-    OnBare { since_mi: f64, cued: bool },
+    /// On, over bare road. `cued` once the bare-road cue went out for this
+    /// stretch; `wearing` once the stretch has run past its grace
+    /// (`CHAIN_BARE_GRACE_MI`) and the set wears at the bare rate. The miles
+    /// are the truck's (`TruckState::chain_bare_mi`), the stretch's one
+    /// owner; this state only reads them.
+    OnBare { cued: bool, wearing: bool },
     /// Worn through and off the wheels; a repair link puts them back on.
     Broken,
 }
@@ -149,18 +157,17 @@ pub enum ChainSet {
 pub enum ChainSetEvent {
     Installed {
         surface_snow: bool,
-        mile: f64,
     },
     Removed,
-    /// The road at route mile `mile`: snow or ice, or bare.
+    /// The road under the truck: snow or ice, or bare, with the miles the
+    /// chains have run on this bare stretch (`TruckState::chain_bare_mi`).
     Road {
         snow: bool,
-        mile: f64,
+        bare_mi: f64,
     },
     WornThrough,
     Repaired {
         surface_snow: bool,
-        mile: f64,
     },
 }
 
@@ -173,18 +180,19 @@ pub enum ChainSetCue {
 
 impl ChainSet {
     /// The state a resumed drive rebuilds from what it stores: the chains
-    /// on or not, and the road under them now.
-    pub fn from_truck(chains_on: bool, surface_snow: bool, mile: f64) -> ChainSet {
-        Self::on(chains_on, surface_snow, mile)
+    /// on or not, and the road under them now. A bare stretch starts its
+    /// grace again, since its miles are not saved.
+    pub fn from_truck(chains_on: bool, surface_snow: bool) -> ChainSet {
+        Self::on(chains_on, surface_snow)
     }
 
-    fn on(chains_on: bool, surface_snow: bool, mile: f64) -> ChainSet {
+    fn on(chains_on: bool, surface_snow: bool) -> ChainSet {
         match (chains_on, surface_snow) {
             (false, _) => ChainSet::Stowed,
             (true, true) => ChainSet::OnSnow,
             (true, false) => ChainSet::OnBare {
-                since_mi: mile,
                 cued: false,
+                wearing: false,
             },
         }
     }
@@ -197,30 +205,28 @@ impl ChainSet {
             (_, Removed) => (Stowed, None),
             (OnSnow | OnBare { .. }, WornThrough) => (Broken, None),
             (state, WornThrough) => (state, None),
-            (_, Installed { surface_snow, mile }) => (Self::on(true, surface_snow, mile), None),
-            (Broken, Repaired { surface_snow, mile }) => (Self::on(true, surface_snow, mile), None),
+            (_, Installed { surface_snow }) => (Self::on(true, surface_snow), None),
+            (Broken, Repaired { surface_snow }) => (Self::on(true, surface_snow), None),
             (state, Repaired { .. }) => (state, None),
             (Stowed | Broken, Road { .. }) => (self, None),
             (OnSnow | OnBare { .. }, Road { snow: true, .. }) => (OnSnow, None),
-            (OnSnow, Road { snow: false, mile }) => (
-                OnBare {
-                    since_mi: mile,
-                    cued: false,
+            (OnSnow, Road { snow: false, .. }) => (Self::on(true, false), None),
+            (
+                OnBare { cued, .. },
+                Road {
+                    snow: false,
+                    bare_mi,
                 },
-                None,
-            ),
-            (OnBare { since_mi, cued }, Road { snow: false, mile }) => {
-                if !cued && (mile - since_mi).abs() >= CHAIN_OFF_BARE_MI {
-                    (
-                        OnBare {
-                            since_mi,
-                            cued: true,
-                        },
-                        Some(ChainSetCue::BareRoad),
-                    )
-                } else {
-                    (OnBare { since_mi, cued }, None)
-                }
+            ) => {
+                let wearing = bare_mi > CHAIN_BARE_GRACE_MI;
+                let cue = !cued && bare_mi >= CHAIN_OFF_BARE_MI;
+                (
+                    OnBare {
+                        cued: cued || cue,
+                        wearing,
+                    },
+                    cue.then_some(ChainSetCue::BareRoad),
+                )
             }
         }
     }
@@ -230,7 +236,8 @@ impl ChainSet {
         match self {
             ChainSet::Stowed => "stowed",
             ChainSet::OnSnow => "on_snow",
-            ChainSet::OnBare { .. } => "on_bare",
+            ChainSet::OnBare { wearing: false, .. } => "on_bare",
+            ChainSet::OnBare { wearing: true, .. } => "on_bare_wearing",
             ChainSet::Broken => "broken",
         }
     }
@@ -296,165 +303,86 @@ mod tests {
     fn chain_set_transition_table() {
         use ChainSet::*;
         use ChainSetEvent::*;
-        let bare = |since_mi, cued| OnBare { since_mi, cued };
+        let bare = |cued, wearing| OnBare { cued, wearing };
+        let road = |snow, bare_mi| Road { snow, bare_mi };
         let cue = Some(ChainSetCue::BareRoad);
         let cases: &[(ChainSet, ChainSetEvent, ChainSet, Option<ChainSetCue>)] = &[
-            (
-                Stowed,
-                Road {
-                    snow: false,
-                    mile: 3.0,
-                },
-                Stowed,
-                None,
-            ),
+            (Stowed, road(false, 0.0), Stowed, None),
             (Stowed, Removed, Stowed, None),
             (Stowed, WornThrough, Stowed, None),
-            (
-                Stowed,
-                Repaired {
-                    surface_snow: true,
-                    mile: 0.0,
-                },
-                Stowed,
-                None,
-            ),
-            (
-                Stowed,
-                Installed {
-                    surface_snow: true,
-                    mile: 1.0,
-                },
-                OnSnow,
-                None,
-            ),
+            (Stowed, Repaired { surface_snow: true }, Stowed, None),
+            (Stowed, Installed { surface_snow: true }, OnSnow, None),
             (
                 Stowed,
                 Installed {
                     surface_snow: false,
-                    mile: 1.0,
                 },
-                bare(1.0, false),
+                bare(false, false),
                 None,
             ),
-            (
-                OnSnow,
-                Road {
-                    snow: true,
-                    mile: 2.0,
-                },
-                OnSnow,
-                None,
-            ),
-            (
-                OnSnow,
-                Road {
-                    snow: false,
-                    mile: 2.0,
-                },
-                bare(2.0, false),
-                None,
-            ),
+            (OnSnow, road(true, 0.0), OnSnow, None),
+            (OnSnow, road(false, 0.01), bare(false, false), None),
             (OnSnow, WornThrough, Broken, None),
             (OnSnow, Removed, Stowed, None),
+            // Inside the grace: not cued yet, then cued, still not wearing.
             (
-                bare(2.0, false),
-                Road {
-                    snow: false,
-                    mile: 2.4,
-                },
-                bare(2.0, false),
+                bare(false, false),
+                road(false, 0.4),
+                bare(false, false),
                 None,
             ),
+            (bare(false, false), road(false, 0.5), bare(true, false), cue),
+            (bare(true, false), road(false, 1.9), bare(true, false), None),
+            (bare(true, false), road(false, 2.0), bare(true, false), None),
+            // Past the grace: wearing at the bare rate.
+            (bare(true, false), road(false, 2.01), bare(true, true), None),
+            (bare(true, true), road(false, 9.0), bare(true, true), None),
+            // A stretch that jumped past both at once (a frame after a stop)
+            // cues and wears together.
+            (bare(false, false), road(false, 2.5), bare(true, true), cue),
+            // Snow ends the stretch; the next one gets a fresh grace.
+            (bare(true, true), road(true, 0.0), OnSnow, None),
+            (bare(true, true), Removed, Stowed, None),
+            (bare(true, true), WornThrough, Broken, None),
             (
-                bare(2.0, false),
-                Road {
-                    snow: false,
-                    mile: 2.5,
-                },
-                bare(2.0, true),
-                cue,
-            ),
-            (
-                bare(2.0, true),
-                Road {
-                    snow: false,
-                    mile: 9.0,
-                },
-                bare(2.0, true),
-                None,
-            ),
-            (
-                bare(2.0, true),
-                Road {
-                    snow: true,
-                    mile: 9.0,
-                },
-                OnSnow,
-                None,
-            ),
-            (bare(2.0, true), Removed, Stowed, None),
-            (bare(2.0, true), WornThrough, Broken, None),
-            (
-                bare(2.0, true),
+                bare(true, true),
                 Installed {
                     surface_snow: false,
-                    mile: 9.0,
                 },
-                bare(9.0, false),
+                bare(false, false),
                 None,
             ),
-            (
-                Broken,
-                Road {
-                    snow: false,
-                    mile: 9.0,
-                },
-                Broken,
-                None,
-            ),
-            (
-                Broken,
-                Repaired {
-                    surface_snow: true,
-                    mile: 9.0,
-                },
-                OnSnow,
-                None,
-            ),
+            (Broken, road(false, 0.0), Broken, None),
+            (Broken, Repaired { surface_snow: true }, OnSnow, None),
             (
                 Broken,
                 Repaired {
                     surface_snow: false,
-                    mile: 9.0,
                 },
-                bare(9.0, false),
+                bare(false, false),
                 None,
             ),
             (Broken, Removed, Stowed, None),
-            (
-                Broken,
-                Installed {
-                    surface_snow: true,
-                    mile: 9.0,
-                },
-                OnSnow,
-                None,
-            ),
+            (Broken, Installed { surface_snow: true }, OnSnow, None),
         ];
         for &(from, event, to, out) in cases {
             assert_eq!(from.next(event), (to, out), "{from:?} on {event:?}");
         }
+        assert_eq!(bare(false, false).key(), "on_bare");
+        assert_eq!(bare(true, true).key(), "on_bare_wearing");
     }
 
     #[test]
     fn bare_road_cues_once_per_stretch() {
-        let mut set = ChainSet::from_truck(true, true, 0.0);
+        // The truck's counter: miles on this bare stretch, 0 on snow.
+        let mut set = ChainSet::from_truck(true, true);
         let mut cues = Vec::new();
+        let mut bare_mi = 0.0;
         let mut drive = |set: &mut ChainSet, snow: bool, from: f64, to: f64| {
             let mut mile = from;
             while mile <= to {
-                let (next, cue) = set.next(ChainSetEvent::Road { snow, mile });
+                bare_mi = if snow { 0.0 } else { bare_mi + 0.05 };
+                let (next, cue) = set.next(ChainSetEvent::Road { snow, bare_mi });
                 *set = next;
                 if cue.is_some() {
                     cues.push(mile);
@@ -463,10 +391,11 @@ mod tests {
             }
         };
         drive(&mut set, false, 0.0, 3.0);
+        assert_eq!(set.key(), "on_bare_wearing");
         drive(&mut set, true, 3.05, 4.0);
         drive(&mut set, false, 4.05, 6.0);
         assert_eq!(cues.len(), 2, "{cues:?}");
-        assert!((cues[0] - 0.5).abs() < 0.06, "{cues:?}");
-        assert!((cues[1] - 4.55).abs() < 0.06, "{cues:?}");
+        assert!((cues[0] - 0.45).abs() < 0.06, "{cues:?}");
+        assert!((cues[1] - 4.5).abs() < 0.06, "{cues:?}");
     }
 }

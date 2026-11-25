@@ -17,15 +17,21 @@
 //! empty: it is a loose frame ("{cargo_label} for {destination}") that, once
 //! translated, takes lines its older whole-line entries covered and leaves
 //! them half English.
+//!
+//! An entry filled with its own English counts as translated, so a
+//! placeholder copy hides a gap from `--stats`. An entry that still equals
+//! its English while at least [`SAME_AS_ENGLISH_OTHERS`] other languages
+//! translate it is reported, unless a translator comment
+//! ([`SAME_AS_ENGLISH`]) says the word really is the same in that language.
 
-use std::collections::BTreeSet;
+use std::collections::{BTreeSet, HashMap};
 use std::path::Path;
 use std::sync::LazyLock;
 
 use regex::Regex;
 
 use super::extract::{lang_dir, language_codes, LANGUAGES};
-use super::po::parse_po;
+use super::po::{parse_po, Entry};
 use crate::cli::{Args, Spec};
 use crate::util::{self, Result};
 
@@ -68,6 +74,14 @@ fn must_stay_empty(translator_comments: &[String]) -> bool {
         .iter()
         .any(|note| note.starts_with(LEAVE_EMPTY))
 }
+
+/// The translator comment that keeps an entry equal to its English, as in
+/// `# same as English` above a French "Garage" or a German "Status".
+pub const SAME_AS_ENGLISH: &str = "same as English";
+
+/// How many other languages must translate an entry before one that keeps
+/// the English is reported. Of eleven languages, six is most of them.
+pub const SAME_AS_ENGLISH_OTHERS: usize = 6;
 
 /// Python's `repr()` of a string, for naming an entry in a report.
 pub fn py_repr(s: &str) -> String {
@@ -222,19 +236,22 @@ fn check_entry(code: &str, msgid: &str, msgstr: &str) -> Vec<String> {
     problems
 }
 
-fn check_file(code: &str, path: &Path) -> Result<(Vec<String>, usize, usize)> {
-    let name = path
-        .file_name()
+fn file_name(path: &Path) -> String {
+    path.file_name()
         .unwrap_or_default()
         .to_string_lossy()
-        .into_owned();
+        .into_owned()
+}
+
+fn check_file(code: &str, path: &Path) -> Result<(Vec<String>, usize, usize, Vec<Entry>)> {
+    let name = file_name(path);
     let entries = match parse_po(&util::read_text(path)?) {
         Ok(entries) => entries,
-        Err(err) => return Ok((vec![format!("{name}: {err}")], 0, 0)),
+        Err(err) => return Ok((vec![format!("{name}: {err}")], 0, 0, Vec::new())),
     };
     let mut problems = Vec::new();
     let (mut total, mut translated) = (0, 0);
-    for entry in entries {
+    for entry in &entries {
         if entry.msgid.is_empty() || entry.obsolete {
             continue;
         }
@@ -259,7 +276,42 @@ fn check_file(code: &str, path: &Path) -> Result<(Vec<String>, usize, usize)> {
             ));
         }
     }
-    Ok((problems, total, translated))
+    Ok((problems, total, translated, entries))
+}
+
+/// Entries left equal to their English where most other languages
+/// translate them, across every language file at once.
+fn same_as_english(files: &[(String, Vec<Entry>)]) -> Vec<String> {
+    let live = |e: &Entry| !e.msgid.is_empty() && !e.obsolete && !e.fuzzy();
+    let mut translations: HashMap<(Option<String>, String), usize> = HashMap::new();
+    for (_, entries) in files {
+        for entry in entries.iter().filter(|e| live(e)) {
+            if !entry.msgstr.is_empty() && entry.msgstr != entry.msgid {
+                *translations.entry(entry.key()).or_default() += 1;
+            }
+        }
+    }
+    let mut problems = Vec::new();
+    for (name, entries) in files {
+        for entry in entries.iter().filter(|e| live(e)) {
+            let others = translations.get(&entry.key()).copied().unwrap_or(0);
+            let kept = entry
+                .translator_comments
+                .iter()
+                .any(|note| note == SAME_AS_ENGLISH);
+            if entry.msgstr == entry.msgid && others >= SAME_AS_ENGLISH_OTHERS && !kept {
+                let short: String = entry.msgid.chars().take(70).collect();
+                problems.push(format!(
+                    "{name}:{}: still its English while {others} other languages \
+                     translate it; translate it, or add \"# {SAME_AS_ENGLISH}\" \
+                     above it if the words are the same: {}",
+                    entry.line,
+                    py_repr(&short)
+                ));
+            }
+        }
+    }
+    problems
 }
 
 pub fn main(argv: &[String]) -> Result<i32> {
@@ -272,6 +324,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     )
     .map_err(|e| format!("{e}\nusage: l10n-check [--stats]"))?;
     let mut failed = false;
+    let mut files = Vec::new();
     for code in language_codes() {
         let name = LANGUAGES
             .iter()
@@ -283,7 +336,8 @@ pub fn main(argv: &[String]) -> Result<i32> {
             failed = true;
             continue;
         }
-        let (problems, total, translated) = check_file(&code, &path)?;
+        let (problems, total, translated, entries) = check_file(&code, &path)?;
+        files.push((file_name(&path), entries));
         for problem in &problems {
             println!("{problem}");
         }
@@ -300,6 +354,11 @@ pub fn main(argv: &[String]) -> Result<i32> {
             );
         }
     }
+    let same = same_as_english(&files);
+    for problem in &same {
+        println!("{problem}");
+    }
+    failed |= !same.is_empty();
     Ok(i32::from(failed))
 }
 
@@ -357,10 +416,41 @@ mod tests {
 
     #[test]
     fn committed_language_files_pass() {
+        let mut files = Vec::new();
         for code in language_codes() {
             let path = lang_dir().join(format!("{code}.po"));
-            let (problems, _, _) = check_file(&code, &path).unwrap();
+            let (problems, _, _, entries) = check_file(&code, &path).unwrap();
             assert!(problems.is_empty(), "{problems:?}");
+            files.push((file_name(&path), entries));
         }
+        let same = same_as_english(&files);
+        assert!(same.is_empty(), "{same:?}");
+    }
+
+    #[test]
+    fn an_english_copy_is_reported_unless_marked() {
+        let entry = |msgid: &str, msgstr: &str| Entry {
+            msgid: msgid.into(),
+            msgstr: msgstr.into(),
+            line: 3,
+            ..Entry::default()
+        };
+        let mut files: Vec<(String, Vec<Entry>)> = (0..SAME_AS_ENGLISH_OTHERS)
+            .map(|i| {
+                (
+                    format!("l{i}.po"),
+                    vec![entry("fog", "niebla"), entry("Radio", "Radyo")],
+                )
+            })
+            .collect();
+        let mut kept = entry("Radio", "Radio");
+        kept.translator_comments.push(SAME_AS_ENGLISH.into());
+        files.push(("fr.po".into(), vec![entry("fog", "fog"), kept]));
+        let problems = same_as_english(&files);
+        assert_eq!(problems.len(), 1, "{problems:?}");
+        assert!(problems[0].starts_with("fr.po:3: still its English while 6 other"));
+        // Fewer translations than the threshold: a name, not a gap.
+        files.remove(0);
+        assert!(same_as_english(&files).is_empty());
     }
 }

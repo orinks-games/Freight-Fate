@@ -92,3 +92,41 @@ fn a_custom_career_name_skips_capitalization_and_article_contraction() {
         );
     }
 }
+
+#[test]
+fn a_co_driver_named_june_stays_verbatim_while_calendar_months_translate() {
+    let cases = [
+        ("vi", include_str!("../../../../../lang/vi.po"), "Tháng Sáu"),
+        ("tr", include_str!("../../../../../lang/tr.po"), "Haziran"),
+    ];
+
+    for (language, po, month) in cases {
+        let translator = Translator::new(Catalog::from_po(language, po).expect("parses"));
+        for line in [
+            "Depart with June driving, and ride along",
+            "Depart with June driving, and sleep",
+        ] {
+            let departure = translator.translate(line);
+            assert_ne!(
+                departure, line,
+                "{language}: departure line is untranslated"
+            );
+            assert!(departure.contains("June"), "{language}: {departure}");
+            assert!(!departure.contains(month), "{language}: {departure}");
+        }
+        let pairing = translator.translate("June, your co-driver.");
+        assert_ne!(pairing, "June, your co-driver.", "{language}: {pairing}");
+        assert!(pairing.starts_with("June"), "{language}: {pairing}");
+
+        let date = crate::sim::season::date_text(24.0 * 100.0);
+        let (date_month, day) = date
+            .split_once(' ')
+            .expect("calendar date has a month and day");
+        assert_eq!((date_month, day), ("June", "29"));
+        assert_eq!(translator.translate(date_month), month);
+        assert!(
+            translator.translate("Locked: June").contains(month),
+            "{language} generic name placeholder should remain translatable"
+        );
+    }
+}

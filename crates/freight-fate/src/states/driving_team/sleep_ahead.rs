@@ -11,7 +11,7 @@
 //! the merge onto the highway and the receiver's exit, streets and gate.
 
 use ff_core::models::co_driver;
-use ff_core::sim::hos::{self, HosClock};
+use ff_core::sim::hos::HosClock;
 use ff_core::sim::team_shift::TeamShiftEvent;
 use ff_core::sim::trip_models::RoadStop;
 
@@ -77,6 +77,10 @@ impl DrivingState {
             && self.pull_over.is_none()
             && self.hazard_deadline.is_none()
             && !self.chain_checkpoint_hold
+            // Chains on, or a chain stop coming: driven live, so the
+            // bare-road cue and the stop happen on the road.
+            && !self.trip.truck.chains_on
+            && self.chain_stop.is_none()
             && !self.departure_chain
             && !self.trip.truck.parking_brake
             && self.decel_lane_brake <= 0.0
@@ -195,10 +199,20 @@ impl DrivingState {
     /// The clocks and the truck over a stretch the co-driver drove while
     /// the player slept.
     fn sleep_drive_clocks(&mut self, ctx: &mut GameContext, jump: Jump) {
+        let start_hour = self.absolute_game_hour(ctx, None);
         self.trip.game_minutes += jump.minutes;
         self.trip.weather.update(jump.minutes);
         self.trip.refresh_chain_control();
         hos_mut_of(ctx).drive(jump.minutes);
+        record_duty_interval(
+            self,
+            ctx,
+            start_hour,
+            start_hour + jump.minutes / 60.0,
+            "driving",
+            "",
+            None,
+        );
         self.trip.last_moved_mi = jump.miles;
         self.update_team_hours(ctx, jump.minutes);
         self.trip.last_moved_mi = 0.0;
@@ -291,13 +305,7 @@ impl DrivingState {
 
     /// Whether the lot at `stop` is full when the truck gets there.
     pub(crate) fn lot_full_now(&self, stop: &RoadStop) -> bool {
-        stop.actions.iter().any(|action| action == "sleep")
-            && hos::parking_is_full(
-                self.trip_seed,
-                stop.at_mi,
-                self.trip.local_hour(),
-                stop.parking_spaces,
-            )
+        self.lot_at(stop).is_full()
     }
 
     /// The stop the co-driver makes for, short of `limit`. The shift's end,

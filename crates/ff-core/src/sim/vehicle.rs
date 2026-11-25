@@ -28,6 +28,7 @@ mod roll;
 mod shifting;
 pub mod traction;
 mod updates;
+pub use updates::chain_wear_pct_per_mile;
 
 pub use traction::{
     crosswind_lateral_g, single_trailer_offtrack_clipping, single_trailer_offtrack_ft,
@@ -46,6 +47,8 @@ pub use hotel::{
 pub use mass::DIESEL_KG_PER_GAL;
 pub use roll::ROLL_WARN_SHARE;
 
+#[cfg(test)]
+mod chain_wear_tests;
 #[cfg(test)]
 mod damage_band_tests;
 #[cfg(test)]
@@ -417,10 +420,21 @@ pub const CHAIN_ICE_GRIP_MULT: f64 = 2.50;
 pub const CHAIN_BARE_GRIP_LOSS: f64 = 0.15;
 /// Chain speed; faster hammers the links apart.
 pub const CHAIN_SAFE_MPH: f64 = 30.0;
+/// Over chain speed: the one number for the overspeed wear and the "Too
+/// fast for chains." warning. Cruise and the keeper hold chains to exactly
+/// `CHAIN_SAFE_MPH`, and a truck holding that sits a hair either side of
+/// it; at a bare `> CHAIN_SAFE_MPH` it paid six times the wear for the
+/// frames it was over, with nothing said (measured 2026-11-23).
+pub const CHAIN_OVERSPEED_MPH: f64 = CHAIN_SAFE_MPH + 2.0;
+/// Bare road a set runs at the base rate before it wears fast: the
+/// bare-road line comes at `CHAIN_OFF_BARE_MI` (0.5), which leaves a mile
+/// and a half to pick a place and stop. A first figure, for the owner's
+/// feel (2026-11-23).
+pub const CHAIN_BARE_GRACE_MI: f64 = 2.0;
 /// About 500 miles of life used right.
 pub const CHAIN_WEAR_PCT_PER_MILE: f64 = 0.2;
 pub const CHAIN_WEAR_OVERSPEED_MULT: f64 = 6.0;
-/// Bare pavement eats a set in a couple of miles.
+/// Bare pavement past the grace eats a set in a dozen miles at chain speed.
 pub const CHAIN_WEAR_BARE_MULT: f64 = 40.0;
 /// The freed cross chains flail the fender and lines.
 pub const CHAIN_SNAP_DAMAGE_PCT: f64 = 4.0;
@@ -576,6 +590,10 @@ pub struct TruckState {
     pub chains_on: bool,
     /// 0 = fresh set, 100 = snapped or scrap
     pub chain_wear_pct: f64,
+    /// Miles the chains have run on this bare stretch: 0 on snow or ice or
+    /// with the chains off. The one owner of the stretch; `ChainSet` reads
+    /// it. Not saved, so a resumed drive starts its grace again.
+    pub chain_bare_mi: f64,
     /// One-shot event flag, consumed by the cue layer.
     pub chains_just_snapped: bool,
     pub odometer_mi: f64,
@@ -759,6 +777,7 @@ impl TruckState {
             tire_type: TIRE_ALL_SEASON.to_string(),
             chains_on: false,
             chain_wear_pct: 0.0,
+            chain_bare_mi: 0.0,
             chains_just_snapped: false,
             odometer_mi: 0.0,
             cargo_kg: REFERENCE_CARGO_KG,

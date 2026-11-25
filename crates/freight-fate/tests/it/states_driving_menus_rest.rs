@@ -621,9 +621,11 @@ fn test_a_full_lot_still_offers_the_pumps_first() {
         rows[1].starts_with("Refuel ") || rows[1].starts_with("Fuel:"),
         "{rows:?}"
     );
-    assert_eq!(rows[2], "Drive on to the next stop");
-    assert!(rows[3].starts_with("Motel room:"), "{rows:?}");
-    assert_eq!(rows[4], "Park on the shoulder and sleep");
+    // A full lot turns away the night only: the break still fits.
+    assert_eq!(rows[2], "Take a 30-minute break");
+    assert_eq!(rows[3], "Drive on to the next stop");
+    assert!(rows[4].starts_with("Motel room:"), "{rows:?}");
+    assert_eq!(rows[5], "Park on the shoulder and sleep");
 }
 
 #[test]

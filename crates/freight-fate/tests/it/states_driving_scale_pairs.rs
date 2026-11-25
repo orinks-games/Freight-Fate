@@ -67,7 +67,12 @@ fn drive_past(rig: &mut Rig, scale_mi: f64, past_mi: f64, reminder: &str) -> Opt
     let mut reminded_at: Option<usize> = None;
     let mut lead = None;
     for frame in 0..20_000 {
-        rig.drive.trip.truck.velocity_mps = mph_to_mps(61.0);
+        // 61 on the highway, at the limit through a town (Memphis's 35
+        // downtown): a truck held over a town limit fills the channel with
+        // speeding lines no driver would be hearing.
+        let here = rig.drive.trip.position_mi;
+        let (limit, _) = rig.drive.trip.speed_limit_at(here);
+        rig.drive.trip.truck.velocity_mps = mph_to_mps(61.0_f64.min(limit.max(45.0)));
         let before = rig.drive.trip.position_mi;
         rig.step(1, DT, None);
         if reminded_at.is_none() && rig.said(reminder) > 0 {

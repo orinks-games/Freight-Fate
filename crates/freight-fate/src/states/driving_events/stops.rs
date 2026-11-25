@@ -2,7 +2,7 @@
 //! intent, and opening a route point's own menu. Planning a stop by its
 //! purpose is `stop_plan`.
 
-use ff_core::sim::hos;
+use ff_core::sim::stop_lot::StopLot;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::speech_pacing::SpeechCategory;
 
@@ -358,6 +358,18 @@ impl DrivingState {
     }
 
     /// `_open_poi_stop(stop, *, settle=False, preferred_rest=None)`.
+    /// The lot at `stop` if the truck pulled in now. The one rule the
+    /// player's stop menu and the co-driver both read.
+    pub fn lot_at(&self, stop: &RoadStop) -> StopLot {
+        StopLot::on_arrival(
+            &stop.actions,
+            self.trip_seed,
+            stop.at_mi,
+            self.trip.local_hour(),
+            stop.parking_spaces,
+        )
+    }
+
     pub fn open_poi_stop(
         &mut self,
         ctx: &mut GameContext,
@@ -439,16 +451,8 @@ impl DrivingState {
             return;
         }
 
-        let can_sleep = stop.actions.iter().any(|action| action == "sleep");
-        if can_sleep
-            && hos::parking_is_full(
-                self.trip_seed,
-                stop.at_mi,
-                self.trip.local_hour(),
-                stop.parking_spaces,
-            )
-        {
-            self.push_parking_full_state(ctx, stop);
+        if self.lot_at(stop).is_full() {
+            self.push_parking_full_state(ctx, stop, preferred_rest);
             return;
         }
         self.push_rest_stop_state(ctx, stop, preferred_rest);

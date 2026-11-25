@@ -723,7 +723,10 @@ impl DrivingState {
     /// it as a teleport (player report, 2026-10-13).
     pub fn handle_missed_turn(&mut self, ctx: &mut GameContext, cue: &NavigationCue) {
         self.turn_miss_count += 1;
+        let start_hour = self.absolute_game_hour(ctx, None);
         self.trip.game_minutes += TURN_MISS_LOOP_MIN;
+        let end_hour = self.absolute_game_hour(ctx, None);
+        record_duty_interval(self, ctx, start_hour, end_hour, "driving", "", None);
         // The controllers drop but the session stays armed: on a facility
         // approach the keeper manages the corners, and it resumes on its own
         // on the new street instead of leaving the truck idling (owner
