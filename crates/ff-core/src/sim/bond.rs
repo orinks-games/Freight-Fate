@@ -119,7 +119,7 @@ impl crate::sim::trip::Trip {
             .unwrap_or_default()
     }
 
-    fn into_destination_country(&self, booth: &BorderBooth) -> bool {
+    fn booth_enters_destination_country(&self, booth: &BorderBooth) -> bool {
         booth
             .entering_country
             .eq_ignore_ascii_case(&self.destination_country())
@@ -127,12 +127,13 @@ impl crate::sim::trip::Trip {
 
     /// What this booth checks on this load.
     pub fn booth_papers(&self, booth: &BorderBooth) -> BoothPapers {
-        self.bond.papers(self.into_destination_country(booth))
+        self.bond
+            .papers(self.booth_enters_destination_country(booth))
     }
 
     /// The booth cleared the truck: the papers move.
     pub fn clear_booth(&mut self, booth: &BorderBooth) {
-        let into_destination_country = self.into_destination_country(booth);
+        let into_destination_country = self.booth_enters_destination_country(booth);
         self.bond = self.bond.next(BondEvent::Cleared {
             into_destination_country,
         });
@@ -145,7 +146,7 @@ impl crate::sim::trip::Trip {
         let mut bond = BondState::for_route(&self.route, !self.bobtail);
         for booth in self.border_booths.iter().filter(|b| b.at_mi < position_mi) {
             bond = bond.next(BondEvent::Cleared {
-                into_destination_country: self.into_destination_country(booth),
+                into_destination_country: self.booth_enters_destination_country(booth),
             });
         }
         bond
