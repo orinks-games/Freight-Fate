@@ -1,0 +1,352 @@
+Roadhouse.txt
+Freight Fate 2.0 alpha radio, Phase 1
+
+Joshua reviewed the drafts and asked for a realism pass, then a spaced layout
+for screen readers, then trial voiceovers. Player-facing wording stays his
+except for the flagged realism edits below. Facts are from data/carriers.json
+on feat/career-2.0 (7f34608), plus facility types in facility_endpoints.json
+and named locations in world data. Do not invent home-time promises, pet
+policies, or pay rates. home_time_policy is inert on every carrier.
+
+A Mid-Atlantic carrier change is pending in a Jade PR. These fifteen ads do
+not include those locals.
+
+Realism changes
+Each change is flagged here. Nothing else in the spoken copy was rewritten.
+
+1. Prairie Link draft: dropped "out and back" before "on runs that keep you
+in the region." home_time_policy is inert, and "out and back" promises a
+home-time pattern a dispatcher cannot honor.
+
+2. Great Lakes draft: dropped "more stops." short_haul_bias weights shorter
+miles on the national board. It does not add more pickup or delivery stops.
+Stop pay is higher than the other nationals, but the board does not dispatch
+more stops.
+
+3. Winterset draft: "beef and produce through Garden City and McAllen"
+became "packed meat out of Garden City, produce through McAllen." Garden
+City has Tyson Fresh Meats, a food processor that ships refrigerated packed
+meat, not live cattle. Winterset's bonuses are food and refrigerated only;
+livestock is a different cargo class. McAllen has cold storage and a food
+processor, not a packing plant, so "beef through McAllen" invented freight.
+
+4. Open Hearth draft: "flatbed and step-deck drivers" became "flatbed and
+heavy-haul drivers." The game has no step-deck equipment. Machinery loads
+require the heavy-haul credential, the same as Great Shield.
+
+5. Great Shield draft: "yards in the oil patch" became "yards in Alberta."
+Grande Prairie and Red Deer sit in oil country, but the facilities there are
+lumber (Canfor Grande Prairie) and food and retail, not oilfield freight.
+
+6. Lone Mesa draft: "down to the border crossings" became "down through the
+Valley." The only Mexico crossing in the game is Laredo. Lone Mesa has no
+Laredo terminal and no cross_border flag. McAllen is a Valley terminal, not
+a border-crossing yard.
+
+7. Androscoggin draft: tag line "Northeast freight, closer to home" became
+"Northeast freight, regional miles." "Closer to home" is a home-time
+promise. home_time_policy is inert. This matches the other regional tags.
+
+8. Olentangy draft: dropped "and the ports" after "through the plants."
+Columbus, Cincinnati, Louisville, Indianapolis, and Detroit have automotive
+or manufacturing plants, but none of those terminals has a port or port
+terminal in the facility data. Cross-border work is real and stays.
+
+Host lines, the legal ID, the liners, and the other seven carrier drafts
+were left as written.
+
+Shortlist
+Fifteen carriers: all remaining U.S. and Canadian nationals, the three
+starting carriers that already have hiring spots, and six large regionals
+for coverage.
+
+1. Northstar Freight Lines -- starting national; already has a packed hiring
+spot that needs a rewrite and a v4 re-render
+
+2. Prairie Link Regional -- starting regional; already has a packed hiring
+spot; grain and bulk on the central plains
+
+3. Summit Value Logistics -- starting national; already has a packed hiring
+spot; long-haul lean, electronics and automotive
+
+4. Great Lakes Training Transport -- national solvency fallback; the seat
+that is still hiring when others are not; short-haul bias
+
+5. Winterset Refrigerated Lines -- only national reefer specialist; lower 48
+fresh food and refrigerated lanes
+
+6. Double Springs Linehaul -- only national doubles specialist; pups and
+turnpike doubles
+
+7. Open Hearth Flatbed Lines -- only U.S. national for steel, machinery, and
+lumber
+
+8. Longspur Transport -- Canadian national, coast to coast
+
+9. Great Shield Transport -- Canadian national for steel, machinery, and lumber
+
+10. Chehalis Freight Lines -- Pacific Northwest regional, cross-border
+
+11. Tehachapi Motor Lines -- California regional, L.A. basin through the
+Central Valley to Reno
+
+12. Lone Mesa Freight -- Texas Triangle and the Rio Grande Valley
+
+13. Androscoggin Freight -- New England and the upper Hudson, cross-border
+
+14. Chatanika Freight Lines -- Alaska, including the Dalton to Deadhorse
+
+15. Olentangy Valley Freight -- Ohio Valley and the lower Great Lakes,
+cross-border
+
+Roadhouse
+Built-in station FFR, host Clyde (fallbacks George, Chris). Today it plays
+no ads; Phase 1 would let carrier spots air here. Re-render on ElevenLabs
+eleven_v4: the eight host breaks, the spoken legal ID, and the spoken liners.
+Leave sung jingles alone until Joshua listens to the uncredited ones (see
+Jingles).
+
+Current host
+
+1. You're rolling with the Freight Fate Roadhouse, coast to coast, wherever the load takes you. Keep it between the lines, driver.
+
+2. That rig of yours sounds hungry for miles. More music coming right up on the Roadhouse.
+
+3. This one goes out to everybody staring down a long white line this morning. Hammer down, stay safe.
+
+4. Roadhouse radio, friend of the working driver. Check your mirrors, check your coffee, and roll on.
+
+5. If you're hauling through weather out there, take her slow. The Roadhouse will keep you company all the way.
+
+6. From the yard to the receiver and every mile between, this is the Freight Fate Roadhouse. Back to the music.
+
+7. Clyde here at the Roadhouse, pouring a fresh cup and pulling another stack of songs. You bring the miles, I'll bring the music.
+
+8. Big rigs, box trucks, and everybody in between, the Roadhouse rides shotgun with all of you. Let's roll.
+
+Current legal ID
+
+F-F-R, Freight Fate Roadhouse, coast to coast.
+
+Current liners
+
+5. Freight Fate Roadhouse. Coast to coast, dock to dock, and every mile between.
+
+6. You're rolling with the Freight Fate Roadhouse. Keep it between the lines.
+
+Draft host
+Rewrite pass, November 25, 2026. The Grok Build CLI was not signed in,
+and Codex and Claude Code were not available, so this draft was written
+here and then reviewed. Station first, short handoff to music, no driving
+advice, no weather, no dayparting, because these clips rotate all day.
+
+1. Freight Fate Roadhouse, coast to coast. Glad you're with us. Music is next.
+
+2. You're listening to the Freight Fate Roadhouse. More music coming right up.
+
+3. Freight Fate Roadhouse. This one's for everybody out on a long run. Here we go.
+
+4. Freight Fate Roadhouse. Coffee's on, the next song is up, and we'll be right here.
+
+5. The Freight Fate Roadhouse is still with you on the road. Let's get back to the music.
+
+6. From the yard to the receiver, this is the Freight Fate Roadhouse. Back to the music.
+
+7. Clyde here at the Roadhouse. I've got a fresh pot on and another stack of songs. Let's get back to it.
+
+8. Big rigs, box trucks, and everybody rolling freight, this is the Roadhouse. Let's go.
+
+Draft legal ID
+
+F-F-R, Freight Fate Roadhouse, coast to coast.
+
+Draft liners
+
+5. Freight Fate Roadhouse. Coast to coast, dock to dock.
+
+6. You're on the Freight Fate Roadhouse. Stay with us.
+
+Jingles
+id_roadhouse_01 and id_roadhouse_02 are the 2026-08-14 Eleven Music sung IDs,
+credited in assets/sounds/CREDITS.md.
+
+id_roadhouse_03 is the spoken legal ID above, ElevenLabs TTS, same batch.
+
+id_roadhouse_04 and id_roadhouse_07 are uncredited sung IDs added to
+music.pak on 2026-09-25 (both about 8.76 seconds). They may be the
+owner-liked Suno "Freight Fate Roadhouse -- Coast to Coast ID" take
+(suno.com/song/9e6007bf-7d50-431e-ad9d-eeb1f301520c), but CREDITS was never
+updated and the lyric "this is the good stuff, Freight Fate Roadhouse" is
+not in the repo. Please listen and confirm before any redo.
+
+id_roadhouse_05 and id_roadhouse_06 are the spoken liners above, also added
+2026-09-25.
+
+The other sixteen stations' Suno _04 jingles from that September batch did
+not ship.
+
+Carriers
+Existing packed spots: ad_northstar_freight_hiring, ad_prairie_link_hiring,
+ad_summit_value_hiring. Their scripts are not in the tree. Meridian Freight
+Lines also has a hiring spot; it is a fictional advertiser, not a 2.0
+hireable carrier, and is not in this shortlist.
+
+Drafts are about 20 to 30 seconds, 55 to 75 words, for a dry voice-over over
+an instrumental bed. Final copy is Joshua's.
+
+Northstar Freight Lines
+Facts: national, starting carrier, already has a packed hiring spot (22.4s).
+Terminals in Chicago, Atlanta, Dallas, Riverside, Boise, Newark, North
+Platte, Albuquerque, Bismarck, Jacksonville, Portland, and Houston.
+Cross-border. Runs 400 to 3,000 miles. No specialty flag, no lane_area text.
+
+Draft: Northstar Freight Lines is hiring company drivers for the long lanes, coast to coast. Chicago, Dallas, Atlanta, the Jersey ports, the L.A. basin, and the yards in between. If you want miles on a national board, talk to Northstar. Orientation is at the terminal nearest you, and the next load is already on the board. Northstar Freight Lines. Come drive the country.
+
+Prairie Link Regional
+Facts: regional, starting carrier, already has a packed hiring spot (28.0s).
+Lane area: the central plains around Kansas City, Omaha, and Wichita.
+Terminals in those three cities. Hiring radius 250 miles. Runs 150 to 600
+miles. Cargo weight bonus on grain, farm inputs, and bulk.
+
+Draft: Prairie Link Regional is hiring around Kansas City, Omaha, and Wichita. Grain, farm inputs, and bulk on the central plains, on runs that keep you in the region. If you live inside about 250 miles of those yards, the board is built for this country. Prairie Link Regional. Plains freight, regional miles.
+
+Summit Value Logistics
+Facts: national, starting carrier, already has a packed hiring spot (24.2s).
+Terminals in Denver, Los Angeles, Houston, Nashville, Allentown, Omaha,
+Boise, Orlando, El Paso, Milwaukee, Billings, and Portland. Cross-border.
+Runs 400 to 3,000 miles. Long-haul dispatch bias. Cargo weight bonus on
+electronics, automotive, and parcel.
+
+Draft: Summit Value Logistics is hiring for the long haul. Electronics, automotive, and parcel freight on a national board, Denver to L.A., Houston, Nashville, and the rest of the map. If you want the longer runs, this is the board that leans that way. Summit Value Logistics. Come take the long ones.
+
+Great Lakes Training Transport
+Facts: national, no current ad. Solvency fallback: the carrier that still
+has a seat when others do not. Terminals in Milwaukee, Memphis, Phoenix,
+Columbus, Garden City, Twin Falls, Jacksonville, Newark, San Antonio, Fargo,
+Sacramento, and Spokane. Short-haul dispatch bias, a little more deadline
+slack. Higher stop pay than the other nationals. Runs 400 to 3,000 miles.
+
+Draft: Great Lakes Training Transport is hiring company drivers nationwide. Shorter runs on a national board, and a yard in reach from Milwaukee to Phoenix, Memphis, Sacramento, and the rest. When you need a seat, Great Lakes is still taking applications. Great Lakes Training Transport. Get on the board.
+
+Winterset Refrigerated Lines
+Facts: national, no current ad. Specialty: refrigerated freight. Lane: the
+lower 48. Cross-border. Terminals in Salinas, Yakima, Garden City, McAllen,
+Lakeland, Green Bay, Syracuse, Little Rock, Phoenix, Bismarck, Twin Falls,
+and Charlotte. Cargo weight bonus on food and refrigerated freight.
+
+Draft: Winterset Refrigerated Lines is hiring reefer drivers for the lower 48. Produce out of Salinas and Yakima, packed meat out of Garden City, produce through McAllen, and groceries to Green Bay, Lakeland, and the rest of the chain. If you run temperature-controlled freight, this board is built for it. Winterset Refrigerated Lines. Keep it cold, keep it moving.
+
+Double Springs Linehaul
+Facts: national, no current ad. Specialty: doubles. Lane: the lower 48.
+Cross-border. Terminals in Memphis, Indianapolis, Riverside, Salt Lake City,
+Sacramento, Allentown, Sioux Falls, Portland, Orlando, Billings, Fort Worth,
+and Albuquerque. Runs 250 to 1,200 miles. Cargo weight bonus on parcel
+doubles, turnpike doubles, and parcel.
+
+Draft: Double Springs Linehaul is hiring doubles drivers for the lower 48. Pups and turnpike sets, Memphis, Indianapolis, Riverside, Salt Lake, and the rest of the network. If you are already qualified for doubles, the board is waiting. Double Springs Linehaul. Two trailers, one job.
+
+Open Hearth Flatbed Lines
+Facts: national, no current ad. Specialty: steel, machinery, and lumber.
+Lane: the lower 48. Cross-border. Terminals in Pittsburgh, Birmingham,
+Houston, Portland, Tulsa, Gary, Bakersfield, Worcester, Rapid City, Tampa,
+Salt Lake City, and El Paso. Cargo weight bonus on steel, machinery, lumber
+and paper, and construction.
+
+Draft: Open Hearth Flatbed Lines is hiring flatbed and heavy-haul drivers for steel, machinery, and lumber, lower 48. Pittsburgh and Gary for steel, Birmingham and Houston, Portland for lumber, and yards across the rest of the map. If you pull straps and chains, this is the board. Open Hearth Flatbed Lines. Heavy freight, honest miles.
+
+Longspur Transport
+Facts: Canadian national, no current ad. Lane: Canada. Base country CA.
+Cross-border. Terminals in Surrey, Kamloops, Prince George, Calgary,
+Edmonton, Saskatoon, Regina, Winnipeg, Thunder Bay, Mississauga, Montreal,
+and Moncton. Runs 400 to 3,000 miles.
+
+Draft: Longspur Transport is hiring company drivers across Canada. Surrey to Moncton, the Prairies, the Shield, and the corridor through Toronto and Montreal. If you want a national Canadian board, Longspur is hiring. Talk to the terminal nearest you. Longspur Transport. Coast to coast, in Canada.
+
+Great Shield Transport
+Facts: Canadian national, no current ad. Specialty: steel, machinery, and
+lumber. Lane: Canada. Base country CA. Cross-border. Terminals in
+Abbotsford, Prince George, Red Deer, Grande Prairie, Regina, Winnipeg,
+Thunder Bay, Sudbury, Hamilton, Quebec City, Saint John, and Halifax. Same
+heavy-freight bonuses as Open Hearth.
+
+Draft: Great Shield Transport is hiring flatbed and heavy-haul drivers across Canada. Steel, machinery, and lumber, Abbotsford to Halifax, with yards in Alberta, the Prairies, the Shield, and the Atlantic. If you run straps and chains north of the border, this is the board. Great Shield Transport. Canadian heavy freight.
+
+Chehalis Freight Lines
+Facts: regional, no current ad. Lane: the Pacific Northwest. Terminals in
+Seattle, Portland, Spokane, and Medford. Hiring radius 250 miles. Runs 150
+to 600 miles. Cross-border.
+
+Draft: Chehalis Freight Lines is hiring in the Pacific Northwest. Seattle, Portland, Spokane, and Medford, regional runs through the Cascades and the valleys, with cross-border work on the board. If you live in reach of those yards, come talk to dispatch. Chehalis Freight Lines. Northwest freight, regional miles.
+
+Tehachapi Motor Lines
+Facts: regional, no current ad. Lane: California, from the Los Angeles basin
+through the Central Valley to Reno. Terminals in Los Angeles, Fresno, and
+Sacramento. Hiring radius 250 miles. Runs 150 to 600 miles.
+
+Draft: Tehachapi Motor Lines is hiring in California. The L.A. basin, the Central Valley, and up toward Reno, with yards in Los Angeles, Fresno, and Sacramento. Regional runs, valley to basin and back. If that is your country, the board is open. Tehachapi Motor Lines. California freight, end to end.
+
+Lone Mesa Freight
+Facts: regional, no current ad. Lane: the Texas Triangle and the Rio Grande
+Valley. Terminals in Dallas, Houston, San Antonio, and McAllen. Hiring
+radius 250 miles. Runs 150 to 600 miles. No cross_border flag.
+
+Draft: Lone Mesa Freight is hiring in the Texas Triangle and the Valley. Dallas, Houston, San Antonio, and McAllen. Regional runs between the cities and down through the Valley. If you already run that country, come see dispatch. Lone Mesa Freight. Texas freight, regional miles.
+
+Androscoggin Freight
+Facts: regional, no current ad. Lane: New England and the upper Hudson.
+Terminals in Boston, Hartford, Portland, and Albany. Hiring radius 250
+miles. Runs 150 to 600 miles. Cross-border.
+
+Draft: Androscoggin Freight is hiring in New England and the upper Hudson. Boston, Hartford, Portland, Maine, and Albany, regional runs through the Northeast, with cross-border work on the board. If you live in reach of those yards, the board is built for this corner of the map. Androscoggin Freight. Northeast freight, regional miles.
+
+Chatanika Freight Lines
+Facts: regional, no current ad. Lane: Alaska, between Anchorage, the Mat-Su
+valley, the Kenai Peninsula, Valdez, Fairbanks, Tok, and Deadhorse on the
+Dalton Highway. Terminals in Anchorage and Fairbanks. Hiring radius 250
+miles. Runs 150 to 600 miles. Cross-border. Alaska drivers only work for
+Alaska carriers.
+
+Draft: Chatanika Freight Lines is hiring in Alaska. Anchorage and Fairbanks yards, runs through the Mat-Su, the Kenai, Valdez, Tok, and up the Dalton to Deadhorse. If you already know this road, dispatch is hiring. Chatanika Freight Lines. Alaska freight, all the way north.
+
+Olentangy Valley Freight
+Facts: regional, no current ad. Lane: the Ohio Valley and the lower Great
+Lakes. Terminals in Columbus, Cincinnati, Louisville, Indianapolis, and
+Detroit. Hiring radius 250 miles. Runs 150 to 600 miles. Cross-border.
+
+Draft: Olentangy Valley Freight is hiring in the Ohio Valley and the lower Great Lakes. Columbus, Cincinnati, Louisville, Indianapolis, and Detroit. Regional runs through the plants, with cross-border work on the board. If you live in reach of those yards, come talk to dispatch. Olentangy Valley Freight. Valley freight, regional miles.
+
+Music beds
+Today's hiring spots are dry voice-over with a light broadcast compress.
+There is no music under them. Legal IDs already get short imaging SFX
+(whoosh and riser) from assets in sounds.pak. Songs and station jingles live
+in music.pak.
+
+For these carrier spots, cut a short instrumental bed per ad, or a small
+shared pool, on Eleven Music eleven_music_v2_5, about 20 to 30 seconds,
+instrumental only, so the voice sits on top. No lyrics. Leave a clean intro
+and a clean out.
+
+Suggested colors, not final cues:
+
+- Roadhouse and general national hiring: warm Americana, acoustic and a little harmonica, mid-tempo, radio-clean
+
+- Prairie Link: pedal steel and a soft shuffle
+
+- Winterset: cooler, tighter, a little night-highway
+
+- Double Springs: a brighter, rolling country-rock bed
+
+- Open Hearth and Great Shield: more guitar and weight, still instrumental
+
+- Longspur and the Canadian board: a slightly wider, open-prairie feel
+
+- Chehalis and Chatanika: a wetter, more northern color
+
+- Tehachapi and Lone Mesa: drier, a little more Southwest
+
+- Androscoggin and Olentangy: a plainer, regional FM bed
+
+Beds are mixed under the VO, not used as standalone songs. After Joshua
+locks copy, generate beds and voice separately, then mix. The Roadhouse
+would start carrying these carrier spots; other format stations can keep
+the existing rotation plus the new hiring ads.
