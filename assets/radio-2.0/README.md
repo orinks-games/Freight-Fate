@@ -1,72 +1,88 @@
-# Freight Fate 2.0 radio staging
+# Freight Fate 2.0 radio clips
 
-Pack-ready audio and scripts for a later `music.pak` rebuild on `feat/career-2.0`. This folder is staging only. It does not change `packs.rs`, and this pull request does not rebuild or upload the pack.
+The source for the 2.0 `music.pak` rebuild: the Roadhouse host breaks, the
+spoken legal ID and liners, the sung Coast to Coast ID, and fifteen carrier
+hiring ads. Nothing in the game or the release reads this folder. The game
+hears these clips only through the rebuilt pack pinned in
+`crates/ff-tools/src/release/packs.rs`.
 
-Airing the fifteen carrier ads on the Roadhouse is implemented in https://github.com/orinks-games/Freight-Fate/pull/841, which depends on this pull request. Use the ad file names below as the pack / rotation keys in that work. `ad_northstar_freight_hiring`, `ad_prairie_link_hiring`, and `ad_summit_value_hiring` replace the hiring spots already in the pack. The other twelve keys are new.
+- `pack-overlay/music/` holds the 27 clips, flat, each named by the key the
+  game asks for. It is shaped as a `pack-sounds` overlay.
+- `Roadhouse.txt` has the scripts.
+- `hosts-encode-report.json` and `ads-encode-report.json` are the encode
+  reports.
 
-Encoding: Ogg Opus, 48 kHz stereo, 80 kbps, static gain to −18 LUFS integrated, −1 dBTP true-peak ceiling, no compression. Host, legal ID, and liner reads are ElevenLabs `eleven_v4`. Ads were mixed first, then encoded the same way from the approved top-level finals.
+Encoding: Ogg Opus, 48 kHz stereo, 80 kbps, static gain to -18 LUFS
+integrated, -1 dBTP true-peak ceiling, no compression. Host, legal ID and
+liner reads are ElevenLabs `eleven_v4`. Ads were mixed first, then encoded
+the same way from the approved finals.
 
-Spoken copy for the Roadhouse lines and the fifteen ad scripts is in `Roadhouse.txt`.
+## Rebuilding the pack
 
-## Hosts (`hosts/`)
+The rebuild is the previous pack plus this folder. The base pack is
+`https://crisp-crystal-9a9y.here.now/music.pak`, SHA-256
+`c56401a2a45057faba0bd4bf7d024ce7dd3908f682f4c35526643a1870cb7798`
+(426 entries, 382,743,336 bytes). Put it at `assets/music.pak`, then:
 
-All eight use voice Clyde - Radio Announcer (`QMJTqaMXmGnG8TCm8WQG`), the existing Freight Fate Roadhouse host voice. Intended pack names match the file names.
+```
+cargo tools pack-sounds --overlay assets/radio-2.0/pack-overlay \
+  --out <scratch>/sounds.pak --music-out build/music-next.pak
+```
 
-| File | What it is | Duration |
+The `--out` file is a by-product; discard it. The result has 441 entries
+and is published as `music-<first 8 hex of its SHA-256>.pak` beside the old
+pack, so a branch that pins the old pack keeps building.
+
+## Hosts
+
+Voice: Clyde - Radio Announcer (`QMJTqaMXmGnG8TCm8WQG`), the Roadhouse host.
+These replace the earlier `host_roadhouse_01` to `_08` reads.
+
+| Key | Duration |
+| --- | --- |
+| `host_roadhouse_01` | 5.28 s |
+| `host_roadhouse_02` | 4.56 s |
+| `host_roadhouse_03` | 5.84 s |
+| `host_roadhouse_04` | 5.52 s |
+| `host_roadhouse_05` | 5.12 s |
+| `host_roadhouse_06` | 5.60 s |
+| `host_roadhouse_07` (Clyde names himself) | 6.24 s |
+| `host_roadhouse_08` | 6.40 s |
+
+## Station IDs
+
+| Key | What it is | Duration |
 | --- | --- | --- |
-| `host_roadhouse_01.opus` | Host break 1 | 5.29 s |
-| `host_roadhouse_02.opus` | Host break 2 | 4.57 s |
-| `host_roadhouse_03.opus` | Host break 3 | 5.85 s |
-| `host_roadhouse_04.opus` | Host break 4 | 5.53 s |
-| `host_roadhouse_05.opus` | Host break 5 | 5.13 s |
-| `host_roadhouse_06.opus` | Host break 6 | 5.61 s |
-| `host_roadhouse_07.opus` | Host break 7 (Clyde names himself) | 6.25 s |
-| `host_roadhouse_08.opus` | Host break 8 | 6.41 s |
+| `id_roadhouse_03` | Spoken legal ID: "F-F-R, Freight Fate Roadhouse, coast to coast." Replaces the earlier read. | 4.48 s |
+| `id_roadhouse_08` | Sung Coast to Coast ID | 10.64 s |
+| `id_roadhouse_09` | Spoken liner: "Freight Fate Roadhouse. Coast to coast, dock to dock." | 4.16 s |
+| `id_roadhouse_10` | Spoken liner: "You're on the Freight Fate Roadhouse. Stay with us." | 3.36 s |
 
-These replace the packed `host_roadhouse_01` … `host_roadhouse_08` reads.
+The spoken reads are in Clyde's voice. `id_roadhouse_01`, `_02`, `_04`,
+`_05`, `_06` and `_07` are sung IDs already in the pack and stay as they
+are.
 
-## Spoken legal ID and liners (`ids/`)
+## Carrier hiring ads
 
-Same host voice, Clyde - Radio Announcer (`QMJTqaMXmGnG8TCm8WQG`).
+The Roadhouse airs only these fifteen. The six formats that carried the
+earlier hiring ads (country, classic rock, gospel, Tejano, blues, jazz)
+carry them too, beside their other ads. Meridian Freight Lines is a
+fictional advertiser and stays off the Roadhouse.
 
-| File | What it is | Duration | Intended pack name |
+| Key | Carrier | Voice | Notes |
 | --- | --- | --- | --- |
-| `id_roadhouse_03.opus` | Spoken legal ID: “F-F-R, Freight Fate Roadhouse, coast to coast.” | 4.49 s | `id_roadhouse_03` |
-| `id_roadhouse_05.opus` | Spoken liner 5 | 4.17 s | `id_roadhouse_05` |
-| `id_roadhouse_06.opus` | Spoken liner 6 | 3.37 s | `id_roadhouse_06` |
-
-These are the spoken liner and legal-ID slots from the radio content plan (`id_01` / `id_02` / `id_04` / `id_07` / `id_08` stay sung IDs). Confirm the current pack’s `id_roadhouse_05` before overwriting it: an earlier check found a sung ID already living under that key.
-
-## Coast to Coast sung ID (`jingles/`)
-
-| File | What it is | Intended pack name |
-| --- | --- | --- |
-| `id_roadhouse_08.opus` | Sung Coast to Coast station ID, already wired in this pull request’s first commit | `id_roadhouse_08` |
-
-This file is not a new `eleven_v4` render. It is included here so the pack rebuild can pick up every new Roadhouse asset from one folder.
-
-## Carrier hiring ads (`ads/`)
-
-Fifteen approved finals. Rotation keys are the file names without `.opus`. The Roadhouse (`route`) should air only these fifteen spots. Other format stations keep their existing ads and also carry these. Meridian Freight Lines stays a fictional advertiser on the other stations and does not play on the Roadhouse.
-
-| File / pack key | Carrier | Voice | Notes |
-| --- | --- | --- | --- |
-| `ad_northstar_freight_hiring.opus` | Northstar Freight Lines | Hale - Great for Commercials | Replaces the packed hiring spot |
-| `ad_prairie_link_hiring.opus` | Prairie Link Regional | Beth - Commercial, Upbeat, Engaging | Replaces the packed hiring spot |
-| `ad_summit_value_hiring.opus` | Summit Value Logistics | Hale - Great for Commercials | Replaces the packed hiring spot |
-| `ad_great_lakes_training_hiring.opus` | Great Lakes Training Transport | Rachelle – TV & Radio Commercials | New |
-| `ad_winterset_refrigerated_hiring.opus` | Winterset Refrigerated Lines | Laurel - Warm, Kind & Confident | New |
-| `ad_double_springs_hiring.opus` | Double Springs Linehaul | Hale - Great for Commercials | New |
-| `ad_open_hearth_hiring.opus` | Open Hearth Flatbed Lines | A. Michael Smith - iDJMic | New |
-| `ad_longspur_hiring.opus` | Longspur Transport | Noah - Confident Canadian Narrator | New |
-| `ad_great_shield_hiring.opus` | Great Shield Transport | A. Michael Smith - iDJMic | New |
-| `ad_chehalis_freight_hiring.opus` | Chehalis Freight Lines | Ivan Smith | New |
-| `ad_tehachapi_hiring.opus` | Tehachapi Motor Lines | Laurel - Warm, Kind & Confident | New |
-| `ad_lone_mesa_hiring.opus` | Lone Mesa Freight | Chad | New |
-| `ad_androscoggin_hiring.opus` | Androscoggin Freight | Jerry B. | New |
-| `ad_chatanika_freight_hiring.opus` | Chatanika Freight Lines | Coach Dave | New |
-| `ad_olentangy_valley_hiring.opus` | Olentangy Valley Freight | Piper - Energetic, Friendly & Upbeat | New |
-
-## Pack rebuild
-
-Do not merge this pull request, or #841, until the new `music.pak` is published and its SHA is pinned in `packs.rs` in a follow-up. A build with these keys and the current pack would play dead air for every new file.
+| `ad_northstar_freight_hiring` | Northstar Freight Lines | Hale - Great for Commercials | Replaces the packed spot |
+| `ad_prairie_link_hiring` | Prairie Link Regional | Beth - Commercial, Upbeat, Engaging | Replaces the packed spot |
+| `ad_summit_value_hiring` | Summit Value Logistics | Hale - Great for Commercials | Replaces the packed spot |
+| `ad_great_lakes_training_hiring` | Great Lakes Training Transport | Rachelle - TV & Radio Commercials | New |
+| `ad_winterset_refrigerated_hiring` | Winterset Refrigerated Lines | Laurel - Warm, Kind & Confident | New |
+| `ad_double_springs_hiring` | Double Springs Linehaul | Hale - Great for Commercials | New |
+| `ad_open_hearth_hiring` | Open Hearth Flatbed Lines | A. Michael Smith - iDJMic | New |
+| `ad_longspur_hiring` | Longspur Transport | Noah - Confident Canadian Narrator | New |
+| `ad_great_shield_hiring` | Great Shield Transport | A. Michael Smith - iDJMic | New |
+| `ad_chehalis_freight_hiring` | Chehalis Freight Lines | Ivan Smith | New |
+| `ad_tehachapi_hiring` | Tehachapi Motor Lines | Laurel - Warm, Kind & Confident | New |
+| `ad_lone_mesa_hiring` | Lone Mesa Freight | Chad | New |
+| `ad_androscoggin_hiring` | Androscoggin Freight | Jerry B. | New |
+| `ad_chatanika_freight_hiring` | Chatanika Freight Lines | Coach Dave | New |
+| `ad_olentangy_valley_hiring` | Olentangy Valley Freight | Piper - Energetic, Friendly & Upbeat | New |

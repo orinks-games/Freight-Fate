@@ -86,7 +86,7 @@
 - **Alt+Left and Alt+Right check your left or right mirror.** You hear whether that lane is clear while traffic audio focuses on that side.
 - **Turbocharged tractors now spool under load and release pressure on shifts.** Heavy-spec trucks whistle loudest; trainer day cabs and city shuttles stay quiet.
 - **The Freight Fate Roadhouse now has a Coast to Coast station ID.**
-- **The Freight Fate Roadhouse now plays hiring ads for fifteen carriers.** Other stations keep their existing ads and carry these spots too.
+- **The Freight Fate Roadhouse now airs hiring ads for fifteen carriers, and no other ads.** Country, rock, gospel, Tejano, blues and jazz stations carry them too.
 
 ### Changed
 

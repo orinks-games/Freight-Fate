@@ -24,13 +24,12 @@ type IdRow = (
 );
 
 // Keyed by catalog station id (not the host voice key -- an ID speaks a
-// call sign, and several stations can share a host). Sung jingles (_01, _02
-// and the second-wave _04), a spoken legal ID (_03) and spoken liners (_05,
-// _06) per station, matching tools/radio_content_plan.py STATIONS'
-// jingle_prompts and id_lines; the Roadhouse, Desert Rock and Neon Drive
-// carry extra IDs (_04 and up). _04 to _07 (and Desert Rock _04 and _05)
-// were added to the pack on 2026-09-25; Roadhouse _08 is the Coast to
-// Coast ID.
+// call sign, and several stations can share a host). Each station has two
+// sung jingles (_01, _02) and a spoken legal ID (_03); the Roadhouse, Desert
+// Rock and Neon Drive carry extra sung IDs (_04 and up). _04 to _07 (and
+// Desert Rock _04 and _05) were added to the pack on 2026-09-25. Roadhouse
+// _08 is the sung Coast to Coast ID, and _09 and _10 are spoken liners in
+// the host's voice.
 // A row only exists once its clip ships: a key
 // with no file behind it would play as dead air.
 const STATION_ID_ROWS: &[IdRow] = &[
@@ -53,7 +52,7 @@ const STATION_ID_ROWS: &[IdRow] = &[
                 "id_roadhouse_03",
                 "Freight Fate Roadhouse legal ID",
                 "Spoken call-sign ID",
-                4.4,
+                4.5,
             ),
             (
                 "id_roadhouse_04",
@@ -84,6 +83,18 @@ const STATION_ID_ROWS: &[IdRow] = &[
                 "Freight Fate Roadhouse Coast to Coast ID",
                 "Sung station jingle",
                 10.6,
+            ),
+            (
+                "id_roadhouse_09",
+                "Freight Fate Roadhouse liner 1",
+                "Spoken liner",
+                4.2,
+            ),
+            (
+                "id_roadhouse_10",
+                "Freight Fate Roadhouse liner 2",
+                "Spoken liner",
+                3.4,
             ),
         ],
     ),
@@ -553,6 +564,14 @@ const AD_ROWS: &[(&str, &str, f64)] = &[
     ("ad_quietcab_headsets", "QuietCab Headsets", 20.4),
     ("ad_truelane_navigation", "TrueLane Navigation", 21.5),
     ("ad_smokestack_jerky", "Smokestack Jerky Company", 24.4),
+];
+
+/// The 2.0 carrier hiring spots, `(key, carrier name, duration_s)`. This is
+/// the one list of them: they join the shared rotation in [`ContentTables`],
+/// air on every [`HIRING_AD_FORMATS`] pool, and are the whole of the
+/// Roadhouse's ad pool (see [`ContentTables::station_ads`]). The title is the
+/// carrier's name, which "what's playing" reads during the spot.
+const CARRIER_HIRING_ADS: &[(&str, &str, f64)] = &[
     (
         "ad_northstar_freight_hiring",
         "Northstar Freight Lines",
@@ -592,9 +611,11 @@ const AD_ROWS: &[(&str, &str, f64)] = &[
 
 // Which STATION_PLAYLISTS pools each spot may air on, from
 // tools/radio_content_ads.py AD_PLAN.formats. The Roadhouse playlist
-// "route" is not a format pool, so carrier hiring spots are selected
-// for it in station_ads rather than tagged "route". Other format
-// stations keep their existing rotation and also carry the new hiring ads.
+// "route" is not a format pool, so the Roadhouse's carrier hiring spots
+// are selected for it in station_ads rather than tagged "route". The
+// CARRIER_HIRING_ADS rows are tagged with HIRING_AD_FORMATS when the tables
+// are built, so other format stations keep their existing rotation and
+// also carry the hiring spots.
 const AD_FORMAT_ROWS: &[(&str, &[&str])] = &[
     (
         "ad_red_hawk_travel_centers",
@@ -694,23 +715,6 @@ const AD_FORMAT_ROWS: &[(&str, &[&str])] = &[
             "night",
         ],
     ),
-    // Carrier hiring spots air where Meridian's does, plus the Roadhouse
-    // (see station_ads and ROADHOUSE_AD_KEYS).
-    ("ad_northstar_freight_hiring", HIRING_AD_FORMATS),
-    ("ad_prairie_link_hiring", HIRING_AD_FORMATS),
-    ("ad_summit_value_hiring", HIRING_AD_FORMATS),
-    ("ad_great_lakes_training_hiring", HIRING_AD_FORMATS),
-    ("ad_winterset_refrigerated_hiring", HIRING_AD_FORMATS),
-    ("ad_double_springs_hiring", HIRING_AD_FORMATS),
-    ("ad_open_hearth_hiring", HIRING_AD_FORMATS),
-    ("ad_longspur_hiring", HIRING_AD_FORMATS),
-    ("ad_great_shield_hiring", HIRING_AD_FORMATS),
-    ("ad_chehalis_freight_hiring", HIRING_AD_FORMATS),
-    ("ad_tehachapi_hiring", HIRING_AD_FORMATS),
-    ("ad_lone_mesa_hiring", HIRING_AD_FORMATS),
-    ("ad_androscoggin_hiring", HIRING_AD_FORMATS),
-    ("ad_chatanika_freight_hiring", HIRING_AD_FORMATS),
-    ("ad_olentangy_valley_hiring", HIRING_AD_FORMATS),
 ];
 
 /// Formats the 2.0 carrier hiring spots may air on: the same pools as the
@@ -723,26 +727,6 @@ const HIRING_AD_FORMATS: &[&str] = &[
     "tejano",
     "blues",
     "jazz",
-];
-
-/// The 2.0 carrier hiring spots the Roadhouse airs. Meridian is a fictional
-/// advertiser and is not in this list.
-const ROADHOUSE_AD_KEYS: &[&str] = &[
-    "ad_northstar_freight_hiring",
-    "ad_prairie_link_hiring",
-    "ad_summit_value_hiring",
-    "ad_great_lakes_training_hiring",
-    "ad_winterset_refrigerated_hiring",
-    "ad_double_springs_hiring",
-    "ad_open_hearth_hiring",
-    "ad_longspur_hiring",
-    "ad_great_shield_hiring",
-    "ad_chehalis_freight_hiring",
-    "ad_tehachapi_hiring",
-    "ad_lone_mesa_hiring",
-    "ad_androscoggin_hiring",
-    "ad_chatanika_freight_hiring",
-    "ad_olentangy_valley_hiring",
 ];
 
 /// One break after every 2 songs; break content cycles this pattern. A
@@ -795,6 +779,7 @@ static SHIPPED: Lazy<ContentTables> = Lazy::new(|| ContentTables {
         .collect(),
     ad_spots: AD_ROWS
         .iter()
+        .chain(CARRIER_HIRING_ADS)
         .map(|(key, title, duration)| MusicTrack {
             key: key.to_string(),
             title: title.to_string(),
@@ -804,6 +789,12 @@ static SHIPPED: Lazy<ContentTables> = Lazy::new(|| ContentTables {
         .collect(),
     ad_format_tags: AD_FORMAT_ROWS
         .iter()
+        .copied()
+        .chain(
+            CARRIER_HIRING_ADS
+                .iter()
+                .map(|(key, _, _)| (*key, HIRING_AD_FORMATS)),
+        )
         .map(|(key, tags)| {
             (
                 key.to_string(),
@@ -852,9 +843,11 @@ impl ContentTables {
 
     pub fn station_ads(&self, playlist: &str) -> Vec<MusicTrack> {
         if playlist == "route" {
-            return ROADHOUSE_AD_KEYS
+            return CARRIER_HIRING_ADS
                 .iter()
-                .filter_map(|key| self.ad_spots.iter().find(|spot| spot.key == *key).cloned())
+                .filter_map(|(key, _, _)| {
+                    self.ad_spots.iter().find(|spot| spot.key == *key).cloned()
+                })
                 .collect();
         }
         self.ad_spots
@@ -1205,7 +1198,8 @@ mod tests {
         assert_eq!(ad_spots().len(), 33);
         assert!(ad_format_tags("ad_wagon_wheel_inn").contains(&"night".to_string()));
         let roadhouse = station_ads("route");
-        assert_eq!(roadhouse.len(), 15);
+        assert_eq!(roadhouse.len(), CARRIER_HIRING_ADS.len());
+        assert_eq!(CARRIER_HIRING_ADS.len(), 15);
         assert!(
             roadhouse
                 .iter()
@@ -1220,40 +1214,21 @@ mod tests {
             .any(|t| t.key == "ad_meridian_freight_hiring" || t.key == "ad_wagon_wheel_inn"));
     }
 
-    const CARRIER_HIRING_ADS: &[(&str, &str)] = &[
-        ("ad_northstar_freight_hiring", "Northstar Freight Lines"),
-        ("ad_prairie_link_hiring", "Prairie Link Regional"),
-        ("ad_summit_value_hiring", "Summit Value Logistics"),
-        (
-            "ad_great_lakes_training_hiring",
-            "Great Lakes Training Transport",
-        ),
-        (
-            "ad_winterset_refrigerated_hiring",
-            "Winterset Refrigerated Lines",
-        ),
-        ("ad_double_springs_hiring", "Double Springs Linehaul"),
-        ("ad_open_hearth_hiring", "Open Hearth Flatbed Lines"),
-        ("ad_longspur_hiring", "Longspur Transport"),
-        ("ad_great_shield_hiring", "Great Shield Transport"),
-        ("ad_chehalis_freight_hiring", "Chehalis Freight Lines"),
-        ("ad_tehachapi_hiring", "Tehachapi Motor Lines"),
-        ("ad_lone_mesa_hiring", "Lone Mesa Freight"),
-        ("ad_androscoggin_hiring", "Androscoggin Freight"),
-        ("ad_chatanika_freight_hiring", "Chatanika Freight Lines"),
-        ("ad_olentangy_valley_hiring", "Olentangy Valley Freight"),
-    ];
-
     #[test]
     fn test_hiring_ad_titles_are_the_carrier_names() {
         let shipped = ContentTables::shipped();
-        for (key, name) in CARRIER_HIRING_ADS {
+        let catalog = crate::models::carriers::carrier_catalog();
+        for (key, _, _) in CARRIER_HIRING_ADS {
             let spot = shipped
                 .ad_spots
                 .iter()
                 .find(|t| t.key == *key)
                 .unwrap_or_else(|| panic!("missing hiring ad {key}"));
-            assert_eq!(spot.title, *name, "{key}");
+            assert!(
+                catalog.values().any(|c| c.name == spot.title),
+                "{key}: {:?} is not a carrier in the catalog",
+                spot.title
+            );
             let tags = ad_format_tags(key);
             assert!(
                 !tags.contains(&"route".to_string()),
@@ -1263,15 +1238,9 @@ mod tests {
                 station_ads("route").iter().any(|t| t.key == *key),
                 "{key} missing from the Roadhouse pool"
             );
-            for fmt in [
-                "country",
-                "classic_rock",
-                "gospel",
-                "tejano",
-                "blues",
-                "jazz",
-            ] {
-                assert!(tags.contains(&fmt.to_string()), "{key} {fmt}");
+            // The six formats that carried the earlier hiring ads.
+            for fmt in ad_format_tags("ad_meridian_freight_hiring") {
+                assert!(tags.contains(fmt), "{key} {fmt}");
             }
         }
     }

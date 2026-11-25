@@ -3,7 +3,9 @@
 Measured 2026-10-03 with `tools/loudness.py` (ITU-R BS.1770-4 / EBU R128;
 agrees with ffmpeg's `loudnorm` within 0.1 LU on music). Per-file numbers,
 before and after, are in `audio-levels/music.tsv` and
-`audio-levels/sounds.tsv`.
+`audio-levels/sounds.tsv`. The 2.0 Roadhouse host breaks, IDs and carrier
+hiring ads (2026-11-25) come from the encode reports in `assets/radio-2.0/`;
+the host and ID loudness range was measured with ffmpeg's `ebur128`.
 
 ## Music pack
 
@@ -16,16 +18,16 @@ limiting. Tracks already within 0.5 dB were left as shipped.
 
 | Group | Tracks | Before, LUFS | After, LUFS |
 |---|---|---|---|
-| ad | 21 | -24.1 to -15.6 | -21.7 to -17.8 |
+| ad | 33 | -24.1 to -17.3 | -21.7 to -17.6 |
 | drive | 21 | -25.5 to -12.6 | -18.1 to -17.9 |
-| host | 152 | -22.5 to -15.2 | -20.2 to -17.5 |
-| id | 67 | -22.1 to -12.0 | -18.6 to -17.6 |
+| host | 152 | -22.5 to -15.0 | -20.2 to -17.5 |
+| id | 70 | -22.1 to -12.0 | -18.6 to -17.6 |
 | menu | 10 | -26.0 to -12.9 | -18.1 to -17.9 |
 | night | 19 | -26.0 to -13.3 | -18.1 to -17.9 |
 | open | 1 | -25.9 | -18.1 |
 | radio | 135 | -17.5 to -9.9 | -18.2 to -17.8 |
 
-23 speech segments (8 ads, 14 host breaks, 1 station ID) have peaks too high
+22 speech segments (7 ads, 14 host breaks, 1 station ID) have peaks too high
 for the full gain and stop at the ceiling, up to 3.7 dB under target
 (`peak_limited` in the TSV). Opus encoding leaves 15 tracks a fraction of a
 dB over -1 dBTP (worst -0.4); none reaches full scale.
