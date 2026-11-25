@@ -359,8 +359,9 @@ Anchorage.
 Listen for: loads to the TOTE, Matson and Alaska Marine Lines terminals at
 Tacoma and Seattle; a rare load to Alaska by road, always steel, lumber,
 machinery, building materials, food or refrigerated freight. In Anchorage,
-Fairbanks and Deadhorse, every load stays in Alaska; Kenai, Homer, Seward,
-Valdez and Skagway boards also offer loads to Canada and the lower 48. On the road to Alaska: "checks the
+Fairbanks, Deadhorse, Homer and the Mat-Su towns, every load stays in Alaska;
+Kenai, Seward and Valdez boards also offer seafood (food or refrigerated) to
+Canada and the lower 48, and Skagway offers loads to Whitehorse. On the road to Alaska: "checks the
 in-transit manifest and bond for this load" and "Cleared in bond. Welcome
 to Canada." going into Canada, then "Cleared. The bond is closed. Welcome to
 the United States." at the Alcan port.
