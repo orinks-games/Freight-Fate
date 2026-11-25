@@ -78,6 +78,10 @@ const SKIP_PATH_PARTS: &[&str] = &[
     "/data/climate",
     // The default-limit table: province names and statute citations, never spoken.
     "/data/province_limits",
+    // The carry-over state machine: save keys, never spoken.
+    "/models/carryover.rs",
+    // The profile's test modules: fixture names and keys.
+    "/profile/tests_",
 ];
 
 /// The hole an English plural ending ("s", "es") fills; a translation may

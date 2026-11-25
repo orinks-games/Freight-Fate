@@ -155,6 +155,36 @@ impl CityMenuState {
         open_freight_market(ctx);
     }
 
+    /// A carried 1.9 career whose carrier changed shape, with no load in
+    /// hand: the terminal offers the one-time carrier choice.
+    pub fn carrier_choice_open(ctx: &GameContext) -> bool {
+        let p = profile(ctx);
+        p.carrier_choice_due()
+            && p.active_trip.is_none()
+            && super::held_load::held_load(p, ctx.world).is_none()
+    }
+
+    fn choose_carrier(&mut self, ctx: &mut GameContext) {
+        let state = super::ChooseCarrierState::new(ctx);
+        ctx.push_state(state);
+    }
+
+    fn choose_carrier_help(ctx: &GameContext) -> String {
+        let p = profile(ctx);
+        let carrier = p
+            .hiring_carrier()
+            .map(|c| c.name.clone())
+            .unwrap_or_default();
+        if p.carrier_still_serves_home() {
+            format!("{carrier} changed where it runs. Stay, or pick who you drive for next.")
+        } else {
+            format!(
+                "{carrier} no longer dispatches from {}. Pick who you drive for next.",
+                ctx.world.spoken_city(&p.carryover_home(), None)
+            )
+        }
+    }
+
     /// A company driver with no carrier looks for a seat.
     fn apply_to_carrier(&mut self, ctx: &mut GameContext) {
         let state = ApplyToCarrierState::new(ctx);
@@ -769,6 +799,12 @@ impl Menu for CityMenuState {
         } else {
             self.take_carrier_termination(ctx)
         };
+        // A choice whose carrier is already gone (a termination just now,
+        // or own authority) is settled and never said.
+        if profile_mut(ctx).settle_stale_carrier_choice() {
+            ctx.save_profile();
+            self.refresh(ctx, true);
+        }
         let interrupt = match fired {
             Some(firing) => {
                 ctx.audio.play("ui/error");
@@ -866,6 +902,12 @@ impl Menu for CityMenuState {
         if !line.is_empty() {
             ctx.say_with(line, Say::new().interrupt(interrupt));
         }
+        if Self::carrier_choice_open(ctx) {
+            if let Some(notice) = profile(ctx).carrier_choice_notice() {
+                ctx.audio.play("ui/notify");
+                ctx.say_with(notice, Say::queued());
+            }
+        }
         let current = self.current_text(ctx);
         ctx.say_with(current, Say::queued().review(false));
         self.check_standing(ctx);
@@ -895,6 +937,13 @@ impl Menu for CityMenuState {
                 "Carriers that would take you on from your home. There is no dispatch \
                  board until one does.",
             )]
+        } else if Self::carrier_choice_open(ctx) {
+            // The carried career's one choice sits where the board would;
+            // the board opens again once it is made.
+            vec![MenuItem::new("Choose a carrier", |s: &mut Self, ctx| {
+                s.choose_carrier(ctx)
+            })
+            .help(Self::choose_carrier_help(ctx))]
         } else {
             vec![
                 MenuItem::new("Dispatch board", |s: &mut Self, ctx| s.job_board(ctx)).help(

@@ -741,8 +741,10 @@ fn test_s_off_the_destination_exit_reads_the_approach_not_the_interstate() {
     // R1 review drive, Chicago to Gary, 2026-11-22: off exit 14A, S said
     // "Truck limit 65 miles per hour." with the gate 0.1 miles ahead at 15.
     // Since the town limits at leg ends (dev PR 811) the approach reads
-    // the destination town's figure, 30, not the 45 the last highway
-    // posting ran on with.
+    // the destination town's figure, not the 45 the last highway posting
+    // ran on with. Joliet's end of the leg posts a read 40 on the street the
+    // route leaves on (OpenStreetMap, 2026-11-16), so the town stretch ends
+    // there rather than taking the state's assumed 30.
     let mut harness = a_drive("Approach Limit");
     harness.with_drive(|drive, _| {
         mark_destination_exit_taken(drive);
@@ -751,7 +753,7 @@ fn test_s_off_the_destination_exit_reads_the_approach_not_the_interstate() {
     });
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_speed_limit(ctx));
-    assert_eq!(last_main(&harness), "Speed limit 30 miles per hour.");
+    assert_eq!(last_main(&harness), "Speed limit 40 miles per hour.");
 
     // Close to the ramp's end the number is still the ramp's: the stop at
     // the end is the ramp's own rule, and the gate's half mile would reach
@@ -759,7 +761,7 @@ fn test_s_off_the_destination_exit_reads_the_approach_not_the_interstate() {
     harness.with_drive(|drive, _| drive.ramp_mi = Some(0.1));
     harness.clear_speech();
     harness.with_drive(|drive, ctx| drive.speak_speed_limit(ctx));
-    assert_eq!(last_main(&harness), "Speed limit 30 miles per hour.");
+    assert_eq!(last_main(&harness), "Speed limit 40 miles per hour.");
 }
 
 #[test]
@@ -773,11 +775,11 @@ fn test_off_the_destination_exit_the_dash_and_ramp_cap_go_by_the_number_s_speaks
         drive.ramp_mi = Some(0.6);
         drive.truck_mut().velocity_mps = 29.0 / freight_fate::states::driving_core::MPH_PER_MPS;
         drive.after_exit_limit_mph = drive.approach_limit_after_exit();
-        assert_eq!(drive.after_exit_limit_mph, Some(30.0));
-        assert!(drive.ramp_cap_here_mph() <= 30.0);
+        assert_eq!(drive.after_exit_limit_mph, Some(40.0));
+        assert!(drive.ramp_cap_here_mph() <= 40.0);
     });
     harness.clear_speech();
-    // At 29 on the approach: under the 30, and the dash stays quiet.
+    // At 29 on the approach: under the 40, and the dash stays quiet.
     harness.with_drive(|drive, ctx| drive.update_speeding(ctx, DT, false));
     harness.with_drive(|drive, _| assert!(!drive.overspeed_active));
 
@@ -786,7 +788,7 @@ fn test_off_the_destination_exit_the_dash_and_ramp_cap_go_by_the_number_s_speaks
         drive.update_speeding(ctx, DT, false);
         assert!(drive.overspeed_active);
     });
-    an_event_containing(&harness, "Over the limit of 30 miles per hour.");
+    an_event_containing(&harness, "Over the limit of 40 miles per hour.");
 
     // Off the ramp there is no approach number: the gate's 15 is back on
     // the map, and the trip's own limit answers.

@@ -124,6 +124,11 @@ fn scenario_properties() -> Value {
     ] {
         properties[key] = json!({"type": "number"});
     }
+    properties["carrier"] = json!({"type": "string", "description": "a carriers.json key (prairie_link, northstar, ...): the career drives for it, or is leased to it as an owner-operator; the home terminal is re-derived, the truck stays"});
+    properties["home_city"] = json!({"type": "string", "description": "the driver's home city; empty string for a blank home, as on a 1.9 save"});
+    properties["first_delivery_city"] = json!({"type": "string", "description": "the city the first delivery loaded in, as a 1.9 save records it; empty string clears the record"});
+    properties["copied_from_1_9"] = json!({"type": "boolean", "description": "true runs the 1.9 copy's carry-over on the career as staged (home fix and carryover state), after carrier, home_city and first_delivery_city"});
+    properties["carryover"] = json!({"type": "string", "enum": ["native", "settled", "carrier_choice_due"], "description": "the carry-over state, set directly, last"});
     properties["chains"] = json!({"type": "boolean"});
     properties["chain_wear_pct"] = json!({"type": "number"});
     properties["chain_repair_links"] = json!({"type": "integer"});
@@ -373,7 +378,10 @@ fn tools_list() -> Value {
              voice bound now, or main voice when events share it). A BUSINESS line \
              gives business_stage (company_driver, company_by_choice, leased_on, \
              leased_on_prepared or own_authority) and buy_in_paid (what the buy-in \
-             paid for the first tractor, 0 when none is on record). An INPUT line \
+             paid for the first tractor, 0 when none is on record). A CARRYOVER line \
+             gives the carry-over state of a career copied from 1.9 (native, settled \
+             or carrier_choice_due), the carrier key, home_city (blank when none is \
+             saved) and home_terminal_city. An INPUT line \
              ends it: phone (whether this run plays as a phone), device (keyboard, \
              controller or touch: the input prompts name), last_used, and keyboard \
              and controller (connected or none).",
@@ -468,7 +476,10 @@ fn tools_list() -> Value {
              with no miles driven), level (1 to 30), deliveries, money, reputation, \
              business (company, leased or independent) or business_stage \
              (company_driver, company_by_choice, leased_on, leased_on_prepared or \
-             own_authority; wins over business), owned_trucks (truck keys owned, the \
+             own_authority; wins over business), carrier (a carriers.json key), home_city \
+             and first_delivery_city (empty for blank), copied_from_1_9 (true runs the \
+             1.9 copy's carry-over on the staged career), carryover (native, settled or \
+             carrier_choice_due, set directly), owned_trucks (truck keys owned, the \
              first driven, with fresh wear and a full tank), endorsements (a list of \
              credential keys bought outright, replacing what was held), hour (local \
              clock 0 to 24, moved forward to), fuel_pct, damage_pct, tire_wear_pct and \

@@ -75,6 +75,7 @@ mod badge_moments_stops;
 mod badge_moments_terminal;
 mod bench_drive;
 mod browser_guard;
+mod carrier_carryover;
 mod cloud_backup_review;
 mod cloud_saves;
 mod discord_presence;

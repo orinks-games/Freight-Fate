@@ -430,6 +430,22 @@ fn generated_start_words(c: &carriers::Carrier, max: &str) -> (String, String, S
     )
 }
 
+/// The generated menu summary for `c` ("Loads of up to 600 miles in the
+/// central plains around ..."), in the player's units. A carrier with a
+/// hand-written start says its loads this way where the written summary
+/// does not, as the carrier-choice stay row does.
+pub fn carrier_summary_in(c: &carriers::Carrier, settings: &crate::settings::Settings) -> String {
+    let max = fmt_miles(c.run_band.max_mi);
+    let (_, summary, _) = generated_start_words(c, &max);
+    if c.run_band.max_mi <= 0.0 {
+        return summary;
+    }
+    summary.replace(
+        &format!("{max} miles"),
+        &settings.distance_text(c.run_band.max_mi, false),
+    )
+}
+
 /// What a national's specialty freight needs, as the game speaks it ("the
 /// refrigerated certificate"): the credentials of the cargo it favors most,
 /// read from the cargo catalog. `None` when that cargo needs nothing.
