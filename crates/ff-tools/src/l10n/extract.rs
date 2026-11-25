@@ -8,9 +8,10 @@
 //!
 //! The template, `lang/freight-fate.pot`, lists every line the game can
 //! speak: the player-facing literals in `crates/` (see `rust_strings`), the
-//! spoken fields of `data/buffs.json`, and `lang/extra.pot`, which holds
-//! lines the source never spells out whole (assembled from pieces at run
-//! time) that a maintainer added by hand.
+//! spoken fields of `data/buffs.json`, the display names in
+//! `data/carriers.json`, and `lang/extra.pot`, which holds lines the source
+//! never spells out whole (assembled from pieces at run time) that a
+//! maintainer added by hand.
 //!
 //! Each `lang/<code>.po` keeps every translation it has. A line new to the
 //! template arrives untranslated; a line the game no longer says is
@@ -285,6 +286,32 @@ fn template_entries(root: &Path) -> Result<Vec<Entry>> {
             }
         }
     }
+    let carriers = pyjson::load_path(&root.join("data").join("carriers.json"))?;
+    if let Some(map) = carriers.as_object() {
+        for carrier in map.values() {
+            let Some(text) = carrier.get("name").and_then(pyjson::Value::as_str) else {
+                continue;
+            };
+            if py_strip(text).is_empty() {
+                continue;
+            }
+            let reference = "data/carriers.json".to_string();
+            let line = catalog.entries.len();
+            match catalog.get_mut(text) {
+                Some(entry) => {
+                    if !entry.refs.contains(&reference) {
+                        entry.refs.push(reference);
+                    }
+                }
+                None => catalog.insert(Entry {
+                    msgid: text.to_string(),
+                    refs: vec![reference],
+                    line,
+                    ..Entry::default()
+                }),
+            }
+        }
+    }
     let extra = root.join("lang").join("extra.pot");
     if extra.exists() {
         for item in parse_po(&util::read_text(&extra)?).map_err(|e| format!("extra.pot: {e}"))? {
@@ -514,6 +541,38 @@ mod tests {
         assert_eq!(merged[1].msgstr, "Hola");
         assert!(merged[3].obsolete);
         assert!(merged[0].msgstr.contains("X-Language-Name: Spanish"));
+    }
+
+    #[test]
+    fn carrier_display_names_are_in_the_template() {
+        let root = util::repo_root();
+        let carriers = pyjson::load_path(&root.join("data").join("carriers.json")).unwrap();
+        let names: Vec<String> = carriers
+            .as_object()
+            .unwrap()
+            .values()
+            .filter_map(|c| c.get("name").and_then(pyjson::Value::as_str))
+            .filter(|name| !py_strip(name).is_empty())
+            .map(str::to_string)
+            .collect();
+        assert!(
+            names.len() >= 69,
+            "expected the full carrier roster, got {}",
+            names.len()
+        );
+        let pot = parse_po(&util::read_text(&root.join("lang").join("freight-fate.pot")).unwrap())
+            .unwrap();
+        let listed: std::collections::HashSet<&str> =
+            pot.iter().map(|e| e.msgid.as_str()).collect();
+        let missing: Vec<&str> = names
+            .iter()
+            .map(String::as_str)
+            .filter(|name| !listed.contains(name))
+            .collect();
+        assert!(
+            missing.is_empty(),
+            "carrier names missing from freight-fate.pot: {missing:?}"
+        );
     }
 
     #[test]

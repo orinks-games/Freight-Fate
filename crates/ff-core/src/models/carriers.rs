@@ -674,7 +674,7 @@ mod tests {
     #[test]
     fn test_carriers_json_loads_and_retiers() {
         let catalog = carrier_catalog();
-        assert_eq!(catalog.len(), 67);
+        assert_eq!(catalog.len(), 69);
         let northstar = carrier("northstar").expect("northstar");
         assert_eq!(northstar.tier, "national");
         assert_eq!(northstar.run_band.min_mi, 400.0);

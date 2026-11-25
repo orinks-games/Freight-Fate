@@ -89,7 +89,7 @@ jobs:
     # manifests only, and the translation and test-target checks build
     # ff-tools without its `world` feature, so ff-core, SDL2 and Hearken
     # stay out of it. The checkout is sparse and blobless: the 330 MB of
-    # world data under data/ is not needed here, only the one file the
+    # world data under data/ is not needed here, only the files the
     # translation extractor reads.
     name: fmt, translations and test targets
     runs-on: ubuntu-24.04
@@ -108,6 +108,7 @@ jobs:
             /vendor/
             /lang/
             /data/buffs.json
+            /data/carriers.json
 
       - name: Install the pinned toolchain
         run: rustup show

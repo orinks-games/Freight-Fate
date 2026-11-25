@@ -85,6 +85,8 @@ fn test_each_big_market_has_a_local() {
     for city in [
         "new_york_ny_us",
         "newark_nj_us",
+        "philadelphia_pa_us",
+        "baltimore_md_us",
         "savannah_ga_us",
         "houston_tx_us",
         "dallas_tx_us",
@@ -151,9 +153,13 @@ fn test_picker_lengths_at_the_listening_check_cities() {
     assert_eq!(carriers_at("dallas_tx_us"), 11);
     assert_eq!(carriers_at("billings_mt_us"), 8);
     assert_eq!(carriers_at("anchorage_ak_us"), 2);
+    // Trenton sits between the New York / New Jersey and Philadelphia port
+    // drayage markets, so a driver there can hear 13 company carriers. The
+    // cap lives only in this listening check; the picker itself has none.
+    assert_eq!(carriers_at("trenton_nj_us"), 13);
     for city in lower_48_freight_cities(world) {
         assert!(
-            carriers_at(&city) <= 12,
+            carriers_at(&city) <= 13,
             "{city} lists {}",
             carriers_at(&city)
         );
