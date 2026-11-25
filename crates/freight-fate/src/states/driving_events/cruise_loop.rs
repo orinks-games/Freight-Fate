@@ -169,8 +169,11 @@ impl DrivingState {
             self.trip.time_scale
         };
         match self.acc_limit_hold.clone() {
+            // Not past the gore either: a hold caught before the exit was
+            // set is the same town limit the scan below no longer reads.
             Some((at_mi, limit, reason))
                 if start < at_mi
+                    && at_mi <= end
                     && limit < lowest_limit
                     && at_mi - start
                         <= self.acc_limit_lookahead_at_scale_mi(

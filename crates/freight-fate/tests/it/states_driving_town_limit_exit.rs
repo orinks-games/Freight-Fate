@@ -1,15 +1,15 @@
-//! Highway 401 exit 415 at Oshawa, the destination exit of a Toronto load,
-//! taken with the speed assists off (agent drive, 2026-11-25: the truck rolled
-//! over in the ramp curve).
+//! A destination exit with a town limit on the highway past it: I-90 exit 96
+//! at Worcester on a Boston load, taken with the speed assists off.
 //!
-//! What went wrong there: cruise eased to 58 km/h for a 50 limit inside
-//! Oshawa, on the highway past the exit, then let go of it 800 meters before
-//! the gore and built from 59 to 87 into a 50 ramp, saying "Cruise down to 59
-//! kilometers per hour on this grade" as it did. These cases drive the real
-//! exit: cruise holds its exit glide, the truck reaches the gore no faster than
-//! it was told, a driver who brakes on the curve warning keeps the load, and a
-//! truck at road speed is warned before the gore. The limit past the exit is
-//! not called either.
+//! The 2.0 branch found this at Highway 401 exit 415, Oshawa (agent drive,
+//! 2026-11-25): cruise eased for the town limit past the exit, let go of it
+//! short of the gore and built speed into the ramp, and the truck rolled over
+//! in the ramp curve. Here the staged start caught Worcester's 35 at mile 39.4,
+//! past the gore at 38.8, before the exit was set; the truck sank to 38 on I-90
+//! and built to 58 into a 25 ramp. These cases drive the real exit: cruise
+//! holds its exit glide, a driver who brakes on the curve warning keeps the
+//! load, a truck at road speed is warned before the gore, and the limit past
+//! the exit is not called.
 
 use ff_core::data::world::get_world;
 use ff_core::sim::vehicle::MPS_TO_MPH;
@@ -23,14 +23,14 @@ const WARNING: &str = "Ramp curve, too fast. Slow to";
 const ROLLED: &str = "rolled over in the ramp curve";
 const FRAMES_PER_S: usize = 30;
 
-/// The exit 415 stage: a Toronto to Oshawa load of 14 tonnes, two miles short
+/// The exit 96 stage: a Boston to Worcester load of 14 tons, three miles short
 /// of the destination exit, every speed assist off and Facility streets off,
-/// the way the drive was set up.
-fn oshawa(cruise_mph: f64) -> PlaytestHarness {
+/// the way the 2.0 drive at Oshawa was set up.
+fn worcester(cruise_mph: f64) -> PlaytestHarness {
     let opts = RoadOptions {
         feature: "destination".to_string(),
-        origin: Some("toronto_on_ca".to_string()),
-        destination: Some("oshawa_on_ca".to_string()),
+        origin: Some("boston_ma_us".to_string()),
+        destination: Some("worcester_ma_us".to_string()),
         seed: Some(7),
         trip_seed: Some(7),
         cargo: 14.0,
@@ -41,12 +41,12 @@ fn oshawa(cruise_mph: f64) -> PlaytestHarness {
         sandbox: false,
         ..Default::default()
     };
-    let pairs = vec![("toronto_on_ca".to_string(), "oshawa_on_ca".to_string())];
+    let pairs = vec![("boston_ma_us".to_string(), "worcester_ma_us".to_string())];
     let hit = find_feature_seeded(get_world(), &pairs, "destination", &opts)
         .into_iter()
         .next()
-        .expect("the Oshawa destination exit");
-    assert!(hit.label.contains("exit 415"), "{}", hit.label);
+        .expect("the Worcester destination exit");
+    assert!(hit.label.contains("exit 96"), "{}", hit.label);
     let mut harness = PlaytestHarness::new();
     {
         let s = &mut harness.app.ctx.settings;
@@ -148,12 +148,11 @@ fn run(mut harness: PlaytestHarness, braking: bool, throttle_mph: Option<f64>) -
 }
 
 #[test]
-fn test_cruise_does_not_build_speed_into_the_oshawa_exit() {
-    // Set at 65 (105 km/h, the 401's posting): cruise holds the road and
-    // glides to its exit floor, ten under, at the gore. It used to drop to
-    // 36 for Oshawa's town limit past the exit and climb back to 54 at the
-    // gore.
-    let run = run(oshawa(65.0), false, None);
+fn test_cruise_does_not_build_speed_into_the_worcester_exit() {
+    // Set at 65, I-90's posting: cruise holds the road and glides to its
+    // exit floor, ten under, at the gore. It used to sink to 38 for
+    // Worcester's 35 past the exit and climb back to 58 at the gore.
+    let run = run(worcester(65.0), false, None);
     assert!(
         run.slowest_mainline > 50.0,
         "cruise slowed for a limit past the exit: {:.1} mph\n{}",
@@ -175,7 +174,7 @@ fn test_cruise_does_not_build_speed_into_the_oshawa_exit() {
 
 #[test]
 fn test_a_driver_who_brakes_on_the_ramp_curve_warning_keeps_the_load() {
-    let run = run(oshawa(65.0), true, None);
+    let run = run(worcester(65.0), true, None);
     assert!(run.warned_at.is_some(), "no curve warning\n{}", run.text);
     assert!(
         !run.rolled,
@@ -189,7 +188,7 @@ fn test_a_driver_who_brakes_on_the_ramp_curve_warning_keeps_the_load() {
 fn test_a_driver_who_never_brakes_is_warned_and_then_rolls() {
     // Nothing brakes the ramp with the assists off: the warning is the
     // driver's whole notice, and ignoring it costs the load.
-    let run = run(oshawa(65.0), false, None);
+    let run = run(worcester(65.0), false, None);
     assert!(run.warned_at.is_some(), "no curve warning\n{}", run.text);
     assert!(
         run.rolled,
@@ -204,7 +203,7 @@ fn test_a_truck_at_road_speed_hears_the_ramp_curve_warning_before_the_gore() {
     // Held at 65 to the gore, the truck needs more road than the
     // deceleration lane to come down to the curve: the warning comes on the
     // highway, and braking on it keeps the load.
-    let run = run(oshawa(0.0), true, Some(65.0));
+    let run = run(worcester(0.0), true, Some(65.0));
     let (speed, short_of_gore) = run.warned_at.expect("a curve warning");
     assert!(
         short_of_gore,
@@ -226,9 +225,10 @@ fn test_a_truck_at_road_speed_hears_the_ramp_curve_warning_before_the_gore() {
 
 #[test]
 fn test_the_limit_past_the_exit_is_not_called_on_the_way_to_it() {
-    // Oshawa's 50 is on Highway 401 past exit 415; the truck leaves at the
-    // gore. "Speed limit drops to 50 in 5 kilometers." was said for it.
-    let run = run(oshawa(65.0), true, None);
+    // Worcester's 35 is on I-90 past exit 96; the truck leaves at the gore.
+    // On the 2.0 branch "Speed limit drops to 50 in 5 kilometers." was said
+    // for Oshawa's limit past exit 415.
+    let run = run(worcester(65.0), true, None);
     assert!(
         run.warned_at.is_some(),
         "the drive never reached the ramp\n{}",
