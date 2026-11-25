@@ -241,11 +241,51 @@ pub fn road_freight(cargo_key: &str) -> bool {
     ROAD_FREIGHT.iter().any(|(key, _)| *key == cargo_key)
 }
 
+/// Where a lane's freight would otherwise go by sea: one end in Alaska and
+/// the other in the lower 48. Alaska's other freight sails from Tacoma and
+/// Seattle, so only road freight takes the road between them; every other
+/// lane through the other country (two lower 48 cities across Ontario,
+/// Anchorage to Skagway through the Yukon, a Canadian load through the US)
+/// takes any freight that may cross (director ruling, 2026-11-25).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum LaneSea {
+    /// The freight would otherwise sail: road freight only on a transit lane.
+    Sails,
+    /// No sea lane competes.
+    Overland,
+}
+
+impl LaneSea {
+    /// From the two ends' countries and states (or provinces).
+    pub fn between(
+        origin_country: &str,
+        origin_state: &str,
+        destination_country: &str,
+        destination_state: &str,
+    ) -> Self {
+        let us = |country: &str| country.eq_ignore_ascii_case("US");
+        let alaska = |state: &str| state.eq_ignore_ascii_case("AK");
+        if us(origin_country)
+            && us(destination_country)
+            && alaska(origin_state) != alaska(destination_state)
+        {
+            Self::Sails
+        } else {
+            Self::Overland
+        }
+    }
+}
+
 /// Whether this cargo, with or without a placard, may ride this lane:
-/// anything at home; freight that may cross on a border lane; and on a
-/// lane through the other country, freight that may cross and is road
-/// freight as well.
-pub fn cargo_fits_lane(kind: LaneKind, cargo: &super::catalog::CargoType, placarded: bool) -> bool {
+/// anything at home; freight that may cross on a lane that crosses; and on
+/// a lane through the other country between Alaska and the lower 48, freight
+/// that may cross and is road freight as well.
+pub fn cargo_fits_lane(
+    kind: LaneKind,
+    sea: LaneSea,
+    cargo: &super::catalog::CargoType,
+    placarded: bool,
+) -> bool {
     let may_cross = cargo_may_cross(
         cargo.national_network,
         cargo.key == crate::sim::livestock::LIVESTOCK_CARGO_KEY,
@@ -253,8 +293,8 @@ pub fn cargo_fits_lane(kind: LaneKind, cargo: &super::catalog::CargoType, placar
     );
     match kind {
         LaneKind::Home | LaneKind::Cabotage => true,
-        LaneKind::Border => may_cross,
-        LaneKind::HomeTransit | LaneKind::ForeignTransit => may_cross && road_freight(cargo.key),
+        LaneKind::Border | LaneKind::ForeignTransit => may_cross,
+        LaneKind::HomeTransit => may_cross && (sea == LaneSea::Overland || road_freight(cargo.key)),
     }
 }
 
@@ -274,8 +314,12 @@ pub fn cargo_ever_placarded(cargo_key: &str) -> bool {
 /// Whether a catalog cargo may ride this lane before its material is
 /// drawn: [`cargo_fits_lane`] with a placard for any cargo that can carry
 /// one.
-pub fn cargo_type_fits_lane(kind: LaneKind, cargo: &super::catalog::CargoType) -> bool {
-    cargo_fits_lane(kind, cargo, cargo_ever_placarded(cargo.key))
+pub fn cargo_type_fits_lane(
+    kind: LaneKind,
+    sea: LaneSea,
+    cargo: &super::catalog::CargoType,
+) -> bool {
+    cargo_fits_lane(kind, sea, cargo, cargo_ever_placarded(cargo.key))
 }
 
 /// Whether a catalog cargo may be booked across the border: the same rule
@@ -397,25 +441,71 @@ mod tests {
         }
     }
 
+    /// Only Alaska to the lower 48 (either way) would otherwise sail.
+    #[test]
+    fn only_alaska_and_the_lower_48_sail() {
+        assert_eq!(LaneSea::between("US", "WA", "US", "AK"), LaneSea::Sails);
+        assert_eq!(LaneSea::between("US", "AK", "US", "TX"), LaneSea::Sails);
+        // Two lower 48 cities across Ontario.
+        assert_eq!(LaneSea::between("US", "MI", "US", "NY"), LaneSea::Overland);
+        // Anchorage to Skagway or Haines through the Yukon.
+        assert_eq!(LaneSea::between("US", "AK", "US", "AK"), LaneSea::Overland);
+        // A Canadian load through the US.
+        assert_eq!(LaneSea::between("CA", "ON", "CA", "MB"), LaneSea::Overland);
+    }
+
     #[test]
     fn road_freight_is_the_flatbed_and_cold_list() {
         let cargo = |key: &str| super::super::catalog::cargo_type(key).expect("a catalog cargo");
-        assert!(cargo_type_fits_lane(LaneKind::HomeTransit, cargo("steel")));
+        let sails = LaneSea::Sails;
+        let overland = LaneSea::Overland;
         assert!(cargo_type_fits_lane(
             LaneKind::HomeTransit,
+            sails,
+            cargo("steel")
+        ));
+        assert!(cargo_type_fits_lane(
+            LaneKind::HomeTransit,
+            sails,
             cargo("refrigerated")
         ));
         assert!(!cargo_type_fits_lane(
             LaneKind::HomeTransit,
+            sails,
             cargo("general")
         ));
         assert!(!cargo_type_fits_lane(
             LaneKind::HomeTransit,
+            sails,
             cargo("retail")
         ));
-        assert!(cargo_type_fits_lane(LaneKind::Border, cargo("general")));
-        assert!(cargo_type_fits_lane(LaneKind::Home, cargo("hazardous")));
-        assert!(!cargo_type_fits_lane(LaneKind::Border, cargo("hazardous")));
+        assert!(cargo_type_fits_lane(
+            LaneKind::Border,
+            overland,
+            cargo("general")
+        ));
+        assert!(cargo_type_fits_lane(
+            LaneKind::Home,
+            overland,
+            cargo("hazardous")
+        ));
+        assert!(!cargo_type_fits_lane(
+            LaneKind::Border,
+            overland,
+            cargo("hazardous")
+        ));
+        // Transit lanes with no sea lane beside them take any freight that
+        // may cross, and still never a placard.
+        assert!(cargo_type_fits_lane(
+            LaneKind::HomeTransit,
+            overland,
+            cargo("general")
+        ));
+        assert!(!cargo_type_fits_lane(
+            LaneKind::HomeTransit,
+            overland,
+            cargo("hazardous")
+        ));
         for (key, source) in ROAD_FREIGHT {
             assert!(
                 super::super::catalog::cargo_type(key).is_some(),

@@ -527,3 +527,23 @@ fn a_canadian_carrier_repositions_inside_canada() {
         assert!(empty_moves.iter().any(|c| c.0 == "grande_prairie_ab_ca"));
     });
 }
+
+/// Anchorage to Skagway runs through the Yukon, but no ship competes with
+/// it, so the board offers any freight that may cross on that lane, and
+/// still never a placard.
+#[test]
+fn alaska_to_alaska_through_the_yukon_takes_any_freight() {
+    let mut cargo = std::collections::BTreeSet::new();
+    for seed in 0..150 {
+        for job in board_at("anchorage_ak_us", seed, 20, "northstar") {
+            if job.destination == "skagway_ak_us" {
+                assert!(job.hazmat.is_none(), "{job:?}");
+                cargo.insert(job.cargo.key.to_string());
+            }
+        }
+    }
+    assert!(
+        cargo.iter().any(|key| !cross_border::road_freight(key)),
+        "only road freight reached Skagway: {cargo:?}"
+    );
+}

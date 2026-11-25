@@ -238,7 +238,21 @@ Alberta), mostly flatbed, heavy and rush freight, in bond through Canada, so
 a road load between Alaska and the lower 48 is road freight only
 (`cross_border::ROAD_FREIGHT`). Freight that is not road freight, drawn for
 such a slot, takes the next destination in the spread instead, so no board
-thins. No frequency weight and no distance cap changed.
+thins. No frequency weight and no distance cap changed. The rule is about
+the sea lane, not the border: every other home transit lane (Anchorage to
+Skagway or Haines through the Yukon, a Canadian load through the United
+States) takes any freight that may cross (`cross_border::LaneSea`, director
+ruling 2026-11-25). No lower 48 pair routes through Canada today, so a
+carrier without authority loses only the Alaska towns.
+
+Which Alaska towns post loads out of Alaska (level 20, 150 boards of 8):
+Anchorage, Fairbanks and Deadhorse none, for any carrier (every freight site
+there ships in state). Kenai 57 to 58 percent of loads, Homer 50 to 55, Valdez 67 to
+71, Seward 52 to 54 and Skagway 85 for Northstar and an owner-operator,
+most of it to Canada on border lanes and the rest road freight to the lower
+48. Chatanika Freight, which does not run to Canada, posts none from Kenai,
+Homer, Valdez or Seward, and only Whitehorse loads from Skagway. Tok and
+Haines have no freight site and post nothing.
 
 Sources for this section:
 

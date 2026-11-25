@@ -985,8 +985,14 @@ impl<'w> JobBoard<'w> {
         // carrier may not haul, or freight that does not fit it, is no job.
         let lane = self.lane(carrier_key, origin, destination);
         if !cross_border::lane_permitted(lane, cross_border::carrier_runs_to_canada(carrier_key))
-            || !lane
-                .is_some_and(|kind| cross_border::cargo_fits_lane(kind, cargo, material.is_some()))
+            || !lane.is_some_and(|kind| {
+                cross_border::cargo_fits_lane(
+                    kind,
+                    self.lane_sea(origin, destination),
+                    cargo,
+                    material.is_some(),
+                )
+            })
         {
             return None;
         }

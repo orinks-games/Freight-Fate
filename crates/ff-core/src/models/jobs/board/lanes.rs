@@ -93,8 +93,23 @@ impl<'w> JobBoard<'w> {
         destination: &str,
         cargo: &CargoType,
     ) -> bool {
+        let sea = self.lane_sea(origin, destination);
         self.lane(carrier_key, origin, destination)
-            .is_some_and(|kind| cross_border::cargo_type_fits_lane(kind, cargo))
+            .is_some_and(|kind| cross_border::cargo_type_fits_lane(kind, sea, cargo))
+    }
+
+    /// Whether freight between the two cities would otherwise go by sea.
+    pub(crate) fn lane_sea(&self, origin: &str, destination: &str) -> cross_border::LaneSea {
+        let ends = |key: &str| {
+            self.world
+                .cities
+                .get(key)
+                .map(|c| (c.country.as_str(), c.state_code.as_str()))
+                .unwrap_or(("US", ""))
+        };
+        let (oc, os) = ends(origin);
+        let (dc, ds) = ends(destination);
+        cross_border::LaneSea::between(oc, os, dc, ds)
     }
 
     /// Whether two cities are in the same state or province.

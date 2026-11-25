@@ -5254,7 +5254,10 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       filed, in bond, closed), with its own customs lines at both booths and
       in the save. Road loads between Alaska and the lower 48 carry only road
       freight (steel, lumber, machinery and construction, read from Mercer;
-      food and refrigerated, assumed). Port and distribution sites in Alaska
+      food and refrigerated, assumed), because Alaska's other freight sails;
+      every other home transit lane (Anchorage to Skagway or Haines through
+      the Yukon, a Canadian load through the US) takes any freight that may
+      cross (director ruling, 2026-11-25). Port and distribution sites in Alaska
       carry `ships_in_state`, so freight off the ship stays in the state.
       Real sites added: the TOTE, Matson and Carlile docks at Tacoma, Alaska
       Marine Lines at Seattle, the TOTE and Matson terminals at the Port of
@@ -5271,6 +5274,15 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       up the Alaska Highway (7 days to Anchorage, 8 to Prudhoe Bay).
 - [ ] (Found along the way) Lower pay southbound out of Canada (FreightWaves,
       2019).
+- [x] A carrier without Canadian authority is not offered a lane between two
+      lower 48 cities whose road enters Canada (director ruling,
+      2026-11-25). Measured from Detroit, Port Huron, Buffalo, Sault Ste.
+      Marie and Bangor at levels 8 and 20: no lower 48 pair routes through
+      Canada today (a route between two US cities stays in the US when a US
+      road exists); the only such lanes are the 25 Alaska towns, so a
+      carrier without authority loses those and nothing else (688 US
+      destinations for Northstar, 663 for Great Lakes Training, Ecorse River
+      Cartage and Kittatinny Crossroads).
 - [ ] (Found along the way) The Canadian carrier's transit rule is ASSUMED:
       a Canadian load through the United States is allowed in bond, the
       mirror of the US rule; no page read says either way.
