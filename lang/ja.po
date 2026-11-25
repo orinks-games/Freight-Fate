@@ -12668,6 +12668,21 @@ msgstr "前回8時間休んでから、16時間走っていました"
 msgid "you had driven 20 hours after your last 8 hours off"
 msgstr "前回8時間休んでから、20時間走っていました"
 
+#. one sentence of a longer line
+msgid "US hours rules."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+msgid ""
+"US hours rules. {duration_text} of driving and {duration_text2} on duty "
+"left."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+#. one sentence of a longer line
+msgid "{duration_text} of driving and {duration_text2} on duty left."
+msgstr "運転は残り{duration_text}、勤務は残り{duration_text2}。"
+
 msgid "Hours of service: 30-minute break overdue."
 msgstr "運転時間規制：30分の休憩の期限を過ぎています。"
 
@@ -12750,11 +12765,6 @@ msgid ""
 "Alaska hours rules. {duration_text} of driving and {duration_text2} on duty "
 "left."
 msgstr "Alaskaの運転時間規制。運転は残り{duration_text}、勤務は残り{duration_text2}。"
-
-#. placeholders: {duration_text}, {duration_text2}
-#. one sentence of a longer line
-msgid "{duration_text} of driving and {duration_text2} on duty left."
-msgstr "運転は残り{duration_text}、勤務は残り{duration_text2}。"
 
 #. one sentence of a longer line
 msgid "Canadian hours rules."

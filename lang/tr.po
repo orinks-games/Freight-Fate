@@ -13743,6 +13743,21 @@ msgstr "son 8 saatlik aranızdan sonra 16 saat sürmüştünüz"
 msgid "you had driven 20 hours after your last 8 hours off"
 msgstr "son 8 saatlik aranızdan sonra 20 saat sürmüştünüz"
 
+#. one sentence of a longer line
+msgid "US hours rules."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+msgid ""
+"US hours rules. {duration_text} of driving and {duration_text2} on duty "
+"left."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+#. one sentence of a longer line
+msgid "{duration_text} of driving and {duration_text2} on duty left."
+msgstr "{duration_text} sürüş ve {duration_text2} görev süresi kaldı."
+
 msgid "Hours of service: 30-minute break overdue."
 msgstr "Çalışma ve dinlenme süreleri: 30 dakikalık mola gecikti."
 
@@ -13835,11 +13850,6 @@ msgid ""
 msgstr ""
 "Alaska çalışma süresi kuralları. {duration_text} sürüş ve {duration_text2} "
 "görev süresi kaldı."
-
-#. placeholders: {duration_text}, {duration_text2}
-#. one sentence of a longer line
-msgid "{duration_text} of driving and {duration_text2} on duty left."
-msgstr "{duration_text} sürüş ve {duration_text2} görev süresi kaldı."
 
 #. one sentence of a longer line
 msgid "Canadian hours rules."

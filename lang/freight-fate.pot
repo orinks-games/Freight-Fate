@@ -15766,6 +15766,24 @@ msgstr ""
 msgid "you had driven 20 hours after your last 8 hours off"
 msgstr ""
 
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/hos/clock.rs
+msgid "US hours rules."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+#: crates/ff-core/src/sim/hos/clock.rs
+msgid ""
+"US hours rules. {duration_text} of driving and {duration_text2} on duty "
+"left."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/hos/clock.rs
+msgid "{duration_text} of driving and {duration_text2} on duty left."
+msgstr ""
+
 #: crates/ff-core/src/sim/hos/clock.rs
 msgid "Hours of service: 30-minute break overdue."
 msgstr ""
@@ -15864,12 +15882,6 @@ msgstr ""
 msgid ""
 "Alaska hours rules. {duration_text} of driving and {duration_text2} on duty "
 "left."
-msgstr ""
-
-#. placeholders: {duration_text}, {duration_text2}
-#. one sentence of a longer line
-#: crates/ff-core/src/sim/hos/clock.rs
-msgid "{duration_text} of driving and {duration_text2} on duty left."
 msgstr ""
 
 #. one sentence of a longer line

@@ -1128,6 +1128,59 @@ impl HosClock {
         self.summary_with(mode, true)
     }
 
+    /// The hours readout with the road ahead in it: under Canadian rules on
+    /// a road that enters the United States, the US hours line (and a split
+    /// rest under way, after it) follows the Canadian sentence, because the
+    /// US counts decide once the truck crosses (director, 2026-11-25). On a
+    /// road that stays in Canada, and under any other rules, it is
+    /// [`Self::summary`].
+    pub fn summary_ahead(&self, mode: &str, road_ahead_stays_in_canada: bool) -> String {
+        let summary = self.summary(mode);
+        if !self.rules.is_canadian() || road_ahead_stays_in_canada {
+            return summary;
+        }
+        match self.us_hours_readout(mode) {
+            Some(us) => format!("{summary} {us}"),
+            None => summary,
+        }
+    }
+
+    /// "US hours rules. {} of driving and {} on duty left.", from the US
+    /// counts whatever rules are in force, in the shape of the Alaska line;
+    /// None with enforcement off.
+    pub fn us_hours_line(&self, mode: &str) -> Option<String> {
+        if is_non_enforced(mode) {
+            return None;
+        }
+        let (drive_limit, duty_limit, _) = limits(mode)?;
+        Some(format!(
+            "US hours rules. {} of driving and {} on duty left.",
+            duration_text(py_max(0.0, drive_limit - self.driving_min) / 60.0),
+            duration_text(py_max(0.0, duty_limit - self.duty_min) / 60.0),
+        ))
+    }
+
+    /// [`Self::us_hours_line`] with a US split rest under way after it: the
+    /// one place a split sentence is spoken under Canadian rules.
+    pub fn us_hours_readout(&self, mode: &str) -> Option<String> {
+        let line = self.us_hours_line(mode)?;
+        Some(match self.split_pending_summary() {
+            Some(pending) => format!("{line} {pending}"),
+            None => line,
+        })
+    }
+
+    /// [`Self::split_pending_summary`] where it is spoken on its own: under
+    /// US and Alaska rules. The split is a US rule, so under Canadian rules
+    /// it is said only after the US hours line ([`Self::us_hours_readout`]).
+    pub fn split_pending_spoken(&self) -> Option<&'static str> {
+        if self.rules.is_canadian() {
+            None
+        } else {
+            self.split_pending_summary()
+        }
+    }
+
     /// The summary without the ELD status sentence: the hours alone, for a
     /// warning where the status tells the driver nothing.
     pub fn hours_summary(&self, mode: &str) -> String {
@@ -1561,7 +1614,7 @@ impl HosClock {
                 ". Your 30-minute break is overdue and comes first"
             });
         }
-        match self.split_pending_summary() {
+        match self.split_pending_spoken() {
             Some(pending) => format!("{text}. {pending}"),
             None => format!("{text}."),
         }

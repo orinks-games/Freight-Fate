@@ -215,3 +215,126 @@ fn the_lot_and_the_motel_follow_the_road_ahead() {
         assert!(rows.contains(&motel), "{cities:?}: {rows:?}");
     }
 }
+
+fn earned(harness: &PlaytestHarness, id: &str) -> bool {
+    harness
+        .app
+        .ctx
+        .profile
+        .as_ref()
+        .expect("a career")
+        .achievements
+        .iter()
+        .any(|a| a == id)
+}
+
+/// Five-by-Two is ten hours in the bunk: the 8-hour Canadian night, in the
+/// sleeper or in the lot, does not earn it (director, 2026-11-25).
+#[test]
+fn five_by_two_is_not_earned_by_the_eight_hour_night() {
+    let mut harness = a_drive(
+        &["winnipeg_mb_ca", "portage_la_prairie_mb_ca"],
+        Some("longspur_transport"),
+    );
+    spend_a_shift(&mut harness, 30.0, HosRules::CanadaSouth60, 13.0);
+    let mut state = sleep_stop(&harness);
+    Menu::enter(&mut state, &mut harness.app.ctx);
+    sleep_on(&mut state, &mut harness, "Sleep 8 hours");
+    assert!(!earned(&harness, "slept_on_route"), "the sleeper night");
+
+    spend_a_shift(&mut harness, 31.0, HosRules::CanadaSouth60, 13.0);
+    let at = harness.read_drive(|d| d.trip.position_mi);
+    let mut stop = RoadStop::new("Example Rest Area", at, "rest_area");
+    stop.actions = ["park", "break"].iter().map(|a| a.to_string()).collect();
+    let handle = DriveRef::of(&harness.shared_driving().expect("a drive"));
+    let mut lot = RestStopState::with_drive(handle, stop, false);
+    sleep_on(&mut lot, &mut harness, "Sleep 8 hours in the lot");
+    assert!(!earned(&harness, "slept_on_route"), "the lot night");
+}
+
+#[test]
+fn the_ten_hour_night_in_manitoba_still_earns_five_by_two() {
+    let mut harness = a_drive(
+        &["winnipeg_mb_ca", "grand_forks_nd_us"],
+        Some("longspur_transport"),
+    );
+    spend_a_shift(&mut harness, 10.0, HosRules::CanadaSouth60, 12.0);
+    let mut state = sleep_stop(&harness);
+    Menu::enter(&mut state, &mut harness.app.ctx);
+    sleep_on(&mut state, &mut harness, "Sleep 10 hours");
+    assert!(earned(&harness, "slept_on_route"));
+}
+
+/// The hours readout under Canadian rules: the US hours line follows the
+/// Canadian sentence where the road ahead enters the United States, and is
+/// not spoken on a road that stays in Canada (director, 2026-11-25).
+#[test]
+fn the_hours_readout_adds_the_us_line_only_when_the_road_enters_the_us() {
+    for (cities, us_ahead) in [
+        (&["winnipeg_mb_ca", "grand_forks_nd_us"][..], true),
+        (&["winnipeg_mb_ca", "portage_la_prairie_mb_ca"][..], false),
+    ] {
+        let mut harness = a_drive(cities, Some("longspur_transport"));
+        harness.app.ctx.settings.hos_mode = "realistic".to_string();
+        spend_a_shift(&mut harness, 5.0, HosRules::CanadaSouth60, 10.0);
+        let us = "US hours rules. 1 hour of driving and 4 hours on duty left.";
+        for full_hours in [true, false] {
+            harness.clear_speech();
+            harness.with_drive(|d, ctx| d.speak_clock(ctx, full_hours));
+            let said = harness.transcript_text();
+            assert_eq!(
+                said.contains(us),
+                us_ahead,
+                "{cities:?} {full_hours}: {said}"
+            );
+            if full_hours {
+                assert!(said.contains("Canadian hours rules."), "{said}");
+                if us_ahead {
+                    let canadian = said.find("Canadian hours rules.").unwrap();
+                    assert!(said.find(us).unwrap() > canadian, "{said}");
+                }
+            }
+        }
+        let status = harness.with_drive(|d, ctx| d.status_lines(ctx)).join(" ");
+        assert_eq!(
+            status.contains(us.trim_end_matches('.')),
+            us_ahead,
+            "{status}"
+        );
+    }
+}
+
+/// The split rest is a US rule: under Canadian rules on a road that stays in
+/// Canada no split sentence is spoken, and on a road that enters the United
+/// States it comes after the US hours line.
+#[test]
+fn the_split_sentence_follows_the_us_line_under_canadian_rules() {
+    for (cities, us_ahead) in [
+        (&["winnipeg_mb_ca", "grand_forks_nd_us"][..], true),
+        (&["winnipeg_mb_ca", "portage_la_prairie_mb_ca"][..], false),
+    ] {
+        let mut harness = a_drive(cities, Some("longspur_transport"));
+        harness.app.ctx.settings.hos_mode = "realistic".to_string();
+        spend_a_shift(&mut harness, 5.0, HosRules::CanadaSouth60, 6.0);
+        harness.with_drive(|_, ctx| {
+            let hos = &mut ctx.profile.as_mut().expect("a career").hos;
+            hos.sleeper_split_rest(480.0);
+        });
+        let pending = harness
+            .app
+            .ctx
+            .profile
+            .as_ref()
+            .unwrap()
+            .hos
+            .split_pending_summary();
+        let pending = pending.expect("an 8-hour berth rest starts a US split");
+        harness.clear_speech();
+        harness.with_drive(|d, ctx| d.speak_clock(ctx, true));
+        let said = harness.transcript_text();
+        assert_eq!(said.contains(pending), us_ahead, "{cities:?}: {said}");
+        if us_ahead {
+            assert!(said.find(pending) > said.find("US hours rules."), "{said}");
+        }
+    }
+}

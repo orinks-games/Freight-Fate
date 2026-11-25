@@ -489,7 +489,9 @@ Pass when: in Canada the preview says "Afterward, driving allowance is
 13.0 hours. Your legal driving window closes in 16.0 hours", the Canadian
 numbers, and the clock moves 8 hours. On the load to the United States the
 night is 10 hours, and the hours are fresh when you cross. The terminal's
-sleep is 10 hours on both sides of the border.
+sleep is 10 hours on both sides of the border. Before the border, the C key
+reads the Canadian sentence and then "US hours rules." with your US hours;
+on the load that stays in Canada it reads no US sentence.
 
 ## Chapter 7. Canadian roads
 

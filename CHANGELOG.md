@@ -87,6 +87,7 @@
 ### Changed
 
 - **On a load that stays in Canada, the rest menu offers the 8-hour Canadian night.** A load headed into the United States still sleeps 10 hours, so you cross with fresh hours.
+- **In Canada with the United States ahead, the hours readout also gives your US hours.** The board's rest warning for a load into the United States reads them too.
 - **The career start rows now speak in the units of the home city you are picking,** kilometers for a Canadian city on Automatic.
 - **Gearshifts, turbocharger cues, and the engine brake now use real vehicle recordings instead of synthesized sounds.** Saved classic engine-brake settings migrate to recorded playback.
 - **The main engine and startup now use approved stereo cab recordings in installed builds.**

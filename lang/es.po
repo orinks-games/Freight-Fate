@@ -14181,6 +14181,22 @@ msgstr "habías conducido 16 horas desde tu último descanso de 8 horas"
 msgid "you had driven 20 hours after your last 8 hours off"
 msgstr "habías conducido 20 horas desde tu último descanso de 8 horas"
 
+#. one sentence of a longer line
+msgid "US hours rules."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+msgid ""
+"US hours rules. {duration_text} of driving and {duration_text2} on duty "
+"left."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+#. one sentence of a longer line
+msgid "{duration_text} of driving and {duration_text2} on duty left."
+msgstr ""
+"Quedan {duration_text} de conducción y {duration_text2} en servicio."
+
 msgid "Hours of service: 30-minute break overdue."
 msgstr "Horas de servicio: la pausa de 30 minutos está vencida."
 
@@ -14272,12 +14288,6 @@ msgid ""
 msgstr ""
 "Reglas de horas de Alaska. Quedan {duration_text} de conducción y "
 "{duration_text2} en servicio."
-
-#. placeholders: {duration_text}, {duration_text2}
-#. one sentence of a longer line
-msgid "{duration_text} of driving and {duration_text2} on duty left."
-msgstr ""
-"Quedan {duration_text} de conducción y {duration_text2} en servicio."
 
 #. one sentence of a longer line
 msgid "Canadian hours rules."

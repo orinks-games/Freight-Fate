@@ -14018,6 +14018,21 @@ msgstr "od ostatnich 8 godzin przerwy przejechano 16 godzin"
 msgid "you had driven 20 hours after your last 8 hours off"
 msgstr "od ostatnich 8 godzin przerwy przejechano 20 godzin"
 
+#. one sentence of a longer line
+msgid "US hours rules."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+msgid ""
+"US hours rules. {duration_text} of driving and {duration_text2} on duty "
+"left."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+#. one sentence of a longer line
+msgid "{duration_text} of driving and {duration_text2} on duty left."
+msgstr "Zostało {duration_text} jazdy i {duration_text2} w służbie."
+
 msgid "Hours of service: 30-minute break overdue."
 msgstr "Czas pracy kierowcy: 30-minutowa przerwa jest już zaległa."
 
@@ -14109,11 +14124,6 @@ msgid ""
 msgstr ""
 "Przepisy o czasie pracy na Alasce. Zostało {duration_text} jazdy i "
 "{duration_text2} w służbie."
-
-#. placeholders: {duration_text}, {duration_text2}
-#. one sentence of a longer line
-msgid "{duration_text} of driving and {duration_text2} on duty left."
-msgstr "Zostało {duration_text} jazdy i {duration_text2} w służbie."
 
 #. one sentence of a longer line
 msgid "Canadian hours rules."

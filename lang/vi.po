@@ -14198,6 +14198,21 @@ msgstr "bạn đã lái 16 giờ kể từ lần nghỉ 8 giờ gần nhất"
 msgid "you had driven 20 hours after your last 8 hours off"
 msgstr "bạn đã lái 20 giờ kể từ lần nghỉ 8 giờ gần nhất"
 
+#. one sentence of a longer line
+msgid "US hours rules."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+msgid ""
+"US hours rules. {duration_text} of driving and {duration_text2} on duty "
+"left."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+#. one sentence of a longer line
+msgid "{duration_text} of driving and {duration_text2} on duty left."
+msgstr "Còn {duration_text} lái và {duration_text2} làm việc."
+
 msgid "Hours of service: 30-minute break overdue."
 msgstr "Giờ lái quy định: quá hạn giờ nghỉ 30 phút."
 
@@ -14287,11 +14302,6 @@ msgid ""
 msgstr ""
 "Quy định giờ lái của Alaska. Còn {duration_text} lái và {duration_text2} "
 "làm việc."
-
-#. placeholders: {duration_text}, {duration_text2}
-#. one sentence of a longer line
-msgid "{duration_text} of driving and {duration_text2} on duty left."
-msgstr "Còn {duration_text} lái và {duration_text2} làm việc."
 
 #. one sentence of a longer line
 msgid "Canadian hours rules."

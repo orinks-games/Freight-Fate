@@ -139,7 +139,7 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
         .map(|_| format!(" {CATTLE_LIMIT_IN_SLEEP_TEXT}"))
         .unwrap_or_default();
     let pending = after
-        .split_pending_summary()
+        .split_pending_spoken()
         .map(|summary| format!(" {summary}"))
         .unwrap_or_default();
     let cost = if choice == SleepChoice::Motel {

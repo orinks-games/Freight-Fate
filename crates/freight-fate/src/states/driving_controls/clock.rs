@@ -97,7 +97,8 @@ impl DrivingState {
         };
         let tail = if full_hours {
             let mode = ctx.settings.hos_mode.clone();
-            let mut clause = hos_of(ctx).summary(&mode);
+            let stays = self.trip.road_ahead_stays_in_canada();
+            let mut clause = hos_of(ctx).summary_ahead(&mode, stays);
             let route = if terse {
                 String::new()
             } else {
@@ -114,6 +115,9 @@ impl DrivingState {
             } else {
                 format!(" {clause}")
             };
+            if let Some(us) = self.us_hours_ahead(ctx) {
+                tail.push_str(&format!(" {us}"));
+            }
             tail.push_str(&self.hos_key_notice(ctx));
             tail
         };
@@ -219,6 +223,21 @@ impl DrivingState {
             "shift" => format!("Shift time left: {left}."),
             _ => format!("Duty window closes in {left}."),
         }
+    }
+
+    /// The US hours line, and a US split under way, for the C key under
+    /// Canadian rules on a road that enters the United States (director,
+    /// 2026-11-25); None with the co-driver at the wheel or on a road that
+    /// stays in Canada.
+    fn us_hours_ahead(&self, ctx: &GameContext) -> Option<String> {
+        if self.co_driver_clock_clause(ctx).is_some() {
+            return None;
+        }
+        let hos = hos_of(ctx);
+        if !hos.rules.is_canadian() || self.trip.road_ahead_stays_in_canada() {
+            return None;
+        }
+        hos.us_hours_readout(&ctx.settings.hos_mode)
     }
 
     /// `_hos_key_notice()`: where the hours detail went, for the first few

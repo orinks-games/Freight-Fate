@@ -5346,6 +5346,16 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       country's units for a few seconds, until "Speeds and distances are in
       miles now." Seen staging Fargo and Winnipeg starts. A real drive starts
       in its origin's country, so only the staging lever shows it.
+- [ ] (Found along the way) Highway 75 from Winnipeg to the border has no
+      stop with a lot to sleep in. A driver bound for the United States who
+      is short of hours at Winnipeg has nowhere to take the night before
+      Pembina.
+- [ ] (Found along the way) Unnamed truck lots take the name "Truck parking
+      near" the leg's end city, by the rule that named them, not a field of
+      their own. On I-29 at Pembina (exit 215) and on the Manitoba side of
+      the Winnipeg to Grand Forks leg, lots 60 miles from Winnipeg are
+      called "Truck parking near Winnipeg". Rename by the nearest place when
+      the stop names are next rebuilt.
 - [ ] (Found along the way) US carriers' share of loads into Canada is still
       the plain distance weighting. No published share of US for-hire loads
       that cross into Canada was found (plan doc, Sources).
@@ -5380,7 +5390,16 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       enters the United States, or no trip at all, gets the 10-hour night,
       which ends both. The terminal sleeps 10 hours everywhere: it is where
       a driver who spent the US counts in Canada clears them before a US
-      load.
+      load. Second pass (same day): under Canadian rules with the United
+      States ahead, the C key, the pad's hours readout, the status line and
+      the ELD app add "US hours rules. {} of driving and {} on duty left."
+      after the Canadian sentence, and the board's accept confirm reads it
+      in place of the Canadian readout when the plan started from the US
+      counts. The split rest sentence is a US sentence: under Canadian rules
+      it is spoken only after that line, and on a road that stays in Canada
+      it is silent in the preview, the wake line and the readout.
+      Five-by-Two still takes 10 hours in the bunk; the 8-hour night does
+      not earn it.
 - [ ] **Alaska cycle restart.** The 34-hour restart is an assumption; verify
       its applicability under Alaska's rules.
 - [x] **Whittier tunnel.** Whittier is connected through the Anton Anderson

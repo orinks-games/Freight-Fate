@@ -286,7 +286,10 @@ impl DriverAppScreenState {
     fn eld_lines(&mut self, ctx: &mut GameContext) -> Vec<String> {
         self.driving
             .with(ctx, |d, ctx| {
-                let summary = d.player_hos_now(ctx).summary(&ctx.settings.hos_mode);
+                let stays = d.trip.road_ahead_stays_in_canada();
+                let summary = d
+                    .player_hos_now(ctx)
+                    .summary_ahead(&ctx.settings.hos_mode, stays);
                 let summary = summary.trim_end_matches('.');
                 let mut lines = vec![format!("ELD: {summary}")];
                 lines.extend(d.team_eld_line(ctx));

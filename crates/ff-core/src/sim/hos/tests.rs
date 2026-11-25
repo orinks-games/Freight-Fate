@@ -2482,3 +2482,35 @@ fn the_eight_hour_night_ends_the_canadian_counts_and_leaves_the_us_counts_runnin
     assert_eq!(us.driving_min, 0.0);
     assert_eq!(us.history.last().unwrap().source, "full_reset");
 }
+
+/// The US hours line is the Alaska line's shape over the US counts, and the
+/// split sentence under Canadian rules is spoken only after it (director,
+/// 2026-11-25).
+#[test]
+fn test_us_hours_line_and_the_split_under_canadian_rules() {
+    let mut c = HosClock::default();
+    c.set_rules(HosRules::CanadaSouth60);
+    c.drive(10.0 * 60.0 + 21.0);
+    assert_eq!(
+        c.us_hours_line("realistic").as_deref(),
+        Some("US hours rules. 39 minutes of driving and 3.6 hours on duty left.")
+    );
+    assert_eq!(c.summary_ahead("realistic", true), c.summary("realistic"));
+    let ahead = c.summary_ahead("realistic", false);
+    assert!(ahead.starts_with(&c.summary("realistic")), "{ahead}");
+    assert!(ahead.ends_with("US hours rules. 39 minutes of driving and 3.6 hours on duty left."));
+    assert_eq!(c.us_hours_line("off"), None);
+
+    c.sleeper_split_rest(480.0);
+    let pending = c.split_pending_summary().expect("a split under way");
+    assert_eq!(c.split_pending_spoken(), None);
+    assert!(!c.summary("realistic").contains(pending));
+    let readout = c.us_hours_readout("realistic").expect("enforced");
+    assert!(readout.starts_with("US hours rules."));
+    assert!(readout.ends_with(pending), "{readout}");
+
+    c.set_rules(HosRules::Alaska);
+    assert_eq!(c.split_pending_spoken(), Some(pending));
+    c.set_rules(HosRules::Us);
+    assert_eq!(c.split_pending_spoken(), Some(pending));
+}

@@ -620,7 +620,7 @@ impl RestStopState {
                 // speak again after waking.
                 hos_mut_of(ctx).re_arm_warnings();
                 let pending = hos_of(ctx)
-                    .split_pending_summary()
+                    .split_pending_spoken()
                     .unwrap_or("Sleeper berth rest recorded.")
                     .to_string();
                 if hos::HOS_NON_ENFORCED_MODES.contains(&mode.as_str()) {
@@ -752,7 +752,9 @@ impl RestStopState {
         self.save_here(ctx, true);
         ctx.audio.play("ui/notify");
         ctx.say(&text);
-        if full_night {
+        // Five-by-Two is ten hours in the bunk: the 8-hour Canadian night
+        // does not earn it (director, 2026-11-25).
+        if full_night && night == FullNight::TenHours {
             ctx.award_achievement("slept_on_route");
         }
         if Alertness::from_fatigue(before_fatigue) < Alertness::Severe {
@@ -841,6 +843,10 @@ impl RestStopState {
         if self.confirm_sleep(ctx, SleepChoice::Lot, hos::FATIGUE_SHOULDER_FLOOR) {
             return;
         }
+        let ten_hours = self
+            .driving
+            .read(|d| d.trip.road_ahead_stays_in_canada())
+            .is_some_and(|stays| hos_of(ctx).full_night(stays) == FullNight::TenHours);
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let engine_off = shut_down_engine(d, ctx);
             let night = full_night_of(ctx, d);
@@ -878,7 +884,9 @@ impl RestStopState {
         self.save_here(ctx, true);
         ctx.audio.play("ui/notify");
         ctx.say(&text);
-        ctx.award_achievement("slept_on_route");
+        if ten_hours {
+            ctx.award_achievement("slept_on_route");
+        }
         ctx.award_restart_badges(false);
     }
 
