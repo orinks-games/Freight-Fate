@@ -303,6 +303,7 @@ impl DrivingState {
         out.insert("fatigue".to_string(), json!(profile_of(ctx).fatigue));
         out.insert("hos_fine_count".to_string(), json!(self.hos_fine_count));
         out.insert("enforcement_events".to_string(), json!(enforcement_events));
+        out.insert("bond".to_string(), json!(self.trip.bond.key()));
         out.insert(
             "out_of_service_count".to_string(),
             json!(self.out_of_service_count),
@@ -667,6 +668,13 @@ impl DrivingState {
         state.departure_checked = true;
         // Everything behind the resume point was heard before the save.
         state.settle_enforcement_at(state.trip.position_mi);
+        // The load's border papers; a save from before they were kept has
+        // them from its lane and the booths behind the truck.
+        state.trip.bond = data
+            .get("bond")
+            .and_then(Value::as_str)
+            .and_then(ff_core::sim::bond::BondState::from_key)
+            .unwrap_or_else(|| state.trip.bond_at(state.trip.position_mi));
         let air_brake = data.get("air_brake").cloned().unwrap_or(Value::Null);
         state
             .trip

@@ -2,6 +2,7 @@
 pub mod alertness;
 pub mod arrival_gate;
 pub mod bend_approach;
+pub mod bond;
 pub mod bridges;
 pub mod cab;
 pub mod chain_control;

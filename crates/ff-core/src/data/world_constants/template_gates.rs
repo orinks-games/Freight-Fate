@@ -393,6 +393,11 @@ pub const STAND_IN_MARKET_FACILITY_TYPE: &str = "company_yard";
 /// corridor thread authored for it, never a stamped warehouse (brief 7,
 /// 2026-11-22; Surrey is curated for the port, not complete).
 pub const CURATED_COMPLETE_MARKET_CITY_KEYS: &[&str] = &[
+    // Anchorage and Deadhorse carry the real Port of Alaska, carrier and
+    // receiver sites read for them (Alaska freight brief, 2026-11-25), and
+    // no stamped warehouse beside them.
+    "anchorage_ak_us",
+    "deadhorse_ak_us",
     "fairbanks_ak_us",
     "fort_knox_ak_us",
     "kenai_ak_us",

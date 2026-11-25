@@ -5285,6 +5285,40 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       open. Listed Alaska spring-breakup limits are modeled, but the corridor
       does not establish full Canadian regulatory compliance. Full Canada and
       Europe remain planned.
+- [x] **Alaska freight follows the real lanes (2026-11-25).** One lane
+      table in `jobs::cross_border` decides every board, relay and playtest
+      offer: home, border, home transit (the lower 48 and Alaska through
+      Canada), cabotage and foreign transit, by the carrier's base country
+      (`base_country` in `carriers.json`, default US) and its `cross_border`
+      authority. A home load through Canada travels in bond (`sim::bond`:
+      filed, in bond, closed), with its own customs lines at both booths and
+      in the save. Road loads between Alaska and the lower 48 carry only road
+      freight (steel, lumber, machinery and construction, read from Mercer;
+      food and refrigerated, assumed). Port and distribution sites in Alaska
+      carry `ships_in_state`, so freight off the ship stays in the state.
+      Real sites added: the TOTE, Matson and Carlile docks at Tacoma, Alaska
+      Marine Lines at Seattle, the TOTE and Matson terminals at the Port of
+      Alaska, Carlile, Lynden, Spenard Builders Supply and Costco in
+      Anchorage, Lynden, Alaska West Express and Sourdough Express in
+      Fairbanks, and Carlile and Lynden at Deadhorse (which replace the
+      generated yard). Report:
+      `/mnt/project-files/alaska-canada-freight/brief-1-report.md`.
+- [ ] (Found along the way) Ship days at the Port of Alaska: TOTE and Matson
+      each sail twice a week from Tacoma (Port of Alaska fact sheet); loads
+      off the ship could post on those days only.
+- [ ] (Found along the way) A heavy haul lane from Texas to Prudhoe Bay past
+      the 3,000 mile cap: Lynden publishes scheduled Texas and Oklahoma runs
+      up the Alaska Highway (7 days to Anchorage, 8 to Prudhoe Bay).
+- [ ] (Found along the way) Lower pay southbound out of Canada (FreightWaves,
+      2019).
+- [ ] (Found along the way) The Canadian carrier's transit rule is ASSUMED:
+      a Canadian load through the United States is allowed in bond, the
+      mirror of the US rule; no page read says either way.
+- [ ] (Found along the way) Canadian carriers, home cities and boards
+      (brief 2); the `base_country` field exists for them.
+- [ ] (Found along the way) The new Alaska sites have no street chains, and
+      the two Deadhorse sites sit at the airport and the place centroid:
+      neither terminal has an OpenStreetMap object.
 - [ ] **Canadian daily and cycle-2 rules.** Daily limits and daily off-duty
       requirements, cycle 2, Canadian split sleeper, adverse-driving
       extensions, and deferral are not modeled.

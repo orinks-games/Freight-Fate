@@ -411,3 +411,46 @@ fn a_driver_who_delivers_to_watson_lake_is_sent_on_empty() {
     assert!(reposition.pay > 0.0);
     assert!(!company_board(&reposition.destination, "northstar", 1, 0).is_empty());
 }
+
+fn in_alaska(city: &str) -> bool {
+    get_world().city(city).expect("a map city").state_code == "AK"
+}
+
+/// The road from Seattle to Alaska runs through Canada, so a carrier
+/// without the authority never posts it, and one with it does.
+#[test]
+fn alaska_by_road_needs_canadian_authority() {
+    let to_alaska = |carrier: &str| -> usize {
+        (0..150)
+            .flat_map(|seed| board_at("seattle_wa_us", seed, 20, carrier))
+            .filter(|job| in_alaska(&job.destination))
+            .count()
+    };
+    assert_eq!(to_alaska("great_lakes_training"), 0);
+    assert!(to_alaska("northstar") > 0, "Northstar never posted Alaska");
+}
+
+/// A load between Alaska and the lower 48 by road is road freight, and
+/// never placarded freight.
+#[test]
+fn a_load_through_canada_is_road_freight() {
+    let mut seen = 0;
+    for city in ["seattle_wa_us", "bellingham_wa_us", "spokane_wa_us"] {
+        for seed in 0..150 {
+            for job in board_at(city, seed, 20, "northstar") {
+                if !in_alaska(&job.destination) {
+                    continue;
+                }
+                seen += 1;
+                assert!(
+                    cross_border::road_freight(job.cargo.key),
+                    "{city} seed {seed}: {} to {}",
+                    job.cargo.key,
+                    job.destination
+                );
+                assert!(job.hazmat.is_none(), "{job:?}");
+            }
+        }
+    }
+    assert!(seen > 0, "no load from the Northwest reached Alaska");
+}

@@ -548,3 +548,115 @@ fn the_booth_reminder_holds_the_clock_to_real_time_until_the_booth() {
         assert_ne!(drive.trip.real_time_override(), Some("border booth"));
     });
 }
+
+/// Tok to Haines runs through the Yukon: a home load in bond, with the
+/// in-transit lines at both booths, and the papers riding a save.
+fn in_bond_drive() -> PlaytestHarness {
+    let mut harness = PlaytestHarness::new();
+    harness.start_route(
+        "tok_ak_us",
+        "haines_ak_us",
+        RouteSetup::default().cities(&["tok_ak_us", "haines_junction_yt_ca", "haines_ak_us"]),
+    );
+    harness.prepare_for_driving(12.0);
+    harness
+}
+
+fn booths_in_order(harness: &PlaytestHarness) -> Vec<BorderBooth> {
+    let mut booths = harness.read_drive(|drive| drive.trip.border_booths.clone());
+    booths.sort_by(|a, b| a.at_mi.total_cmp(&b.at_mi));
+    booths
+}
+
+fn no_referral(harness: &mut PlaytestHarness, booths: &[BorderBooth]) {
+    let seed = (0..200)
+        .find(|seed| {
+            booths
+                .iter()
+                .all(|b| !border_secondary_referral(*seed, &b.key))
+        })
+        .expect("a seed with no referral at either booth");
+    harness.with_drive(|drive, _| drive.trip_seed = seed);
+}
+
+#[test]
+fn a_load_through_the_yukon_is_cleared_in_bond_and_closed_at_home() {
+    use ff_core::sim::bond::BondState;
+    let mut harness = in_bond_drive();
+    let booths = booths_in_order(&harness);
+    assert_eq!(booths.len(), 2, "{booths:?}");
+    assert_eq!(booths[0].entering_country, "CA");
+    assert_eq!(booths[1].entering_country, "US");
+    no_referral(&mut harness, &booths);
+    assert_eq!(harness.read_drive(|d| d.trip.bond), BondState::Filed);
+
+    arrive_at_booth_slowly(&mut harness, &booths[0]);
+    harness.expect_state::<BorderClearanceState>("entering the Yukon in bond");
+    let opening = harness.transcript_text();
+    assert!(
+        opening.contains(&format!(
+            "{}, {}. The officer asks for your passport and checks the in-transit manifest and bond for this load.",
+            booths[0].name, booths[0].agency
+        )),
+        "{opening}"
+    );
+    clear_booth(&mut harness);
+    assert!(
+        harness
+            .transcript_text()
+            .contains("Cleared in bond. Welcome to Canada."),
+        "{}",
+        harness.transcript_text()
+    );
+    assert_eq!(harness.read_drive(|d| d.trip.bond), BondState::InBond);
+
+    // A save made in the Yukon resumes in bond, and so does one from
+    // before the papers were kept.
+    let snapshot = harness.with_drive(|drive, ctx| drive.snapshot(ctx));
+    assert_eq!(snapshot["bond"], "in_bond");
+    let mut legacy = snapshot.clone();
+    legacy.as_object_mut().expect("an object").remove("bond");
+    legacy["position_mi"] = serde_json::json!((booths[0].at_mi + booths[1].at_mi) / 2.0);
+    for data in [snapshot, legacy] {
+        let resumed = harness.with_drive(|_, ctx| DrivingState::from_snapshot(ctx, &data));
+        let resumed = resumed.expect("the snapshot resumes");
+        assert_eq!(resumed.trip.bond, BondState::InBond);
+    }
+
+    arrive_at_booth_slowly(&mut harness, &booths[1]);
+    harness.expect_state::<BorderClearanceState>("coming home in bond");
+    let opening = harness.transcript_text();
+    assert!(
+        opening.contains(&format!(
+            "{}, {}. The officer asks for your passport and checks the in-transit manifest for this load.",
+            booths[1].name, booths[1].agency
+        )),
+        "{opening}"
+    );
+    clear_booth(&mut harness);
+    assert!(
+        harness
+            .transcript_text()
+            .contains("Cleared. The bond is closed. Welcome to the United States."),
+        "{}",
+        harness.transcript_text()
+    );
+    assert_eq!(harness.read_drive(|d| d.trip.bond), BondState::Closed);
+}
+
+#[test]
+fn every_clearance_line_reads_as_written() {
+    use ff_core::sim::bond::BoothPapers;
+    use freight_fate::states::driving_border::clearance_line;
+    let table = [
+        (BoothPapers::Ordinary, false, "Cleared. Welcome to Canada."),
+        (BoothPapers::Ordinary, true, "Referred to secondary inspection. Officers examine the trailer for 45 minutes, then clear you. Welcome to Canada."),
+        (BoothPapers::EnteringInBond, false, "Cleared in bond. Welcome to Canada."),
+        (BoothPapers::EnteringInBond, true, "Referred to secondary inspection. Officers examine the trailer for 45 minutes, then clear you in bond. Welcome to Canada."),
+        (BoothPapers::ClosingBond, false, "Cleared. The bond is closed. Welcome to Canada."),
+        (BoothPapers::ClosingBond, true, "Referred to secondary inspection. Officers examine the trailer for 45 minutes, then clear you. The bond is closed. Welcome to Canada."),
+    ];
+    for (papers, referred, line) in table {
+        assert_eq!(clearance_line(papers, referred, "Canada"), line);
+    }
+}
