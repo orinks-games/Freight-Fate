@@ -422,6 +422,11 @@ struct JavaOverride {
 ///   which left HIDAPI off, and with it PlayStation controller rumble. The
 ///   copy makes the two changes later SDL releases made. It stays until
 ///   sdl2-sys bundles an SDL with them.
+/// - SDL 2.26's controller manager. It opens any device that reports a
+///   D-pad as a joystick, and Android lists a Bluetooth keyboard as one for
+///   its arrow keys, so the game said "Controller connected" with the
+///   keyboard's name and its arrows arrived as D-pad buttons. The copy
+///   leaves out a device with a full letter keyboard and no joystick axes.
 const JAVA_OVERRIDES: &[JavaOverride] = &[
     JavaOverride {
         library: Library::Prism,
@@ -433,6 +438,12 @@ const JAVA_OVERRIDES: &[JavaOverride] = &[
         library: Library::Sdl,
         path: "SDL/android-project/app/src/main/java/org/libsdl/app/HIDDeviceManager.java",
         made_from: "0b571eb0a49fb3a01505b5066b2e8d7aafa257cf1fa5393fca42a22bc5960cda",
+        folder: "sdl",
+    },
+    JavaOverride {
+        library: Library::Sdl,
+        path: "SDL/android-project/app/src/main/java/org/libsdl/app/SDLControllerManager.java",
+        made_from: "6487643ae8ab90510f924331a24f8177b485ec997babf8fbd90596917a2bb1dc",
         folder: "sdl",
     },
 ];

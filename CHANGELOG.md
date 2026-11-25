@@ -18,6 +18,7 @@
 - **Cruise no longer slows on the highway for a town limit past your exit,** then speeds up again before the exit. It eases to its exit speed by the exit.
 - **The ramp curve warning comes before the exit when the truck needs more room than the exit lane to slow.**
 - **The GPS no longer calls a speed limit drop that lies past the exit you are taking.**
+- **On Android, a Bluetooth keyboard is no longer taken for a controller.** Its arrow keys work as arrow keys while driving and in menus.
 - **The engine cab sound no longer has a short, phasey echo.**
 - **The Logbook now includes driving, unloading and 30-minute breaks in its entries and daily totals.**
 - **Weather reports and alerts now use the selected language.** Players hear over a thousand fewer English lines.
