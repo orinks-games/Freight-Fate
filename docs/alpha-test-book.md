@@ -336,7 +336,25 @@ twin trailer, cattle or placarded load crosses; Great Lakes and local
 carriers offer no Canadian loads; and the deadline leaves time for
 customs.
 
-### 4.6 A town that ships nothing
+### 4.6 Alaska freight and loads in bond
+
+Setup: a career at a national carrier other than Great Lakes, at level 20,
+on a board in Seattle, Portland or Spokane; then an owner-operator board in
+Anchorage.
+
+Listen for: loads to the TOTE, Matson and Alaska Marine Lines terminals at
+Tacoma and Seattle; a rare load to Alaska by road, always steel, lumber,
+machinery, building materials, food or refrigerated freight. In Anchorage,
+nearly every load stays in Alaska. On the road to Alaska: "checks the
+in-transit manifest and bond for this load" and "Cleared in bond. Welcome
+to Canada." going into Canada, then "Cleared. The bond is closed. Welcome to
+the United States." at the Alcan port.
+
+Pass when: Great Lakes never offers Alaska by road; no general, retail or
+placarded load runs between Alaska and the lower 48; a save made in the
+Yukon resumes with the bond lines at the Alcan port.
+
+### 4.7 A town that ships nothing
 
 Setup: a company career.
 

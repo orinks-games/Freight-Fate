@@ -210,6 +210,54 @@ carrier and broker marketing pages, no survey or index to cite. The
 shares are set so average pay does not move. The code is
 `crates/ff-core/src/models/jobs/urgency.rs`.
 
+## Lane kinds and Alaska freight (2026-11-25)
+
+Every board asks one table (`jobs::cross_border`) what a lane is for the
+carrier offering it, and whether that carrier may haul it:
+
+| Lane | What it is | May haul |
+|---|---|---|
+| Home | both ends in the carrier's country, road stays there | yes |
+| Border | the ends are in different countries | with `cross_border` authority |
+| Home transit | both ends at home, road through the other country | with authority; the load is in bond |
+| Cabotage | both ends in the other country | never |
+| Foreign transit | both ends in the other country, road through home | never |
+
+The cache of reachable cities is shared by every carrier, so it holds only
+the end cities and whether each road leaves the country; the kind is worked
+out per carrier when a board filters.
+
+Alaska follows how its freight really moves. The Port of Alaska handles
+half of Alaska's inbound freight, and TOTE and Matson each run two container
+ships a week from Tacoma; Alaska carriers take it on from Anchorage. So the
+port and the Alaska distribution yards carry the `ships_in_state` trait, and
+a load from them ends in Alaska. Tacoma and Seattle have the ship and barge
+terminals, which receive freight from across the West. Trucks do run the
+Alaska Highway (Lynden schedules runs from Tacoma, California, Texas and
+Alberta), mostly flatbed, heavy and rush freight, in bond through Canada, so
+a road load between Alaska and the lower 48 is road freight only
+(`cross_border::ROAD_FREIGHT`). Freight that is not road freight, drawn for
+such a slot, takes the next destination in the spread instead, so no board
+thins. No frequency weight and no distance cap changed.
+
+Sources for this section:
+
+- Port of Alaska fact sheet, April 2025,
+  https://www.portofalaska.com/wp-content/uploads/port_fact_sheet_April_2025.pdf
+- TOTE Maritime, Alaska cargo, https://www.totemaritime.com/alaska/alaska-cargo/
+- Matson, Alaska service, https://www.matson.com/matnav/services/alaska.html
+- Lynden Transport service schedules,
+  https://www.lynden.com/ltia/resources/service-schedules/departing-from-seattle-tacoma-wa/
+  and https://www.lynden.com/ltia/resources/service-schedules/departing-from-texas-and-oklahoma/
+- Mercer Transportation, shipping freight to Alaska,
+  https://mercer-trans.com/2026/02/09/shipping-freight-to-alaska
+- CBSA Memorandum D3-1-5,
+  https://www.cbsa-asfc.gc.ca/publications/dm-md/d3/d3-1-5-eng.html , and
+  J. J. Keller on cabotage for US and Canadian drivers (links in
+  `cross_border.rs`).
+- ASSUMED: a Canadian carrier may run a Canadian load through the United
+  States in bond. No page read says either way.
+
 ## Sources
 
 - [PCS Software, Truck backhaul optimization](https://pcssoft.com/blog/truck-backhaul-optimization/):

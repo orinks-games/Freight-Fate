@@ -435,9 +435,9 @@ Some places have no road yet. Juneau, Ketchikan, Sitka, Kodiak, Cordova, Nome an
 
 ### Freight in Alaska and Canada
 
-Fairbanks, Seward, Valdez, Kenai and the other Alaska towns offer their real freight sites, and Deadhorse sells diesel. Between April and mid-June, thawing Alaska highways carry lighter loads under spring weight limits, and an offer names the road setting the limit.
+Fairbanks, Seward, Valdez, Kenai and the other Alaska towns offer their real freight sites, and Deadhorse sells diesel. Most of Alaska's freight comes north by sea: loads from across the West go to the TOTE and Matson terminals at Tacoma and the Alaska Marine Lines barge terminal in Seattle, and the TOTE and Matson terminals at the Port of Alaska in Anchorage ship it on to Alaska towns. Freight from the port and from the Alaska carrier terminals stays in Alaska. Between April and mid-June, thawing Alaska highways carry lighter loads under spring weight limits, and an offer names the road setting the limit.
 
-Dispatch offers loads from US cities into Canada and loads from Canada back to the United States. A US carrier may not haul between two Canadian towns, so a board in Canada offers only loads to the United States. Twin trailers, live cattle and placarded hazardous loads stay in their own country. Every national except Great Lakes Training Transport runs to Canada, and so do the regionals whose terminals sit near the border; local carriers stay home. A load's deadline includes time at customs.
+Dispatch offers loads from US cities into Canada and loads from Canada back to the United States. A US carrier may not haul between two Canadian towns, so a board in Canada offers only loads to the United States. Twin trailers, live cattle and placarded hazardous loads stay in their own country. A road load between Alaska and the lower 48 crosses Canada, so only a carrier that runs to Canada offers one, and it carries flatbed freight (steel, lumber, machinery, building materials) or food and refrigerated freight. Every national except Great Lakes Training Transport runs to Canada, and so do the regionals whose terminals sit near the border; local carriers stay home. A load's deadline includes time at customs.
 
 ### Speeds, distances and money
 
@@ -479,6 +479,8 @@ Hyder, Alaska, is the one exception. The road into Hyder from Stewart, British C
 As you cross the line, the GPS names the province or state you're entering, then, in this order, the time zone if it changes, the units line if Automatic changes them, and the new hours rules. Each waits for the one before it to finish. The new country's speed limit applies from the line.
 
 Before the booth, the GPS names the port, its distance and the agency, and says every truck stops at the customs booth. Half a mile out you hear "Customs booth in half a mile. Stop at the booth.", or 800 meters in kilometers. Slow down and stop at the booth. The officer asks for your passport and checks the eManifest filed for this load. Choose Answer the officer's questions and hand over your documents. Primary inspection takes 10 minutes on duty. About one truck in ten is referred to secondary inspection, where officers examine the trailer for 45 minutes before clearing you. You hear "Cleared. Welcome to Canada." or "Welcome to the United States."
+
+A load between Alaska and the lower 48 crosses Canada in bond. At the booth into Canada the officer checks the in-transit manifest and bond, and you hear "Cleared in bond. Welcome to Canada." At the booth back into the United States the officer checks the in-transit manifest, and you hear "Cleared. The bond is closed. Welcome to the United States."
 
 Driving past the booth brings an RCMP cruiser or a Border Patrol vehicle behind you with its lights on. Signal with X and stop on the shoulder, and officers escort you and the truck back to the port. The penalty going into the United States is 5,000 dollars, then 10,000 for each later offense. Going into Canada it is 2,000 Canadian dollars, then 4,000, then 8,000, charged in US dollars. A company driver's carrier pays the penalty; you lose reputation either way.
 

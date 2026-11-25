@@ -4,6 +4,7 @@
 use super::{Candidate, JobBoard};
 use crate::data::world_models::Location;
 use crate::models::co_driver::TEAM_LOAD_PAY_MULT;
+use crate::models::jobs::cross_border::LaneKind;
 use crate::models::jobs::{route_drive_hours, Job, DEADLINE_AVG_MPH};
 use crate::models::start_options::start_option;
 use crate::pyfmt::round_py_n;
@@ -22,12 +23,16 @@ impl<'w> JobBoard<'w> {
         origin: &Location,
         candidates: &[Candidate],
         level: i64,
+        carrier_key: &str,
     ) -> Option<(String, f64, Location)> {
         let kind = CattleKind::for_origin(&origin.facility_type);
         let mut options: Vec<(String, f64, &'w Location)> = Vec::new();
         for (destination, miles, _legs) in candidates {
-            // Live cattle stay inside the United States (`cross_border`).
-            if destination == city || self.crosses_border(city, destination) {
+            // Live cattle stay inside the country, on the road as well
+            // (`cross_border::cargo_fits_lane`).
+            if destination == city
+                || self.lane(carrier_key, city, destination) != Some(LaneKind::Home)
+            {
                 continue;
             }
             let Some(dest_city) = self.world.cities.get(destination) else {

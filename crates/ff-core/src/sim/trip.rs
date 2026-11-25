@@ -317,6 +317,9 @@ pub struct Trip {
     pub traffic_pressures: Vec<TrafficPressure>,
     pub navigation_cues: Vec<NavigationCue>,
     pub border_booths: Vec<BorderBooth>,
+    /// The load's border papers (`sim::bond`), moved at each booth by
+    /// [`Trip::clear_booth`].
+    pub bond: crate::sim::bond::BondState,
     pub landmarks: Vec<RoadsideCallout>,
     /// The named bridges on the route, and whether the truck is on one.
     pub bridges: Vec<crate::sim::bridges::RouteBridge>,
@@ -550,6 +553,7 @@ impl Trip {
             traffic_pressures: Vec::new(),
             navigation_cues: Vec::new(),
             border_booths: Vec::new(),
+            bond: crate::sim::bond::BondState::None,
             landmarks: Vec::new(),
             bridges: Vec::new(),
             bridge: Default::default(),
@@ -632,6 +636,7 @@ impl Trip {
         let (navigation_cues, border_booths) = trip.build_navigation_cues_and_border_booths();
         trip.navigation_cues = navigation_cues;
         trip.border_booths = border_booths;
+        trip.bond = crate::sim::bond::BondState::for_route(&trip.route, !trip.bobtail);
         trip.bridges = trip.place_bridges();
         trip.landmarks = trip.place_landmarks();
         trip.billboards = trip.place_billboards();
