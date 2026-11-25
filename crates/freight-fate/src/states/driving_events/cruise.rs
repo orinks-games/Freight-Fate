@@ -770,7 +770,12 @@ impl DrivingState {
         applied: f64,
     ) {
         self.keeper_droop_cue_s = 0.0f64.max(self.keeper_droop_cue_s - dt);
+        // Losing speed, too: a target that has just gone up (a cap let go)
+        // floors the pedal on a climb the truck is still gaining on, and
+        // "Cruise down to 59 on this grade" there was heard as cruise's new
+        // number while it built to 77 (agent drive, Oshawa, 2026-11-25).
         let beaten = applied >= CRUISE_FLOORED_THROTTLE
+            && self.trip.truck.net_accel_mph_per_s() <= 0.0
             && self.trip.truck.grade * 100.0 >= CRUISE_GRADE_BEATEN_PCT
             && error > KEEPER_DROOP_MPH;
         if !beaten {

@@ -216,6 +216,7 @@ mod states_driving_team_notes;
 mod states_driving_team_pace;
 mod states_driving_team_rest;
 mod states_driving_tired_work;
+mod states_driving_town_limit_exit;
 mod states_driving_traffic_rate;
 mod states_driving_traffic_sounds;
 mod states_driving_trip_resume;
