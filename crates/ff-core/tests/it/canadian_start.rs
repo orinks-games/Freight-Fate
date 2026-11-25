@@ -32,6 +32,23 @@ fn canadian_cities(world: &World) -> Vec<String> {
 }
 
 #[test]
+fn every_carrier_is_based_in_the_country_of_its_terminals() {
+    let world = world();
+    for c in carrier_catalog().values() {
+        for t in &c.terminal_city_keys {
+            assert!(
+                world.cities[t]
+                    .country
+                    .eq_ignore_ascii_case(c.home_country()),
+                "{} is based in {} with a terminal at {t}",
+                c.key,
+                c.home_country()
+            );
+        }
+    }
+}
+
+#[test]
 fn every_carrier_hires_in_its_own_country_only() {
     let world = world();
     for c in carrier_catalog().values() {

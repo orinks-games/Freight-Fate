@@ -136,20 +136,10 @@ impl Carrier {
             .map(|(_, k)| k)
     }
 
-    /// The country the carrier is based in, read from its terminals: a
-    /// carrier whose terminals are all in Canada is Canadian, any other is
-    /// American. Two-letter code, upper case.
+    /// The country the carrier is based in (`base_country` in
+    /// `carriers.json`), as an upper-case two-letter code.
     pub fn home_country(&self) -> &'static str {
-        let canadian = !self.terminal_city_keys.is_empty()
-            && self
-                .terminal_city_keys
-                .iter()
-                .all(|k| k.to_ascii_lowercase().ends_with("_ca"));
-        if canadian {
-            "CA"
-        } else {
-            "US"
-        }
+        self.base.code()
     }
 
     /// Terminal city this carrier would hire a driver living in `city_key`

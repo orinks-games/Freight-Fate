@@ -1770,7 +1770,8 @@
     },
     "cargo_weight_bonus": {},
     "lane_area": "Canada",
-    "cross_border": true
+    "cross_border": true,
+    "base_country": "CA"
   },
   "great_shield_transport": {
     "name": "Great Shield Transport",
@@ -1815,7 +1816,8 @@
     },
     "lane_area": "Canada",
     "specialty": "steel, machinery and lumber",
-    "cross_border": true
+    "cross_border": true,
+    "base_country": "CA"
   },
   "nicola_valley_freight": {
     "name": "Nicola Valley Freight",
@@ -1848,7 +1850,8 @@
       "lumber_paper": 0.2
     },
     "lane_area": "British Columbia",
-    "cross_border": true
+    "cross_border": true,
+    "base_country": "CA"
   },
   "sheep_river_transport": {
     "name": "Sheep River Transport",
@@ -1882,7 +1885,8 @@
       "construction": 0.15
     },
     "lane_area": "Alberta",
-    "cross_border": true
+    "cross_border": true,
+    "base_country": "CA"
   },
   "assiniboine_freight": {
     "name": "Assiniboine Freight Lines",
@@ -1917,7 +1921,8 @@
       "farm_inputs": 0.2
     },
     "lane_area": "Saskatchewan and Manitoba",
-    "cross_border": true
+    "cross_border": true,
+    "base_country": "CA"
   },
   "speed_river_freight": {
     "name": "Speed River Freight",
@@ -1951,7 +1956,8 @@
       "retail": 0.1
     },
     "lane_area": "southern Ontario",
-    "cross_border": true
+    "cross_border": true,
+    "base_country": "CA"
   },
   "mattawa_river_freight": {
     "name": "Mattawa River Freight",
@@ -1986,7 +1992,8 @@
       "bulk": 0.15
     },
     "lane_area": "northern Ontario",
-    "cross_border": false
+    "cross_border": false,
+    "base_country": "CA"
   },
   "transport_chaudiere": {
     "name": "Transport Chaudière",
@@ -2021,7 +2028,8 @@
       "food": 0.1
     },
     "lane_area": "Quebec",
-    "cross_border": true
+    "cross_border": true,
+    "base_country": "CA"
   },
   "fundy_shore_freight": {
     "name": "Fundy Shore Freight",
@@ -2056,7 +2064,8 @@
       "refrigerated": 0.15
     },
     "lane_area": "the Atlantic provinces",
-    "cross_border": true
+    "cross_border": true,
+    "base_country": "CA"
   },
   "liard_river_freight": {
     "name": "Liard River Freight",
@@ -2092,7 +2101,8 @@
       "fuel_bulk": 0.1
     },
     "lane_area": "the North",
-    "cross_border": true
+    "cross_border": true,
+    "base_country": "CA"
   },
   "port_lands_cartage": {
     "name": "Port Lands Cartage",
@@ -2121,7 +2131,8 @@
     },
     "cargo_weight_bonus": {},
     "lane_area": "greater Toronto",
-    "cross_border": false
+    "cross_border": false,
+    "base_country": "CA"
   },
   "lachine_cartage": {
     "name": "Lachine Cartage",
@@ -2149,7 +2160,8 @@
     },
     "cargo_weight_bonus": {},
     "lane_area": "greater Montreal",
-    "cross_border": false
+    "cross_border": false,
+    "base_country": "CA"
   },
   "annacis_island_cartage": {
     "name": "Annacis Island Cartage",
@@ -2180,6 +2192,7 @@
       "container": 0.2
     },
     "lane_area": "greater Vancouver",
-    "cross_border": false
+    "cross_border": false,
+    "base_country": "CA"
   }
 }
