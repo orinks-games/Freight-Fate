@@ -2545,7 +2545,10 @@ fn test_alaska_stand_in_markets_preserve_authored_facilities() {
     // Deadhorse's freight is its two real Slope terminals (Carlile and
     // Lynden), not a stamped company yard: no template is added beside them.
     assert_eq!(deadhorse.locations.len(), 2);
-    assert!(deadhorse.locations.iter().all(|location| !location.template));
+    assert!(deadhorse
+        .locations
+        .iter()
+        .all(|location| !location.template));
     assert!(deadhorse
         .locations
         .iter()
