@@ -548,15 +548,45 @@ const AD_ROWS: &[(&str, &str, f64)] = &[
     (
         "ad_northstar_freight_hiring",
         "Northstar Freight Lines",
-        22.4,
+        24.6,
     ),
-    ("ad_prairie_link_hiring", "Prairie Link Regional", 28.0),
-    ("ad_summit_value_hiring", "Summit Value Logistics", 24.2),
+    ("ad_prairie_link_hiring", "Prairie Link Regional", 21.7),
+    ("ad_summit_value_hiring", "Summit Value Logistics", 20.2),
+    (
+        "ad_great_lakes_training_hiring",
+        "Great Lakes Training Transport",
+        20.0,
+    ),
+    (
+        "ad_winterset_refrigerated_hiring",
+        "Winterset Refrigerated Lines",
+        23.0,
+    ),
+    ("ad_double_springs_hiring", "Double Springs Linehaul", 19.9),
+    ("ad_open_hearth_hiring", "Open Hearth Flatbed Lines", 23.6),
+    ("ad_longspur_hiring", "Longspur Transport", 20.5),
+    ("ad_great_shield_hiring", "Great Shield Transport", 21.6),
+    ("ad_chehalis_freight_hiring", "Chehalis Freight Lines", 19.3),
+    ("ad_tehachapi_hiring", "Tehachapi Motor Lines", 21.2),
+    ("ad_lone_mesa_hiring", "Lone Mesa Freight", 18.4),
+    ("ad_androscoggin_hiring", "Androscoggin Freight", 20.0),
+    (
+        "ad_chatanika_freight_hiring",
+        "Chatanika Freight Lines",
+        19.2,
+    ),
+    (
+        "ad_olentangy_valley_hiring",
+        "Olentangy Valley Freight",
+        22.2,
+    ),
 ];
 
 // Which STATION_PLAYLISTS pools each spot may air on, from
-// tools/radio_content_ads.py AD_PLAN.formats ("route" never appears: the
-// Roadhouse draws no ads).
+// tools/radio_content_ads.py AD_PLAN.formats. The Roadhouse playlist
+// "route" is not a format pool, so carrier hiring spots are selected
+// for it in station_ads rather than tagged "route". Other format
+// stations keep their existing rotation and also carry the new hiring ads.
 const AD_FORMAT_ROWS: &[(&str, &[&str])] = &[
     (
         "ad_red_hawk_travel_centers",
@@ -656,40 +686,55 @@ const AD_FORMAT_ROWS: &[(&str, &[&str])] = &[
             "night",
         ],
     ),
-    // The three starting carriers' hiring spots air where Meridian's does.
-    (
-        "ad_northstar_freight_hiring",
-        &[
-            "country",
-            "classic_rock",
-            "gospel",
-            "tejano",
-            "blues",
-            "jazz",
-        ],
-    ),
-    (
-        "ad_prairie_link_hiring",
-        &[
-            "country",
-            "classic_rock",
-            "gospel",
-            "tejano",
-            "blues",
-            "jazz",
-        ],
-    ),
-    (
-        "ad_summit_value_hiring",
-        &[
-            "country",
-            "classic_rock",
-            "gospel",
-            "tejano",
-            "blues",
-            "jazz",
-        ],
-    ),
+    // Carrier hiring spots air where Meridian's does, plus the Roadhouse
+    // (see station_ads and ROADHOUSE_AD_KEYS).
+    ("ad_northstar_freight_hiring", HIRING_AD_FORMATS),
+    ("ad_prairie_link_hiring", HIRING_AD_FORMATS),
+    ("ad_summit_value_hiring", HIRING_AD_FORMATS),
+    ("ad_great_lakes_training_hiring", HIRING_AD_FORMATS),
+    ("ad_winterset_refrigerated_hiring", HIRING_AD_FORMATS),
+    ("ad_double_springs_hiring", HIRING_AD_FORMATS),
+    ("ad_open_hearth_hiring", HIRING_AD_FORMATS),
+    ("ad_longspur_hiring", HIRING_AD_FORMATS),
+    ("ad_great_shield_hiring", HIRING_AD_FORMATS),
+    ("ad_chehalis_freight_hiring", HIRING_AD_FORMATS),
+    ("ad_tehachapi_hiring", HIRING_AD_FORMATS),
+    ("ad_lone_mesa_hiring", HIRING_AD_FORMATS),
+    ("ad_androscoggin_hiring", HIRING_AD_FORMATS),
+    ("ad_chatanika_freight_hiring", HIRING_AD_FORMATS),
+    ("ad_olentangy_valley_hiring", HIRING_AD_FORMATS),
+];
+
+/// Formats the 2.0 carrier hiring spots may air on: the same pools as the
+/// earlier Meridian / starting-carrier hiring ads. The Roadhouse is not
+/// listed here; its playlist key "route" is not a STATION_PLAYLISTS pool.
+const HIRING_AD_FORMATS: &[&str] = &[
+    "country",
+    "classic_rock",
+    "gospel",
+    "tejano",
+    "blues",
+    "jazz",
+];
+
+/// The 2.0 carrier hiring spots the Roadhouse airs. Meridian is a fictional
+/// advertiser and is not in this list.
+const ROADHOUSE_AD_KEYS: &[&str] = &[
+    "ad_northstar_freight_hiring",
+    "ad_prairie_link_hiring",
+    "ad_summit_value_hiring",
+    "ad_great_lakes_training_hiring",
+    "ad_winterset_refrigerated_hiring",
+    "ad_double_springs_hiring",
+    "ad_open_hearth_hiring",
+    "ad_longspur_hiring",
+    "ad_great_shield_hiring",
+    "ad_chehalis_freight_hiring",
+    "ad_tehachapi_hiring",
+    "ad_lone_mesa_hiring",
+    "ad_androscoggin_hiring",
+    "ad_chatanika_freight_hiring",
+    "ad_olentangy_valley_hiring",
 ];
 
 /// One break after every 2 songs; break content cycles this pattern. A
@@ -798,6 +843,12 @@ impl ContentTables {
     }
 
     pub fn station_ads(&self, playlist: &str) -> Vec<MusicTrack> {
+        if playlist == "route" {
+            return ROADHOUSE_AD_KEYS
+                .iter()
+                .filter_map(|key| self.ad_spots.iter().find(|spot| spot.key == *key).cloned())
+                .collect();
+        }
         self.ad_spots
             .iter()
             .filter(|spot| {
@@ -1143,11 +1194,106 @@ mod tests {
             }
         }
         assert_eq!(station_ids("route_playlist").len(), 7);
-        assert_eq!(ad_spots().len(), 21);
+        assert_eq!(ad_spots().len(), 33);
         assert!(ad_format_tags("ad_wagon_wheel_inn").contains(&"night".to_string()));
+        let roadhouse = station_ads("route");
+        assert_eq!(roadhouse.len(), 15);
         assert!(
-            station_ads("route").is_empty(),
-            "the Roadhouse draws no ads"
+            roadhouse
+                .iter()
+                .all(|t| t.key.ends_with("_hiring") && t.key != "ad_meridian_freight_hiring"),
+            "the Roadhouse airs only the 2.0 carrier hiring spots"
         );
+        assert!(station_ads("country")
+            .iter()
+            .any(|t| t.key == "ad_longspur_hiring"));
+        assert!(!station_ads("route")
+            .iter()
+            .any(|t| t.key == "ad_meridian_freight_hiring" || t.key == "ad_wagon_wheel_inn"));
+    }
+
+    const CARRIER_HIRING_ADS: &[(&str, &str)] = &[
+        ("ad_northstar_freight_hiring", "Northstar Freight Lines"),
+        ("ad_prairie_link_hiring", "Prairie Link Regional"),
+        ("ad_summit_value_hiring", "Summit Value Logistics"),
+        (
+            "ad_great_lakes_training_hiring",
+            "Great Lakes Training Transport",
+        ),
+        (
+            "ad_winterset_refrigerated_hiring",
+            "Winterset Refrigerated Lines",
+        ),
+        ("ad_double_springs_hiring", "Double Springs Linehaul"),
+        ("ad_open_hearth_hiring", "Open Hearth Flatbed Lines"),
+        ("ad_longspur_hiring", "Longspur Transport"),
+        ("ad_great_shield_hiring", "Great Shield Transport"),
+        ("ad_chehalis_freight_hiring", "Chehalis Freight Lines"),
+        ("ad_tehachapi_hiring", "Tehachapi Motor Lines"),
+        ("ad_lone_mesa_hiring", "Lone Mesa Freight"),
+        ("ad_androscoggin_hiring", "Androscoggin Freight"),
+        ("ad_chatanika_freight_hiring", "Chatanika Freight Lines"),
+        ("ad_olentangy_valley_hiring", "Olentangy Valley Freight"),
+    ];
+
+    #[test]
+    fn test_hiring_ad_titles_are_the_carrier_names() {
+        let shipped = ContentTables::shipped();
+        for (key, name) in CARRIER_HIRING_ADS {
+            let spot = shipped
+                .ad_spots
+                .iter()
+                .find(|t| t.key == *key)
+                .unwrap_or_else(|| panic!("missing hiring ad {key}"));
+            assert_eq!(spot.title, *name, "{key}");
+            let tags = ad_format_tags(key);
+            assert!(
+                !tags.contains(&"route".to_string()),
+                "{key} must not use a route format tag"
+            );
+            assert!(
+                station_ads("route").iter().any(|t| t.key == *key),
+                "{key} missing from the Roadhouse pool"
+            );
+            for fmt in [
+                "country",
+                "classic_rock",
+                "gospel",
+                "tejano",
+                "blues",
+                "jazz",
+            ] {
+                assert!(tags.contains(&fmt.to_string()), "{key} {fmt}");
+            }
+        }
+    }
+
+    #[test]
+    fn test_the_roadhouse_break_pattern_airs_carrier_ads() {
+        // Slot 2 is ad_ad_id; with a hiring pool on "route" this is a stopset,
+        // not the host-only fallback used when the Roadhouse had no ads.
+        let planned = plan_break("route_playlist", "roadhouse", "route", "seed", 2);
+        assert!(
+            planned
+                .iter()
+                .any(|k| k.starts_with("ad_") && k.ends_with("_hiring")),
+            "{planned:?}"
+        );
+        assert!(
+            planned.iter().any(|k| k.starts_with("id_roadhouse_")),
+            "{planned:?}"
+        );
+        let later = plan_break("route_playlist", "roadhouse", "route", "seed", 5);
+        assert!(later.iter().any(|k| k.starts_with("ad_")), "{later:?}");
+        // The same seed is deterministic, and a two-spot stopset does not
+        // repeat the same read.
+        assert_eq!(
+            plan_break("route_playlist", "roadhouse", "route", "seed", 2),
+            planned
+        );
+        let ads: Vec<_> = planned.iter().filter(|k| k.starts_with("ad_")).collect();
+        if ads.len() == 2 {
+            assert_ne!(ads[0], ads[1], "{planned:?}");
+        }
     }
 }
