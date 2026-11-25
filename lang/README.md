@@ -178,10 +178,10 @@ that leaves a screen; translate that one.
   it by hand.
 - `lang/extra.pot` holds lines the source never spells out whole, added by
   hand. Each one is a template like the others.
-- After changing spoken text in the code, run
-  `cargo tools l10n-extract`. It rewrites the template and adds
-  new lines to every language file, untranslated. CI fails when the files
-  are out of date (`--check`).
+- After changing spoken text in the code, or a carrier's display name in
+  `data/carriers.json`, run `cargo tools l10n-extract`. It rewrites the
+  template and adds new lines to every language file, untranslated. CI
+  fails when the files are out of date (`--check`).
 - `cargo tools l10n-check` checks every language file:
   placeholders, numbers, key names, and broken entries. `--stats` prints
   how much of each language is translated.

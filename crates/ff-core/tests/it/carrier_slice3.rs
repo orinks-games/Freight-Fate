@@ -51,12 +51,12 @@ fn is_alaska_carrier(world: &World, c: &Carrier) -> bool {
 fn test_catalog_counts_by_tier() {
     let catalog = carrier_catalog();
     let count = |tier: &str| catalog.values().filter(|c| c.tier == tier).count();
-    // 54 US carriers, and 13 Canadian ones since 2026-11-25 (2 nationals,
+    // 56 US carriers, and 13 Canadian ones since 2026-11-25 (2 nationals,
     // 8 regionals, 3 locals).
-    assert_eq!(catalog.len(), 67);
+    assert_eq!(catalog.len(), 69);
     assert_eq!(count("national"), 8);
     assert_eq!(count("regional"), 40);
-    assert_eq!(count("local"), 19);
+    assert_eq!(count("local"), 21);
     let world = world();
     let alaska: Vec<&str> = catalog
         .values()

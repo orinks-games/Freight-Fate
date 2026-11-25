@@ -145,9 +145,14 @@ fn test_drive_music_advances_to_next_track_while_paused() {
 
     press(&mut harness, Key::Escape);
     assert!(harness.state_is::<PauseMenuState>(), "Escape did not pause");
-    let (current, index_before, break_before) = harness.read_drive(|d| {
+    let (current, before) = harness.read_drive(|d| {
         let track = d.radio_playlist[d.radio_track_index % d.radio_playlist.len()].clone();
-        (track, d.radio_track_index, !d.radio_break_queue.is_empty())
+        let at = (
+            d.radio_track_index,
+            d.radio_break_queue.clone(),
+            d.radio_break_pos,
+        );
+        (track, at)
     });
     let log = harness.app.record_audio();
     log.borrow_mut().music.clear();
@@ -161,12 +166,16 @@ fn test_drive_music_advances_to_next_track_while_paused() {
         !log.borrow().music.is_empty(),
         "the radio went silent under the pause menu"
     );
-    let (index_after, break_after) =
-        harness.read_drive(|d| (d.radio_track_index, !d.radio_break_queue.is_empty()));
-    assert!(
-        index_after != index_before || break_after != break_before,
-        "the rotation never moved on"
-    );
+    // A break with several items (the Roadhouse's ad breaks) moves on one
+    // item at a time, so a step inside the break counts as moving on.
+    let after = harness.read_drive(|d| {
+        (
+            d.radio_track_index,
+            d.radio_break_queue.clone(),
+            d.radio_break_pos,
+        )
+    });
+    assert!(after != before, "the rotation never moved on");
 }
 
 // -- the drivers board -------------------------------------------------------------------

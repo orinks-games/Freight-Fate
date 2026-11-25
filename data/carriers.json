@@ -185,10 +185,11 @@
     "name": "Kittatinny Crossroads Freight",
     "tier": "regional",
     "terminal_city_keys": [
+      "newark_nj_us",
+      "philadelphia_pa_us",
       "harrisburg_pa_us",
-      "worcester_ma_us",
-      "pittsburgh_pa_us",
-      "newark_nj_us"
+      "baltimore_md_us",
+      "pittsburgh_pa_us"
     ],
     "hiring_radius_mi": 250.0,
     "home_time_policy": "inert",
@@ -1371,6 +1372,66 @@
       "port_container": 0.2
     },
     "lane_area": "the New York and New Jersey port"
+  },
+  "pennsauken_creek_drayage": {
+    "name": "Pennsauken Creek Drayage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "philadelphia_pa_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "container": 0.3,
+      "port_container": 0.2
+    },
+    "lane_area": "the Port of Philadelphia and South Jersey"
+  },
+  "colgate_creek_drayage": {
+    "name": "Colgate Creek Drayage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "baltimore_md_us"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "container": 0.3,
+      "port_container": 0.2
+    },
+    "lane_area": "the Port of Baltimore"
   },
   "wassaw_sound_drayage": {
     "name": "Wassaw Sound Drayage",

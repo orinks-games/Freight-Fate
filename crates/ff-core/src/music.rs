@@ -607,7 +607,7 @@ mod tests {
     #[test]
     fn test_music_track_duration_falls_back_to_a_minute() {
         assert_eq!(music_track_duration_s("open_road"), 131.6);
-        assert_eq!(music_track_duration_s("host_roadhouse_01"), 6.7);
+        assert_eq!(music_track_duration_s("host_roadhouse_01"), 5.3);
         assert_eq!(music_track_duration_s("no_such_key"), 60.0);
     }
 
