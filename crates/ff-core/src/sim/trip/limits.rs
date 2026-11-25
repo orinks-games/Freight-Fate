@@ -660,12 +660,21 @@ impl Trip {
     /// `(boundary_mi, new_limit)` for the FIRST change inside the pacenote
     /// window. The scan walks an ABSOLUTE grid so the dedup key stays stable
     /// however the frames land (owner log, 2026-07-23).
+    ///
+    /// Never past the gore of the exit the truck is taking: the trip's miles
+    /// run on along the highway, and a limit there is not on the truck's way.
+    /// "Speed limit drops to 50 in 5 kilometers." was Oshawa's town limit on
+    /// Highway 401, said on the way to exit 415 (agent drive, 2026-11-25).
     pub fn next_limit_drop(&self) -> Option<(f64, f64)> {
         let current = self.corridor_limit_at(self.position_mi);
         let mut prev = (self.position_mi / LIMIT_SCAN_STRIDE_MI).floor() * LIMIT_SCAN_STRIDE_MI;
+        let exit_mi = self
+            .exit_approach_mi
+            .map_or(f64::INFINITY, |ahead| self.position_mi + ahead);
         let end = self
             .total_miles()
-            .min(self.position_mi + LIMIT_WARNING_MAX_LEAD_MI);
+            .min(self.position_mi + LIMIT_WARNING_MAX_LEAD_MI)
+            .min(exit_mi);
         while prev < end {
             let mi = end.min(prev + LIMIT_SCAN_STRIDE_MI);
             let limit = self.corridor_limit_at(mi);
