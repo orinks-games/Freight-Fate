@@ -64,6 +64,7 @@ mod data_world;
 mod data_world_overlay;
 mod economy;
 mod profile_integrity_export;
+mod radio_clip_durations;
 mod sim_bends_hold_their_advisory;
 mod sim_billboard_facing;
 mod sim_billboard_law;

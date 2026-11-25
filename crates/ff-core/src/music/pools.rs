@@ -102,7 +102,7 @@ const HOST_TABLES: &[(&str, &str, &str, [f64; 8])] = &[
         "roadhouse",
         "Freight Fate Roadhouse",
         "FFR host segment",
-        [6.7, 4.9, 6.5, 6.4, 6.5, 6.6, 7.8, 7.0],
+        [5.3, 4.6, 5.8, 5.5, 5.1, 5.6, 6.2, 6.4],
     ),
     (
         "nightline",

@@ -7,14 +7,15 @@ use std::path::{Path, PathBuf};
 use crate::http;
 use crate::util::{self, Result};
 
-/// Production, so a release no longer pulls its music through the staging
-/// host. The route is a 307 to FREIGHT_FATE_MUSIC_BLOB_URL; that Vercel
-/// variable must be on the Production scope (it is as of 2026-09-20), and
-/// Vercel bakes the environment at deploy time, so setting it takes a
-/// redeploy. The sha256 below is what actually gates the download either way.
-const DEFAULT_MUSIC_URL: &str = "https://www.orinks.net/downloads/music.pak";
+/// The music pack. Each rebuild is published under a new name beside the
+/// old one (`music-<first 8 hex of its SHA-256>.pak`), so a branch still
+/// pinned to an older pack keeps building; a rebuild moves both lines. The
+/// 2.0 pack is the 1.9 pack plus `assets/radio-2.0/pack-overlay/`, and that
+/// folder's README has the rebuild command. The SHA-256 is what gates the
+/// download.
+const DEFAULT_MUSIC_URL: &str = "https://crisp-crystal-9a9y.here.now/music-9f4c05a1.pak";
 const DEFAULT_MUSIC_SHA256: &str =
-    "c56401a2a45057faba0bd4bf7d024ce7dd3908f682f4c35526643a1870cb7798";
+    "9f4c05a19b3d0363abff7607cdc1648a08ca36d24a5a6dcce0a60cab0d51aa31";
 /// Channel 3000's clips, packed from the owner's local clips folder. Its own
 /// pack rather than more of music.pak, which the game reads whole into
 /// memory; the game opens this one only when the radio is first tuned to
