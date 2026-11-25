@@ -5108,6 +5108,10 @@ in the audited Windows run.
       Pascagoula, Pinehurst, Pittsfield, Point Comfort, Reading, Reedville,
       Sandusky, Soldotna, Tok and Venice (Louisiana). The rule holds for
       Canadian cities until the director rules on that list.
+      Before any US home closes, the list needs the measured first board at
+      level 1 for each city: `has_first_load` reads curated sites, and some
+      of these towns (Reading, Lancaster, Denton) may fill their boards from
+      template markets.
 - [ ] **A Canadian career still hears US license, endorsement and police
       words (Found along the way).** The license is a CDL with the US
       suspension ladder (49 CFR 383.51: "suspended for 60 days",
@@ -5324,15 +5328,22 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       and the home rule passes, levels 1, 8 and 20 in equal parts, an
       assumed mix) measures the 2018 transborder share of long-distance
       for-hire shipments, 19.2% (Statistics Canada table 23-10-0219-01). It
-      measures 19.15%, against 34.5% with no weight; a slow test holds it
+      measures 19.15%, against 34.5% with no weight, over 532 pairs at 3
+      levels (1,596 cells, 1,592 that post loads); a slow test holds it
       inside 19.0 to 21.5%, the table's 2014 to 2018 range. The nationals
       stay well above 19% and the regionals fall below it.
-- [ ] (Found along the way) Loaded miles across the border on Canadian
-      boards: with the weight, the reference fleet runs 26.4% of its loaded
-      miles on transborder loads, against 38.7% of tonne-kilometres and
-      39.6% of shipment-kilometres (derived: 10.0 M at 1,504 km against
-      53.7 M at 427 km) in the same survey. The distance weighting keeps
-      border loads too short; not fitted into the weight.
+- [x] (Found along the way) Loaded miles across the border on Canadian
+      boards, a check not fitted into the weight: with it, 41.4% of the
+      reference fleet's loaded miles (pooled: its US loaded miles over all
+      its loaded miles) are on transborder loads, against 38.7% of
+      tonne-kilometres and 39.6% of shipment-kilometres (derived: 10.0 M at
+      1,504 km against 53.7 M at 427 km) in the same survey. Without the
+      weight it is 63.7%.
+- [ ] (Found along the way, test lever) A drive staged with the agent
+      server's `start_at` that begins in the other country speaks the origin
+      country's units for a few seconds, until "Speeds and distances are in
+      miles now." Seen staging Fargo and Winnipeg starts. A real drive starts
+      in its origin's country, so only the staging lever shows it.
 - [ ] (Found along the way) US carriers' share of loads into Canada is still
       the plain distance weighting. No published share of US for-hire loads
       that cross into Canada was found (plan doc, Sources).
@@ -5347,16 +5358,27 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       extensions, and deferral are not modeled.
 - [ ] **Route-wide HOS planning.** The job planner and planning hints use one
       rule set for the entire route rather than switching at jurisdiction
-      boundaries.
+      boundaries. Since 2026-11-25 (brief 2 review) a plan for a route that
+      stays in Canada starts from the Canadian counts (`ca_driving_min`,
+      `ca_on_duty_min`), and a route that enters the United States from the
+      US counts; the plan itself stays on US daily rules, and only the
+      starting clock changes (`jobs::start_counts`).
   - [ ] The board's trip hours, the deadline plan and the team hand-over
         lines still say 10 hours in Canada.
-- [x] **Canadian rest menus.** Built 2026-11-25: under Canadian rules the
-      rest menu, the rest preview, the motel rows (the rest stop's and
-      the full lot's) and the terminal's sleep row offer the 8-hour reset, each in a line of its own
-      ("Sleep 8 hours", "take a full 8-hour reset"). The night ends the
-      Canadian counts (SOR/2005-313 s.13); the US counts still want 10
-      consecutive hours, so a driver who crosses after an 8-hour night is on
-      a running US clock (`HosClock::rest_reset`).
+- [x] **Canadian rest menus.** Built 2026-11-25, corrected the same day
+      (brief 2 review): a full night is 8 hours only under Canadian rules
+      when the rest of the trip stays in Canada (`hos::FullNight`, chosen
+      from the rules in force and `Trip::road_ahead_stays_in_canada`; the
+      agent server's `status` reports `full_night`). Then the rest menu,
+      the rest preview, the lot and the motel rows (the rest stop's and the
+      full lot's) and the duty-window warning offer the 8-hour night, each
+      in a line of its own ("Sleep 8 hours", "take a full 8-hour reset").
+      The night ends the Canadian counts (SOR/2005-313 s.13) and leaves the
+      US counts running, which want 10 consecutive hours. A road ahead that
+      enters the United States, or no trip at all, gets the 10-hour night,
+      which ends both. The terminal sleeps 10 hours everywhere: it is where
+      a driver who spent the US counts in Canada clears them before a US
+      load.
 - [ ] **Alaska cycle restart.** The 34-hour restart is an assumption; verify
       its applicability under Alaska's rules.
 - [x] **Whittier tunnel.** Whittier is connected through the Anton Anderson

@@ -22191,14 +22191,6 @@ msgid "It is {clock_text}, {time_of_day}.{cycle}"
 msgstr "Son las {clock_text}, {time_of_day}.{cycle}"
 
 #. one sentence of a longer line
-msgid "Slept 8 hours."
-msgstr "Dormiste 8 horas."
-
-#. placeholders: {clock_text}, {time_of_day}, {cycle}
-msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
-msgstr "Dormiste 8 horas. Son las {clock_text}, {time_of_day}.{cycle}"
-
-#. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "Dormiste 10 horas."
 
@@ -22450,16 +22442,6 @@ msgstr "Cuaderno de bitácora"
 
 msgid "Recent logbook entries."
 msgstr "Últimas entradas del registro de horas de servicio."
-
-msgid "Sleep 8 hours"
-msgstr "Dormir 8 horas"
-
-msgid ""
-"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
-"advances 8 hours."
-msgstr ""
-"Se reinician tus horas de servicio. Cada hora de sueño quita 8 puntos de "
-"fatiga. El reloj avanza 8 horas."
 
 msgid "Sleep 10 hours"
 msgstr "Dormir 10 horas"
@@ -35229,6 +35211,9 @@ msgid ""
 msgstr ""
 "Selecciona una opción. Dormir lee primero un avance. Selecciona otra vez "
 "para dormir. Las pausas y el sueño mueven el reloj y el plazo de entrega."
+
+msgid "Sleep 8 hours"
+msgstr "Dormir 8 horas"
 
 #. one sentence of a longer line
 msgid "You are already rested."
@@ -50029,6 +50014,19 @@ msgstr ""
 "Mantén el botón superior izquierdo para una segunda capa de botones. "
 "{pad_engine} controla el motor, {pad_fuel} lee el combustible y "
 "{pad_speed_limit} lee el límite."
+
+#~ msgid "Slept 8 hours."
+#~ msgstr "Dormiste 8 horas."
+
+#~ msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
+#~ msgstr "Dormiste 8 horas. Son las {clock_text}, {time_of_day}.{cycle}"
+
+#~ msgid ""
+#~ "Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+#~ "advances 8 hours."
+#~ msgstr ""
+#~ "Se reinician tus horas de servicio. Cada hora de sueño quita 8 puntos de "
+#~ "fatiga. El reloj avanza 8 horas."
 
 #~ msgid "Legacy Driver"
 #~ msgstr "Legacy Driver"

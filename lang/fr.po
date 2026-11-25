@@ -22417,15 +22417,6 @@ msgid "It is {clock_text}, {time_of_day}.{cycle}"
 msgstr "Il est {clock_text}, {time_of_day}.{cycle}"
 
 #. one sentence of a longer line
-msgid "Slept 8 hours."
-msgstr "Vous avez dormi 8 heures."
-
-#. placeholders: {clock_text}, {time_of_day}, {cycle}
-msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
-msgstr ""
-"Vous avez dormi 8 heures. Il est {clock_text}, {time_of_day}.{cycle}"
-
-#. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "Vous avez dormi 10 heures."
 
@@ -22684,16 +22675,6 @@ msgstr "Carnet de route"
 
 msgid "Recent logbook entries."
 msgstr "Entrées récentes du relevé des temps de service."
-
-msgid "Sleep 8 hours"
-msgstr "Dormir 8 heures"
-
-msgid ""
-"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
-"advances 8 hours."
-msgstr ""
-"Temps de service remis à neuf. Le sommeil enlève 8 points de fatigue par "
-"heure. L'horloge avance de 8 heures."
 
 msgid "Sleep 10 hours"
 msgstr "Dormir 10 heures"
@@ -35543,6 +35524,9 @@ msgstr ""
 "Choisissez une option. Le sommeil lit un aperçu. Choisissez de nouveau pour "
 "dormir. Les pauses et le sommeil font avancer l'horloge et le délai de "
 "livraison."
+
+msgid "Sleep 8 hours"
+msgstr "Dormir 8 heures"
 
 #. one sentence of a longer line
 msgid "You are already rested."
@@ -50450,6 +50434,20 @@ msgstr ""
 "Maintenez le left bumper pour une deuxième couche de boutons. {pad_engine} "
 "commande le moteur, {pad_fuel} lit le carburant, et {pad_speed_limit} lit "
 "la limitation."
+
+#~ msgid "Slept 8 hours."
+#~ msgstr "Vous avez dormi 8 heures."
+
+#~ msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
+#~ msgstr ""
+#~ "Vous avez dormi 8 heures. Il est {clock_text}, {time_of_day}.{cycle}"
+
+#~ msgid ""
+#~ "Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+#~ "advances 8 hours."
+#~ msgstr ""
+#~ "Temps de service remis à neuf. Le sommeil enlève 8 points de fatigue par "
+#~ "heure. L'horloge avance de 8 heures."
 
 #~ msgid "Legacy Driver"
 #~ msgstr "Legacy Driver"

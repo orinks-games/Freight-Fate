@@ -40,11 +40,12 @@ pub use deadline::{
     curve_ceilings, departure_deadline_hours, dispatch_deadline_hours, fair_active_deadline,
     minimum_pay_for_level, plan_hos, remaining_route_hos_plan, required_hours, route_drive_hours,
     route_drive_hours_over, route_planning_limit, route_required_hours, segment_hours,
-    team_deadline_hours, team_required_hours, CurveBand, HosPlan, ACTIVE_TRIP_FAIRNESS_SLACK,
-    DEADLINE_AVG_MPH, DEADLINE_DISPATCH_MIN_SLACK_H, DEADLINE_DISPATCH_SLACK_RANGE,
-    DEADLINE_MIN_SEGMENT_MPH, DEADLINE_PLANNING_SPEED_FACTOR, DEADLINE_SAMPLE_MI,
-    DISPATCH_FLAT_MINIMUM_BY_LEVEL, HOOKUP_FEE, LONG_HAUL_MINIMUM_RATE_BY_LEVEL,
-    SHORT_HAUL_FULL_PREMIUM_MI, SHORT_HAUL_RATE_BY_LEVEL, SHORT_HAUL_TAPER_END_RATE_BY_LEVEL,
+    start_counts, team_deadline_hours, team_required_hours, CurveBand, HosPlan,
+    ACTIVE_TRIP_FAIRNESS_SLACK, DEADLINE_AVG_MPH, DEADLINE_DISPATCH_MIN_SLACK_H,
+    DEADLINE_DISPATCH_SLACK_RANGE, DEADLINE_MIN_SEGMENT_MPH, DEADLINE_PLANNING_SPEED_FACTOR,
+    DEADLINE_SAMPLE_MI, DISPATCH_FLAT_MINIMUM_BY_LEVEL, HOOKUP_FEE,
+    LONG_HAUL_MINIMUM_RATE_BY_LEVEL, SHORT_HAUL_FULL_PREMIUM_MI, SHORT_HAUL_RATE_BY_LEVEL,
+    SHORT_HAUL_TAPER_END_RATE_BY_LEVEL,
 };
 
 pub use urgency::{
@@ -906,8 +907,11 @@ pub const PREMIUM_LANE_LONG_HAUL_BIAS: f64 = 0.5;
 /// The survey counts for-hire carriers based in Canada; 2018 is its last
 /// year. w is the value, found by bisection and rounded to two decimals,
 /// at which the reference fleet's US share of loads is p, capped at 1.
-/// Measured 2026-11-25: 34.5% with no weight, 19.15% at w = 0.29, over
-/// 1,592 cells of 20 boards of 8 loads.
+/// Measured 2026-11-25: 34.5% with no weight, 19.15% at w = 0.29. The
+/// fleet is 532 pairs at 3 levels, 1,596 cells of 20 boards of 8 loads; the
+/// 4 cells whose boards post no load carry no share, so the mean is over
+/// 1,592. Pooled, 41.4% of the fleet's loaded miles are on transborder
+/// loads, beside the survey's 38.7% of tonne-kilometres (not fitted).
 ///
 /// The reference fleet is assumed, not surveyed: every pair of a Canadian
 /// carrier and a city where it hires and the home rule passes (the careers

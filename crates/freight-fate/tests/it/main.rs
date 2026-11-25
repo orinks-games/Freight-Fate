@@ -132,6 +132,7 @@ mod states_driving_billboard_moment;
 mod states_driving_border;
 mod states_driving_buffs;
 mod states_driving_cab_systems;
+mod states_driving_canadian_night;
 mod states_driving_cat_scale;
 mod states_driving_chain_law;
 mod states_driving_chain_law_road;

@@ -711,22 +711,11 @@ impl Profile {
         )
     }
 
-    /// The country this career is based in: its carrier's, or for a driver
-    /// under their own authority the country of the home city ("CA" for a
-    /// Canadian city key, else "US").
+    /// The country this career is based in: the lane table's answer for
+    /// its carrier key ([`cross_border::carrier_base`]), so the course rows,
+    /// the move-up line and the board agree on it.
     pub fn base_country(&self) -> &'static str {
-        if let Some(carrier) = self.hiring_carrier() {
-            return carrier.home_country();
-        }
-        if self
-            .driver_home_city()
-            .to_ascii_lowercase()
-            .ends_with("_ca")
-        {
-            "CA"
-        } else {
-            "US"
-        }
+        crate::models::jobs::cross_border::carrier_base(&self.carrier_key).code()
     }
 
     /// Re-derive `home_terminal_city` for the current hiring carrier: kept

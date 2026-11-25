@@ -99,6 +99,9 @@ fn trip_hours(ctx: &GameContext, job: &Job) -> (f64, f64) {
         let mut clock = profile(ctx).hos.clone();
         clock.driving_min += pickup_h * 60.0;
         clock.duty_min += pickup_h * 60.0 + work_min;
+        // The Canadian counts, which a load that stays in Canada plans from.
+        clock.ca_driving_min += pickup_h * 60.0;
+        clock.ca_on_duty_min += pickup_h * 60.0 + work_min;
         // Check-in and loading are more than 30 minutes off the wheel,
         // which is the break the clock asks for.
         clock.since_break_min = if work_min >= 30.0 {

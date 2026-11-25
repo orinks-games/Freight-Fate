@@ -231,9 +231,10 @@ fn test_city_sleep_resets_hours_and_advances_the_clock() {
 }
 
 #[test]
-fn test_a_terminal_in_canada_sleeps_the_8_hour_reset() {
-    // Brief 2 ruling 4: a night at a Canadian terminal is the 8-hour
-    // Canadian reset, on its own row and its own line.
+fn test_a_terminal_in_canada_sleeps_the_10_hour_night() {
+    // Brief 2 review, 2026-11-25: the terminal has no trip to read the road
+    // ahead from, so its night is 10 hours everywhere, which clears the US
+    // and the Canadian counts alike.
     let mut app = TestApp::new();
     career(&mut app, "Port Lands", "Toronto");
     let city = CityMenuState::new(&app.ctx, false);
@@ -245,15 +246,15 @@ fn test_a_terminal_in_canada_sleeps_the_8_hour_reset() {
         p.game_hours
     };
     app.clear_speech();
-    select::<CityMenuState>(&mut app, "Sleep 8 hours");
+    select::<CityMenuState>(&mut app, "Sleep 10 hours");
     let p = profile(&app);
-    assert!(approx(p.game_hours, before + 8.0), "{}", p.game_hours);
+    assert!(approx(p.game_hours, before + 10.0), "{}", p.game_hours);
+    assert_eq!(p.hos.driving_min, 0.0);
     assert_eq!(p.hos.ca_driving_min, 0.0);
-    assert!(p.fatigue < 75.0 - 8.0 * 7.9, "{}", p.fatigue);
     assert!(
         app.main_lines()
             .iter()
-            .any(|l| l.starts_with("Slept 8 hours.")),
+            .any(|l| l.starts_with("Slept 10 hours.")),
         "{:?}",
         app.main_lines()
     );

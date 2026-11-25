@@ -321,6 +321,9 @@ pub struct DrivingObservation {
     pub chain_control: ff_core::sim::chain_control::ChainControl,
     /// The load's border papers.
     pub bond: ff_core::sim::bond::BondState,
+    /// The full night a rest stop offers now: 8 hours only under Canadian
+    /// rules on a road that stays in Canada.
+    pub full_night: ff_core::sim::hos::FullNight,
     pub chains: ff_core::sim::chain_control::ChainSet,
     /// Who does the chain work now, and the chain stop they are making.
     pub chain_worker: ff_core::sim::chain_work::ChainWorker,
@@ -1201,6 +1204,13 @@ impl App {
             structure: drive.trip.structure_at_mile(drive.trip.position_mi),
             chain_control: drive.trip.chain_control,
             bond: drive.trip.bond,
+            full_night: self
+                .ctx
+                .profile
+                .as_ref()
+                .map_or(ff_core::sim::hos::FullNight::TenHours, |p| {
+                    p.hos.full_night(drive.trip.road_ahead_stays_in_canada())
+                }),
             chains: drive.chain_set,
             chain_worker: drive.chain_worker(&self.ctx),
             chain_stop: drive.chain_stop.as_ref().map(|stop| stop.kind),

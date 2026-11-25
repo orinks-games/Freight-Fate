@@ -89,11 +89,16 @@ fn measure_cell(world: &World, carrier: &str, city: &str, level: i64, weight: f6
 }
 
 /// The fleet's US share of loads and of loaded miles, each the mean over the
-/// pairs and levels in equal parts (a cell with no loads offers no share).
+/// pairs and levels in equal parts (a cell with no loads offers no share),
+/// and the pooled share of loaded miles: all US loaded miles over all loaded
+/// miles, the way the survey's tonne-kilometres are counted.
 struct Fleet {
     load_share: f64,
     mile_share: f64,
+    pooled_mile_share: f64,
+    pairs: usize,
     cells: usize,
+    counted: usize,
 }
 
 fn measure_fleet(world: &'static World, weight: f64) -> Fleet {
@@ -125,7 +130,16 @@ fn measure_fleet(world: &'static World, weight: f64) -> Fleet {
     });
     let counted: Vec<&Cell> = cells.iter().filter(|c| c.loads > 0).collect();
     let n = counted.len().max(1) as f64;
+    let all_miles: f64 = cells.iter().map(|c| c.miles).sum();
+    let us_miles: f64 = cells.iter().map(|c| c.us_miles).sum();
     Fleet {
+        pooled_mile_share: if all_miles > 0.0 {
+            us_miles / all_miles
+        } else {
+            0.0
+        },
+        pairs: pairs.len(),
+        cells: cells.len(),
         load_share: counted
             .iter()
             .map(|c| f64::from(c.us_loads) / f64::from(c.loads))
@@ -142,8 +156,21 @@ fn measure_fleet(world: &'static World, weight: f64) -> Fleet {
             })
             .sum::<f64>()
             / n,
-        cells: counted.len(),
+        counted: counted.len(),
     }
+}
+
+fn report(label: &str, weight: f64, fleet: &Fleet) {
+    println!(
+        "{label} w {weight}: {:.2}% of loads, {:.2}% of loaded miles (mean of cells), \
+         {:.2}% of loaded miles (pooled); {} pairs, {} cells, {} with loads",
+        fleet.load_share * 100.0,
+        fleet.mile_share * 100.0,
+        fleet.pooled_mile_share * 100.0,
+        fleet.pairs,
+        fleet.cells,
+        fleet.counted
+    );
 }
 
 #[test]
@@ -154,12 +181,7 @@ fn measure_fleet(world: &'static World, weight: f64) -> Fleet {
 fn the_reference_fleet_sits_in_the_survey_range() {
     let world = world();
     let fleet = measure_fleet(world, CANADIAN_BORDER_WEIGHT);
-    println!(
-        "w {CANADIAN_BORDER_WEIGHT}: fleet US share {:.2}% of loads, {:.2}% of loaded miles, {} cells",
-        fleet.load_share * 100.0,
-        fleet.mile_share * 100.0,
-        fleet.cells
-    );
+    report("FLEET", CANADIAN_BORDER_WEIGHT, &fleet);
     assert!(
         (SURVEY_RANGE.0..=SURVEY_RANGE.1).contains(&fleet.load_share),
         "the Canadian fleet's US share of loads is {:.2}%, outside the survey's 19.0 to 21.5%",
@@ -173,11 +195,7 @@ fn the_reference_fleet_sits_in_the_survey_range() {
 fn calibrate_the_canadian_border_weight() {
     let world = world();
     let at_one = measure_fleet(world, 1.0);
-    println!(
-        "CALIBRATE w 1: {:.2}% of loads, {:.2}% of loaded miles",
-        at_one.load_share * 100.0,
-        at_one.mile_share * 100.0
-    );
+    report("CALIBRATE", 1.0, &at_one);
     if at_one.load_share <= SURVEY_SHARE {
         println!("CALIBRATE the fleet is at or under the survey with no weight: w = 1");
         return;
@@ -195,11 +213,7 @@ fn calibrate_the_canadian_border_weight() {
     }
     let w = ((lo + hi) / 2.0 * 100.0).round() / 100.0;
     let fleet = measure_fleet(world, w);
-    println!(
-        "CALIBRATE w = {w:.2}: {:.2}% of loads, {:.2}% of loaded miles",
-        fleet.load_share * 100.0,
-        fleet.mile_share * 100.0
-    );
+    report("CALIBRATE rounded", w, &fleet);
 }
 
 /// A US-based carrier's boards draw exactly what they drew before the weight,

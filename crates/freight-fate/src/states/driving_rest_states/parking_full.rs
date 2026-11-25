@@ -4,7 +4,7 @@
 //! follows.
 
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
-use ff_core::sim::hos;
+use ff_core::sim::hos::{self, FullNight};
 use ff_core::sim::stop_lot::StopLot;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
@@ -14,7 +14,7 @@ use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, hos_mut_of, hos_of, poi_ambient_key, profile_mut_of,
+    advance_rest_clock, clock_text, full_night_of, hos_mut_of, poi_ambient_key, profile_mut_of,
     profile_of, settle_lift_before_sleep, shut_down_engine, FacilityEngine, MOTEL_COST,
 };
 use crate::states::driving_menu_states::{keep_rows, DriveRef};
@@ -136,9 +136,10 @@ impl ParkingFullState {
             })
             .help("Back to the road for the next rest stop."),
         );
-        // Under Canadian rules 8 hours off resets the clocks (SOR/2005-313
-        // s.13), so the motel sells an 8-hour night there: each its own line.
-        let (motel_label, motel_help) = if hos_of(ctx).reset_rest_hours() == 8 {
+        // Under Canadian rules on a road that stays in Canada, 8 hours off
+        // resets the clocks (SOR/2005-313 s.13), so the motel sells an 8-hour
+        // night there: each its own line.
+        let (motel_label, motel_help) = if full_night_of(ctx, d) == FullNight::EightHours {
             (
                 format!(
                     "Motel room: sleep 8 hours for {} dollars",
@@ -202,11 +203,12 @@ impl ParkingFullState {
             // because the driver bedded down in a motel instead of the
             // sleeper.
             let engine_off = shut_down_engine(d, ctx);
-            let reset_min = hos_of(ctx).reset_rest_min();
-            let canadian_reset = hos_of(ctx).reset_rest_hours() == 8;
+            let night = full_night_of(ctx, d);
+            let reset_min = night.minutes();
+            let canadian_reset = night == FullNight::EightHours;
             advance_rest_clock(d, ctx, reset_min, None, "");
             settle_lift_before_sleep(d, ctx);
-            hos_mut_of(ctx).rest_reset();
+            hos_mut_of(ctx).rest_reset(night);
             {
                 let p = profile_mut_of(ctx);
                 p.fatigue = hos::rest_sleep(p.fatigue, reset_min);

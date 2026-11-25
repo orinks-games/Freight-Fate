@@ -305,7 +305,7 @@ fn test_back_to_back_berth_rests_are_one_period() {
     c.sleeper_split_rest(180.0);
     assert_eq!(c.split_rest_history.len(), 1);
     assert_eq!(c.split_rest_history[0].minutes, 360.0);
-    assert_eq!(c.reset_minutes_left(), Some(240.0));
+    assert_eq!(c.reset_minutes_left(FullNight::TenHours), Some(240.0));
 
     // Reaching 7 hours takes the whole period off the window.
     c.sleeper_split_rest(60.0);
@@ -315,7 +315,7 @@ fn test_back_to_back_berth_rests_are_one_period() {
     c.sleeper_split_rest(180.0);
     assert_eq!(c.driving_min, 0.0);
     assert_eq!(c.duty_min, 0.0);
-    assert_eq!(c.reset_minutes_left(), None);
+    assert_eq!(c.reset_minutes_left(FullNight::TenHours), None);
 }
 
 #[test]
@@ -2403,17 +2403,50 @@ fn a_waived_break_is_not_named_in_the_readouts() {
         .starts_with("30-minute break due in"));
 }
 
+/// The full night on offer, over (rules, road ahead): 8 hours only under
+/// Canadian rules on a road that stays in Canada (brief 2 review).
 #[test]
-fn the_rest_reset_is_eight_hours_in_canada_and_leaves_the_us_counts_running() {
+fn the_full_night_is_eight_hours_only_in_canada_on_a_road_that_stays_there() {
+    use FullNight::{EightHours, TenHours};
+    let table = [
+        (HosRules::Us, false, TenHours),
+        (HosRules::Us, true, TenHours),
+        (HosRules::Alaska, false, TenHours),
+        (HosRules::Alaska, true, TenHours),
+        (HosRules::CanadaSouth60, false, TenHours),
+        (HosRules::CanadaSouth60, true, EightHours),
+        (HosRules::CanadaNorth60, false, TenHours),
+        (HosRules::CanadaNorth60, true, EightHours),
+    ];
+    for (rules, stays, night) in table {
+        assert_eq!(
+            FullNight::choose(rules, stays),
+            night,
+            "{rules:?}, stays {stays}"
+        );
+        let mut clock = HosClock::new();
+        clock.set_rules(rules);
+        assert_eq!(clock.full_night(stays), night, "{rules:?}, stays {stays}");
+    }
+    assert_eq!((TenHours.hours(), TenHours.minutes()), (10, SLEEP_MIN));
+    assert_eq!(
+        (EightHours.hours(), EightHours.minutes()),
+        (8, CANADA_RESET_MIN)
+    );
+}
+
+#[test]
+fn the_eight_hour_night_ends_the_canadian_counts_and_leaves_the_us_counts_running() {
     let mut ca = HosClock::new();
     ca.set_rules(HosRules::CanadaSouth60);
-    assert_eq!(ca.reset_rest_hours(), 8);
+    let night = ca.full_night(true);
+    assert_eq!(night, FullNight::EightHours);
     ca.drive(12.0 * 60.0);
-    ca.rest_reset();
+    ca.rest_reset(night);
     assert_eq!(ca.ca_driving_min, 0.0);
     assert_eq!(ca.ca_on_duty_min, 0.0);
     assert!(!ca.in_violation("realistic"));
-    assert_eq!(ca.reset_minutes_left(), None);
+    assert_eq!(ca.reset_minutes_left(night), None);
     // 8 hours off is not the US reset: back in the US the driving count
     // still holds the 12 hours.
     assert_eq!(ca.driving_min, 12.0 * 60.0);
@@ -2424,15 +2457,28 @@ fn the_rest_reset_is_eight_hours_in_canada_and_leaves_the_us_counts_running() {
     part.set_rules(HosRules::CanadaNorth60);
     part.drive(60.0);
     part.sleeper(3.0 * 60.0);
-    assert_eq!(part.reset_minutes_left(), Some(5.0 * 60.0));
-    part.rest_reset();
+    assert_eq!(
+        part.reset_minutes_left(FullNight::EightHours),
+        Some(5.0 * 60.0)
+    );
+    part.rest_reset(FullNight::EightHours);
     assert_eq!(part.off_duty_min, 8.0 * 60.0);
     assert_eq!(part.ca_driving_min, 0.0);
 
+    // Under Canadian rules with the road ahead entering the US, the night
+    // is the 10-hour one, which ends both sets of counts.
+    let mut crossing = HosClock::new();
+    crossing.set_rules(HosRules::CanadaSouth60);
+    let night = crossing.full_night(false);
+    assert_eq!(night, FullNight::TenHours);
+    crossing.drive(12.0 * 60.0);
+    crossing.rest_reset(night);
+    assert_eq!(crossing.driving_min, 0.0);
+    assert_eq!(crossing.ca_driving_min, 0.0);
+
     let mut us = HosClock::new();
-    assert_eq!(us.reset_rest_hours(), 10);
     us.drive(10.0 * 60.0);
-    us.rest_reset();
+    us.rest_reset(us.full_night(true));
     assert_eq!(us.driving_min, 0.0);
     assert_eq!(us.history.last().unwrap().source, "full_reset");
 }

@@ -6,11 +6,18 @@ use freight_fate::states::base::{Key, Menu};
 use freight_fate::states::driving_menu_states::DriveRef;
 use freight_fate::states::driving_rest_states::RestStopState;
 
-use super::states_driving_menus_support::{a_drive, activate, key, sleep_stop, with_drive};
+use super::states_driving_menus_support::{a_drive_between, activate, key, sleep_stop, with_drive};
 
 fn setup() -> (TestApp, freight_fate::app::SharedState, RestStopState) {
+    setup_between("Buffalo", "Rochester")
+}
+
+fn setup_between(
+    origin: &str,
+    destination: &str,
+) -> (TestApp, freight_fate::app::SharedState, RestStopState) {
     let mut app = TestApp::new();
-    let drive = a_drive(&mut app);
+    let drive = a_drive_between(&mut app, origin, destination, "Planner");
     let at = with_drive(&drive, |d| d.trip.position_mi);
     let state = RestStopState::with_drive(DriveRef::of(&drive), sleep_stop(at), false);
     with_drive(&drive, |d| {
@@ -156,7 +163,8 @@ fn full_sleep_resets_hos_but_spends_ten_delivery_hours() {
 
 #[test]
 fn full_sleep_forecast_in_canada_counts_canadian_hours() {
-    let (mut app, _drive, mut state) = setup();
+    // A road that stays in Canada: the full night is the 8-hour one.
+    let (mut app, _drive, mut state) = setup_between("Winnipeg", "Portage la Prairie");
     app.ctx
         .profile
         .as_mut()
@@ -165,7 +173,6 @@ fn full_sleep_forecast_in_canada_counts_canadian_hours() {
         .set_rules(hos::HosRules::CanadaSouth60);
     Menu::enter(&mut state, &mut app.ctx);
     app.clear_speech();
-    // Under Canadian rules the full night is the 8-hour reset.
     activate(&mut state, &mut app.ctx, "Sleep 8 hours");
     let preview = app.main_lines().join(" ");
     assert!(

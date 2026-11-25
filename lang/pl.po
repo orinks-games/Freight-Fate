@@ -21977,14 +21977,6 @@ msgid "It is {clock_text}, {time_of_day}.{cycle}"
 msgstr "Jest {clock_text}, {time_of_day}.{cycle}"
 
 #. one sentence of a longer line
-msgid "Slept 8 hours."
-msgstr "Przespane 8 godzin."
-
-#. placeholders: {clock_text}, {time_of_day}, {cycle}
-msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
-msgstr "Przespano 8 godzin. Jest {clock_text}, {time_of_day}.{cycle}"
-
-#. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "Przespane 10 godzin."
 
@@ -22233,16 +22225,6 @@ msgstr "Dziennik"
 
 msgid "Recent logbook entries."
 msgstr "Ostatnie wpisy w ewidencji czasu pracy."
-
-msgid "Sleep 8 hours"
-msgstr "Śpij 8 godzin"
-
-msgid ""
-"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
-"advances 8 hours."
-msgstr ""
-"Odnowiony czas pracy kierowcy. Sen zmniejsza zmęczenie o 8 punktów na "
-"godzinę. Zegar przesuwa się o 8 godzin."
 
 msgid "Sleep 10 hours"
 msgstr "Śpij 10 godzin"
@@ -35130,6 +35112,9 @@ msgid ""
 msgstr ""
 "Wybierz opcję. Sen najpierw czyta podgląd. Wybierz ponownie, żeby zasnąć. "
 "Przerwy i sen przesuwają zegar i termin."
+
+msgid "Sleep 8 hours"
+msgstr "Śpij 8 godzin"
 
 #. one sentence of a longer line
 msgid "You are already rested."
@@ -49801,6 +49786,19 @@ msgstr ""
 "Przytrzymaj left bumper, aby użyć drugiej warstwy przycisków. {pad_engine} "
 "steruje silnikiem, {pad_fuel} podaje paliwo, a {pad_speed_limit} "
 "ograniczenie prędkości."
+
+#~ msgid "Slept 8 hours."
+#~ msgstr "Przespane 8 godzin."
+
+#~ msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
+#~ msgstr "Przespano 8 godzin. Jest {clock_text}, {time_of_day}.{cycle}"
+
+#~ msgid ""
+#~ "Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+#~ "advances 8 hours."
+#~ msgstr ""
+#~ "Odnowiony czas pracy kierowcy. Sen zmniejsza zmęczenie o 8 punktów na "
+#~ "godzinę. Zegar przesuwa się o 8 godzin."
 
 #~ msgid "Legacy Driver"
 #~ msgstr "Legacy Driver"

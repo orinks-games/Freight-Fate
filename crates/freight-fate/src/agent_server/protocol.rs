@@ -355,7 +355,9 @@ fn tools_list() -> Value {
              (out, shifting, or neutral once it has taken neutral for an engine \
              lugging in a tall gear: the clutch a touch shift works in a manual \
              truck), chain_control (clear, level_1 or level_2: the chain law posted \
-             at the truck, which follows snow or ice on the road) and chains \
+             at the truck, which follows snow or ice on the road), full_night \
+             (ten_hours or eight_hours: the full night a rest stop offers, 8 hours \
+             only under Canadian rules on a road that stays in Canada) and chains \
              (stowed, on_snow, on_bare inside the 2 mile bare-road grace, on_bare_wearing past it, or broken), chain_worker (driver, assist \
              or co_driver: who does the chain work, whoever holds the wheel) and \
              chain_stop (none, install, remove, tighten or repair: the roadside \

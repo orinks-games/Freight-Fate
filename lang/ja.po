@@ -20120,14 +20120,6 @@ msgid "It is {clock_text}, {time_of_day}.{cycle}"
 msgstr "現在{clock_text}、{time_of_day}です。{cycle}"
 
 #. one sentence of a longer line
-msgid "Slept 8 hours."
-msgstr "8時間眠りました。"
-
-#. placeholders: {clock_text}, {time_of_day}, {cycle}
-msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
-msgstr "8時間眠りました。現在{clock_text}、{time_of_day}です。{cycle}"
-
-#. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "10時間眠りました。"
 
@@ -20343,14 +20335,6 @@ msgstr "運転日誌"
 
 msgid "Recent logbook entries."
 msgstr "最近の勤務状況記録。"
-
-msgid "Sleep 8 hours"
-msgstr "8時間眠る"
-
-msgid ""
-"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
-"advances 8 hours."
-msgstr "運転時間規制がリセットされます。睡眠で疲労が1時間に8ポイント減ります。時刻が8時間進みます。"
 
 msgid "Sleep 10 hours"
 msgstr "10時間眠る"
@@ -31944,6 +31928,9 @@ msgid ""
 "Select a choice. Sleep reads a preview. Select again to sleep. Breaks and "
 "sleep move the clock and the deadline."
 msgstr "項目を選んでください。睡眠は先に予測を読み上げます。もう一度選ぶと眠ります。休憩と睡眠で時刻と期限が進みます。"
+
+msgid "Sleep 8 hours"
+msgstr "8時間眠る"
 
 #. one sentence of a longer line
 msgid "You are already rested."
@@ -44835,6 +44822,17 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid "Slept 8 hours."
+#~ msgstr "8時間眠りました。"
+
+#~ msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
+#~ msgstr "8時間眠りました。現在{clock_text}、{time_of_day}です。{cycle}"
+
+#~ msgid ""
+#~ "Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+#~ "advances 8 hours."
+#~ msgstr "運転時間規制がリセットされます。睡眠で疲労が1時間に8ポイント減ります。時刻が8時間進みます。"
 
 #~ msgid "Legacy Driver"
 #~ msgstr "Legacy Driver"

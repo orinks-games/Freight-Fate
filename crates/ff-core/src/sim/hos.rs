@@ -116,6 +116,57 @@ impl HosRules {
     }
 }
 
+/// The full night a rest offers, chosen in one place for the rest menu, the
+/// preview, the lot, the motel and their lines (director's review of brief
+/// 2, 2026-11-25).
+///
+/// Eight consecutive hours off end the Canadian counts (SOR/2005-313 s.12
+/// and s.13; north of 60, s.39) but not the US ones, which want 10 (49 CFR
+/// 395.3(a)(1)). So the night is 8 hours only under Canadian rules on a road
+/// that stays in Canada; a road ahead that enters the United States, or no
+/// trip at all, gets the 10-hour night that clears both.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum FullNight {
+    TenHours,
+    EightHours,
+}
+
+impl FullNight {
+    /// The night on offer under `rules`, with the road still ahead staying
+    /// in Canada or not.
+    pub fn choose(rules: HosRules, road_ahead_stays_in_canada: bool) -> Self {
+        if rules.is_canadian() && road_ahead_stays_in_canada {
+            Self::EightHours
+        } else {
+            Self::TenHours
+        }
+    }
+
+    /// Minutes of consecutive rest the night takes.
+    pub fn minutes(self) -> f64 {
+        match self {
+            Self::TenHours => SLEEP_MIN,
+            Self::EightHours => CANADA_RESET_MIN,
+        }
+    }
+
+    /// Whole hours, for the lines.
+    pub fn hours(self) -> i64 {
+        match self {
+            Self::TenHours => 10,
+            Self::EightHours => 8,
+        }
+    }
+
+    /// The agent server's name for it.
+    pub fn key(self) -> &'static str {
+        match self {
+            Self::TenHours => "ten_hours",
+            Self::EightHours => "eight_hours",
+        }
+    }
+}
+
 /// minimum break that resets the 8-hour rule
 pub const BREAK_MIN: f64 = 30.0;
 /// a full 10-hour off-duty reset

@@ -21938,14 +21938,6 @@ msgid "It is {clock_text}, {time_of_day}.{cycle}"
 msgstr "Сейчас {clock_text}, {time_of_day}.{cycle}"
 
 #. one sentence of a longer line
-msgid "Slept 8 hours."
-msgstr "Вы проспали 8 часов."
-
-#. placeholders: {clock_text}, {time_of_day}, {cycle}
-msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
-msgstr "Вы проспали 8 часов. Сейчас {clock_text}, {time_of_day}.{cycle}"
-
-#. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "Вы проспали 10 часов."
 
@@ -22193,16 +22185,6 @@ msgstr "Путевой журнал"
 
 msgid "Recent logbook entries."
 msgstr "Последние записи журнала режима труда и отдыха."
-
-msgid "Sleep 8 hours"
-msgstr "Поспать 8 часов"
-
-msgid ""
-"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
-"advances 8 hours."
-msgstr ""
-"Новые часы режима труда и отдыха. Сон снимает 8 пунктов усталости в час. "
-"Часы переводятся на 8 часов вперёд."
 
 msgid "Sleep 10 hours"
 msgstr "Поспать 10 часов"
@@ -35255,6 +35237,9 @@ msgid ""
 msgstr ""
 "Выберите вариант. Сон сначала зачитывает предпросмотр. Выберите ещё раз, "
 "чтобы поспать. Перерывы и сон двигают часы и срок доставки."
+
+msgid "Sleep 8 hours"
+msgstr "Поспать 8 часов"
 
 #. one sentence of a longer line
 msgid "You are already rested."
@@ -49933,6 +49918,19 @@ msgstr ""
 "Удерживайте left bumper для второго слоя кнопок. {pad_engine} управляет "
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
+
+#~ msgid "Slept 8 hours."
+#~ msgstr "Вы проспали 8 часов."
+
+#~ msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
+#~ msgstr "Вы проспали 8 часов. Сейчас {clock_text}, {time_of_day}.{cycle}"
+
+#~ msgid ""
+#~ "Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+#~ "advances 8 hours."
+#~ msgstr ""
+#~ "Новые часы режима труда и отдыха. Сон снимает 8 пунктов усталости в час. "
+#~ "Часы переводятся на 8 часов вперёд."
 
 #~ msgid "Legacy Driver"
 #~ msgstr "Legacy Driver"

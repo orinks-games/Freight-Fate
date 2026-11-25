@@ -16,7 +16,7 @@ use ff_core::models::dispatch_policy::{
     declines_remaining, dispatch_policy, DECLINE_REPUTATION_PENALTY, SENIOR_LOAD_CHOICE_LEVEL,
 };
 use ff_core::models::enforcement;
-use ff_core::models::jobs::{route_drive_hours, Job};
+use ff_core::models::jobs::{route_drive_hours, start_counts, Job};
 use ff_core::models::profile::Profile;
 use ff_core::models::trailers::{
     compatible_with_programs, owned_trailer_for_cargo, required_program_text,
@@ -577,8 +577,11 @@ impl JobBoardState {
         let fresh_first_h = (drive_limit - HOS_FIT_CUSHION_MIN)
             .min(duty_limit - pickup_work_min - HOS_FIT_CUSHION_MIN)
             / 60.0;
-        let current_first_h = (drive_limit - p.hos.driving_min - HOS_FIT_CUSHION_MIN)
-            .min(duty_limit - p.hos.duty_min - pickup_work_min - HOS_FIT_CUSHION_MIN)
+        // The counts this road holds the driver to: the Canadian ones on a
+        // load that stays in Canada, the US ones otherwise.
+        let (driving_h, duty_h) = start_counts(&p.hos, Some(&route));
+        let current_first_h = (drive_limit - driving_h * 60.0 - HOS_FIT_CUSHION_MIN)
+            .min(duty_limit - duty_h * 60.0 - pickup_work_min - HOS_FIT_CUSHION_MIN)
             .max(0.0)
             / 60.0;
         sleeps_needed(drive_h, current_first_h, shift_h)

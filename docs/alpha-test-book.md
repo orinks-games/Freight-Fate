@@ -475,17 +475,21 @@ is earned; at your home terminal, Take Me Home, Country Roads too.
 
 ### 6.4 Sleeping in Canada
 
-Do: at a Canadian stop, read the sleep rows before choosing one, then
-sleep.
+Do: on a load that stays in Canada, read the sleep rows at a Canadian stop
+before choosing one, then sleep. Then take a load to the United States,
+and read the sleep rows at a stop before the border.
 
-Listen for: "Sleep 8 hours", "Sleep 8 hours in the lot" and "Motel room:
-sleep 8 hours for 95 dollars", and in the preview "A full 8-hour sleep
-resets your driving hours and legal driving window."
+Listen for: on the load in Canada, "Sleep 8 hours", "Sleep 8 hours in the
+lot" and "Motel room: sleep 8 hours for 95 dollars", and in the preview "A
+full 8-hour sleep resets your driving hours and legal driving window." On
+the load to the United States, "Sleep 10 hours" and the other 10-hour
+rows.
 
-Pass when: the preview says "Afterward, driving allowance is 13.0 hours.
-Your legal driving window closes in 16.0 hours", the Canadian numbers, the
-clock moves 8 hours, and back in the United States the US clocks still
-count, since the US rules want 10 hours off.
+Pass when: in Canada the preview says "Afterward, driving allowance is
+13.0 hours. Your legal driving window closes in 16.0 hours", the Canadian
+numbers, and the clock moves 8 hours. On the load to the United States the
+night is 10 hours, and the hours are fresh when you cross. The terminal's
+sleep is 10 hours on both sides of the border.
 
 ## Chapter 7. Canadian roads
 

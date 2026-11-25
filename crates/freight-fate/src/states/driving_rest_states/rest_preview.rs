@@ -6,7 +6,7 @@ use ff_core::sim::hos;
 
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
-use crate::states::driving_core::{clock_text, profile_of, MOTEL_COST};
+use crate::states::driving_core::{clock_text, full_night_of, profile_of, MOTEL_COST};
 
 /// Said in a sleep's forecast when live cattle would pass the 28-hour limit
 /// before the driver wakes.
@@ -40,20 +40,21 @@ impl SleepChoice {
 
 pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepChoice) -> String {
     let profile = profile_of(ctx);
+    let night = full_night_of(ctx, d);
     // The reset row sleeps only what is left of a rest already under way, so
     // the forecast uses the same minutes the sleep will spend.
     let owed = match choice {
-        SleepChoice::Sleeper(10) => profile.hos.reset_minutes_left(),
+        SleepChoice::Sleeper(10) => profile.hos.reset_minutes_left(night),
         _ => None,
     };
-    let reset_hours = profile.hos.reset_rest_hours();
+    let reset_hours = night.hours();
     let minutes = owed.unwrap_or(choice.hours(reset_hours) as f64 * 60.0);
     let span = hos::duration_text(minutes / 60.0);
     let more = if owed.is_some() { " more" } else { "" };
     let mut after = profile.hos.clone();
     let completed_split = match choice {
         SleepChoice::Sleeper(10) | SleepChoice::Lot | SleepChoice::Motel => {
-            after.rest_reset();
+            after.rest_reset(night);
             false
         }
         SleepChoice::Sleeper(_) => after.sleeper_split_rest(minutes),

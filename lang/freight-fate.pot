@@ -24956,16 +24956,6 @@ msgstr ""
 
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city/terminal.rs
-msgid "Slept 8 hours."
-msgstr ""
-
-#. placeholders: {clock_text}, {time_of_day}, {cycle}
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
-msgstr ""
-
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/city/terminal.rs
 msgid "Slept 10 hours."
 msgstr ""
 
@@ -25220,16 +25210,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid "Recent logbook entries."
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
-msgid "Sleep 8 hours"
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid ""
-"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
-"advances 8 hours."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -39383,6 +39363,10 @@ msgstr ""
 msgid ""
 "Select a choice. Sleep reads a preview. Select again to sleep. Breaks and "
 "sleep move the clock and the deadline."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Sleep 8 hours"
 msgstr ""
 
 #. one sentence of a longer line

@@ -191,7 +191,7 @@ fn a_coffee_wearing_off_during_sleep_is_paid_back_first_and_silently() {
         .as_ref()
         .expect("a career")
         .hos
-        .reset_minutes_left()
+        .reset_minutes_left(ff_core::sim::hos::FullNight::TenHours)
         .expect("a rest under way");
     // 87 plus the 8 owed back is 95, and the sleep takes 8 an hour off that.
     let expected = hos::rest_sleep(95.0, minutes);

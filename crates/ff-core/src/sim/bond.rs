@@ -119,6 +119,17 @@ impl crate::sim::trip::Trip {
             .unwrap_or_default()
     }
 
+    /// Whether the rest of this trip stays in Canada: the route ends in
+    /// Canada and no border booth still ahead enters another country. A
+    /// Canadian load whose road runs through the United States is not, until
+    /// the truck is back over the line.
+    pub fn road_ahead_stays_in_canada(&self) -> bool {
+        self.destination_country() == "CA"
+            && !self.border_booths.iter().any(|booth| {
+                booth.at_mi > self.position_mi && !booth.entering_country.eq_ignore_ascii_case("CA")
+            })
+    }
+
     fn booth_enters_destination_country(&self, booth: &BorderBooth) -> bool {
         booth
             .entering_country

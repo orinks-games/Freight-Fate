@@ -22218,14 +22218,6 @@ msgid "It is {clock_text}, {time_of_day}.{cycle}"
 msgstr "Es ist {clock_text}, {time_of_day}.{cycle}"
 
 #. one sentence of a longer line
-msgid "Slept 8 hours."
-msgstr "8 Stunden geschlafen."
-
-#. placeholders: {clock_text}, {time_of_day}, {cycle}
-msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
-msgstr "8 Stunden geschlafen. Es ist {clock_text}, {time_of_day}.{cycle}"
-
-#. one sentence of a longer line
 msgid "Slept 10 hours."
 msgstr "10 Stunden geschlafen."
 
@@ -22477,16 +22469,6 @@ msgstr "Fahrtenbuch"
 
 msgid "Recent logbook entries."
 msgstr "Die letzten Einträge im Fahrtenbuch."
-
-msgid "Sleep 8 hours"
-msgstr "8 Stunden schlafen"
-
-msgid ""
-"Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
-"advances 8 hours."
-msgstr ""
-"Frische Lenk- und Ruhezeiten. Schlaf senkt die Müdigkeit um 8 Punkte pro "
-"Stunde. Die Uhr springt 8 Stunden vor."
 
 msgid "Sleep 10 hours"
 msgstr "10 Stunden schlafen"
@@ -35257,6 +35239,9 @@ msgid ""
 msgstr ""
 "Wähl eine Option. Schlafen liest eine Vorschau vor. Wähl noch einmal, um zu "
 "schlafen. Pausen und Schlaf lassen Uhr und Liefertermin vorrücken."
+
+msgid "Sleep 8 hours"
+msgstr "8 Stunden schlafen"
 
 #. one sentence of a longer line
 msgid "You are already rested."
@@ -50043,6 +50028,19 @@ msgstr ""
 "Halte den left bumper für eine zweite Ebene von Tasten. {pad_engine} "
 "steuert den Motor, {pad_fuel} liest den Kraftstoff vor und "
 "{pad_speed_limit} das Limit."
+
+#~ msgid "Slept 8 hours."
+#~ msgstr "8 Stunden geschlafen."
+
+#~ msgid "Slept 8 hours. It is {clock_text}, {time_of_day}.{cycle}"
+#~ msgstr "8 Stunden geschlafen. Es ist {clock_text}, {time_of_day}.{cycle}"
+
+#~ msgid ""
+#~ "Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock "
+#~ "advances 8 hours."
+#~ msgstr ""
+#~ "Frische Lenk- und Ruhezeiten. Schlaf senkt die Müdigkeit um 8 Punkte pro "
+#~ "Stunde. Die Uhr springt 8 Stunden vor."
 
 #~ msgid "Legacy Driver"
 #~ msgstr "Fahrer aus alter Version"

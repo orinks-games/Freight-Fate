@@ -6,7 +6,7 @@ use ff_core::data::buffs::{buffs_for_stop, Buff};
 use ff_core::models::solvency;
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_int, round_py_n};
 use ff_core::sim::alertness::Alertness;
-use ff_core::sim::hos;
+use ff_core::sim::hos::{self, FullNight};
 use ff_core::sim::roadside_inspection::InspectionLevel;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
@@ -19,12 +19,12 @@ use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::city::PayDebtState;
 use crate::states::driving::{DrivingState, StopVisit};
 use crate::states::driving_core::{
-    advance_on_duty_clock, advance_rest_clock, clock_text, deadline_text, hos_mut_of, hos_of,
-    pay_advance_grant, pay_advance_unavailable_reason, player_pays_operating_costs,
-    poi_ambient_key, profile_mut_of, profile_of, record_inspection, road_repair_cost,
-    settle_lift_before_sleep, shut_down_engine, wake_air_instruction, FacilityEngine, RigBuff,
-    FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN, MOTEL_COST,
-    ROAD_BRAKE_COST_PER_PCT, ROAD_BRAKE_MIN, ROAD_TIRE_COST_PER_PCT, ROAD_TIRE_MIN,
+    advance_on_duty_clock, advance_rest_clock, clock_text, deadline_text, full_night_of,
+    hos_mut_of, hos_of, pay_advance_grant, pay_advance_unavailable_reason,
+    player_pays_operating_costs, poi_ambient_key, profile_mut_of, profile_of, record_inspection,
+    road_repair_cost, settle_lift_before_sleep, shut_down_engine, wake_air_instruction,
+    FacilityEngine, RigBuff, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
+    MOTEL_COST, ROAD_BRAKE_COST_PER_PCT, ROAD_BRAKE_MIN, ROAD_TIRE_COST_PER_PCT, ROAD_TIRE_MIN,
     ROAD_TIRE_SPECIALIST_COST_PER_PCT, ROAD_TIRE_SPECIALIST_MIN, WALK_AROUND_MIN, WAVE_THROUGH_MIN,
 };
 use crate::states::driving_menu_states::{keep_rows, DriveRef};
@@ -270,7 +270,8 @@ impl RestStopState {
         if has("sleep") {
             // Under Canadian rules 8 hours in the berth is the whole reset,
             // so the 8-hour split row would be the reset row twice.
-            let canadian_reset = hos_of(ctx).reset_rest_hours() == 8;
+            let night = full_night_of(ctx, d);
+            let canadian_reset = night == FullNight::EightHours;
             let split_hours: &[i64] = if canadian_reset {
                 &[2, 3, 7]
             } else {
@@ -287,7 +288,7 @@ impl RestStopState {
             }
             // A rest already under way counts toward the ten hours, so the
             // reset row only asks for what is left of it.
-            let (label, help) = match (hos_of(ctx).reset_minutes_left(), canadian_reset) {
+            let (label, help) = match (hos_of(ctx).reset_minutes_left(night), canadian_reset) {
                 (Some(left), false) => (
                     format!(
                         "Sleep {} more to finish a 10-hour reset",
@@ -326,7 +327,8 @@ impl RestStopState {
             // parks or takes a break): a fuel-only stop, a cardlock or a lone
             // pump, has neither a lot to sleep in nor a motel, so both rows
             // are absent and nothing is said.
-            let canadian_reset = hos_of(ctx).reset_rest_hours() == 8;
+            let night = full_night_of(ctx, d);
+            let canadian_reset = night == FullNight::EightHours;
             let (lot_label, lot_help) = if canadian_reset {
                 (
                     "Sleep 8 hours in the lot",
@@ -627,8 +629,9 @@ impl RestStopState {
                     let duty_limit = hos::limits(&mode).map(|(_, duty, _)| duty).unwrap_or(0.0);
                     let duty_left_h = (duty_limit - hos_of(ctx).duty_min).max(0.0) / 60.0;
                     let window = if duty_left_h <= 0.0 {
-                        let canadian_reset = hos_of(ctx).reset_rest_hours() == 8;
-                        let reset = match (hos_of(ctx).reset_minutes_left(), canadian_reset) {
+                        let night = full_night_of(ctx, d);
+                        let canadian_reset = night == FullNight::EightHours;
+                        let reset = match (hos_of(ctx).reset_minutes_left(night), canadian_reset) {
                             (Some(left), false) => format!(
                                 "sleep {} more here to finish a 10-hour reset",
                                 hos::duration_text(left / 60.0)
@@ -692,16 +695,21 @@ impl RestStopState {
         let before_fatigue = profile_of(ctx).fatigue;
         // Finishing a reset already under way sleeps only what is left of it,
         // which is not the full ten hours the badge asks for.
-        let full_night = hos_of(ctx).reset_minutes_left().is_none();
+        let stays = self
+            .driving
+            .read(|d| d.trip.road_ahead_stays_in_canada())
+            .unwrap_or(false);
+        let night = hos_of(ctx).full_night(stays);
+        let full_night = hos_of(ctx).reset_minutes_left(night).is_none();
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let engine_off = shut_down_engine(d, ctx);
-            let owed = hos_of(ctx).reset_minutes_left();
-            let canadian_reset = hos_of(ctx).reset_rest_hours() == 8;
-            let minutes = owed.unwrap_or(hos_of(ctx).reset_rest_min());
+            let owed = hos_of(ctx).reset_minutes_left(night);
+            let canadian_reset = night == FullNight::EightHours;
+            let minutes = owed.unwrap_or(night.minutes());
             advance_rest_clock(d, ctx, minutes, Some("sleeper_berth"), "");
             settle_lift_before_sleep(d, ctx);
             let cycle_before = hos_of(ctx).cycle_used_min();
-            hos_mut_of(ctx).rest_reset();
+            hos_mut_of(ctx).rest_reset(night);
             let clocks = clocks_reset_text(hos_of(ctx).cycle_restarted_since(cycle_before));
             // Sleep takes fatigue off by the hour, so a driver who went to
             // bed exhausted can wake with some left.
@@ -779,12 +787,13 @@ impl RestStopState {
             // shuts the engine down first; the motel room was the one path
             // that skipped it while still sending the driver off to bed.
             let engine_off = shut_down_engine(d, ctx);
-            let reset_min = hos_of(ctx).reset_rest_min();
-            let canadian_reset = hos_of(ctx).reset_rest_hours() == 8;
+            let night = full_night_of(ctx, d);
+            let reset_min = night.minutes();
+            let canadian_reset = night == FullNight::EightHours;
             advance_rest_clock(d, ctx, reset_min, None, "");
             settle_lift_before_sleep(d, ctx);
             let cycle_before = hos_of(ctx).cycle_used_min();
-            hos_mut_of(ctx).rest_reset();
+            hos_mut_of(ctx).rest_reset(night);
             let clocks = clocks_reset_text(hos_of(ctx).cycle_restarted_since(cycle_before));
             {
                 let p = profile_mut_of(ctx);
@@ -834,12 +843,13 @@ impl RestStopState {
         }
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let engine_off = shut_down_engine(d, ctx);
-            let reset_min = hos_of(ctx).reset_rest_min();
-            let canadian_reset = hos_of(ctx).reset_rest_hours() == 8;
+            let night = full_night_of(ctx, d);
+            let reset_min = night.minutes();
+            let canadian_reset = night == FullNight::EightHours;
             advance_rest_clock(d, ctx, reset_min, None, "");
             settle_lift_before_sleep(d, ctx);
             let cycle_before = hos_of(ctx).cycle_used_min();
-            hos_mut_of(ctx).rest_reset();
+            hos_mut_of(ctx).rest_reset(night);
             let clocks = clocks_reset_text(hos_of(ctx).cycle_restarted_since(cycle_before));
             {
                 let p = profile_mut_of(ctx);
