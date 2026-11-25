@@ -94,21 +94,25 @@ static CANDIDATES_CACHE: Lazy<Mutex<CandidateCache>> = Lazy::new(|| Mutex::new(H
 /// fill: one supported route per city on the map, so the first ask in a city
 /// is the expensive part of opening its board.
 ///
-/// Only the cities a US carrier with Canadian authority may run to: never
-/// between two Canadian points. A relay or a reposition then asks the lane
-/// table for its own carrier (`relay.rs`).
+/// Every city a carrier of either country could run to: the lane depends on
+/// the carrier, so a relay or a reposition asks the lane table for its own
+/// carrier (`RelayRequest::may_run`), and a bobtail list uses
+/// [`reachable_cities_for`].
 pub fn reachable_cities(world: &World, city: &str) -> Vec<Candidate> {
+    let board = JobBoard::new(world, Some(0), None);
+    let city = world.resolve_city_key(city);
+    board.candidates(&city)
+}
+
+/// The reachable cities on lanes this carrier may run (a start with no
+/// carrier record runs on its own authority, as a US carrier).
+pub fn reachable_cities_for(world: &World, city: &str, carrier_key: &str) -> Vec<Candidate> {
     let board = JobBoard::new(world, Some(0), None);
     let city = world.resolve_city_key(city);
     board
         .candidates(&city)
         .into_iter()
-        .filter(|c| {
-            cross_border::lane_permitted(
-                board.lane_for_base(cross_border::CarrierBase::Us, &city, &c.0),
-                true,
-            )
-        })
+        .filter(|c| board.carrier_may_haul(carrier_key, &city, &c.0))
         .collect()
 }
 

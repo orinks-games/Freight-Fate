@@ -155,14 +155,32 @@ pub fn lane_permitted(kind: Option<LaneKind>, authority: bool) -> bool {
 }
 
 /// The base country of a carrier key; `Us` for a start with no record.
+///
+/// A leased owner-operator start has no carrier record of its own: its base
+/// is its lessor's, found the way the hiring carrier is, by name.
 pub fn carrier_base(carrier_key: &str) -> CarrierBase {
-    carrier(carrier_key).map_or(CarrierBase::Us, |c| c.base)
+    #[cfg(test)]
+    if let Some((base, _)) = fixture::carrier(carrier_key) {
+        return base;
+    }
+    carrier(carrier_key)
+        .or_else(|| {
+            crate::models::start_options::all_start_options()
+                .into_iter()
+                .find(|option| option.key == carrier_key)
+                .and_then(crate::models::start_options::hiring_carrier_for_option)
+        })
+        .map_or(CarrierBase::Us, |c| c.base)
 }
 
 /// Whether this carrier books loads across the border. A carrier in
 /// `carriers.json` says so itself (`cross_border`); a start with no carrier
 /// record is a driver on their own authority, who may.
 pub fn carrier_runs_to_canada(carrier_key: &str) -> bool {
+    #[cfg(test)]
+    if let Some((_, authority)) = fixture::carrier(carrier_key) {
+        return authority;
+    }
     carrier(carrier_key).is_none_or(|c| c.cross_border)
 }
 
@@ -285,6 +303,39 @@ pub fn route_crossings(route: &Route) -> usize {
 /// Hours a deadline books at the border for this route.
 pub fn route_customs_hours(route: Option<&Route>) -> f64 {
     route.map_or(0.0, |r| route_crossings(r) as f64 * CUSTOMS_PLANNED_H)
+}
+
+/// A carrier for one test thread only, for the lanes of a carrier
+/// `carriers.json` does not have yet (a Canadian base). The board caches hold
+/// nothing that depends on the carrier, so a fixture never leaks into
+/// another test.
+#[cfg(test)]
+pub(crate) mod fixture {
+    use super::CarrierBase;
+    use std::cell::RefCell;
+    use std::collections::HashMap;
+
+    thread_local! {
+        static CARRIERS: RefCell<HashMap<String, (CarrierBase, bool)>> =
+            RefCell::new(HashMap::new());
+    }
+
+    /// Run `f` with `key` standing for a carrier of this base and authority.
+    pub(crate) fn with_carrier<R>(
+        key: &str,
+        base: CarrierBase,
+        authority: bool,
+        f: impl FnOnce() -> R,
+    ) -> R {
+        CARRIERS.with(|c| c.borrow_mut().insert(key.to_string(), (base, authority)));
+        let out = f();
+        CARRIERS.with(|c| c.borrow_mut().remove(key));
+        out
+    }
+
+    pub(super) fn carrier(key: &str) -> Option<(CarrierBase, bool)> {
+        CARRIERS.with(|c| c.borrow().get(key).copied())
+    }
 }
 
 #[cfg(test)]

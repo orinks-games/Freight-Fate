@@ -427,7 +427,9 @@ fn alaska_by_road_needs_canadian_authority() {
             .count()
     };
     assert_eq!(to_alaska("great_lakes_training"), 0);
-    assert!(to_alaska("northstar") > 0, "Northstar never posted Alaska");
+    let board = JobBoard::new(get_world(), Some(0), None);
+    assert!(!board.carrier_may_haul("great_lakes_training", "seattle_wa_us", "anchorage_ak_us"));
+    assert!(board.carrier_may_haul("northstar", "seattle_wa_us", "anchorage_ak_us"));
 }
 
 /// A load between Alaska and the lower 48 by road is road freight, and
@@ -453,4 +455,77 @@ fn a_load_through_canada_is_road_freight() {
         }
     }
     assert!(seen > 0, "no load from the Northwest reached Alaska");
+}
+
+/// A leased owner-operator start has no carrier record: it takes its
+/// lessor's base country, so a start leased to a Canadian carrier gets a
+/// Canadian board.
+#[test]
+fn a_leased_start_takes_its_lessors_base() {
+    use crate::models::start_options::{all_start_options, hiring_carrier_for_option};
+    let leased: Vec<_> = all_start_options()
+        .into_iter()
+        .filter(|option| option.is_owner_operator())
+        .collect();
+    assert!(!leased.is_empty());
+    for option in leased {
+        let lessor = hiring_carrier_for_option(option).expect("a leased start names its lessor");
+        assert_eq!(
+            cross_border::carrier_base(option.key),
+            lessor.base,
+            "{}",
+            option.key
+        );
+    }
+}
+
+/// The empty-move list follows the carrier's own lanes: from Vancouver a US
+/// carrier never runs empty to another Canadian city (cabotage), while the
+/// shared list still holds them for a carrier that may.
+#[test]
+fn empty_moves_follow_the_carriers_lanes() {
+    let world = get_world();
+    let all = reachable_cities(world, "vancouver_bc_ca");
+    assert!(all.iter().any(|c| country(&c.0) == "CA"));
+    let us = crate::models::jobs::reachable_cities_for(world, "vancouver_bc_ca", "northstar");
+    assert!(!us.is_empty());
+    assert!(us.iter().all(|c| country(&c.0) == "US"));
+}
+
+/// A start leased to a Canadian carrier (a fixture until `carriers.json` has
+/// one) never hauls between two US cities: in Chicago its board runs to
+/// Canada only.
+#[test]
+fn a_canadian_base_never_hauls_between_two_us_cities() {
+    use cross_border::{fixture::with_carrier, CarrierBase};
+    with_carrier("leased_to_a_canadian", CarrierBase::Ca, true, || {
+        let jobs: Vec<Job> = (0..5)
+            .flat_map(|seed| board_at("chicago_il_us", seed, 20, "leased_to_a_canadian"))
+            .collect();
+        assert!(!jobs.is_empty());
+        for job in &jobs {
+            assert_eq!(country(&job.destination), "CA", "{job:?}");
+        }
+    });
+}
+
+/// A Canadian carrier stranded in a town with nothing for it is sent empty
+/// to the nearest Canadian city with a load, not across the border: Fort St.
+/// John to Grande Prairie, not Bellingham.
+#[test]
+fn a_canadian_carrier_repositions_inside_canada() {
+    use cross_border::{fixture::with_carrier, CarrierBase};
+    with_carrier("a_canadian_carrier", CarrierBase::Ca, true, || {
+        let board = company_board("fort_st_john_bc_ca", "a_canadian_carrier", 1, 0);
+        assert_eq!(board.len(), 1, "{board:?}");
+        let reposition = &board[0];
+        assert!(reposition.bobtail && reposition.assigned, "{reposition:?}");
+        assert_eq!(country(&reposition.destination), "CA", "{reposition:?}");
+        let empty_moves = crate::models::jobs::reachable_cities_for(
+            get_world(),
+            "fort_st_john_bc_ca",
+            "a_canadian_carrier",
+        );
+        assert!(empty_moves.iter().any(|c| c.0 == "grande_prairie_ab_ca"));
+    });
 }
