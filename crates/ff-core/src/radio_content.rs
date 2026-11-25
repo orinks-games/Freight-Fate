@@ -28,7 +28,9 @@ type IdRow = (
 // and the second-wave _04), a spoken legal ID (_03) and spoken liners (_05,
 // _06) per station, matching tools/radio_content_plan.py STATIONS'
 // jingle_prompts and id_lines; the Roadhouse, Desert Rock and Neon Drive
-// carry extra IDs (_04 to _07) added straight to the pack on 2026-09-25.
+// carry extra IDs (_04 and up). _04 to _07 (and Desert Rock _04 and _05)
+// were added to the pack on 2026-09-25; Roadhouse _08 is the Coast to
+// Coast ID.
 // A row only exists once its clip ships: a key
 // with no file behind it would play as dead air.
 const STATION_ID_ROWS: &[IdRow] = &[
@@ -76,6 +78,12 @@ const STATION_ID_ROWS: &[IdRow] = &[
                 "Freight Fate Roadhouse ID 7",
                 "Station ID",
                 8.8,
+            ),
+            (
+                "id_roadhouse_08",
+                "Freight Fate Roadhouse Coast to Coast ID",
+                "Sung station jingle",
+                10.6,
             ),
         ],
     ),
@@ -1142,7 +1150,7 @@ mod tests {
                 );
             }
         }
-        assert_eq!(station_ids("route_playlist").len(), 7);
+        assert_eq!(station_ids("route_playlist").len(), 8);
         assert_eq!(ad_spots().len(), 21);
         assert!(ad_format_tags("ad_wagon_wheel_inn").contains(&"night".to_string()));
         assert!(
