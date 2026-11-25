@@ -883,12 +883,15 @@ fn test_home_picker_offers_only_cities_where_a_carrier_hires() {
         assert!(offered.iter().any(|c| c == open), "{open} missing");
     }
     // A city picker handed a blocked city still leaves it out.
-    let region = app.ctx.world.cities["whitehorse_yt_ca"].region.clone();
+    let region = app.ctx.world.cities["watson_lake_yt_ca"].region.clone();
     let cities = HomeCityState::new(
         &app.ctx,
         "Picker",
         &region,
-        &["whitehorse_yt_ca".to_string(), "surrey_bc_ca".to_string()],
+        &[
+            "watson_lake_yt_ca".to_string(),
+            "fort_st_john_bc_ca".to_string(),
+        ],
     );
     assert!(cities.cities().is_empty());
 }
