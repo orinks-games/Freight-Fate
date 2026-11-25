@@ -1,11 +1,6 @@
-//! The tires' song: the steady note a tire sings on concrete grooved across
-//! the lane, and the low hum of an open steel grate bridge deck (Orinks,
-//! 2026-11-22).
+//! The tires' song: the low hum of an open steel grate bridge deck.
 //!
-//! Grooves cut or tined across the lane hit the tread at a steady rate, so
-//! the pitch is speed over groove spacing; a grate's bars do the same a few
-//! inches apart, so its note is low. Each is one loop made for a reference
-//! speed and played at rate = speed / reference, the way the road loop is.
+//! Its pitch follows speed. Grooved concrete is quiet.
 //!
 //! [`TireSong::next`] is the only place the song moves. Nothing here is
 //! spoken: a thing with its own sound is not announced.
@@ -27,8 +22,8 @@ pub fn grooves_origin(grooves: Grooves) -> &'static str {
 /// What the layer reads under the steer axle.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Underfoot {
-    /// Nothing that sings: asphalt, concrete grooved along the lane or
-    /// ground smooth, or road the layer says nothing about.
+    /// A surface that does not produce a tire song, or road the layer says
+    /// nothing about.
     Plain,
     Grooved(Grooves),
     /// An open steel grating (National Bridge Inventory Item 107, read).
@@ -39,7 +34,6 @@ pub enum Underfoot {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum HeldSong {
     Quiet,
-    Whine,
     Hum,
 }
 
@@ -47,7 +41,6 @@ impl HeldSong {
     pub fn from_name(name: &str) -> Option<HeldSong> {
         match name {
             "quiet" => Some(HeldSong::Quiet),
-            "whine" => Some(HeldSong::Whine),
             "hum" => Some(HeldSong::Hum),
             _ => None,
         }
@@ -56,7 +49,6 @@ impl HeldSong {
     pub fn name(self) -> &'static str {
         match self {
             HeldSong::Quiet => "quiet",
-            HeldSong::Whine => "whine",
             HeldSong::Hum => "hum",
         }
     }
@@ -96,17 +88,10 @@ impl Hold {
 /// a movable span of 0.07 mile would otherwise be a 0.6 s burst. Assumed
 /// for the ear, in the manner of the river's hold.
 pub const HUM_MIN_S: f64 = 3.0;
-/// A concrete deck whines for at least this many real seconds: the bridge
-/// joints' own gap ([`super::joints::MIN_JOINT_GAP_S`]), so a short deck is
-/// thump, whine, thump and a long one still ends on its far joint. Pavement
-/// whine has no hold. Assumed for the ear.
-pub const DECK_WHINE_MIN_S: f64 = 1.5;
-
 /// What the tires are singing.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum TireSong {
     Quiet,
-    Whine(Grooves, Hold),
     Hum(Hold),
     /// A staged scenario holds one song; it wins over the layer.
     Held(HeldSong),
@@ -118,34 +103,18 @@ pub enum SongEvent {
     Under { under: Underfoot, dt: f64 },
 }
 
-fn whine_hold(grooves: Grooves) -> f64 {
-    match grooves {
-        Grooves::AssumedDeck => DECK_WHINE_MIN_S,
-        Grooves::DerivedFromBuildYear => 0.0,
-    }
-}
-
-/// One of the two loops, with the speed it was made for.
+/// The loop, with the speed it was made for.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct SongLoop {
     pub key: &'static str,
     /// Metres a second at which the loop plays at its own pitch.
     pub reference_mps: f64,
     /// Its level at and above the reference speed, before the Road surface
-    /// volume. First guesses for Orinks's ear, set from a game-mix recording
-    /// (2026-11-22): the whine's note sits about 19 dB over the same band of
-    /// the mix without it at 65 mph on jointed concrete, as in the previews.
-    /// The hum sits about 10 dB over the mix in 140 to 175 Hz at 45 mph; it
-    /// plays at full level, and its loop is raised 4 dB to get there.
+    /// volume. The hum sits about 10 dB over the mix in 140 to 175 Hz at 45
+    /// mph; it plays at full level, and its loop is raised 4 dB to get there.
     pub level: f64,
 }
 
-/// The whine, made for 65 mph: 1,529 Hz there, a groove every 19 mm.
-pub const WHINE: SongLoop = SongLoop {
-    key: "vehicle/tined_whine",
-    reference_mps: 29.06,
-    level: 0.35,
-};
 /// The grate, made for 45 mph: 158 Hz there, a bar every 5 inches.
 pub const HUM: SongLoop = SongLoop {
     key: "vehicle/grate_hum",
@@ -165,28 +134,20 @@ impl TireSong {
         TireSong::Quiet.next(SongEvent::Under { under, dt: 0.0 })
     }
 
-    /// The only place the song moves. A hold never moves; a grating wins
-    /// over grooves, and a hum still holding wins over a whine; a song whose
-    /// surface is behind the truck sounds out its hold, then goes quiet.
+    /// The only place the song moves. A hold never moves; a grating starts
+    /// the hum, which sounds out its hold after the surface is behind the
+    /// truck; other surfaces are quiet.
     pub fn next(self, event: SongEvent) -> TireSong {
         let SongEvent::Under { under, dt } = event;
-        let hold = match self {
-            TireSong::Held(_) => return self,
-            TireSong::Quiet => None,
-            TireSong::Whine(_, h) | TireSong::Hum(h) => Some(h),
-        };
+        let dt = dt.max(0.0);
+        if let TireSong::Held(_) = self {
+            return self;
+        }
         match (self, under) {
             (TireSong::Hum(h), Underfoot::Grating) => TireSong::Hum(h.after(dt, false)),
             (_, Underfoot::Grating) => TireSong::Hum(Hold::fresh(HUM_MIN_S)),
             (TireSong::Hum(h), _) if h.after(dt, true).holds() => TireSong::Hum(h.after(dt, true)),
-            (TireSong::Whine(was, h), Underfoot::Grooved(g)) if was == g => {
-                TireSong::Whine(g, h.after(dt, false))
-            }
-            (_, Underfoot::Grooved(g)) => TireSong::Whine(g, Hold::fresh(whine_hold(g))),
-            (_, Underfoot::Plain) => match (self, hold.map(|h| h.after(dt, true))) {
-                (TireSong::Whine(g, _), Some(h)) if h.holds() => TireSong::Whine(g, h),
-                _ => TireSong::Quiet,
-            },
+            _ => TireSong::Quiet,
         }
     }
 
@@ -194,17 +155,14 @@ impl TireSong {
     pub fn sound(self) -> Option<SongLoop> {
         match self {
             TireSong::Quiet | TireSong::Held(HeldSong::Quiet) => None,
-            TireSong::Whine(..) | TireSong::Held(HeldSong::Whine) => Some(WHINE),
             TireSong::Hum(_) | TireSong::Held(HeldSong::Hum) => Some(HUM),
         }
     }
 
     /// The song as the agent server's `status` reports it.
     pub fn describe(self) -> String {
-        let holding = |h: Hold| if h.past { ", holding" } else { "" };
         match self {
             TireSong::Quiet => "quiet".to_string(),
-            TireSong::Whine(g, h) => format!("whine ({}{})", grooves_origin(g), holding(h)),
             TireSong::Hum(h) if h.past => "hum (holding)".to_string(),
             TireSong::Hum(_) => "hum".to_string(),
             TireSong::Held(h) => format!("held {}", h.name()),

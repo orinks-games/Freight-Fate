@@ -52,8 +52,8 @@ impl PickupFacilityState {
         if heard || !self.team_departure_offered(ctx) {
             return None;
         }
-        let name = job_pairing(ctx, &self.job).co_driver.name;
-        take_intro(ctx, name, true)
+        let co_driver_name = job_pairing(ctx, &self.job).co_driver.name;
+        take_intro(ctx, co_driver_name, true)
     }
 
     /// The two team rows, placed after Depart for destination.
@@ -62,24 +62,24 @@ impl PickupFacilityState {
             return Vec::new();
         }
         let pairing = job_pairing(ctx, &self.job);
-        let name = pairing.co_driver.name;
+        let co_driver_name = pairing.co_driver.name;
         let carrier = ff_core::models::career::carrier_name_of(profile(ctx));
         let who = co_driver::pairing_line(&pairing, &carrier);
-        let terms = terms_text(ctx, name);
+        let terms = terms_text(ctx, co_driver_name);
         vec![
             MenuItem::new(
-                format!("Depart with {name} driving, and ride along"),
+                format!("Depart with {co_driver_name} driving, and ride along"),
                 |s: &mut Self, ctx| s.depart_as_team(ctx, TeamMode::RideAlong),
             )
             .help(format!(
                 "{who} You rest in the sleeper and hear the road. {terms}"
             )),
             MenuItem::new(
-                format!("Depart with {name} driving, and sleep"),
+                format!("Depart with {co_driver_name} driving, and sleep"),
                 |s: &mut Self, ctx| s.depart_as_team(ctx, TeamMode::SleepThrough),
             )
             .help(format!(
-                "{who} You wake when {name} needs you, with a summary of the drive. {terms}"
+                "{who} You wake when {co_driver_name} needs you, with a summary of the drive. {terms}"
             )),
         ]
     }

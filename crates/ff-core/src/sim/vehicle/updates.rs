@@ -8,14 +8,15 @@ use crate::sim::transmission::NEUTRAL;
 use super::{
     AbsEvent, DriveTractionEvent, TruckState, AMBIENT_C, BRAKE_COOL_BASE_PER_S,
     BRAKE_COOL_SPEED_PER_S, BRAKE_WEAR_HOT_MULT, BRAKE_WEAR_PCT_PER_MJ, CARGO_BRAKE_PCT_PER_G_S,
-    CARGO_CORNER_PCT_PER_G_S, CARGO_HARD_BRAKE_G, CHAIN_SAFE_MPH, CHAIN_SNAP_DAMAGE_PCT,
-    CHAIN_WEAR_BARE_MULT, CHAIN_WEAR_OVERSPEED_MULT, CHAIN_WEAR_PCT_PER_MILE, CRUISE_MPG,
-    ENGINE_MOTORING_DRAG_FRACTION, ENGINE_ROTATING_INERTIA_KG_M2, ENGINE_WEAR_FUEL_PENALTY,
-    ENGINE_WEAR_LUG_PCT_PER_S, ENGINE_WEAR_OVER_REV_PCT_PER_S, ENGINE_WEAR_PCT_PER_H_FULL_LOAD,
-    ENGINE_WEAR_PCT_PER_H_IDLE, G, LUG_RPM_FRACTION, LUG_THROTTLE, MAX_REVERSE_MPS,
-    OVER_REV_RPM_MULT, ROAD_OVERSPEED_RPM_MULT, ROLL_WARN_SHARE, RUNAWAY_DAMAGE_PCT_PER_S,
-    RUNAWAY_SPEED_MPH, SHIFT_SYNC_BRAKE_FRACTION, SHIFT_SYNC_FUEL_FRACTION, TIRE_WEAR_BRAKING_PCT,
-    TIRE_WEAR_PCT_PER_MILE, TIRE_WINTER, WINTER_TREAD_WEAR_MULT,
+    CARGO_CORNER_PCT_PER_G_S, CARGO_HARD_BRAKE_G, CHAIN_BARE_GRACE_MI, CHAIN_OVERSPEED_MPH,
+    CHAIN_SNAP_DAMAGE_PCT, CHAIN_WEAR_BARE_MULT, CHAIN_WEAR_OVERSPEED_MULT,
+    CHAIN_WEAR_PCT_PER_MILE, CRUISE_MPG, ENGINE_MOTORING_DRAG_FRACTION,
+    ENGINE_ROTATING_INERTIA_KG_M2, ENGINE_WEAR_FUEL_PENALTY, ENGINE_WEAR_LUG_PCT_PER_S,
+    ENGINE_WEAR_OVER_REV_PCT_PER_S, ENGINE_WEAR_PCT_PER_H_FULL_LOAD, ENGINE_WEAR_PCT_PER_H_IDLE, G,
+    LUG_RPM_FRACTION, LUG_THROTTLE, MAX_REVERSE_MPS, OVER_REV_RPM_MULT, ROAD_OVERSPEED_RPM_MULT,
+    ROLL_WARN_SHARE, RUNAWAY_DAMAGE_PCT_PER_S, RUNAWAY_SPEED_MPH, SHIFT_SYNC_BRAKE_FRACTION,
+    SHIFT_SYNC_FUEL_FRACTION, TIRE_WEAR_BRAKING_PCT, TIRE_WEAR_PCT_PER_MILE, TIRE_WINTER,
+    WINTER_TREAD_WEAR_MULT,
 };
 
 impl TruckState {
@@ -416,21 +417,26 @@ impl TruckState {
         }
         self.tire_wear_pct = (self.tire_wear_pct + tire * self.tire_wear_buff_mult).min(100.0);
 
-        // Chains wear by the mile, brutally faster on bare pavement or past
-        // chain speed. A set ground to nothing lets a cross chain go: the
-        // links flail into the fender and the whole set is scrap.
+        // Chains wear by the mile, brutally faster on bare pavement past its
+        // grace or over chain speed. A set ground to nothing lets a cross
+        // chain go: the links flail into the fender and the whole set is
+        // scrap. The bare stretch is counted in road miles (`sim_dt`, the
+        // same compressed clock the route advances on) and starts again on
+        // snow or ice or with the chains off.
+        let bare = self.surface != "snow" && self.surface != "ice";
+        if self.chains_on && bare {
+            self.chain_bare_mi += speed * sim_dt / 1609.344;
+        } else {
+            self.chain_bare_mi = 0.0;
+        }
         if self.chains_on && speed > 0.01 {
-            let mut rate = CHAIN_WEAR_PCT_PER_MILE;
-            if self.surface != "snow" && self.surface != "ice" {
-                rate *= CHAIN_WEAR_BARE_MULT;
-            }
-            if self.speed_mph() > CHAIN_SAFE_MPH {
-                rate *= CHAIN_WEAR_OVERSPEED_MULT;
-            }
-            self.chain_wear_pct =
-                (self.chain_wear_pct + rate * speed * sim_dt / 1609.344).min(100.0);
+            self.chain_wear_pct = (self.chain_wear_pct
+                + chain_wear_pct_per_mile(self.chain_bare_mi, self.speed_mph()) * speed * sim_dt
+                    / 1609.344)
+                .min(100.0);
             if self.chain_wear_pct >= 100.0 {
                 self.chains_on = false;
+                self.chain_bare_mi = 0.0;
                 self.chains_just_snapped = true;
                 // Grinding a set to destruction on bare pavement is a choice.
                 self.add_damage_from(CHAIN_SNAP_DAMAGE_PCT, true, "chains worn through");
@@ -512,4 +518,19 @@ impl TruckState {
             self.add_cargo_damage(rate * self.cargo_fragility * dt);
         }
     }
+}
+
+/// Chain wear in percent of a set per mile: the base rate, times the bare
+/// rate once a bare stretch has run past its grace (`CHAIN_BARE_GRACE_MI`),
+/// times the overspeed rate over `CHAIN_OVERSPEED_MPH`. `bare_mi` is 0 on
+/// snow or ice.
+pub fn chain_wear_pct_per_mile(bare_mi: f64, mph: f64) -> f64 {
+    let mut rate = CHAIN_WEAR_PCT_PER_MILE;
+    if bare_mi > CHAIN_BARE_GRACE_MI {
+        rate *= CHAIN_WEAR_BARE_MULT;
+    }
+    if mph > CHAIN_OVERSPEED_MPH {
+        rate *= CHAIN_WEAR_OVERSPEED_MULT;
+    }
+    rate
 }

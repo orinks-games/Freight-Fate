@@ -185,5 +185,9 @@ that leaves a screen; translate that one.
 - `cargo tools l10n-check` checks every language file:
   placeholders, numbers, key names, and broken entries. `--stats` prints
   how much of each language is translated.
+- A line left as its English while six or more other languages translate
+  it fails the check. When the word really is the same in your language,
+  such as "Radio" or "Format", put the comment `# same as English` on the
+  line above its `msgid`.
 - A correction that arrives as an issue goes into the language file as a
   normal commit to `dev`; credit the reporter in the changelog.

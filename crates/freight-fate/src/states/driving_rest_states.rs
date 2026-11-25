@@ -23,6 +23,7 @@ mod parking_full;
 mod rest_preview;
 mod rest_stop;
 mod roadside;
+mod short_stay;
 mod shoulder;
 
 pub use fuel_pump::{refuel_engine_gate_message, FuelPump};
@@ -32,6 +33,7 @@ pub use rest_stop::{walk_around_minutes, RestFocus, RestStopState};
 pub use roadside::{
     EnforcementStopState, FelonyStopState, LicencePulledState, RoadsideExit, TrafficStopState,
 };
+pub use short_stay::ShortStay;
 pub use shoulder::ShoulderSleepConfirmationState;
 
 use ff_core::models::enforcement;
@@ -247,8 +249,13 @@ impl DrivingState {
     }
 
     /// `ctx.push_state(ParkingFullState(ctx, self, stop))`.
-    pub fn push_parking_full_state(&mut self, ctx: &mut GameContext, stop: &RoadStop) {
-        let mut state = ParkingFullState::new(ctx, stop.clone());
+    pub fn push_parking_full_state(
+        &mut self,
+        ctx: &mut GameContext,
+        stop: &RoadStop,
+        preferred_rest: RestFocus,
+    ) {
+        let mut state = ParkingFullState::new(ctx, stop.clone(), preferred_rest);
         state.enter_over_drive(ctx, self);
         push_over_drive(ctx, state);
     }

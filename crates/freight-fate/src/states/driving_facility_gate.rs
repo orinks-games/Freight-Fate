@@ -295,6 +295,16 @@ impl DrivingState {
     /// The hours and fatigue half of `charge_scripted_loop`, for a scripted
     /// drive that burns its own fuel (the chain checkpoint turn back).
     pub fn charge_scripted_hours(&mut self, ctx: &mut GameContext, minutes: f64) {
+        let end_hour = self.absolute_game_hour(ctx, None);
+        record_duty_interval(
+            self,
+            ctx,
+            end_hour - minutes / 60.0,
+            end_hour,
+            "driving",
+            "",
+            None,
+        );
         // A turnaround is driving time on every commercial reposition.
         hos_mut_of(ctx).drive(minutes);
         let fatigue_mult = tuning_for_time_scale(self.trip.time_scale).fatigue_rate;

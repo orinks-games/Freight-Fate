@@ -2217,19 +2217,19 @@ msgid "Woody Guthrie - This Land Is Your Land"
 msgstr "Woody Guthrie - This Land Is Your Land"
 
 msgid "earned"
-msgstr "earned"
+msgstr "đã đạt"
 
 msgid "newest"
-msgstr "newest"
+msgstr "mới nhất"
 
 msgid "locked"
-msgstr "locked"
+msgstr "chưa mở khóa"
 
 msgid "name"
 msgstr "name"
 
 msgid "original"
-msgstr "original"
+msgstr "thứ tự gốc"
 
 msgid "Earned first"
 msgstr "Đã đạt trước"
@@ -5557,7 +5557,7 @@ msgid "the Northeast"
 msgstr "vùng Đông Bắc"
 
 msgid "Appalachia"
-msgstr "Appalachia"
+msgstr "vùng Appalachia"
 
 msgid "the Great Lakes"
 msgstr "vùng Ngũ Đại Hồ"
@@ -9645,7 +9645,7 @@ msgid "june"
 msgstr "june"
 
 msgid "June"
-msgstr "June"
+msgstr "Tháng Sáu"
 
 msgid ""
 "Grew up waiting tables at Della's Blue Plate Diner and decided she wanted "
@@ -9757,26 +9757,28 @@ msgstr "ray"
 msgid "lou"
 msgstr "lou"
 
-#. placeholders: {name}
-msgid "{name}, from your training class."
-msgstr "{name}, bạn cùng lớp đào tạo với bạn."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name}, from your training class."
+msgstr "{co_driver_name}, bạn cùng lớp đào tạo với bạn."
 
-#. placeholders: {name}, {carrier_name}
-msgid "{name}, from your training class, drives for {carrier_name} now."
+#. placeholders: {co_driver_name}, {carrier_name}
+msgid ""
+"{co_driver_name}, from your training class, drives for {carrier_name} now."
 msgstr ""
-"{name}, bạn cùng lớp đào tạo với bạn, giờ đang chạy cho {carrier_name}."
+"{co_driver_name}, bạn cùng lớp đào tạo với bạn, giờ đang chạy cho "
+"{carrier_name}."
 
-#. placeholders: {name}
-msgid "{name}, your co-driver."
-msgstr "{name}, tài xế phụ của bạn."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name}, your co-driver."
+msgstr "{co_driver_name}, tài xế phụ của bạn."
 
-#. placeholders: {name}
-msgid "{name}, back from Meridian with a story."
-msgstr "{name}, mới từ Meridian về và có chuyện muốn kể."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name}, back from Meridian with a story."
+msgstr "{co_driver_name}, mới từ Meridian về và có chuyện muốn kể."
 
-#. placeholders: {name}
-msgid "{name}, your old trainer, along for one load."
-msgstr "{name}, thầy dạy lái cũ của bạn, đi cùng một lô hàng."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name}, your old trainer, along for one load."
+msgstr "{co_driver_name}, thầy dạy lái cũ của bạn, đi cùng một lô hàng."
 
 msgid "training"
 msgstr "đào tạo"
@@ -13458,6 +13460,7 @@ msgstr "nổi bật"
 msgid "subtle"
 msgstr "tinh tế"
 
+# same as English
 msgid "alpha"
 msgstr "alpha"
 
@@ -13518,7 +13521,7 @@ msgid "kilometer"
 msgstr "kilômét"
 
 msgid "gallon"
-msgstr "gallon"
+msgstr "galông"
 
 msgid "liter"
 msgstr "lít"
@@ -13567,28 +13570,28 @@ msgid "recovering"
 msgstr "đang hồi sức"
 
 msgid "game minutes counted"
-msgstr "game minutes counted"
+msgstr "số phút trong game đã tính"
 
 msgid "seconds left"
-msgstr "seconds left"
+msgstr "số giây còn lại"
 
 msgid "game minutes left"
-msgstr "game minutes left"
+msgstr "số phút trong game còn lại"
 
 msgid "misses"
-msgstr "misses"
+msgstr "lần bỏ lỡ"
 
 msgid "arriving"
-msgstr "arriving"
+msgstr "đang đến nơi"
 
 msgid "rolling"
-msgstr "rolling"
+msgstr "đang chạy"
 
 msgid "creeping"
-msgstr "creeping"
+msgstr "đang chạy chậm"
 
 msgid "stopped"
-msgstr "stopped"
+msgstr "đã dừng"
 
 msgid "holding"
 msgstr "holding"
@@ -13685,6 +13688,21 @@ msgstr "đã cất"
 
 msgid "broken"
 msgstr "đã đứt"
+
+msgid "install"
+msgstr ""
+
+msgid "remove"
+msgstr ""
+
+msgid "tighten"
+msgstr ""
+
+msgid "driver"
+msgstr "tài xế"
+
+msgid "assist"
+msgstr ""
 
 msgid "yield"
 msgstr "nhường đường"
@@ -13814,7 +13832,7 @@ msgid "available"
 msgstr "available"
 
 msgid "used"
-msgstr "used"
+msgstr "đã dùng"
 
 # same as English
 msgid "northwest territories"
@@ -14512,7 +14530,7 @@ msgid "Hours of service: {phrase} until {due}."
 msgstr "Giờ lái quy định: còn {phrase} nữa là {due}."
 
 msgid "untold"
-msgstr "untold"
+msgstr "chưa báo"
 
 msgid "single"
 msgstr "đơn"
@@ -14872,7 +14890,7 @@ msgid ""
 msgstr "Máy chủ trả về lỗi 403. (GET api.weather.gov/points/1,2: Forbidden)"
 
 msgid "properties"
-msgstr "properties"
+msgstr "thuộc tính"
 
 msgid "no POST on the NWS API"
 msgstr "API của NWS không hỗ trợ POST"
@@ -15062,17 +15080,7 @@ msgstr ""
 msgid "assumed, concrete deck"
 msgstr ""
 
-msgid "whine"
-msgstr ""
-
 msgid "hum"
-msgstr ""
-
-msgid ", holding"
-msgstr ""
-
-#. placeholders: {grooves_origin}, {holding}
-msgid "whine ({grooves_origin}{holding})"
 msgstr ""
 
 msgid "hum (holding)"
@@ -15423,10 +15431,25 @@ msgid "{base} in {days_ahead} days"
 msgstr "{base} sau {days_ahead} ngày nữa"
 
 msgid "out"
-msgstr "out"
+msgstr "nhả"
 
 msgid "shifting"
-msgstr "shifting"
+msgstr "đang sang số"
+
+#. placeholders: {state}, {citation}
+msgid ""
+"assumed: no posting read on the town streets; {state}'s district limit, "
+"{citation}"
+msgstr ""
+
+#. placeholders: {state}
+msgid ""
+"assumed: no posting read on the town streets and no district limit on file "
+"for {state}; the street fallback"
+msgstr ""
+
+msgid "this state"
+msgstr ""
 
 msgid "minivan"
 msgstr "xe minivan"
@@ -16191,12 +16214,9 @@ msgstr "Đã bỏ quy định bắt buộc xích lốp."
 msgid " Chain-up area on the right."
 msgstr " Có bãi lắp xích lốp bên phải."
 
-msgid " ahead"
-msgstr " phía trước"
-
-#. placeholders: {where_}, {rule}, {pullout}
-msgid "Chain law{where_}, {rule}.{pullout}"
-msgstr "Quy định lắp xích lốp{where_}, {rule}.{pullout}"
+#. placeholders: {rule}, {pullout}
+msgid "Chain law, {rule}.{pullout}"
+msgstr "Quy định lắp xích lốp, {rule}.{pullout}"
 
 msgid "default"
 msgstr "mặc định"
@@ -17923,11 +17943,6 @@ msgid "The joint at a bridge end: texture, not a decision."
 msgstr ""
 "Khe nối ở đầu cầu: tạo cảm giác mặt đường, không phải tín hiệu xử lý."
 
-msgid "Tires on concrete grooved across the lane: texture, not a decision."
-msgstr ""
-"Lốp lăn trên mặt bê tông có rãnh cắt ngang làn: tạo cảm giác mặt đường, "
-"không phải tín hiệu xử lý."
-
 msgid "Tires on a steel grate bridge deck: texture, not a decision."
 msgstr ""
 "Lốp lăn trên mặt cầu lưới thép: tạo cảm giác mặt đường, không phải tín hiệu "
@@ -18248,11 +18263,14 @@ msgstr "Đang vào "
 msgid "Passing "
 msgstr "Đang đi qua "
 
+msgid " ahead"
+msgstr " phía trước"
+
 msgid "tap"
 msgstr "chạm"
 
 msgid "lift"
-msgstr "lift"
+msgstr "nhấc ngón tay"
 
 msgid "deciding"
 msgstr ""
@@ -18267,16 +18285,16 @@ msgid "menu"
 msgstr "trình đơn"
 
 msgid "field"
-msgstr "field"
+msgstr "khu vực chạm"
 
 msgid "wheel"
-msgstr "wheel"
+msgstr "vô lăng"
 
 msgid "practice"
-msgstr "practice"
+msgstr "luyện tập"
 
 msgid "arrival"
-msgstr "arrival"
+msgstr "đến nơi"
 
 msgid "miles"
 msgstr "dặm"
@@ -18284,6 +18302,7 @@ msgstr "dặm"
 msgid "kilometers"
 msgstr "kilômét"
 
+# same as English
 #. placeholders: {feet}
 msgid "{feet} feet"
 msgstr "{feet} feet"
@@ -19920,9 +19939,11 @@ msgstr "Một tài xế"
 msgid "{name_list} {else} on duty."
 msgstr "{name_list}{else:} đang chạy."
 
+# same as English
 msgid "are"
 msgstr "are"
 
+# same as English
 msgid "is"
 msgstr "is"
 
@@ -20208,7 +20229,7 @@ msgid "Freight Fate"
 msgstr "Freight Fate"
 
 msgid "game"
-msgstr "game"
+msgstr "trò chơi"
 
 #. placeholders: {e}
 msgid "The report could not be packed: {e}."
@@ -20457,6 +20478,7 @@ msgstr ""
 "Vuốt nhanh sang phải hoặc trái để di chuyển và chạm đúp để chọn. Vuốt hai "
 "ngón xuống để quay lại."
 
+# same as English
 msgid "Menu"
 msgstr "Menu"
 
@@ -24522,9 +24544,9 @@ msgstr ""
 msgid "waiting for the evening"
 msgstr "chờ tới buổi tối"
 
-#. placeholders: {name}
-msgid "Depart with {name} driving, and ride along"
-msgstr "Khởi hành với {name} cầm lái, còn bạn ngồi kèm theo xe"
+#. placeholders: {co_driver_name}
+msgid "Depart with {co_driver_name} driving, and ride along"
+msgstr "Khởi hành với {co_driver_name} cầm lái, còn bạn ngồi kèm theo xe"
 
 #. placeholders: {who}
 #. one sentence of a longer line
@@ -24536,23 +24558,25 @@ msgid "{who} You rest in the sleeper and hear the road. {terms}"
 msgstr ""
 "{who} Bạn nằm nghỉ ở khoang ngủ và nghe tiếng xe chạy trên đường. {terms}"
 
-#. placeholders: {name}
-msgid "Depart with {name} driving, and sleep"
-msgstr "Khởi hành với {name} cầm lái, còn bạn ngủ nghỉ"
+#. placeholders: {co_driver_name}
+msgid "Depart with {co_driver_name} driving, and sleep"
+msgstr "Khởi hành với {co_driver_name} cầm lái, còn bạn ngủ nghỉ"
 
-#. placeholders: {who}, {name}
+#. placeholders: {who}, {co_driver_name}
 #. one sentence of a longer line
-msgid "{who} You wake when {name} needs you, with a summary of the drive."
-msgstr ""
-"{who} Bạn sẽ thức dậy khi {name} cần bạn đổi lái, kèm bản tóm tắt chặng đã "
-"chạy."
-
-#. placeholders: {who}, {name}, {terms}
 msgid ""
-"{who} You wake when {name} needs you, with a summary of the drive. {terms}"
+"{who} You wake when {co_driver_name} needs you, with a summary of the drive."
 msgstr ""
-"{who} Bạn sẽ thức dậy khi {name} cần bạn đổi lái, kèm bản tóm tắt chặng đã "
-"chạy. {terms}"
+"{who} Bạn sẽ thức dậy khi {co_driver_name} cần bạn đổi lái, kèm bản tóm tắt "
+"chặng đã chạy."
+
+#. placeholders: {who}, {co_driver_name}, {terms}
+msgid ""
+"{who} You wake when {co_driver_name} needs you, with a summary of the "
+"drive. {terms}"
+msgstr ""
+"{who} Bạn sẽ thức dậy khi {co_driver_name} cần bạn đổi lái, kèm bản tóm tắt "
+"chặng đã chạy. {terms}"
 
 msgid ""
 "This backup was made by an earlier version of Freight Fate. Version 1.9 "
@@ -24700,9 +24724,11 @@ msgstr "Chưa có bản sao lưu đám mây nào."
 msgid "{slots} career{else}"
 msgstr "{slots} hồ sơ sự nghiệp{else:}"
 
+# same as English
 msgid " is"
 msgstr " is"
 
+# same as English
 msgid "s are"
 msgstr "s are"
 
@@ -27016,7 +27042,7 @@ msgstr "Thời tiết: {report_lead}"
 
 #. placeholders: {status_text}
 msgid "Radio: {status_text}"
-msgstr "Radio: {status_text}"
+msgstr "Đài phát thanh: {status_text}"
 
 #. placeholders: {calendar}
 msgid "Calendar: {calendar}"
@@ -29722,6 +29748,20 @@ msgstr ""
 msgid "Pulling over to tighten, about {f} minutes on duty."
 msgstr "Đang tấp lề để siết lại, mất khoảng {f} phút làm việc."
 
+#. one sentence of a longer line
+msgid "Bare road."
+msgstr "Đường đã sạch tuyết."
+
+#. placeholders: {f}
+msgid "Bare road. Taking chains off, about {f} minutes on duty."
+msgstr ""
+"Đường đã sạch tuyết. Đang dừng để tháo xích, mất khoảng {f} phút làm việc."
+
+#. placeholders: {f}
+#. one sentence of a longer line
+msgid "Taking chains off, about {f} minutes on duty."
+msgstr "Đang dừng để tháo xích, mất khoảng {f} phút làm việc."
+
 msgid "No chains aboard. Facility stopping can't chain you up."
 msgstr ""
 "Trên xe không có xích đi tuyết. Hỗ trợ dừng tại cơ sở không thể tự lắp xích "
@@ -29746,6 +29786,10 @@ msgstr ""
 msgid "Find a place to stop."
 msgstr "Hãy tìm chỗ dừng nghỉ."
 
+#. placeholders: {f}
+msgid "Stopping to put chains on, about {f} minutes on duty."
+msgstr "Đang dừng lại để lắp xích, mất khoảng {f} phút làm việc."
+
 #. one sentence of a longer line
 msgid "Chain-up area."
 msgstr "Khu vực lắp xích."
@@ -29754,25 +29798,6 @@ msgstr "Khu vực lắp xích."
 msgid "Chain-up area. Stopping to put chains on, about {f} minutes on duty."
 msgstr ""
 "Khu vực lắp xích. Đang dừng lại để lắp xích, mất khoảng {f} phút làm việc."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Stopping to put chains on, about {f} minutes on duty."
-msgstr "Đang dừng lại để lắp xích, mất khoảng {f} phút làm việc."
-
-#. one sentence of a longer line
-msgid "Bare road."
-msgstr "Đường đã sạch tuyết."
-
-#. placeholders: {f}
-msgid "Bare road. Taking chains off, about {f} minutes on duty."
-msgstr ""
-"Đường đã sạch tuyết. Đang dừng để tháo xích, mất khoảng {f} phút làm việc."
-
-#. placeholders: {f}
-#. one sentence of a longer line
-msgid "Taking chains off, about {f} minutes on duty."
-msgstr "Đang dừng để tháo xích, mất khoảng {f} phút làm việc."
 
 msgid "Chain stop canceled. Chains are yours."
 msgstr "Đã hủy điểm dừng lắp xích. Bạn tự xử lý xích nhé."
@@ -30596,6 +30621,7 @@ msgstr "Dừng cách đèn giao thông {gap}. Đèn đang xanh."
 msgid "Stopped {gap} short of the light."
 msgstr "Dừng cách đèn giao thông {gap}."
 
+# same as English
 msgid "feet"
 msgstr "feet"
 
@@ -31813,6 +31839,66 @@ msgstr ""
 msgid "Delivery complete"
 msgstr "Hoàn tất giao hàng"
 
+#. one sentence of a longer line
+msgid "The balance holds where it is."
+msgstr "Số dư nợ giữ nguyên ở mức hiện tại."
+
+#. placeholders: {carrier_name}, {grouped}
+#. one sentence of a longer line
+msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
+msgstr "{carrier_name} đã xóa {grouped} đô la trong tổng tiền bạn đang nợ."
+
+#. placeholders: {carrier_name}, {grouped}
+msgid ""
+"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
+"holds where it is."
+msgstr ""
+"{carrier_name} đã xóa {grouped} đô la trong tổng tiền bạn đang nợ. Số dư nợ "
+"giữ nguyên ở mức hiện tại."
+
+msgid ""
+"Square with your carrier again. Nothing owed, every settlement reaches you "
+"whole."
+msgstr ""
+"Đã thanh toán sòng phẳng với hãng vận tải. Không còn nợ nần, mỗi kỳ quyết "
+"toán chuyến bạn sẽ nhận đủ toàn bộ."
+
+#. placeholders: {unlock}
+msgid "Unlock: {unlock}"
+msgstr "Mở khóa: {unlock}"
+
+#. placeholders: {names}
+msgid "New achievement! {names}."
+msgstr "Thành tích mới! {names}."
+
+#. one sentence of a longer line
+msgid "New achievements!"
+msgstr "Thành tích mới!"
+
+#. placeholders: {join}
+msgid "New achievements! {join}."
+msgstr "Thành tích mới! {join}."
+
+#. placeholders: {title}
+msgid "Freight Fate: {title}."
+msgstr "Freight Fate: {title}."
+
+msgid "Delivery summary copied to clipboard."
+msgstr "Đã chép bản tổng kết giao hàng vào bộ nhớ tạm."
+
+msgid "Repeat this settlement line."
+msgstr "Đọc lại dòng quyết toán chuyến này."
+
+msgid "Copy delivery summary to clipboard"
+msgstr "Chép bản tổng kết giao hàng vào bộ nhớ tạm"
+
+msgid "Copies the settlement lines as plain text."
+msgstr "Chép các dòng quyết toán chuyến dưới dạng văn bản thuần."
+
+#. placeholders: {name}
+msgid "Continue to {name}"
+msgstr "Tiếp tục tới {name}"
+
 msgid "Repositioned"
 msgstr "Đã chuyển vị trí xe"
 
@@ -32088,9 +32174,6 @@ msgstr ""
 "Thưởng tín nhiệm điều phối: {grouped} đô la cho mức uy tín của bạn: "
 "{reputation_text}"
 
-msgid "receiver unloading"
-msgstr "bên nhận đang dỡ hàng"
-
 #. placeholders: {f}
 msgid " Receiver service after check-in took {f} hours."
 msgstr " Thời gian làm thủ tục dỡ hàng sau khi trình diện mất {f} giờ."
@@ -32320,66 +32403,6 @@ msgstr "Quãng đường được ghi nhận: {distance_text}."
 msgid "Load refused"
 msgstr "Lô hàng bị từ chối"
 
-#. one sentence of a longer line
-msgid "The balance holds where it is."
-msgstr "Số dư nợ giữ nguyên ở mức hiện tại."
-
-#. placeholders: {carrier_name}, {grouped}
-#. one sentence of a longer line
-msgid "{carrier_name} wrote off {grouped} dollars of what you owe."
-msgstr "{carrier_name} đã xóa {grouped} đô la trong tổng tiền bạn đang nợ."
-
-#. placeholders: {carrier_name}, {grouped}
-msgid ""
-"{carrier_name} wrote off {grouped} dollars of what you owe. The balance "
-"holds where it is."
-msgstr ""
-"{carrier_name} đã xóa {grouped} đô la trong tổng tiền bạn đang nợ. Số dư nợ "
-"giữ nguyên ở mức hiện tại."
-
-msgid ""
-"Square with your carrier again. Nothing owed, every settlement reaches you "
-"whole."
-msgstr ""
-"Đã thanh toán sòng phẳng với hãng vận tải. Không còn nợ nần, mỗi kỳ quyết "
-"toán chuyến bạn sẽ nhận đủ toàn bộ."
-
-#. placeholders: {unlock}
-msgid "Unlock: {unlock}"
-msgstr "Mở khóa: {unlock}"
-
-#. placeholders: {names}
-msgid "New achievement! {names}."
-msgstr "Thành tích mới! {names}."
-
-#. one sentence of a longer line
-msgid "New achievements!"
-msgstr "Thành tích mới!"
-
-#. placeholders: {join}
-msgid "New achievements! {join}."
-msgstr "Thành tích mới! {join}."
-
-#. placeholders: {title}
-msgid "Freight Fate: {title}."
-msgstr "Freight Fate: {title}."
-
-msgid "Delivery summary copied to clipboard."
-msgstr "Đã chép bản tổng kết giao hàng vào bộ nhớ tạm."
-
-msgid "Repeat this settlement line."
-msgstr "Đọc lại dòng quyết toán chuyến này."
-
-msgid "Copy delivery summary to clipboard"
-msgstr "Chép bản tổng kết giao hàng vào bộ nhớ tạm"
-
-msgid "Copies the settlement lines as plain text."
-msgstr "Chép các dòng quyết toán chuyến dưới dạng văn bản thuần."
-
-#. placeholders: {name}
-msgid "Continue to {name}"
-msgstr "Tiếp tục tới {name}"
-
 msgid "April 1"
 msgstr "Ngày 1 tháng 4"
 
@@ -32412,10 +32435,10 @@ msgid "Driving help"
 msgstr "Trợ giúp lái xe"
 
 msgid "Plus"
-msgstr "Plus"
+msgstr "Dấu cộng"
 
 msgid "Minus"
-msgstr "Minus"
+msgstr "Dấu trừ"
 
 msgid "Page Down"
 msgstr "Page Down"
@@ -32568,6 +32591,9 @@ msgstr "Đang trong bãi. Đang tháo rơ-moóc."
 msgid "Docked. Unloading cargo."
 msgstr "Đã vào bến. Đang dỡ hàng."
 
+msgid "receiver unloading"
+msgstr "bên nhận đang dỡ hàng"
+
 msgid "Trailer dropped. Hooked to an empty, paperwork signed."
 msgstr "Đã tháo rơ-moóc. Đã móc rơ-moóc rỗng và ký xong giấy tờ."
 
@@ -32714,9 +32740,6 @@ msgstr "Cần dừng hẳn xe trước khi quyết toán giao hàng."
 
 msgid "Route"
 msgstr "Tuyến đường"
-
-msgid "driver"
-msgstr "tài xế"
 
 msgid "Map"
 msgstr "Bản đồ"
@@ -32998,7 +33021,8 @@ msgstr "Dùng một mắt xích sửa chữa dự phòng."
 msgid "Uses a spare repair link. {chain_repair_links} left."
 msgstr "Dùng một mắt xích sửa chữa dự phòng. Còn {chain_repair_links} mắt."
 
-# leave empty: one hole before "left"; it took every left curve call ("Sharp left, half a mile.") and dropped the direction
+# leave empty: one hole before "left"; it took every left curve call ("Sharp
+# left, half a mile.") and dropped the direction
 #. placeholders: {chain_repair_links}
 #. one sentence of a longer line
 msgid "{chain_repair_links} left."
@@ -34610,12 +34634,6 @@ msgstr ""
 "Chọn một mục. Chọn ngủ lần đầu để xem trước. Chọn lại lần nữa để ngủ thật. "
 "Giờ nghỉ và giấc ngủ đều làm đồng hồ và hạn giao hàng trôi tiếp."
 
-msgid "Take a 30-minute break"
-msgstr "Nghỉ giải lao 30 phút"
-
-msgid "Food and coffee break"
-msgstr "Nghỉ ăn uống và cà phê"
-
 #. one sentence of a longer line
 msgid "You are already rested."
 msgstr "Bạn đã nghỉ ngơi đầy đủ rồi."
@@ -34636,22 +34654,6 @@ msgstr "Chương trình khách hàng thân thiết: {summary}"
 
 msgid "Loyalty points, shower credits, and rewards."
 msgstr "Điểm tích lũy, lượt tắm miễn phí và ưu đãi."
-
-msgid ""
-"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
-"off in two hours, and a second coffee before then adds nothing. Does not "
-"satisfy the 30-minute break rule."
-msgstr ""
-"Nghỉ ca mười lăm phút. Cà phê đỡ mệt một chút, nhưng tác dụng hết sau hai "
-"giờ, và ly thứ hai trước lúc đó không thêm gì. Không được tính là giờ nghỉ "
-"30 phút bắt buộc."
-
-msgid ""
-"Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
-"advance half an hour."
-msgstr ""
-"Đáp ứng quy định giờ nghỉ 30 phút và giúp giảm mệt mỏi. Đồng hồ và hạn giao "
-"hàng tăng thêm nửa giờ."
 
 #. placeholders: {hours}
 msgid "Sleep {hours} hours in sleeper berth"
@@ -34806,12 +34808,6 @@ msgstr ""
 msgid "{walk_min} minutes on duty."
 msgstr "Tính {walk_min} phút làm việc."
 
-msgid "Save at this stop"
-msgstr "Lưu hành trình tại điểm dừng này"
-
-msgid "Saves the drive at this stop."
-msgstr "Lưu chuyến chạy tại điểm dừng này."
-
 msgid "Cash against this load, repaid from the delivery settlement."
 msgstr "Ứng tiền mặt cho lô hàng này, trừ lại khi quyết toán giao hàng."
 
@@ -34836,55 +34832,6 @@ msgid ""
 msgstr ""
 "Ứng trước {grouped} đô la cho lô hàng đi {destination}, trừ lại khi giao "
 "hàng. Bạn đang có {grouped2}, đang nợ {grouped3}."
-
-#. one sentence of a longer line
-msgid "Break requirement reset."
-msgstr "Yêu cầu giờ nghỉ 30 phút đã được đặt lại."
-
-#. one sentence of a longer line
-msgid "You took a 30-minute break."
-msgstr "Bạn đã nghỉ đủ 30 phút."
-
-#. placeholders: {clock_text}, {deadline_text}
-msgid ""
-"You took a 30-minute break. It is {clock_text}. Break requirement reset. "
-"{deadline_text}"
-msgstr ""
-"Bạn đã nghỉ đủ 30 phút. Bây giờ là {clock_text}. Yêu cầu giờ nghỉ 30 phút "
-"đã được đặt lại. {deadline_text}"
-
-#. one sentence of a longer line
-msgid "Coffee break."
-msgstr "Nghỉ uống cà phê."
-
-#. placeholders: {clock_text}, {deadline_text}
-msgid ""
-"Coffee break. {clock_text}. Eases fatigue. Does not count as your 30-minute "
-"break. {deadline_text}"
-msgstr ""
-"Nghỉ uống cà phê. Bây giờ là {clock_text}. Giúp giảm mệt mỏi. Không tính "
-"vào giờ nghỉ 30 phút. {deadline_text}"
-
-#. one sentence of a longer line
-msgid "Does not count as your 30-minute break."
-msgstr "Không tính vào giờ nghỉ 30 phút."
-
-#. one sentence of a longer line
-msgid "Eases fatigue."
-msgstr "Giúp giảm mệt mỏi."
-
-#. placeholders: {clock_text}, {deadline_text}
-msgid ""
-"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
-"count as your 30-minute break. {deadline_text}"
-msgstr ""
-"Nghỉ uống cà phê. {clock_text}. Ly cà phê trước vẫn còn tác dụng nên không "
-"tỉnh thêm. Không được tính là giờ nghỉ 30 phút. {deadline_text}"
-
-#. one sentence of a longer line
-msgid "No lift while the last coffee lasts."
-msgstr ""
-"Cà phê trước vẫn còn tác dụng, uống thêm lúc này không có thêm hiệu quả."
 
 msgid "Driving and duty clocks reset. "
 msgstr "Đồng hồ lái xe và làm việc đã được đặt lại. "
@@ -35043,6 +34990,168 @@ msgid ""
 msgstr ""
 "{engine_off}Đã ngủ 10 giờ trong bãi đỗ. {clock_text}. {clocks} Giấc ngủ "
 "không đủ. {deadline_text}{wake_air_instruction}"
+
+msgid "No real-time parking data nearby."
+msgstr "Không có dữ liệu bãi đỗ theo thời gian thực ở gần đây."
+
+#. placeholders: {total_available}
+msgid "Real-time parking: {total_available} spaces available nearby."
+msgstr ""
+"Bãi đỗ theo thời gian thực: còn {total_available} chỗ trống gần đây."
+
+msgid "Real-time parking: nearby lots are full."
+msgstr "Bãi đỗ theo thời gian thực: các bãi gần đây đã kín chỗ."
+
+msgid "Pairs with 8 hours in the sleeper berth."
+msgstr "Ghép cặp với 8 giờ nghỉ trong giường cabin."
+
+msgid "Pairs with 7 hours in the sleeper berth."
+msgstr "Ghép cặp với 7 giờ nghỉ trong giường cabin."
+
+msgid "Pairs with 3 more hours at parking where you can sleep."
+msgstr "Ghép cặp với 3 giờ nghỉ thêm tại bãi đỗ có thể ngủ."
+
+msgid "Pairs with 2 more hours at parking where you can sleep."
+msgstr "Ghép cặp với 2 giờ nghỉ thêm tại bãi đỗ có thể ngủ."
+
+#. placeholders: {pair}, {hours}
+msgid "{pair} Clock and deadline advance {hours} hours."
+msgstr "{pair} Đồng hồ và hạn giao hàng tăng thêm {hours} giờ."
+
+#. placeholders: {f}
+msgid "Brake job: {f} percent wear, carrier billed"
+msgstr "Làm lại phanh: mòn {f} phần trăm, ghi sổ cho hãng"
+
+msgid "Resting at a stop"
+msgstr "Đang nghỉ tại điểm dừng"
+
+msgid "Driving, duty and cycle clocks reset."
+msgstr "Đã đặt lại đồng hồ lái, làm việc và chu kỳ."
+
+msgid "Driving and duty clocks reset."
+msgstr "Đồng hồ giờ lái và khung giờ làm việc đã được đặt lại."
+
+#. placeholders: {grouped}, {rest}
+msgid "{grouped} dollars and {rest} cents"
+msgstr "{grouped} đô la {rest} xu"
+
+msgid "Reweigh"
+msgstr "Cân lại"
+
+msgid "Weigh"
+msgstr "Cân xe"
+
+#. placeholders: {verb}, {dollars_and_cents}
+msgid "{verb} on the CAT Scale: {dollars_and_cents}"
+msgstr "{verb} trên trạm CAT Scale: {dollars_and_cents}"
+
+#. placeholders: {verb}
+msgid "{verb} on the CAT Scale, carrier billed"
+msgstr "{verb} trên trạm CAT Scale, ghi sổ cho hãng"
+
+#. one sentence of a longer line
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
+msgstr ""
+"Phiếu cân CAT Scale: cân trục lái, trục chủ động, rơ-moóc và tổng tải trọng "
+"trước khi qua trạm cân bang."
+
+#. placeholders: {dollars_and_cents}, {f}
+msgid ""
+"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
+"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
+msgstr ""
+"Phiếu cân CAT Scale: cân trục lái, trục chủ động, rơ-moóc và tổng tải trọng "
+"trước khi qua trạm cân bang. Cân lại trong vòng 24 giờ chỉ hết "
+"{dollars_and_cents}. Mất {f} phút làm việc."
+
+#. placeholders: {dollars_and_cents}
+#. one sentence of a longer line
+msgid "Reweigh within 24 hours is {dollars_and_cents}."
+msgstr "Cân lại trong vòng 24 giờ chỉ hết {dollars_and_cents}."
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
+msgstr "Một lần cân giá {dollars_and_cents} mà bạn chỉ có {grouped} đô la."
+
+msgid "CAT Scale weigh"
+msgstr "cân xe tại CAT Scale"
+
+msgid "Billed to the carrier."
+msgstr "Đã ghi sổ cho hãng."
+
+#. placeholders: {dollars_and_cents}, {grouped}
+msgid "{dollars_and_cents}. You have {grouped} dollars."
+msgstr "Hết {dollars_and_cents}. Bạn còn {grouped} đô la."
+
+#. one sentence of a longer line
+msgid "CAT Scale ticket."
+msgstr "Phiếu cân CAT Scale."
+
+#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
+msgid ""
+"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
+msgstr ""
+"Phiếu cân CAT Scale. {ticket} {billing} Bây giờ là {clock_text}. "
+"{deadline_text}"
+
+#. placeholders: {ticket}, {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{ticket} {billing} It is {clock_text}."
+msgstr "{ticket} {billing} Bây giờ là {clock_text}."
+
+msgid "Check the cattle"
+msgstr "Kiểm tra bò"
+
+msgid ""
+"Walk the trailer and count the cattle on their feet. 5 minutes on duty."
+msgstr "Đi quanh rơ-moóc và đếm số bò đang đứng. Tính 5 phút làm việc."
+
+msgid "checked the cattle"
+msgstr "đã kiểm tra bò"
+
+#. placeholders: {grouped}
+msgid "Buy snow chains: {grouped} dollars"
+msgstr "Mua xích lốp đi tuyết: {grouped} đô la"
+
+msgid "Buy snow chains, carrier billed"
+msgstr "Mua xích lốp đi tuyết, ghi sổ cho hãng"
+
+#. one sentence of a longer line
+msgid "A new set with two spare repair links."
+msgstr "Một bộ mới kèm hai mắt xích sửa chữa dự phòng."
+
+#. placeholders: {f}
+msgid "A new set with two spare repair links. {f} minutes on duty."
+msgstr ""
+"Một bộ mới kèm hai mắt xích sửa chữa dự phòng. Mất {f} phút làm việc."
+
+#. placeholders: {grouped}, {grouped2}
+msgid ""
+"A set of snow chains costs {grouped} dollars and you have {grouped2} "
+"dollars."
+msgstr ""
+"Một bộ xích lốp đi tuyết giá {grouped} đô la mà bạn chỉ có {grouped2} đô la."
+
+#. placeholders: {grouped}, {grouped2}
+msgid "{grouped} dollars. You have {grouped2} dollars."
+msgstr "Hết {grouped} đô la. Bạn còn {grouped2} đô la."
+
+#. one sentence of a longer line
+msgid "A new set of snow chains is in the side box."
+msgstr "Bộ xích lốp đi tuyết mới đã được cất vào thùng đồ hông xe."
+
+#. placeholders: {billing}, {clock_text}
+msgid ""
+"A new set of snow chains is in the side box. {billing} It is {clock_text}."
+msgstr ""
+"Bộ xích lốp đi tuyết mới đã được cất vào thùng đồ hông xe. {billing} Bây "
+"giờ là {clock_text}."
+
+#. placeholders: {billing}, {clock_text}
+#. one sentence of a longer line
+msgid "{billing} It is {clock_text}."
+msgstr "{billing} Bây giờ là {clock_text}."
 
 msgid "The truck does not need repair."
 msgstr "Xe đầu kéo không cần sửa chữa."
@@ -35349,168 +35458,6 @@ msgid ""
 msgstr ""
 "Kiểm tra quanh xe xong, mất {f} phút. {body} Bây giờ là {clock_text}. "
 "{deadline_text}"
-
-msgid "No real-time parking data nearby."
-msgstr "Không có dữ liệu bãi đỗ theo thời gian thực ở gần đây."
-
-#. placeholders: {total_available}
-msgid "Real-time parking: {total_available} spaces available nearby."
-msgstr ""
-"Bãi đỗ theo thời gian thực: còn {total_available} chỗ trống gần đây."
-
-msgid "Real-time parking: nearby lots are full."
-msgstr "Bãi đỗ theo thời gian thực: các bãi gần đây đã kín chỗ."
-
-msgid "Pairs with 8 hours in the sleeper berth."
-msgstr "Ghép cặp với 8 giờ nghỉ trong giường cabin."
-
-msgid "Pairs with 7 hours in the sleeper berth."
-msgstr "Ghép cặp với 7 giờ nghỉ trong giường cabin."
-
-msgid "Pairs with 3 more hours at parking where you can sleep."
-msgstr "Ghép cặp với 3 giờ nghỉ thêm tại bãi đỗ có thể ngủ."
-
-msgid "Pairs with 2 more hours at parking where you can sleep."
-msgstr "Ghép cặp với 2 giờ nghỉ thêm tại bãi đỗ có thể ngủ."
-
-#. placeholders: {pair}, {hours}
-msgid "{pair} Clock and deadline advance {hours} hours."
-msgstr "{pair} Đồng hồ và hạn giao hàng tăng thêm {hours} giờ."
-
-#. placeholders: {f}
-msgid "Brake job: {f} percent wear, carrier billed"
-msgstr "Làm lại phanh: mòn {f} phần trăm, ghi sổ cho hãng"
-
-msgid "Resting at a stop"
-msgstr "Đang nghỉ tại điểm dừng"
-
-msgid "Driving, duty and cycle clocks reset."
-msgstr "Đã đặt lại đồng hồ lái, làm việc và chu kỳ."
-
-msgid "Driving and duty clocks reset."
-msgstr "Đồng hồ giờ lái và khung giờ làm việc đã được đặt lại."
-
-#. placeholders: {grouped}, {rest}
-msgid "{grouped} dollars and {rest} cents"
-msgstr "{grouped} đô la {rest} xu"
-
-msgid "Reweigh"
-msgstr "Cân lại"
-
-msgid "Weigh"
-msgstr "Cân xe"
-
-#. placeholders: {verb}, {dollars_and_cents}
-msgid "{verb} on the CAT Scale: {dollars_and_cents}"
-msgstr "{verb} trên trạm CAT Scale: {dollars_and_cents}"
-
-#. placeholders: {verb}
-msgid "{verb} on the CAT Scale, carrier billed"
-msgstr "{verb} trên trạm CAT Scale, ghi sổ cho hãng"
-
-#. one sentence of a longer line
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale."
-msgstr ""
-"Phiếu cân CAT Scale: cân trục lái, trục chủ động, rơ-moóc và tổng tải trọng "
-"trước khi qua trạm cân bang."
-
-#. placeholders: {dollars_and_cents}, {f}
-msgid ""
-"CAT Scale ticket: steer, drive, trailer, and gross, ahead of a state scale. "
-"Reweigh within 24 hours is {dollars_and_cents}. {f} minutes on duty."
-msgstr ""
-"Phiếu cân CAT Scale: cân trục lái, trục chủ động, rơ-moóc và tổng tải trọng "
-"trước khi qua trạm cân bang. Cân lại trong vòng 24 giờ chỉ hết "
-"{dollars_and_cents}. Mất {f} phút làm việc."
-
-#. placeholders: {dollars_and_cents}
-#. one sentence of a longer line
-msgid "Reweigh within 24 hours is {dollars_and_cents}."
-msgstr "Cân lại trong vòng 24 giờ chỉ hết {dollars_and_cents}."
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "A weigh costs {dollars_and_cents} and you have {grouped} dollars."
-msgstr "Một lần cân giá {dollars_and_cents} mà bạn chỉ có {grouped} đô la."
-
-msgid "CAT Scale weigh"
-msgstr "cân xe tại CAT Scale"
-
-msgid "Billed to the carrier."
-msgstr "Đã ghi sổ cho hãng."
-
-#. placeholders: {dollars_and_cents}, {grouped}
-msgid "{dollars_and_cents}. You have {grouped} dollars."
-msgstr "Hết {dollars_and_cents}. Bạn còn {grouped} đô la."
-
-#. one sentence of a longer line
-msgid "CAT Scale ticket."
-msgstr "Phiếu cân CAT Scale."
-
-#. placeholders: {ticket}, {billing}, {clock_text}, {deadline_text}
-msgid ""
-"CAT Scale ticket. {ticket} {billing} It is {clock_text}. {deadline_text}"
-msgstr ""
-"Phiếu cân CAT Scale. {ticket} {billing} Bây giờ là {clock_text}. "
-"{deadline_text}"
-
-#. placeholders: {ticket}, {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{ticket} {billing} It is {clock_text}."
-msgstr "{ticket} {billing} Bây giờ là {clock_text}."
-
-msgid "Check the cattle"
-msgstr "Kiểm tra bò"
-
-msgid ""
-"Walk the trailer and count the cattle on their feet. 5 minutes on duty."
-msgstr "Đi quanh rơ-moóc và đếm số bò đang đứng. Tính 5 phút làm việc."
-
-msgid "checked the cattle"
-msgstr "đã kiểm tra bò"
-
-#. placeholders: {grouped}
-msgid "Buy snow chains: {grouped} dollars"
-msgstr "Mua xích lốp đi tuyết: {grouped} đô la"
-
-msgid "Buy snow chains, carrier billed"
-msgstr "Mua xích lốp đi tuyết, ghi sổ cho hãng"
-
-#. one sentence of a longer line
-msgid "A new set with two spare repair links."
-msgstr "Một bộ mới kèm hai mắt xích sửa chữa dự phòng."
-
-#. placeholders: {f}
-msgid "A new set with two spare repair links. {f} minutes on duty."
-msgstr ""
-"Một bộ mới kèm hai mắt xích sửa chữa dự phòng. Mất {f} phút làm việc."
-
-#. placeholders: {grouped}, {grouped2}
-msgid ""
-"A set of snow chains costs {grouped} dollars and you have {grouped2} "
-"dollars."
-msgstr ""
-"Một bộ xích lốp đi tuyết giá {grouped} đô la mà bạn chỉ có {grouped2} đô la."
-
-#. placeholders: {grouped}, {grouped2}
-msgid "{grouped} dollars. You have {grouped2} dollars."
-msgstr "Hết {grouped} đô la. Bạn còn {grouped2} đô la."
-
-#. one sentence of a longer line
-msgid "A new set of snow chains is in the side box."
-msgstr "Bộ xích lốp đi tuyết mới đã được cất vào thùng đồ hông xe."
-
-#. placeholders: {billing}, {clock_text}
-msgid ""
-"A new set of snow chains is in the side box. {billing} It is {clock_text}."
-msgstr ""
-"Bộ xích lốp đi tuyết mới đã được cất vào thùng đồ hông xe. {billing} Bây "
-"giờ là {clock_text}."
-
-#. placeholders: {billing}, {clock_text}
-#. one sentence of a longer line
-msgid "{billing} It is {clock_text}."
-msgstr "{billing} Bây giờ là {clock_text}."
 
 msgid "Hand the truck to the relief driver"
 msgstr "Giao xe cho tài xế thay ca"
@@ -35900,6 +35847,83 @@ msgstr "{carrier} đã thu hồi lô hàng."
 
 msgid "Continue from where the truck is parked."
 msgstr "Tiếp tục từ chỗ xe đang đỗ."
+
+msgid "Take a 30-minute break"
+msgstr "Nghỉ giải lao 30 phút"
+
+msgid "Food and coffee break"
+msgstr "Nghỉ ăn uống và cà phê"
+
+msgid "Save at this stop"
+msgstr "Lưu hành trình tại điểm dừng này"
+
+msgid ""
+"Satisfies the 30-minute break rule and eases fatigue. Clock and deadline "
+"advance half an hour."
+msgstr ""
+"Đáp ứng quy định giờ nghỉ 30 phút và giúp giảm mệt mỏi. Đồng hồ và hạn giao "
+"hàng tăng thêm nửa giờ."
+
+msgid ""
+"Fifteen minutes off duty. Coffee eases fatigue a little, but the lift wears "
+"off in two hours, and a second coffee before then adds nothing. Does not "
+"satisfy the 30-minute break rule."
+msgstr ""
+"Nghỉ ca mười lăm phút. Cà phê đỡ mệt một chút, nhưng tác dụng hết sau hai "
+"giờ, và ly thứ hai trước lúc đó không thêm gì. Không được tính là giờ nghỉ "
+"30 phút bắt buộc."
+
+msgid "Saves the drive at this stop."
+msgstr "Lưu chuyến chạy tại điểm dừng này."
+
+#. one sentence of a longer line
+msgid "Break requirement reset."
+msgstr "Yêu cầu giờ nghỉ 30 phút đã được đặt lại."
+
+#. one sentence of a longer line
+msgid "You took a 30-minute break."
+msgstr "Bạn đã nghỉ đủ 30 phút."
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"You took a 30-minute break. It is {clock_text}. Break requirement reset. "
+"{deadline_text}"
+msgstr ""
+"Bạn đã nghỉ đủ 30 phút. Bây giờ là {clock_text}. Yêu cầu giờ nghỉ 30 phút "
+"đã được đặt lại. {deadline_text}"
+
+#. one sentence of a longer line
+msgid "Coffee break."
+msgstr "Nghỉ uống cà phê."
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. Eases fatigue. Does not count as your 30-minute "
+"break. {deadline_text}"
+msgstr ""
+"Nghỉ uống cà phê. Bây giờ là {clock_text}. Giúp giảm mệt mỏi. Không tính "
+"vào giờ nghỉ 30 phút. {deadline_text}"
+
+#. one sentence of a longer line
+msgid "Does not count as your 30-minute break."
+msgstr "Không tính vào giờ nghỉ 30 phút."
+
+#. one sentence of a longer line
+msgid "Eases fatigue."
+msgstr "Giúp giảm mệt mỏi."
+
+#. placeholders: {clock_text}, {deadline_text}
+msgid ""
+"Coffee break. {clock_text}. No lift while the last coffee lasts. Does not "
+"count as your 30-minute break. {deadline_text}"
+msgstr ""
+"Nghỉ uống cà phê. {clock_text}. Ly cà phê trước vẫn còn tác dụng nên không "
+"tỉnh thêm. Không được tính là giờ nghỉ 30 phút. {deadline_text}"
+
+#. one sentence of a longer line
+msgid "No lift while the last coffee lasts."
+msgstr ""
+"Cà phê trước vẫn còn tác dụng, uống thêm lúc này không có thêm hiệu quả."
 
 msgid "Held at the chain control."
 msgstr "Đang bị giữ tại chốt kiểm tra xích lốp."
@@ -36421,10 +36445,10 @@ msgid "reason"
 msgstr "lý do"
 
 msgid "classmate"
-msgstr "classmate"
+msgstr "bạn cùng khóa"
 
 msgid "hire"
-msgstr "hire"
+msgstr "tuyển dụng"
 
 msgid "meridian"
 msgstr "meridian"
@@ -36432,185 +36456,199 @@ msgstr "meridian"
 msgid "trainer"
 msgstr "người hướng dẫn"
 
-#. placeholders: {name}
-msgid "{name} has the truck at the receiver's gate."
-msgstr "{name} đã đưa xe tới cổng bên nhận hàng."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} has the truck at the receiver's gate."
+msgstr "{co_driver_name} đã đưa xe tới cổng bên nhận hàng."
 
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Đã hết giờ lái theo quy định."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} has parked and hands you the wheel."
-msgstr "{name} đã đỗ xe và giao lại tay lái cho bạn."
+msgid "{co_driver_name} has parked and hands you the wheel."
+msgstr "{co_driver_name} đã đỗ xe và giao lại tay lái cho bạn."
 
-#. placeholders: {name}
-msgid "{name} has parked and hands you the wheel. Their hours are up."
-msgstr "{name} đã đỗ xe và giao lại tay lái cho bạn. Tài xế phụ đã hết giờ."
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} has parked and hands you the wheel. Their hours are up."
+msgstr ""
+"{co_driver_name} đã đỗ xe và giao lại tay lái cho bạn. Tài xế phụ đã hết "
+"giờ."
 
 #. one sentence of a longer line
 msgid "Their hours are up, and yours reach the receiver."
 msgstr "Tài xế phụ đã hết giờ, còn giờ của bạn đủ tới bên nhận hàng."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} has parked and hands you the wheel. Their hours are up, and yours "
-"reach the receiver."
+"{co_driver_name} has parked and hands you the wheel. Their hours are up, "
+"and yours reach the receiver."
 msgstr ""
-"{name} đã đỗ xe và giao lại tay lái cho bạn. Tài xế phụ đã hết giờ, còn giờ "
-"của bạn đủ tới bên nhận hàng."
+"{co_driver_name} đã đỗ xe và giao lại tay lái cho bạn. Tài xế phụ đã hết "
+"giờ, còn giờ của bạn đủ tới bên nhận hàng."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the wheel."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel."
 msgstr ""
-"Không có bãi đỗ nào gần đó, nên {name} dừng ở lề đường và giao lại tay lái "
-"cho bạn."
+"Không có bãi đỗ nào gần đó, nên {co_driver_name} dừng ở lề đường và giao "
+"lại tay lái cho bạn."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the "
-"wheel. Their hours are up."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel. Their hours are up."
 msgstr ""
-"Không có bãi đỗ nào gần đó, nên {name} dừng ở lề đường và giao lại tay lái "
-"cho bạn. Tài xế phụ đã hết giờ."
+"Không có bãi đỗ nào gần đó, nên {co_driver_name} dừng ở lề đường và giao "
+"lại tay lái cho bạn. Tài xế phụ đã hết giờ."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} stopped on the shoulder with no lot in reach and hands you the "
-"wheel. Their hours are up, and yours reach the receiver."
+"{co_driver_name} stopped on the shoulder with no lot in reach and hands you "
+"the wheel. Their hours are up, and yours reach the receiver."
 msgstr ""
-"Không có bãi đỗ nào gần đó, nên {name} dừng ở lề đường và giao lại tay lái "
-"cho bạn. Tài xế phụ đã hết giờ, còn giờ của bạn đủ tới bên nhận hàng."
+"Không có bãi đỗ nào gần đó, nên {co_driver_name} dừng ở lề đường và giao "
+"lại tay lái cho bạn. Tài xế phụ đã hết giờ, còn giờ của bạn đủ tới bên nhận "
+"hàng."
 
 #. one sentence of a longer line
 msgid "Their break is due."
 msgstr "Đã đến lúc tài xế phụ phải nghỉ giữa ca."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} stopped on the shoulder and hands you the wheel."
-msgstr "{name} dừng ở lề đường và giao lại tay lái cho bạn."
+msgid "{co_driver_name} stopped on the shoulder and hands you the wheel."
+msgstr "{co_driver_name} dừng ở lề đường và giao lại tay lái cho bạn."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} stopped on the shoulder and hands you the wheel. Their break is due."
+"{co_driver_name} stopped on the shoulder and hands you the wheel. Their "
+"break is due."
 msgstr ""
-"{name} dừng ở lề đường và giao lại tay lái cho bạn. Đã tới giờ nghỉ giữa ca."
+"{co_driver_name} dừng ở lề đường và giao lại tay lái cho bạn. Đã tới giờ "
+"nghỉ giữa ca."
 
-#. placeholders: {name}
-msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
-msgstr "{name} đã đỗ xe và giao lại tay lái cho bạn. Bạn đã nghỉ đủ 10 giờ."
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} has parked and hands you the wheel. Your 10-hour rest is "
+"in."
+msgstr ""
+"{co_driver_name} đã đỗ xe và giao lại tay lái cho bạn. Bạn đã nghỉ đủ 10 "
+"giờ."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} parked when their hours ran out, and you slept on."
-msgstr "{name} đã đỗ xe khi hết giờ lái, còn bạn tiếp tục ngủ thêm."
-
-#. placeholders: {name}
-msgid ""
-"{name} parked when their hours ran out, and you slept on. Your 10-hour rest "
-"is in."
+msgid "{co_driver_name} parked when their hours ran out, and you slept on."
 msgstr ""
-"{name} đã đỗ xe khi hết giờ lái, còn bạn tiếp tục ngủ thêm. Bạn đã nghỉ đủ "
-"10 giờ."
+"{co_driver_name} đã đỗ xe khi hết giờ lái, còn bạn tiếp tục ngủ thêm."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} parked when their hours ran out, and you slept on. Your "
+"10-hour rest is in."
+msgstr ""
+"{co_driver_name} đã đỗ xe khi hết giờ lái, còn bạn tiếp tục ngủ thêm. Bạn "
+"đã nghỉ đủ 10 giờ."
+
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
 msgid ""
-"{name} pulled onto the shoulder when their hours ran out, with no lot in "
-"reach, and you slept on there."
+"{co_driver_name} pulled onto the shoulder when their hours ran out, with no "
+"lot in reach, and you slept on there."
 msgstr ""
-"Khi hết giờ lái mà không có bãi đỗ nào gần đó, {name} đã tấp vào lề đường "
-"và bạn tiếp tục ngủ tại chỗ."
+"Khi hết giờ lái mà không có bãi đỗ nào gần đó, {co_driver_name} đã tấp vào "
+"lề đường và bạn tiếp tục ngủ tại chỗ."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} pulled onto the shoulder when their hours ran out, with no lot in "
-"reach, and you slept on there. Your 10-hour rest is in."
+"{co_driver_name} pulled onto the shoulder when their hours ran out, with no "
+"lot in reach, and you slept on there. Your 10-hour rest is in."
 msgstr ""
-"Khi hết giờ lái mà không có bãi đỗ nào gần đó, {name} đã tấp vào lề đường "
-"và bạn tiếp tục ngủ tại chỗ. Bạn đã nghỉ đủ 10 giờ."
+"Khi hết giờ lái mà không có bãi đỗ nào gần đó, {co_driver_name} đã tấp vào "
+"lề đường và bạn tiếp tục ngủ tại chỗ. Bạn đã nghỉ đủ 10 giờ."
 
 #. one sentence of a longer line
 msgid "Their hours run out before the next place to park."
 msgstr "Giờ lái của tài xế phụ sẽ hết trước khi tới bãi đỗ tiếp theo."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} has parked for the end of their shift."
-msgstr "{name} đã đỗ xe để kết thúc ca lái."
+msgid "{co_driver_name} has parked for the end of their shift."
+msgstr "{co_driver_name} đã đỗ xe để kết thúc ca lái."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} has parked for the end of their shift. Their hours run out before "
-"the next place to park."
+"{co_driver_name} has parked for the end of their shift. Their hours run out "
+"before the next place to park."
 msgstr ""
-"{name} đã đỗ xe kết thúc ca lái vì giờ lái sẽ hết trước khi tới được bãi đỗ "
-"tiếp theo."
+"{co_driver_name} đã đỗ xe kết thúc ca lái vì giờ lái sẽ hết trước khi tới "
+"được bãi đỗ tiếp theo."
 
 #. one sentence of a longer line
 msgid "The truck took damage."
 msgstr "Xe đã bị hư hỏng."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} needs you."
-msgstr "{name} cần bạn xử lý."
+msgid "{co_driver_name} needs you."
+msgstr "{co_driver_name} cần bạn xử lý."
 
-#. placeholders: {name}
-msgid "{name} needs you. The truck took damage."
-msgstr "{name} cần bạn xử lý. Xe đã bị hư hỏng."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The truck took damage."
+msgstr "{co_driver_name} cần bạn xử lý. Xe đã bị hư hỏng."
 
 #. one sentence of a longer line
 msgid "The tank is empty."
 msgstr "Bình dầu đã cạn sạch."
 
-#. placeholders: {name}
-msgid "{name} needs you. The tank is empty."
-msgstr "{name} cần bạn xử lý. Bình dầu đã cạn sạch."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The tank is empty."
+msgstr "{co_driver_name} cần bạn xử lý. Bình dầu đã cạn sạch."
 
 #. one sentence of a longer line
 msgid "The truck has left the road."
 msgstr "Xe đã chệch ra khỏi mặt đường."
 
-#. placeholders: {name}
-msgid "{name} needs you. The truck has left the road."
-msgstr "{name} cần bạn xử lý. Xe đã chệch ra khỏi mặt đường."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The truck has left the road."
+msgstr "{co_driver_name} cần bạn xử lý. Xe đã chệch ra khỏi mặt đường."
 
 #. one sentence of a longer line
 msgid "The truck is stopped and will not go on."
 msgstr "Xe đã dừng lại và không thể chạy tiếp."
 
-#. placeholders: {name}
-msgid "{name} needs you. The truck is stopped and will not go on."
-msgstr "{name} cần bạn xử lý. Xe đã dừng lại và không thể chạy tiếp."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The truck is stopped and will not go on."
+msgstr ""
+"{co_driver_name} cần bạn xử lý. Xe đã dừng lại và không thể chạy tiếp."
 
 #. one sentence of a longer line
 msgid "There is not enough money for fuel."
 msgstr "Không đủ tiền để đổ dầu."
 
-#. placeholders: {name}
-msgid "{name} needs you. There is not enough money for fuel."
-msgstr "{name} cần bạn xử lý. Không đủ tiền để đổ dầu."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. There is not enough money for fuel."
+msgstr "{co_driver_name} cần bạn xử lý. Không đủ tiền để đổ dầu."
 
 #. one sentence of a longer line
 msgid "A trooper has the truck stopped."
 msgstr "Cảnh sát tuần tra đang yêu cầu dừng xe."
 
-#. placeholders: {name}
-msgid "{name} needs you. A trooper has the truck stopped."
-msgstr "{name} cần bạn xử lý. Cảnh sát tuần tra đang yêu cầu dừng xe."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. A trooper has the truck stopped."
+msgstr ""
+"{co_driver_name} cần bạn xử lý. Cảnh sát tuần tra đang yêu cầu dừng xe."
 
 #. one sentence of a longer line
 msgid "The lot is full."
 msgstr "Bãi đỗ đã kín chỗ."
 
-#. placeholders: {name}
-msgid "{name} needs you. The lot is full."
-msgstr "{name} cần bạn xử lý. Bãi đỗ đã kín chỗ."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you. The lot is full."
+msgstr "{co_driver_name} cần bạn xử lý. Bãi đỗ đã kín chỗ."
 
 #. one sentence of a longer line
 msgid ""
@@ -36618,21 +36656,22 @@ msgid ""
 msgstr ""
 "Trạm kiểm soát xích lốp đang giữ xe lại, mà trên xe không có bộ xích nào."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} needs you. The chain control is holding the truck, and there are no "
-"chains aboard."
+"{co_driver_name} needs you. The chain control is holding the truck, and "
+"there are no chains aboard."
 msgstr ""
-"{name} cần bạn xử lý. Trạm kiểm soát xích lốp đang giữ xe lại, mà trên xe "
-"không có bộ xích nào."
+"{co_driver_name} cần bạn xử lý. Trạm kiểm soát xích lốp đang giữ xe lại, mà "
+"trên xe không có bộ xích nào."
 
-#. placeholders: {name}
-msgid "{name} has the truck stopped and needs you to choose what to do."
-msgstr "{name} đã dừng xe và cần bạn quyết định hướng xử lý."
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} has the truck stopped and needs you to choose what to do."
+msgstr "{co_driver_name} đã dừng xe và cần bạn quyết định hướng xử lý."
 
-#. placeholders: {name}
-msgid "{name} needs you to decide this one."
-msgstr "{name} cần bạn tự quyết định tình huống này."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you to decide this one."
+msgstr "{co_driver_name} cần bạn tự quyết định tình huống này."
 
 #. placeholders: {duration_text}
 msgid "{duration_text} of your 10-hour rest still to go."
@@ -36650,128 +36689,137 @@ msgstr "Bạn đã ngủ {f} giờ."
 msgid "You slept {game_minutes} minutes."
 msgstr "Bạn đã ngủ {game_minutes} phút."
 
-#. placeholders: {name}, {distance_text}
-msgid "{name} drove {distance_text}"
-msgstr "{name} đã lái {distance_text}"
+#. placeholders: {co_driver_name}, {distance_text}
+msgid "{co_driver_name} drove {distance_text}"
+msgstr "{co_driver_name} đã lái {distance_text}"
 
 #. placeholders: {stop}
 msgid " and fueled at {stop}"
 msgstr " và đổ dầu tại {stop}"
 
-#. placeholders: {name}, {round}
+#. placeholders: {co_driver_name}, {round}
 msgid ""
-"You pay {name} {round} percent of the settlement for the miles they drive."
+"You pay {co_driver_name} {round} percent of the settlement for the miles "
+"they drive."
 msgstr ""
-"Bạn chia cho {name} {round} phần trăm tiền quyết toán chuyến cho số dặm "
-"người ấy cầm lái."
+"Bạn chia cho {co_driver_name} {round} phần trăm tiền quyết toán chuyến cho "
+"số dặm người ấy cầm lái."
 
-#. placeholders: {name}
-msgid "Miles {name} drives pay you half."
-msgstr "Số dặm do {name} cầm lái chỉ trả cho bạn một nửa tiền công."
+#. placeholders: {co_driver_name}
+msgid "Miles {co_driver_name} drives pay you half."
+msgstr ""
+"Số dặm do {co_driver_name} cầm lái chỉ trả cho bạn một nửa tiền công."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "While {name} drives, you are logged in the sleeper berth."
+msgid "While {co_driver_name} drives, you are logged in the sleeper berth."
 msgstr ""
-"Trong lúc {name} cầm lái, nhật ký của bạn được ghi ở trạng thái nghỉ tại "
-"khoang ngủ."
+"Trong lúc {co_driver_name} cầm lái, nhật ký của bạn được ghi ở trạng thái "
+"nghỉ tại khoang ngủ."
 
 #. placeholders: {pay}
 #. one sentence of a longer line
 msgid "{pay} Those miles earn you half the experience."
 msgstr "{pay} Quãng đường đó tính cho bạn một nửa điểm kinh nghiệm."
 
-#. placeholders: {pay}, {name}
+#. placeholders: {pay}, {co_driver_name}
 msgid ""
-"{pay} Those miles earn you half the experience. While {name} drives, you "
-"are logged in the sleeper berth."
+"{pay} Those miles earn you half the experience. While {co_driver_name} "
+"drives, you are logged in the sleeper berth."
 msgstr ""
 "{pay} Quãng đường đó tính cho bạn một nửa điểm kinh nghiệm. Trong lúc "
-"{name} cầm lái, nhật ký của bạn được ghi ở trạng thái nghỉ tại khoang ngủ."
+"{co_driver_name} cầm lái, nhật ký của bạn được ghi ở trạng thái nghỉ tại "
+"khoang ngủ."
 
 #. one sentence of a longer line
 msgid "Your own hours reach the receiver from there."
 msgstr "Từ đó, giờ của chính bạn đủ tới bên nhận hàng."
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #. one sentence of a longer line
 msgid ""
-"{name} has {left} of driving left, then parks and hands you the wheel."
-msgstr "{name} còn {left} lái, rồi sẽ đỗ xe và giao lại tay lái cho bạn."
-
-#. placeholders: {name}, {left}
-msgid ""
-"{name} has {left} of driving left, then parks and hands you the wheel. Your "
-"own hours reach the receiver from there."
+"{co_driver_name} has {left} of driving left, then parks and hands you the "
+"wheel."
 msgstr ""
-"{name} còn {left} lái, rồi sẽ đỗ xe và giao lại tay lái cho bạn. Từ đó, giờ "
-"của chính bạn đủ tới bên nhận hàng."
+"{co_driver_name} còn {left} lái, rồi sẽ đỗ xe và giao lại tay lái cho bạn."
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
+msgid ""
+"{co_driver_name} has {left} of driving left, then parks and hands you the "
+"wheel. Your own hours reach the receiver from there."
+msgstr ""
+"{co_driver_name} còn {left} lái, rồi sẽ đỗ xe và giao lại tay lái cho bạn. "
+"Từ đó, giờ của chính bạn đủ tới bên nhận hàng."
+
+#. placeholders: {co_driver_name}, {left}
 #. one sentence of a longer line
 msgid ""
-"{name} has {left} of driving left and no truck lot in reach, so they stop "
-"on the shoulder and hand you the wheel."
+"{co_driver_name} has {left} of driving left and no truck lot in reach, so "
+"they stop on the shoulder and hand you the wheel."
 msgstr ""
-"{name} còn {left} lái và không có bãi đỗ xe tải nào gần đó, nên sẽ dừng ở "
-"lề đường và giao lại tay lái cho bạn."
+"{co_driver_name} còn {left} lái và không có bãi đỗ xe tải nào gần đó, nên "
+"sẽ dừng ở lề đường và giao lại tay lái cho bạn."
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 msgid ""
-"{name} has {left} of driving left and no truck lot in reach, so they stop "
-"on the shoulder and hand you the wheel. Your own hours reach the receiver "
-"from there."
+"{co_driver_name} has {left} of driving left and no truck lot in reach, so "
+"they stop on the shoulder and hand you the wheel. Your own hours reach the "
+"receiver from there."
 msgstr ""
-"{name} còn {left} lái và không có bãi đỗ xe tải nào gần đó, nên sẽ dừng ở "
-"lề đường và giao lại tay lái cho bạn. Từ đó, giờ của chính bạn đủ tới bên "
-"nhận hàng."
+"{co_driver_name} còn {left} lái và không có bãi đỗ xe tải nào gần đó, nên "
+"sẽ dừng ở lề đường và giao lại tay lái cho bạn. Từ đó, giờ của chính bạn đủ "
+"tới bên nhận hàng."
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 msgid ""
-"{name} has {left} of driving left, short of your 10-hour rest, so they park "
-"and you finish it there."
+"{co_driver_name} has {left} of driving left, short of your 10-hour rest, so "
+"they park and you finish it there."
 msgstr ""
-"{name} chỉ còn {left} giờ lái, không đủ để bạn nghỉ trọn 10 giờ, nên {name} "
-"sẽ đỗ xe vào bãi để bạn nghỉ nốt tại đó."
+"{co_driver_name} chỉ còn {left} giờ lái, không đủ để bạn nghỉ trọn 10 giờ, "
+"nên {co_driver_name} sẽ đỗ xe vào bãi để bạn nghỉ nốt tại đó."
 
 #. one sentence of a longer line
 msgid "Shoulder rest is poor and risks a ticket or minor damage."
 msgstr ""
 "Nghỉ ở lề đường không thoải mái và có nguy cơ bị phạt hoặc trầy xước nhẹ."
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 #. one sentence of a longer line
 msgid ""
-"{name} has {left} of driving left, short of your 10-hour rest, and no truck "
-"lot in reach, so they stop on the shoulder and you finish it there."
+"{co_driver_name} has {left} of driving left, short of your 10-hour rest, "
+"and no truck lot in reach, so they stop on the shoulder and you finish it "
+"there."
 msgstr ""
-"{name} chỉ còn {left} giờ lái, không đủ cho kỳ nghỉ 10 giờ và cũng không có "
-"bãi xe tải nào trong tầm chạy, nên {name} sẽ tấp vào lề để bạn nghỉ nốt."
+"{co_driver_name} chỉ còn {left} giờ lái, không đủ cho kỳ nghỉ 10 giờ và "
+"cũng không có bãi xe tải nào trong tầm chạy, nên {co_driver_name} sẽ tấp "
+"vào lề để bạn nghỉ nốt."
 
-#. placeholders: {name}, {left}
+#. placeholders: {co_driver_name}, {left}
 msgid ""
-"{name} has {left} of driving left, short of your 10-hour rest, and no truck "
-"lot in reach, so they stop on the shoulder and you finish it there. "
-"Shoulder rest is poor and risks a ticket or minor damage."
+"{co_driver_name} has {left} of driving left, short of your 10-hour rest, "
+"and no truck lot in reach, so they stop on the shoulder and you finish it "
+"there. Shoulder rest is poor and risks a ticket or minor damage."
 msgstr ""
-"{name} chỉ còn {left} giờ lái, không đủ cho kỳ nghỉ 10 giờ và cũng không có "
-"bãi xe tải nào trong tầm chạy, nên {name} sẽ tấp vào lề để bạn nghỉ nốt. "
-"Nghỉ ở lề đường không thoải mái và có nguy cơ bị phạt hoặc trầy xước nhẹ."
+"{co_driver_name} chỉ còn {left} giờ lái, không đủ cho kỳ nghỉ 10 giờ và "
+"cũng không có bãi xe tải nào trong tầm chạy, nên {co_driver_name} sẽ tấp "
+"vào lề để bạn nghỉ nốt. Nghỉ ở lề đường không thoải mái và có nguy cơ bị "
+"phạt hoặc trầy xước nhẹ."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} can drive from here, or take over later from the pause menu, while "
-"you rest in the sleeper."
+"{co_driver_name} can drive from here, or take over later from the pause "
+"menu, while you rest in the sleeper."
 msgstr ""
-"{name} có thể lái luôn từ đây, hoặc đổi lái sau từ menu tạm dừng, trong lúc "
-"bạn nằm nghỉ ở khoang ngủ."
+"{co_driver_name} có thể lái luôn từ đây, hoặc đổi lái sau từ menu tạm dừng, "
+"trong lúc bạn nằm nghỉ ở khoang ngủ."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"{name} can take the wheel from this menu while you rest in the sleeper."
+"{co_driver_name} can take the wheel from this menu while you rest in the "
+"sleeper."
 msgstr ""
-"{name} có thể nhận tay lái ngay từ menu này trong lúc bạn nằm nghỉ ở khoang "
-"ngủ."
+"{co_driver_name} có thể nhận tay lái ngay từ menu này trong lúc bạn nằm "
+"nghỉ ở khoang ngủ."
 
 #. one sentence of a longer line
 msgid "This load is long enough to share with a co-driver."
@@ -36781,18 +36829,21 @@ msgstr "Chuyến hàng này đủ dài để chạy chung với tài xế phụ.
 msgid "This load is long enough to share with a co-driver. {take}"
 msgstr "Chuyến hàng này đủ dài để chạy chung với tài xế phụ. {take}"
 
-#. placeholders: {name}
-msgid "{name} drives to the receiver's gate unless something needs you."
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} drives to the receiver's gate unless something needs you."
 msgstr ""
-"{name} sẽ lái thẳng tới cổng bên nhận hàng, trừ khi có chuyện cần bạn xử lý."
+"{co_driver_name} sẽ lái thẳng tới cổng bên nhận hàng, trừ khi có chuyện cần "
+"bạn xử lý."
 
-#. placeholders: {name}
-msgid "{name} drives until their own hours run out."
-msgstr "{name} sẽ lái cho tới khi hết giờ lái của mình."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} drives until their own hours run out."
+msgstr "{co_driver_name} sẽ lái cho tới khi hết giờ lái của mình."
 
-#. placeholders: {name}
-msgid "{name} hands the wheel back once you have had your 10-hour rest."
-msgstr "{name} sẽ giao lại tay lái ngay khi bạn nghỉ đủ 10 giờ."
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} hands the wheel back once you have had your 10-hour rest."
+msgstr "{co_driver_name} sẽ giao lại tay lái ngay khi bạn nghỉ đủ 10 giờ."
 
 #. placeholders: {status}
 msgid "{status} Wakes you and gives you the wheel."
@@ -36807,21 +36858,21 @@ msgstr " Thời gian nghỉ 10 giờ của bạn phải bắt đầu lại từ 
 msgid "Take the wheel back"
 msgstr "Nhận lại tay lái"
 
-#. placeholders: {name}, {time}
-msgid "Hand the wheel to {name} for {time} and ride along"
-msgstr "Giao tay lái cho {name} trong {time} và ngồi cùng"
+#. placeholders: {co_driver_name}, {time}
+msgid "Hand the wheel to {co_driver_name} for {time} and ride along"
+msgstr "Giao tay lái cho {co_driver_name} trong {time} và ngồi cùng"
 
-#. placeholders: {name}, {time}
-msgid "Hand the wheel to {name} for {time} and sleep"
-msgstr "Giao tay lái cho {name} trong {time} và đi ngủ"
+#. placeholders: {co_driver_name}, {time}
+msgid "Hand the wheel to {co_driver_name} for {time} and sleep"
+msgstr "Giao tay lái cho {co_driver_name} trong {time} và đi ngủ"
 
-#. placeholders: {name}
-msgid "Hand the wheel to {name} and ride along"
-msgstr "Giao tay lái cho {name} và ngồi cùng"
+#. placeholders: {co_driver_name}
+msgid "Hand the wheel to {co_driver_name} and ride along"
+msgstr "Giao tay lái cho {co_driver_name} và ngồi cùng"
 
-#. placeholders: {name}
-msgid "Hand the wheel to {name} and sleep"
-msgstr "Giao tay lái cho {name} và đi ngủ"
+#. placeholders: {co_driver_name}
+msgid "Hand the wheel to {co_driver_name} and sleep"
+msgstr "Giao tay lái cho {co_driver_name} và đi ngủ"
 
 msgid "You have the wheel."
 msgstr "Bạn đã cầm lại tay lái."
@@ -36838,29 +36889,66 @@ msgstr "để đỗ xe và giao lại tay lái cho bạn"
 msgid "to park for the end of their shift"
 msgstr "để đỗ xe kết thúc ca lái"
 
-#. placeholders: {name}, {place}, {distance}, {why}
-msgid "{name} plans to stop at {place} in {distance}, {why}."
-msgstr "{name} dự định ghé {place} sau {distance} nữa {why}."
+#. placeholders: {co_driver_name}, {place}, {distance}, {why}
+msgid "{co_driver_name} plans to stop at {place} in {distance}, {why}."
+msgstr "{co_driver_name} dự định ghé {place} sau {distance} nữa {why}."
 
 #. placeholders: {capitalize}
 msgid "{capitalize} got across ahead of the truck."
 msgstr "{capitalize} đã băng qua đường ngay trước mũi xe."
 
-#. placeholders: {name}
-msgid "{name} put the chains on at the chain control."
-msgstr "{name} đã lắp xích lốp tại trạm kiểm soát xích."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} put the chains on at the chain control."
+msgstr "{co_driver_name} đã lắp xích lốp tại trạm kiểm soát xích."
 
-#. placeholders: {name}, {animal}
-#. one sentence of a longer line
-msgid "{name} drove on after a collision with {animal}."
-msgstr "{name} tiếp tục chạy sau khi va phải {animal}."
-
-#. placeholders: {name}, {animal}, {damage}
-msgid ""
-"{name} drove on after a collision with {animal}. Damage {damage} percent."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} put the chains on when the chain law posted."
 msgstr ""
-"{name} tiếp tục chạy sau khi va phải {animal}. Xe hư hỏng {damage} phần "
-"trăm."
+
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} put the chains on before the chain control."
+msgstr ""
+
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} took the chains off on bare road."
+msgstr ""
+
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} tightened a slapping chain."
+msgstr ""
+
+#. placeholders: {co_driver_name}
+#. one sentence of a longer line
+msgid "{co_driver_name} fixed a broken chain with a spare link."
+msgstr ""
+
+#. placeholders: {co_driver_name}, {damage_pct}
+msgid ""
+"{co_driver_name} fixed a broken chain with a spare link. Damage "
+"{damage_pct} percent."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A chain broke and there is no spare link."
+msgstr ""
+
+#. placeholders: {damage_pct}
+msgid ""
+"A chain broke and there is no spare link. Damage {damage_pct} percent."
+msgstr ""
+
+#. placeholders: {co_driver_name}, {animal}
+#. one sentence of a longer line
+msgid "{co_driver_name} drove on after a collision with {animal}."
+msgstr "{co_driver_name} tiếp tục chạy sau khi va phải {animal}."
+
+#. placeholders: {co_driver_name}, {animal}, {damage}
+msgid ""
+"{co_driver_name} drove on after a collision with {animal}. Damage {damage} "
+"percent."
+msgstr ""
+"{co_driver_name} tiếp tục chạy sau khi va phải {animal}. Xe hư hỏng "
+"{damage} phần trăm."
 
 msgid "Refuel"
 msgstr "Đổ dầu"
@@ -36877,89 +36965,93 @@ msgstr "hư hại"
 msgid "off the road"
 msgstr "chệch khỏi đường"
 
-#. placeholders: {name}, {duration_text}
-msgid "{name} needs you back in {duration_text}."
-msgstr "{name} cần bạn quay lại cầm lái sau {duration_text} nữa."
+#. placeholders: {co_driver_name}, {duration_text}
+msgid "{co_driver_name} needs you back in {duration_text}."
+msgstr "{co_driver_name} cần bạn quay lại cầm lái sau {duration_text} nữa."
 
 #. one sentence of a longer line
 msgid "Your 10-hour rest is in."
 msgstr "Bạn đã nghỉ đủ 10 giờ."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 msgid ""
-"Your 10-hour rest is in. {name} hands back at the next place to park."
+"Your 10-hour rest is in. {co_driver_name} hands back at the next place to "
+"park."
 msgstr ""
-"Bạn đã nghỉ đủ 10 giờ. {name} sẽ giao lại tay lái ở bãi đỗ tiếp theo."
+"Bạn đã nghỉ đủ 10 giờ. {co_driver_name} sẽ giao lại tay lái ở bãi đỗ tiếp "
+"theo."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "{name} hands back at the next place to park."
-msgstr "{name} sẽ giao lại tay lái ở bãi đỗ tiếp theo."
+msgid "{co_driver_name} hands back at the next place to park."
+msgstr "{co_driver_name} sẽ giao lại tay lái ở bãi đỗ tiếp theo."
 
 #. placeholders: {rested}
 #. one sentence of a longer line
 msgid "Rest: {rested} of 10 hours."
 msgstr "Đã nghỉ: {rested} trên 10 giờ."
 
-#. placeholders: {rested}, {name}, {duration_text}
+#. placeholders: {rested}, {co_driver_name}, {duration_text}
 msgid ""
-"Rest: {rested} of 10 hours. {name} hands back in about {duration_text}."
-msgstr ""
-"Đã nghỉ: {rested} trên 10 giờ. {name} sẽ giao lại tay lái sau khoảng "
+"Rest: {rested} of 10 hours. {co_driver_name} hands back in about "
 "{duration_text}."
+msgstr ""
+"Đã nghỉ: {rested} trên 10 giờ. {co_driver_name} sẽ giao lại tay lái sau "
+"khoảng {duration_text}."
 
-#. placeholders: {name}, {duration_text}
+#. placeholders: {co_driver_name}, {duration_text}
 #. one sentence of a longer line
-msgid "{name} hands back in about {duration_text}."
-msgstr "{name} sẽ giao lại tay lái sau khoảng {duration_text}."
+msgid "{co_driver_name} hands back in about {duration_text}."
+msgstr "{co_driver_name} sẽ giao lại tay lái sau khoảng {duration_text}."
 
-#. placeholders: {rested}, {name}, {duration_text}
+#. placeholders: {rested}, {co_driver_name}, {duration_text}
 msgid ""
-"Rest: {rested} of 10 hours. {name} needs you back in {duration_text}, "
-"before your rest is in."
+"Rest: {rested} of 10 hours. {co_driver_name} needs you back in "
+"{duration_text}, before your rest is in."
 msgstr ""
-"Đã nghỉ: {rested} trên 10 giờ. {name} cần bạn lên thay sau {duration_text} "
-"nữa, trước khi bạn nghỉ đủ 10 giờ."
+"Đã nghỉ: {rested} trên 10 giờ. {co_driver_name} cần bạn lên thay sau "
+"{duration_text} nữa, trước khi bạn nghỉ đủ 10 giờ."
 
-#. placeholders: {name}, {duration_text}
+#. placeholders: {co_driver_name}, {duration_text}
 #. one sentence of a longer line
-msgid "{name} needs you back in {duration_text}, before your rest is in."
+msgid ""
+"{co_driver_name} needs you back in {duration_text}, before your rest is in."
 msgstr ""
-"{name} cần bạn lên thay sau {duration_text} nữa, trước khi bạn nghỉ đủ 10 "
-"giờ."
+"{co_driver_name} cần bạn lên thay sau {duration_text} nữa, trước khi bạn "
+"nghỉ đủ 10 giờ."
 
-#. placeholders: {name}
-msgid "Co-driver: {name}, driving"
-msgstr "Tài xế phụ: {name}, đang lái"
+#. placeholders: {co_driver_name}
+msgid "Co-driver: {co_driver_name}, driving"
+msgstr "Tài xế phụ: {co_driver_name}, đang lái"
 
-#. placeholders: {name}, {bio}
-msgid "About {name}: {bio}"
-msgstr "Giới thiệu về {name}: {bio}"
+#. placeholders: {co_driver_name}, {bio}
+msgid "About {co_driver_name}: {bio}"
+msgstr "Giới thiệu về {co_driver_name}: {bio}"
 
 #. placeholders: {join}
 msgid "Last shift: {join}"
 msgstr "Ca vừa rồi: {join}"
 
-#. placeholders: {name}
-msgid "Co-driver: {name}, in the sleeper"
-msgstr "Tài xế phụ: {name}, đang nghỉ ở khoang ngủ"
+#. placeholders: {co_driver_name}
+msgid "Co-driver: {co_driver_name}, in the sleeper"
+msgstr "Tài xế phụ: {co_driver_name}, đang nghỉ ở khoang ngủ"
 
-#. placeholders: {name}
-msgid "Co-driver: {name}, in the sleeper, rested."
-msgstr "Tài xế phụ: {name}, đang nghỉ ở khoang ngủ, đã nghỉ đủ."
+#. placeholders: {co_driver_name}
+msgid "Co-driver: {co_driver_name}, in the sleeper, rested."
+msgstr "Tài xế phụ: {co_driver_name}, đang nghỉ ở khoang ngủ, đã nghỉ đủ."
 
-#. placeholders: {name}
+#. placeholders: {co_driver_name}
 #. one sentence of a longer line
-msgid "Co-driver: {name}, in the sleeper."
-msgstr "Tài xế phụ: {name}, đang nghỉ ở khoang ngủ."
+msgid "Co-driver: {co_driver_name}, in the sleeper."
+msgstr "Tài xế phụ: {co_driver_name}, đang nghỉ ở khoang ngủ."
 
-#. placeholders: {name}, {duration_text}, {duration_text2}
+#. placeholders: {co_driver_name}, {duration_text}, {duration_text2}
 msgid ""
-"Co-driver: {name}, in the sleeper. Rest: {duration_text} of 10 hours. "
-"{duration_text2} of driving left."
+"Co-driver: {co_driver_name}, in the sleeper. Rest: {duration_text} of 10 "
+"hours. {duration_text2} of driving left."
 msgstr ""
-"Tài xế phụ: {name}, đang nghỉ ở khoang ngủ. Đã nghỉ: {duration_text} trên "
-"10 giờ. Còn {duration_text2} lái."
+"Tài xế phụ: {co_driver_name}, đang nghỉ ở khoang ngủ. Đã nghỉ: "
+"{duration_text} trên 10 giờ. Còn {duration_text2} lái."
 
 #. placeholders: {duration_text}
 #. one sentence of a longer line
@@ -36971,9 +37063,9 @@ msgstr "Đã nghỉ: {duration_text} trên 10 giờ."
 msgid "{duration_text2} of driving left."
 msgstr "Còn {duration_text2} lái."
 
-#. placeholders: {name}, {trim_end_matches}
-msgid "ELD, {name}: {trim_end_matches}"
-msgstr "Nhật ký ELD của {name}: {trim_end_matches}"
+#. placeholders: {co_driver_name}, {trim_end_matches}
+msgid "ELD, {co_driver_name}: {trim_end_matches}"
+msgstr "Nhật ký ELD của {co_driver_name}: {trim_end_matches}"
 
 #. placeholders: {round}
 msgid "their {round} percent"
@@ -36982,17 +37074,17 @@ msgstr "{round} phần trăm tiền của họ"
 msgid "their half of the pay"
 msgstr "một nửa tiền công của họ"
 
-#. placeholders: {name}, {miles}, {share}, {grouped}
+#. placeholders: {co_driver_name}, {miles}, {share}, {grouped}
 msgid ""
-"{name} drove {miles} of this load: {share} is {grouped} dollars, and those "
-"miles earn you half the experience."
+"{co_driver_name} drove {miles} of this load: {share} is {grouped} dollars, "
+"and those miles earn you half the experience."
 msgstr ""
-"{name} đã lái {miles} của chuyến này: {share} là {grouped} đô la, và quãng "
-"đường đó tính cho bạn một nửa điểm kinh nghiệm."
+"{co_driver_name} đã lái {miles} của chuyến này: {share} là {grouped} đô la, "
+"và quãng đường đó tính cho bạn một nửa điểm kinh nghiệm."
 
-#. placeholders: {name}, {f}
-msgid "Team load: {name} drove {f} of the miles"
-msgstr "Đơn chạy đôi: {name} đã lái {f} quãng đường"
+#. placeholders: {co_driver_name}, {f}
+msgid "Team load: {co_driver_name} drove {f} of the miles"
+msgstr "Đơn chạy đôi: {co_driver_name} đã lái {f} quãng đường"
 
 msgid "hours up, yours reach"
 msgstr "hết giờ, giờ của bạn đủ"
@@ -37009,69 +37101,74 @@ msgstr "hết giờ ở lề đường"
 msgid "shoulder hours, yours reach"
 msgstr "hết giờ ở lề đường, giờ của bạn đủ"
 
-#. placeholders: {name}
-msgid "{name} took a 30-minute break on the shoulder."
-msgstr "{name} đã dừng ở lề đường nghỉ 30 phút giữa ca."
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} took a 30-minute break on the shoulder."
+msgstr "{co_driver_name} đã dừng ở lề đường nghỉ 30 phút giữa ca."
 
 msgid "slept on"
-msgstr "slept on"
+msgstr "ngủ tiếp"
 
-#. placeholders: {name}, {gallons}, {place}
+#. placeholders: {co_driver_name}, {gallons}, {place}
 msgid ""
-"{name} fueled {gallons} gallons and took a 30-minute break at {place}."
+"{co_driver_name} fueled {gallons} gallons and took a 30-minute break at "
+"{place}."
 msgstr ""
-"{name} đã đổ {gallons} gallon dầu và nghỉ 30 phút giữa ca tại {place}."
+"{co_driver_name} đã đổ {gallons} gallon dầu và nghỉ 30 phút giữa ca tại "
+"{place}."
 
-#. placeholders: {name}, {gallons}, {place}
-msgid "{name} fueled {gallons} gallons at {place}."
-msgstr "{name} đã đổ {gallons} gallon dầu tại {place}."
+#. placeholders: {co_driver_name}, {gallons}, {place}
+msgid "{co_driver_name} fueled {gallons} gallons at {place}."
+msgstr "{co_driver_name} đã đổ {gallons} gallon dầu tại {place}."
 
-#. placeholders: {name}, {volume_text}, {place}
-msgid "{name} fueled {volume_text} and took a 30-minute break at {place}."
-msgstr "{name} đã đổ {volume_text} và nghỉ 30 phút tại {place}."
+#. placeholders: {co_driver_name}, {volume_text}, {place}
+msgid ""
+"{co_driver_name} fueled {volume_text} and took a 30-minute break at {place}."
+msgstr ""
 
-#. placeholders: {name}, {volume_text}, {place}
-msgid "{name} fueled {volume_text} at {place}."
-msgstr "{name} đã đổ {volume_text} tại {place}."
+#. placeholders: {co_driver_name}, {volume_text}, {place}
+msgid "{co_driver_name} fueled {volume_text} at {place}."
+msgstr ""
 
-#. placeholders: {name}, {place}
-msgid "{name} took a 30-minute break at {place}."
-msgstr "{name} đã nghỉ 30 phút giữa ca tại {place}."
+#. placeholders: {co_driver_name}, {place}
+msgid "{co_driver_name} took a 30-minute break at {place}."
+msgstr "{co_driver_name} đã nghỉ 30 phút giữa ca tại {place}."
 
-#. placeholders: {name}, {place}
-msgid "{name} stopped at {place}."
-msgstr "{name} đã dừng tại {place}."
+#. placeholders: {co_driver_name}, {place}
+msgid "{co_driver_name} stopped at {place}."
+msgstr "{co_driver_name} đã dừng tại {place}."
 
 #. one sentence of a longer line
 msgid "The inspection decal got the truck waved through."
 msgstr ""
 "Nhờ tem kiểm định trên kính chắn gió, xe được cho đi thẳng qua trạm."
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 #. one sentence of a longer line
-msgid "{name} checked in at {place}."
-msgstr "{name} đã làm thủ tục qua {place}."
+msgid "{co_driver_name} checked in at {place}."
+msgstr "{co_driver_name} đã làm thủ tục qua {place}."
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 msgid ""
-"{name} checked in at {place}. The inspection decal got the truck waved "
-"through."
+"{co_driver_name} checked in at {place}. The inspection decal got the truck "
+"waved through."
 msgstr ""
-"{name} đã làm thủ tục tại {place}. Nhờ tem kiểm định trên kính chắn gió, xe "
-"được cho đi thẳng qua trạm."
+"{co_driver_name} đã làm thủ tục tại {place}. Nhờ tem kiểm định trên kính "
+"chắn gió, xe được cho đi thẳng qua trạm."
 
-#. placeholders: {name}, {place}
-msgid "{name} checked in at {place} and was waved through."
-msgstr "{name} đã làm thủ tục tại {place} và được cho đi thẳng qua trạm."
+#. placeholders: {co_driver_name}, {place}
+msgid "{co_driver_name} checked in at {place} and was waved through."
+msgstr ""
+"{co_driver_name} đã làm thủ tục tại {place} và được cho đi thẳng qua trạm."
 
-#. placeholders: {name}, {place}
+#. placeholders: {co_driver_name}, {place}
 #. one sentence of a longer line
-msgid "{name} was pulled in for an inspection at {place}."
-msgstr "{name} bị gọi vào kiểm tra an toàn tại {place}."
+msgid "{co_driver_name} was pulled in for an inspection at {place}."
+msgstr "{co_driver_name} bị gọi vào kiểm tra an toàn tại {place}."
 
-#. placeholders: {name}, {place}, {outcome}
-msgid "{name} was pulled in for an inspection at {place}. {outcome}"
-msgstr "{name} bị gọi vào kiểm tra an toàn tại {place}. {outcome}"
+#. placeholders: {co_driver_name}, {place}, {outcome}
+msgid ""
+"{co_driver_name} was pulled in for an inspection at {place}. {outcome}"
+msgstr "{co_driver_name} bị gọi vào kiểm tra an toàn tại {place}. {outcome}"
 
 msgid "advice"
 msgstr "lời khuyên"
@@ -37262,22 +37359,22 @@ msgstr "Chạy quá nhanh khi đang lắp xích lốp. Giữ tốc độ dưới
 
 #. placeholders: {highway}
 #. one sentence of a longer line
-msgid "Chain law ahead on {highway}."
-msgstr "Phía trước trên {highway} có quy định bắt buộc xích lốp."
+msgid "Chain law on {highway}."
+msgstr "Trên {highway} có quy định bắt buộc xích lốp."
 
 #. placeholders: {highway}
-msgid "Chain law ahead on {highway}. You have no chains."
+msgid "Chain law on {highway}. You have no chains."
 msgstr ""
 "Phía trước trên {highway} có quy định bắt buộc xích lốp. Xe bạn chưa có "
 "xích."
 
 #. placeholders: {highway}, {exit}
 #. one sentence of a longer line
-msgid "Chain law ahead on {highway} at {exit}."
-msgstr "Phía trước trên {highway} tại {exit} có quy định bắt buộc xích lốp."
+msgid "Chain law on {highway} at {exit}."
+msgstr "Trên {highway} tại {exit} có quy định bắt buộc xích lốp."
 
 #. placeholders: {highway}, {exit}
-msgid "Chain law ahead on {highway} at {exit}. You have no chains."
+msgid "Chain law on {highway} at {exit}. You have no chains."
 msgstr ""
 "Phía trước trên {highway} tại {exit} có quy định bắt buộc xích lốp. Xe bạn "
 "chưa có xích."
@@ -40623,7 +40720,7 @@ msgstr "Âm lượng mặt đường: {pct} phần trăm"
 
 msgid ""
 "The thump of pavement seams and bridge joints under the wheels, and the "
-"tires' whine on grooved concrete and hum on steel grate decks."
+"tires' hum on steel grate decks."
 msgstr ""
 "Tiếng thịch của khe nối mặt đường và khe co giãn cầu dưới bánh xe, tiếng "
 "rít của lốp trên bê tông có rãnh và tiếng ù trên mặt cầu lưới thép."
@@ -41567,7 +41664,7 @@ msgid "built-in voice"
 msgstr "giọng đọc tích hợp"
 
 msgid "Narrator"
-msgstr "Narrator"
+msgstr "Trình tường thuật"
 
 #. placeholders: {name}
 msgid "{name}, unavailable"
@@ -46491,6 +46588,7 @@ msgstr "{total} tài xế có hồ sơ công khai{else:}"
 msgid " has"
 msgstr " có"
 
+# same as English
 msgid "s have"
 msgstr "s have"
 
@@ -47661,7 +47759,7 @@ msgstr "SỐ TAY"
 
 #. placeholders: {rpm}
 msgid "{rpm} rpm"
-msgstr "{rpm} rpm"
+msgstr "{rpm} vòng mỗi phút"
 
 msgid "PARK BRAKE"
 msgstr "PHANH ĐỖ"
@@ -48002,6 +48100,7 @@ msgstr "{count} kilômét"
 msgid "{count} kilometer"
 msgstr "{count} kilômét"
 
+# same as English
 msgid "{count} feet"
 msgstr "{count} feet"
 
@@ -48012,7 +48111,7 @@ msgid "{count} gallons"
 msgstr "{count} gallon"
 
 msgid "{count} gallon"
-msgstr "{count} gallon"
+msgstr "{count} galông"
 
 msgid "{count} liters"
 msgstr "{count} lít"
@@ -48970,6 +49069,138 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid "Tires on concrete grooved across the lane: texture, not a decision."
+#~ msgstr ""
+#~ "Lốp lăn trên mặt bê tông có rãnh cắt ngang làn: tạo cảm giác mặt đường, "
+#~ "không phải tín hiệu xử lý."
+
+#~ msgid "{name} fueled {volume_text} and took a 30-minute break at {place}."
+#~ msgstr "{name} đã đổ {volume_text} và nghỉ 30 phút tại {place}."
+
+#~ msgid "{name} fueled {volume_text} at {place}."
+#~ msgstr "{name} đã đổ {volume_text} tại {place}."
+
+#~ msgid "{name} has the truck at the receiver's gate."
+#~ msgstr "{name} đã đưa xe tới cổng bên nhận hàng."
+
+#~ msgid "{name} has parked and hands you the wheel."
+#~ msgstr "{name} đã đỗ xe và giao lại tay lái cho bạn."
+
+#~ msgid "{name} has parked and hands you the wheel. Their hours are up."
+#~ msgstr "{name} đã đỗ xe và giao lại tay lái cho bạn. Tài xế phụ đã hết giờ."
+
+#~ msgid ""
+#~ "{name} has parked and hands you the wheel. Their hours are up, and yours "
+#~ "reach the receiver."
+#~ msgstr ""
+#~ "{name} đã đỗ xe và giao lại tay lái cho bạn. Tài xế phụ đã hết giờ, còn giờ "
+#~ "của bạn đủ tới bên nhận hàng."
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder with no lot in reach and hands you the wheel."
+#~ msgstr ""
+#~ "Không có bãi đỗ nào gần đó, nên {name} dừng ở lề đường và giao lại tay lái "
+#~ "cho bạn."
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder with no lot in reach and hands you the "
+#~ "wheel. Their hours are up."
+#~ msgstr ""
+#~ "Không có bãi đỗ nào gần đó, nên {name} dừng ở lề đường và giao lại tay lái "
+#~ "cho bạn. Tài xế phụ đã hết giờ."
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder with no lot in reach and hands you the "
+#~ "wheel. Their hours are up, and yours reach the receiver."
+#~ msgstr ""
+#~ "Không có bãi đỗ nào gần đó, nên {name} dừng ở lề đường và giao lại tay lái "
+#~ "cho bạn. Tài xế phụ đã hết giờ, còn giờ của bạn đủ tới bên nhận hàng."
+
+#~ msgid "{name} stopped on the shoulder and hands you the wheel."
+#~ msgstr "{name} dừng ở lề đường và giao lại tay lái cho bạn."
+
+#~ msgid ""
+#~ "{name} stopped on the shoulder and hands you the wheel. Their break is due."
+#~ msgstr ""
+#~ "{name} dừng ở lề đường và giao lại tay lái cho bạn. Đã tới giờ nghỉ giữa ca."
+
+#~ msgid "{name} has parked and hands you the wheel. Your 10-hour rest is in."
+#~ msgstr "{name} đã đỗ xe và giao lại tay lái cho bạn. Bạn đã nghỉ đủ 10 giờ."
+
+#~ msgid "{name} parked when their hours ran out, and you slept on."
+#~ msgstr "{name} đã đỗ xe khi hết giờ lái, còn bạn tiếp tục ngủ thêm."
+
+#~ msgid ""
+#~ "{name} parked when their hours ran out, and you slept on. Your 10-hour rest "
+#~ "is in."
+#~ msgstr ""
+#~ "{name} đã đỗ xe khi hết giờ lái, còn bạn tiếp tục ngủ thêm. Bạn đã nghỉ đủ "
+#~ "10 giờ."
+
+#~ msgid ""
+#~ "{name} pulled onto the shoulder when their hours ran out, with no lot in "
+#~ "reach, and you slept on there."
+#~ msgstr ""
+#~ "Khi hết giờ lái mà không có bãi đỗ nào gần đó, {name} đã tấp vào lề đường "
+#~ "và bạn tiếp tục ngủ tại chỗ."
+
+#~ msgid ""
+#~ "{name} pulled onto the shoulder when their hours ran out, with no lot in "
+#~ "reach, and you slept on there. Your 10-hour rest is in."
+#~ msgstr ""
+#~ "Khi hết giờ lái mà không có bãi đỗ nào gần đó, {name} đã tấp vào lề đường "
+#~ "và bạn tiếp tục ngủ tại chỗ. Bạn đã nghỉ đủ 10 giờ."
+
+#~ msgid "{name} has parked for the end of their shift."
+#~ msgstr "{name} đã đỗ xe để kết thúc ca lái."
+
+#~ msgid ""
+#~ "{name} has parked for the end of their shift. Their hours run out before "
+#~ "the next place to park."
+#~ msgstr ""
+#~ "{name} đã đỗ xe kết thúc ca lái vì giờ lái sẽ hết trước khi tới được bãi đỗ "
+#~ "tiếp theo."
+
+#~ msgid "{name} needs you."
+#~ msgstr "{name} cần bạn xử lý."
+
+#~ msgid "{name} needs you. The truck took damage."
+#~ msgstr "{name} cần bạn xử lý. Xe đã bị hư hỏng."
+
+#~ msgid "{name} needs you. The tank is empty."
+#~ msgstr "{name} cần bạn xử lý. Bình dầu đã cạn sạch."
+
+#~ msgid "{name} needs you. The truck has left the road."
+#~ msgstr "{name} cần bạn xử lý. Xe đã chệch ra khỏi mặt đường."
+
+#~ msgid "{name} needs you. The truck is stopped and will not go on."
+#~ msgstr "{name} cần bạn xử lý. Xe đã dừng lại và không thể chạy tiếp."
+
+#~ msgid "{name} needs you. There is not enough money for fuel."
+#~ msgstr "{name} cần bạn xử lý. Không đủ tiền để đổ dầu."
+
+#~ msgid "{name} needs you. A trooper has the truck stopped."
+#~ msgstr "{name} cần bạn xử lý. Cảnh sát tuần tra đang yêu cầu dừng xe."
+
+#~ msgid "{name} needs you. The lot is full."
+#~ msgstr "{name} cần bạn xử lý. Bãi đỗ đã kín chỗ."
+
+#~ msgid ""
+#~ "{name} needs you. The chain control is holding the truck, and there are no "
+#~ "chains aboard."
+#~ msgstr ""
+#~ "{name} cần bạn xử lý. Trạm kiểm soát xích lốp đang giữ xe lại, mà trên xe "
+#~ "không có bộ xích nào."
+
+#~ msgid "{name} has the truck stopped and needs you to choose what to do."
+#~ msgstr "{name} đã dừng xe và cần bạn quyết định hướng xử lý."
+
+#~ msgid "{name} needs you to decide this one."
+#~ msgstr "{name} cần bạn tự quyết định tình huống này."
+
+#~ msgid "{name} drove {distance_text}"
+#~ msgstr "{name} đã lái {distance_text}"
 
 #~ msgid "It is an engine and it sounds like one."
 #~ msgstr "Đó là tiếng động cơ và nghe đúng như động cơ thật."

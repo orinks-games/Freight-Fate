@@ -1678,8 +1678,11 @@ fn test_shelby_cross_dock_approach_assist_reaches_the_arrival_gate() {
             "level {level}: gate crawl exceeded its throttle authority: {}",
             arrival.report(&destination)
         );
+        // One line says the assist has the pedals: the entrance's, or the
+        // ramp's where the ramp ends at the gate (owner, 2026-10-25), never
+        // both.
         assert!(
-            arrival.said("Slowing for the entrance."),
+            arrival.said("Slowing for the entrance.") != arrival.said("Slowing for the ramp."),
             "level {level}: {}",
             arrival.report(&destination)
         );

@@ -33,7 +33,7 @@ fn a_drive() -> PlaytestHarness {
         drive.trip.truck.velocity_mps = 11.0;
         // Chained, so the entry warning stays out of these cases.
         drive.trip.truck.chains_on = true;
-        drive.chain_set = ChainSet::from_truck(true, true, drive.trip.position_mi);
+        drive.chain_set = ChainSet::from_truck(true, true);
         sky(drive, WeatherKind::Snow);
     });
     harness.clear_speech();
@@ -140,7 +140,7 @@ fn test_chains_on_bare_road_speak_once_after_half_a_mile() {
     harness.with_drive(|d, _| {
         sky(d, WeatherKind::Cloudy);
         d.trip.weather.current = WeatherKind::Cloudy;
-        d.chain_set = ChainSet::from_truck(true, false, d.trip.position_mi);
+        d.chain_set = ChainSet::from_truck(true, false);
     });
     let start = harness.with_drive(|d, _| d.trip.position_mi);
     let mut heard_at = None;

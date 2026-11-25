@@ -694,7 +694,17 @@ impl DrivingState {
             component.clear(&mut self.trip.truck);
         }
         accrue_on_duty_fatigue(self, ctx, BREAKDOWN_REPAIR_MIN);
+        let start_hour = self.absolute_game_hour(ctx, None);
         self.trip.game_minutes += BREAKDOWN_REPAIR_MIN;
+        record_duty_interval(
+            self,
+            ctx,
+            start_hour,
+            start_hour + BREAKDOWN_REPAIR_MIN / 60.0,
+            "on_duty_not_driving",
+            "",
+            None,
+        );
         hos_mut_of(ctx).on_duty(BREAKDOWN_REPAIR_MIN);
         ctx.audio.play("ui/error");
         let damage_pct = self.trip.truck.damage_pct;
@@ -790,7 +800,17 @@ impl DrivingState {
         let grounded = self.tractor_label(ctx);
         let spare = self.draw_yard_spare(ctx);
         accrue_on_duty_fatigue(self, ctx, GROUNDED_SWAP_MIN);
+        let start_hour = self.absolute_game_hour(ctx, None);
         self.trip.game_minutes += GROUNDED_SWAP_MIN;
+        record_duty_interval(
+            self,
+            ctx,
+            start_hour,
+            start_hour + GROUNDED_SWAP_MIN / 60.0,
+            "on_duty_not_driving",
+            "",
+            None,
+        );
         hos_mut_of(ctx).on_duty(GROUNDED_SWAP_MIN);
         ctx.audio.play("ui/error");
         let terse = self.terse_speech(ctx);

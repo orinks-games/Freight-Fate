@@ -62,23 +62,27 @@ pub fn job_pairing(ctx: &GameContext, job: &Job) -> Pairing {
 }
 
 /// The terms, as the handover rows' help reads them.
-pub fn terms_text(ctx: &GameContext, name: &str) -> String {
-    format!("{} {}", back_text(ctx, name), pay_text(ctx, name))
+pub fn terms_text(ctx: &GameContext, co_driver_name: &str) -> String {
+    format!(
+        "{} {}",
+        back_text(ctx, co_driver_name),
+        pay_text(ctx, co_driver_name)
+    )
 }
 
 /// The pay and the logbook while the co-driver drives.
-fn pay_text(ctx: &GameContext, name: &str) -> String {
+fn pay_text(ctx: &GameContext, co_driver_name: &str) -> String {
     let owner = is_owner_operator(&profile_of(ctx).business_status);
     let pay = if owner {
         format!(
-            "You pay {name} {} percent of the settlement for the miles they drive.",
+            "You pay {co_driver_name} {} percent of the settlement for the miles they drive.",
             (co_driver::OWNER_CO_DRIVER_PAY_SHARE * 100.0).round()
         )
     } else {
-        format!("Miles {name} drives pay you half.")
+        format!("Miles {co_driver_name} drives pay you half.")
     };
     format!(
-        "{pay} Those miles earn you half the experience. While {name} drives, you are logged in \
+        "{pay} Those miles earn you half the experience. While {co_driver_name} drives, you are logged in \
          the sleeper berth."
     )
 }
@@ -122,7 +126,11 @@ fn drive_min_left(ctx: &GameContext, d: &DrivingState) -> f64 {
 /// The flag is true when the text says the hand-back itself, awake with the
 /// player's own hours reaching the receiver, so the help leaves out the
 /// usual "once you have had your 10-hour rest", which would be untrue.
-fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<(String, bool)> {
+fn short_shift_text(
+    ctx: &GameContext,
+    d: &DrivingState,
+    co_driver_name: &str,
+) -> Option<(String, bool)> {
     let mode = &ctx.settings.hos_mode;
     let player = &profile_of(ctx).hos;
     let usable = hours_end_handover(ctx, d)?;
@@ -146,12 +154,12 @@ fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<(
     if co_driver::player_finishes(&at_end, mode, trip_after) {
         let text = if lot_in_reach {
             format!(
-                "{name} has {left} of driving left, then parks and hands you the wheel. Your own \
+                "{co_driver_name} has {left} of driving left, then parks and hands you the wheel. Your own \
                  hours reach the receiver from there."
             )
         } else {
             format!(
-                "{name} has {left} of driving left and no truck lot in reach, so they stop on the \
+                "{co_driver_name} has {left} of driving left and no truck lot in reach, so they stop on the \
                  shoulder and hand you the wheel. Your own hours reach the receiver from there."
             )
         };
@@ -159,12 +167,12 @@ fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<(
     }
     let text = if lot_in_reach {
         format!(
-            "{name} has {left} of driving left, short of your 10-hour rest, so they park and you \
+            "{co_driver_name} has {left} of driving left, short of your 10-hour rest, so they park and you \
              finish it there."
         )
     } else {
         format!(
-            "{name} has {left} of driving left, short of your 10-hour rest, and no truck lot in \
+            "{co_driver_name} has {left} of driving left, short of your 10-hour rest, and no truck lot in \
              reach, so they stop on the shoulder and you finish it there. Shoulder rest is poor \
              and risks a ticket or minor damage."
         )
@@ -176,14 +184,14 @@ fn short_shift_text(ctx: &GameContext, d: &DrivingState, name: &str) -> Option<(
 /// co-driver is offered: at the shipper's dock (`at_dock`) or in the pause
 /// menu. Before it, the rows turned up with nothing to say why (owner
 /// report, 2026-10-19).
-pub fn intro_text(name: &str, at_dock: bool) -> String {
+pub fn intro_text(co_driver_name: &str, at_dock: bool) -> String {
     let take = if at_dock {
         format!(
-            "{name} can drive from here, or take over later from the pause menu, while you rest \
+            "{co_driver_name} can drive from here, or take over later from the pause menu, while you rest \
              in the sleeper."
         )
     } else {
-        format!("{name} can take the wheel from this menu while you rest in the sleeper.")
+        format!("{co_driver_name} can take the wheel from this menu while you rest in the sleeper.")
     };
     // When they hand back is on the rows' help with the pay terms, so the
     // load line stays short (owner, 2026-11-04).
@@ -191,25 +199,25 @@ pub fn intro_text(name: &str, at_dock: bool) -> String {
 }
 
 /// When the co-driver hands the wheel back.
-fn back_text(ctx: &GameContext, name: &str) -> String {
+fn back_text(ctx: &GameContext, co_driver_name: &str) -> String {
     let mode = &ctx.settings.hos_mode;
     if !co_driver::enforced(mode) {
-        format!("{name} drives to the receiver's gate unless something needs you.")
+        format!("{co_driver_name} drives to the receiver's gate unless something needs you.")
     } else if co_driver::fully_rested(&profile_of(ctx).hos) {
-        format!("{name} drives until their own hours run out.")
+        format!("{co_driver_name} drives until their own hours run out.")
     } else {
-        format!("{name} hands the wheel back once you have had your 10-hour rest.")
+        format!("{co_driver_name} hands the wheel back once you have had your 10-hour rest.")
     }
 }
 
 /// The introduction, if this career has not heard it yet. The caller
 /// marks it heard (`mark_intro_heard`) once it is actually spoken.
-pub fn new_intro(ctx: &GameContext, name: &str, at_dock: bool) -> Option<String> {
+pub fn new_intro(ctx: &GameContext, co_driver_name: &str, at_dock: bool) -> Option<String> {
     let profile = ctx.profile.as_ref()?;
     if co_driver::introduced(&profile.achievement_stats) {
         return None;
     }
-    Some(intro_text(name, at_dock))
+    Some(intro_text(co_driver_name, at_dock))
 }
 
 /// Record that this career has heard the introduction.
@@ -221,8 +229,8 @@ pub fn mark_intro_heard(ctx: &mut GameContext) {
 
 /// The introduction, if this career has not heard it yet, marked heard:
 /// for a caller that speaks it straight away.
-pub fn take_intro(ctx: &mut GameContext, name: &str, at_dock: bool) -> Option<String> {
-    let intro = new_intro(ctx, name, at_dock)?;
+pub fn take_intro(ctx: &mut GameContext, co_driver_name: &str, at_dock: bool) -> Option<String> {
+    let intro = new_intro(ctx, co_driver_name, at_dock)?;
     mark_intro_heard(ctx);
     Some(intro)
 }
@@ -255,29 +263,29 @@ impl PauseMenuState {
             return Vec::new();
         }
         let pairing = d.team_pairing(ctx);
-        let name = pairing.co_driver.name;
+        let co_driver_name = pairing.co_driver.name;
         // Kept until the menu's entry speaks it; a refresh that builds
         // these rows does not use it up.
-        self.team_intro = new_intro(ctx, name, false);
+        self.team_intro = new_intro(ctx, co_driver_name, false);
         let carrier = ff_core::models::career::carrier_name_of(profile_of(ctx));
         let who = co_driver::pairing_line(&pairing, &carrier);
-        let terms = match short_shift_text(ctx, d, name) {
-            Some((short, true)) => format!("{short} {}", pay_text(ctx, name)),
-            Some((short, false)) => format!("{short} {}", terms_text(ctx, name)),
-            None => terms_text(ctx, name),
+        let terms = match short_shift_text(ctx, d, co_driver_name) {
+            Some((short, true)) => format!("{short} {}", pay_text(ctx, co_driver_name)),
+            Some((short, false)) => format!("{short} {}", terms_text(ctx, co_driver_name)),
+            None => terms_text(ctx, co_driver_name),
         };
         // When their hours end the hand-over, the rows say for how long.
         let (ride, sleep) = match hours_end_handover(ctx, d) {
             Some(usable) => {
                 let time = hos::duration_text(usable / 60.0);
                 (
-                    format!("Hand the wheel to {name} for {time} and ride along"),
-                    format!("Hand the wheel to {name} for {time} and sleep"),
+                    format!("Hand the wheel to {co_driver_name} for {time} and ride along"),
+                    format!("Hand the wheel to {co_driver_name} for {time} and sleep"),
                 )
             }
             None => (
-                format!("Hand the wheel to {name} and ride along"),
-                format!("Hand the wheel to {name} and sleep"),
+                format!("Hand the wheel to {co_driver_name} and ride along"),
+                format!("Hand the wheel to {co_driver_name} and sleep"),
             ),
         };
         vec![
@@ -291,7 +299,7 @@ impl PauseMenuState {
                 s.hand_over(ctx, TeamMode::SleepThrough)
             })
             .help(format!(
-                "{who} You wake when {name} needs you, with a summary of the drive. {terms}"
+                "{who} You wake when {co_driver_name} needs you, with a summary of the drive. {terms}"
             )),
         ]
     }

@@ -6,6 +6,7 @@
 use ff_core::models::profile::CHAIN_REPAIR_LINKS_PER_SET;
 use ff_core::pyfmt::fmt_f;
 use ff_core::sim::chain_control::{snow_or_ice, ChainSetEvent};
+use ff_core::sim::chain_work::{ChainAnswer, ChainCue, ChainWorker};
 use ff_core::sim::hos::limits;
 use ff_core::sim::trip_models::CHAIN_LAW_LEAD_MI;
 use ff_core::speech_pacing::SpeechCategory;
@@ -21,14 +22,8 @@ use crate::states::driving_core::{
 };
 use crate::states::driving_stops::assist_servo_brake;
 
-/// The roadside step facility stopping assistance is pulling over for.
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum ChainStopKind {
-    Install,
-    Remove,
-    Tighten,
-    Repair,
-}
+/// The roadside step a chain stop pulls over for (`ff_core::sim::chain_work`).
+pub use ff_core::sim::chain_work::ChainStopKind;
 
 /// A pending chain stop: what, and the route mile it brakes for.
 #[derive(Debug, Clone, PartialEq)]
@@ -38,6 +33,9 @@ pub struct ChainStop {
     /// The driver's pedal was already down when the stop armed. Held on, it
     /// doesn't cancel; a fresh press does.
     pub held_input: bool,
+    /// A chain-up armed inside the area, for a law that posted with the
+    /// truck already on the grade.
+    pub on_grade: bool,
 }
 
 /// The chain-up stop arms this far before a chain-law area that would chain
@@ -54,8 +52,8 @@ const METERS_PER_MILE: f64 = 1609.344;
 
 impl DrivingState {
     /// Move the chains (`ChainSet::next`), the one place they move. A
-    /// bare-road cue goes to facility stopping assistance when it is on,
-    /// and is said to the driver otherwise: one line either way.
+    /// bare-road cue goes to whoever does the chain work (`chain_worker`):
+    /// a line for the driver, or a stop for the assist or the co-driver.
     pub fn chain_set_event(&mut self, event: ChainSetEvent) {
         let (next, cue) = self.chain_set.next(event);
         self.chain_set = next;
@@ -64,8 +62,19 @@ impl DrivingState {
         }
     }
 
+    /// Who does the chain work now: whoever holds the wheel
+    /// (`ChainWorker::pick`).
+    pub fn chain_worker(&self, ctx: &GameContext) -> ChainWorker {
+        ChainWorker::pick(
+            self.co_driver_driving(),
+            ctx.settings.destination_approach_assist,
+        )
+    }
+
     /// The chains against the road under them, once a frame after the
-    /// physics, and the bare-road line when the assist won't take them off.
+    /// physics, and the bare-road line when the driver is the one to take
+    /// them off. A stop for the assist or the co-driver is armed in
+    /// `update_chain_stop_assist`.
     pub fn update_chain_set(&mut self, ctx: &mut GameContext) {
         let snapped = self.trip.truck.chains_just_snapped;
         if snapped {
@@ -74,15 +83,16 @@ impl DrivingState {
         }
         self.chain_set_event(ChainSetEvent::Road {
             snow: snow_or_ice(&self.trip.truck.surface),
-            mile: self.trip.position_mi,
+            bare_mi: self.trip.truck.chain_bare_mi,
         });
-        if self.chain_bare_cue_pending
-            && (!ctx.settings.destination_approach_assist || !self.trip.truck.chains_on)
-        {
+        if !self.chain_bare_cue_pending {
+            return;
+        }
+        if !self.trip.truck.chains_on {
             self.chain_bare_cue_pending = false;
-            if self.trip.truck.chains_on {
-                self.say_bare_road(ctx);
-            }
+        } else if self.chain_worker(ctx).answer(ChainCue::BareRoad) == ChainAnswer::Speak {
+            self.chain_bare_cue_pending = false;
+            self.say_bare_road(ctx);
         }
     }
 
@@ -156,17 +166,16 @@ impl DrivingState {
             Some("on_duty_not_driving"),
             "chain up",
         );
-        {
+        // A co-driver's work is on their logbook, never the player's fatigue.
+        if !self.co_driver_driving() {
             let p = profile_mut_of(ctx);
             p.fatigue = (p.fatigue + fatigue).min(100.0);
         }
         self.trip.truck.chains_on = true;
         // The road as it reads after the clock moved, not before the work.
         let surface_snow = snow_or_ice(self.trip.weather.effects().surface);
-        self.chain_set_event(ChainSetEvent::Installed {
-            surface_snow,
-            mile: self.trip.position_mi,
-        });
+        self.trip.truck.chain_bare_mi = 0.0;
+        self.chain_set_event(ChainSetEvent::Installed { surface_snow });
         self.chains_fast_active = false;
         self.chain_slap_said = false;
         self.chain_tightened = false;
@@ -215,9 +224,9 @@ impl DrivingState {
         profile_mut_of(ctx).set_chain_repair_links(links - 1);
         self.trip.truck.chain_wear_pct = 100.0 - CHAIN_REPAIR_WEAR_RESTORE;
         self.trip.truck.chains_on = true;
+        self.trip.truck.chain_bare_mi = 0.0;
         self.chain_set_event(ChainSetEvent::Repaired {
             surface_snow: snow_or_ice(self.trip.weather.effects().surface),
-            mile: self.trip.position_mi,
         });
         self.chains_fast_active = false;
         self.chain_slap_said = false;
@@ -275,7 +284,7 @@ impl DrivingState {
             Some("on_duty_not_driving"),
             "remove chains",
         );
-        {
+        if !self.co_driver_driving() {
             let p = profile_mut_of(ctx);
             p.fatigue = (p.fatigue + CHAIN_REMOVE_FATIGUE).min(100.0);
         }
@@ -300,21 +309,29 @@ impl DrivingState {
         Some(text)
     }
 
-    /// Facility stopping assistance's roadside chain work: it pulls over to
-    /// put chains on before a chain-law area that chains the rig, takes them
-    /// off once they have run bare road (`ChainSet`'s cue), tightens a slapping chain and
-    /// fixes a broken one. Run with the other assists' pedals, ahead of the
+    /// The roadside chain work of the assist or the co-driver, whichever
+    /// holds the wheel (`chain_worker`): it pulls over to put chains on for
+    /// a chain-law area that chains the rig, takes them off once they have
+    /// run bare road (`ChainSet`'s cue), tightens a slapping chain and fixes
+    /// a broken one. Run with the other assists' pedals, ahead of the
     /// physics. It only spends on-duty minutes: it never buys chains or
     /// links, chooses a route, or chains up outside a chain-law area.
-    /// `driver_input` is the driver's own brake or throttle this frame.
+    /// `driver_input` is the driver's own brake or throttle this frame; the
+    /// co-driver's pedals never cancel their own stop.
     pub fn update_chain_stop_assist(&mut self, ctx: &mut GameContext, driver_input: bool) {
-        if !ctx.settings.destination_approach_assist {
-            // Turned off mid-drive: anything pending goes with it. A bare-road
-            // cue it had not answered yet is the driver's now.
-            self.chain_stop = None;
+        let worker = self.chain_worker(ctx);
+        if worker == ChainWorker::Driver {
+            // The driver's now (the assist turned off, or the wheel handed
+            // back): anything pending goes, and chains left on a bare road
+            // are the driver's line.
+            let removing = self
+                .chain_stop
+                .take()
+                .is_some_and(|stop| stop.kind == ChainStopKind::Remove);
             self.chain_stop_brake = 0.0;
             self.chain_assist_snapped = false;
-            if std::mem::take(&mut self.chain_bare_cue_pending) && self.trip.truck.chains_on {
+            let bare = std::mem::take(&mut self.chain_bare_cue_pending) || removing;
+            if bare && self.trip.truck.chains_on {
                 self.say_bare_road(ctx);
             }
             return;
@@ -322,23 +339,32 @@ impl DrivingState {
         if self.departure_chain || self.stop_chain.is_some() || self.ramp_mi.is_some() {
             return;
         }
+        let driver_input = driver_input && worker != ChainWorker::CoDriver;
         if self.chain_stop.is_some() {
-            self.run_chain_stop(ctx, driver_input);
+            self.run_chain_stop(ctx, worker, driver_input);
             return;
         }
-        self.arm_chain_stop(ctx, driver_input);
+        self.arm_chain_stop(ctx, worker, driver_input);
     }
 
-    fn arm_stop(&mut self, ctx: &mut GameContext, kind: ChainStopKind, at_mi: f64, held: bool) {
-        self.chain_stop = Some(ChainStop {
-            kind,
-            at_mi,
-            held_input: held,
-        });
+    fn arm_stop(&mut self, ctx: &mut GameContext, stop: ChainStop) {
+        self.chain_stop = Some(stop);
         self.chain_stop_brake = 0.0;
         // Cruise and the keeper hand back to the brake; they resume once
         // rolling again, under #437's chain cap while the chains are on.
         self.pause_speed_control(ctx, true);
+    }
+
+    fn arm(&mut self, ctx: &mut GameContext, kind: ChainStopKind, at_mi: f64, held: bool) {
+        self.arm_stop(
+            ctx,
+            ChainStop {
+                kind,
+                at_mi,
+                held_input: held,
+                on_grade: false,
+            },
+        );
     }
 
     /// Where a stop asked for now can brake to at a comfortable rate.
@@ -348,27 +374,54 @@ impl DrivingState {
         self.trip.position_mi + (meters / METERS_PER_MILE).max(0.15)
     }
 
-    fn say_chain_stop(ctx: &mut GameContext, line: String) {
-        ctx.say_event_with(line, SayEvent::new().category(SpeechCategory::Navigation));
+    /// The assist's line for a stop. The co-driver's work says nothing on
+    /// the road; their note comes when the job is done.
+    fn say_chain_stop(ctx: &mut GameContext, worker: ChainWorker, line: String) {
+        if worker.speaks() {
+            ctx.say_event_with(line, SayEvent::new().category(SpeechCategory::Navigation));
+        }
     }
 
-    fn arm_chain_stop(&mut self, ctx: &mut GameContext, held: bool) {
+    /// The chain-law area a chain-up answers now: the first one the truck
+    /// is inside, or whose start is within `CHAIN_STOP_ARM_MI`, where the
+    /// posted law chains this rig. With whether the truck is on its grade.
+    fn chain_up_area(&self) -> Option<(usize, f64, f64, bool)> {
         let here = self.trip.position_mi;
+        let (area, (start, end)) = self
+            .trip
+            .chain_law_areas
+            .iter()
+            .copied()
+            .enumerate()
+            .find(|(_, (start, end))| here <= *end && *start - here <= CHAIN_STOP_ARM_MI)?;
+        let on_grade = start < here;
+        let probe = if on_grade {
+            here
+        } else {
+            (start + CHAIN_LAW_LEAD_MI).min(end)
+        };
+        (!self.trip.truck.chains_on && !self.trip.rig_compliant_at(probe))
+            .then_some((area, start, end, on_grade))
+    }
+
+    fn arm_chain_stop(&mut self, ctx: &mut GameContext, worker: ChainWorker, held: bool) {
         // B4: a chain broke. Pull over and fix it with a spare link.
-        if self.chain_assist_snapped {
-            self.chain_assist_snapped = false;
-            if profile_of(ctx).chains_owned() {
+        if std::mem::take(&mut self.chain_assist_snapped) && profile_of(ctx).chains_owned() {
+            if let ChainAnswer::Stop(kind) = worker.answer(ChainCue::Snapped) {
                 if profile_of(ctx).chain_repair_links() <= 0 {
+                    self.co_driver_no_spare_link(ctx);
                     Self::say_chain_stop(
                         ctx,
+                        worker,
                         "No repair links left. The chain stays off.".to_string(),
                     );
                     return;
                 }
                 let at = self.chain_stop_point();
-                self.arm_stop(ctx, ChainStopKind::Repair, at, held);
+                self.arm(ctx, kind, at, held);
                 Self::say_chain_stop(
                     ctx,
+                    worker,
                     format!(
                         "Chain broke. Pulling over to fix it with a spare link, about {} \
                          minutes on duty.",
@@ -378,7 +431,7 @@ impl DrivingState {
                 return;
             }
         }
-        let in_area = self.trip.chain_law_area_at(here);
+        let in_area = self.trip.chain_law_area_at(self.trip.position_mi);
         // B3: the slap warning, inside a chain area, once per install.
         if self.trip.truck.chains_on
             && self.chain_slap_said
@@ -386,88 +439,122 @@ impl DrivingState {
             && !self.chain_assist_tighten_tried
             && in_area.is_some()
         {
-            self.chain_assist_tighten_tried = true;
-            let at = self.chain_stop_point();
-            self.arm_stop(ctx, ChainStopKind::Tighten, at, held);
-            Self::say_chain_stop(
-                ctx,
-                format!(
-                    "Chain slapping. Pulling over to tighten, about {} minutes on duty.",
-                    fmt_f(self.hand_work_min(ctx, CHAIN_TIGHTEN_MIN), 0)
-                ),
-            );
-            return;
-        }
-        // B1: chain up before an area that chains this rig.
-        let next = self
-            .trip
-            .chain_law_areas
-            .iter()
-            .enumerate()
-            .find(|(_, (start, _))| *start >= here && *start - here <= CHAIN_STOP_ARM_MI)
-            .map(|(i, (start, end))| (i, *start, *end));
-        if let Some((area, start, end)) = next {
-            let probe = (start + CHAIN_LAW_LEAD_MI).min(end);
-            if !self.chain_stop_areas_done.contains(&area)
-                && !self.trip.truck.chains_on
-                && !self.trip.rig_compliant_at(probe)
-            {
-                self.chain_stop_areas_done.insert(area);
-                if !self.chains_aboard(ctx) {
-                    Self::say_chain_stop(
-                        ctx,
-                        "No chains aboard. Facility stopping can't chain you up.".to_string(),
-                    );
-                    return;
-                }
-                let minutes = self.chain_install_min(ctx);
-                let window = limits(&ctx.settings.hos_mode)
-                    .map(|(_, duty_limit, _)| duty_limit - hos_of(ctx).duty_min);
-                if let Some(left) =
-                    window.filter(|left| *left < minutes + CHAIN_STOP_HOS_MARGIN_MIN)
-                {
-                    Self::say_chain_stop(
-                        ctx,
-                        format!(
-                            "Chain-up needs about {} minutes and your duty window has {} \
-                             left. Find a place to stop.",
-                            fmt_f(minutes, 0),
-                            fmt_f(left.max(0.0), 0)
-                        ),
-                    );
-                    return;
-                }
-                let at = start.max(self.chain_stop_point().min(start + CHAIN_LAW_LEAD_MI));
-                self.arm_stop(ctx, ChainStopKind::Install, at, held);
+            if let ChainAnswer::Stop(kind) = worker.answer(ChainCue::Slap) {
+                self.chain_assist_tighten_tried = true;
+                let at = self.chain_stop_point();
+                self.arm(ctx, kind, at, held);
                 Self::say_chain_stop(
                     ctx,
+                    worker,
                     format!(
-                        "Chain-up area. Stopping to put chains on, about {} minutes on \
-                         duty.",
-                        fmt_f(minutes, 0)
+                        "Chain slapping. Pulling over to tighten, about {} minutes on duty.",
+                        fmt_f(self.hand_work_min(ctx, CHAIN_TIGHTEN_MIN), 0)
                     ),
                 );
                 return;
             }
         }
+        // B1: chain up for an area that chains this rig: before it, or on
+        // its grade when the law posted with the truck already there.
+        if let Some((area, start, _, on_grade)) = self.chain_up_area() {
+            if !self.chain_stop_areas_done.contains(&area) {
+                if let ChainAnswer::Stop(kind) = worker.answer(ChainCue::LawPosted) {
+                    self.chain_stop_areas_done.insert(area);
+                    self.arm_chain_up(ctx, worker, kind, start, on_grade, held);
+                    return;
+                }
+            }
+        }
         // B2: chain off once the chains have run bare road (`ChainSet`'s
         // cue, inside a chain-law area or out of one: on a bare road no law
         // is posted to keep them on for).
-        if std::mem::take(&mut self.chain_bare_cue_pending) && self.trip.truck.chains_on {
-            let at = self.chain_stop_point();
-            self.arm_stop(ctx, ChainStopKind::Remove, at, held);
-            Self::say_chain_stop(
-                ctx,
-                format!(
-                    "Bare road. Taking chains off, about {} minutes on duty.",
-                    fmt_f(self.hand_work_min(ctx, CHAIN_REMOVE_MIN), 0)
-                ),
-            );
+        if self.chain_bare_cue_pending && self.trip.truck.chains_on {
+            if let ChainAnswer::Stop(kind) = worker.answer(ChainCue::BareRoad) {
+                self.chain_bare_cue_pending = false;
+                let at = self.chain_stop_point();
+                self.arm(ctx, kind, at, held);
+                Self::say_chain_stop(
+                    ctx,
+                    worker,
+                    format!(
+                        "Bare road. Taking chains off, about {} minutes on duty.",
+                        fmt_f(self.hand_work_min(ctx, CHAIN_REMOVE_MIN), 0)
+                    ),
+                );
+            }
         }
     }
 
+    /// Arm the chain-up stop. With no usable set aboard the assist says so
+    /// and the co-driver drives on to the control, which holds the truck
+    /// and wakes the player. The assist keeps a margin in the duty window;
+    /// the co-driver's own shift ends the usual way if the work runs it out.
+    fn arm_chain_up(
+        &mut self,
+        ctx: &mut GameContext,
+        worker: ChainWorker,
+        kind: ChainStopKind,
+        start: f64,
+        on_grade: bool,
+        held: bool,
+    ) {
+        if !self.chains_aboard(ctx) {
+            Self::say_chain_stop(
+                ctx,
+                worker,
+                "No chains aboard. Facility stopping can't chain you up.".to_string(),
+            );
+            return;
+        }
+        let minutes = self.chain_install_min(ctx);
+        if worker == ChainWorker::Assist {
+            let window = limits(&ctx.settings.hos_mode)
+                .map(|(_, duty_limit, _)| duty_limit - hos_of(ctx).duty_min);
+            if let Some(left) = window.filter(|left| *left < minutes + CHAIN_STOP_HOS_MARGIN_MIN) {
+                Self::say_chain_stop(
+                    ctx,
+                    worker,
+                    format!(
+                        "Chain-up needs about {} minutes and your duty window has {} \
+                         left. Find a place to stop.",
+                        fmt_f(minutes, 0),
+                        fmt_f(left.max(0.0), 0)
+                    ),
+                );
+                return;
+            }
+        }
+        let at = if on_grade {
+            self.chain_stop_point()
+        } else {
+            start.max(self.chain_stop_point().min(start + CHAIN_LAW_LEAD_MI))
+        };
+        self.arm_stop(
+            ctx,
+            ChainStop {
+                kind,
+                at_mi: at,
+                held_input: held,
+                on_grade,
+            },
+        );
+        // On the grade there is no chain-up area to name.
+        let line = if on_grade {
+            format!(
+                "Stopping to put chains on, about {} minutes on duty.",
+                fmt_f(minutes, 0)
+            )
+        } else {
+            format!(
+                "Chain-up area. Stopping to put chains on, about {} minutes on duty.",
+                fmt_f(minutes, 0)
+            )
+        };
+        Self::say_chain_stop(ctx, worker, line);
+    }
+
     /// Brake for the pending chain stop and, stopped, do the work.
-    fn run_chain_stop(&mut self, ctx: &mut GameContext, driver_input: bool) {
+    fn run_chain_stop(&mut self, ctx: &mut GameContext, worker: ChainWorker, driver_input: bool) {
         let Some(stop) = self.chain_stop.clone() else {
             return;
         };
@@ -475,7 +562,11 @@ impl DrivingState {
             // The driver takes it back; that step isn't retried.
             self.chain_stop = None;
             self.chain_stop_brake = 0.0;
-            Self::say_chain_stop(ctx, "Chain stop canceled. Chains are yours.".to_string());
+            Self::say_chain_stop(
+                ctx,
+                worker,
+                "Chain stop canceled. Chains are yours.".to_string(),
+            );
             return;
         }
         if !driver_input {
@@ -497,8 +588,15 @@ impl DrivingState {
                 ChainStopKind::Tighten => self.do_tighten_chains(ctx),
                 ChainStopKind::Repair => self.do_repair_chain(ctx),
             };
-            if let Some(text) = text {
-                Self::say_chain_stop(ctx, format!("{text} Release the parking brake to go on."));
+            if text.is_some() && worker == ChainWorker::CoDriver {
+                // They release the brake and drive on themselves.
+                self.co_driver_chain_note(ctx, stop.kind, stop.on_grade);
+            } else if let Some(text) = text {
+                Self::say_chain_stop(
+                    ctx,
+                    worker,
+                    format!("{text} Release the parking brake to go on."),
+                );
             }
             return;
         }
