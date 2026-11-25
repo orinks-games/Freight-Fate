@@ -109,6 +109,7 @@ pub fn apply_carrier_move(
     profile.carrier_key = option.key.to_string();
     profile.carrier_name = option.carrier_name.to_string();
     profile.dispatch_board_cache = None;
+    profile.note_carrier_changed();
     let terminal = home_terminal_city_or_fallback(carrier(option.key), world, &home);
     let moved =
         world.resolve_city_key(&terminal) != world.resolve_city_key(&profile.home_terminal_city);

@@ -242,6 +242,7 @@ impl TrailerOwner for Profile {
 impl StartProfile for Profile {
     fn set_carrier_key(&mut self, key: &str) {
         self.carrier_key = key.to_string();
+        self.note_carrier_changed();
     }
     fn set_home_terminal_city(&mut self, city: &str) {
         self.home_terminal_city = city.to_string();

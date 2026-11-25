@@ -101,6 +101,7 @@ pub fn copy_forward_1_9_careers() -> io::Result<usize> {
                 _ => continue,
             };
             profile.created_line = CREATED_LINE.to_string();
+            profile.carry_over_from_1_9();
             let copied_path = profile.save()?;
             std::fs::OpenOptions::new()
                 .write(true)
@@ -115,6 +116,21 @@ pub fn copy_forward_1_9_careers() -> io::Result<usize> {
     Ok(count)
 }
 
+/// Whether a 2.0 save with no `carryover` field is a 1.9 career an
+/// earlier 2.0 build copied: its slot is in the copy record and its home
+/// city is blank. The record alone is not enough (it also lists a 1.9 slot
+/// that found a 2.0 career of the same name already there and was not
+/// copied); a 2.0 start always writes a home city, so the pair picks out the
+/// copies. Wrong only for a career started from a build that saved no home
+/// city, under the same name as a 1.9 career.
+pub(super) fn copied_by_an_earlier_build(name: &str) -> bool {
+    let Ok(bytes) = std::fs::read(career_data_dir().join(COPIED)) else {
+        return false;
+    };
+    serde_json::from_slice::<BTreeSet<String>>(&bytes)
+        .is_ok_and(|copied| copied.contains(&signing::sanitized_stem(name)))
+}
+
 fn write_marker(path: &Path, copied: &BTreeSet<String>) -> io::Result<()> {
     let tmp = path.with_extension("json.tmp");
     std::fs::write(&tmp, serde_json::to_vec(copied).map_err(io::Error::other)?)?;
@@ -125,7 +141,174 @@ fn write_marker(path: &Path, copied: &BTreeSet<String>) -> io::Result<()> {
 mod tests {
     use super::super::tests::with_data_dir;
     use super::*;
+    use crate::models::carryover::Carryover;
     use serde_json::json;
+
+    /// A signed 1.9 save shaped by `edit`, copied forward, and loaded back.
+    fn copied(name: &str, edit: impl FnOnce(&mut Map<String, Value>)) -> Profile {
+        let (path, mut data) = old_save(name, false);
+        data.remove("home_terminal_city");
+        data.remove("home_city");
+        data.remove("carryover");
+        edit(&mut data);
+        data.remove(SIGNATURE_FIELD);
+        data.insert(SIGNATURE_FIELD.into(), json!(signature_for(&data, None)));
+        std::fs::write(&path, encode_save_bytes(&data)).unwrap();
+        assert_eq!(copy_forward_1_9_careers().unwrap(), 1);
+        Profile::load(&save_path_for(name)).unwrap()
+    }
+
+    fn first_delivery(data: &mut Map<String, Value>, city: &str) {
+        data.insert("achievement_stats".into(), json!({ "home_city": city }));
+    }
+
+    #[test]
+    fn a_northstar_career_takes_its_home_from_the_first_delivery_and_its_truck_stays() {
+        with_data_dir(|_| {
+            let p = copied("North", |d| {
+                d.insert("carrier_key".into(), json!("northstar"));
+                d.insert("current_city".into(), json!("miami_fl_us"));
+                first_delivery(d, "chicago_il_us");
+            });
+            assert_eq!(p.carryover, Carryover::Settled);
+            assert_eq!(p.home_city, "chicago_il_us");
+            assert_eq!(p.home_terminal_city, "chicago_il_us");
+            assert_eq!(p.current_city, "miami_fl_us");
+        });
+    }
+
+    #[test]
+    fn a_prairie_link_career_far_from_its_lanes_owes_the_choice_and_borrows_no_terminal() {
+        with_data_dir(|_| {
+            let p = copied("Plains", |d| {
+                d.insert("carrier_key".into(), json!("prairie_link"));
+                d.insert("carrier_name".into(), json!("Prairie Link Regional"));
+                d.insert("current_city".into(), json!("miami_fl_us"));
+            });
+            assert_eq!(p.carryover, Carryover::CarrierChoiceDue);
+            assert!(p.carrier_choice_due());
+            assert_eq!(p.home_city, "");
+            assert_eq!(p.home_terminal_city, "miami_fl_us");
+            assert_eq!(p.current_city, "miami_fl_us");
+            assert!(!p.carrier_still_serves_home());
+            assert!(p
+                .carrier_home_terminal(crate::data::world::get_world())
+                .is_none());
+            // Reloading never swaps in the fallback carrier's terminal.
+            let again = Profile::load(&save_path_for("Plains")).unwrap();
+            assert_eq!(again.home_terminal_city, "miami_fl_us");
+            assert!(!again.needs_migration_resave);
+            let notice = again.carrier_choice_notice().unwrap();
+            assert_eq!(
+                notice,
+                "Prairie Link Regional now runs freight only in the central plains around \
+                 Kansas City, Omaha, and Wichita. It no longer dispatches from Miami. Choose a \
+                 carrier to keep driving. Your money, level, trucks and driving record stay."
+            );
+        });
+    }
+
+    #[test]
+    fn a_prairie_link_career_in_range_owes_the_choice_at_its_own_terminal() {
+        with_data_dir(|_| {
+            let p = copied("Topeka", |d| {
+                d.insert("carrier_key".into(), json!("prairie_link"));
+                d.insert("carrier_name".into(), json!("Prairie Link Regional"));
+                d.insert("current_city".into(), json!("topeka_ks_us"));
+            });
+            assert_eq!(p.carryover, Carryover::CarrierChoiceDue);
+            assert!(p.carrier_still_serves_home());
+            assert!(crate::models::carriers::carrier("prairie_link")
+                .unwrap()
+                .terminal_city_keys
+                .contains(&p.home_terminal_city));
+            assert!(p
+                .carrier_choice_notice()
+                .unwrap()
+                .contains("Stay with them or choose another carrier."));
+        });
+    }
+
+    #[test]
+    fn a_1_9_file_placed_in_the_2_0_folder_is_carried_over_on_load() {
+        with_data_dir(|_| {
+            let mut p = Profile::named_in("Placed", "miami_fl_us");
+            p.created_line = "1.9".into();
+            p.carrier_key = "prairie_link".into();
+            p.carrier_name = "Prairie Link Regional".into();
+            let mut data = p.to_dict();
+            for key in ["carryover", "home_city", "home_terminal_city"] {
+                data.remove(key);
+            }
+            data.insert(SIGNATURE_FIELD.into(), json!(signature_for(&data, None)));
+            let path = save_path_for("Placed");
+            std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+            sealed::write(&path, &encode_save_bytes(&data)).unwrap();
+            let loaded = Profile::load(&path).unwrap();
+            assert_eq!(loaded.created_line, "2.0");
+            assert_eq!(loaded.carryover, Carryover::CarrierChoiceDue);
+            assert_eq!(loaded.home_terminal_city, "miami_fl_us");
+            // The resave wrote it: the next load finds a 2.0 career.
+            let again = Profile::load(&path).unwrap();
+            assert_eq!(again.created_line, "2.0");
+            assert_eq!(again.carryover, Carryover::CarrierChoiceDue);
+            assert!(!again.needs_migration_resave);
+        });
+    }
+
+    #[test]
+    fn an_own_authority_career_is_settled() {
+        with_data_dir(|_| {
+            let p = copied("Indie", |d| {
+                d.insert("business_status".into(), json!("independent_authority"));
+                d.insert("carrier_key".into(), json!("prairie_link"));
+                d.insert("current_city".into(), json!("miami_fl_us"));
+            });
+            assert_eq!(p.carryover, Carryover::Settled);
+            assert!(!p.carrier_choice_due());
+        });
+    }
+
+    #[test]
+    fn a_career_an_earlier_build_copied_takes_the_same_path_once() {
+        with_data_dir(|_| {
+            // What an earlier 2.0 build wrote: a copy with no carryover field,
+            // homed on the fallback carrier's terminal, its slot recorded.
+            let mut p = Profile::named_in("Early", "miami_fl_us");
+            p.carrier_key = "prairie_link".into();
+            p.carrier_name = "Prairie Link Regional".into();
+            p.home_city.clear();
+            p.home_terminal_city = "chicago_il_us".into();
+            let mut data = p.to_dict();
+            data.remove("carryover");
+            data.insert(SIGNATURE_FIELD.into(), json!(signature_for(&data, None)));
+            let path = save_path_for("Early");
+            std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+            sealed::write(&path, &encode_save_bytes(&data)).unwrap();
+            std::fs::write(career_data_dir().join(COPIED), br#"["Early"]"#).unwrap();
+            let loaded = Profile::load(&path).unwrap();
+            assert_eq!(loaded.carryover, Carryover::CarrierChoiceDue);
+            assert_eq!(loaded.home_terminal_city, "miami_fl_us");
+            // Settled once: a later load reads the saved field and leaves it.
+            let mut settled = loaded.clone();
+            settled.carryover = Carryover::Settled;
+            settled.save().unwrap();
+            assert_eq!(Profile::load(&path).unwrap().carryover, Carryover::Settled);
+
+            // A 2.0 start under a recorded 1.9 name keeps its home and stays
+            // native.
+            let mut native = Profile::named_in("Native", "topeka_ks_us");
+            native.carrier_key = "prairie_link".into();
+            native.home_city = "topeka_ks_us".into();
+            let mut data = native.to_dict();
+            data.remove("carryover");
+            data.insert(SIGNATURE_FIELD.into(), json!(signature_for(&data, None)));
+            let path = save_path_for("Native");
+            sealed::write(&path, &encode_save_bytes(&data)).unwrap();
+            std::fs::write(career_data_dir().join(COPIED), br#"["Early","Native"]"#).unwrap();
+            assert_eq!(Profile::load(&path).unwrap().carryover, Carryover::Native);
+        });
+    }
 
     fn old_save(name: &str, plain: bool) -> (std::path::PathBuf, Map<String, Value>) {
         let mut p = Profile::named(name);
@@ -212,6 +395,10 @@ mod tests {
             let loaded = Profile::load(&save_path_for("Migrant")).unwrap();
             assert_eq!(loaded.home_terminal_city, "portland_or_us");
             assert_eq!(loaded.current_city, "seattle_wa_us");
+            // With no first-delivery record the truck's city only picks the
+            // terminal: the home city stays blank.
+            assert_eq!(loaded.home_city, "");
+            assert_eq!(loaded.carryover, Carryover::Settled);
             assert!(!loaded.needs_migration_resave);
             assert_eq!(std::fs::read(&path).unwrap(), before);
 

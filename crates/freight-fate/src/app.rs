@@ -391,6 +391,29 @@ impl PlayerInputFrame<'_> {
         }
     }
 
+    /// The carry-over as `status` reports it: the state key, the carrier
+    /// and where the driver lives, or "no_career".
+    pub fn carryover_state(&self) -> String {
+        match self.app.ctx.profile.as_ref() {
+            Some(p) => format!(
+                "{}; carrier {}; home_city {}; home_terminal_city {}",
+                p.carryover.key(),
+                if p.carrier_key.is_empty() {
+                    "none"
+                } else {
+                    p.carrier_key.as_str()
+                },
+                if p.home_city.is_empty() {
+                    "blank"
+                } else {
+                    p.home_city.as_str()
+                },
+                p.home_terminal_city
+            ),
+            None => "no_career".to_string(),
+        }
+    }
+
     pub fn cloud_resume_state(&self) -> ff_core::cloud_resume::CheckState {
         self.app.ctx.cloud_saves_service().resume_state()
     }

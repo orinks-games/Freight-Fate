@@ -11644,6 +11644,122 @@ msgstr "nhà bạn ở {city}"
 msgid "your terminal in {city}"
 msgstr "trạm của bạn ở {city}"
 
+msgid "carryover"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stay with them or choose another carrier."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your money, level, trucks and driving record stay."
+msgstr ""
+
+#. placeholders: {name}, {area}
+#. one sentence of a longer line
+msgid "{name} now runs freight only in {area}."
+msgstr ""
+
+#. placeholders: {name}, {area}
+msgid ""
+"{name} now runs freight only in {area}. Stay with them or choose another "
+"carrier. Your money, level, trucks and driving record stay."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Choose a carrier to keep driving."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid "It no longer dispatches from {city}."
+msgstr ""
+
+#. placeholders: {name}, {area}, {city}
+msgid ""
+"{name} now runs freight only in {area}. It no longer dispatches from "
+"{city}. Choose a carrier to keep driving. Your money, level, trucks and "
+"driving record stay."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}, {city}
+#. one sentence of a longer line
+msgid "You are now leased on to {name}, out of their {city} terminal."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You are now leased on to {name}, out of their {city} terminal. Your truck "
+"stays where it is parked. The dispatch board is open again."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your truck stays where it is parked."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid ""
+"You start at their {city} terminal, where your assigned truck is waiting."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} has taken you on."
+msgstr "{name} đã nhận bạn vào làm."
+
+#. placeholders: {name}, {city}
+msgid ""
+"{name} has taken you on. You start at their {city} terminal, where your "
+"assigned truck is waiting. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You stay leased on to {name}."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay leased on to {name}. Your home is now {city}. Your truck stays "
+"where it is parked. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid "Your home is now {city}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "You stay leased on to {name}. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You stay with {name}."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay with {name}. Your home is now {city}. You start at their {city} "
+"terminal, where your assigned truck is waiting. The dispatch board is open "
+"again."
+msgstr ""
+
+#. placeholders: {name}
+msgid "You stay with {name}. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay with {name}. You start at their {city} terminal, where your "
+"assigned truck is waiting. The dispatch board is open again."
+msgstr ""
+
 #. placeholders: {target}
 msgid ""
 "Freight Fate moved the saves that were in this folder to:\n"
@@ -11740,42 +11856,6 @@ msgstr "Tệp lưu bị hỏng, không thể đọc được."
 
 msgid "Save file is not a profile object."
 msgstr "Tệp lưu không đúng định dạng hồ sơ."
-
-msgid "Legacy Driver"
-msgstr "Tài xế cũ"
-
-msgid "deliveries"
-msgstr "chuyến giao"
-
-msgid "seed"
-msgstr "seed"
-
-msgid "ab"
-msgstr "ab"
-
-msgid "Amarillo, TX"
-msgstr "Amarillo, TX"
-
-msgid "Café stop 🚚"
-msgstr "Café stop 🚚"
-
-msgid "note"
-msgstr "ghi chú"
-
-msgid "odometer"
-msgstr "công-tơ-mét"
-
-msgid "tiny"
-msgstr "rất nhỏ"
-
-msgid "big"
-msgstr "lớn"
-
-msgid "whole"
-msgstr "toàn bộ"
-
-msgid "grade"
-msgstr "độ dốc"
 
 msgid "watched"
 msgstr "bị giám sát"
@@ -12439,6 +12519,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
 msgstr "Điều phối giao đơn hàng dài tới {max} dặm."
+
+#. placeholders: {max}
+msgid "{max} miles"
+msgstr ""
 
 #. placeholders: {miles}
 msgid "{miles} miles"
@@ -14494,6 +14578,9 @@ msgstr "history"
 
 msgid "location"
 msgstr "vị trí"
+
+msgid "note"
+msgstr "ghi chú"
 
 msgid "unknown location"
 msgstr "vị trí không xác định"
@@ -18354,6 +18441,15 @@ msgstr "Bạn cầm lái từ {start_mi} dặm phía trước."
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
+#. placeholders: {key}, {carrier_key}, {home_city}, {home_terminal_city}
+msgid ""
+"{key}; carrier {carrier_key}; home_city {home_city}; home_terminal_city "
+"{home_terminal_city}"
+msgstr ""
+
+msgid "blank"
+msgstr ""
+
 #. placeholders: {i}
 msgid "job {i}"
 msgstr "đơn hàng {i}"
@@ -18987,6 +19083,9 @@ msgstr "Xem gương trái"
 
 msgid "Check right mirror"
 msgstr "Xem gương phải"
+
+msgid "grade"
+msgstr "độ dốc"
 
 msgid "Grade"
 msgstr "Độ dốc"
@@ -21525,6 +21624,44 @@ msgstr ""
 " Giới hạn tải trọng mùa xuân trên {highway} giữ xe này ở mức tổng "
 "{weight_text}."
 
+msgid "Choose a carrier"
+msgstr ""
+
+msgid ""
+"Carriers that hire where you live. Choosing one puts you on their payroll "
+"at the terminal named, and it is final. Escape returns to the terminal."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid "Stay with {carrier}: {city} terminal"
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid "Stay with {carrier}: moves your home to {city}"
+msgstr ""
+
+#. placeholders: {t}
+msgid " Truck starts at {t}."
+msgstr " Xe xuất phát tại {t}."
+
+#. placeholders: {name}, {summary}, {starts}
+msgid "{name}. {summary}{starts} Double tap again to choose."
+msgstr ""
+
+#. placeholders: {summary}, {starts}
+#. one sentence of a longer line
+msgid "{summary}{starts} Double tap again to choose."
+msgstr ""
+
+#. placeholders: {name}, {summary}, {starts}
+msgid "{name}. {summary}{starts} Press Enter again to choose."
+msgstr ""
+
+#. placeholders: {summary}, {starts}
+#. one sentence of a longer line
+msgid "{summary}{starts} Press Enter again to choose."
+msgstr ""
+
 msgid "Close out this career"
 msgstr "Khép lại sự nghiệp này"
 
@@ -21785,11 +21922,6 @@ msgstr ""
 "Bạn bắt đầu tại trạm {city} của hãng, nơi xe được giao đang chờ.{moved} "
 "Bảng đơn hàng đã mở trở lại."
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "{name} has taken you on."
-msgstr "{name} đã nhận bạn vào làm."
-
 #. placeholders: {name}, {city}, {moved}
 msgid ""
 "{name} has taken you on. You start at their {city} terminal, where your "
@@ -21831,6 +21963,34 @@ msgstr "Hướng dẫn ngày đầu"
 
 msgid "Career plan"
 msgstr "Kế hoạch sự nghiệp"
+
+#. one sentence of a longer line
+msgid "Stay, or pick who you drive for next."
+msgstr ""
+
+#. placeholders: {carrier}
+#. one sentence of a longer line
+msgid "{carrier} changed where it runs."
+msgstr ""
+
+#. placeholders: {carrier}
+msgid ""
+"{carrier} changed where it runs. Stay, or pick who you drive for next."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Pick who you drive for next."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+#. one sentence of a longer line
+msgid "{carrier} no longer dispatches from {city}."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid ""
+"{carrier} no longer dispatches from {city}. Pick who you drive for next."
+msgstr ""
 
 msgid "No nearby cities are reachable from here."
 msgstr "Không có thành phố lân cận nào đi tới được từ đây."
@@ -23086,10 +23246,6 @@ msgstr "Chuyển sang {carrier_name}: nhấn Enter lần nữa để xác nhận
 #. placeholders: {label}
 msgid "Move to {label}"
 msgstr "Chuyển sang {label}"
-
-#. placeholders: {t}
-msgid " Truck starts at {t}."
-msgstr " Xe xuất phát tại {t}."
 
 #. placeholders: {carrier_name}, {menu_summary}, {starts}
 msgid "{carrier_name}. {menu_summary}{starts} Double tap again to move."
@@ -46801,6 +46957,9 @@ msgstr "Hạng đội xe của hãng: {tier}"
 msgid "Current career resume"
 msgstr "Tóm tắt sự nghiệp hiện tại"
 
+msgid "deliveries"
+msgstr "chuyến giao"
+
 #. placeholders: {whole}
 msgid "Lifetime deliveries: {whole}"
 msgstr "Tổng số chuyến giao hàng: {whole}"
@@ -49069,6 +49228,33 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid "Legacy Driver"
+#~ msgstr "Tài xế cũ"
+
+#~ msgid "seed"
+#~ msgstr "seed"
+
+#~ msgid "ab"
+#~ msgstr "ab"
+
+#~ msgid "Amarillo, TX"
+#~ msgstr "Amarillo, TX"
+
+#~ msgid "Café stop 🚚"
+#~ msgstr "Café stop 🚚"
+
+#~ msgid "odometer"
+#~ msgstr "công-tơ-mét"
+
+#~ msgid "tiny"
+#~ msgstr "rất nhỏ"
+
+#~ msgid "big"
+#~ msgstr "lớn"
+
+#~ msgid "whole"
+#~ msgstr "toàn bộ"
 
 #~ msgid "Tires on concrete grooved across the lane: texture, not a decision."
 #~ msgstr ""

@@ -11702,6 +11702,122 @@ msgstr "votre domicile à {city}"
 msgid "your terminal in {city}"
 msgstr "votre terminal à {city}"
 
+msgid "carryover"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stay with them or choose another carrier."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your money, level, trucks and driving record stay."
+msgstr ""
+
+#. placeholders: {name}, {area}
+#. one sentence of a longer line
+msgid "{name} now runs freight only in {area}."
+msgstr ""
+
+#. placeholders: {name}, {area}
+msgid ""
+"{name} now runs freight only in {area}. Stay with them or choose another "
+"carrier. Your money, level, trucks and driving record stay."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Choose a carrier to keep driving."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid "It no longer dispatches from {city}."
+msgstr ""
+
+#. placeholders: {name}, {area}, {city}
+msgid ""
+"{name} now runs freight only in {area}. It no longer dispatches from "
+"{city}. Choose a carrier to keep driving. Your money, level, trucks and "
+"driving record stay."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}, {city}
+#. one sentence of a longer line
+msgid "You are now leased on to {name}, out of their {city} terminal."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You are now leased on to {name}, out of their {city} terminal. Your truck "
+"stays where it is parked. The dispatch board is open again."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your truck stays where it is parked."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid ""
+"You start at their {city} terminal, where your assigned truck is waiting."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} has taken you on."
+msgstr "{name} vous a embauché."
+
+#. placeholders: {name}, {city}
+msgid ""
+"{name} has taken you on. You start at their {city} terminal, where your "
+"assigned truck is waiting. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You stay leased on to {name}."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay leased on to {name}. Your home is now {city}. Your truck stays "
+"where it is parked. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid "Your home is now {city}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "You stay leased on to {name}. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You stay with {name}."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay with {name}. Your home is now {city}. You start at their {city} "
+"terminal, where your assigned truck is waiting. The dispatch board is open "
+"again."
+msgstr ""
+
+#. placeholders: {name}
+msgid "You stay with {name}. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay with {name}. You start at their {city} terminal, where your "
+"assigned truck is waiting. The dispatch board is open again."
+msgstr ""
+
 #. placeholders: {target}
 msgid ""
 "Freight Fate moved the saves that were in this folder to:\n"
@@ -11798,42 +11914,6 @@ msgstr "Le fichier de sauvegarde est endommagé et n'a pas pu être lu."
 
 msgid "Save file is not a profile object."
 msgstr "Le fichier de sauvegarde n'est pas un profil."
-
-msgid "Legacy Driver"
-msgstr "Legacy Driver"
-
-msgid "deliveries"
-msgstr "deliveries"
-
-msgid "seed"
-msgstr "seed"
-
-msgid "ab"
-msgstr "ab"
-
-msgid "Amarillo, TX"
-msgstr "Amarillo, TX"
-
-msgid "Café stop 🚚"
-msgstr "Café stop 🚚"
-
-msgid "note"
-msgstr "note"
-
-msgid "odometer"
-msgstr "odometer"
-
-msgid "tiny"
-msgstr "tiny"
-
-msgid "big"
-msgstr "big"
-
-msgid "whole"
-msgstr "whole"
-
-msgid "grade"
-msgstr "grade"
 
 msgid "watched"
 msgstr "surveillé"
@@ -12514,6 +12594,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
 msgstr "Le dispatch propose des chargements allant jusqu'à {max} miles."
+
+#. placeholders: {max}
+msgid "{max} miles"
+msgstr ""
 
 # same as English
 #. placeholders: {miles}
@@ -14637,6 +14721,9 @@ msgstr "history"
 
 msgid "location"
 msgstr "location"
+
+msgid "note"
+msgstr "note"
 
 msgid "unknown location"
 msgstr "lieu inconnu"
@@ -18548,6 +18635,15 @@ msgstr "Vous prenez le volant {start_mi} miles plus loin sur la route."
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
+#. placeholders: {key}, {carrier_key}, {home_city}, {home_terminal_city}
+msgid ""
+"{key}; carrier {carrier_key}; home_city {home_city}; home_terminal_city "
+"{home_terminal_city}"
+msgstr ""
+
+msgid "blank"
+msgstr ""
+
 #. placeholders: {i}
 msgid "job {i}"
 msgstr "mission {i}"
@@ -19195,6 +19291,9 @@ msgstr "Regarder le rétroviseur gauche"
 
 msgid "Check right mirror"
 msgstr "Regarder le rétroviseur droit"
+
+msgid "grade"
+msgstr "grade"
 
 msgid "Grade"
 msgstr "Pente"
@@ -21814,6 +21913,44 @@ msgstr ""
 " Les limites de poids de printemps sur {highway} limitent ce camion à "
 "{weight_text} de poids total."
 
+msgid "Choose a carrier"
+msgstr ""
+
+msgid ""
+"Carriers that hire where you live. Choosing one puts you on their payroll "
+"at the terminal named, and it is final. Escape returns to the terminal."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid "Stay with {carrier}: {city} terminal"
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid "Stay with {carrier}: moves your home to {city}"
+msgstr ""
+
+#. placeholders: {t}
+msgid " Truck starts at {t}."
+msgstr " Le camion commence à {t}."
+
+#. placeholders: {name}, {summary}, {starts}
+msgid "{name}. {summary}{starts} Double tap again to choose."
+msgstr ""
+
+#. placeholders: {summary}, {starts}
+#. one sentence of a longer line
+msgid "{summary}{starts} Double tap again to choose."
+msgstr ""
+
+#. placeholders: {name}, {summary}, {starts}
+msgid "{name}. {summary}{starts} Press Enter again to choose."
+msgstr ""
+
+#. placeholders: {summary}, {starts}
+#. one sentence of a longer line
+msgid "{summary}{starts} Press Enter again to choose."
+msgstr ""
+
 msgid "Close out this career"
 msgstr "Clôturer cette carrière"
 
@@ -22073,11 +22210,6 @@ msgstr ""
 "Vous commencez à leur terminal de {city}, où votre camion attribué vous "
 "attend.{moved} Le tableau des missions est de nouveau ouvert."
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "{name} has taken you on."
-msgstr "{name} vous a embauché."
-
 #. placeholders: {name}, {city}, {moved}
 msgid ""
 "{name} has taken you on. You start at their {city} terminal, where your "
@@ -22121,6 +22253,34 @@ msgstr "Briefing du premier jour"
 
 msgid "Career plan"
 msgstr "Plan de carrière"
+
+#. one sentence of a longer line
+msgid "Stay, or pick who you drive for next."
+msgstr ""
+
+#. placeholders: {carrier}
+#. one sentence of a longer line
+msgid "{carrier} changed where it runs."
+msgstr ""
+
+#. placeholders: {carrier}
+msgid ""
+"{carrier} changed where it runs. Stay, or pick who you drive for next."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Pick who you drive for next."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+#. one sentence of a longer line
+msgid "{carrier} no longer dispatches from {city}."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid ""
+"{carrier} no longer dispatches from {city}. Pick who you drive for next."
+msgstr ""
 
 msgid "No nearby cities are reachable from here."
 msgstr "Aucune ville proche n'est accessible d'ici."
@@ -23417,10 +23577,6 @@ msgstr ""
 #. placeholders: {label}
 msgid "Move to {label}"
 msgstr "Passer chez {label}"
-
-#. placeholders: {t}
-msgid " Truck starts at {t}."
-msgstr " Le camion commence à {t}."
 
 #. placeholders: {carrier_name}, {menu_summary}, {starts}
 msgid "{carrier_name}. {menu_summary}{starts} Double tap again to move."
@@ -47728,6 +47884,9 @@ msgstr "Échelon de flotte du transporteur : {tier}"
 msgid "Current career resume"
 msgstr "Parcours de la carrière actuelle"
 
+msgid "deliveries"
+msgstr "deliveries"
+
 #. placeholders: {whole}
 msgid "Lifetime deliveries: {whole}"
 msgstr "Livraisons en carrière : {whole}"
@@ -50055,6 +50214,33 @@ msgstr ""
 "Maintenez le left bumper pour une deuxième couche de boutons. {pad_engine} "
 "commande le moteur, {pad_fuel} lit le carburant, et {pad_speed_limit} lit "
 "la limitation."
+
+#~ msgid "Legacy Driver"
+#~ msgstr "Legacy Driver"
+
+#~ msgid "seed"
+#~ msgstr "seed"
+
+#~ msgid "ab"
+#~ msgstr "ab"
+
+#~ msgid "Amarillo, TX"
+#~ msgstr "Amarillo, TX"
+
+#~ msgid "Café stop 🚚"
+#~ msgstr "Café stop 🚚"
+
+#~ msgid "odometer"
+#~ msgstr "odometer"
+
+#~ msgid "tiny"
+#~ msgstr "tiny"
+
+#~ msgid "big"
+#~ msgstr "big"
+
+#~ msgid "whole"
+#~ msgstr "whole"
 
 #~ msgid "Tires on concrete grooved across the lane: texture, not a decision."
 #~ msgstr ""

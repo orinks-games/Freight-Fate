@@ -7571,12 +7571,26 @@ here 2026-09-25. Details stay in the linked dated sections.
       wait. Neither holds on the Dalton Highway or other remote Alaska and
       Canadian roads, where a callout takes far longer; scale both by road
       and remoteness.
-- [ ] (Found along the way) **A 1.9 career copied into 2.0 can carry a
-      home terminal its carrier does not run.** A Prairie Link driver who
-      lives in Miami comes over with the Milwaukee fallback terminal and no
-      home city, so a later let-go looks for carriers near Milwaukee. Pick
-      from the current city when the copied terminal is not one of the
-      carrier's own (R1 review, 2026-11-22).
+- [x] (Found along the way) **A 1.9 career copied into 2.0 can carry a
+      home terminal its carrier does not run.** Shipped as the carry-over
+      (`models::carryover::Carryover`: native, settled, carrier choice due,
+      saved as `carryover`). The copy takes the home from the first
+      delivery's city when the save has one (written to `home_city`), else
+      the truck's city (left blank), and never borrows another carrier's
+      terminal. A copied driver whose carrier is not national in 2.0 (today
+      Prairie Link alone) gets a one-time, no-fault "Choose a carrier" row in
+      place of the dispatch board once no load is in hand: stay (moving home
+      to the nearest terminal when out of range) or take any carrier hiring
+      where they live. Nothing on the driving record moves. Careers an
+      earlier 2.0 build copied take the same path once on load (R1 review,
+      2026-11-22; built 2026-11-25).
+- [ ] (Found along the way) **Ask carried careers where they live.** 1.9
+      never saved the home city, and the first delivery's city is only a
+      good guess. Once home time lands, ask a carried career once.
+- [ ] (Found along the way) **The same no-fault choice for any carrier 2.0
+      later retires or shrinks.** A `CarrierReshaped` event on `Carryover`
+      would offer the same "Choose a carrier" menu to every driver whose
+      carrier stops running where they live.
 - [ ] (Found along the way) **Employment is an implicit state machine.**
       `carrier_key`, `carrier_name`, `business_status`,
       `sufferance_carrier_key` and `let_go_by` move together across hiring,
@@ -7585,7 +7599,8 @@ here 2026-09-25. Details stay in the linked dated sections.
       with one `next(event)` and a transition table, reported by the agent
       server's `status` (R1 review, 2026-11-22).
       `BusinessStage` (below) now covers the ownership ladder; Employment
-      should sit beside it, not inside it.
+      should sit beside it, not inside it. `Carryover` (above) sits beside
+      both and only records whether a carried career still owes a choice.
 - [x] **The buy-in buys a tractor the driver chooses, at its price.** The
       flat 35,000 dollar buy-in handed over whatever dispatch had assigned,
       and first pick of the yard comes at level 17, so every driver up the

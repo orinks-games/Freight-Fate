@@ -205,6 +205,20 @@ terminal saying where its truck is.
 Pass when: the career plays in 2.0 with its money, level and record, and
 1.9 still opens the original unchanged.
 
+Then, with a 1.9 Prairie Link career (company driver or leased
+owner-operator) that lives outside Kansas, Missouri, Nebraska and
+Oklahoma: open its terminal in 2.0.
+
+Listen for: "Prairie Link Regional now runs freight only in the central
+plains around Kansas City, Omaha, and Wichita", and Choose a carrier
+where the dispatch board was. Escape out of the menu once, then come
+back: the notice plays again.
+
+Pass when: choosing another carrier, or staying with Prairie Link, opens
+the dispatch board, and Career stats shows the same money, level and
+driving record as before. A Prairie Link career restored from a 1.9
+cloud backup gets the same notice and choice.
+
 ## Chapter 3. Alaska
 
 ### 3.1 The Alaska Highway
