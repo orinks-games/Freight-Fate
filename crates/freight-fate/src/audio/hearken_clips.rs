@@ -25,7 +25,7 @@ const CAB_FRAME_BYTES: usize = 4;
 // cab recordings. Cropping there avoids the comb filtering that a long
 // head/tail crossfade added to the steady engine note. The frame count guards
 // against applying an old recording's edit points to a replacement.
-const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 11] = [
+const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 12] = [
     ("engine_stereo/idle", 141_773, 28_359, 108_091),
     ("engine_stereo/low", 23_516, 0, 23_516),
     ("engine_stereo/low", 115_761, 804, 84_393),
@@ -36,6 +36,10 @@ const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 11] = [
     ("engine_stereo/high", 49_472, 0, 49_472),
     ("engine_stereo/high", 136_293, 1_466, 128_564),
     (STEREO_HIGH_PULL.0, 17_702, 0, 17_702),
+    // The pull loop in the committed pack. Measured on the owner's PC: the
+    // step across its ends is under half the 99th-percentile step between
+    // neighbouring samples inside the file, so it loops whole.
+    (STEREO_HIGH_PULL.0, 52_848, 0, 52_848),
     (STEREO_HIGH_COAST.0, 16_372, 0, 16_372),
 ];
 
@@ -278,6 +282,20 @@ mod tests {
             &looped[..CAB_FRAME_BYTES],
             &cab_wav_samples(&wav).unwrap()[start * CAB_FRAME_BYTES..(start + 1) * CAB_FRAME_BYTES]
         );
+    }
+
+    #[test]
+    fn packed_high_pull_loops_whole() {
+        let frames = 52_848;
+        let pcm: Vec<i16> = (0..frames)
+            .flat_map(|frame| {
+                let sample = (frame % i16::MAX as usize) as i16;
+                [sample, -sample]
+            })
+            .collect();
+        let wav = ff_core::wav::pcm16_wav(&pcm, 2, CAB_SAMPLE_RATE);
+        let looped = cab_loop_samples(STEREO_HIGH_PULL.0, &wav).unwrap();
+        assert_eq!(looped, cab_wav_samples(&wav).unwrap());
     }
 
     #[test]
