@@ -8,7 +8,8 @@
 //! kilometers per hour on this grade" as it did. These cases drive the real
 //! exit: cruise holds its exit glide, the truck reaches the gore no faster than
 //! it was told, a driver who brakes on the curve warning keeps the load, and a
-//! truck at road speed is warned before the gore.
+//! truck at road speed is warned before the gore. The limit past the exit is
+//! not called either.
 
 use ff_core::data::world::get_world;
 use ff_core::sim::vehicle::MPS_TO_MPH;
@@ -219,6 +220,23 @@ fn test_a_truck_at_road_speed_hears_the_ramp_curve_warning_before_the_gore() {
         run.fastest_final >= 63.0,
         "the stage never reached road speed ({:.1})\n{}",
         run.fastest_final,
+        run.text
+    );
+}
+
+#[test]
+fn test_the_limit_past_the_exit_is_not_called_on_the_way_to_it() {
+    // Oshawa's 50 is on Highway 401 past exit 415; the truck leaves at the
+    // gore. "Speed limit drops to 50 in 5 kilometers." was said for it.
+    let run = run(oshawa(65.0), true, None);
+    assert!(
+        run.warned_at.is_some(),
+        "the drive never reached the ramp\n{}",
+        run.text
+    );
+    assert!(
+        !run.text.contains("Speed limit drops to"),
+        "a limit drop past the exit was called\n{}",
         run.text
     );
 }
