@@ -6,6 +6,8 @@
 
 - **Freight Fate now requires iOS or iPadOS 15 or later.**
 - **1.9 careers carry over on your first 2.0 start.** Your original copy stays playable in 1.9.
+- **Carried 1.9 Prairie Link drivers now choose a carrier at the terminal.** Stay with Prairie Link or pick another; money, level, trucks and record stay.
+- **Carried 1.9 careers keep the home city their first delivery left from,** instead of wherever the truck was parked.
 - **Recoverable set-aside 1.9 careers now carry over to 2.0.** Their original files stay untouched.
 - **Imported careers keep their last-played order.** Continue selects the most recently played 1.9 career after copying it into 2.0.
 - **2.0 careers have their own cloud backups,** with names such as Road Star (Career 2), so a 1.9 career's backup stays its own.
@@ -121,6 +123,9 @@
 
 ### Fixed
 
+- **Cruise no longer slows on the highway for a town limit past your exit,** then speeds up again before the exit. It eases to its exit speed by the exit.
+- **The ramp curve warning comes before the exit when the truck needs more room than the exit lane to slow.**
+- **The GPS no longer calls a speed limit drop that lies past the exit you are taking.**
 - **Automatic upshifts under power now clunk once, as the next gear takes hold.**
 - **Removed repeating beeps from highway ambience, smoothed automatic shifts, and quieted bridges.** Crossing a ramp light on yellow no longer chimes green.
 - **The main engine no longer has metallic pitch stretching or phasing between recordings.**

@@ -168,6 +168,7 @@ impl Profile {
             Value::from(self.owner_operator_declined),
         );
         d.insert("buy_in_paid".into(), Value::from(self.buy_in_paid));
+        d.insert("carryover".into(), Value::from(self.carryover.key()));
         d.insert("career".into(), {
             let mut career = serde_json::to_value(&self.career).expect("a career serialises");
             // The number the public profile shows, computed here rather
@@ -324,15 +325,34 @@ impl Profile {
         } else {
             saved_home.as_str()
         };
-        let home_terminal_city = migrate_home_terminal_city(
-            crate::models::carriers::hiring_carrier(
-                &s("carrier_key", &defaults.carrier_key),
-                &s("carrier_name", &defaults.carrier_name),
-                &s("business_status", &defaults.business_status),
-            ),
-            home_base,
-            &s("current_city", &defaults.current_city),
+        let carryover =
+            crate::models::carryover::Carryover::from_key(&s("carryover", "")).unwrap_or_default();
+        let hiring = crate::models::carriers::hiring_carrier(
+            &s("carrier_key", &defaults.carrier_key),
+            &s("carrier_name", &defaults.carrier_name),
+            &s("business_status", &defaults.business_status),
         );
+        // A carried career owed the carrier choice keeps the city it lives in
+        // as its home terminal city while its regional does not hire there:
+        // the fallback carrier's terminal would read as a home it never had.
+        let keeps_unserved_home = carryover
+            == crate::models::carryover::Carryover::CarrierChoiceDue
+            && !saved_home.trim().is_empty()
+            && hiring.is_some_and(|c| {
+                !c.hires_in(crate::data::world::get_world(), &saved_home)
+                    && !c
+                        .terminal_city_keys
+                        .contains(&crate::data::world::get_world().resolve_city_key(&saved_home))
+            });
+        let home_terminal_city = if keeps_unserved_home {
+            crate::data::world::get_world().resolve_city_key(&saved_home)
+        } else {
+            migrate_home_terminal_city(
+                hiring,
+                home_base,
+                &s("current_city", &defaults.current_city),
+            )
+        };
         // A stale saved home (not the carrier's terminal city) was corrected:
         // write the correction back on the next save.
         if !saved_home.is_empty()
@@ -383,6 +403,9 @@ impl Profile {
             // Missing on every save from 1.9 and earlier: their first tractor
             // keeps the old buy-in's hand-back cap.
             buy_in_paid: f("buy_in_paid", 0.0).max(0.0),
+            // Missing on every save from 1.9 and from 2.0 builds before the
+            // carry-over: native (see `copy_forward` for earlier copies).
+            carryover,
             career,
             driving_record,
             selection_score: f("selection_score", SAFETY_RECORD_BASELINE),

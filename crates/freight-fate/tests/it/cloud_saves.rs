@@ -50,6 +50,7 @@ use freight_fate::states::online_states::set_identity_store_override;
 
 mod account_api;
 mod announcements;
+mod carryover;
 mod integrity;
 mod manual_backup;
 mod manual_freshness;

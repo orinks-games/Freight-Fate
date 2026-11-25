@@ -51,6 +51,8 @@ bookmarks usable.
 - [x] (Found along the way) A verified cloud restore could leave the old newer-copy warning in the parent Cloud backup menu; fixed 2026-11-22.
 - [x] (Found along the way) The Logbook kept the shipper as current after delivery and omitted driving and the 30-minute off-duty break (native report, 2026-11-23). Driving, receiver unloading and the explicit break now have separate chronological rows and accurate daily totals. Fixed 2026-11-23.
 - [x] (Found along the way) Chain work follows the wheel (owner report, 2026-11-22: the chains wore out on dry road under the co-driver, who woke the player for the damage; the report's build predated the bare-road cue, and on dev the remaining gap was the co-driver's own descent brake cancelling their chain stop). Whoever holds the wheel does the chain work: the driver, Facility stopping assistance, or a co-driver, who chains up before the control, takes the chains off on bare road, tightens and repairs on their own logbook and leaves one note per job; only the player's own pedal cancels a stop. A chain control and the patrol cite only a truck that rolled into the area under a posted law; one already on the grade when the snow began is not cited there, nor is one that rolled in legally at a lower level when the law is raised on the grade (a Colorado tandem-drive truck at Level 1, say). The chain law calls lost "ahead". `ff_core::sim::chain_work` (`ChainWorker`, `ChainAreaEntry`); the agent server's `status` reports `chain_worker` and `chain_stop`, and `scenario` stages chains, their wear and spare links. Fixed 2026-11-22.
+- [x] (Found along the way) Rollover at Oshawa's exit 415 with the speed assists off (agent drive, 2026-11-25): cruise eased to 58 km/h on Highway 401 for a town limit past the exit, let go 800 meters out and built to 87 into a 50 ramp. Cruise's limit lookahead now ends at the gore of the exit it is set for (`armed_exit_gore_mi`); the climb line needs the truck to be losing speed; the ramp curve warning is priced from the highway, through the gore and the deceleration lane, when nothing brakes the ramp. Regression: `states_driving_oshawa_exit`. Fixed 2026-11-25.
+- [x] (Found along the way) The "Speed limit drops to X" pacenote named a limit past the exit the truck was taking (Oshawa: "drops to 50 in 5 kilometers" before exit 415). `Trip::next_limit_drop` now stops at the gore of the exit in `exit_approach_mi`, as cruise's lookahead does. Regression in `states_driving_oshawa_exit`. Fixed 2026-11-25.
 - [x] (Found along the way) A full lot at night hid the 30-minute break and Save at this stop (player report, 2026-11-23: a stop planned and announced as a break stop had neither row). The full-lot menu now keeps every short stay (fuel, food and coffee, the break, the save) and turns away only sleep; the co-driver already took breaks there. `ff_core::sim::stop_lot::StopLot` is the one rule both read. Fixed 2026-11-23.
 - [x] (Found along the way) The highway limit on town streets at a leg's ends (missing-roads pass, 2026-11-23: out of Marshalltown the driver heard "Speed limit 65", the speed keeper reached 42 mph a quarter mile short of two 20 mph corners, and a one-second brake on the call rolled the truck). The speed profile is a step function, so the miles before a leg's first posting read that posting, and the last highway posting ran on into the next town. On dev, 935 of 1,285 legs start before their first posting (686 with a bend advised 25 or less in town) and 464 carry a highway posting into town over such a bend; on `feat/career-2.0` Canada adds 196 and 30, Alaska 0 and 5. Fixed 2026-11-23 by a load-time screen (`ff_core::sim::town_limits`): the town stretch at each end runs to the last town bend (a connector arc or one advised 25 or less, within 6 miles), takes the state's district limit from `street_limits.json`, marked assumed, never above the posting beyond it; short of the first posting past that, the unposted rule answers, never above the first posting. Calibration and the sweep test are in the module and in `sim_town_limits`.
 - [x] (Found along the way) Real town postings dropped at the ends of Interstate legs (2026-11-23). `osm-speed-limits` treated any leg labelled "I-..." as all Interstate and threw away every reading under 45, along with the town streets the route takes to reach the Interstate (Washington to Philadelphia read 65 from mile 0). The floor now applies where a way carrying the leg's Interstate number lies within 90 m, or more than 6 miles from either end; `repair()` leaves Interstate legs alone. 658 Interstate legs were re-read from the 2026-10-19 planet extract, all 1,908 new postings under 45 within 6 miles of a leg end. Seven legs whose old-rule re-read already differs from the committed profile were left for a full refresh: Kenosha, Milwaukee, Gary and South Bend to Chicago, and Harrisburg, Philadelphia and Baltimore to Pittsburgh. Cruise handed over by the speed keeper on town streets now builds to the first highway limit within 15 miles of the start instead of holding the town figure. With Facility streets on, the streets just driven stand in for the town miles the leg starts with, so the on-ramp joins at the highway limit (Carlisle's 25 and 35 before I-76). A leg whose only postings are town figures beside a coverage gap (Midland to Odessa: 40 for 0.3 miles, then nothing) keeps its class design speed for the curve model.
@@ -7605,12 +7607,26 @@ here 2026-09-25. Details stay in the linked dated sections.
       wait. Neither holds on the Dalton Highway or other remote Alaska and
       Canadian roads, where a callout takes far longer; scale both by road
       and remoteness.
-- [ ] (Found along the way) **A 1.9 career copied into 2.0 can carry a
-      home terminal its carrier does not run.** A Prairie Link driver who
-      lives in Miami comes over with the Milwaukee fallback terminal and no
-      home city, so a later let-go looks for carriers near Milwaukee. Pick
-      from the current city when the copied terminal is not one of the
-      carrier's own (R1 review, 2026-11-22).
+- [x] (Found along the way) **A 1.9 career copied into 2.0 can carry a
+      home terminal its carrier does not run.** Shipped as the carry-over
+      (`models::carryover::Carryover`: native, settled, carrier choice due,
+      saved as `carryover`). The copy takes the home from the first
+      delivery's city when the save has one (written to `home_city`), else
+      the truck's city (left blank), and never borrows another carrier's
+      terminal. A copied driver whose carrier is not national in 2.0 (today
+      Prairie Link alone) gets a one-time, no-fault "Choose a carrier" row in
+      place of the dispatch board once no load is in hand: stay (moving home
+      to the nearest terminal when out of range) or take any carrier hiring
+      where they live. Nothing on the driving record moves. Careers an
+      earlier 2.0 build copied take the same path once on load (R1 review,
+      2026-11-22; built 2026-11-25).
+- [ ] (Found along the way) **Ask carried careers where they live.** 1.9
+      never saved the home city, and the first delivery's city is only a
+      good guess. Once home time lands, ask a carried career once.
+- [ ] (Found along the way) **The same no-fault choice for any carrier 2.0
+      later retires or shrinks.** A `CarrierReshaped` event on `Carryover`
+      would offer the same "Choose a carrier" menu to every driver whose
+      carrier stops running where they live.
 - [ ] (Found along the way) **Employment is an implicit state machine.**
       `carrier_key`, `carrier_name`, `business_status`,
       `sufferance_carrier_key` and `let_go_by` move together across hiring,
@@ -7619,7 +7635,8 @@ here 2026-09-25. Details stay in the linked dated sections.
       with one `next(event)` and a transition table, reported by the agent
       server's `status` (R1 review, 2026-11-22).
       `BusinessStage` (below) now covers the ownership ladder; Employment
-      should sit beside it, not inside it.
+      should sit beside it, not inside it. `Carryover` (above) sits beside
+      both and only records whether a carried career still owes a choice.
 - [x] **The buy-in buys a tractor the driver chooses, at its price.** The
       flat 35,000 dollar buy-in handed over whatever dispatch had assigned,
       and first pick of the yard comes at level 17, so every driver up the

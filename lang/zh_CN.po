@@ -10219,6 +10219,122 @@ msgstr "你在{city}的家"
 msgid "your terminal in {city}"
 msgstr "你在{city}的场站"
 
+msgid "carryover"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Stay with them or choose another carrier."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your money, level, trucks and driving record stay."
+msgstr ""
+
+#. placeholders: {name}, {area}
+#. one sentence of a longer line
+msgid "{name} now runs freight only in {area}."
+msgstr ""
+
+#. placeholders: {name}, {area}
+msgid ""
+"{name} now runs freight only in {area}. Stay with them or choose another "
+"carrier. Your money, level, trucks and driving record stay."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Choose a carrier to keep driving."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid "It no longer dispatches from {city}."
+msgstr ""
+
+#. placeholders: {name}, {area}, {city}
+msgid ""
+"{name} now runs freight only in {area}. It no longer dispatches from "
+"{city}. Choose a carrier to keep driving. Your money, level, trucks and "
+"driving record stay."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}, {city}
+#. one sentence of a longer line
+msgid "You are now leased on to {name}, out of their {city} terminal."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You are now leased on to {name}, out of their {city} terminal. Your truck "
+"stays where it is parked. The dispatch board is open again."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your truck stays where it is parked."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid ""
+"You start at their {city} terminal, where your assigned truck is waiting."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "{name} has taken you on."
+msgstr "{name}已经接纳了你。"
+
+#. placeholders: {name}, {city}
+msgid ""
+"{name} has taken you on. You start at their {city} terminal, where your "
+"assigned truck is waiting. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You stay leased on to {name}."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay leased on to {name}. Your home is now {city}. Your truck stays "
+"where it is parked. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {city}
+#. one sentence of a longer line
+msgid "Your home is now {city}."
+msgstr ""
+
+#. placeholders: {name}
+msgid "You stay leased on to {name}. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}
+#. one sentence of a longer line
+msgid "You stay with {name}."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay with {name}. Your home is now {city}. You start at their {city} "
+"terminal, where your assigned truck is waiting. The dispatch board is open "
+"again."
+msgstr ""
+
+#. placeholders: {name}
+msgid "You stay with {name}. The dispatch board is open again."
+msgstr ""
+
+#. placeholders: {name}, {city}
+msgid ""
+"You stay with {name}. You start at their {city} terminal, where your "
+"assigned truck is waiting. The dispatch board is open again."
+msgstr ""
+
 #. placeholders: {target}
 msgid ""
 "Freight Fate moved the saves that were in this folder to:\n"
@@ -10307,42 +10423,6 @@ msgstr "存档文件已损坏，无法读取。"
 
 msgid "Save file is not a profile object."
 msgstr "存档文件不是有效的档案对象。"
-
-msgid "Legacy Driver"
-msgstr "旧版司机"
-
-msgid "deliveries"
-msgstr "deliveries"
-
-msgid "seed"
-msgstr "seed"
-
-msgid "ab"
-msgstr "ab"
-
-msgid "Amarillo, TX"
-msgstr "Amarillo, TX"
-
-msgid "Café stop 🚚"
-msgstr "Café stop 🚚"
-
-msgid "note"
-msgstr "note"
-
-msgid "odometer"
-msgstr "odometer"
-
-msgid "tiny"
-msgstr "tiny"
-
-msgid "big"
-msgstr "big"
-
-msgid "whole"
-msgstr "whole"
-
-msgid "grade"
-msgstr "grade"
 
 msgid "watched"
 msgstr "受关注"
@@ -10903,6 +10983,10 @@ msgstr "在{area}的{tier}公司司机起步。调度提供的货运里程最长
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
 msgstr "调度提供的货运里程最长{max}英里。"
+
+#. placeholders: {max}
+msgid "{max} miles"
+msgstr ""
 
 #. placeholders: {miles}
 msgid "{miles} miles"
@@ -12808,6 +12892,9 @@ msgstr "history"
 
 msgid "location"
 msgstr "location"
+
+msgid "note"
+msgstr "note"
 
 msgid "unknown location"
 msgstr "未知地点"
@@ -16416,6 +16503,15 @@ msgstr "你会在前方{start_mi}英里处接手驾驶。"
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
+#. placeholders: {key}, {carrier_key}, {home_city}, {home_terminal_city}
+msgid ""
+"{key}; carrier {carrier_key}; home_city {home_city}; home_terminal_city "
+"{home_terminal_city}"
+msgstr ""
+
+msgid "blank"
+msgstr ""
+
 #. placeholders: {i}
 msgid "job {i}"
 msgstr "任务 {i}"
@@ -17011,6 +17107,9 @@ msgstr "查看左后视镜"
 
 msgid "Check right mirror"
 msgstr "查看右后视镜"
+
+msgid "grade"
+msgstr "grade"
 
 msgid "Grade"
 msgstr "坡道"
@@ -19332,6 +19431,44 @@ msgid ""
 "gross."
 msgstr " {highway}的春季限重把这辆卡车的总重限制在{weight_text}。"
 
+msgid "Choose a carrier"
+msgstr ""
+
+msgid ""
+"Carriers that hire where you live. Choosing one puts you on their payroll "
+"at the terminal named, and it is final. Escape returns to the terminal."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid "Stay with {carrier}: {city} terminal"
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid "Stay with {carrier}: moves your home to {city}"
+msgstr ""
+
+#. placeholders: {t}
+msgid " Truck starts at {t}."
+msgstr " 卡车从{t}出发。"
+
+#. placeholders: {name}, {summary}, {starts}
+msgid "{name}. {summary}{starts} Double tap again to choose."
+msgstr ""
+
+#. placeholders: {summary}, {starts}
+#. one sentence of a longer line
+msgid "{summary}{starts} Double tap again to choose."
+msgstr ""
+
+#. placeholders: {name}, {summary}, {starts}
+msgid "{name}. {summary}{starts} Press Enter again to choose."
+msgstr ""
+
+#. placeholders: {summary}, {starts}
+#. one sentence of a longer line
+msgid "{summary}{starts} Press Enter again to choose."
+msgstr ""
+
 msgid "Close out this career"
 msgstr "结束这段职业生涯"
 
@@ -19563,11 +19700,6 @@ msgid ""
 "waiting.{moved} The dispatch board is open again."
 msgstr "你从他们在{city}的场站出发，分配给你的卡车已经在那里等着。{moved}调度板重新开放了。"
 
-#. placeholders: {name}
-#. one sentence of a longer line
-msgid "{name} has taken you on."
-msgstr "{name}已经接纳了你。"
-
 #. placeholders: {name}, {city}, {moved}
 msgid ""
 "{name} has taken you on. You start at their {city} terminal, where your "
@@ -19606,6 +19738,34 @@ msgstr "第一天简报"
 
 msgid "Career plan"
 msgstr "职业规划"
+
+#. one sentence of a longer line
+msgid "Stay, or pick who you drive for next."
+msgstr ""
+
+#. placeholders: {carrier}
+#. one sentence of a longer line
+msgid "{carrier} changed where it runs."
+msgstr ""
+
+#. placeholders: {carrier}
+msgid ""
+"{carrier} changed where it runs. Stay, or pick who you drive for next."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Pick who you drive for next."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+#. one sentence of a longer line
+msgid "{carrier} no longer dispatches from {city}."
+msgstr ""
+
+#. placeholders: {carrier}, {city}
+msgid ""
+"{carrier} no longer dispatches from {city}. Pick who you drive for next."
+msgstr ""
 
 msgid "No nearby cities are reachable from here."
 msgstr "从这里到不了附近任何城市。"
@@ -20721,10 +20881,6 @@ msgstr "换到{carrier_name}：再按一次Enter确认"
 #. placeholders: {label}
 msgid "Move to {label}"
 msgstr "换到{label}"
-
-#. placeholders: {t}
-msgid " Truck starts at {t}."
-msgstr " 卡车从{t}出发。"
 
 #. placeholders: {carrier_name}, {menu_summary}, {starts}
 msgid "{carrier_name}. {menu_summary}{starts} Double tap again to move."
@@ -41615,6 +41771,9 @@ msgstr "承运商车队等级：{tier}"
 msgid "Current career resume"
 msgstr "当前职业生涯履历"
 
+msgid "deliveries"
+msgstr "deliveries"
+
 #. placeholders: {whole}
 msgid "Lifetime deliveries: {whole}"
 msgstr "累计送货：{whole}"
@@ -43727,6 +43886,33 @@ msgstr ""
 #~ "{name}, {agency}. The officer asks for your passport and checks the "
 #~ "eManifest filed for this load."
 #~ msgstr "{name}，{agency}。官员要你的护照，并核对这单货提交的eManifest。"
+
+#~ msgid "Legacy Driver"
+#~ msgstr "旧版司机"
+
+#~ msgid "seed"
+#~ msgstr "seed"
+
+#~ msgid "ab"
+#~ msgstr "ab"
+
+#~ msgid "Amarillo, TX"
+#~ msgstr "Amarillo, TX"
+
+#~ msgid "Café stop 🚚"
+#~ msgstr "Café stop 🚚"
+
+#~ msgid "odometer"
+#~ msgstr "odometer"
+
+#~ msgid "tiny"
+#~ msgstr "tiny"
+
+#~ msgid "big"
+#~ msgstr "big"
+
+#~ msgid "whole"
+#~ msgstr "whole"
 
 #~ msgid "Tires on concrete grooved across the lane: texture, not a decision."
 #~ msgstr "轮胎压过横向刻槽的混凝土路面：是质感，不需要作出决定。"

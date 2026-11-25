@@ -137,6 +137,30 @@ fn test_no_hairpin_severity_on_interstate_mainline() {
 }
 
 #[test]
+fn test_no_curve_sits_past_the_end_of_its_leg() {
+    // A curve row is leg-relative, so a mile past the leg's own length lands
+    // on the next leg of the route as a bend that isn't there. Columbus to
+    // Tupelo once ran its ramp rows two miles past the 64-mile leg. Connector
+    // rows count too, since they reach the trip the same way.
+    let world = world();
+    let mut offenders = Vec::new();
+    for leg in &world.legs {
+        let key = format!("{}:{}", leg.a, leg.b);
+        for rec in leg_curves(&key, false) {
+            let far = rec.start_mi.max(rec.apex_mi).max(rec.end_mi);
+            if far > leg.miles + 0.05 {
+                offenders.push(format!("{key} ({} mi) curve to mile {far:.2}", leg.miles));
+            }
+        }
+    }
+    assert!(
+        offenders.is_empty(),
+        "curves past their leg's end:\n{}",
+        offenders.join("\n")
+    );
+}
+
+#[test]
 fn test_abilene_fort_worth_mile_four_hairpins_are_gone() {
     // Flat I-20 had three 104-111 ft "hairpins" at mile 4.
     let recs = leg_curves("abilene_tx_us:fort_worth_tx_us", true);

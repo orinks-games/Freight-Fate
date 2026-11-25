@@ -48,6 +48,7 @@ use crate::states::driving::DrivingState;
 use crate::states::main_menu::TouchPracticeOfferState;
 
 mod board;
+mod choose_carrier;
 mod close_out;
 mod extras;
 mod held_load;
@@ -58,6 +59,7 @@ mod weather;
 pub use board::{
     describe_job, locked_reason, trailer_note, JobBoardState, JobDetailState, JOB_BOARD_INTRO_HELP,
 };
+pub use choose_carrier::ChooseCarrierState;
 pub use close_out::CloseOutCareerState;
 pub use extras::{ApplyToCarrierState, BobtailDestState, PayDebtState};
 pub(crate) use terminal::local_zone as city_local_zone;
