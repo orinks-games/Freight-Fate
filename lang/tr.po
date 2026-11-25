@@ -9196,9 +9196,6 @@ msgstr ""
 msgid "inert"
 msgstr ""
 
-msgid "native"
-msgstr ""
-
 msgid "dan"
 msgstr "dan"
 
@@ -11191,6 +11188,9 @@ msgstr "{city} şehrindeki eviniz"
 msgid "your terminal in {city}"
 msgstr "{city} şehrindeki ana terminaliniz"
 
+msgid "carryover"
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Stay with them or choose another carrier."
 msgstr ""
@@ -11368,9 +11368,6 @@ msgstr "para"
 msgid "upgrades"
 msgstr "yükseltmeler"
 
-msgid "carryover"
-msgstr ""
-
 msgid "standing"
 msgstr "durum"
 
@@ -11403,51 +11400,6 @@ msgstr "Kayıt dosyası bozuk, okunamadı."
 
 msgid "Save file is not a profile object."
 msgstr "Kayıt dosyası bir profil kaydı değil."
-
-msgid "Carried"
-msgstr ""
-
-msgid "Prairie Link Regional"
-msgstr "Prairie Link Regional"
-
-msgid "apu"
-msgstr ""
-
-msgid "Legacy Driver"
-msgstr "Eski Sürüm Şoförü"
-
-msgid "deliveries"
-msgstr "teslimatlar"
-
-msgid "seed"
-msgstr "rastgelelik tohumu"
-
-msgid "ab"
-msgstr "ab"
-
-msgid "Amarillo, TX"
-msgstr "Amarillo, TX"
-
-msgid "Café stop 🚚"
-msgstr "Kafe molası 🚚"
-
-msgid "note"
-msgstr "not"
-
-msgid "odometer"
-msgstr "kilometre sayacı"
-
-msgid "tiny"
-msgstr "minik"
-
-msgid "big"
-msgstr "büyük"
-
-msgid "whole"
-msgstr "tam"
-
-msgid "grade"
-msgstr "eğim"
 
 msgid "watched"
 msgstr "izleniyor"
@@ -11959,6 +11911,9 @@ msgstr "Milwaukee"
 msgid "Prairie Link Regional: regional company driver"
 msgstr "Prairie Link Regional: bölgesel firma şoförü"
 
+msgid "Prairie Link Regional"
+msgstr "Prairie Link Regional"
+
 msgid ""
 "A better per-mile floor, lower stop pay, and more same-region grain and "
 "bulk lanes."
@@ -12098,6 +12053,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
 msgstr "Sevkiyat {max} mile kadar yük sunuyor."
+
+#. placeholders: {max}
+msgid "{max} miles"
+msgstr ""
 
 #. placeholders: {miles}
 msgid "{miles} miles"
@@ -14126,6 +14085,9 @@ msgstr "geçmiş"
 
 msgid "location"
 msgstr "konum"
+
+msgid "note"
+msgstr "not"
 
 msgid "unknown location"
 msgstr "bilinmeyen konum"
@@ -18507,6 +18469,9 @@ msgstr "Motoru çalıştır veya durdur"
 msgid "Reefer on or off"
 msgstr "Frigo aç veya kapat"
 
+msgid "apu"
+msgstr ""
+
 msgid "APU on or off"
 msgstr "APU aç veya kapat"
 
@@ -18581,6 +18546,9 @@ msgstr ""
 
 msgid "Check right mirror"
 msgstr ""
+
+msgid "grade"
+msgstr "eğim"
 
 msgid "Grade"
 msgstr "Eğim"
@@ -45714,6 +45682,9 @@ msgstr "Taşıyıcı firma filo kademesi: {tier}"
 msgid "Current career resume"
 msgstr "Mevcut kariyer özgeçmişi"
 
+msgid "deliveries"
+msgstr "teslimatlar"
+
 #. placeholders: {whole}
 msgid "Lifetime deliveries: {whole}"
 msgstr "Toplam teslimat: {whole}"
@@ -47983,6 +47954,33 @@ msgstr ""
 "İkinci bir düğme katmanı için sol omuz tuşunu basılı tutun. {pad_engine} "
 "motoru kontrol eder, {pad_fuel} yakıtı okur ve {pad_speed_limit} hız "
 "sınırını okur."
+
+#~ msgid "Legacy Driver"
+#~ msgstr "Eski Sürüm Şoförü"
+
+#~ msgid "seed"
+#~ msgstr "rastgelelik tohumu"
+
+#~ msgid "ab"
+#~ msgstr "ab"
+
+#~ msgid "Amarillo, TX"
+#~ msgstr "Amarillo, TX"
+
+#~ msgid "Café stop 🚚"
+#~ msgstr "Kafe molası 🚚"
+
+#~ msgid "odometer"
+#~ msgstr "kilometre sayacı"
+
+#~ msgid "tiny"
+#~ msgstr "minik"
+
+#~ msgid "big"
+#~ msgstr "büyük"
+
+#~ msgid "whole"
+#~ msgstr "tam"
 
 #~ msgid "It is an engine and it sounds like one."
 #~ msgstr "Bu bir motor ve motor gibi ses çıkarır."

@@ -9542,9 +9542,6 @@ msgstr ""
 msgid "inert"
 msgstr ""
 
-msgid "native"
-msgstr ""
-
 msgid "dan"
 msgstr "dan"
 
@@ -11582,6 +11579,9 @@ msgstr "dein Zuhause in {city}"
 msgid "your terminal in {city}"
 msgstr "dein Heimatdepot in {city}"
 
+msgid "carryover"
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Stay with them or choose another carrier."
 msgstr ""
@@ -11759,9 +11759,6 @@ msgstr "Geld"
 msgid "upgrades"
 msgstr "Aufrüstungen"
 
-msgid "carryover"
-msgstr ""
-
 msgid "standing"
 msgstr "Ansehen"
 
@@ -11794,51 +11791,6 @@ msgstr "Die Speicherdatei ist beschädigt und konnte nicht gelesen werden."
 
 msgid "Save file is not a profile object."
 msgstr "Die Speicherdatei ist kein Profilobjekt."
-
-msgid "Carried"
-msgstr ""
-
-msgid "Prairie Link Regional"
-msgstr "Prairie Link Regional"
-
-msgid "apu"
-msgstr ""
-
-msgid "Legacy Driver"
-msgstr "Fahrer aus alter Version"
-
-msgid "deliveries"
-msgstr "Lieferungen"
-
-msgid "seed"
-msgstr "seed"
-
-msgid "ab"
-msgstr "ab"
-
-msgid "Amarillo, TX"
-msgstr "Amarillo, TX"
-
-msgid "Café stop 🚚"
-msgstr "Café-Halt 🚚"
-
-msgid "note"
-msgstr "Notiz"
-
-msgid "odometer"
-msgstr "Meilenzähler"
-
-msgid "tiny"
-msgstr "winzig"
-
-msgid "big"
-msgstr "groß"
-
-msgid "whole"
-msgstr "ganz"
-
-msgid "grade"
-msgstr "Steigung"
 
 msgid "watched"
 msgstr "beobachtet"
@@ -12377,6 +12329,9 @@ msgstr "Milwaukee"
 msgid "Prairie Link Regional: regional company driver"
 msgstr "Prairie Link Regional: angestellter Fahrer, regional"
 
+msgid "Prairie Link Regional"
+msgstr "Prairie Link Regional"
+
 msgid ""
 "A better per-mile floor, lower stop pay, and more same-region grain and "
 "bulk lanes."
@@ -12517,6 +12472,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
 msgstr "Die Disposition bietet Ladungen bis {max} Meilen."
+
+#. placeholders: {max}
+msgid "{max} miles"
+msgstr ""
 
 #. placeholders: {miles}
 msgid "{miles} miles"
@@ -14593,6 +14552,9 @@ msgstr "history"
 
 msgid "location"
 msgstr "Ort"
+
+msgid "note"
+msgstr "Notiz"
 
 msgid "unknown location"
 msgstr "unbekannter Ort"
@@ -19033,6 +18995,9 @@ msgstr "Motor an oder aus"
 msgid "Reefer on or off"
 msgstr "Kühlaggregat an oder aus"
 
+msgid "apu"
+msgstr ""
+
 msgid "APU on or off"
 msgstr "APU an oder aus"
 
@@ -19107,6 +19072,9 @@ msgstr ""
 
 msgid "Check right mirror"
 msgstr ""
+
+msgid "grade"
+msgstr "Steigung"
 
 msgid "Grade"
 msgstr "Steigung und Gefälle"
@@ -46871,6 +46839,9 @@ msgstr "Flottenstufe der Spedition: {tier}"
 msgid "Current career resume"
 msgstr "Lebenslauf der aktuellen Karriere"
 
+msgid "deliveries"
+msgstr "Lieferungen"
+
 #. placeholders: {whole}
 msgid "Lifetime deliveries: {whole}"
 msgstr "Lieferungen insgesamt: {whole}"
@@ -49165,6 +49136,33 @@ msgstr ""
 "Halte den left bumper für eine zweite Ebene von Tasten. {pad_engine} "
 "steuert den Motor, {pad_fuel} liest den Kraftstoff vor und "
 "{pad_speed_limit} das Limit."
+
+#~ msgid "Legacy Driver"
+#~ msgstr "Fahrer aus alter Version"
+
+#~ msgid "seed"
+#~ msgstr "seed"
+
+#~ msgid "ab"
+#~ msgstr "ab"
+
+#~ msgid "Amarillo, TX"
+#~ msgstr "Amarillo, TX"
+
+#~ msgid "Café stop 🚚"
+#~ msgstr "Café-Halt 🚚"
+
+#~ msgid "odometer"
+#~ msgstr "Meilenzähler"
+
+#~ msgid "tiny"
+#~ msgstr "winzig"
+
+#~ msgid "big"
+#~ msgstr "groß"
+
+#~ msgid "whole"
+#~ msgstr "ganz"
 
 #~ msgid "It is an engine and it sounds like one."
 #~ msgstr "Es ist ein Motor, und er klingt wie einer."

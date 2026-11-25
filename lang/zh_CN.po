@@ -8420,9 +8420,6 @@ msgstr ""
 msgid "inert"
 msgstr "inert"
 
-msgid "native"
-msgstr ""
-
 msgid "dan"
 msgstr "dan"
 
@@ -10256,6 +10253,9 @@ msgstr "你在{city}的家"
 msgid "your terminal in {city}"
 msgstr "你在{city}的场站"
 
+msgid "carryover"
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Stay with them or choose another carrier."
 msgstr ""
@@ -10425,9 +10425,6 @@ msgstr "money"
 msgid "upgrades"
 msgstr "upgrades"
 
-msgid "carryover"
-msgstr ""
-
 msgid "standing"
 msgstr "standing"
 
@@ -10460,52 +10457,6 @@ msgstr "存档文件已损坏，无法读取。"
 
 msgid "Save file is not a profile object."
 msgstr "存档文件不是有效的档案对象。"
-
-msgid "Carried"
-msgstr ""
-
-msgid "Prairie Link Regional"
-msgstr "Prairie Link Regional"
-
-# same as English
-msgid "apu"
-msgstr "apu"
-
-msgid "Legacy Driver"
-msgstr "旧版司机"
-
-msgid "deliveries"
-msgstr "deliveries"
-
-msgid "seed"
-msgstr "seed"
-
-msgid "ab"
-msgstr "ab"
-
-msgid "Amarillo, TX"
-msgstr "Amarillo, TX"
-
-msgid "Café stop 🚚"
-msgstr "Café stop 🚚"
-
-msgid "note"
-msgstr "note"
-
-msgid "odometer"
-msgstr "odometer"
-
-msgid "tiny"
-msgstr "tiny"
-
-msgid "big"
-msgstr "big"
-
-msgid "whole"
-msgstr "whole"
-
-msgid "grade"
-msgstr "grade"
 
 msgid "watched"
 msgstr "受关注"
@@ -10949,6 +10900,9 @@ msgstr "Milwaukee"
 msgid "Prairie Link Regional: regional company driver"
 msgstr "Prairie Link Regional：区域性公司司机"
 
+msgid "Prairie Link Regional"
+msgstr "Prairie Link Regional"
+
 msgid ""
 "A better per-mile floor, lower stop pay, and more same-region grain and "
 "bulk lanes."
@@ -11063,6 +11017,10 @@ msgstr "在{area}的{tier}公司司机起步。调度提供的货运里程最长
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
 msgstr "调度提供的货运里程最长{max}英里。"
+
+#. placeholders: {max}
+msgid "{max} miles"
+msgstr ""
 
 #. placeholders: {miles}
 msgid "{miles} miles"
@@ -12944,6 +12902,9 @@ msgstr "history"
 
 msgid "location"
 msgstr "location"
+
+msgid "note"
+msgstr "note"
 
 msgid "unknown location"
 msgstr "未知地点"
@@ -17076,6 +17037,10 @@ msgstr "发动机开关"
 msgid "Reefer on or off"
 msgstr "冷藏机组开关"
 
+# same as English
+msgid "apu"
+msgstr "apu"
+
 msgid "APU on or off"
 msgstr "APU开关"
 
@@ -17150,6 +17115,9 @@ msgstr ""
 
 msgid "Check right mirror"
 msgstr ""
+
+msgid "grade"
+msgstr "grade"
 
 msgid "Grade"
 msgstr "坡道"
@@ -41628,6 +41596,9 @@ msgstr "承运商车队等级：{tier}"
 msgid "Current career resume"
 msgstr "当前职业生涯履历"
 
+msgid "deliveries"
+msgstr "deliveries"
+
 #. placeholders: {whole}
 msgid "Lifetime deliveries: {whole}"
 msgstr "累计送货：{whole}"
@@ -43733,6 +43704,33 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid "Legacy Driver"
+#~ msgstr "旧版司机"
+
+#~ msgid "seed"
+#~ msgstr "seed"
+
+#~ msgid "ab"
+#~ msgstr "ab"
+
+#~ msgid "Amarillo, TX"
+#~ msgstr "Amarillo, TX"
+
+#~ msgid "Café stop 🚚"
+#~ msgstr "Café stop 🚚"
+
+#~ msgid "odometer"
+#~ msgstr "odometer"
+
+#~ msgid "tiny"
+#~ msgstr "tiny"
+
+#~ msgid "big"
+#~ msgstr "big"
+
+#~ msgid "whole"
+#~ msgstr "whole"
 
 #~ msgid "It is an engine and it sounds like one."
 #~ msgstr "它是发动机，听起来也像发动机。"

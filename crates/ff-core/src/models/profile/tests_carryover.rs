@@ -113,6 +113,7 @@ fn a_company_driver_joining_another_carrier_starts_at_its_terminal() {
 #[test]
 fn a_company_driver_staying_out_of_range_moves_home_to_the_nearest_terminal() {
     let mut p = carried("miami_fl_us", false);
+    p.parked_facility = "Port of Miami".into();
     let (row, line) = choose(&mut p, true);
     let nearest = crate::models::carriers::carrier("prairie_link")
         .unwrap()
@@ -123,6 +124,8 @@ fn a_company_driver_staying_out_of_range_moves_home_to_the_nearest_terminal() {
     assert_eq!(p.home_city, nearest);
     assert_eq!(p.home_terminal_city, nearest);
     assert_eq!(p.current_city, nearest);
+    // As joining a carrier does: no facility parking at the terminal.
+    assert_eq!(p.parked_facility, "");
     assert!(line.contains("Your home is now"), "{line}");
 }
 

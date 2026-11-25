@@ -230,6 +230,33 @@ mod tests {
     }
 
     #[test]
+    fn a_1_9_file_placed_in_the_2_0_folder_is_carried_over_on_load() {
+        with_data_dir(|_| {
+            let mut p = Profile::named_in("Placed", "miami_fl_us");
+            p.created_line = "1.9".into();
+            p.carrier_key = "prairie_link".into();
+            p.carrier_name = "Prairie Link Regional".into();
+            let mut data = p.to_dict();
+            for key in ["carryover", "home_city", "home_terminal_city"] {
+                data.remove(key);
+            }
+            data.insert(SIGNATURE_FIELD.into(), json!(signature_for(&data, None)));
+            let path = save_path_for("Placed");
+            std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+            sealed::write(&path, &encode_save_bytes(&data)).unwrap();
+            let loaded = Profile::load(&path).unwrap();
+            assert_eq!(loaded.created_line, "2.0");
+            assert_eq!(loaded.carryover, Carryover::CarrierChoiceDue);
+            assert_eq!(loaded.home_terminal_city, "miami_fl_us");
+            // The resave wrote it: the next load finds a 2.0 career.
+            let again = Profile::load(&path).unwrap();
+            assert_eq!(again.created_line, "2.0");
+            assert_eq!(again.carryover, Carryover::CarrierChoiceDue);
+            assert!(!again.needs_migration_resave);
+        });
+    }
+
+    #[test]
     fn an_own_authority_career_is_settled() {
         with_data_dir(|_| {
             let p = copied("Indie", |d| {

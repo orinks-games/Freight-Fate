@@ -9594,9 +9594,6 @@ msgstr ""
 msgid "inert"
 msgstr "inert"
 
-msgid "native"
-msgstr ""
-
 msgid "dan"
 msgstr "dan"
 
@@ -11627,6 +11624,9 @@ msgstr "nhà bạn ở {city}"
 msgid "your terminal in {city}"
 msgstr "trạm của bạn ở {city}"
 
+msgid "carryover"
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Stay with them or choose another carrier."
 msgstr ""
@@ -11804,9 +11804,6 @@ msgstr "tiền mặt"
 msgid "upgrades"
 msgstr "nâng cấp"
 
-msgid "carryover"
-msgstr ""
-
 msgid "standing"
 msgstr "uy tín"
 
@@ -11839,52 +11836,6 @@ msgstr "Tệp lưu bị hỏng, không thể đọc được."
 
 msgid "Save file is not a profile object."
 msgstr "Tệp lưu không đúng định dạng hồ sơ."
-
-msgid "Carried"
-msgstr ""
-
-msgid "Prairie Link Regional"
-msgstr "Prairie Link Regional"
-
-# same as English
-msgid "apu"
-msgstr "apu"
-
-msgid "Legacy Driver"
-msgstr "Tài xế cũ"
-
-msgid "deliveries"
-msgstr "chuyến giao"
-
-msgid "seed"
-msgstr "seed"
-
-msgid "ab"
-msgstr "ab"
-
-msgid "Amarillo, TX"
-msgstr "Amarillo, TX"
-
-msgid "Café stop 🚚"
-msgstr "Café stop 🚚"
-
-msgid "note"
-msgstr "ghi chú"
-
-msgid "odometer"
-msgstr "công-tơ-mét"
-
-msgid "tiny"
-msgstr "rất nhỏ"
-
-msgid "big"
-msgstr "lớn"
-
-msgid "whole"
-msgstr "toàn bộ"
-
-msgid "grade"
-msgstr "độ dốc"
 
 msgid "watched"
 msgstr "bị giám sát"
@@ -12407,6 +12358,9 @@ msgstr "Milwaukee"
 msgid "Prairie Link Regional: regional company driver"
 msgstr "Prairie Link Regional: tài xế hãng khu vực"
 
+msgid "Prairie Link Regional"
+msgstr "Prairie Link Regional"
+
 msgid ""
 "A better per-mile floor, lower stop pay, and more same-region grain and "
 "bulk lanes."
@@ -12545,6 +12499,10 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
 msgstr "Điều phối giao đơn hàng dài tới {max} dặm."
+
+#. placeholders: {max}
+msgid "{max} miles"
+msgstr ""
 
 #. placeholders: {miles}
 msgid "{miles} miles"
@@ -14580,6 +14538,9 @@ msgstr "history"
 
 msgid "location"
 msgstr "vị trí"
+
+msgid "note"
+msgstr "ghi chú"
 
 msgid "unknown location"
 msgstr "vị trí không xác định"
@@ -18993,6 +18954,10 @@ msgstr "Bật hoặc tắt máy"
 msgid "Reefer on or off"
 msgstr "Bật hoặc tắt máy lạnh rơ-moóc"
 
+# same as English
+msgid "apu"
+msgstr "apu"
+
 msgid "APU on or off"
 msgstr "Bật hoặc tắt APU"
 
@@ -19067,6 +19032,9 @@ msgstr ""
 
 msgid "Check right mirror"
 msgstr ""
+
+msgid "grade"
+msgstr "độ dốc"
 
 msgid "Grade"
 msgstr "Độ dốc"
@@ -46429,6 +46397,9 @@ msgstr "Hạng đội xe của hãng: {tier}"
 msgid "Current career resume"
 msgstr "Tóm tắt sự nghiệp hiện tại"
 
+msgid "deliveries"
+msgstr "chuyến giao"
+
 #. placeholders: {whole}
 msgid "Lifetime deliveries: {whole}"
 msgstr "Tổng số chuyến giao hàng: {whole}"
@@ -48684,6 +48655,33 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid "Legacy Driver"
+#~ msgstr "Tài xế cũ"
+
+#~ msgid "seed"
+#~ msgstr "seed"
+
+#~ msgid "ab"
+#~ msgstr "ab"
+
+#~ msgid "Amarillo, TX"
+#~ msgstr "Amarillo, TX"
+
+#~ msgid "Café stop 🚚"
+#~ msgstr "Café stop 🚚"
+
+#~ msgid "odometer"
+#~ msgstr "công-tơ-mét"
+
+#~ msgid "tiny"
+#~ msgstr "rất nhỏ"
+
+#~ msgid "big"
+#~ msgstr "lớn"
+
+#~ msgid "whole"
+#~ msgstr "toàn bộ"
 
 #~ msgid "It is an engine and it sounds like one."
 #~ msgstr "Đó là tiếng động cơ và nghe đúng như động cơ thật."

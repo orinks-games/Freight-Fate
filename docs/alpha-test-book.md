@@ -216,7 +216,8 @@ back: the notice plays again.
 
 Pass when: choosing another carrier, or staying with Prairie Link, opens
 the dispatch board, and Career stats shows the same money, level and
-driving record as before.
+driving record as before. A Prairie Link career restored from a 1.9
+cloud backup gets the same notice and choice.
 
 ## Chapter 3. Alaska
 

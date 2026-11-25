@@ -8,6 +8,7 @@
 use ff_core::models::business::is_owner_operator;
 use ff_core::models::carriers::CarrierOpening;
 use ff_core::models::profile::CarrierChoiceRow;
+use ff_core::models::start_options::carrier_summary_in;
 
 use crate::app::GameContext;
 use crate::impl_state_for_menu;
@@ -56,13 +57,25 @@ impl ChooseCarrierState {
         }
     }
 
+    /// What the row's carrier hauls. Staying says the load limit and lane
+    /// area the carrier keeps now, which its hand-written start summary
+    /// leaves out; the other rows read their start summary, as the start
+    /// picker does.
+    fn summary(ctx: &GameContext, row: &CarrierChoiceRow) -> String {
+        if row.stay {
+            carrier_summary_in(row.carrier, &ctx.settings)
+        } else {
+            row.option.summary_in(&ctx.settings)
+        }
+    }
+
     fn choose(&mut self, ctx: &mut GameContext, index: usize) {
         let Some(row) = self.rows.get(index).cloned() else {
             return;
         };
         if self.armed != Some(index) {
             self.armed = Some(index);
-            let summary = row.option.summary_in(&ctx.settings);
+            let summary = Self::summary(ctx, &row);
             let starts = if is_owner_operator(&profile(ctx).business_status) {
                 String::new()
             } else {
@@ -109,7 +122,7 @@ impl Menu for ChooseCarrierState {
         let mut items: Vec<MenuItem<Self>> = Vec::new();
         for (i, row) in self.rows.iter().enumerate() {
             let label = Self::label(ctx, row);
-            let help = row.option.summary_in(&ctx.settings);
+            let help = Self::summary(ctx, row);
             items.push(MenuItem::new(label, move |s: &mut Self, ctx| s.choose(ctx, i)).help(help));
         }
         items.push(MenuItem::new("Back to terminal", |s: &mut Self, ctx| {

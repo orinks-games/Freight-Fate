@@ -62,7 +62,7 @@ mod traits;
 
 mod carryover;
 mod copy_forward;
-pub use carryover::CarrierChoiceRow;
+pub use carryover::{carry_over_1_9_dict, CarrierChoiceRow};
 #[cfg(test)]
 pub(crate) mod tests;
 #[cfg(test)]

@@ -18,7 +18,7 @@ use crate::net::{NetError, Transport};
 use crate::online_presence::{base_url, py_str, truthy, OnlineIdentity};
 use ff_core::cloud_save_integrity::{verify_cloud_revision_with, CloudSaveIntegrityError};
 use ff_core::models::career::level_for_xp;
-use ff_core::models::profile::{newer_career_line, older_career_line, CREATED_LINE};
+use ff_core::models::profile::{carry_over_1_9_dict, newer_career_line};
 use ff_core::pyfmt::fmt_grouped;
 
 fn saves_url() -> String {
@@ -474,9 +474,9 @@ pub fn restore_to_disk(
     let mut profile = verify_cloud_revision_with(&profile_dict, payload, keys, &|_| Ok(()))
         .map_err(RestoreError::Integrity)?;
     if let Some(map) = profile.as_object_mut() {
-        if older_career_line(map).is_some() {
-            map.insert("created_line".into(), Value::from(CREATED_LINE));
-        }
+        // A 1.9 backup lands the way a copied 1.9 career does: stamped 2.0,
+        // home fixed, and the carrier choice owed where its carrier shrank.
+        carry_over_1_9_dict(map);
     }
     // Absolution. The server grants this only on a revision it signed and
     // fully validated, so a career that was marked purely for moving between

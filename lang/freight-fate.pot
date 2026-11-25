@@ -67,7 +67,7 @@ msgid ""
 "Rest breaks, inspections, traffic, and the rules that keep a driver legal."
 msgstr ""
 
-#: crates/ff-core/src/achievements/catalog.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_carryover.rs crates/ff-core/src/models/profile/tests_compat.rs
+#: crates/ff-core/src/achievements/catalog.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile.rs
 msgid "career"
 msgstr ""
 
@@ -2841,7 +2841,7 @@ msgstr ""
 msgid "wav"
 msgstr ""
 
-#: crates/ff-core/src/channel3000.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/trucks.rs crates/ff-core/src/sim/hos.rs
+#: crates/ff-core/src/channel3000.rs crates/ff-core/src/models/trucks.rs crates/ff-core/src/sim/hos.rs
 msgid "day"
 msgstr ""
 
@@ -3181,7 +3181,7 @@ msgstr ""
 msgid "cities"
 msgstr ""
 
-#: crates/ff-core/src/data/baked/mod.rs crates/ff-core/src/models/profile/tests_origin.rs
+#: crates/ff-core/src/data/baked/mod.rs
 msgid "legs"
 msgstr ""
 
@@ -5383,7 +5383,7 @@ msgid ""
 "This mile of highway is sponsored by {carrier}. The litter is not ours."
 msgstr ""
 
-#: crates/ff-core/src/data/border_yards.rs crates/ff-core/src/models/profile/tests_origin.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/truck_parking.rs
+#: crates/ff-core/src/data/border_yards.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/truck_parking.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "id"
 msgstr ""
 
@@ -5511,7 +5511,7 @@ msgstr ""
 msgid "engine"
 msgstr ""
 
-#: crates/ff-core/src/data/buffs.rs crates/ff-core/src/models/enforcement/record.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs
+#: crates/ff-core/src/data/buffs.rs crates/ff-core/src/models/enforcement/record.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile.rs
 msgid "fatigue"
 msgstr ""
 
@@ -9135,11 +9135,11 @@ msgstr ""
 msgid "{grouped} lifetime miles, {grouped2} dollars earned."
 msgstr ""
 
-#: crates/ff-core/src/models/career/test_profile.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/start_options.rs
+#: crates/ff-core/src/models/career/test_profile.rs crates/ff-core/src/models/start_options.rs
 msgid "Chicago"
 msgstr ""
 
-#: crates/ff-core/src/models/career/test_profile.rs crates/ff-core/src/models/carrier_fleet.rs crates/ff-core/src/models/profile/condition.rs crates/ff-core/src/models/profile/tests_carryover.rs
+#: crates/ff-core/src/models/career/test_profile.rs crates/ff-core/src/models/carrier_fleet.rs crates/ff-core/src/models/profile/condition.rs crates/ff-core/src/models/profile.rs
 msgid "rig"
 msgstr ""
 
@@ -10248,7 +10248,7 @@ msgstr ""
 msgid "worked"
 msgstr ""
 
-#: crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/models/carryover.rs crates/ff-core/src/sim/livestock/footing.rs crates/freight-fate/src/states/driving_liquid.rs
+#: crates/ff-core/src/models/cargo_condition.rs crates/ff-core/src/sim/livestock/footing.rs crates/freight-fate/src/states/driving_liquid.rs
 msgid "settled"
 msgstr ""
 
@@ -10572,10 +10572,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/carriers.rs
 msgid "inert"
-msgstr ""
-
-#: crates/ff-core/src/models/carryover.rs
-msgid "native"
 msgstr ""
 
 #: crates/ff-core/src/models/co_driver.rs
@@ -10929,7 +10925,7 @@ msgid ""
 "it, and liquid food at level 21."
 msgstr ""
 
-#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs.rs crates/ff-core/src/models/profile/tests_carryover.rs
+#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/jobs/catalog.rs crates/ff-core/src/models/jobs.rs
 msgid "hazmat"
 msgstr ""
 
@@ -11949,11 +11945,11 @@ msgstr ""
 msgid "unknown business_status {business_status}"
 msgstr ""
 
-#: crates/ff-core/src/models/exchange.rs crates/ff-core/src/models/profile/tests_compat.rs
+#: crates/ff-core/src/models/exchange.rs
 msgid "xp"
 msgstr ""
 
-#: crates/ff-core/src/models/exchange.rs crates/ff-core/src/models/profile/tests_compat.rs crates/freight-fate/src/states/online_states/profile.rs
+#: crates/ff-core/src/models/exchange.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "reputation"
 msgstr ""
 
@@ -12267,7 +12263,7 @@ msgstr ""
 msgid "Requires {required_program_text} trailer program."
 msgstr ""
 
-#: crates/ff-core/src/models/jobs.rs crates/ff-core/src/models/profile/tests_origin.rs crates/freight-fate/src/states/main_menu.rs
+#: crates/ff-core/src/models/jobs.rs crates/freight-fate/src/states/main_menu.rs
 msgid "origin"
 msgstr ""
 
@@ -12869,6 +12865,10 @@ msgstr ""
 msgid "your terminal in {city}"
 msgstr ""
 
+#: crates/ff-core/src/models/profile/carryover.rs crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile.rs
+msgid "carryover"
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/ff-core/src/models/profile/carryover.rs
 msgid "Stay with them or choose another carrier."
@@ -13058,27 +13058,23 @@ msgstr ""
 msgid "This build cannot replace a sealed career. Use the released game."
 msgstr ""
 
-#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/signing.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile/tests_gate.rs
+#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/signing.rs
 msgid "version"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_carryover.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
+#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile.rs crates/ff-core/src/speech_pacing.rs crates/freight-fate/src/states/driving_team/stop_work.rs
 msgid "money"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_carryover.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
-msgid "upgrades"
-msgstr ""
-
 #: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile.rs
-msgid "carryover"
+msgid "upgrades"
 msgstr ""
 
 #: crates/ff-core/src/models/profile/serialize.rs
 msgid "standing"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs crates/ff-core/src/radio.rs
+#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile.rs crates/ff-core/src/radio.rs
 msgid "market"
 msgstr ""
 
@@ -13090,7 +13086,7 @@ msgstr ""
 msgid "loyalty"
 msgstr ""
 
-#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile/tests_carryover.rs crates/ff-core/src/models/profile/tests_compat.rs crates/ff-core/src/models/profile.rs
+#: crates/ff-core/src/models/profile/serialize.rs crates/ff-core/src/models/profile.rs
 msgid "achievements"
 msgstr ""
 
@@ -13116,66 +13112,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/profile/signing.rs
 msgid "Save file is not a profile object."
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_carryover.rs
-msgid "Carried"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_carryover.rs crates/ff-core/src/models/start_options.rs
-msgid "Prairie Link Regional"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_carryover.rs crates/freight-fate/src/bindings.rs
-msgid "apu"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_compat.rs
-msgid "Legacy Driver"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_compat.rs crates/freight-fate/src/states/online_states/profile.rs
-msgid "deliveries"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_compat.rs
-msgid "seed"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_origin.rs
-msgid "ab"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_origin.rs
-msgid "Amarillo, TX"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_origin.rs
-msgid "Café stop 🚚"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_origin.rs crates/ff-core/src/sim/hos/duty_log.rs
-msgid "note"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_origin.rs
-msgid "odometer"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_origin.rs
-msgid "tiny"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_origin.rs
-msgid "big"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_origin.rs
-msgid "whole"
-msgstr ""
-
-#: crates/ff-core/src/models/profile/tests_origin.rs crates/freight-fate/src/bindings.rs crates/freight-fate/src/states/driving_events/descent_control.rs
-msgid "grade"
 msgstr ""
 
 #: crates/ff-core/src/models/safety_record.rs
@@ -13706,6 +13642,10 @@ msgid "Prairie Link Regional: regional company driver"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
+msgid "Prairie Link Regional"
+msgstr ""
+
+#: crates/ff-core/src/models/start_options.rs
 msgid ""
 "A better per-mile floor, lower stop pay, and more same-region grain and "
 "bulk lanes."
@@ -13837,6 +13777,11 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/ff-core/src/models/start_options.rs
 msgid "Dispatch offers loads of up to {max} miles."
+msgstr ""
+
+#. placeholders: {max}
+#: crates/ff-core/src/models/start_options.rs
+msgid "{max} miles"
 msgstr ""
 
 #. placeholders: {miles}
@@ -16248,6 +16193,10 @@ msgstr ""
 
 #: crates/ff-core/src/sim/hos/duty_log.rs crates/ff-core/src/sim/truck_parking.rs
 msgid "location"
+msgstr ""
+
+#: crates/ff-core/src/sim/hos/duty_log.rs
+msgid "note"
 msgstr ""
 
 #: crates/ff-core/src/sim/hos/duty_log.rs
@@ -21475,6 +21424,10 @@ msgid "Reefer on or off"
 msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
+msgid "apu"
+msgstr ""
+
+#: crates/freight-fate/src/bindings.rs
 msgid "APU on or off"
 msgstr ""
 
@@ -21572,6 +21525,10 @@ msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
 msgid "Check right mirror"
+msgstr ""
+
+#: crates/freight-fate/src/bindings.rs crates/freight-fate/src/states/driving_events/descent_control.rs
+msgid "grade"
 msgstr ""
 
 #: crates/freight-fate/src/bindings.rs
@@ -51271,6 +51228,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/online_states/profile.rs
 msgid "Current career resume"
+msgstr ""
+
+#: crates/freight-fate/src/states/online_states/profile.rs
+msgid "deliveries"
 msgstr ""
 
 #. placeholders: {whole}

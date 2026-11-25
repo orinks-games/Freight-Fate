@@ -8436,9 +8436,6 @@ msgstr ""
 msgid "inert"
 msgstr "inert"
 
-msgid "native"
-msgstr ""
-
 msgid "dan"
 msgstr "dan"
 
@@ -10299,6 +10296,9 @@ msgstr "{city}の本拠地"
 msgid "your terminal in {city}"
 msgstr "{city}のターミナル"
 
+msgid "carryover"
+msgstr ""
+
 #. one sentence of a longer line
 msgid "Stay with them or choose another carrier."
 msgstr ""
@@ -10468,9 +10468,6 @@ msgstr "money"
 msgid "upgrades"
 msgstr "upgrades"
 
-msgid "carryover"
-msgstr ""
-
 msgid "standing"
 msgstr "standing"
 
@@ -10503,52 +10500,6 @@ msgstr "セーブファイルが壊れていて読み込めませんでした。
 
 msgid "Save file is not a profile object."
 msgstr "セーブファイルがプロフィールの形式ではありません。"
-
-msgid "Carried"
-msgstr ""
-
-msgid "Prairie Link Regional"
-msgstr "Prairie Link Regional"
-
-# same as English
-msgid "apu"
-msgstr "apu"
-
-msgid "Legacy Driver"
-msgstr "Legacy Driver"
-
-msgid "deliveries"
-msgstr "deliveries"
-
-msgid "seed"
-msgstr "seed"
-
-msgid "ab"
-msgstr "ab"
-
-msgid "Amarillo, TX"
-msgstr "Amarillo, TX"
-
-msgid "Café stop 🚚"
-msgstr "Café stop 🚚"
-
-msgid "note"
-msgstr "note"
-
-msgid "odometer"
-msgstr "odometer"
-
-msgid "tiny"
-msgstr "tiny"
-
-msgid "big"
-msgstr "big"
-
-msgid "whole"
-msgstr "whole"
-
-msgid "grade"
-msgstr "grade"
 
 msgid "watched"
 msgstr "要注意"
@@ -11003,6 +10954,9 @@ msgstr "Milwaukee"
 msgid "Prairie Link Regional: regional company driver"
 msgstr "Prairie Link Regional：地域の社員ドライバー"
 
+msgid "Prairie Link Regional"
+msgstr "Prairie Link Regional"
+
 msgid ""
 "A better per-mile floor, lower stop pay, and more same-region grain and "
 "bulk lanes."
@@ -11122,6 +11076,10 @@ msgstr "{area}の{tier}の社員ドライバーとしてのスタートです。
 #. one sentence of a longer line
 msgid "Dispatch offers loads of up to {max} miles."
 msgstr "配車係は最大{max}マイルの積荷を出します。"
+
+#. placeholders: {max}
+msgid "{max} miles"
+msgstr ""
 
 #. placeholders: {miles}
 msgid "{miles} miles"
@@ -13045,6 +13003,9 @@ msgstr "history"
 
 msgid "location"
 msgstr "location"
+
+msgid "note"
+msgstr "note"
 
 msgid "unknown location"
 msgstr "不明な場所"
@@ -17240,6 +17201,10 @@ msgstr "エンジンのオンとオフ"
 msgid "Reefer on or off"
 msgstr "冷凍機のオンとオフ"
 
+# same as English
+msgid "apu"
+msgstr "apu"
+
 msgid "APU on or off"
 msgstr "APUのオンとオフ"
 
@@ -17314,6 +17279,9 @@ msgstr ""
 
 msgid "Check right mirror"
 msgstr ""
+
+msgid "grade"
+msgstr "grade"
 
 msgid "Grade"
 msgstr "勾配"
@@ -42268,6 +42236,9 @@ msgstr "運送会社の保有車両の等級：{tier}"
 msgid "Current career resume"
 msgstr "今のキャリアの経歴"
 
+msgid "deliveries"
+msgstr "deliveries"
+
 #. placeholders: {whole}
 msgid "Lifetime deliveries: {whole}"
 msgstr "生涯の配達数：{whole}"
@@ -44406,6 +44377,33 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid "Legacy Driver"
+#~ msgstr "Legacy Driver"
+
+#~ msgid "seed"
+#~ msgstr "seed"
+
+#~ msgid "ab"
+#~ msgstr "ab"
+
+#~ msgid "Amarillo, TX"
+#~ msgstr "Amarillo, TX"
+
+#~ msgid "Café stop 🚚"
+#~ msgstr "Café stop 🚚"
+
+#~ msgid "odometer"
+#~ msgstr "odometer"
+
+#~ msgid "tiny"
+#~ msgstr "tiny"
+
+#~ msgid "big"
+#~ msgstr "big"
+
+#~ msgid "whole"
+#~ msgstr "whole"
 
 #~ msgid "It is an engine and it sounds like one."
 #~ msgstr "エンジンで、エンジンの音がします。"

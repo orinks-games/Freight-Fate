@@ -2,9 +2,9 @@
 //! makes, the one reader and writer of `carryover`, and the "Choose a
 //! carrier" choice (see `models::carryover`).
 
-use serde_json::Value;
+use serde_json::{Map, Value};
 
-use super::Profile;
+use super::{older_career_line, Profile, CREATED_LINE};
 use crate::data::world::{get_world, World};
 use crate::models::business_constants::is_owner_operator;
 use crate::models::carriers::{Carrier, CarrierOpening};
@@ -23,6 +23,25 @@ pub struct CarrierChoiceRow {
     pub terminal_city: String,
     /// The driver's own carrier: staying.
     pub stay: bool,
+}
+
+/// A 1.9 career arriving in 2.0 as a dict, a cloud backup restored here:
+/// the copy-forward's stamp and carry-over written into it, once (the stamp
+/// means a second pass finds nothing to do). True when it was a 1.9 career.
+pub fn carry_over_1_9_dict(map: &mut Map<String, Value>) -> bool {
+    if older_career_line(map).is_none() {
+        return false;
+    }
+    let mut profile = Profile::from_dict(map);
+    profile.carry_over_from_1_9();
+    map.insert("created_line".into(), Value::from(CREATED_LINE));
+    let carried = profile.to_dict();
+    for key in ["carryover", "home_city", "home_terminal_city"] {
+        if let Some(value) = carried.get(key) {
+            map.insert(key.into(), value.clone());
+        }
+    }
+    true
 }
 
 impl Profile {
@@ -225,10 +244,9 @@ impl Profile {
         let already_there = world.resolve_city_key(&self.current_city) == terminal;
         if self.active_trip.is_none() {
             self.current_city = terminal.clone();
-            self.parked_facility = row
-                .carrier
-                .terminal_name(world, &terminal)
-                .unwrap_or_default();
+            // As joining a carrier does: the terminal is where the truck
+            // starts, not a facility it is parked at.
+            self.parked_facility.clear();
         }
         if moves_home {
             format!(

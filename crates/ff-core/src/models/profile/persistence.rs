@@ -158,6 +158,13 @@ impl Profile {
             profile.carry_over_from_1_9();
             profile.needs_migration_resave = true;
         }
+        // A 1.9 file that reached the 2.0 folder another way (copied in by
+        // hand): the copy-forward's stamp and carry-over, once.
+        if persist && older_career_line(&data).is_some() {
+            profile.created_line = CREATED_LINE.to_string();
+            profile.carry_over_from_1_9();
+            profile.needs_migration_resave = true;
+        }
         if tampered && !profile.integrity_modified {
             profile.integrity_modified = true;
             profile.integrity_notice_pending = true;
