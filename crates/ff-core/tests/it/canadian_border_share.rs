@@ -268,3 +268,83 @@ fn the_border_weight_thins_a_canadian_boards_us_loads() {
         before.us_loads
     );
 }
+
+/// Report for the director (2026-11-25): whether the router sends Toronto
+/// and Montreal loads to Winnipeg and the West through the United States,
+/// and what share of the nationals' Canada-to-Canada loads are transit
+/// lanes. Prints; asserts nothing.
+#[test]
+#[ignore = "report: run by hand"]
+fn report_the_nationals_transit_lanes() {
+    use ff_core::models::jobs::cross_border::route_stays_in_canada;
+    let world = world();
+    for origin in ["toronto_on_ca", "montreal_qc_ca"] {
+        for destination in [
+            "winnipeg_mb_ca",
+            "regina_sk_ca",
+            "saskatoon_sk_ca",
+            "calgary_ab_ca",
+            "edmonton_ab_ca",
+            "vancouver_bc_ca",
+        ] {
+            match world.supported_route(origin, destination, None) {
+                Ok(Some(route)) => {
+                    let us: Vec<&String> = route
+                        .cities
+                        .iter()
+                        .filter(|k| !k.ends_with("_ca"))
+                        .collect();
+                    println!(
+                        "ROUTE {origin} -> {destination}: {:.0} mi, stays in Canada {}, US cities {:?}",
+                        route.miles(),
+                        route_stays_in_canada(&route),
+                        us
+                    );
+                }
+                other => println!("ROUTE {origin} -> {destination}: {other:?}"),
+            }
+        }
+    }
+    let pairs = reference_fleet(world);
+    for national in ["longspur_transport", "great_shield_transport"] {
+        let (mut home, mut transit) = (0u32, 0u32);
+        let mut cities: Vec<&String> = Vec::new();
+        for (carrier, city) in pairs.iter().filter(|(c, _)| c == national) {
+            cities.push(city);
+            for level in LEVELS {
+                let creds = held(level);
+                for seed in 0..SEEDS {
+                    let jobs = JobBoard::seeded(world, seed).offers(
+                        city,
+                        &creds,
+                        OfferOptions {
+                            count: OFFERS,
+                            level,
+                            carrier_key: Some(carrier),
+                            ..Default::default()
+                        },
+                    );
+                    for job in jobs {
+                        if !(world.cities[&job.origin].country.eq_ignore_ascii_case("CA")
+                            && world.cities[&job.destination]
+                                .country
+                                .eq_ignore_ascii_case("CA"))
+                        {
+                            continue;
+                        }
+                        match world.supported_route(&job.origin, &job.destination, None) {
+                            Ok(Some(route)) if !route_stays_in_canada(&route) => transit += 1,
+                            _ => home += 1,
+                        }
+                    }
+                }
+            }
+        }
+        let all = home + transit;
+        println!(
+            "NATIONAL {national}: {} home cities, {all} Canada-to-Canada loads, {transit} transit ({:.1}%)",
+            cities.len(),
+            100.0 * f64::from(transit) / f64::from(all.max(1))
+        );
+    }
+}
