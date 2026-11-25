@@ -9822,6 +9822,23 @@ msgstr "{join}和{last}"
 msgid "cattle"
 msgstr "牛"
 
+msgid "home"
+msgstr "home"
+
+msgid "cabotage"
+msgstr ""
+
+msgid "READ: Mercer Transportation, as for steel"
+msgstr ""
+
+msgid ""
+"ASSUMED: seafood and other food going south by truck; no page read gives a "
+"figure"
+msgstr ""
+
+msgid "ASSUMED: as for food"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} driving hours"
 msgstr "{f} 行驶时间"
@@ -11917,6 +11934,12 @@ msgstr "已停车"
 
 msgid "holding"
 msgstr "holding"
+
+msgid "filed"
+msgstr ""
+
+msgid "closed"
+msgstr ""
 
 # leave empty: loose frame; it caught "Crossing into" time zone lines and left "into" English
 #. placeholders: {name}
@@ -22938,6 +22961,9 @@ msgstr "现在是{now}。"
 msgid "delivery"
 msgstr "delivery"
 
+msgid "bond"
+msgstr ""
+
 msgid "alertness"
 msgstr "清醒度"
 
@@ -23000,25 +23026,17 @@ msgid ""
 msgstr "{grouped}加元的罚款，折合{grouped2}美元收取"
 
 #. one sentence of a longer line
-msgid ""
-"The officer asks for your passport and checks the eManifest filed for this "
-"load."
-msgstr "官员要你的护照，并核对这单货提交的eManifest。"
+msgid "Cleared."
+msgstr "已放行。"
 
-#. placeholders: {name}, {agency}
-msgid ""
-"{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest filed for this load."
-msgstr "{name}，{agency}。官员要你的护照，并核对这单货提交的eManifest。"
+#. placeholders: {country}
+msgid "Cleared. Welcome to {country}."
+msgstr "已放行。欢迎来到{country}。"
 
-msgid "customs clearance"
-msgstr "海关清关"
-
-msgid "Canada"
-msgstr "加拿大"
-
-msgid "the United States"
-msgstr "美国"
+#. placeholders: {country}
+#. one sentence of a longer line
+msgid "Welcome to {country}."
+msgstr "欢迎来到{country}。"
 
 #. one sentence of a longer line
 msgid "Officers examine the trailer for 45 minutes, then clear you."
@@ -23034,18 +23052,82 @@ msgid ""
 "minutes, then clear you. Welcome to {country}."
 msgstr "转入二次检查。官员检查挂车45分钟后放行。欢迎来到{country}。"
 
-#. placeholders: {country}
 #. one sentence of a longer line
-msgid "Welcome to {country}."
-msgstr "欢迎来到{country}。"
-
-#. one sentence of a longer line
-msgid "Cleared."
-msgstr "已放行。"
+msgid "Cleared in bond."
+msgstr ""
 
 #. placeholders: {country}
-msgid "Cleared. Welcome to {country}."
-msgstr "已放行。欢迎来到{country}。"
+msgid "Cleared in bond. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Officers examine the trailer for 45 minutes, then clear you in bond."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you in bond. Welcome to {country}."
+msgstr ""
+
+#. placeholders: {country}
+msgid "Cleared. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The bond is closed."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
+msgstr "官员要你的护照，并核对这单货提交的eManifest。"
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"eManifest filed for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest and "
+"bond for this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest and bond for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest for "
+"this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest for this load."
+msgstr ""
+
+msgid "customs clearance"
+msgstr "海关清关"
+
+msgid "Canada"
+msgstr "加拿大"
+
+msgid "the United States"
+msgstr "美国"
 
 msgid "Answer the officer's questions and hand over your documents"
 msgstr "回答官员的问题，并交出证件"
@@ -43374,9 +43456,6 @@ msgstr "Right arrow"
 msgid "Home"
 msgstr "Home"
 
-msgid "home"
-msgstr "home"
-
 msgid "end"
 msgstr "end"
 
@@ -43643,6 +43722,11 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#~ msgid ""
+#~ "{name}, {agency}. The officer asks for your passport and checks the "
+#~ "eManifest filed for this load."
+#~ msgstr "{name}，{agency}。官员要你的护照，并核对这单货提交的eManifest。"
 
 #~ msgid "Tires on concrete grooved across the lane: texture, not a decision."
 #~ msgstr "轮胎压过横向刻槽的混凝土路面：是质感，不需要作出决定。"

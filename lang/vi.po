@@ -11233,6 +11233,23 @@ msgstr "{join} và {last}"
 msgid "cattle"
 msgstr "bò"
 
+msgid "home"
+msgstr "home"
+
+msgid "cabotage"
+msgstr ""
+
+msgid "READ: Mercer Transportation, as for steel"
+msgstr ""
+
+msgid ""
+"ASSUMED: seafood and other food going south by truck; no page read gives a "
+"figure"
+msgstr ""
+
+msgid "ASSUMED: as for food"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} driving hours"
 msgstr "{f} giờ lái"
@@ -13595,6 +13612,12 @@ msgstr "đã dừng"
 
 msgid "holding"
 msgstr "holding"
+
+msgid "filed"
+msgstr ""
+
+msgid "closed"
+msgstr ""
 
 # leave empty: loose frame; it caught "Crossing into" time zone lines and left "into" English
 #. placeholders: {name}
@@ -25559,6 +25582,9 @@ msgstr "Bây giờ là {now}."
 msgid "delivery"
 msgstr "giao hàng"
 
+msgid "bond"
+msgstr ""
+
 msgid "alertness"
 msgstr "độ tỉnh táo"
 
@@ -25625,29 +25651,17 @@ msgid ""
 msgstr "khoản phạt {grouped} đô la Canada, tính thành {grouped2} đô la Mỹ"
 
 #. one sentence of a longer line
-msgid ""
-"The officer asks for your passport and checks the eManifest filed for this "
-"load."
-msgstr ""
-"Nhân viên xin hộ chiếu của bạn và kiểm tra eManifest đã nộp cho lô hàng này."
+msgid "Cleared."
+msgstr "Đã thông quan."
 
-#. placeholders: {name}, {agency}
-msgid ""
-"{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest filed for this load."
-msgstr ""
-"{name}, {agency}. Nhân viên xin hộ chiếu của bạn và kiểm tra eManifest đã "
-"nộp cho lô hàng này."
+#. placeholders: {country}
+msgid "Cleared. Welcome to {country}."
+msgstr "Đã thông quan. Chào mừng đến {country}."
 
-msgid "customs clearance"
-msgstr "thông quan"
-
-# same as English
-msgid "Canada"
-msgstr "Canada"
-
-msgid "the United States"
-msgstr "Hoa Kỳ"
+#. placeholders: {country}
+#. one sentence of a longer line
+msgid "Welcome to {country}."
+msgstr "Chào mừng đến {country}."
 
 #. one sentence of a longer line
 msgid "Officers examine the trailer for 45 minutes, then clear you."
@@ -25665,18 +25679,84 @@ msgstr ""
 "Bị chuyển sang kiểm tra thứ cấp. Nhân viên kiểm tra rơ-moóc 45 phút rồi cho "
 "bạn qua. Chào mừng đến {country}."
 
-#. placeholders: {country}
 #. one sentence of a longer line
-msgid "Welcome to {country}."
-msgstr "Chào mừng đến {country}."
-
-#. one sentence of a longer line
-msgid "Cleared."
-msgstr "Đã thông quan."
+msgid "Cleared in bond."
+msgstr ""
 
 #. placeholders: {country}
-msgid "Cleared. Welcome to {country}."
-msgstr "Đã thông quan. Chào mừng đến {country}."
+msgid "Cleared in bond. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Officers examine the trailer for 45 minutes, then clear you in bond."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you in bond. Welcome to {country}."
+msgstr ""
+
+#. placeholders: {country}
+msgid "Cleared. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The bond is closed."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
+msgstr ""
+"Nhân viên xin hộ chiếu của bạn và kiểm tra eManifest đã nộp cho lô hàng này."
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"eManifest filed for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest and "
+"bond for this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest and bond for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest for "
+"this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest for this load."
+msgstr ""
+
+msgid "customs clearance"
+msgstr "thông quan"
+
+# same as English
+msgid "Canada"
+msgstr "Canada"
+
+msgid "the United States"
+msgstr "Hoa Kỳ"
 
 msgid "Answer the officer's questions and hand over your documents"
 msgstr "Trả lời các câu hỏi của nhân viên và nộp giấy tờ"
@@ -48793,9 +48873,6 @@ msgstr "phím mũi tên phải"
 msgid "Home"
 msgstr "Home"
 
-msgid "home"
-msgstr "home"
-
 msgid "end"
 msgstr "end"
 
@@ -49069,6 +49146,13 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#~ msgid ""
+#~ "{name}, {agency}. The officer asks for your passport and checks the "
+#~ "eManifest filed for this load."
+#~ msgstr ""
+#~ "{name}, {agency}. Nhân viên xin hộ chiếu của bạn và kiểm tra eManifest đã "
+#~ "nộp cho lô hàng này."
 
 #~ msgid "Tires on concrete grooved across the lane: texture, not a decision."
 #~ msgstr ""

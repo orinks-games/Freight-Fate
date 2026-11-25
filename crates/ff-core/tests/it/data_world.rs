@@ -2542,9 +2542,14 @@ fn test_alaska_stand_in_markets_preserve_authored_facilities() {
 
     let deadhorse = world.cities.get("deadhorse_ak_us").expect("Deadhorse city");
     assert!(is_stand_in_market("deadhorse_ak_us"));
-    assert_eq!(deadhorse.locations.len(), 1);
-    assert_eq!(deadhorse.locations[0].facility_type, "company_yard");
-    assert!(deadhorse.locations[0].template);
+    // Deadhorse's freight is its two real Slope terminals (Carlile and
+    // Lynden), not a stamped company yard: no template is added beside them.
+    assert_eq!(deadhorse.locations.len(), 2);
+    assert!(deadhorse.locations.iter().all(|location| !location.template));
+    assert!(deadhorse
+        .locations
+        .iter()
+        .all(|location| location.traits.iter().any(|t| t == "ships_in_state")));
 
     let homer = world.cities.get("homer_ak_us").expect("Homer city");
     assert!(is_stand_in_market("homer_ak_us"));

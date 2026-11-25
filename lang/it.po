@@ -11173,6 +11173,23 @@ msgstr "{join} e {last}"
 msgid "cattle"
 msgstr "bestiame"
 
+msgid "home"
+msgstr "home"
+
+msgid "cabotage"
+msgstr ""
+
+msgid "READ: Mercer Transportation, as for steel"
+msgstr ""
+
+msgid ""
+"ASSUMED: seafood and other food going south by truck; no page read gives a "
+"figure"
+msgstr ""
+
+msgid "ASSUMED: as for food"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} driving hours"
 msgstr "{f} {f:ora|ore} di guida"
@@ -13542,6 +13559,12 @@ msgstr "fermo"
 
 msgid "holding"
 msgstr "holding"
+
+msgid "filed"
+msgstr ""
+
+msgid "closed"
+msgstr ""
 
 # leave empty: loose frame; it caught "Crossing into" time zone lines and left "into" English
 #. placeholders: {name}
@@ -25660,6 +25683,9 @@ msgstr "Sono le {now}."
 msgid "delivery"
 msgstr "delivery"
 
+msgid "bond"
+msgstr ""
+
 msgid "alertness"
 msgstr "vigilanza"
 
@@ -25732,29 +25758,17 @@ msgstr ""
 "dollari statunitensi"
 
 #. one sentence of a longer line
-msgid ""
-"The officer asks for your passport and checks the eManifest filed for this "
-"load."
-msgstr ""
-"L'agente chiede il passaporto e controlla l'eManifest registrato per questo "
-"carico."
+msgid "Cleared."
+msgstr "Via libera."
 
-#. placeholders: {name}, {agency}
-msgid ""
-"{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest filed for this load."
-msgstr ""
-"{name}, {agency}. L'agente chiede il passaporto e controlla l'eManifest "
-"registrato per questo carico."
+#. placeholders: {country}
+msgid "Cleared. Welcome to {country}."
+msgstr "Via libera. Benvenuto {country}."
 
-msgid "customs clearance"
-msgstr "passaggio in dogana"
-
-msgid "Canada"
-msgstr "in Canada"
-
-msgid "the United States"
-msgstr "negli Stati Uniti"
+#. placeholders: {country}
+#. one sentence of a longer line
+msgid "Welcome to {country}."
+msgstr "Benvenuto {country}."
 
 #. one sentence of a longer line
 msgid "Officers examine the trailer for 45 minutes, then clear you."
@@ -25773,18 +25787,84 @@ msgstr ""
 "Rinviato all'ispezione secondaria. Gli agenti ispezionano il rimorchio per "
 "45 minuti, poi ti lasciano passare. Benvenuto {country}."
 
-#. placeholders: {country}
 #. one sentence of a longer line
-msgid "Welcome to {country}."
-msgstr "Benvenuto {country}."
-
-#. one sentence of a longer line
-msgid "Cleared."
-msgstr "Via libera."
+msgid "Cleared in bond."
+msgstr ""
 
 #. placeholders: {country}
-msgid "Cleared. Welcome to {country}."
-msgstr "Via libera. Benvenuto {country}."
+msgid "Cleared in bond. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Officers examine the trailer for 45 minutes, then clear you in bond."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you in bond. Welcome to {country}."
+msgstr ""
+
+#. placeholders: {country}
+msgid "Cleared. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The bond is closed."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
+msgstr ""
+"L'agente chiede il passaporto e controlla l'eManifest registrato per questo "
+"carico."
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"eManifest filed for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest and "
+"bond for this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest and bond for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest for "
+"this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest for this load."
+msgstr ""
+
+msgid "customs clearance"
+msgstr "passaggio in dogana"
+
+msgid "Canada"
+msgstr "in Canada"
+
+msgid "the United States"
+msgstr "negli Stati Uniti"
 
 msgid "Answer the officer's questions and hand over your documents"
 msgstr "Rispondi alle domande dell'agente e consegna i tuoi documenti"
@@ -49220,9 +49300,6 @@ msgstr "la freccia destra"
 msgid "Home"
 msgstr "Home"
 
-msgid "home"
-msgstr "home"
-
 msgid "end"
 msgstr "end"
 
@@ -49498,6 +49575,13 @@ msgstr ""
 "Tieni premuto il left bumper per un secondo livello di pulsanti. "
 "{pad_engine} controlla il motore, {pad_fuel} legge il carburante e "
 "{pad_speed_limit} legge il limite."
+
+#~ msgid ""
+#~ "{name}, {agency}. The officer asks for your passport and checks the "
+#~ "eManifest filed for this load."
+#~ msgstr ""
+#~ "{name}, {agency}. L'agente chiede il passaporto e controlla l'eManifest "
+#~ "registrato per questo carico."
 
 #~ msgid "Tires on concrete grooved across the lane: texture, not a decision."
 #~ msgstr ""
