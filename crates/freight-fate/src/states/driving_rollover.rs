@@ -28,6 +28,7 @@ use ff_core::data::curves::{
 };
 use ff_core::models::cargo_condition::{cargo_condition_text, CARGO_REJECT_PCT};
 use ff_core::models::enforcement::RECORD_CRASH;
+use ff_core::sim::trip_models::ExitRampLayout;
 use ff_core::sim::vehicle::{BrakeApplication, G, MPS_TO_MPH, ROLL_WARN_SHARE};
 use ff_core::speech_pacing::SpeechCategory;
 
@@ -48,7 +49,7 @@ pub const CURVE_WARN_DECEL_MPS2: f64 = 11.2 * 0.3048;
 
 /// The ramp curve's identity for the once-per-curve warning. Mapped bends go
 /// by their start milepost, which is never negative.
-const RAMP_CURVE_ID: f64 = -1.0;
+pub(crate) const RAMP_CURVE_ID: f64 = -1.0;
 
 /// A curve the truck is in or heading into, as the warning sees it.
 struct CurveInPlay {
@@ -63,6 +64,9 @@ struct CurveInPlay {
     phrase: String,
     /// Where it ends, miles; None for the ramp curve, which lasts the ramp.
     end_mi: Option<f64>,
+    /// The gore, miles, for the ramp curve warned of before the truck
+    /// reaches it.
+    gore_mi: Option<f64>,
 }
 
 impl DrivingState {
@@ -144,11 +148,29 @@ impl DrivingState {
     /// cautious reading of the same geometry. The lane model credits the ramp
     /// no bank at all (`update_lane`), and the two are kept apart on purpose.
     pub fn ramp_curve_geometry(&self) -> Option<(f64, f64)> {
-        let layout = self.ramp_layout?;
-        Some((
+        self.ramp_layout.map(Self::ramp_curve_geometry_of)
+    }
+
+    /// [`Self::ramp_curve_geometry`] for any laid-out ramp, the one the truck
+    /// is on or the one its signal is on for.
+    fn ramp_curve_geometry_of(layout: ExitRampLayout) -> (f64, f64) {
+        (
             min_radius_ft(layout.curve_mph).max(1.0),
             SUPERELEVATION_BUILT,
-        ))
+        )
+    }
+
+    /// The exit the truck is committed to (the signal on, or lane keeping
+    /// taking it) and its ramp's layout, while the truck is still short of
+    /// the gore: miles to the gore, and the layout.
+    fn armed_exit_ramp(&self, ctx: &GameContext) -> Option<(f64, ExitRampLayout)> {
+        let committed = self.exit_signal_on || ctx.settings.lane_is_automated();
+        if !committed || self.exit_signal_canceled || self.ramp_mi.is_some() {
+            return None;
+        }
+        let stop = self.exit_stop.as_ref()?;
+        let to_gore_mi = stop.at_mi - self.trip.position_mi;
+        (to_gore_mi > 0.0).then(|| (to_gore_mi, self.trip.exit_ramp_layout(stop)))
     }
 
     /// How the lane work is shared, as `TruckState::curve_safe_mph` takes it:
@@ -221,6 +243,31 @@ impl DrivingState {
     /// the exit speed, unless the driver's foot is overriding it. Inside the
     /// curve, whatever is driving.
     fn curves_in_play(&self, ctx: &GameContext) -> Vec<CurveInPlay> {
+        // Short of the gore of an exit the truck is signalled for, with
+        // nothing to brake the ramp: the ramp curve is the next curve, and
+        // the road to it runs through the gore and the whole deceleration
+        // lane. Waiting for the lane priced the warning at the lane alone,
+        // which a truck at road speed needs more than: at Oshawa's exit 415
+        // the truck crossed the gore at 87 into a 50 ramp, heard the warning
+        // a second later and rolled three seconds after that (agent drive,
+        // 2026-11-25).
+        if let Some((to_gore_mi, layout)) = self.armed_exit_ramp(ctx) {
+            let assisted = Self::ramp_speed_assisted(ctx) && !Self::driver_accelerating(ctx);
+            if assisted {
+                return Vec::new();
+            }
+            let (radius_ft, roll_bank) = Self::ramp_curve_geometry_of(layout);
+            return vec![CurveInPlay {
+                id: RAMP_CURVE_ID,
+                ahead_mi: to_gore_mi + layout.decel_mi,
+                radius_ft,
+                roll_bank,
+                lane_bank: 0.0,
+                phrase: "Ramp curve".to_string(),
+                end_mi: None,
+                gore_mi: Some(self.trip.position_mi + to_gore_mi),
+            }];
+        }
         if self.ramp_mi.is_some() {
             let Some((radius_ft, roll_bank)) = self.ramp_curve_geometry() else {
                 return Vec::new();
@@ -240,6 +287,7 @@ impl DrivingState {
                     lane_bank: 0.0,
                     phrase: "Ramp curve".to_string(),
                     end_mi: None,
+                    gore_mi: None,
                 })
                 .into_iter()
                 .collect();
@@ -270,6 +318,7 @@ impl DrivingState {
                 lane_bank: self.lane_bank(&bend),
                 phrase: self.pacenote_phrase(&bend),
                 end_mi: Some(bend.start_mi.max(bend.end_mi)),
+                gore_mi: None,
             })
             .collect()
     }
@@ -279,7 +328,14 @@ impl DrivingState {
     pub fn update_curve_warning(&mut self, ctx: &mut GameContext) {
         let curves = self.curves_in_play(ctx);
         if curves.is_empty() {
-            self.curve_warned_mi = None;
+            // A ramp curve warned of from the highway has had its word for
+            // the whole exit: the frames between the approach and the lane
+            // (an assist taking the pedals, the gore itself) hold nothing in
+            // play, and clearing here said it a second time on the ramp.
+            let exit_still_ahead = self.ramp_mi.is_some() || self.exit_stop.is_some();
+            if !(self.curve_warned_mi == Some(RAMP_CURVE_ID) && exit_still_ahead) {
+                self.curve_warned_mi = None;
+            }
             return;
         }
         let speed = self.trip.truck.speed_mph();
@@ -324,10 +380,15 @@ impl DrivingState {
             // Slow to 27" and then "Sharp left, too fast. Slow to 31" for a
             // bend already behind, so the last number heard was the wrong
             // one (bend sweep, US-62, 2026-09-24).
-            let end_mi = curve.end_mi;
+            let (end_mi, gore_mi) = (curve.end_mi, curve.gore_mi);
             let still_true = move || {
                 live::speed_mph() > slow_to
-                    && end_mi.map_or_else(live::on_ramp, |end| live::position_mi() <= end)
+                    && match end_mi {
+                        Some(end) => live::position_mi() <= end,
+                        None => {
+                            live::on_ramp() || gore_mi.is_some_and(|g| live::position_mi() <= g)
+                        }
+                    }
             };
             ctx.say_event_with(
                 format!(

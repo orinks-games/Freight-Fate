@@ -114,13 +114,33 @@ impl DrivingState {
         LIMIT_WARNING_MAX_LEAD_MI.min(ACC_LIMIT_LOOKAHEAD_MAX_MI * scale)
     }
 
+    /// The gore of the exit cruise is set for, while the truck is short of it.
+    ///
+    /// The road past it is not the truck's: the trip's miles run on along the
+    /// highway into town, and a town limit there is on the highway, not on
+    /// the ramp. Read as a drop ahead, the 50 inside Oshawa held cruise at 58
+    /// on Highway 401 for three kilometres, then let go 800 meters before exit
+    /// 415, and cruise built from 59 to 87 into a 50 ramp (agent drive,
+    /// 2026-11-25). The ramp has its own number, `cruise_exit_mph`.
+    pub fn armed_exit_gore_mi(&self) -> Option<f64> {
+        self.cruise_exit_mph?;
+        if self.ramp_mi.is_some() {
+            return None;
+        }
+        self.exit_stop
+            .as_ref()
+            .map(|stop| stop.at_mi)
+            .filter(|gore| *gore > self.trip.position_mi)
+    }
+
     /// Lowest posted limit close enough that ACC should start slowing now.
     pub fn acc_posted_limit_ahead(&mut self, ctx: &mut GameContext) -> (f64, Option<String>) {
         let start = self.trip.position_mi;
         let end = self
             .trip
             .total_miles()
-            .min(start + self.acc_limit_lookahead_max_mi());
+            .min(start + self.acc_limit_lookahead_max_mi())
+            .min(self.armed_exit_gore_mi().unwrap_or(f64::INFINITY));
         let (under_wheels, under_reason) = self.trip.speed_limit_at(start);
         let (mut lowest_limit, mut lowest_reason) = (under_wheels, under_reason);
         // Keep aiming at a drop already being slowed for. The window below
@@ -980,7 +1000,12 @@ impl DrivingState {
         // sitting below the number cruise is working to. The three ported
         // guards (see CRUISE_GRADE_BEATEN_* in driving_core): a real grade,
         // not mid-shift, and the condition holding rather than one frame.
+        // Losing speed, too: a target that has just gone up (a cap let go)
+        // floors the pedal on a climb the truck is still gaining on, and
+        // "Cruise down to 59 on this grade" there was heard as cruise's new
+        // number while it built to 77 (agent drive, Oshawa, 2026-11-25).
         let beaten = self.cruise_applied >= CRUISE_FLOORED_THROTTLE
+            && self.trip.truck.net_accel_mph_per_s() <= 0.0
             && self.trip.truck.grade * 100.0 >= CRUISE_GRADE_BEATEN_PCT
             && error > CRUISE_DROOP_MPH;
         if !beaten {

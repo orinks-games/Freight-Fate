@@ -647,7 +647,15 @@ impl DrivingState {
         // On the ramp from this line on: a mainline line it cuts is not
         // handed back (see `speak_plain_route_event`).
         self.refresh_live_facts();
-        let mut opts = SayEvent::new();
+        // Behind the ramp curve warning when that came from the highway: it
+        // is the line to brake on, and cut by this one it came back after it,
+        // the brake instruction last (agent drive, Oshawa, 2026-11-25).
+        let warned = self.curve_warned_mi == Some(crate::states::driving_rollover::RAMP_CURVE_ID);
+        let mut opts = if warned {
+            SayEvent::queued()
+        } else {
+            SayEvent::new()
+        };
         opts.category = Some(SpeechCategory::Navigation);
         ctx.say_event_with(message, opts);
     }
