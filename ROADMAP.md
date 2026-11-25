@@ -5314,8 +5314,31 @@ branch. The older Phase A/B plan checklists are not a live completion list.
 - [ ] (Found along the way) The Canadian carrier's transit rule is ASSUMED:
       a Canadian load through the United States is allowed in bond, the
       mirror of the US rule; no page read says either way.
-- [ ] (Found along the way) Canadian carriers, home cities and boards
-      (brief 2); the `base_country` field exists for them.
+- [x] (Found along the way) Canadian carriers, home cities and boards
+      (brief 2). Built 2026-11-25: the carriers carry `base_country`, and
+      their boards run on the lane table.
+- [x] **Canadian boards follow the survey's border share (brief 2).** A
+      Canadian carrier's board in Canada draws a US destination at
+      `CANADIAN_BORDER_WEIGHT` = 0.29, derived: the value at which the
+      reference fleet (every Canadian carrier with each city where it hires
+      and the home rule passes, levels 1, 8 and 20 in equal parts, an
+      assumed mix) measures the 2018 transborder share of long-distance
+      for-hire shipments, 19.2% (Statistics Canada table 23-10-0219-01). It
+      measures 19.15%, against 34.5% with no weight; a slow test holds it
+      inside 19.0 to 21.5%, the table's 2014 to 2018 range. The nationals
+      stay well above 19% and the regionals fall below it.
+- [ ] (Found along the way) Loaded miles across the border on Canadian
+      boards: with the weight, the reference fleet runs 26.4% of its loaded
+      miles on transborder loads, against 38.7% of tonne-kilometres and
+      39.6% of shipment-kilometres (derived: 10.0 M at 1,504 km against
+      53.7 M at 427 km) in the same survey. The distance weighting keeps
+      border loads too short; not fitted into the weight.
+- [ ] (Found along the way) US carriers' share of loads into Canada is still
+      the plain distance weighting. No published share of US for-hire loads
+      that cross into Canada was found (plan doc, Sources).
+- [ ] (Found along the way) The border weight's survey year is 2018, the
+      last in the table. Recalibrate when Statistics Canada publishes a later
+      year of the origin and destination survey.
 - [ ] (Found along the way) The new Alaska sites have no street chains, and
       the two Deadhorse sites sit at the airport and the place centroid:
       neither terminal has an OpenStreetMap object.
@@ -5328,8 +5351,8 @@ branch. The older Phase A/B plan checklists are not a live completion list.
   - [ ] The board's trip hours, the deadline plan and the team hand-over
         lines still say 10 hours in Canada.
 - [x] **Canadian rest menus.** Built 2026-11-25: under Canadian rules the
-      rest menu, the rest preview and the motel rows (the rest stop's and
-      the full lot's) offer the 8-hour reset, each in a line of its own
+      rest menu, the rest preview, the motel rows (the rest stop's and
+      the full lot's) and the terminal's sleep row offer the 8-hour reset, each in a line of its own
       ("Sleep 8 hours", "take a full 8-hour reset"). The night ends the
       Canadian counts (SOR/2005-313 s.13); the US counts still want 10
       consecutive hours, so a driver who crosses after an 8-hour night is on
@@ -6380,10 +6403,10 @@ a carrier slice (owner, 2026-10-26).
       take loads but were not driven for loads across the border.
 - [ ] (Found along the way) Shipping containers are hooked on a flatbed or
       a dry van at the Surrey and Bellingham terminals.
-- [ ] Canadian carriers and home bases, and loads inside Canada for them:
-      the next dispatch slice after loads across the border. Carriers and
-      home bases built 2026-11-25; their boards wait for the shared lane
-      table.
+- [x] Canadian carriers and home bases, and loads inside Canada for them:
+      the next dispatch slice after loads across the border. Carriers, home
+      bases and their boards built 2026-11-25 on the shared lane table, with
+      the border weight.
 - [ ] (Found along the way) Placarded loads across the border: Canada's
       Transportation of Dangerous Goods papers and the placard rules at the
       port are not modeled, so hazmat stays off Canadian lanes for now.

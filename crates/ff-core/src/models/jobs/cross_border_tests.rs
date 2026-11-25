@@ -457,7 +457,10 @@ fn the_longspur_owner_operator_in_chicago_is_offered_canada_only() {
             }
         }
     }
-    assert!(loads > 0, "Chicago offers the Longspur lease no load at all");
+    assert!(
+        loads > 0,
+        "Chicago offers the Longspur lease no load at all"
+    );
 }
 
 fn in_alaska(city: &str) -> bool {

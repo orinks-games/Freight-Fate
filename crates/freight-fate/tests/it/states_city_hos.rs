@@ -251,7 +251,9 @@ fn test_a_terminal_in_canada_sleeps_the_8_hour_reset() {
     assert_eq!(p.hos.ca_driving_min, 0.0);
     assert!(p.fatigue < 75.0 - 8.0 * 7.9, "{}", p.fatigue);
     assert!(
-        app.main_lines().iter().any(|l| l.starts_with("Slept 8 hours.")),
+        app.main_lines()
+            .iter()
+            .any(|l| l.starts_with("Slept 8 hours.")),
         "{:?}",
         app.main_lines()
     );

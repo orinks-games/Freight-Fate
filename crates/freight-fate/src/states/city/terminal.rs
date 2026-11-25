@@ -383,7 +383,7 @@ impl CityMenuState {
         }
         self.confirm_sleep_rested = false;
         // The rules of the province or state the terminal is in: a night in
-        // Canada is an 8-hour reset (SOR/2005-313 s.16), in the US 10.
+        // Canada is an 8-hour reset (SOR/2005-313 s.12 and s.13), in the US 10.
         let rules = terminal_hos_rules(ctx);
         let (before_fatigue, start, end, rest_min) = {
             let p = profile_mut(ctx);

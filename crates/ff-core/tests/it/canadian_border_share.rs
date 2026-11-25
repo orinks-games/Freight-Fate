@@ -133,7 +133,13 @@ fn measure_fleet(world: &'static World, weight: f64) -> Fleet {
             / n,
         mile_share: counted
             .iter()
-            .map(|c| if c.miles > 0.0 { c.us_miles / c.miles } else { 0.0 })
+            .map(|c| {
+                if c.miles > 0.0 {
+                    c.us_miles / c.miles
+                } else {
+                    0.0
+                }
+            })
             .sum::<f64>()
             / n,
         cells: counted.len(),

@@ -32,6 +32,7 @@
 - **Big bridges are on the map by name.** You hear the bridge under the wheels for its whole length, and its name as you drive onto it.
 - **You can now start a career in Canada,** with thirteen Canadian carriers and a home region row for each province group.
 - **A Canadian owner-operator start leases you to Longspur Transport.** It is offered in the ten provinces.
+- **Canadian carriers' boards carry about as many loads into the United States as Canadian trucking does.** A national's board still crosses far more often than a regional's.
 - **Whitehorse and Prince George now ship freight,** from a building supply yard, a recycling depot, a freight terminal and the CN intermodal yard.
 - **Trucks now stop for customs at every border crossing, both ways.** Driving past the booth brings a penalty, which a company driver's carrier pays.
 - **Dispatch now offers loads into Canada and back,** with customs time in the deadline. A US carrier may not haul between Canadian towns.
@@ -83,7 +84,7 @@
 
 ### Changed
 
-- **Under Canadian hours rules, the rest menu, the sleep preview and the motel rows offer the 8-hour reset.** The US clocks still want 10 hours off.
+- **Under Canadian hours rules, the rest menu, the sleep preview, the motel rows and a Canadian terminal offer the 8-hour reset.** The US clocks still want 10 hours off.
 - **The career start rows now speak in the units of the home city you are picking,** kilometers for a Canadian city on Automatic.
 - **Gearshifts, turbocharger cues, and the engine brake now use real vehicle recordings instead of synthesized sounds.** Saved classic engine-brake settings migrate to recorded playback.
 - **The main engine and startup now use approved stereo cab recordings in installed builds.**
