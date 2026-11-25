@@ -20,7 +20,7 @@ use crate::models::jobs::{
     CargoType, Job, LoadUrgency, SeasonalWeightLimit, DEADLINE_DISPATCH_SLACK_RANGE,
     FACILITY_SELECTION_WEIGHTS, HELD_CREDENTIAL_CARGO_WEIGHT, HELD_CREDENTIAL_FACILITY_BONUS,
     HOOKUP_FEE, LEVEL_DISTANCE_CAPS, LEVEL_DISTANCE_CAP_STEP_MI, MAX_DISPATCH_DISTANCE_MI,
-    MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL, PREMIUM_LANE_LONG_HAUL_BIAS,
+    CANADIAN_BORDER_WEIGHT, MIN_JOB_DISTANCE_MI, PREMIUM_LANE_LEVEL, PREMIUM_LANE_LONG_HAUL_BIAS,
     SPECIALIZED_FREIGHT_LEVEL, SPECIALIZED_FREIGHT_WEIGHT, THIN_OUTBOUND_ORIGIN_WEIGHT,
 };
 use crate::models::jobs::{required_hours, team_deadline_hours};
@@ -180,6 +180,8 @@ pub struct JobBoard<'w> {
     /// Post every load standard: a relay brings a nearby load as it is,
     /// with no hot or flexible terms.
     pub standard_only: bool,
+    /// `CANADIAN_BORDER_WEIGHT`, unless a calibration run sets another.
+    border_weight: f64,
     rng: PyRandom,
 }
 
@@ -191,6 +193,7 @@ impl<'w> JobBoard<'w> {
             hos: hos.cloned(),
             calendar_hours: None,
             standard_only: false,
+            border_weight: CANADIAN_BORDER_WEIGHT,
             rng: match seed {
                 Some(seed) => PyRandom::new_from_i64(seed),
                 None => PyRandom::new_unseeded(),
@@ -201,6 +204,14 @@ impl<'w> JobBoard<'w> {
     /// `JobBoard(world, seed=seed)`.
     pub fn seeded(world: &'w World, seed: i64) -> Self {
         Self::new(world, Some(seed), None)
+    }
+
+    /// A board drawn with another border weight: the calibration of
+    /// `CANADIAN_BORDER_WEIGHT` and its guard tests use it. Not for play.
+    #[doc(hidden)]
+    pub fn with_border_weight(mut self, weight: f64) -> Self {
+        self.border_weight = weight;
+        self
     }
 
     pub fn with_calendar_hours(mut self, hours: f64) -> Self {
@@ -593,6 +604,9 @@ impl<'w> JobBoard<'w> {
             if origin_region.is_some() && dest_region == origin_region {
                 weight *= 1.0 + dispatch.regional_bias;
             }
+        }
+        if self.is_border_draw(carrier_key, origin, destination) {
+            weight *= self.border_weight;
         }
         weight.max(1e-12)
     }

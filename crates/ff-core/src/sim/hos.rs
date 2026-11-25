@@ -100,6 +100,11 @@ impl HosRules {
         }
     }
 
+    /// Whether these are the federal Canadian rules, south or north of 60.
+    pub fn is_canadian(self) -> bool {
+        matches!(self, Self::CanadaSouth60 | Self::CanadaNorth60)
+    }
+
     /// Parse a saved rule key, defaulting unknown values to US rules.
     pub fn from_key(key: &str) -> Self {
         match key.trim().to_ascii_lowercase().as_str() {

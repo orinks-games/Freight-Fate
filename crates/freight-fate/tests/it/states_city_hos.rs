@@ -231,6 +231,33 @@ fn test_city_sleep_resets_hours_and_advances_the_clock() {
 }
 
 #[test]
+fn test_a_terminal_in_canada_sleeps_the_8_hour_reset() {
+    // Brief 2 ruling 4: a night at a Canadian terminal is the 8-hour
+    // Canadian reset, on its own row and its own line.
+    let mut app = TestApp::new();
+    career(&mut app, "Port Lands", "Toronto");
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+    let before = {
+        let p = profile_mut(&mut app);
+        p.hos.drive(600.0);
+        p.fatigue = 75.0;
+        p.game_hours
+    };
+    app.clear_speech();
+    select::<CityMenuState>(&mut app, "Sleep 8 hours");
+    let p = profile(&app);
+    assert!(approx(p.game_hours, before + 8.0), "{}", p.game_hours);
+    assert_eq!(p.hos.ca_driving_min, 0.0);
+    assert!(p.fatigue < 75.0 - 8.0 * 7.9, "{}", p.fatigue);
+    assert!(
+        app.main_lines().iter().any(|l| l.starts_with("Slept 8 hours.")),
+        "{:?}",
+        app.main_lines()
+    );
+}
+
+#[test]
 fn test_the_sleep_that_finishes_a_restart_says_the_cycle_reset() {
     // R1 review, 2026-11-22: four nights in the bunk room cleared a spent
     // 70-hour week without a word.

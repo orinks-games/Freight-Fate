@@ -16,7 +16,7 @@ use ff_core::models::solvency;
 use ff_core::music::{select_menu_music_sequence, MenuMusicProfile};
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_n};
 use ff_core::sim::alertness::Alertness;
-use ff_core::sim::hos::{self, clock_text, time_of_day};
+use ff_core::sim::hos::{self, clock_text, time_of_day, HosRules};
 use ff_core::sim::roadside_inspection::walk_around;
 use ff_core::sim::timezones::{city_zone, to_local, TimeZone, EASTERN};
 
@@ -381,19 +381,24 @@ impl CityMenuState {
             return;
         }
         self.confirm_sleep_rested = false;
-        let (before_fatigue, start, end) = {
+        // The rules of the province or state the terminal is in: a night in
+        // Canada is an 8-hour reset (SOR/2005-313 s.16), in the US 10.
+        let rules = terminal_hos_rules(ctx);
+        let (before_fatigue, start, end, rest_min) = {
             let p = profile_mut(ctx);
+            p.hos.set_rules(rules);
+            let rest_min = p.hos.reset_rest_min();
             let before_fatigue = p.fatigue;
             let start = p.game_hours;
-            p.game_hours += 10.0;
-            (before_fatigue, start, p.game_hours)
+            p.game_hours += rest_min / 60.0;
+            (before_fatigue, start, p.game_hours, rest_min)
         };
         record_city_duty(ctx, "sleeper_berth", start, end, "terminal sleep");
         let cycle_restarted = {
             let p = profile_mut(ctx);
             let cycle_before = p.hos.cycle_used_min();
-            p.hos.sleep();
-            p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
+            p.hos.rest_reset();
+            p.fatigue = hos::rest_sleep(p.fatigue, rest_min);
             let day = p.market_day();
             p.market.advance_to(day);
             p.hos.cycle_restarted_since(cycle_before)
@@ -408,11 +413,20 @@ impl CityMenuState {
         } else {
             ""
         };
-        ctx.say(&format!(
-            "Slept 10 hours. It is {}, {}.{cycle}",
-            clock_text(hour),
-            time_of_day(hour)
-        ));
+        let slept = if rest_min < hos::SLEEP_MIN {
+            format!(
+                "Slept 8 hours. It is {}, {}.{cycle}",
+                clock_text(hour),
+                time_of_day(hour)
+            )
+        } else {
+            format!(
+                "Slept 10 hours. It is {}, {}.{cycle}",
+                clock_text(hour),
+                time_of_day(hour)
+            )
+        };
+        ctx.say(&slept);
         // The same judgement as a rest stop's: asleep before the band
         // where the nods begin.
         if Alertness::from_fatigue(before_fatigue) < Alertness::Severe {
@@ -990,12 +1004,18 @@ impl Menu for CityMenuState {
             MenuItem::new("Logbook", |s: &mut Self, ctx| s.logbook(ctx))
                 .help("Recent logbook entries."),
         );
-        items.push(
+        let sleep_row = if terminal_hos_rules(ctx).is_canadian() {
+            MenuItem::new("Sleep 8 hours", |s: &mut Self, ctx| s.sleep(ctx)).help(
+                "Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock \
+                 advances 8 hours.",
+            )
+        } else {
             MenuItem::new("Sleep 10 hours", |s: &mut Self, ctx| s.sleep(ctx)).help(
                 "Fresh hours of service. Sleep takes off 8 points of fatigue an hour. Clock \
                  advances 10 hours.",
-            ),
-        );
+            )
+        };
+        items.push(sleep_row);
         items.push(
             MenuItem::new("Save game", |s: &mut Self, ctx| s.save(ctx)).help("Saves the career."),
         );
@@ -1109,3 +1129,15 @@ impl Menu for CityMenuState {
 }
 
 impl_state_for_menu!(CityMenuState);
+
+/// The hours-of-service rules of the province or state the parked truck is
+/// in, for the terminal's sleep: a drive sets them by the road, a night at
+/// the terminal by where the terminal is.
+fn terminal_hos_rules(ctx: &GameContext) -> HosRules {
+    let key = ctx.world.resolve_city_key(&profile(ctx).current_city);
+    ctx.world
+        .cities
+        .get(&key)
+        .map(|c| HosRules::for_jurisdiction(&c.state_code))
+        .unwrap_or_default()
+}

@@ -890,6 +890,37 @@ pub const THIN_OUTBOUND_ORIGIN_WEIGHT: f64 = 0.25;
 pub const PREMIUM_LANE_LEVEL: i64 = 12;
 pub const PREMIUM_LANE_LONG_HAUL_BIAS: f64 = 0.5;
 
+/// The draw weight of a destination in the United States (Alaska included)
+/// on a board whose carrier is based in Canada and whose origin is in
+/// Canada. Every other destination, and every US-based carrier, keeps 1.
+/// It is a draw weight, not a lane rule: the lane table in `cross_border`
+/// still decides what may be hauled.
+///
+/// Derived. Target p = 0.192: the 2018 transborder share of long-distance
+/// (25 km or more) for-hire shipments in Statistics Canada table
+/// 23-10-0219-01, "Trucking Commodity Origin and Destination Survey,
+/// shipments by shipment type" (10.0 M transborder of 52.0 M long-distance;
+/// local shipments are all domestic, so long-distance = all minus local).
+/// The survey counts for-hire carriers based in Canada; 2018 is its last
+/// year. w is the value, found by bisection and rounded to two decimals,
+/// at which the reference fleet's US share of loads is p, capped at 1.
+/// Measured 2026-11-25: 34.5% with no weight, 19.15% at w = 0.29, over
+/// 1,592 cells of 20 boards of 8 loads.
+///
+/// The reference fleet is assumed, not surveyed: every pair of a Canadian
+/// carrier and a city where it hires and the home rule passes (the careers
+/// the picker offers), each pair once, at levels 1, 8 and 20 in equal
+/// parts, with every certificate granted by that level held. The locals and
+/// Mattawa River are in it at zero, as the survey counts carriers that never
+/// cross. Geography and the run band spread the share across boards: a
+/// long-haul national stays well above p and a regional falls below it.
+///
+/// `canadian_border_share::the_reference_fleet_sits_in_the_survey_range`
+/// recomputes the fleet share and fails outside 19.0 to 21.5%, the table's
+/// 2014 to 2018 range; the ignored `calibrate_the_canadian_border_weight`
+/// in the same file reproduces w.
+pub const CANADIAN_BORDER_WEIGHT: f64 = 0.29;
+
 /// Canonical from:to lane for dispatch-variety memory.
 pub fn lane_key(world: &World, job: &Job) -> String {
     format!(
