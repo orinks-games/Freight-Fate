@@ -121,6 +121,7 @@
 
 - **Cruise no longer slows on the highway for a town limit past your exit,** then speeds up again before the exit. It eases to its exit speed by the exit.
 - **The ramp curve warning comes before the exit when the truck needs more room than the exit lane to slow.**
+- **The GPS no longer calls a speed limit drop that lies past the exit you are taking.**
 - **Automatic upshifts under power now clunk once, as the next gear takes hold.**
 - **Removed repeating beeps from highway ambience, smoothed automatic shifts, and quieted bridges.** Crossing a ramp light on yellow no longer chimes green.
 - **The main engine no longer has metallic pitch stretching or phasing between recordings.**
