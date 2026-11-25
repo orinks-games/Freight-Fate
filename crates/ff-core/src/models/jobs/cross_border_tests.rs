@@ -401,8 +401,10 @@ fn no_driver_is_left_without_a_load_in_canada() {
 }
 
 #[test]
-fn a_driver_who_delivers_to_whitehorse_is_sent_on_empty() {
-    let board = company_board("whitehorse_yt_ca", "northstar", 1, 0);
+fn a_driver_who_delivers_to_watson_lake_is_sent_on_empty() {
+    // Watson Lake ships nothing (fuel and parking pins only); Whitehorse
+    // ships since its freight sites of 2026-11-25.
+    let board = company_board("watson_lake_yt_ca", "northstar", 1, 0);
     assert_eq!(board.len(), 1, "{board:?}");
     let reposition = &board[0];
     assert!(reposition.bobtail && reposition.assigned, "{reposition:?}");

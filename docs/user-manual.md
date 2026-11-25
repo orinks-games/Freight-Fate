@@ -113,11 +113,11 @@ When you first launch the game, it asks how much driving assistance you'd like. 
 
 Choose New career on the main menu and enter your name. Then pick a home region, a home city in it, and a carrier that hires there. The last list also has the owner-operator start. A company supplies your equipment and covers routine equipment costs. If you start as an owner-operator, those bills are yours. Keep that difference in mind when planning how much money you need between loads.
 
-Home cities are in the lower 48 states and Alaska, which is its own region. You can't make your home in Canada yet, because no Canadian carrier hires there.
+Home cities are in the lower 48 states, Alaska and Canada. Alaska is its own region, and Canada has a region for each province group: Alberta, the Atlantic provinces, British Columbia, Ontario, Quebec, Saskatchewan and Manitoba, and the Yukon and Northwest Territories. Only Canadian carriers hire in Canada, and only US carriers hire in the United States. In the Yukon and the Northwest Territories, Liard River Freight is the one carrier. A Canadian career has its own owner-operator start, leased to Longspur Transport, and its training list has no doubles or LCV course, since no Canadian lane offers that freight. A town where nothing ships a load a new driver can take isn't offered as a home.
 
 ### Choosing your carrier and home terminal
 
-Fifty-four carriers hire drivers. The career start list names how many hire in your home city, then lists local carriers, then regional, then national, nearest terminal first in each group, with the owner-operator start last. Each row says the carrier's kind, what freight it leans toward, its longest loads, and the terminal where your truck starts. Press F1 on a row for more.
+Sixty-seven carriers hire drivers, thirteen of them in Canada. The career start list names how many hire in your home city, then lists local carriers, then regional, then national, nearest terminal first in each group, with the owner-operator start last. Each row says the carrier's kind, what freight it leans toward, its longest loads, and the terminal where your truck starts. Press F1 on a row for more.
 
 | Kind | Where it hires | What it hauls |
 | --- | --- | --- |
@@ -456,7 +456,7 @@ Hours of service follow the place the truck is in, and you hear the new rules as
 | Canada south of 60 degrees north | 13 hours of driving and 14 on duty in a 16-hour window, and 70 hours in 7 days. |
 | North of 60 degrees north: the Yukon and the Northwest Territories | 15 hours of driving and 18 on duty in a 20-hour window, and 80 hours in 7 days. |
 
-The C key, the ELD app and the logbook read the rules you are under, starting "Canadian hours rules" or "Alaska hours rules". In the United States 34 hours off in a row restart your cycle; in Canada it takes 36. Rest menus offer the same rests in Canada as in the United States. A load's deadline is planned on the lower-48 daily rules for the whole route: 11 hours of driving, the 14-hour window and the 30-minute break. The work cycle isn't part of that plan.
+The C key, the ELD app and the logbook read the rules you are under, starting "Canadian hours rules" or "Alaska hours rules". In the United States 34 hours off in a row restart your cycle; in Canada it takes 36. Under Canadian rules 8 hours off reset your hours, so the rest menu offers an 8-hour sleep there, in the sleeper, the lot or a motel. The US rules still want 10 hours off, so after an 8-hour night in Canada the US clocks keep counting once you cross. A load's deadline is planned on the lower-48 daily rules for the whole route: 11 hours of driving, the 14-hour window and the 30-minute break. The work cycle isn't part of that plan.
 
 ### Time zones on the map
 

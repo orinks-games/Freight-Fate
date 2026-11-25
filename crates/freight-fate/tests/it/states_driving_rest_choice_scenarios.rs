@@ -165,8 +165,13 @@ fn full_sleep_forecast_in_canada_counts_canadian_hours() {
         .set_rules(hos::HosRules::CanadaSouth60);
     Menu::enter(&mut state, &mut app.ctx);
     app.clear_speech();
-    activate(&mut state, &mut app.ctx, "Sleep 10 hours");
+    // Under Canadian rules the full night is the 8-hour reset.
+    activate(&mut state, &mut app.ctx, "Sleep 8 hours");
     let preview = app.main_lines().join(" ");
+    assert!(
+        preview.contains("A full 8-hour sleep resets your driving hours and legal driving window."),
+        "{preview}"
+    );
     assert!(
         preview.contains("driving allowance is 13.0 hours"),
         "{preview}"

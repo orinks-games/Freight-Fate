@@ -5501,6 +5501,29 @@ msgid "the Pacific Northwest"
 msgstr "Pacifico nordoccidentale"
 
 # same as English
+msgid "Alberta"
+msgstr "Alberta"
+
+msgid "Atlantic provinces"
+msgstr "Province atlantiche"
+
+msgid "British Columbia"
+msgstr "Columbia Britannica"
+
+# same as English
+msgid "Ontario"
+msgstr "Ontario"
+
+msgid "Quebec"
+msgstr "Quebec"
+
+msgid "Saskatchewan and Manitoba"
+msgstr "Saskatchewan e Manitoba"
+
+msgid "Yukon and Northwest Territories"
+msgstr "Yukon e Territori del Nord-Ovest"
+
+# same as English
 msgid "Richardson Highway"
 msgstr "Richardson Highway"
 
@@ -9902,9 +9925,6 @@ msgstr ""
 "La tua iscrizione TWIC è andata a buon fine. Ora sono disponibili i "
 "container dai terminal portuali."
 
-msgid "lcv"
-msgstr "lcv"
-
 msgid "LCV certificate"
 msgstr "attestato LCV"
 
@@ -10114,16 +10134,9 @@ msgstr ""
 "collegamento, sgancia l'anteriore, {doubles_break_extra_min} minuti in più "
 "in servizio"
 
-msgid "British Columbia"
-msgstr "Columbia Britannica"
-
 # same as English
 msgid "Yukon"
 msgstr "Yukon"
-
-# same as English
-msgid "Alberta"
-msgstr "Alberta"
 
 # same as English
 msgid "Saskatchewan"
@@ -10132,13 +10145,6 @@ msgstr "Saskatchewan"
 # same as English
 msgid "Manitoba"
 msgstr "Manitoba"
-
-# same as English
-msgid "Ontario"
-msgstr "Ontario"
-
-msgid "Quebec"
-msgstr "Quebec"
 
 msgid "New Brunswick"
 msgstr "Nuovo Brunswick"
@@ -11155,6 +11161,9 @@ msgstr "telai per container intermodali"
 
 msgid "48-foot turnpike doubles freight"
 msgstr "carichi in doppio rimorchio da 48 piedi sulla turnpike"
+
+msgid "lcv"
+msgstr "lcv"
 
 msgid "two 48-foot trailers"
 msgstr "due rimorchi da 48 piedi"
@@ -12190,6 +12199,32 @@ msgstr "più margine sugli appuntamenti"
 msgid "balanced dispatch"
 msgstr "incarichi equilibrati"
 
+msgid "Owner-operator start: higher risk, higher responsibility"
+msgstr "Partenza da padroncino: più rischio, più responsabilità"
+
+msgid ""
+"Leased-on owner-operator from day one: a brand-new truck of your own, and "
+"every operating cost is yours."
+msgstr ""
+"Padroncino convenzionato dal primo giorno: un camion nuovo di zecca tutto "
+"tuo, e ogni costo di esercizio è a carico tuo."
+
+msgid ""
+"The hardest way to begin. You start leased on with a brand-new truck you "
+"have just bought: full tank, no damage, nothing worn. Working capital is "
+"limited, and the operating costs of fuel, repairs, reserves, and settlement "
+"fees come out of your own cash instead of the carrier's. You still start at "
+"level one and climb the same career as everyone else: this changes who "
+"pays, not how far along you are."
+msgstr ""
+"Il modo più difficile per cominciare. Parti da convenzionato con un camion "
+"nuovo di zecca appena comprato: pieno fatto, nessun danno, niente di "
+"usurato. Il capitale circolante è limitato, e i costi di esercizio di "
+"carburante, riparazioni, riserve e commissioni sul compenso escono dalla "
+"tua cassa invece che da quella della ditta. Parti comunque dal livello uno "
+"e sali la stessa carriera di tutti gli altri: cambia chi paga, non quanto "
+"sei avanti."
+
 msgid "Northstar Freight Lines: national company driver"
 msgstr "Northstar Freight Lines: autista dipendente nazionale"
 
@@ -12282,31 +12317,13 @@ msgstr ""
 msgid "Denver"
 msgstr "Denver"
 
-msgid "Owner-operator start: higher risk, higher responsibility"
-msgstr "Partenza da padroncino: più rischio, più responsabilità"
+# same as English
+msgid "Longspur Transport"
+msgstr "Longspur Transport"
 
-msgid ""
-"Leased-on owner-operator from day one: a brand-new truck of your own, and "
-"every operating cost is yours."
-msgstr ""
-"Padroncino convenzionato dal primo giorno: un camion nuovo di zecca tutto "
-"tuo, e ogni costo di esercizio è a carico tuo."
-
-msgid ""
-"The hardest way to begin. You start leased on with a brand-new truck you "
-"have just bought: full tank, no damage, nothing worn. Working capital is "
-"limited, and the operating costs of fuel, repairs, reserves, and settlement "
-"fees come out of your own cash instead of the carrier's. You still start at "
-"level one and climb the same career as everyone else: this changes who "
-"pays, not how far along you are."
-msgstr ""
-"Il modo più difficile per cominciare. Parti da convenzionato con un camion "
-"nuovo di zecca appena comprato: pieno fatto, nessun danno, niente di "
-"usurato. Il capitale circolante è limitato, e i costi di esercizio di "
-"carburante, riparazioni, riserve e commissioni sul compenso escono dalla "
-"tua cassa invece che da quella della ditta. Parti comunque dal livello uno "
-"e sali la stessa carriera di tutti gli altri: cambia chi paga, non quanto "
-"sei avanti."
+# same as English
+msgid "Toronto"
+msgstr "Toronto"
 
 msgid ""
 "The carrier assigns and maintains the tractor and pays fuel and routine "
@@ -21831,6 +21848,9 @@ msgstr "Assume nei 48 stati contigui."
 msgid "Based in {lane_area}."
 msgstr "Con base in {lane_area}."
 
+msgid "No carrier hires near your home or in your province right now"
+msgstr "Nessuna ditta assume vicino a casa tua o nella tua provincia in questo momento"
+
 msgid "No carrier hires near your home or in your state right now"
 msgstr ""
 "Nessuna ditta assume vicino a casa tua o nel tuo stato in questo momento"
@@ -23393,23 +23413,21 @@ msgstr "Rifornimento: {f} {f:gallone|galloni}"
 msgid "Refuel: {volume_text}"
 msgstr "Rifornimento: {volume_text}"
 
-#. placeholders: {f2}
+#. placeholders: {f}
 #. one sentence of a longer line
-msgid "Diesel here is {f2} Canadian dollars a liter."
-msgstr "Qui il gasolio costa {f2} dollari canadesi al litro."
+msgid "Diesel here is {f} Canadian dollars a liter."
+msgstr "Qui il gasolio costa {f} dollari canadesi al litro."
 
-#. placeholders: {f}, {grouped}
+#. placeholders: {liters_text}, {grouped}
 #. one sentence of a longer line
-msgid "Refuel {f} gallons for {grouped} dollars."
-msgstr "Rifornisci {f} galloni per {grouped} dollari."
+msgid "Refuel {liters_text} for {grouped} dollars."
+msgstr "Rifornisci {liters_text} per {grouped} dollari."
 
-#. placeholders: {f}, {grouped}, {f2}
+#. placeholders: {liters_text}, {grouped}, {f}
 msgid ""
-"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"Refuel {liters_text} for {grouped} dollars. Diesel here is {f} Canadian "
 "dollars a liter."
-msgstr ""
-"Rifornisci {f} galloni per {grouped} dollari. Qui il gasolio costa {f2} "
-"dollari canadesi al litro."
+msgstr "Rifornisci {liters_text} per {grouped} dollari. Qui il gasolio costa {f} dollari canadesi al litro."
 
 #. placeholders: {f}, {grouped}
 msgid "Refuel {f} gallons for {grouped} dollars"
@@ -34466,13 +34484,16 @@ msgid "Refuel {volume_text} on the carrier fuel card. {margin}"
 msgstr ""
 "Rifornisci {volume_text} con la carta carburante della ditta. {margin}"
 
-#. placeholders: {f}, {grouped}, {f2}, {margin}
+#. placeholders: {liters_text}, {grouped}, {f}, {margin}
 msgid ""
-"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"Refuel {liters_text} for {grouped} dollars. Diesel here is {f} Canadian "
 "dollars a liter. {margin}"
-msgstr ""
-"Rifornisci {f} galloni per {grouped} dollari. Qui il gasolio costa {f2} "
-"dollari canadesi al litro. {margin}"
+msgstr "Rifornisci {liters_text} per {grouped} dollari. Qui il gasolio costa {f} dollari canadesi al litro. {margin}"
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+msgid "Refuel {f} gallons for {grouped} dollars."
+msgstr "Rifornisci {f} galloni per {grouped} dollari."
 
 #. placeholders: {f}, {grouped}, {margin}
 msgid "Refuel {f} gallons for {grouped} dollars. {margin}"
@@ -34630,8 +34651,9 @@ msgstr "Punti insufficienti per una doccia."
 msgid "Use shower credit, {shower_credits} available"
 msgstr "Usa un credito doccia, {shower_credits} disponibili"
 
-msgid "A shower credit from fueling 50 gallons or more."
-msgstr "Un credito doccia ottenuto rifornendo 50 galloni o più."
+#. placeholders: {volume_text}
+msgid "A shower credit from fueling {volume_text} or more."
+msgstr "Un credito doccia per un rifornimento di {volume_text} o più."
 
 #. placeholders: {reward_cost_text}
 msgid "Redeem {reward_cost_text}"
@@ -34686,6 +34708,15 @@ msgid "Back to the road for the next rest stop."
 msgstr "Torna in strada verso la prossima area di riposo."
 
 #. placeholders: {f}
+msgid "Motel room: sleep 8 hours for {f} dollars"
+msgstr "Stanza di motel: dormi 8 ore per {f} dollari"
+
+msgid ""
+"A motel near the exit, paid from your own pocket. Legal 8-hour reset, and "
+"sleep takes off 8 points of fatigue an hour."
+msgstr "Un motel vicino all'uscita, pagato di tasca tua. Riposo legale di 8 ore, e il sonno toglie 8 punti di stanchezza all'ora."
+
+#. placeholders: {f}
 msgid "Motel room: sleep 10 hours for {f} dollars"
 msgstr "Stanza di motel: dormi 10 ore per {f} dollari"
 
@@ -34712,6 +34743,22 @@ msgstr "Una stanza di motel costa {grouped} dollari e tu ne hai {grouped2}."
 
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
+msgid "{engine_off}Motel, {grouped} dollars, 8 hours."
+msgstr "{engine_off}Motel, {grouped} dollari, 8 ore."
+
+#. placeholders: {engine_off}, {grouped}, {clock_text}, {grouped2}, {control_hint}
+msgid ""
+"{engine_off}Motel, {grouped} dollars, 8 hours. {clock_text}. Driving and "
+"duty clocks reset. {grouped2} dollars. {control_hint} starts the engine."
+msgstr "{engine_off}Motel, {grouped} dollari, 8 ore. {clock_text}. Orologi di guida e di servizio azzerati. {grouped2} dollari. {control_hint} avvia il motore."
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+msgid "{grouped2} dollars."
+msgstr "{grouped2} dollari."
+
+#. placeholders: {engine_off}, {grouped}
+#. one sentence of a longer line
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
 msgstr "{engine_off}Motel, {grouped} dollari, 10 ore."
 
@@ -34723,11 +34770,6 @@ msgstr ""
 "{engine_off}Motel, {grouped} dollari, 10 ore. {clock_text}. Orologi di "
 "guida e di servizio azzerati. {grouped2} dollari. {control_hint} avvia il "
 "motore."
-
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-msgid "{grouped2} dollars."
-msgstr "{grouped2} dollari."
 
 #. placeholders: {control_hint}
 msgid "{control_hint} starts the engine."
@@ -34754,6 +34796,10 @@ msgstr "una stanza di motel"
 
 msgid " more"
 msgstr " in più"
+
+msgid ""
+"A full 8-hour sleep resets your driving hours and legal driving window."
+msgstr "Un sonno completo di 8 ore azzera le tue ore di guida e la finestra di guida legale."
 
 msgid ""
 "A full 10-hour sleep resets your driving hours and legal driving window."
@@ -34859,6 +34905,9 @@ msgstr ""
 "Seleziona una scelta. Dormire legge prima un'anteprima. Seleziona di nuovo "
 "per dormire. Pause e sonno fanno avanzare l'orologio e la scadenza."
 
+msgid "Sleep 8 hours"
+msgstr "Dormi 8 ore"
+
 #. one sentence of a longer line
 msgid "You are already rested."
 msgstr "Sei già riposato."
@@ -34895,12 +34944,29 @@ msgstr ""
 "Il riposo da quando hai parcheggiato conta. Azzeramento completo e ore di "
 "servizio nuove. Il sonno toglie 8 punti di stanchezza all'ora."
 
+#. placeholders: {duration_text}
+msgid "Sleep {duration_text} more to finish an 8-hour reset"
+msgstr "Dormi altri {duration_text} per completare un azzeramento di 8 ore"
+
 msgid ""
 "Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
 "an hour. Clock and deadline advance 10 hours."
 msgstr ""
 "Azzeramento completo e ore di servizio nuove. Il sonno toglie 8 punti di "
 "stanchezza all'ora. Orologio e scadenza avanzano di 10 ore."
+
+msgid ""
+"Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
+"an hour. Clock and deadline advance 8 hours."
+msgstr "Azzeramento completo e ore di servizio nuove. Il sonno toglie 8 punti di stanchezza all'ora. Orologio e scadenza avanzano di 8 ore."
+
+msgid "Sleep 8 hours in the lot"
+msgstr "Dormi 8 ore nel parcheggio"
+
+msgid ""
+"A legal 8-hour reset with poor rest: 5 points of fatigue off an hour, never "
+"below 30. Clock and deadline advance 8 hours."
+msgstr "Un riposo legale di 8 ore ma di scarsa qualità: 5 punti di stanchezza in meno all'ora, mai sotto 30. Orologio e scadenza avanzano di 8 ore."
 
 msgid "Sleep 10 hours in the lot"
 msgstr "Dormi 10 ore nel parcheggio"
@@ -34911,6 +34977,11 @@ msgid ""
 msgstr ""
 "Un riposo legale di 10 ore ma di scarsa qualità: 5 punti di stanchezza in "
 "meno all'ora, mai sotto 30. Orologio e scadenza avanzano di 10 ore."
+
+msgid ""
+"A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
+"points of fatigue an hour. Clock and deadline advance 8 hours."
+msgstr "Un letto vero, pagato di tasca tua. Riposo legale, e il sonno toglie 8 punti di stanchezza all'ora. Orologio e scadenza avanzano di 8 ore."
 
 msgid ""
 "A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
@@ -35083,8 +35154,15 @@ msgid "sleep {duration_text} more here to finish a 10-hour reset"
 msgstr ""
 "dormire qui altri {duration_text} per completare un azzeramento di 10 ore"
 
+#. placeholders: {duration_text}
+msgid "sleep {duration_text} more here to finish an 8-hour reset"
+msgstr "dormire qui altri {duration_text} per completare un azzeramento di 8 ore"
+
 msgid "take a full 10-hour reset"
 msgstr "fare un azzeramento completo di 10 ore"
+
+msgid "take a full 8-hour reset"
+msgstr "fare un azzeramento completo di 8 ore"
 
 #. placeholders: {reset}
 #. one sentence of a longer line
@@ -35174,11 +35252,28 @@ msgstr ""
 "Hai dormito altri {duration_text}, 10 ore di riposo di fila, e ti sei "
 "svegliato ancora stanco."
 
+#. placeholders: {duration_text}
+msgid ""
+"You slept {duration_text} more, 8 hours of rest in a row, and woke rested."
+msgstr "Hai dormito altri {duration_text}, 8 ore di riposo di fila, e ti sei svegliato riposato."
+
+#. placeholders: {duration_text}
+msgid ""
+"You slept {duration_text} more, 8 hours of rest in a row, and woke still "
+"tired."
+msgstr "Hai dormito altri {duration_text}, 8 ore di riposo di fila, e ti sei svegliato ancora stanco."
+
 msgid "You slept 10 hours and woke rested."
 msgstr "Hai dormito 10 ore e ti sei svegliato riposato."
 
 msgid "You slept 10 hours and woke still tired."
 msgstr "Hai dormito 10 ore e ti sei svegliato ancora stanco."
+
+msgid "You slept 8 hours and woke rested."
+msgstr "Hai dormito 8 ore e ti sei svegliato riposato."
+
+msgid "You slept 8 hours and woke still tired."
+msgstr "Hai dormito 8 ore e ti sei svegliato ancora stanco."
 
 #. placeholders: {engine_off}, {slept}, {clock_text}
 #. one sentence of a longer line
@@ -35200,6 +35295,12 @@ msgstr "{clocks} {grouped2} dollari."
 
 #. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
 msgid ""
+"{engine_off}Motel, {grouped} dollars, 8 hours. {clock_text}. {clocks} "
+"{grouped2} dollars. {deadline_text}{wake_air_instruction}"
+msgstr "{engine_off}Motel, {grouped} dollari, 8 ore. {clock_text}. {clocks} {grouped2} dollari. {deadline_text}{wake_air_instruction}"
+
+#. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
+msgid ""
 "{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. {clocks} "
 "{grouped2} dollars. {deadline_text}{wake_air_instruction}"
 msgstr ""
@@ -35210,6 +35311,17 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{clocks} Rest was poor."
 msgstr "{clocks} Il riposo è stato scarso."
+
+#. placeholders: {engine_off}
+#. one sentence of a longer line
+msgid "{engine_off}Slept 8 hours in the lot."
+msgstr "{engine_off}Hai dormito 8 ore nel parcheggio."
+
+#. placeholders: {engine_off}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}Slept 8 hours in the lot. {clock_text}. {clocks} Rest was poor. "
+"{deadline_text}{wake_air_instruction}"
+msgstr "{engine_off}Hai dormito 8 ore nel parcheggio. {clock_text}. {clocks} Il riposo è stato scarso. {deadline_text}{wake_air_instruction}"
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
@@ -49498,6 +49610,26 @@ msgstr ""
 "Tieni premuto il left bumper per un secondo livello di pulsanti. "
 "{pad_engine} controlla il motore, {pad_fuel} legge il carburante e "
 "{pad_speed_limit} legge il limite."
+
+#~ msgid "Diesel here is {f2} Canadian dollars a liter."
+#~ msgstr "Qui il gasolio costa {f2} dollari canadesi al litro."
+
+#~ msgid ""
+#~ "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+#~ "dollars a liter."
+#~ msgstr ""
+#~ "Rifornisci {f} galloni per {grouped} dollari. Qui il gasolio costa {f2} "
+#~ "dollari canadesi al litro."
+
+#~ msgid ""
+#~ "Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+#~ "dollars a liter. {margin}"
+#~ msgstr ""
+#~ "Rifornisci {f} galloni per {grouped} dollari. Qui il gasolio costa {f2} "
+#~ "dollari canadesi al litro. {margin}"
+
+#~ msgid "A shower credit from fueling 50 gallons or more."
+#~ msgstr "Un credito doccia ottenuto rifornendo 50 galloni o più."
 
 #~ msgid "Tires on concrete grooved across the lane: texture, not a decision."
 #~ msgstr ""

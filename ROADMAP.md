@@ -5081,9 +5081,51 @@ in the audited Windows run.
       national, nearest terminal first, owner-operator last.
       `tests/it/carrier_spread.rs` pins the coverage. Names were checked
       against FMCSA and web listings; the record is in the carriers report.
-- [ ] **No Canadian carrier yet (Found along the way).** BC and YT stay
-      closed as home bases; a Canadian carrier joins when the Canadian
-      roads open for hiring.
+- [x] **No Canadian carrier yet (Found along the way).** Built 2026-11-25
+      (brief 2): thirteen Canadian carriers, two nationals (Longspur
+      Transport, Great Shield Transport) hiring in the ten provinces, eight
+      regionals (the North regional, Liard River Freight, out of Edmonton,
+      Grande Prairie, Hay River, Yellowknife, Whitehorse and Dawson City with
+      runs to 1,400 miles) and three locals (Port Lands Cartage, Lachine
+      Cartage, Annacis Island Cartage). Hiring follows the US pattern inside
+      Canada; no carrier hires across the border. The home region picker has
+      seven Canadian rows by province group, and a second owner-operator
+      start leases to Longspur. A Canadian city is a home only when some site
+      there ships freight a level 1 driver with no certificate can load
+      (`has_first_load`, Canada only for now). `tests/it/canadian_start.rs`
+      pins it; the list is in the project files,
+      `alaska-canada-freight/canadian-carriers-proposed.md`.
+- [ ] **Canadian homes waiting for freight sites (Found along the way).**
+      Watson Lake, Haines Junction, Fort St. John, Dawson Creek, Fort Nelson,
+      Terrace, Smithers, Kitimat and Sept-Îles wait for real freight sites:
+      none ships a load a new driver can take (the last four ship only
+      flatbed lumber or steel).
+- [ ] **The first-load rule in the United States (Found along the way).**
+      Run over the United States, the home rule would close 27 homes offered
+      today: Blaine, Cape May, Coldfoot, Delta Junction, Denton, Elmira, Fort
+      Knox (Alaska), Gainesville (Georgia), Glennallen, Gloucester, Healy,
+      Ithaca, Johnstown, Lancaster, Lexington Park, Nikiski, North Pole,
+      Pascagoula, Pinehurst, Pittsfield, Point Comfort, Reading, Reedville,
+      Sandusky, Soldotna, Tok and Venice (Louisiana). The rule holds for
+      Canadian cities until the director rules on that list.
+- [ ] **A Canadian career still hears US license, endorsement and police
+      words (Found along the way).** The license is a CDL with the US
+      suspension ladder (49 CFR 383.51: "suspended for 60 days",
+      "disqualifies your CDL for life"); a Canadian holds a provincial Class 1
+      (AZ in Ontario) under demerit points and the carrier's National Safety
+      Code rating. The hazmat endorsement waits 30 days on a background
+      check, where Canada's dangerous goods training certificate is issued by
+      the employer after training; the tank endorsement is "the letter N",
+      which no Canadian licence carries; the port card is TWIC, where
+      Canadian ports use the Marine Transportation Security Clearance and,
+      at Vancouver, a truck licence and port pass; and the police are
+      troopers, where Canada has the provincial police, the RCMP and
+      provincial commercial vehicle officers. None misleads the driver about
+      what to do, and about forty CDL and twenty trooper lines are pinned in
+      eleven languages, so they stay for now (director ruling, 2026-11-25).
+- [ ] **Canadian dollars for a Canadian career (Found along the way).**
+      Money stays in US dollars by Orinks's ruling; a Canadian career's
+      pay, fines and prices in Canadian dollars wait for a ruling of his.
 - [ ] **A second Alaska regional waits for new Alaska lanes (Found along
       the way).** Chatanika covers every hirable Alaska city today; add a
       second only when the map adds Alaska freight a second carrier would
@@ -5249,8 +5291,15 @@ branch. The older Phase A/B plan checklists are not a live completion list.
 - [ ] **Route-wide HOS planning.** The job planner and planning hints use one
       rule set for the entire route rather than switching at jurisdiction
       boundaries.
-- [ ] **Canadian rest menus.** Rest menus still offer 10 hours in Canada
-      rather than the modeled 8-hour reset.
+  - [ ] The board's trip hours, the deadline plan and the team hand-over
+        lines still say 10 hours in Canada.
+- [x] **Canadian rest menus.** Built 2026-11-25: under Canadian rules the
+      rest menu, the rest preview and the motel rows (the rest stop's and
+      the full lot's) offer the 8-hour reset, each in a line of its own
+      ("Sleep 8 hours", "take a full 8-hour reset"). The night ends the
+      Canadian counts (SOR/2005-313 s.13); the US counts still want 10
+      consecutive hours, so a driver who crosses after an 8-hour night is on
+      a running US clock (`HosClock::rest_reset`).
 - [ ] **Alaska cycle restart.** The 34-hour restart is an assumption; verify
       its applicability under Alaska's rules.
 - [x] **Whittier tunnel.** Whittier is connected through the Anton Anderson
@@ -6298,13 +6347,16 @@ a carrier slice (owner, 2026-10-26).
 - [ ] (Found along the way) Shipping containers are hooked on a flatbed or
       a dry van at the Surrey and Bellingham terminals.
 - [ ] Canadian carriers and home bases, and loads inside Canada for them:
-      the next dispatch slice after loads across the border.
+      the next dispatch slice after loads across the border. Carriers and
+      home bases built 2026-11-25; their boards wait for the shared lane
+      table.
 - [ ] (Found along the way) Placarded loads across the border: Canada's
       Transportation of Dangerous Goods papers and the placard rules at the
       port are not modeled, so hazmat stays off Canadian lanes for now.
-- [ ] (Found along the way) Canadian shippers outside Surrey: Prince
-      George, the Peace River towns, Fort Nelson, Watson Lake and Whitehorse
-      receive freight but ship none yet (the Northwood pulp mill closed in
+- [ ] (Found along the way) Canadian shippers outside Surrey: the Peace
+      River towns, Fort Nelson and Watson Lake receive freight but ship none
+      yet; Prince George (Bandstra's terminal, the CN intermodal terminal)
+      and Whitehorse (Kilrich, Raven ReCentre) ship since 2026-11-25 (the Northwood pulp mill closed in
       2026). Until each has a verified sawmill, cross-dock or fuel
       terminal, a company driver there is sent on empty to the nearest city
       with a load (the reposition fallback, 2026-11-22).

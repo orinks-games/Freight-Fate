@@ -115,7 +115,10 @@ impl Menu for LoyaltyRewardsState {
                     format!("Use shower credit, {shower_credits} available"),
                     |s: &mut Self, ctx| s.use_shower_credit(ctx),
                 )
-                .help("A shower credit from fueling 50 gallons or more."),
+                .help(format!(
+                    "A shower credit from fueling {} or more.",
+                    ctx.settings.volume_text(50.0)
+                )),
             );
         }
 

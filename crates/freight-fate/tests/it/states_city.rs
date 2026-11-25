@@ -1315,9 +1315,10 @@ fn test_a_thin_board_relays_a_load_for_a_company_driver_never_an_owner_operator(
 /// Whitehorse receives freight but ships none, and no relay town is in a
 /// new driver's range, so the board holds the carrier's reposition.
 #[test]
-fn a_board_with_no_load_in_whitehorse_sends_the_truck_on_empty() {
+fn a_board_with_no_load_in_watson_lake_sends_the_truck_on_empty() {
+    // Watson Lake ships nothing; Whitehorse ships since 2026-11-25.
     let mut app = TestApp::new();
-    career(&mut app, "Yukon Driver", "Whitehorse");
+    career(&mut app, "Yukon Driver", "Watson Lake");
     {
         let p = profile_mut(&mut app);
         p.carrier_key = "northstar".to_string();
@@ -1328,8 +1329,7 @@ fn a_board_with_no_load_in_whitehorse_sends_the_truck_on_empty() {
     let rows = labels::<JobBoardState>(&app);
     // A level-1 driver's board is dispatch's assignment.
     assert!(
-        rows[0]
-            .starts_with("Assigned load: Reposition, empty, to Skagway, Alaska, 110 miles. Pays "),
+        rows[0].starts_with("Assigned load: Reposition, empty, to "),
         "{rows:?}"
     );
     let job = with_state::<JobBoardState, _>(&app, |b, _| b.jobs[0].clone());

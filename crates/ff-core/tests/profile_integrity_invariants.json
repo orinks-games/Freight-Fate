@@ -1370,6 +1370,8 @@
     "alapaha_regional": "Alapaha Regional",
     "anclote_freight": "Anclote Freight",
     "androscoggin_freight": "Androscoggin Freight",
+    "annacis_island_cartage": "Annacis Island Cartage",
+    "assiniboine_freight": "Assiniboine Freight Lines",
     "barataria_carriers": "Barataria Carriers",
     "basin_harbor_drayage": "Basin Harbor Drayage",
     "bergen_point_drayage": "Bergen Point Drayage",
@@ -1384,37 +1386,49 @@
     "duwamish_drayage": "Duwamish Drayage",
     "ecorse_river_cartage": "Ecorse River Cartage",
     "elochoman_freight": "Elochoman Freight Lines",
+    "fundy_shore_freight": "Fundy Shore Freight",
     "great_lakes_training": "Great Lakes Training Transport",
+    "great_shield_transport": "Great Shield Transport",
     "hovenweep_freight": "Hovenweep Freight",
     "kishwaukee_transport": "Kishwaukee Transport",
     "kittatinny_crossroads": "Kittatinny Crossroads Freight",
     "knik_arm_cartage": "Knik Arm Cartage",
+    "lachine_cartage": "Lachine Cartage",
     "laguna_madre_freight": "Laguna Madre Freight Lines",
     "lake_traverse_freight": "Lake Traverse Freight",
+    "liard_river_freight": "Liard River Freight",
     "lone_mesa_freight": "Lone Mesa Freight",
+    "longspur_owner_operator": "Longspur Transport",
+    "longspur_transport": "Longspur Transport",
     "loonwater_regional": "Loonwater Regional",
+    "mattawa_river_freight": "Mattawa River Freight",
     "meherrin_transport": "Meherrin Transport",
     "musselshell_freight": "Musselshell Freight Lines",
     "nancy_creek_cartage": "Nancy Creek Cartage",
+    "nicola_valley_freight": "Nicola Valley Freight",
     "nonconnah_cartage": "Nonconnah Cartage",
     "northstar": "Northstar Freight Lines",
     "olentangy_valley": "Olentangy Valley Freight",
     "open_hearth_flatbed": "Open Hearth Flatbed Lines",
     "pasquotank_freight": "Pasquotank Freight Lines",
     "pinyon_basin": "Pinyon Basin Transport",
+    "port_lands_cartage": "Port Lands Cartage",
     "prairie_link": "Prairie Link Regional",
     "quindaro_cartage": "Quindaro Cartage",
     "roadstead_owner_operator": "Northstar Freight Lines",
     "saint_francis_river": "Saint Francis River Lines",
     "san_simon_freight": "San Simon Freight",
     "sebasticook_freight": "Sebasticook Freight",
+    "sheep_river_transport": "Sheep River Transport",
     "shiawassee_freight": "Shiawassee Freight",
+    "speed_river_freight": "Speed River Freight",
     "sulphur_draw_transport": "Sulphur Draw Transport",
     "summit_value": "Summit Value Logistics",
     "sunpine_freight": "Sunpine Freight Lines",
     "tahquamenon_freight": "Tahquamenon Freight",
     "tanners_creek_cartage": "Tanners Creek Cartage",
     "tehachapi_motor_lines": "Tehachapi Motor Lines",
+    "transport_chaudiere": "Transport Chaudi\u00e8re",
     "two_medicine_freight": "Two Medicine Freight Lines",
     "verdigris_transport": "Verdigris Transport",
     "village_creek_cartage": "Village Creek Cartage",
@@ -1462,6 +1476,32 @@
         "stopPay": 135
       },
       "suggestedHomeTerminal": "Boston"
+    },
+    "annacis_island_cartage": {
+      "description": "A local company-driver start in greater Vancouver. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Annacis Island Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Surrey"
+    },
+    "assiniboine_freight": {
+      "description": "A regional company-driver start in Saskatchewan and Manitoba. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Assiniboine Freight Lines",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Regina"
     },
     "barataria_carriers": {
       "description": "A regional company-driver start in the central Gulf Coast. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -1645,6 +1685,19 @@
       },
       "suggestedHomeTerminal": "Tacoma"
     },
+    "fundy_shore_freight": {
+      "description": "A regional company-driver start in the Atlantic provinces. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Fundy Shore Freight",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Moncton"
+    },
     "great_lakes_training": {
       "description": "A practical training-fleet start. Stop pay is better on short loads, and dispatch leans toward shorter training work with a little more deadline room. Equipment and routine costs stay carrier-paid. At level 4 with full dispatch trust, Business status lets you move to another carrier.",
       "dispatch": "more short training loads, more appointment slack",
@@ -1657,6 +1710,19 @@
         "stopPay": 225
       },
       "suggestedHomeTerminal": "Milwaukee"
+    },
+    "great_shield_transport": {
+      "description": "A national company-driver start. Dispatch leans toward steel, machinery and lumber and offers loads of up to 3000 miles. Those loads need the flatbed securement certificate. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "balanced dispatch",
+      "favoredFreight": [],
+      "name": "Great Shield Transport",
+      "pay": {
+        "minPerMile": 0.82,
+        "onTimeBonusShare": 0.04,
+        "payShare": 0.36,
+        "stopPay": 175
+      },
+      "suggestedHomeTerminal": "Abbotsford"
     },
     "hovenweep_freight": {
       "description": "A regional company-driver start in the Four Corners and southern Colorado. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -1710,6 +1776,19 @@
       },
       "suggestedHomeTerminal": "Anchorage"
     },
+    "lachine_cartage": {
+      "description": "A local company-driver start in greater Montreal. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Lachine Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Montr\u00e9al"
+    },
     "laguna_madre_freight": {
       "description": "A regional company-driver start in the Texas and Louisiana Gulf Coast. Dispatch offers loads of up to 500 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
       "dispatch": "more same-region lanes",
@@ -1736,6 +1815,19 @@
       },
       "suggestedHomeTerminal": "Sioux Falls"
     },
+    "liard_river_freight": {
+      "description": "A regional company-driver start in the North. Dispatch offers loads of up to 1400 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Liard River Freight",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Edmonton"
+    },
     "lone_mesa_freight": {
       "description": "A regional company-driver start in the Texas Triangle and the Rio Grande Valley. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
       "dispatch": "more same-region lanes",
@@ -1749,6 +1841,19 @@
       },
       "suggestedHomeTerminal": "Dallas"
     },
+    "longspur_transport": {
+      "description": "A national company-driver start in Canada. Dispatch offers loads of up to 3000 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "balanced dispatch",
+      "favoredFreight": [],
+      "name": "Longspur Transport",
+      "pay": {
+        "minPerMile": 0.82,
+        "onTimeBonusShare": 0.04,
+        "payShare": 0.36,
+        "stopPay": 175
+      },
+      "suggestedHomeTerminal": "Surrey"
+    },
     "loonwater_regional": {
       "description": "A regional company-driver start in the Upper Midwest, from the Dakotas across Minnesota and Wisconsin to the Upper Peninsula. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
       "dispatch": "more same-region lanes",
@@ -1761,6 +1866,19 @@
         "stopPay": 135
       },
       "suggestedHomeTerminal": "Minneapolis"
+    },
+    "mattawa_river_freight": {
+      "description": "A regional company-driver start in northern Ontario. Dispatch offers loads of up to 900 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Mattawa River Freight",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Sudbury"
     },
     "meherrin_transport": {
       "description": "A regional company-driver start in the Carolinas and Virginia. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -1800,6 +1918,19 @@
         "stopPay": 210
       },
       "suggestedHomeTerminal": "Atlanta"
+    },
+    "nicola_valley_freight": {
+      "description": "A regional company-driver start in British Columbia. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Nicola Valley Freight",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Surrey"
     },
     "nonconnah_cartage": {
       "description": "A local company-driver start in Memphis. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -1879,6 +2010,19 @@
       },
       "suggestedHomeTerminal": "Salt Lake City"
     },
+    "port_lands_cartage": {
+      "description": "A local company-driver start in greater Toronto. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Port Lands Cartage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Mississauga"
+    },
     "prairie_link": {
       "description": "A mile-focused company start. The per-mile wage floor is higher, but stop pay is lower, so it favors steady regional mileage over very short hops. Dispatch leans toward same-region grain and bulk work. The carrier still assigns and maintains the tractor.",
       "dispatch": "more same-region lanes, more longer lanes",
@@ -1948,6 +2092,19 @@
       },
       "suggestedHomeTerminal": "Bangor"
     },
+    "sheep_river_transport": {
+      "description": "A regional company-driver start in Alberta. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Sheep River Transport",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Calgary"
+    },
     "shiawassee_freight": {
       "description": "A regional company-driver start in Michigan, northern Indiana and northwest Ohio. Dispatch offers loads of up to 400 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
       "dispatch": "more same-region lanes",
@@ -1960,6 +2117,19 @@
         "stopPay": 150
       },
       "suggestedHomeTerminal": "Grand Rapids"
+    },
+    "speed_river_freight": {
+      "description": "A regional company-driver start in southern Ontario. Dispatch offers loads of up to 500 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Speed River Freight",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Mississauga"
     },
     "sulphur_draw_transport": {
       "description": "A regional company-driver start in West Texas and the Permian Basin. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -2042,6 +2212,19 @@
         "stopPay": 135
       },
       "suggestedHomeTerminal": "Los Angeles"
+    },
+    "transport_chaudiere": {
+      "description": "A regional company-driver start in Quebec. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more same-region lanes",
+      "favoredFreight": [],
+      "name": "Transport Chaudi\u00e8re",
+      "pay": {
+        "minPerMile": 0.93,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.34,
+        "stopPay": 135
+      },
+      "suggestedHomeTerminal": "Montr\u00e9al"
     },
     "two_medicine_freight": {
       "description": "A regional company-driver start in Montana, Wyoming and the Black Hills. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",

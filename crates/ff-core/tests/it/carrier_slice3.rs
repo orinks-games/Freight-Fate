@@ -51,10 +51,12 @@ fn is_alaska_carrier(world: &World, c: &Carrier) -> bool {
 fn test_catalog_counts_by_tier() {
     let catalog = carrier_catalog();
     let count = |tier: &str| catalog.values().filter(|c| c.tier == tier).count();
-    assert_eq!(catalog.len(), 54);
-    assert_eq!(count("national"), 6);
-    assert_eq!(count("regional"), 32);
-    assert_eq!(count("local"), 16);
+    // 54 US carriers, and 13 Canadian ones since 2026-11-25 (2 nationals,
+    // 8 regionals, 3 locals).
+    assert_eq!(catalog.len(), 67);
+    assert_eq!(count("national"), 8);
+    assert_eq!(count("regional"), 40);
+    assert_eq!(count("local"), 19);
     let world = world();
     let alaska: Vec<&str> = catalog
         .values()
@@ -106,7 +108,10 @@ fn test_every_lower_48_city_is_hired_into() {
 #[test]
 fn test_no_national_hires_outside_the_lower_48() {
     let world = world();
-    for c in carrier_catalog().values().filter(|c| c.is_national()) {
+    let us_nationals = carrier_catalog()
+        .values()
+        .filter(|c| c.is_national() && c.home_country() == "US");
+    for c in us_nationals {
         for (key, city) in &world.cities {
             let st = city.state_code.to_ascii_uppercase();
             if !city.country.eq_ignore_ascii_case("us") || matches!(st.as_str(), "AK" | "HI") {
@@ -168,9 +173,6 @@ fn test_alaska_is_served_by_alaska_carriers_only() {
             let c = carrier(option.key).expect("company start");
             assert!(is_alaska_carrier(world, c), "{} offered in {city}", c.key);
         }
-    }
-    for city in ["whitehorse_yt_ca", "surrey_bc_ca"] {
-        assert!(!is_offerable_home_city(world, city), "{city}");
     }
 }
 
@@ -288,7 +290,14 @@ fn test_tier_distance_bands() {
             }
             "regional" => {
                 assert_eq!(c.hiring_radius_mi, Some(250.0), "{}", c.key);
-                inside(c, 150.0, 600.0);
+                // Two Canadian regionals run past 600 by ruling: northern
+                // Ontario's to reach the GTA from Thunder Bay, and the North's
+                // because Edmonton to Whitehorse is about 1,250 road miles.
+                match c.key.as_str() {
+                    "mattawa_river_freight" => inside(c, 150.0, 900.0),
+                    "liard_river_freight" => inside(c, 150.0, 1400.0),
+                    _ => inside(c, 150.0, 600.0),
+                }
             }
             "national" => {
                 assert_eq!(c.hiring_radius_mi, None, "{}", c.key);

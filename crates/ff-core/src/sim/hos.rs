@@ -138,10 +138,10 @@ pub const ALASKA_CYCLE_LIMIT_MIN: f64 = 80.0 * 60.0;
 /// <https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-395/subpart-A/section-395.1>
 pub const ALASKA_RESTART_MIN: f64 = RESTART_MIN;
 /// READ: Canada south of 60 permits 13 hours driving and 14 hours on duty
-/// under SOR/2005-313 s.13.
+/// in a day under SOR/2005-313 s.12, then 8 hours off under s.13.
 /// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
 pub const CANADA_SOUTH_DRIVE_LIMIT_MIN: f64 = 13.0 * 60.0;
-/// READ: Canada south of 60 permits 14 hours on duty under SOR/2005-313 s.13.
+/// READ: Canada south of 60 permits 14 hours on duty under SOR/2005-313 s.12.
 /// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
 pub const CANADA_SOUTH_ON_DUTY_LIMIT_MIN: f64 = 14.0 * 60.0;
 /// READ: Canada south of 60 permits 16 elapsed hours after the last 8-hour
@@ -164,9 +164,13 @@ pub const CANADA_NORTH_ON_DUTY_LIMIT_MIN: f64 = 18.0 * 60.0;
 /// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
 pub const CANADA_NORTH_SHIFT_LIMIT_MIN: f64 = 20.0 * 60.0;
 /// READ: Canada north of 60 permits 80 hours in 7 days under
-/// SOR/2005-313 s.39.
+/// SOR/2005-313 s.51.
 /// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
 pub const CANADA_NORTH_CYCLE_LIMIT_MIN: f64 = 80.0 * 60.0;
+/// READ: 8 consecutive hours off reset the Canadian daily counts, south of
+/// 60 under SOR/2005-313 s.13 and north of 60 under s.39.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_RESET_MIN: f64 = 8.0 * 60.0;
 /// READ: both Canadian cycle variants restart after 36 consecutive hours off
 /// under SOR/2005-313 ss.28 and 53.
 /// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>

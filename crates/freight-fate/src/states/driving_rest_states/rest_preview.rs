@@ -20,10 +20,12 @@ pub(super) enum SleepChoice {
 }
 
 impl SleepChoice {
-    fn hours(self) -> i64 {
+    /// Hours this choice sleeps; a full reset sleeps the hours the rules in
+    /// force reset on (`reset_hours`: 10, or 8 in Canada).
+    fn hours(self, reset_hours: i64) -> i64 {
         match self {
+            Self::Sleeper(10) | Self::Lot | Self::Motel => reset_hours,
             Self::Sleeper(hours) => hours,
-            Self::Lot | Self::Motel => 10,
         }
     }
 
@@ -44,21 +46,25 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
         SleepChoice::Sleeper(10) => profile.hos.reset_minutes_left(),
         _ => None,
     };
-    let minutes = owed.unwrap_or(choice.hours() as f64 * 60.0);
+    let reset_hours = profile.hos.reset_rest_hours();
+    let minutes = owed.unwrap_or(choice.hours(reset_hours) as f64 * 60.0);
     let span = hos::duration_text(minutes / 60.0);
     let more = if owed.is_some() { " more" } else { "" };
     let mut after = profile.hos.clone();
     let completed_split = match choice {
         SleepChoice::Sleeper(10) | SleepChoice::Lot | SleepChoice::Motel => {
-            after.sleep();
+            after.rest_reset();
             false
         }
         SleepChoice::Sleeper(_) => after.sleeper_split_rest(minutes),
     };
-    let full_reset = after
-        .history
-        .last()
-        .is_some_and(|event| event.source == "full_reset");
+    // An 8-hour Canadian night ends the Canadian counts without the US
+    // full_reset record, and is a full night all the same.
+    let full_reset = matches!(choice, SleepChoice::Sleeper(10))
+        || after
+            .history
+            .last()
+            .is_some_and(|event| event.source == "full_reset");
     // A coffee or drink that wears off during the sleep is paid back first,
     // as the sleep itself does it.
     let wake_h = d.absolute_game_hour(ctx, None) + minutes / 60.0;
@@ -69,13 +75,14 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
         SleepChoice::Lot => hos::rest_poor_sleep(lying_down, minutes),
         SleepChoice::Sleeper(_) => hos::rest_sleeper_split(lying_down, minutes, completed_split),
     };
+    let full_sleep_line = if reset_hours == 8 {
+        "A full 8-hour sleep resets your driving hours and legal driving window."
+    } else {
+        "A full 10-hour sleep resets your driving hours and legal driving window."
+    };
     let effect = match choice {
-        SleepChoice::Lot | SleepChoice::Motel => {
-            "A full 10-hour sleep resets your driving hours and legal driving window."
-        }
-        SleepChoice::Sleeper(_) if full_reset => {
-            "A full 10-hour sleep resets your driving hours and legal driving window."
-        }
+        SleepChoice::Lot | SleepChoice::Motel => full_sleep_line,
+        SleepChoice::Sleeper(_) if full_reset => full_sleep_line,
         SleepChoice::Sleeper(_) if completed_split => {
             "This finishes a split rest, and both parts count."
         }

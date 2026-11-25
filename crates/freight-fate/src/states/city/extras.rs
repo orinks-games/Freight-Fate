@@ -318,12 +318,14 @@ impl Menu for ApplyToCarrierState {
             items.push(MenuItem::new(label, move |s: &mut Self, ctx| s.join(ctx, i)).help(help));
         }
         if items.is_empty() {
+            let none_hiring = if profile(ctx).base_country() == "CA" {
+                "No carrier hires near your home or in your province right now"
+            } else {
+                "No carrier hires near your home or in your state right now"
+            };
             items.push(
-                MenuItem::new(
-                    "No carrier hires near your home or in your state right now",
-                    |s: &mut Self, ctx| s.go_back(ctx),
-                )
-                .help("Returns to the terminal."),
+                MenuItem::new(none_hiring, |s: &mut Self, ctx| s.go_back(ctx))
+                    .help("Returns to the terminal."),
             );
         }
         items.push(MenuItem::new("Back to terminal", |s: &mut Self, ctx| {

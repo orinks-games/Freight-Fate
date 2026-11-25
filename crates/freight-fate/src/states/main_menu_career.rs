@@ -3,7 +3,7 @@
 
 use std::collections::BTreeMap;
 
-use ff_core::data::regions::region_label;
+use ff_core::data::regions::{canada_picker_group, canada_picker_label, region_label};
 use ff_core::models::carriers::{home_terminal_city_for, is_offerable_home_city};
 use ff_core::models::profile::{
     find_save_path, is_pre_1_9_save_file, newer_career_file, Profile, DEFAULT_CITY,
@@ -26,6 +26,9 @@ use crate::states::main_menu::{first_day_orientation_message, first_state_after_
 pub fn region_menu_name(region: &str) -> String {
     if region == ALASKA_PICKER_REGION {
         return "Alaska".to_string();
+    }
+    if let Some(label) = canada_picker_label(region) {
+        return label.to_string();
     }
     let label = region_label(region)
         .map(str::to_string)
@@ -155,6 +158,20 @@ impl Menu for CareerStartState {
         &mut self.menu
     }
 
+    fn enter(&mut self, ctx: &mut GameContext) {
+        // The start rows speak in the units of the home city being picked
+        // (Automatic), as every screen in town does: kilometers for Toronto.
+        let country = ctx
+            .world
+            .cities
+            .get(&self.home_city)
+            .map(|city| city.country.clone())
+            .unwrap_or_default();
+        ctx.settings
+            .move_units(ff_core::units::UnitsEvent::ScreenAt(country));
+        crate::states::base::default_enter(self, ctx);
+    }
+
     fn announce_entry(&mut self, ctx: &mut GameContext) {
         let place = ctx.world.spoken_city(&self.home_city, Some(true));
         let count = hiring_carrier_count_for_home_city(ctx.world, &self.home_city);
@@ -201,8 +218,8 @@ impl_state_for_menu!(CareerStartState);
 /// Region selection is the first of three levels: choosing a region opens a
 /// [`HomeCityState`] listing only that region's offerable home cities, then
 /// the carriers that hire there. Only cities where some carrier hires
-/// (`is_offerable_home_city`) are listed, so British Columbia and Yukon are
-/// not offered; Alaska has its own row ([`ALASKA_PICKER_REGION`]); a region
+/// (`is_offerable_home_city`) are listed; Alaska has its own row
+/// ([`ALASKA_PICKER_REGION`]) and Canada a row per province group; a region
 /// with no offerable city is left out.
 pub struct HomeTerminalState {
     menu: MenuCore<Self>,
@@ -251,10 +268,19 @@ impl HomeTerminalState {
 /// only inside that region; the picker gives it a row of its own.
 pub const ALASKA_PICKER_REGION: &str = "alaska";
 
-/// The region a home city is listed under in the picker.
+/// The region a home city is listed under in the picker: Alaska and each
+/// Canadian province group have rows of their own, worked out from the
+/// state or province; every other city its weather region.
 fn picker_region(city: &ff_core::data::world_models::City) -> String {
     if city.state_code.eq_ignore_ascii_case("AK") {
         ALASKA_PICKER_REGION.to_string()
+    } else if let Some(group) = city
+        .country
+        .eq_ignore_ascii_case("CA")
+        .then(|| canada_picker_group(&city.state_code))
+        .flatten()
+    {
+        group.to_string()
     } else {
         city.region.clone()
     }

@@ -1732,5 +1732,454 @@
       "steel": 0.15
     },
     "lane_area": "greater Detroit"
+  },
+  "longspur_transport": {
+    "name": "Longspur Transport",
+    "tier": "national",
+    "terminal_city_keys": [
+      "surrey_bc_ca",
+      "kamloops_bc_ca",
+      "prince_george_bc_ca",
+      "calgary_ab_ca",
+      "edmonton_ab_ca",
+      "saskatoon_sk_ca",
+      "regina_sk_ca",
+      "winnipeg_mb_ca",
+      "thunder_bay_on_ca",
+      "mississauga_on_ca",
+      "montreal_qc_ca",
+      "moncton_nb_ca"
+    ],
+    "hiring_radius_mi": null,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 400.0,
+      "max": 3000.0
+    },
+    "company_pay": {
+      "pay_share": 0.36,
+      "min_per_mile": 0.82,
+      "stop_pay": 175.0,
+      "on_time_bonus_share": 0.04
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {},
+    "lane_area": "Canada",
+    "cross_border": true
+  },
+  "great_shield_transport": {
+    "name": "Great Shield Transport",
+    "tier": "national",
+    "terminal_city_keys": [
+      "abbotsford_bc_ca",
+      "prince_george_bc_ca",
+      "red_deer_ab_ca",
+      "grande_prairie_ab_ca",
+      "regina_sk_ca",
+      "winnipeg_mb_ca",
+      "thunder_bay_on_ca",
+      "sudbury_on_ca",
+      "hamilton_on_ca",
+      "quebec_city_qc_ca",
+      "saint_john_nb_ca",
+      "halifax_ns_ca"
+    ],
+    "hiring_radius_mi": null,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 400.0,
+      "max": 3000.0
+    },
+    "company_pay": {
+      "pay_share": 0.36,
+      "min_per_mile": 0.82,
+      "stop_pay": 175.0,
+      "on_time_bonus_share": 0.04
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "steel": 0.3,
+      "machinery": 0.2,
+      "lumber_paper": 0.2,
+      "construction": 0.15
+    },
+    "lane_area": "Canada",
+    "specialty": "steel, machinery and lumber",
+    "cross_border": true
+  },
+  "nicola_valley_freight": {
+    "name": "Nicola Valley Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "surrey_bc_ca",
+      "kamloops_bc_ca",
+      "prince_george_bc_ca",
+      "cranbrook_bc_ca"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "lumber_paper": 0.2
+    },
+    "lane_area": "British Columbia",
+    "cross_border": true
+  },
+  "sheep_river_transport": {
+    "name": "Sheep River Transport",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "calgary_ab_ca",
+      "edmonton_ab_ca",
+      "grande_prairie_ab_ca",
+      "lethbridge_ab_ca"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "machinery": 0.2,
+      "construction": 0.15
+    },
+    "lane_area": "Alberta",
+    "cross_border": true
+  },
+  "assiniboine_freight": {
+    "name": "Assiniboine Freight Lines",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "regina_sk_ca",
+      "saskatoon_sk_ca",
+      "winnipeg_mb_ca",
+      "brandon_mb_ca",
+      "thompson_mb_ca"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "grain": 0.25,
+      "farm_inputs": 0.2
+    },
+    "lane_area": "Saskatchewan and Manitoba",
+    "cross_border": true
+  },
+  "speed_river_freight": {
+    "name": "Speed River Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "mississauga_on_ca",
+      "london_on_ca",
+      "kingston_on_ca",
+      "windsor_on_ca"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 500.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "automotive": 0.25,
+      "retail": 0.1
+    },
+    "lane_area": "southern Ontario",
+    "cross_border": true
+  },
+  "mattawa_river_freight": {
+    "name": "Mattawa River Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "sudbury_on_ca",
+      "thunder_bay_on_ca",
+      "timmins_on_ca",
+      "sault_ste_marie_on_ca",
+      "dryden_on_ca"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 900.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "lumber_paper": 0.25,
+      "bulk": 0.15
+    },
+    "lane_area": "northern Ontario",
+    "cross_border": false
+  },
+  "transport_chaudiere": {
+    "name": "Transport Chaudière",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "montreal_qc_ca",
+      "quebec_city_qc_ca",
+      "saguenay_qc_ca",
+      "riviere_du_loup_qc_ca",
+      "val_d_or_qc_ca"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "lumber_paper": 0.2,
+      "food": 0.1
+    },
+    "lane_area": "Quebec",
+    "cross_border": true
+  },
+  "fundy_shore_freight": {
+    "name": "Fundy Shore Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "moncton_nb_ca",
+      "halifax_ns_ca",
+      "saint_john_nb_ca",
+      "edmundston_nb_ca",
+      "sydney_ns_ca"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 600.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "food": 0.2,
+      "refrigerated": 0.15
+    },
+    "lane_area": "the Atlantic provinces",
+    "cross_border": true
+  },
+  "liard_river_freight": {
+    "name": "Liard River Freight",
+    "tier": "regional",
+    "terminal_city_keys": [
+      "edmonton_ab_ca",
+      "grande_prairie_ab_ca",
+      "hay_river_nt_ca",
+      "whitehorse_yt_ca",
+      "yellowknife_nt_ca",
+      "dawson_city_yt_ca"
+    ],
+    "hiring_radius_mi": 250.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 150.0,
+      "max": 1400.0
+    },
+    "company_pay": {
+      "pay_share": 0.34,
+      "min_per_mile": 0.93,
+      "stop_pay": 135.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.6,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.0
+    },
+    "cargo_weight_bonus": {
+      "construction": 0.2,
+      "fuel_bulk": 0.1
+    },
+    "lane_area": "the North",
+    "cross_border": true
+  },
+  "port_lands_cartage": {
+    "name": "Port Lands Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "mississauga_on_ca",
+      "toronto_on_ca"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {},
+    "lane_area": "greater Toronto",
+    "cross_border": false
+  },
+  "lachine_cartage": {
+    "name": "Lachine Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "montreal_qc_ca"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {},
+    "lane_area": "greater Montreal",
+    "cross_border": false
+  },
+  "annacis_island_cartage": {
+    "name": "Annacis Island Cartage",
+    "tier": "local",
+    "terminal_city_keys": [
+      "surrey_bc_ca",
+      "vancouver_bc_ca"
+    ],
+    "hiring_radius_mi": 50.0,
+    "home_time_policy": "inert",
+    "run_band_mi": {
+      "min": 25.0,
+      "max": 150.0
+    },
+    "company_pay": {
+      "pay_share": 0.3,
+      "min_per_mile": 1.05,
+      "stop_pay": 210.0,
+      "on_time_bonus_share": 0.03
+    },
+    "dispatch": {
+      "short_haul_bias": 0.0,
+      "regional_bias": 0.0,
+      "long_haul_bias": 0.0,
+      "deadline_slack": 1.05
+    },
+    "cargo_weight_bonus": {
+      "container": 0.2
+    },
+    "lane_area": "greater Vancouver",
+    "cross_border": false
   }
 }

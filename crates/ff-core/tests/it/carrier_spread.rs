@@ -51,7 +51,7 @@ fn test_every_national_has_a_terminal_within_reach_of_every_lower_48_city() {
     let world = world();
     let nationals: Vec<_> = carrier_catalog()
         .values()
-        .filter(|c| c.is_national())
+        .filter(|c| c.is_national() && c.home_country() == "US")
         .collect();
     assert_eq!(nationals.len(), 6);
     for c in &nationals {

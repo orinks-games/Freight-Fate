@@ -2402,3 +2402,37 @@ fn a_waived_break_is_not_named_in_the_readouts() {
         .break_summary(mode, false)
         .starts_with("30-minute break due in"));
 }
+
+#[test]
+fn the_rest_reset_is_eight_hours_in_canada_and_leaves_the_us_counts_running() {
+    let mut ca = HosClock::new();
+    ca.set_rules(HosRules::CanadaSouth60);
+    assert_eq!(ca.reset_rest_hours(), 8);
+    ca.drive(12.0 * 60.0);
+    ca.rest_reset();
+    assert_eq!(ca.ca_driving_min, 0.0);
+    assert_eq!(ca.ca_on_duty_min, 0.0);
+    assert!(!ca.in_violation("realistic"));
+    assert_eq!(ca.reset_minutes_left(), None);
+    // 8 hours off is not the US reset: back in the US the driving count
+    // still holds the 12 hours.
+    assert_eq!(ca.driving_min, 12.0 * 60.0);
+    assert_eq!(ca.off_duty_min, 8.0 * 60.0);
+
+    // A rest already under way owes only the rest of the 8 hours.
+    let mut part = HosClock::new();
+    part.set_rules(HosRules::CanadaNorth60);
+    part.drive(60.0);
+    part.sleeper(3.0 * 60.0);
+    assert_eq!(part.reset_minutes_left(), Some(5.0 * 60.0));
+    part.rest_reset();
+    assert_eq!(part.off_duty_min, 8.0 * 60.0);
+    assert_eq!(part.ca_driving_min, 0.0);
+
+    let mut us = HosClock::new();
+    assert_eq!(us.reset_rest_hours(), 10);
+    us.drive(10.0 * 60.0);
+    us.rest_reset();
+    assert_eq!(us.driving_min, 0.0);
+    assert_eq!(us.history.last().unwrap().source, "full_reset");
+}

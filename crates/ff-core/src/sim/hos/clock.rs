@@ -8,10 +8,10 @@ use super::{
     HosRules, ALASKA_CYCLE_LIMIT_MIN, ALASKA_DRIVE_LIMIT_MIN, ALASKA_ON_DUTY_LIMIT_MIN,
     ALASKA_RESTART_MIN, BREAK_MIN, CANADA_CYCLE_WINDOW_MIN, CANADA_NORTH_CYCLE_LIMIT_MIN,
     CANADA_NORTH_DRIVE_LIMIT_MIN, CANADA_NORTH_ON_DUTY_LIMIT_MIN, CANADA_NORTH_SHIFT_LIMIT_MIN,
-    CANADA_RESTART_MIN, CANADA_SOUTH_CYCLE_LIMIT_MIN, CANADA_SOUTH_DRIVE_LIMIT_MIN,
-    CANADA_SOUTH_ON_DUTY_LIMIT_MIN, CANADA_SOUTH_SHIFT_LIMIT_MIN, CYCLE_SPEAK_MIN,
-    CYCLE_WINDOW_MIN, HOS_HISTORY_MAX, HOS_SPLIT_REST_HISTORY_MAX, RESTART_MIN, SLEEP_MIN,
-    SPLIT_LONG_ALT_MIN, SPLIT_LONG_MIN, SPLIT_SHORT_ALT_MIN, SPLIT_SHORT_MIN,
+    CANADA_RESET_MIN, CANADA_RESTART_MIN, CANADA_SOUTH_CYCLE_LIMIT_MIN,
+    CANADA_SOUTH_DRIVE_LIMIT_MIN, CANADA_SOUTH_ON_DUTY_LIMIT_MIN, CANADA_SOUTH_SHIFT_LIMIT_MIN,
+    CYCLE_SPEAK_MIN, CYCLE_WINDOW_MIN, HOS_HISTORY_MAX, HOS_SPLIT_REST_HISTORY_MAX, RESTART_MIN,
+    SLEEP_MIN, SPLIT_LONG_ALT_MIN, SPLIT_LONG_MIN, SPLIT_SHORT_ALT_MIN, SPLIT_SHORT_MIN,
 };
 use crate::pyfmt::py_str_float;
 
@@ -453,11 +453,43 @@ impl HosClock {
         self.off_duty(minutes);
     }
 
+    /// Minutes of consecutive rest that reset the shift under the rules in
+    /// force: 10 hours in the United States and Alaska, 8 in Canada, where 8
+    /// consecutive hours off end the 13 and 14 hour counts and the 16 hour
+    /// elapsed count (SOR/2005-313 s.13; north of 60, s.39). Only the
+    /// Canadian counts reset at 8: the US counts still want 10 consecutive
+    /// hours (49 CFR 395.3(a)(1)), so a driver who crosses after an 8-hour
+    /// night is on a running US clock, as the law has it.
+    pub fn reset_rest_min(&self) -> f64 {
+        match self.rules {
+            HosRules::CanadaSouth60 | HosRules::CanadaNorth60 => CANADA_RESET_MIN,
+            HosRules::Us | HosRules::Alaska => SLEEP_MIN,
+        }
+    }
+
+    /// Whole hours of [`Self::reset_rest_min`], for the rest menu's lines.
+    pub fn reset_rest_hours(&self) -> i64 {
+        (self.reset_rest_min() / 60.0).round() as i64
+    }
+
     /// A full 10-hour off-duty reset: a fresh shift (`sleep()` in Python,
     /// which defaults the status to the sleeper berth).
     pub fn sleep(&mut self) {
         self.advance_cycle(SLEEP_MIN, false);
         self.sleep_as("sleeper_berth");
+    }
+
+    /// The rest menu's full night under the rules in force: under Canadian
+    /// rules the berth time still owed on an 8-hour reset (8 hours from a
+    /// fresh stop), which ends the Canadian counts and leaves the US counts
+    /// running; elsewhere the full 10-hour reset of [`Self::sleep`].
+    pub fn rest_reset(&mut self) {
+        if self.reset_rest_min() < SLEEP_MIN {
+            let owed = self.reset_minutes_left().unwrap_or(self.reset_rest_min());
+            self.sleeper(owed);
+        } else {
+            self.sleep();
+        }
     }
 
     /// A full cycle restart under the selected rules, recorded as a
@@ -711,11 +743,11 @@ impl HosClock {
         }
     }
 
-    /// Minutes still owed on a 10-hour reset already under way: resting
-    /// since the wheel, and not yet ten hours of it.
+    /// Minutes still owed on a reset already under way: resting since the
+    /// wheel, and not yet the reset's hours of it (10, 8 in Canada).
     pub fn reset_minutes_left(&self) -> Option<f64> {
-        (self.off_duty_min > 0.0 && self.off_duty_min < SLEEP_MIN)
-            .then_some(SLEEP_MIN - self.off_duty_min)
+        let reset = self.reset_rest_min();
+        (self.off_duty_min > 0.0 && self.off_duty_min < reset).then_some(reset - self.off_duty_min)
     }
 
     fn key_is_credited(&self, first: usize, second: usize) -> bool {

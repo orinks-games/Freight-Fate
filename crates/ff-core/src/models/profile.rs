@@ -702,6 +702,24 @@ impl Profile {
         )
     }
 
+    /// The country this career is based in: its carrier's, or for a driver
+    /// under their own authority the country of the home city ("CA" for a
+    /// Canadian city key, else "US").
+    pub fn base_country(&self) -> &'static str {
+        if let Some(carrier) = self.hiring_carrier() {
+            return carrier.home_country();
+        }
+        if self
+            .driver_home_city()
+            .to_ascii_lowercase()
+            .ends_with("_ca")
+        {
+            "CA"
+        } else {
+            "US"
+        }
+    }
+
     /// Re-derive `home_terminal_city` for the current hiring carrier: kept
     /// when it is already one of that carrier's terminal cities, otherwise
     /// the carrier's nearest terminal city to it (or to `current_city` when
