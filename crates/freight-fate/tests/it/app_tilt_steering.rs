@@ -209,14 +209,22 @@ fn the_touch_gestures_screen_turns_tilt_steering_on_and_steps_its_angle() {
         harness.focused_label().as_deref(),
         Some("Tilt for full steering: 15 degrees")
     );
-    // Off again, and the angle row goes with it.
+    touch(&mut harness, Gesture::SwipeRight);
+    assert_eq!(
+        harness.focused_label().as_deref(),
+        Some("Tilt dead zone: 4 degrees")
+    );
+    touch(&mut harness, Gesture::SwipeUp);
+    assert_eq!(harness.app.ctx.settings.touch_tilt_dead(), 6.0);
+    touch(&mut harness, Gesture::SwipeLeft);
+    // Off again, and the angle rows go with it.
     touch(&mut harness, Gesture::SwipeLeft);
     touch(&mut harness, Gesture::SwipeDown);
     assert!(!harness.app.ctx.settings.touch_tilt_steering);
     assert!(!harness
         .menu_labels()
         .iter()
-        .any(|l| l.starts_with("Tilt for full steering")));
+        .any(|l| l.starts_with("Tilt for full steering") || l.starts_with("Tilt dead zone")));
 }
 
 #[test]

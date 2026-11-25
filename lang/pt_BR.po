@@ -38246,6 +38246,24 @@ msgid ""
 msgstr ""
 
 msgid ""
+"How far the phone tilts from level before it steers at all. A bigger number "
+"lets the phone shake or drift more without steering. Flick up or down to "
+"change it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts from level before it steers at all. A bigger number "
+"lets the phone shake or drift more without steering. D-pad Right or Left "
+"changes it."
+msgstr ""
+
+msgid ""
+"How far the phone tilts from level before it steers at all. A bigger number "
+"lets the phone shake or drift more without steering. Right or Left arrow "
+"changes it."
+msgstr ""
+
+msgid ""
 "How far the phone tilts for full steering. A smaller number steers harder. "
 "Flick up or down to change it."
 msgstr ""
@@ -38277,6 +38295,10 @@ msgstr ""
 
 #. placeholders: {touch_tilt_full}
 msgid "Tilt for full steering: {touch_tilt_full} degrees"
+msgstr ""
+
+#. placeholders: {touch_tilt_dead}
+msgid "Tilt dead zone: {touch_tilt_dead} degrees"
 msgstr ""
 
 #. placeholders: {touch_deep_swipe_points}
@@ -41576,6 +41598,11 @@ msgstr ""
 msgid ""
 "With Tilt steering on under Touch gestures, tilting the phone steers too. "
 "With lane keeping on full, a tilt changes one lane."
+msgstr ""
+
+msgid ""
+"If small movements of the phone steer, raise Tilt dead zone or Tilt for "
+"full steering under Touch gestures, so the phone has to tilt further."
 msgstr ""
 
 msgid ""

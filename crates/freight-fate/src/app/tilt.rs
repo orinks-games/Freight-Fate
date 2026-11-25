@@ -80,9 +80,10 @@ impl TiltInput {
     }
 
     /// The steering this frame, from -1 to 1: nothing unless live.
-    pub fn steering(&self, full_degrees: f64) -> f64 {
-        self.degrees
-            .map_or(0.0, |degrees| self.machine.steering(degrees, full_degrees))
+    pub fn steering(&self, full_degrees: f64, dead_degrees: f64) -> f64 {
+        self.degrees.map_or(0.0, |degrees| {
+            self.machine.steering(degrees, full_degrees, dead_degrees)
+        })
     }
 
     /// "Set tilt level": take level again from the pose the phone is in.
@@ -247,12 +248,12 @@ mod tests {
         let mut tilt = TiltInput::default();
         frames(&mut tilt, 10, false, TiltRead::Sample(10.0));
         assert_eq!(tilt.state().key(), "waiting");
-        assert_eq!(tilt.steering(30.0), 0.0);
+        assert_eq!(tilt.steering(30.0, 4.0), 0.0);
         let lines = frames(&mut tilt, 20, true, TiltRead::Sample(10.0));
         assert!(lines.is_empty());
         assert_eq!(tilt.state().level(), Some(10.0));
         frames(&mut tilt, 1, true, TiltRead::Sample(27.0));
-        assert!((tilt.steering(30.0) - 0.5).abs() < 1e-9);
+        assert!((tilt.steering(30.0, 4.0) - 0.5).abs() < 1e-9);
     }
 
     #[test]
