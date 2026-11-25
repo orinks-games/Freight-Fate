@@ -4775,7 +4775,7 @@ msgid "id"
 msgstr "kimlik"
 
 msgid "spoken"
-msgstr ""
+msgstr "spoken"
 
 msgid "type"
 msgstr "tür"
@@ -4793,43 +4793,43 @@ msgid "cargo"
 msgstr "yük"
 
 msgid "traits"
-msgstr ""
+msgstr "traits"
 
 msgid "no yards"
-msgstr ""
+msgstr "saha yok"
 
 #. placeholders: {id}
 msgid "yard {id} has no source URL"
-msgstr ""
+msgstr "{id} sahasının kaynak adresi yok"
 
 #. placeholders: {id}
 msgid "yard {id} needs an address and a source note"
-msgstr ""
+msgstr "{id} sahası için bir adres ve kaynak notu gerekiyor"
 
 #. placeholders: {id}
 msgid "yard {id} sits outside the border city area"
-msgstr ""
+msgstr "{id} sahası sınır şehri bölgesinin dışında"
 
 msgid "no consignees"
-msgstr ""
+msgstr "alıcı yok"
 
 #. placeholders: {spoken}
 msgid "consignee {spoken} has no source"
-msgstr ""
+msgstr "alıcı {spoken}: kaynak yok"
 
 #. placeholders: {spoken}
 msgid "consignee {spoken} is not spoken in plain text"
-msgstr ""
+msgstr "alıcı {spoken}: düz metin olarak söylenmiyor"
 
 msgid "bridge hours have no source URL"
-msgstr ""
+msgstr "köprü saatlerinin kaynak adresi yok"
 
 msgid "paperwork wait range is empty"
-msgstr ""
+msgstr "evrak bekleme aralığı boş"
 
 #. placeholders: {line}
 msgid "spoken line is empty or not plain text: {line}"
-msgstr ""
+msgstr "söylenen satır boş ya da düz metin değil: {line}"
 
 msgid "service area"
 msgstr "service area"
@@ -5175,7 +5175,7 @@ msgstr ""
 "arasında değil"
 
 msgid "concrete"
-msgstr ""
+msgstr "beton"
 
 msgid "asphalt"
 msgstr "asfalt"
@@ -5906,11 +5906,11 @@ msgstr "Bilinmeyen şehir: {leg_to}"
 
 #. placeholders: {leg_from}, {leg_to}, {e}
 msgid "{leg_from} to {leg_to} has invalid crossings: {e}"
-msgstr ""
+msgstr "{leg_from} - {leg_to} etabında geçersiz geçişler var: {e}"
 
 #. placeholders: {leg_from}, {leg_to}
 msgid "{leg_from} to {leg_to}"
-msgstr ""
+msgstr "{leg_from} ile {leg_to} arası"
 
 #. placeholders: {a}
 msgid "Unknown city: {a}"
@@ -5937,7 +5937,7 @@ msgstr "terminal"
 
 #. placeholders: {missing}
 msgid "Unknown city: {missing}"
-msgstr ""
+msgstr "Bilinmeyen şehir: {missing}"
 
 #. placeholders: {city}
 msgid "{city} has no freight facilities"
@@ -5972,6 +5972,8 @@ msgid ""
 "{city} facility {rname} is a fuel/rest pin and must not carry freight cargo "
 "roles"
 msgstr ""
+"{city} şehrindeki {rname} tesisi bir yakıt ya da dinlenme noktası, yük rolü "
+"taşımamalı"
 
 msgid "truck stop"
 msgstr "tır parkı"
@@ -6694,11 +6696,11 @@ msgstr "{city} Çelik ve Sanayi Tesisleri"
 
 #. placeholders: {leg_from}, {leg_to}
 msgid "{leg_from} to {leg_to} has invalid tunnel data"
-msgstr ""
+msgstr "{leg_from} - {leg_to} etabında geçersiz tünel verisi var"
 
 #. placeholders: {leg_from}, {leg_to}
 msgid "{leg_from} to {leg_to} tunnel"
-msgstr ""
+msgstr "{leg_from} ile {leg_to} arası tünel"
 
 msgid "checkpoints"
 msgstr "checkpoints"
@@ -6905,35 +6907,35 @@ msgstr "{p} tesis yaklaşması {rid}: dönüş bölümü yok"
 
 #. placeholders: {context}
 msgid "{context} has no source URL or access date"
-msgstr ""
+msgstr "{context}: kaynak adresi ya da erişim tarihi yok"
 
 #. placeholders: {context}
 msgid "{context} has invalid access date"
-msgstr ""
+msgstr "{context}: erişim tarihi geçersiz"
 
 #. placeholders: {context}
 msgid "{context} has no hours"
-msgstr ""
+msgstr "{context}: çalışma saatleri yok"
 
 #. placeholders: {context}
 msgid "{context} calendar"
-msgstr ""
+msgstr "{context} takvimi"
 
 #. placeholders: {context}, {key}
 msgid "{context} has no published hours for {key}"
-msgstr ""
+msgstr "{context}: {key} için yayımlanmış çalışma saatleri yok"
 
 #. placeholders: {context}
 msgid "{context} has invalid hours dates"
-msgstr ""
+msgstr "{context}: çalışma saati tarihleri geçersiz"
 
 #. placeholders: {context}
 msgid "{context} has invalid hours"
-msgstr ""
+msgstr "{context}: çalışma saatleri geçersiz"
 
 #. placeholders: {context}
 msgid "{context} has invalid tunnel operating data"
-msgstr ""
+msgstr "{context}: tünel işletme verisi geçersiz"
 
 msgid "receiver"
 msgstr "alıcı"
@@ -7052,49 +7054,50 @@ msgid "{context} crossing {what}"
 msgstr ""
 
 msgid "has an unknown kind"
-msgstr ""
+msgstr "türü bilinmiyor"
 
 msgid "has no name or basis"
-msgstr ""
+msgstr "adı ya da dayanağı yok"
 
 msgid "has no source URL"
-msgstr ""
+msgstr "kaynak adresi yok"
 
 msgid "has an invalid access date"
-msgstr ""
+msgstr "erişim tarihi geçersiz"
 
 msgid "has an invalid size limit"
-msgstr ""
+msgstr "boyut sınırı geçersiz"
 
 msgid "has a size limit with no spoken rule"
-msgstr ""
+msgstr "boyut sınırının söylenen bir kuralı yok"
 
 msgid "has a cargo rule with no spoken rule"
-msgstr ""
+msgstr "yük kuralının söylenen bir kuralı yok"
 
 msgid "bans classes without naming any"
-msgstr ""
+msgstr "hiçbirini adlandırmadan sınıfları yasaklıyor"
 
 msgid "limits classes with no spoken rule"
-msgstr ""
+msgstr "sınıfları söylenen bir kural olmadan sınırlıyor"
 
 msgid "has class hours with no classes, times or spoken rule"
-msgstr ""
+msgstr "sınıf saatleri var ama sınıf, saat ya da söylenen kural yok"
 
 msgid "has invalid wind speeds"
-msgstr ""
+msgstr "rüzgâr hızları geçersiz"
 
 msgid "has a wind rule with no spoken rule"
-msgstr ""
+msgstr "rüzgâr kuralının söylenen bir kuralı yok"
 
 msgid "has an escort rule with nothing to escort or no spoken rule"
 msgstr ""
+"eskort kuralı var ama eskort edilecek bir şey ya da söylenen kural yok"
 
 msgid "models no rule"
-msgstr ""
+msgstr "hiçbir kural tanımlamıyor"
 
 msgid "speaks money as a symbol"
-msgstr ""
+msgstr "parayı simgeyle söylüyor"
 
 msgid "exit"
 msgstr "çıkış"
@@ -7567,6 +7570,8 @@ msgid ""
 "Save {grouped} dollars: {grouped2} for the cheapest sleeper tractor and "
 "{grouped3} for working capital."
 msgstr ""
+"{grouped} dolar biriktirin: en ucuz yataklı tır için {grouped2} ve işletme "
+"sermayesi için {grouped3}."
 
 #. placeholders: {NO_CARRIER_STATUS}, {level}, {title}
 #. one sentence of a longer line
@@ -7634,6 +7639,8 @@ msgid ""
 "Next: the owner-operator buy-in under Business status, where you buy a "
 "tractor of your own."
 msgstr ""
+"Sıradaki adım: İşletme durumu altındaki kendi tırının sahibi şoför geçişi. "
+"Orada kendi tırınızı satın alırsınız."
 
 #. placeholders: {join}
 msgid "Owner-operator gate locked: {join}"
@@ -7766,6 +7773,8 @@ msgid ""
 "Tractors start at {grouped} dollars, and {grouped2} dollars stays in the "
 "bank as working capital."
 msgstr ""
+"Tırlar {grouped} dolardan başlar ve {grouped2} dolar işletme sermayesi "
+"olarak bankada kalır."
 
 #. placeholders: {carrier_name}, {level}, {title}
 #. one sentence of a longer line
@@ -7780,12 +7789,20 @@ msgid ""
 "at {grouped} dollars, and {grouped2} dollars stays in the bank as working "
 "capital."
 msgstr ""
+"{carrier_name} firmasında firma şoförüsünüz, seviye {level}, {title}. Kendi "
+"tırının sahibi şoför geçişine hak kazandınız: kendi tırınızı satın "
+"alırsınız ve taşıyıcı firmaya bağlı, kendi tırının sahibi şoför olarak "
+"taşımaya devam edersiniz. Tırlar {grouped} dolardan başlar ve {grouped2} "
+"dolar işletme sermayesi olarak bankada kalır."
 
 #. one sentence of a longer line
 msgid ""
 "You qualify for the owner-operator buy-in: you buy a tractor of your own "
 "and keep hauling for the carrier as a leased-on owner-operator."
 msgstr ""
+"Kendi tırının sahibi şoför geçişine hak kazandınız: kendi tırınızı satın "
+"alırsınız ve taşıyıcı firmaya bağlı, kendi tırının sahibi şoför olarak "
+"taşımaya devam edersiniz."
 
 #. placeholders: {carrier_name}
 #. one sentence of a longer line
@@ -8180,6 +8197,10 @@ msgid ""
 "buy a tractor of your own and haul for the carrier as a leased-on "
 "owner-operator. TWIC port card enrollment opens under Licenses and training."
 msgstr ""
+"Kendi tırının sahibi şoför geçişi diğer koşulları sağlandığında açılır: "
+"kendi tırınızı satın alırsınız ve taşıyıcı firmaya bağlı, kendi tırının "
+"sahibi şoför olarak taşırsınız. TWIC liman kartı başvurusu Ehliyetler ve "
+"eğitim altında açık."
 
 msgid "Eligible to buy your own truck and pay its operating costs."
 msgstr "Kendi tırınızı satın almaya ve giderlerini ödemeye hak kazandınız."
@@ -9195,7 +9216,7 @@ msgid "{name} {name2} terminal"
 msgstr ""
 
 msgid "inert"
-msgstr ""
+msgstr "durağan"
 
 msgid "dan"
 msgstr "dan"
@@ -9646,7 +9667,7 @@ msgid " Enter books it."
 msgstr " Enter rezerve eder."
 
 msgid " Double tap books it."
-msgstr ""
+msgstr " İki kez dokununca rezervasyon yapılır."
 
 msgid "free"
 msgstr "ücretsiz"
@@ -10695,7 +10716,7 @@ msgid "bobtail"
 msgstr "dorsesiz"
 
 msgid "highway"
-msgstr ""
+msgstr "otoyol"
 
 msgid "percent"
 msgstr "yüzde"
@@ -12165,7 +12186,7 @@ msgstr "ağır"
 #. placeholders: {f}, {f2}, {f3}
 msgid ""
 "{f} thousand newton meters torque, {f2} gallon tank, {f3} miles per gallon"
-msgstr ""
+msgstr "{f} bin newton metre tork, {f2} galon depo, galon başına {f3} mil"
 
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
@@ -12640,11 +12661,13 @@ msgstr "Gece Sürüşü"
 msgid "synth-music"
 msgstr "sentezlenmiş müzik"
 
+# leave empty: the issue dates stay English, so a translated frame makes a mixed line
 #. placeholders: {masthead}, {issue}
 #. one sentence of a longer line
 msgid "{masthead}, issue {issue}."
 msgstr ""
 
+# leave empty: the dates stay English, so a translated frame makes a mixed line
 #. placeholders: {masthead}, {issue}, {dates}
 msgid "{masthead}, issue {issue}. {dates}."
 msgstr ""
@@ -13114,13 +13137,14 @@ msgstr "durdu"
 msgid "holding"
 msgstr "bekliyor"
 
+# leave empty: loose frame; it caught "Crossing into" time zone lines and left "into" English
 #. placeholders: {name}
 msgid "Crossing {name}."
 msgstr ""
 
 #. placeholders: {name}
 msgid "Crossing the {name}."
-msgstr ""
+msgstr "Geçiliyor: {name}."
 
 msgid "up"
 msgstr "yukarı"
@@ -14893,16 +14917,16 @@ msgid "bunk"
 msgstr "yatak"
 
 msgid "Level set."
-msgstr ""
+msgstr "Seviye ayarlandı."
 
 msgid "This device has no motion sensor."
-msgstr ""
+msgstr "Bu cihazda hareket sensörü yok."
 
 msgid "No tilt reading. Swipe to steer."
-msgstr ""
+msgstr "Eğim okunamıyor. Direksiyon için kaydırın."
 
 msgid "Tilt steering back."
-msgstr ""
+msgstr "Eğimle direksiyon yeniden çalışıyor."
 
 msgid "waiting"
 msgstr ""
@@ -15058,7 +15082,7 @@ msgstr "ileride trafik"
 
 #. placeholders: {class}
 msgid "Oncoming {class}"
-msgstr ""
+msgstr "Karşıdan gelen {class}"
 
 #. placeholders: {class}
 msgid "Merging {class} on the right ramp"
@@ -17400,7 +17424,7 @@ msgid "An engine starting, immediately after you started it."
 msgstr "Siz çalıştırdıktan hemen sonra çalışan bir motor."
 
 msgid "It is the running engine."
-msgstr ""
+msgstr "Bu, çalışan motor."
 
 msgid "The same engine, in its earlier sound."
 msgstr "Aynı motor, önceki sesiyle."
@@ -17446,17 +17470,19 @@ msgid "The joint at a bridge end: texture, not a decision."
 msgstr "Köprü sonundaki derz: doku, karar değil."
 
 msgid "Tires on a steel grate bridge deck: texture, not a decision."
-msgstr ""
+msgstr "Çelik ızgara köprü zemininde lastikler: doku, karar değil."
 
 msgid "Hollow resonance of a concrete bridge deck: texture, not a decision."
-msgstr ""
+msgstr "Beton köprü zemininin boğuk yankısı: doku, karar değil."
 
 msgid "Turbocharger spool under engine load: texture, not a decision."
-msgstr ""
+msgstr "Motor yükü altında turbo dönüşü: doku, karar değil."
 
 msgid ""
 "Turbocharger pressure release on lift-off or shift: texture, not a decision."
 msgstr ""
+"Gaz bırakırken ya da vites değiştirirken turbo basınç tahliyesi: doku, "
+"karar değil."
 
 msgid "A door."
 msgstr "Bir kapı."
@@ -17876,7 +17902,7 @@ msgstr "ana ses"
 
 #. placeholders: {key}, {country}, {else}
 msgid "mode {key}; country {country}; effective {else}"
-msgstr ""
+msgstr "mod {key}; ülke {country}; geçerli {else}"
 
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
@@ -18398,7 +18424,7 @@ msgid "Reefer on or off"
 msgstr "Frigo aç veya kapat"
 
 msgid "apu"
-msgstr ""
+msgstr "apu"
 
 msgid "APU on or off"
 msgstr "APU aç veya kapat"
@@ -18471,10 +18497,10 @@ msgid "Lane position"
 msgstr "Şerit konumu"
 
 msgid "Check left mirror"
-msgstr ""
+msgstr "Sol aynaya bak"
 
 msgid "Check right mirror"
-msgstr ""
+msgstr "Sağ aynaya bak"
 
 msgid "Grade"
 msgstr "Eğim"
@@ -18646,7 +18672,7 @@ msgid "Driving command list"
 msgstr "Sürüş komutları listesi"
 
 msgid "Set tilt level"
-msgstr ""
+msgstr "Eğim seviyesini ayarla"
 
 msgid "Nothing"
 msgstr "Hiçbiri"
@@ -18818,7 +18844,7 @@ msgid "a flick right"
 msgstr "sağa fiske"
 
 msgid "Hold one finger still for half a second"
-msgstr ""
+msgstr "Bir parmağınızı yarım saniye kıpırdatmadan tutun"
 
 msgid "a still hold for half a second"
 msgstr "yarım saniye kıpırdamadan tutma"
@@ -21841,6 +21867,8 @@ msgid ""
 "Enter repeats a line, or opens the buy-in when qualified. Escape returns to "
 "the terminal."
 msgstr ""
+"Enter bir satırı tekrarlar ya da hak kazandığınızda geçişi açar. Escape "
+"terminale döner."
 
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
@@ -22009,12 +22037,14 @@ msgid "The next career or business unlock."
 msgstr "Sıradaki kariyer ya da işletme kilidi."
 
 msgid "Owner-operator buy-in: choose a tractor"
-msgstr ""
+msgstr "Kendi tırının sahibi şoför geçişi: bir tır seçin"
 
 msgid ""
 "You buy a tractor of your own. Loads pay more, and your business pays the "
 "operating costs."
 msgstr ""
+"Kendi tırınızı satın alırsınız. Yükler daha çok kazandırır ve işletme "
+"giderlerini işletmeniz öder."
 
 msgid "Reopen the owner-operator plan"
 msgstr "Kendi tırının sahibi şoför planını yeniden aç"
@@ -22391,15 +22421,15 @@ msgid "Return to the terminal menu."
 msgstr "Terminal menüsüne dön."
 
 msgid "Owner-operator buy-in"
-msgstr ""
+msgstr "Kendi tırının sahibi şoför geçişi"
 
 #. placeholders: {name}, {traits}, {price}
 msgid "{name}, the tractor you drive now: {traits}, {price} dollars"
-msgstr ""
+msgstr "{name}, şu an sürdüğünüz tır: {traits}, {price} dolar"
 
 #. placeholders: {name}, {traits}, {price}
 msgid "{name}: {traits}, {price} dollars"
-msgstr ""
+msgstr "{name}: {traits}, {price} dolar"
 
 #. one sentence of a longer line
 msgid "Owner-operator path locked."
@@ -22418,6 +22448,8 @@ msgid ""
 "Not enough money. The {label} costs {grouped} dollars, and {capital} "
 "dollars stays in the bank as working capital. You have {grouped2}."
 msgstr ""
+"Yeterli paranız yok. {label} fiyatı {grouped} dolar ve {capital} dolar "
+"işletme sermayesi olarak bankada kalır. Sizde {grouped2} var."
 
 #. placeholders: {label}, {grouped}, {capital}
 #. one sentence of a longer line
@@ -22425,33 +22457,36 @@ msgid ""
 "The {label} costs {grouped} dollars, and {capital} dollars stays in the "
 "bank as working capital."
 msgstr ""
+"{label} fiyatı {grouped} dolar ve {capital} dolar işletme sermayesi olarak "
+"bankada kalır."
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
 msgid "You have {grouped2}."
-msgstr ""
+msgstr "Sizde {grouped2} var."
 
 msgid "Double tap again to buy it."
-msgstr ""
+msgstr "Satın almak için yeniden iki kez dokunun."
 
 msgid "Press Enter again to buy it."
-msgstr ""
+msgstr "Satın almak için yeniden Enter'a basın."
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
 msgid "You would have {grouped2} dollars left."
-msgstr ""
+msgstr "Geriye {grouped2} dolarınız kalır."
 
 #. placeholders: {py_capitalize}, {grouped}
 #. one sentence of a longer line
 msgid "{py_capitalize}, {grouped} dollars."
-msgstr ""
+msgstr "{py_capitalize}, {grouped} dolar."
 
 #. placeholders: {py_capitalize}, {grouped}, {grouped2}, {again}
 msgid ""
 "{py_capitalize}, {grouped} dollars. You would have {grouped2} dollars left. "
 "{again}"
 msgstr ""
+"{py_capitalize}, {grouped} dolar. Geriye {grouped2} dolarınız kalır. {again}"
 
 #. one sentence of a longer line
 msgid "Leased-on owner-operator status unlocked."
@@ -22462,28 +22497,32 @@ msgid ""
 "Leased-on owner-operator status unlocked. You bought the {label} for "
 "{grouped} dollars and have {grouped2} dollars left."
 msgstr ""
+"Taşıyıcı firmaya bağlı kendi tırının sahibi şoför durumu açıldı. {label} "
+"satın alındı, {grouped} dolar. {grouped2} dolarınız kaldı."
 
 #. placeholders: {label}, {grouped}, {grouped2}
 #. one sentence of a longer line
 msgid ""
 "You bought the {label} for {grouped} dollars and have {grouped2} dollars "
 "left."
-msgstr ""
+msgstr "{label} satın alındı, {grouped} dolar. {grouped2} dolarınız kaldı."
 
 #. one sentence of a longer line
 msgid "Owner-operator buy-in."
-msgstr ""
+msgstr "Kendi tırının sahibi şoför geçişi."
 
 #. placeholders: {grouped}, {capital}, {current}
 msgid ""
 "Owner-operator buy-in. You have {grouped} dollars. {capital} dollars stays "
 "in the bank as working capital. {current}"
 msgstr ""
+"Kendi tırının sahibi şoför geçişi. {grouped} dolarınız var. {capital} dolar "
+"işletme sermayesi olarak bankada kalır. {current}"
 
 #. placeholders: {capital}
 #. one sentence of a longer line
 msgid "{capital} dollars stays in the bank as working capital."
-msgstr ""
+msgstr "{capital} dolar işletme sermayesi olarak bankada kalır."
 
 msgid "Move to another carrier: locked"
 msgstr "Başka taşıyıcı firmaya geç: kilitli"
@@ -25532,6 +25571,8 @@ msgid ""
 "{mirror_left} and {mirror_right} check the left or right mirror and blind "
 "spot, briefly focusing traffic audio on that side."
 msgstr ""
+"{mirror_left} ve {mirror_right} sol ya da sağ aynayı ve kör noktayı kontrol "
+"eder, trafik sesini kısa süre o tarafa odaklar."
 
 #. placeholders: {last_announcement}
 msgid "{last_announcement} repeats the last driving announcement."
@@ -25904,7 +25945,7 @@ msgstr ""
 "şeridi yalnızca fiskeler değiştirir. "
 
 msgid "Flick left or right to change lanes. "
-msgstr ""
+msgstr "Şerit değiştirmek için sola ya da sağa kısa kaydırın. "
 
 msgid ""
 "Flick left or right to change lanes, or swipe left or right and hold to "
@@ -25917,9 +25958,11 @@ msgid ""
 "Tilt the phone left or right to change one lane, and bring it back level "
 "before the next. "
 msgstr ""
+"Bir şerit değiştirmek için telefonu sola ya da sağa eğin, sonrakinden önce "
+"yeniden düz tutun. "
 
 msgid "Tilt the phone left or right to steer. "
-msgstr ""
+msgstr "Direksiyon için telefonu sola ya da sağa eğin. "
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
@@ -25929,6 +25972,14 @@ msgid ""
 "stopped. Hold two fingers for the horn. While holding a pedal, a second "
 "finger's flicks and holds work the same way. "
 msgstr ""
+"Direksiyonu düzeltmek için bir parmağınızı yarım saniye kıpırdatmadan "
+"tutun. Hız sabitleyici kapalıyken açmak için yukarı kısa kaydırın. Bir "
+"çıkışa girmek, kenara çekmek ya da bir kapıda varışı onaylamak için iki kez "
+"dokunun. Konuşmayı durdurmak için iki parmakla dokunun. Motoru çalıştırmak "
+"için iki parmağınızı sağa çevirin, tır durduktan sonra durdurmak için sola "
+"çevirin. Korna için iki parmağınızı basılı tutun. Bir pedalı basılı "
+"tutarken ikinci parmağın kısa kaydırmaları ve basılı tutmaları da aynı "
+"şekilde çalışır. "
 
 msgid ""
 "In a manual, hold a pedal and flick up or down with a second finger to "
@@ -26323,10 +26374,10 @@ msgid "On the exit ramp. No lanes to change."
 msgstr "Çıkış rampasındasınız. Değiştirilecek şerit yok."
 
 msgid "Lane change canceled."
-msgstr ""
+msgstr "Şerit değiştirme iptal edildi."
 
 msgid "Already waiting for a gap."
-msgstr ""
+msgstr "Zaten bir boşluk bekleniyor."
 
 msgid "Still changing lanes."
 msgstr "Şerit değiştirme sürüyor."
@@ -26350,11 +26401,11 @@ msgstr "{name} şerit burada kapalı."
 #. placeholders: {side_word}
 #. one sentence of a longer line
 msgid "Signaling {side_word}, waiting for a gap."
-msgstr ""
+msgstr "Sinyal {side_word} tarafa, boşluk bekleniyor."
 
 #. placeholders: {prefix}, {side_word}
 msgid "{prefix}. Signaling {side_word}, waiting for a gap."
-msgstr ""
+msgstr "{prefix}. Sinyal {side_word} tarafa, boşluk bekleniyor."
 
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
@@ -30701,41 +30752,42 @@ msgid "Missed the facility gate. Use the next safe turnaround."
 msgstr "Tesis kapısı kaçtı. Bir sonraki güvenli dönüş yerini kullanın."
 
 msgid "Looking forward."
-msgstr ""
+msgstr "İleri bakılıyor."
 
 msgid "Left"
-msgstr ""
+msgstr "Sol"
 
 msgid "Right"
-msgstr ""
+msgstr "Sağ"
 
 #. placeholders: {side_word}
 msgid "{side_word} shoulder."
-msgstr ""
+msgstr "{side_word} emniyet şeridi."
 
+# leave empty: loose frame; it beat the whole-line lane closure calls ("Right lane closed ahead.")
 #. placeholders: {side_word}
 msgid "{side_word} lane closed."
 msgstr ""
 
 #. placeholders: {kind_cap}, {side_lower}
 msgid "{kind_cap} beside {side_lower}."
-msgstr ""
+msgstr "{kind_cap} yanınızda, {side_lower} tarafta."
 
 #. placeholders: {kind_cap}, {side_lower}
 msgid "{kind_cap} closing {side_lower}."
-msgstr ""
+msgstr "{kind_cap} yaklaşıyor, {side_lower} tarafta."
 
 #. placeholders: {kind_cap}, {side_lower}
 msgid "{kind_cap} behind {side_lower}."
-msgstr ""
+msgstr "{kind_cap} arkada, {side_lower} tarafta."
 
 #. placeholders: {kind_cap}, {side_lower}
 msgid "{kind_cap} ahead {side_lower}."
-msgstr ""
+msgstr "{kind_cap} önde, {side_lower} tarafta."
 
 #. placeholders: {side_word}
 msgid "{side_word} clear."
-msgstr ""
+msgstr "{side_word} taraf boş."
 
 #. placeholders: {capitalized}
 msgid "{capitalized} lane open."
@@ -31850,7 +31902,7 @@ msgid "Driving commands"
 msgstr "Sürüş komutları"
 
 msgid "Tilt steering treats the way you hold the phone now as level."
-msgstr ""
+msgstr "Eğimle direksiyon, telefonu şu an tuttuğunuz konumu düz kabul eder."
 
 #. placeholders: {noun}
 msgid "At the wheel: {noun}."
@@ -31858,7 +31910,7 @@ msgstr "Direksiyonda: {noun}."
 
 #. placeholders: {key}
 msgid "On the keyboard: {key}."
-msgstr ""
+msgstr "Klavyede: {key}."
 
 msgid "Back to driving"
 msgstr "Sürüşe dön"
@@ -32330,6 +32382,8 @@ msgid ""
 "How to play, opened at the driving gestures page. Flick up or down to "
 "change pages, and right or left to read lines."
 msgstr ""
+"Nasıl oynanır, sürüş hareketleri sayfasında açıldı. Sayfa değiştirmek için "
+"yukarı ya da aşağı, satırları okumak için sağa ya da sola kısa kaydırın."
 
 msgid "Learn game sounds"
 msgstr "Oyun seslerini öğren"
@@ -32918,6 +32972,8 @@ msgid ""
 "Freight Fate stations, your favorites, and stations nearby. Double tap one "
 "to tune it."
 msgstr ""
+"Freight Fate istasyonları, favorileriniz ve yakındaki istasyonlar. Birini "
+"açmak için üzerine iki kez dokunun."
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -36637,10 +36693,10 @@ msgid "The drive wheels are sliding under the engine brake."
 msgstr "Motor freni altında çeker tekerlekler kayıyor."
 
 msgid "ABS pulsing. Hold steady on the brake."
-msgstr ""
+msgstr "ABS devrede. Freni sabit tutun."
 
 msgid "Drive wheels spinning. Ease off the throttle."
-msgstr ""
+msgstr "Çeker tekerlekler patinaj yapıyor. Gazı biraz bırakın."
 
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
@@ -37451,24 +37507,24 @@ msgstr "Rampa yardımı bırakıldı."
 
 #. one sentence of a longer line
 msgid "Gap open."
-msgstr ""
+msgstr "Boşluk açıldı."
 
 #. placeholders: {lane_label}
 msgid "Gap open. Gliding to the {lane_label} lane."
-msgstr ""
+msgstr "Boşluk açıldı. {lane_label} şeride süzülerek geçiliyor."
 
 #. placeholders: {lane_label}
 #. one sentence of a longer line
 msgid "Gliding to the {lane_label} lane."
-msgstr ""
+msgstr "{lane_label} şeride süzülerek geçiliyor."
 
 #. one sentence of a longer line
 msgid "No gap opened."
-msgstr ""
+msgstr "Boşluk açılmadı."
 
 #. placeholders: {lane_name}
 msgid "No gap opened. Staying in the {lane_name} lane."
-msgstr ""
+msgstr "Boşluk açılmadı. Şeritte kalınıyor: {lane_name}."
 
 #. placeholders: {lane_name}
 #. one sentence of a longer line
@@ -37653,10 +37709,10 @@ msgid "Traffic is stacking up and passing you on the right."
 msgstr "Arkanızda trafik birikiyor ve sizi sağdan geçiyor."
 
 msgid "Trailer off-tracking tight on the inside. Give the curve more room."
-msgstr ""
+msgstr "Dorse iç taraftan virajı fazla kesiyor. Viraja daha geniş girin."
 
 msgid "Trailer swaying in the wind. Ease off your speed."
-msgstr ""
+msgstr "Dorse rüzgârda yalpalıyor. Hızınızı düşürün."
 
 #. placeholders: {fresh}
 msgid "Weather alert: {fresh}."
@@ -38330,7 +38386,7 @@ msgstr ""
 "Enter bu kaydı silmeyi önerir. Kayıt Freight Fate 1.8'de hâlâ çalışır."
 
 msgid "Double tap offers to delete this save."
-msgstr ""
+msgstr "İki kez dokununca bu kaydı silmeyi önerir."
 
 msgid ""
 "Double tap offers to delete this save. It still works in Freight Fate 1.8."
@@ -38634,6 +38690,7 @@ msgstr "Çevrim içi"
 msgid ""
 "Drivers on duty, your orinks.net account, and cloud backup and restore."
 msgstr ""
+"Görevdeki şoförler, orinks.net hesabınız, bulut yedeği ve geri yükleme."
 
 msgid ""
 "Drivers on duty, your orinks.net account, cloud backup and restore, and "
@@ -38900,7 +38957,7 @@ msgstr ""
 "tempo."
 
 msgid "Units, transmission, volumes, weather, voices, and pacing."
-msgstr ""
+msgstr "Birimler, şanzıman, ses düzeyleri, hava, sesler ve tempo."
 
 msgid ""
 "Gameplay is now a category with its own submenu: Driving assistance, "
@@ -39068,13 +39125,13 @@ msgid "Custom"
 msgstr "Özel"
 
 msgid "Manual"
-msgstr ""
+msgstr "Manuel"
 
 msgid "Partial"
-msgstr ""
+msgstr "Kısmi"
 
 msgid "Full"
-msgstr ""
+msgstr "Tam"
 
 msgid "Light"
 msgstr "Hafif"
@@ -39130,6 +39187,8 @@ msgid ""
 "Lane keeping full: the truck holds the lane, flick left or right to change "
 "lanes."
 msgstr ""
+"Şerit takibi tam: tır şeridi tutar, şerit değiştirmek için sola ya da sağa "
+"kısa kaydırın."
 
 #. placeholders: {control_name}, {control_name2}
 msgid ""
@@ -39678,6 +39737,15 @@ msgid ""
 "the time left on a delivery. You can also switch from the pause menu during "
 "a drive. The change starts when the truck next stops."
 msgstr ""
+"Saatin ne kadar hızlı aktığı ve yolun ne kadar zorladığı. Rahat, her gerçek "
+"dakikada yaklaşık on dakikalık yol ve saat geçirir; tehlikelere tepki için "
+"daha çok zaman, daha hafif hasar ve yorgunluk ve daha sakin konuşma sunar. "
+"Standart normal baskıyı her gerçek dakikada yaklaşık yirmi dakikayla korur. "
+"Gerçek zamanlı, Standart'ın baskısını korur ve saati bu cihazın tarih ve "
+"saatine göre gerçek hızda çalıştırır. Geçiş yapmak çalışma ve dinlenme "
+"sürelerinizi ya da bir teslimatta kalan süreyi asla değiştirmez. Sürüş "
+"sırasında duraklatma menüsünden de geçiş yapabilirsiniz. Değişiklik tır bir "
+"sonraki durduğunda başlar."
 
 msgid ""
 "How fast the clock runs and how hard the road pushes. Relaxed passes about "
@@ -39835,6 +39903,11 @@ msgid ""
 "or stop sign. A loaded run leaves straight onto the highway, and a pickup "
 "in town is one stretch of road. The change applies from your next drive."
 msgstr ""
+"Açıksa, otoyol ile tesis arasındaki gerçek sokakları dönüş dönüş "
+"sürersiniz. Kapalıysa çıkış rampası tesis kapısında biter ve hiçbir çıkışta "
+"ışık ya da dur levhası olmaz. Yüklü bir sefer doğrudan otoyola çıkar, "
+"şehirdeki bir yükleme de tek bir yol parçasıdır. Değişiklik bir sonraki "
+"sürüşünüzden itibaren geçerli olur."
 
 msgid ""
 "On, you drive the real streets between the highway and a facility, turn by "
@@ -39857,6 +39930,8 @@ msgid ""
 "On, the main menu offers to send a report if the game stopped while you "
 "were playing last time, with that run's log attached."
 msgstr ""
+"Açıksa ve oyun son oynadığınızda siz oynarken durmuşsa, ana menü rapor "
+"göndermeyi önerir. O oturumun günlüğü rapora eklenir."
 
 msgid ""
 "On, the main menu offers to send a report when the game closed without "
@@ -39979,19 +40054,21 @@ msgstr "Yağmur, rüzgâr, gök gürültüsü, kar ve sis sesleri."
 
 #. placeholders: {pct}
 msgid "Outside sounds volume: {pct} percent"
-msgstr ""
+msgstr "Dış sesler ses düzeyi: yüzde {pct}"
 
 msgid "Birds by day, insects at night, and the rivers you pass."
-msgstr ""
+msgstr "Gündüz kuşlar, gece böcekler ve yanından geçtiğiniz nehirler."
 
 #. placeholders: {pct}
 msgid "Road surface volume: {pct} percent"
-msgstr ""
+msgstr "Yol yüzeyi ses düzeyi: yüzde {pct}"
 
 msgid ""
 "The thump of pavement seams and bridge joints under the wheels, and the "
 "tires' hum on steel grate decks."
 msgstr ""
+"Tekerleklerin altında asfalt eklerinin ve köprü derzlerinin tok sesi, "
+"oluklu betonda lastiklerin vınlaması ve çelik ızgara zeminlerde uğultusu."
 
 #. placeholders: {pct}
 msgid "Engine sounds volume: {pct} percent"
@@ -40096,6 +40173,8 @@ msgid ""
 "While the road voice speaks, the engine, weather, outside sounds, and radio "
 "drop to half volume, then come back."
 msgstr ""
+"Yol sesi konuşurken motor, hava, dış sesler ve radyo yarı ses düzeyine "
+"iner, sonra geri gelir."
 
 #. placeholders: {pct}
 msgid "Menu and UI sounds volume: {pct} percent"
@@ -40133,20 +40212,22 @@ msgid ""
 "Automatic shifts for you. In manual, the clutch works itself. {up} to shift "
 "up. {down} to shift down."
 msgstr ""
+"Otomatik sizin yerinize vites değiştirir. Manuelde debriyaj kendiliğinden "
+"çalışır. Vites büyütmek için {up}. Vites küçültmek için {down}."
 
 #. one sentence of a longer line
 msgid "In manual, the clutch works itself."
-msgstr ""
+msgstr "Manuelde debriyaj kendiliğinden çalışır."
 
 #. placeholders: {down}
 #. one sentence of a longer line
 msgid "{down} to shift down."
-msgstr ""
+msgstr "Vites küçültmek için {down}."
 
 #. placeholders: {up}
 #. one sentence of a longer line
 msgid "{up} to shift up."
-msgstr ""
+msgstr "Vites büyütmek için {up}."
 
 #. placeholders: {Metric}
 msgid "Units: {Metric}"
@@ -40186,6 +40267,8 @@ msgid ""
 "Game-controller input alongside the touch screen, which always stays "
 "active. The first connected controller is used."
 msgstr ""
+"Her zaman etkin kalan dokunmatik ekranın yanında oyun kumandası girişi. İlk "
+"bağlanan kumanda kullanılır."
 
 msgid ""
 "Game-controller input alongside the keyboard, which always stays active. "
@@ -40231,6 +40314,9 @@ msgid ""
 "screen, for sighted and low-vision players. Off keeps the screen dark and "
 "saves battery. Speech and sound are the same either way."
 msgstr ""
+"Gören ve az gören oyuncular için ekranda yolu, göstergeleri, menüleri ve "
+"söylenenlerin altyazılarını çizer. Kapalı, ekranı karanlık tutar ve pil "
+"tasarrufu sağlar. Konuşma ve ses her iki durumda da aynıdır."
 
 msgid ""
 "Draws the road, the dashboard, menus and captions of what is spoken in the "
@@ -40350,7 +40436,7 @@ msgstr ""
 
 #. placeholders: {steering_assist_label}
 msgid "Steering assist: {steering_assist_label}"
-msgstr ""
+msgstr "Direksiyon yardımı: {steering_assist_label}"
 
 msgid ""
 "Sets steering and lane keeping independently of speed assists. Manual "
@@ -40358,10 +40444,14 @@ msgid ""
 "hold the lane. Full centers the lane and assists lane changes. Pair this "
 "with any speed assist level."
 msgstr ""
+"Direksiyonu ve şerit takibini hız yardımlarından bağımsız ayarlar. Manuel, "
+"direksiyonu ve şerit değiştirmeyi size bırakır. Kısmi, siz şeridi tutarken "
+"virajları izler. Tam, şeridi ortalar ve şerit değiştirmeye yardım eder. "
+"Bunu herhangi bir hız yardımı seviyesiyle birlikte kullanabilirsiniz."
 
 #. placeholders: {speed_assist_label}
 msgid "Speed assist: {speed_assist_label}"
-msgstr ""
+msgstr "Hız yardımı: {speed_assist_label}"
 
 msgid ""
 "Sets speed, braking, and descent control independently of steering. Manual "
@@ -40369,6 +40459,10 @@ msgid ""
 "descent, curve, exit, and emergency braking assistance. Pair this with any "
 "steering assist level."
 msgstr ""
+"Hızı, frenlemeyi ve iniş kontrolünü direksiyondan bağımsız ayarlar. Manuel, "
+"hızı ve motor frenini size bırakır. Hafif, Standart ve Güçlü; iniş, viraj, "
+"çıkış ve acil fren yardımını adım adım artırır. Bunu herhangi bir "
+"direksiyon yardımı seviyesiyle birlikte kullanabilirsiniz."
 
 #. placeholders: {lane_keeping_label}
 msgid "Lane keeping: {lane_keeping_label}"
@@ -40501,12 +40595,25 @@ msgid ""
 "yards and docks. Presets never change pacing, hours rules, transmission, "
 "weather, or hazards."
 msgstr ""
+"Gerçekçi, tesiste durma yardımı dışındaki tüm yardımları açar, iniş hız "
+"kontrolünü Hafif'e ayarlar ve şerit takibini kapalı bırakır. Dengeli kısmi "
+"şerit takibi, Standart iniş hız kontrolü ve tesiste durma yardımı ekler. "
+"Tüm yardımlar her yardımı açar, iniş hız kontrolünü Güçlü'ye ve şerit "
+"takibini tama ayarlar: tır şeridi tutar, sola ya da sağa kısa kaydırma "
+"şerit değiştirir ve varış çıkışı sizin için alınır. Bir yardımı değiştirmek "
+"bunu Özel yapar. Rotaları yine siz seçersiniz, sahaları ve rampaları siz "
+"halledersiniz. Hazır ayarlar tempoyu, saat kurallarını, şanzımanı, havayı "
+"ya da tehlikeleri asla değiştirmez."
 
 msgid ""
 "Brake briefly, lift, then swipe down and hold again for half a second. A "
 "click means the brake now holds by itself. Brake again or accelerate to "
 "release it. The gas never latches. Presets never change this."
 msgstr ""
+"Frene kısa basın, kaldırın, sonra yeniden aşağı kaydırıp yarım saniye "
+"basılı tutun. Bir tık, frenin artık kendi kendine tuttuğu anlamına gelir. "
+"Bırakmak için yeniden frene basın ya da gaz verin. Gaz asla kilitlenmez. "
+"Hazır ayarlar bunu asla değiştirmez."
 
 #. one sentence of a longer line
 msgid ""
@@ -40522,6 +40629,10 @@ msgid ""
 "half a mile, advise 35. Bends you are already slow enough for stay silent. "
 "{upcoming} to list the next few either way. Presets never change this."
 msgstr ""
+"Yavaşlamayı gerektiren virajlar gelmeden önce söylenir, örneğin Keskin sol, "
+"yarım mil, önerilen 35. Zaten yeterince yavaş olduğunuz virajlar sessiz "
+"kalır. Her durumda sonraki birkaç virajı listelemek için {upcoming}. Hazır "
+"ayarlar bunu asla değiştirmez."
 
 #. one sentence of a longer line
 msgid "Bends you are already slow enough for stay silent."
@@ -40534,13 +40645,15 @@ msgstr "Ön ayarlar bunu asla değiştirmez."
 #. placeholders: {upcoming}
 #. one sentence of a longer line
 msgid "{upcoming} to list the next few either way."
-msgstr ""
+msgstr "Her durumda sonraki birkaç virajı listelemek için {upcoming}."
 
 #. one sentence of a longer line
 msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
 "cruise can hold your current speed."
 msgstr ""
+"Tesis yolları, kapılar ve yol çalışmaları gibi düşük hız bölgelerinde hız "
+"sabitleyici mevcut hızınızı tutabilir."
 
 #. placeholders: {cruise}
 msgid ""
@@ -40549,6 +40662,11 @@ msgid ""
 "normal cruise on open roads. It eases off early for the next turn or the "
 "next lower limit. Braking cancels it. Presets never change this."
 msgstr ""
+"Tesis yolları, kapılar ve yol çalışmaları gibi düşük hız bölgelerinde hız "
+"sabitleyici mevcut hızınızı tutabilir. Ayarlamak için {cruise}. Açık yolda "
+"normal hız sabitleyiciye geri bırakır. Sonraki dönüş ya da sonraki daha "
+"düşük sınır için erkenden yavaşlar. Frenlemek onu iptal eder. Hazır ayarlar "
+"bunu asla değiştirmez."
 
 #. one sentence of a longer line
 msgid "It eases off early for the next turn or the next lower limit."
@@ -40557,12 +40675,12 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "It hands back to normal cruise on open roads."
-msgstr ""
+msgstr "Açık yolda normal hız sabitleyiciye geri bırakır."
 
 #. placeholders: {cruise}
 #. one sentence of a longer line
 msgid "{cruise} to set it."
-msgstr ""
+msgstr "Ayarlamak için {cruise}."
 
 #. placeholders: {lean}
 msgid ""
@@ -40579,10 +40697,23 @@ msgid ""
 "steer and what leans. Realistic sets this off, Balanced partial, All "
 "assists full."
 msgstr ""
+"Direksiyonun ne kadarını tırın yaptığı. Tam şeridi tutar, bir yol "
+"çalışmasının kapattığı şeritten çıkar ve çıkışlarınızı ve açık kantar "
+"istasyonlarını sinyal olmadan alır, varış çıkışı dahil. Tam iken şerit "
+"değiştirmek için sola ya da sağa kısa kaydırın. Kısmi virajları izler ama "
+"tırın kaymasına izin verir; şerit değiştirme ve hız sizindir. Kapalı gerçek "
+"bir tır gibi kayar. Viraj yardımı açık değilse virajlar sizindir ve her "
+"çıkış bir sinyal ve çıkış şeridi gerektirir. Kısmi ya da kapalı iken: "
+"{lean}. Yol sesi şeritte nerede olduğunuza konumlanır. Şeridin kenarında, "
+"bir lastik titreşim bandına değdiğinde bir takırtı, tamamen üzerindeyken "
+"bir vızıltı ve asfaltın dışında çakıl duyarsınız. Ses bölümündeki "
+"Direksiyon kılavuzu ve Şerit kılavuzu sesi satırları nereye kırılacağını ve "
+"neyin kayacağını değiştirir. Gerçekçi bunu kapalıya, Dengeli kısmiye, Tüm "
+"yardımlar tama ayarlar."
 
 #. one sentence of a longer line
 msgid "On full, flick left or right to change lanes."
-msgstr ""
+msgstr "Tam iken şerit değiştirmek için sola ya da sağa kısa kaydırın."
 
 #. one sentence of a longer line
 msgid ""
@@ -40594,7 +40725,7 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "Do it again to cancel."
-msgstr ""
+msgstr "İptal etmek için yeniden yapın."
 
 #. one sentence of a longer line
 msgid ""
@@ -40616,10 +40747,20 @@ msgid ""
 "your truck. It never buys anything. Hours warnings and readouts work "
 "whether this is on or off."
 msgstr ""
+"Hâlâ zamanınız varken mola ya da uyku için durmanız için erken öneri, "
+"ayrıca yasal olarak ulaşabileceğiniz son durak. Yoldayken önerilen durağı "
+"planlamak için {rest}. İptal etmek için yeniden yapın. Sürüş konuşması "
+"Standart iken bir sonraki saat uyarısından önce bir ipucu gelir. Sessiz ya "
+"da Yalnızca acil iken ipucu yoktur. Zincir kuralları hakkında da uyarır. İş "
+"panosunda, yük zincir gerektiren bir yoldan geçtiğinde ve terminal garajı "
+"size hâlâ bir takım satabildiğinde uyarır. Yolda, işaretlenmiş bir zincir "
+"kuralı tırınızı kapsadığında uyarır. Asla bir şey satın almaz. Saat "
+"uyarıları ve bilgi okumaları bu açık da olsa kapalı da olsa çalışır."
 
 #. one sentence of a longer line
 msgid "Hours warnings and readouts work whether this is on or off."
 msgstr ""
+"Saat uyarıları ve bilgi okumaları bu açık da olsa kapalı da olsa çalışır."
 
 #. one sentence of a longer line
 msgid "It also warns about chain laws."
@@ -40649,7 +40790,7 @@ msgstr ""
 #. placeholders: {rest}
 #. one sentence of a longer line
 msgid "{rest} to plan the recommended stop while rolling."
-msgstr ""
+msgstr "Yoldayken önerilen durağı planlamak için {rest}."
 
 msgid ""
 "How loud the lane and edge cues are next to everything else: the rumble "
@@ -40658,17 +40799,28 @@ msgid ""
 "Gameplay cues volume. Quieter sits under the engine, standard matches it, "
 "louder cuts through."
 msgstr ""
+"Şerit ve kenar işaretlerinin diğer her şeye göre ne kadar yüksek olduğu: "
+"titreşim bandı, asfalt dışındaki çakıl, şerit bulucu ve tehlikeli bir "
+"virajdan önceki enine bantlar. Yalnızca bu işaretleri, oynanış işaretleri "
+"ses düzeyinin üstüne ayarlar. Daha sessiz motorun altında kalır, standart "
+"ona eşittir, daha yüksek öne çıkar."
 
 msgid ""
 "Double tap to type a seed, a whole number. Flick up or down to roll a new "
 "one. Every synthesized piece changes with it."
 msgstr ""
+"Bir tohum, yani bir tam sayı yazmak için iki kez dokunun. Yeni bir tane "
+"çekmek için yukarı ya da aşağı kısa kaydırın. Sentezlenen her parça onunla "
+"değişir."
 
 msgid ""
 "On, driving lines name the gesture for the next step, like Double tap to "
 "signal for the exit. Off, they leave the gesture out. Driving school always "
 "names it."
 msgstr ""
+"Açıksa, sürüş anonsları sıradaki adımın hareketini söyler. Örneğin: Çıkış "
+"için sinyal vermek üzere iki kez dokunun. Kapalıysa hareketi söylemez. "
+"Sürücü kursu hareketi her zaman söyler."
 
 msgid ""
 "Extra callouts between directions: parks, rivers, mountain passes, museums "
@@ -40676,6 +40828,10 @@ msgid ""
 "switches below pick each kind. Safety and navigation are never affected. "
 "Town names are the Place callouts row below."
 msgstr ""
+"Talimatlar arasında ek anonslar: parklar, nehirler, dağ geçitleri, müzeler "
+"ve reklam panoları. Hepsini açmak için yukarı, hepsini kapatmak için aşağı "
+"kısa kaydırın. Aşağıdaki anahtarlar her türü seçer. Güvenlik ve navigasyon "
+"asla etkilenmez. Kasaba adları aşağıdaki Yer anonsları satırındadır."
 
 #. placeholders: {engine_label}
 msgid "Voice engine: {engine_label}"
@@ -40893,6 +41049,7 @@ msgstr ""
 
 msgid "Double tap a gesture to choose the command it runs while driving."
 msgstr ""
+"Sürerken çalıştıracağı komutu seçmek için bir harekete iki kez dokunun."
 
 msgid "Gesture"
 msgstr "Hareket"
@@ -40929,33 +41086,51 @@ msgid ""
 "with the phone while you drive. With lane keeping on full, a tilt changes "
 "one lane. Swipes and flicks still steer. Flick up or down to change it."
 msgstr ""
+"Açıksa, telefonu sola ya da sağa eğmek direksiyonu çevirir ve siz sürerken "
+"ekran telefonla birlikte dönmez. Şerit takibi tamken bir eğme bir şerit "
+"değiştirir. Kaydırmalar ve kısa kaydırmalar da direksiyonu çevirir. "
+"Değiştirmek için yukarı ya da aşağı kısa kaydırın."
 
 msgid ""
 "On, tilting the phone left or right steers, and the screen stops turning "
 "with the phone while you drive. With lane keeping on full, a tilt changes "
 "one lane. Swipes and flicks still steer. D-pad Right or Left changes it."
 msgstr ""
+"Açıksa, telefonu sola ya da sağa eğmek direksiyonu çevirir ve siz sürerken "
+"ekran telefonla birlikte dönmez. Şerit takibi tamken bir eğme bir şerit "
+"değiştirir. Kaydırmalar ve kısa kaydırmalar da direksiyonu çevirir. D-pad "
+"sağ ya da sol bunu değiştirir."
 
 msgid ""
 "On, tilting the phone left or right steers, and the screen stops turning "
 "with the phone while you drive. With lane keeping on full, a tilt changes "
 "one lane. Swipes and flicks still steer. Right or Left arrow changes it."
 msgstr ""
+"Açıksa, telefonu sola ya da sağa eğmek direksiyonu çevirir ve siz sürerken "
+"ekran telefonla birlikte dönmez. Şerit takibi tamken bir eğme bir şerit "
+"değiştirir. Kaydırmalar ve kısa kaydırmalar da direksiyonu çevirir. Sağ ya "
+"da sol ok bunu değiştirir."
 
 msgid ""
 "How far the phone tilts for full steering. A smaller number steers harder. "
 "Flick up or down to change it."
 msgstr ""
+"Tam direksiyon için telefonun ne kadar eğileceği. Daha küçük bir sayı daha "
+"sert çevirir. Değiştirmek için yukarı ya da aşağı kısa kaydırın."
 
 msgid ""
 "How far the phone tilts for full steering. A smaller number steers harder. "
 "D-pad Right or Left changes it."
 msgstr ""
+"Tam direksiyon için telefonun ne kadar eğileceği. Daha küçük bir sayı daha "
+"sert çevirir. D-pad sağ ya da sol bunu değiştirir."
 
 msgid ""
 "How far the phone tilts for full steering. A smaller number steers harder. "
 "Right or Left arrow changes it."
 msgstr ""
+"Tam direksiyon için telefonun ne kadar eğileceği. Daha küçük bir sayı daha "
+"sert çevirir. Sağ ya da sol ok bunu değiştirir."
 
 msgid "Every touch gesture is back to its default."
 msgstr "Tüm dokunma hareketleri varsayılana döndü."
@@ -40967,14 +41142,14 @@ msgid "Touch haptics disabled."
 msgstr "Dokunmatik titreşim devre dışı."
 
 msgid "Tilt steering: On"
-msgstr ""
+msgstr "Eğimle direksiyon: Açık"
 
 msgid "Tilt steering: Off"
-msgstr ""
+msgstr "Eğimle direksiyon: Kapalı"
 
 #. placeholders: {touch_tilt_full}
 msgid "Tilt for full steering: {touch_tilt_full} degrees"
-msgstr ""
+msgstr "Tam direksiyon için eğim: {touch_tilt_full} derece"
 
 #. placeholders: {touch_deep_swipe_points}
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
@@ -41000,24 +41175,29 @@ msgid "Puts every gesture on this screen back where it started."
 msgstr "Bu ekrandaki her hareketi başlangıçtaki yerine döndürür."
 
 msgid "New gesture reading: On"
-msgstr ""
+msgstr "Yeni hareket okuma: Açık"
 
 msgid "New gesture reading: Off"
-msgstr ""
+msgstr "Yeni hareket okuma: Kapalı"
 
 msgid ""
 "A trial. Every gesture should work as before. Turn it off if one does not."
 msgstr ""
+"Bir deneme. Her hareket eskisi gibi çalışmalı. Biri çalışmazsa kapatın."
 
 msgid ""
 "Up and Down pick a command or a group, and Enter opens a group. Enter on a "
 "command puts it on the gesture. Escape keeps the one it has."
 msgstr ""
+"Yukarı ve Aşağı bir komut ya da grup seçer, Enter bir grubu açar. Bir "
+"komutta Enter onu harekete atar. Escape mevcut olanı korur."
 
 msgid ""
 "Double tap a command to put it on the gesture, or a group to open it. Flick "
 "down with two fingers to keep the one it has."
 msgstr ""
+"Harekete atamak için bir komuta, açmak için bir gruba iki kez dokunun. "
+"Mevcut olanı korumak için iki parmakla aşağı kısa kaydırın."
 
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
@@ -41031,33 +41211,37 @@ msgstr "Alıştırmadan çıkmak için bir kez daha."
 
 #. one sentence of a longer line
 msgid "Steers left, or changes one lane with lane keeping on full."
-msgstr ""
+msgstr "Sola çevirir ya da şerit takibi tamken bir şerit değiştirir."
 
 #. placeholders: {whole}
 #. one sentence of a longer line
 msgid "Tilt left, {whole} degrees."
-msgstr ""
+msgstr "Sola eğim, {whole} derece."
 
 #. placeholders: {whole}
 msgid ""
 "Tilt left, {whole} degrees. Steers left, or changes one lane with lane "
 "keeping on full."
 msgstr ""
+"Sola eğim, {whole} derece. Sola çevirir ya da şerit takibi tamken bir şerit "
+"değiştirir."
 
 #. one sentence of a longer line
 msgid "Steers right, or changes one lane with lane keeping on full."
-msgstr ""
+msgstr "Sağa çevirir ya da şerit takibi tamken bir şerit değiştirir."
 
 #. placeholders: {whole}
 #. one sentence of a longer line
 msgid "Tilt right, {whole} degrees."
-msgstr ""
+msgstr "Sağa eğim, {whole} derece."
 
 #. placeholders: {whole}
 msgid ""
 "Tilt right, {whole} degrees. Steers right, or changes one lane with lane "
 "keeping on full."
 msgstr ""
+"Sağa eğim, {whole} derece. Sağa çevirir ya da şerit takibi tamken bir şerit "
+"değiştirir."
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -41455,7 +41639,7 @@ msgstr ""
 "döner. Home ve End ilk ya da son seçeneğe atlar."
 
 msgid "Page Up and Page Down move ten options at a time."
-msgstr ""
+msgstr "Page Up ve Page Down seçenekler arasında onar onar ilerler."
 
 msgid ""
 "Type a letter to find an option starting with it. F1 explains the selected "
@@ -43841,23 +44025,35 @@ msgstr "Nasıl oynanır, {title}, {page} / {pages}"
 msgid ""
 "Flick left or right with three fingers to move ten options back or forward."
 msgstr ""
+"On seçenek geri ya da ileri gitmek için üç parmakla sola ya da sağa kısa "
+"kaydırın."
 
 msgid ""
 "Settings changes driving assistance, sound, speech, and controls. Report a "
 "problem opens the report form in your browser, with your game log attached."
 msgstr ""
+"Ayarlar, sürüş yardımlarını, sesi, konuşmayı ve kontrolleri değiştirir. "
+"Sorun bildir, oyun günlüğünüzü ekleyerek bildirim formunu tarayıcınızda "
+"açar."
 
 msgid ""
 "Jobs name cargo, weight, pay, deadline, facilities, and equipment "
 "requirements. Flick up with two fingers on a job for the details. Fuel adds "
 "weight, so check the weight before filling up on a load near the limit."
 msgstr ""
+"İşler yükü, ağırlığı, ücreti, teslim süresini, tesisleri ve ekipman "
+"gereklerini belirtir. Ayrıntılar için bir işin üzerinde iki parmakla yukarı "
+"kısa kaydırın. Yakıt ağırlık ekler, bu yüzden sınıra yakın bir yükte depoyu "
+"doldurmadan önce ağırlığı kontrol edin."
 
 msgid ""
 "Facilities determine local cargo. Dispatch routes include stops for fuel "
 "and legal rest. Flick up with two fingers on a load for its requirements "
 "before you accept it."
 msgstr ""
+"Tesisler yerel yükü belirler. Sevkiyat rotaları yakıt ve yasal dinlenme "
+"için mola yerleri içerir. Kabul etmeden önce gerekleri için bir yükün "
+"üzerinde iki parmakla yukarı kısa kaydırın."
 
 msgid ""
 "Partial follows bends with gentle drift. Off leaves steering to you unless "
@@ -43865,6 +44061,11 @@ msgid ""
 "to change lanes. With Tilt steering on under Touch gestures, tilting the "
 "phone steers too, and with lane keeping on full a tilt changes one lane."
 msgstr ""
+"Kısmi, virajları hafif bir kaymayla izler. Kapalı, viraj yardımı açık "
+"değilse direksiyonu size bırakır. Şerit değiştirmek için bir direksiyon "
+"kontrolünü şerit çizgisini geçene kadar basılı tutun. Dokunma hareketleri "
+"altında Eğimle direksiyon açıksa telefonu eğmek de direksiyonu çevirir, "
+"şerit takibi tamken bir eğme bir şerit değiştirir."
 
 msgid ""
 "The radio plays while the engine runs. A three-finger flick right tunes "
@@ -43917,9 +44118,12 @@ msgid ""
 "and controls. Audio, Speech, and Problem reports have separate choices. F1 "
 "explains the selected setting."
 msgstr ""
+"Oynanış; sürüş yardımı, zorluk ve süreler, dünya ve trafik ve kontrolleri "
+"içerir. Ses, Konuşma ve Sorun bildirimleri ayrı seçeneklere sahiptir. F1 "
+"seçili ayarı açıklar."
 
 msgid "You can choose a separate driving event voice."
-msgstr ""
+msgstr "Ayrı bir sürüş olayı sesi seçebilirsiniz."
 
 #. one sentence of a longer line
 msgid "How do I change stations?"
@@ -43946,101 +44150,141 @@ msgid ""
 "Controllers work alongside the screen. Button names use the Xbox layout. "
 "Change button assignments under Settings, Gameplay, Controls."
 msgstr ""
+"Kumandalar ekranla birlikte çalışır. Düğme adları Xbox düzenini kullanır. "
+"Düğme atamalarını Ayarlar, Oynanış, Kontroller altında değiştirin."
 
 msgid ""
 "On newer Xbox controllers, Back is the View button, left of the Xbox "
 "button, and Start is the Menu button on its right."
 msgstr ""
+"Yeni Xbox kumandalarında Back, Xbox düğmesinin solundaki View düğmesidir, "
+"Start ise sağındaki Menu düğmesidir."
 
 msgid ""
 "If the controller does nothing, check that Controller is enabled under "
 "Settings, Gameplay, Controls. The game uses the first controller it finds, "
 "so disconnect other controllers."
 msgstr ""
+"Kumanda hiçbir şey yapmıyorsa Ayarlar, Oynanış, Kontroller altında Oyun "
+"kumandasının etkin olduğunu kontrol edin. Oyun bulduğu ilk kumandayı "
+"kullanır, bu yüzden diğer kumandaların bağlantısını kesin."
 
 msgid ""
 "Flick right or left to move to the next or previous option. Double tap "
 "chooses it. Tap reads it again."
 msgstr ""
+"Sonraki ya da önceki seçeneğe gitmek için sağa ya da sola kısa kaydırın. "
+"İki kez dokunmak onu seçer. Dokunmak yeniden okur."
 
 msgid ""
 "Flick down with two fingers to go back. Flick up or down with three fingers "
 "to jump to the first or last option."
 msgstr ""
+"Geri dönmek için iki parmakla aşağı kısa kaydırın. İlk ya da son seçeneğe "
+"atlamak için üç parmakla yukarı ya da aşağı kısa kaydırın."
 
 msgid ""
 "On a setting, flick up for its next value and down for the previous one."
 msgstr ""
+"Bir ayarda sonraki değeri için yukarı, öncekisi için aşağı kısa kaydırın."
 
 msgid "Flick up with two fingers to hear what the selected option does."
 msgstr ""
+"Seçili seçeneğin ne yaptığını duymak için iki parmakla yukarı kısa kaydırın."
 
 msgid ""
 "Flick left with two fingers to repeat the latest message, then step back. "
 "Flick right with two fingers to move forward."
 msgstr ""
+"Son mesajı tekrarlamak ve sonra geriye gitmek için iki parmakla sola kısa "
+"kaydırın. İleri gitmek için iki parmakla sağa kısa kaydırın."
 
 msgid "Tap with two fingers to stop speech."
-msgstr ""
+msgstr "Konuşmayı durdurmak için iki parmakla dokunun."
 
 msgid ""
 "In How to play, flick right or left to read one line at a time. Flick up "
 "for the next page and down for the previous one. Double tap reads the whole "
 "page."
 msgstr ""
+"Nasıl oynanır içinde satır satır okumak için sağa ya da sola kısa kaydırın. "
+"Sonraki sayfa için yukarı, önceki sayfa için aşağı kısa kaydırın. İki kez "
+"dokununca tüm sayfa okunur."
 
 msgid ""
 "Flick up with three fingers for the first page, and down for the last."
 msgstr ""
+"İlk sayfa için üç parmakla yukarı, son sayfa için aşağı kısa kaydırın."
 
 msgid ""
 "Practice gestures names each gesture without moving the truck. It is on the "
 "main and pause menus. Flick down with two fingers twice to leave."
 msgstr ""
+"Hareket alıştırması tırı hareket ettirmeden her hareketi söyler. Ana menüde "
+"ve duraklatma menüsünde bulunur. Çıkmak için iki parmakla iki kez aşağı "
+"kısa kaydırın."
 
 msgid ""
 "Turn two fingers right to start the engine. Turn them left to stop it once "
 "the truck has stopped."
 msgstr ""
+"Motoru çalıştırmak için iki parmağınızı sağa çevirin. Tır durduktan sonra "
+"motoru durdurmak için sola çevirin."
 
 msgid ""
 "Wait for air pressure to reach 100 psi, then swipe up and hold to release "
 "the parking brake. Repeated hard braking uses air."
 msgstr ""
+"Hava basıncının 100 psi olmasını bekleyin, sonra el frenini indirmek için "
+"yukarı kaydırıp basılı tutun. Tekrarlanan sert frenler hava harcar."
 
 msgid ""
 "Swipe up and hold to accelerate. Lift to coast. Swipe down and hold to "
 "brake."
 msgstr ""
+"Hızlanmak için yukarı kaydırıp basılı tutun. Boşta gitmek için parmağınızı "
+"kaldırın. Frenlemek için aşağı kaydırıp basılı tutun."
 
 msgid ""
 "A deep swipe down, about three flicks long, is the hardest stop. Under one "
 "mile per hour it sets the parking brake."
 msgstr ""
+"Yaklaşık üç kısa kaydırma uzunluğunda derin bir aşağı kaydırma en sert "
+"duruştur. Saatte bir milin altında el frenini çeker."
 
 msgid ""
 "In automatic, stop fully, lift, then swipe down and hold again to reverse. "
 "A quick swipe or a brake held through the stop keeps the truck stopped."
 msgstr ""
+"Otomatikte tam durun, parmağınızı kaldırın, sonra geri gitmek için yeniden "
+"aşağı kaydırıp basılı tutun. Hızlı bir kaydırma ya da duruş boyunca basılı "
+"tutulan fren tırı durdurulmuş tutar."
 
 msgid ""
 "While reversing, stop with a swipe up and hold, lift, then swipe up and "
 "hold again for forward."
 msgstr ""
+"Geri giderken yukarı kaydırıp basılı tutarak durun, parmağınızı kaldırın, "
+"sonra ileri için yeniden yukarı kaydırıp basılı tutun."
 
 msgid ""
 "With Latching brake on, brake briefly, then swipe down and hold again for "
 "half a second. A click and announcement confirm the latch."
 msgstr ""
+"Kilitlenen fren açıkken frene kısa basın, sonra yeniden aşağı kaydırıp "
+"yarım saniye basılı tutun. Bir tık ve bir anons kilidi onaylar."
 
 msgid ""
 "Brake again or accelerate to release the latch. The gas never latches."
 msgstr ""
+"Kilidi bırakmak için yeniden frene basın ya da gaz verin. Gaz asla "
+"kilitlenmez."
 
 #. one sentence of a longer line
 msgid ""
 "Applying the parking brake at speed causes a hard stop and tire damage."
 msgstr ""
+"El frenini hızdayken çekmek sert bir duruşa ve lastik hasarına yol açar."
 
 #. placeholders: {do_cruise}
 msgid ""
@@ -44048,6 +44292,9 @@ msgid ""
 "Parked with the parking brake set, {do_cruise} to run the engine at a fast "
 "idle."
 msgstr ""
+"El frenini hızdayken çekmek sert bir duruşa ve lastik hasarına yol açar. El "
+"freni çekili park hâlindeyken motoru yüksek rölantide çalıştırmak için "
+"{do_cruise}."
 
 #. placeholders: {do_cruise}
 #. one sentence of a longer line
@@ -44055,46 +44302,61 @@ msgid ""
 "Parked with the parking brake set, {do_cruise} to run the engine at a fast "
 "idle."
 msgstr ""
+"El freni çekili park hâlindeyken motoru yüksek rölantide çalıştırmak için "
+"{do_cruise}."
 
 msgid ""
 "In a manual, hold a pedal and flick up or down with a second finger to "
 "shift. The flick works the clutch."
 msgstr ""
+"Manuel viteste vites değiştirmek için bir pedalı basılı tutun ve ikinci "
+"parmağınızla yukarı ya da aşağı kısa kaydırın. Bu hareket debriyajı da "
+"çalıştırır."
 
 msgid ""
 "Slowing in a tall gear takes neutral. A flick up from neutral takes the "
 "gear that fits your speed."
 msgstr ""
+"Yüksek viteste yavaşlayınca vites boşa geçer. Boştan yukarı kısa kaydırınca "
+"hızınıza uygun vitese geçersiniz."
 
 msgid ""
 "Neutral, Reverse, and Automatic or manual shifting are under Gears and "
 "engine brake on the three-finger tap list."
 msgstr ""
+"Boş vites, Geri vites ve Otomatik ya da manuel vites değiştirme, üç "
+"parmakla dokunma listesinde Vites ve motor freni altındadır."
 
 msgid "Hold two fingers to sound the horn."
-msgstr ""
+msgstr "Korna çalmak için iki parmağınızı basılı tutun."
 
 #. placeholders: {do_cruise}
 #. one sentence of a longer line
 msgid "With cruise off, {do_cruise} to turn it on."
-msgstr ""
+msgstr "Hız sabitleyici kapalıyken açmak için {do_cruise}."
 
 #. placeholders: {do_cruise}
 msgid ""
 "With cruise off, {do_cruise} to turn it on. On open roads it follows "
 "traffic. On low-speed roads it follows local limits, queues and corners."
 msgstr ""
+"Hız sabitleyici kapalıyken açmak için {do_cruise}. Açık yolda trafiği "
+"izler. Düşük hızlı yollarda yerel sınırları, kuyrukları ve virajları izler."
 
 #. placeholders: {do_cruise_up}, {do_cruise_down}
 msgid ""
 "With cruise on, {do_cruise_up} or {do_cruise_down} to move the cruise speed "
 "to the next multiple of five."
 msgstr ""
+"Hız sabitleyici açıkken, hızını beşin bir sonraki katına getirmek için "
+"{do_cruise_up} ya da {do_cruise_down}."
 
 msgid ""
 "That changes the open-road cruise speed, even while cruise holds a lower "
 "limit."
 msgstr ""
+"Bu, hız sabitleyici daha düşük bir sınırı tutarken bile açık yol hızını "
+"değiştirir."
 
 msgid ""
 "Cruise slows early for a sharp drop in the posted limit, and never holds "
@@ -44105,36 +44367,44 @@ msgstr ""
 
 #. placeholders: {do_speed}
 msgid "{do_speed} for the active speed-control mode and cruise speed."
-msgstr ""
+msgstr "Etkin hız kontrolü modu ve hız sabitleyici hızı için {do_speed}."
 
 msgid ""
 "Touch the brakes to cancel cruise. Turned on again, it resumes the previous "
 "target. Cruise pauses at the pickup and comes back on after you leave with "
 "the load."
 msgstr ""
+"Hız sabitleyiciyi iptal etmek için frene dokunun. Yeniden açıldığında "
+"önceki hedefe döner. Hız sabitleyici yüklemede duraklar ve yükle "
+"ayrıldığınızda yeniden açılır."
 
 #. placeholders: {do_engine_brake}
 msgid "{do_engine_brake} to turn the engine brake on or off."
-msgstr ""
+msgstr "Motor frenini açmak ya da kapatmak için {do_engine_brake}."
 
 msgid ""
 "Engine brake stage 1, 2 and 3, and Automatic engine brake on or off, are "
 "under Gears and engine brake on the three-finger tap list."
 msgstr ""
+"Motor freni kademe 1, 2 ve 3 ile Otomatik motor freni açma ve kapatma, üç "
+"parmakla dokunma listesinde Vites ve motor freni altındadır."
 
 msgid ""
 "Hot brakes lose stopping power. Safe speed, under Speed and cruise on the "
 "list, gives a safe speed for the load, grade, weather, and bend. Strong "
 "engine braking can break traction on ice."
 msgstr ""
+"Isınan frenler durdurma gücünü kaybeder. Listede Hız ve hız sabitleyici "
+"altındaki Güvenli hız; yük, eğim, hava ve viraj için güvenli bir hız verir. "
+"Güçlü motor freni buzda yol tutuşunu kaybettirebilir."
 
 msgid "Driving gestures"
-msgstr ""
+msgstr "Sürüş hareketleri"
 
 #. placeholders: {do_speed}
 #. one sentence of a longer line
 msgid "{do_speed} for your speed, gear, and speed-control mode."
-msgstr ""
+msgstr "Hızınız, vitesiniz ve hız kontrolü modu için {do_speed}."
 
 #. placeholders: {do_speed}
 msgid ""
@@ -44142,18 +44412,23 @@ msgid ""
 "transmission it adds RPM. It also adds air or brakes when they need "
 "attention, and the distance to an exit you signaled for."
 msgstr ""
+"Hızınız, vitesiniz ve hız kontrolü modu için {do_speed}. Manuel şanzımanda "
+"devri ekler. Dikkat gerektiğinde havayı ya da frenleri ve sinyal verdiğiniz "
+"çıkışa kalan mesafeyi de ekler."
 
 #. placeholders: {do_route}
 #. one sentence of a longer line
 msgid ""
 "{do_route} for how far along you are, distance remaining, and your location."
-msgstr ""
+msgstr "Ne kadar yol aldığınız, kalan mesafe ve konumunuz için {do_route}."
 
 #. placeholders: {do_route}
 msgid ""
 "{do_route} for how far along you are, distance remaining, and your "
 "location. A planned stop changes the distance to that stop."
 msgstr ""
+"Ne kadar yol aldığınız, kalan mesafe ve konumunuz için {do_route}. "
+"Planlanan bir mola yeri, mesafeyi o mola yerine göre değiştirir."
 
 #. placeholders: {do_upcoming}
 msgid ""
@@ -44161,103 +44436,150 @@ msgid ""
 "sign at the end of the ramp, the next lower speed limit, the next stop, and "
 "the next bend you need to slow for."
 msgstr ""
+"Sırada ne olduğu için {do_upcoming}: sinyal verdiğiniz çıkış, rampa "
+"sonundaki ışık ya da dur levhası, sonraki daha düşük hız sınırı, sonraki "
+"mola yeri ve yavaşlamanız gereken sonraki viraj."
 
 msgid "Double tap to signal for an announced exit or cancel the signal."
 msgstr ""
+"Anons edilen bir çıkış için sinyal vermek ya da sinyali iptal etmek için "
+"iki kez dokunun."
 
 msgid ""
 "Everything else is on the three-finger tap list. Tap with three fingers, "
 "flick to a command, and double tap to run it."
 msgstr ""
+"Geri kalan her şey üç parmakla dokunma listesindedir. Üç parmakla dokunun, "
+"bir komuta kısa kaydırın ve çalıştırmak için iki kez dokunun."
 
 msgid ""
 "Its first row is the Status menu, with Route, Driver, Map, and Radio "
 "reports, plus Driver apps."
 msgstr ""
+"İlk satırı Durum menüsüdür; Güzergâh, Şoför, Harita ve Radyo raporlarını ve "
+"Şoför uygulamalarını içerir."
 
 msgid ""
 "Under Speed and cruise, Posted speed limit reads the limit, the zone, and "
 "how far over you are. Safe speed is there too."
 msgstr ""
+"Hız ve hız sabitleyici altındaki Hız sınırı; sınırı, bölgeyi ve ne kadar "
+"aştığınızı okur. Güvenli hız da oradadır."
 
 msgid ""
 "Under Road and stops are Grade, Weather, and Lane position, which also says "
 "whether the lane beside you is open."
 msgstr ""
+"Yol ve mola yerleri altında Eğim, Hava durumu ve Şerit konumu bulunur. "
+"Şerit konumu yanınızdaki şeridin boş olup olmadığını da söyler."
 
 msgid ""
 "Rest stop, also under Road and stops, plans rest while moving or opens a "
 "nearby stop when fully stopped."
 msgstr ""
+"Yine Yol ve mola yerleri altındaki Mola yeri, hareket hâlindeyken dinlenme "
+"planlar, tam dururken yakındaki bir mola yerini açar."
 
 msgid ""
 "Repeat the last announcement is on the list. Repeat the last CB chatter, "
 "under Radio and CB, gives its current distance."
 msgstr ""
+"Son anonsu tekrarla listededir. Radyo ve telsiz altındaki Son CB sohbetini "
+"tekrarla, onun şu anki mesafesini söyler."
 
 msgid ""
 "Where am I has the state, the road, the town or nearest town, the "
 "direction, and the county."
 msgstr ""
+"Neredeyim; eyaleti, yolu, kasabayı ya da en yakın kasabayı, yönü ve ilçeyi "
+"söyler."
 
 msgid "Under Truck, Fuel reads fuel and range."
-msgstr ""
+msgstr "Tır altında Yakıt, yakıtı ve menzili okur."
 
 msgid ""
 "Under Hours and clock, Clock reads the clock, deadline, and nearest hours "
 "limit. Time at the wheel adds time on duty. What ends this shift adds "
 "reachable legal rest."
 msgstr ""
+"Süreler ve saat altında Saat; saati, teslim süresini ve en yakın süre "
+"sınırını okur. Direksiyonda geçen süre görevdeki süreyi ekler. Bu vardiyayı "
+"ne bitirir, ulaşılabilir yasal dinlenmeyi ekler."
 
 msgid ""
 "Tap with two fingers to stop the driving event voice. Flick down with two "
 "fingers to pause. Flick up with two fingers for the wheel's help."
 msgstr ""
+"Sürüş olayı sesini durdurmak için iki parmakla dokunun. Duraklatmak için "
+"iki parmakla aşağı kısa kaydırın. Direksiyon başındaki yardım için iki "
+"parmakla yukarı kısa kaydırın."
 
 msgid ""
 "Flick left or right with two fingers to review messages. Flick left or "
 "right with three fingers to tune the radio."
 msgstr ""
+"Mesajları gözden geçirmek için iki parmakla sola ya da sağa kısa kaydırın. "
+"Radyo istasyonu aramak için üç parmakla sola ya da sağa kısa kaydırın."
 
 msgid ""
 "Most gestures can be moved under Settings, Gameplay, Controls, then Touch "
 "gestures. These pages follow your assignments."
 msgstr ""
+"Çoğu hareket Ayarlar, Oynanış, Kontroller, ardından Dokunma hareketleri "
+"altında değiştirilebilir. Bu sayfalar atamalarınızı izler."
 
 msgid ""
 "Full lane keeping centers the truck, follows bends, and takes route exits "
 "including the destination. Flick left or right to change one lane."
 msgstr ""
+"Tam şerit takibi tırı ortalar, virajları izler ve varış dahil rota "
+"çıkışlarını alır. Bir şerit değiştirmek için sola ya da sağa kısa kaydırın."
 
 msgid ""
 "Partial follows bends with gentle drift. Off leaves steering to you unless "
 "curve assistance is enabled. Swipe left or right and hold to steer."
 msgstr ""
+"Kısmi, virajları hafif bir kaymayla izler. Kapalı, viraj yardımı açık "
+"değilse direksiyonu size bırakır. Direksiyon için sola ya da sağa kaydırıp "
+"basılı tutun."
 
 msgid ""
 "With partial or off, hold the swipe across the lane line to change lanes. A "
 "flick changes one lane with any lane keeping."
 msgstr ""
+"Kısmi ya da kapalıyken şerit değiştirmek için kaydırmayı şerit çizgisini "
+"geçene kadar basılı tutun. Kısa kaydırma her şerit takibi modunda bir şerit "
+"değiştirir."
 
 msgid ""
 "With Tilt steering on under Touch gestures, tilting the phone steers too. "
 "With lane keeping on full, a tilt changes one lane."
 msgstr ""
+"Dokunma hareketleri altında Eğimle direksiyon açıksa telefonu eğmek de "
+"direksiyonu çevirir. Şerit takibi tamken bir eğme bir şerit değiştirir."
 
 msgid ""
 "With lane keeping off and curve assistance off, swipe and hold toward a "
 "called bend to follow the road. Lifting straightens the truck with the road."
 msgstr ""
+"Şerit takibi ve viraj yardımı kapalıyken yolu izlemek için anons edilen "
+"virajın yönüne doğru kaydırıp basılı tutun. Parmağınızı kaldırınca tır "
+"yolla birlikte düzelir."
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. Your "
 "position within the lane remains yours to correct."
 msgstr ""
+"Direksiyonu düzeltmek için bir parmağınızı yarım saniye kıpırdatmadan "
+"tutun. Şerit içindeki konumunuzu düzeltmek yine size kalır."
 
 msgid ""
 "Lane locator, under Road and stops on the three-finger tap list, is a soft "
 "tock that follows your place in the lane, with lane keeping partial or off."
 msgstr ""
+"Üç parmakla dokunma listesinde Yol ve mola yerleri altındaki Şerit bulucu, "
+"şerit takibi kısmi ya da kapalıyken şeritteki yerinizi izleyen yumuşak bir "
+"tıktır."
 
 msgid ""
 "The Steering guide setting can reverse which way to steer, and Lane guide "
@@ -44271,89 +44593,132 @@ msgid ""
 "fuel and sleep, or food. It is under Road and stops on the three-finger tap "
 "list."
 msgstr ""
+"Yoldayken Mola yeri, molanın amacını sorar: yakıt, mola, uyku, yakıt ve "
+"uyku ya da yemek. Üç parmakla dokunma listesinde Yol ve mola yerleri "
+"altındadır."
 
 msgid ""
 "With hours-planning hints on, a break or sleep plan takes the recommended "
 "stop. Run Rest stop again to cancel the plan."
 msgstr ""
+"Süre planlama ipuçları açıksa mola ya da uyku planı önerilen yeri seçer. "
+"Planı iptal etmek için Mola yeri'ni yeniden çalıştırın."
 
 msgid ""
 "Planning a stop does not signal for it. Double tap to signal for the "
 "announced exit or cancel the signal."
 msgstr ""
+"Bir mola yerini planlamak onun için sinyal vermez. Anons edilen çıkış için "
+"sinyal vermek ya da sinyali iptal etmek için iki kez dokunun."
 
 msgid ""
 "When clear, pull ahead as instructed. Facility stopping assistance can take "
 "the pedals to the gate. Braking ends it."
 msgstr ""
+"Yol açılınca söylendiği gibi ilerleyin. Tesiste durma yardımı pedalları "
+"kapıya kadar alabilir. Frenlemek onu kapatır."
 
 msgid ""
 "Follow the local street and yard guidance, stop at the gate, then double "
 "tap to confirm arrival. At the receiver choose Dock and deliver."
 msgstr ""
+"Yerel sokak ve saha yönlendirmelerini izleyin, kapıda durun, sonra varışı "
+"onaylamak için iki kez dokunun. Alıcıda Rampaya yanaş ve teslim et'i seçin."
 
 msgid ""
 "Fully stopped at a route stop, double tap to open its services. Fully "
 "stopped elsewhere, Rest stop on the list offers emergency sleep on the "
 "shoulder. A nearby stop always comes first."
 msgstr ""
+"Bir güzergâh mola yerinde tam durmuşken hizmetlerini açmak için iki kez "
+"dokunun. Başka bir yerde tam durmuşken listedeki Mola yeri, emniyet "
+"şeridinde acil uyku önerir. Yakındaki bir mola yeri her zaman önce gelir."
 
 msgid ""
 "Nearby vehicles merge, slow, pass, and queue. Lane position, under Road and "
 "stops on the three-finger tap list, tells you which neighboring lanes are "
 "available. Check before changing lanes or returning after a pass."
 msgstr ""
+"Yakındaki araçlar katılır, yavaşlar, sollar ve kuyruk oluşturur. Üç "
+"parmakla dokunma listesinde Yol ve mola yerleri altındaki Şerit konumu, "
+"hangi komşu şeritlerin uygun olduğunu söyler. Şerit değiştirmeden ya da "
+"sollamadan sonra dönmeden önce kontrol edin."
 
 msgid ""
 "Weather changes grip, visibility, safe speed, following distance, and fuel "
 "use. Weather, under Road and stops on the list, reports conditions. Snow "
 "and ice need gentler braking and steering."
 msgstr ""
+"Hava yol tutuşunu, görüşü, güvenli hızı, takip mesafesini ve yakıt "
+"tüketimini değiştirir. Listede Yol ve mola yerleri altındaki Hava durumu "
+"koşulları bildirir. Kar ve buz daha nazik fren ve direksiyon ister."
 
 msgid ""
 "When a trooper signals you, double tap and brake to a stop for a license "
 "and logbook check. Ignoring the lights escalates to a forced stop or "
 "pursuit."
 msgstr ""
+"Bir polis size işaret verdiğinde, ehliyet ve sürüş defteri kontrolü için "
+"iki kez dokunun ve frenleyip durun. Işıkları görmezden gelmek zorla "
+"durdurmaya ya da takibe dönüşür."
 
 msgid ""
 "CB chatter is what other drivers say they saw, and it is not always right. "
 "It can be stale and never claims the road is clear. Repeat the last CB "
 "chatter, under Radio and CB on the list, repeats it with updated distance."
 msgstr ""
+"CB sohbeti, diğer şoförlerin gördüklerini söyledikleridir ve her zaman "
+"doğru değildir. Eski olabilir ve yolun açık olduğunu asla iddia etmez. "
+"Listede Radyo ve telsiz altındaki Son CB sohbetini tekrarla, onu "
+"güncellenmiş mesafeyle tekrarlar."
 
 msgid ""
 "At an open scale, slow into its lane and double tap to signal. Stop on the "
 "scale, then double tap again to check in."
 msgstr ""
+"Açık bir kantarda yavaşlayarak şeridine girin ve sinyal vermek için iki kez "
+"dokunun. Kantarda durun, sonra giriş kaydı için yeniden iki kez dokunun."
 
 msgid ""
 "Time at the wheel, When the break is due, and What ends this shift are "
 "under Hours and clock on the three-finger tap list. Check again as traffic "
 "or weather changes."
 msgstr ""
+"Direksiyonda geçen süre, Mola ne zaman ve Bu vardiyayı ne bitirir, üç "
+"parmakla dokunma listesinde Süreler ve saat altındadır. Trafik ya da hava "
+"değiştikçe yeniden kontrol edin."
 
 msgid ""
 "Away from route points and fully stopped, Rest stop under Road and stops, "
 "or the pause menu, offers emergency sleep on the shoulder. Ten hours pass "
 "with poor rest, and you may get a parking ticket or minor damage."
 msgstr ""
+"Rota noktalarından uzakta ve tam dururken, Yol ve mola yerleri altındaki "
+"Mola yeri ya da duraklatma menüsü emniyet şeridinde acil uyku önerir. Kötü "
+"dinlenmeyle on saat geçer, park cezası ya da hafif hasar alabilirsiniz."
 
 msgid ""
 "Open driving status with a three-finger tap, then a double tap, and choose "
 "Driver apps."
 msgstr ""
+"Sürüş durumunu üç parmakla dokunup sonra iki kez dokunarak açın ve Şoför "
+"uygulamaları'nı seçin."
 
 msgid ""
 "Flick right or left to choose an app, and double tap to open it. Flick down "
 "with two fingers to return."
 msgstr ""
+"Bir uygulama seçmek için sağa ya da sola kısa kaydırın, açmak için iki kez "
+"dokunun. Geri dönmek için iki parmakla aşağı kısa kaydırın."
 
 msgid ""
 "In a report, flick right or left to move through the information, and "
 "double tap to repeat what you selected. Flick down with two fingers to "
 "return to Driver apps, then to driving status."
 msgstr ""
+"Bir raporda bilgiler arasında gezinmek için sağa ya da sola kısa kaydırın, "
+"seçtiğinizi tekrarlamak için iki kez dokunun. Şoför uygulamaları'na, sonra "
+"sürüş durumuna dönmek için iki parmakla aşağı kısa kaydırın."
 
 msgid ""
 "Road chatter gives informal driver reports that may be stale. With hours "
@@ -44361,102 +44726,144 @@ msgid ""
 "chatter, under Radio and CB on the three-finger tap list, repeats the last "
 "chatter with its distance updated."
 msgstr ""
+"Yol sohbeti, eski olabilecek gayriresmî şoför bildirimleri verir. Çalışma "
+"süresi denetimi kapalıyken denetim bildirimi olmaz. Üç parmakla dokunma "
+"listesinde Radyo ve telsiz altındaki Son CB sohbetini tekrarla, son sohbeti "
+"güncellenmiş mesafesiyle tekrarlar."
 
 msgid ""
 "Settings save as you change them. Flick right or left to choose a setting, "
 "then flick up for its next value or down for the previous one."
 msgstr ""
+"Ayarlar siz değiştirdikçe kaydedilir. Bir ayar seçmek için sağa ya da sola "
+"kısa kaydırın, sonra sonraki değer için yukarı, önceki değer için aşağı "
+"kısa kaydırın."
 
 msgid ""
 "Gameplay holds driving assistance, difficulty and hours, world and traffic, "
 "and controls. Audio, Speech, and Problem reports have separate choices."
 msgstr ""
+"Oynanış; sürüş yardımı, zorluk ve süreler, dünya ve trafik ve kontrolleri "
+"içerir. Ses, Konuşma ve Sorun bildirimleri ayrı seçeneklere sahiptir."
 
 msgid "Flick up with two fingers on a setting to hear what it does."
 msgstr ""
+"Bir ayarın ne yaptığını duymak için üzerinde iki parmakla yukarı kısa "
+"kaydırın."
 
 msgid ""
 "Relaxed pacing passes about ten minutes of road and clock each real minute, "
 "with more response time and gentler consequences. Standard moves twice as "
 "fast. Real time follows the clock at real speed."
 msgstr ""
+"Rahat tempo her gerçek dakikada yaklaşık on dakikalık yol ve saat geçirir, "
+"daha fazla tepki süresi ve daha hafif sonuçlarla. Standart iki kat hızlı "
+"ilerler. Gerçek zamanlı saati gerçek hızda izler."
 
 msgid ""
 "Driving speech chooses Standard, Quiet, or Urgent only announcements. "
 "Readouts still answer when asked. Place names and roadside chatter have "
 "separate controls."
 msgstr ""
+"Sürüş konuşması Standart, Sessiz ya da Yalnızca acil anonsları seçer. Bilgi "
+"okumaları sorulduğunda yine yanıt verir. Yer adları ve yol sohbetinin ayrı "
+"kontrolleri var."
 
 msgid ""
 "Drivers on duty refreshes about once a minute. Double tap a driver for "
 "their public profile. Driver directory includes drivers who are not "
 "currently playing; Check again refreshes it."
 msgstr ""
+"Görevdeki şoförler yaklaşık dakikada bir yenilenir. Herkese açık profili "
+"için bir şoföre iki kez dokunun. Şoför dizini şu anda oynamayan şoförleri "
+"de içerir; Yeniden denetle onu yeniler."
 
 msgid ""
 "Why can I not accept a load? It may need a certificate, endorsement, or "
 "trailer you do not have. Flick up with two fingers on the load for its "
 "requirements, and Licenses and training offers the courses."
 msgstr ""
+"Neden bir yükü kabul edemiyorum? Sizde olmayan bir sertifika, ehliyet eki "
+"ya da dorse gerekebilir. Gerekleri için yükün üzerinde iki parmakla yukarı "
+"kısa kaydırın, Ehliyetler ve eğitim de kursları sunar."
 
 msgid ""
 "Why did I get a citation at a weigh station? When an open weigh station is "
 "called, every truck must pull in. Double tap to signal, stop on the scale, "
 "then double tap again to check in."
 msgstr ""
+"Kantar istasyonunda neden ceza aldım? Açık bir kantar istasyonu anons "
+"edildiğinde her tır içeri girmelidir. Sinyal vermek için iki kez dokunun, "
+"kantarda durun, sonra giriş kaydı için yeniden iki kez dokunun."
 
 msgid ""
 "Why is the limit 55 on a fast highway? Some states hold trucks below the "
 "car limit. Posted speed limit, under Speed and cruise on the three-finger "
 "tap list, names the state when it does."
 msgstr ""
+"Hızlı bir otoyolda sınır neden 55? Bazı eyaletler tırları otomobil "
+"sınırının altında tutar. Böyle olduğunda üç parmakla dokunma listesinde Hız "
+"ve hız sabitleyici altındaki Hız sınırı eyaleti söyler."
 
 #. placeholders: {do_route}
 msgid ""
 "I missed my exit. What now? Keep driving and follow the turnaround "
 "guidance. {do_route} for the distance left."
 msgstr ""
+"Çıkışımı kaçırdım. Şimdi ne olacak? Sürmeye devam edin ve dönüş "
+"yönlendirmesini izleyin. Kalan mesafe için {do_route}."
 
 #. placeholders: {do_route}
 #. one sentence of a longer line
 msgid "{do_route} for the distance left."
-msgstr ""
+msgstr "Kalan mesafe için {do_route}."
 
 msgid ""
 "How do I know when a hill ends? Grade, under Road and stops on the list, "
 "reads the grade under the wheels and the next one worth planning for."
 msgstr ""
+"Bir yokuşun bittiğini nasıl anlarım? Listede Yol ve mola yerleri altındaki "
+"Eğim, tekerleklerin altındaki eğimi ve planlamaya değer sonrakini okur."
 
 msgid ""
 "How do I change stations? With the engine running, a three-finger flick "
 "right or left tunes. Radio on or off is under Radio and CB on the list."
 msgstr ""
+"İstasyonu nasıl değiştiririm? Motor çalışırken üç parmakla sağa ya da sola "
+"kısa kaydırmak istasyon arar. Radyoyu açıp kapatmak listede Radyo ve telsiz "
+"altındadır."
 
 msgid ""
 "Can I hear a weather warning again? With live weather on, the Weather app "
 "under Driver apps lists active alerts. A two-finger flick left also steps "
 "back through recent messages."
 msgstr ""
+"Bir hava uyarısını yeniden duyabilir miyim? Canlı hava açıkken Şoför "
+"uygulamaları altındaki Hava uygulaması etkin uyarıları listeler. İki "
+"parmakla sola kısa kaydırmak da son mesajlarda geriye doğru gider."
 
 msgid "Newspaper"
-msgstr ""
+msgstr "Gazete"
 
 msgid "Driver news, records and carrier standings from orinks.net."
 msgstr ""
+"orinks.net'ten şoför haberleri, rekorlar ve taşıyıcı firma sıralamaları."
 
 msgid "Enter opens a section. Escape goes back."
-msgstr ""
+msgstr "Enter bir bölümü açar. Escape geri döner."
 
 msgid ""
 "Up and down review the lines. Enter repeats a line. Escape returns to the "
 "sections."
 msgstr ""
+"Yukarı ve aşağı satırları gözden geçirir. Enter bir satırı tekrarlar. "
+"Escape bölümlere döner."
 
 msgid "Back to sections"
-msgstr ""
+msgstr "Bölümlere dön"
 
 msgid "Return to the sections."
-msgstr ""
+msgstr "Bölümlere dönün."
 
 msgid ""
 "Enter opens an item or changes a setting to its next value. Right also "
@@ -44579,6 +44986,7 @@ msgid ""
 "The careers backed up to your orinks.net account, to bring one onto this "
 "device."
 msgstr ""
+"Birini bu cihaza getirmek için orinks.net hesabınıza yedeklenmiş kariyerler."
 
 msgid ""
 "The careers backed up to your orinks.net account, to bring one onto this "
@@ -44592,11 +45000,13 @@ msgid ""
 "A career here changed on another device, and it is not backing up until you "
 "pick."
 msgstr ""
+"Buradaki bir kariyer başka bir cihazda değişti ve siz seçene kadar "
+"yedeklenmiyor."
 
 #. one sentence of a longer line
 msgid ""
 "Choosing this device's save keeps what you have played and sends it up."
-msgstr ""
+msgstr "Bu cihazın kaydını seçmek oynadıklarınızı korur ve yükler."
 
 #. one sentence of a longer line
 msgid "Nothing is overwritten until you choose."
@@ -44613,6 +45023,10 @@ msgid ""
 "save keeps what you have played and sends it up. Nothing is overwritten "
 "until you choose. {base}"
 msgstr ""
+"Hangi kopyanın tutulacağını seçmek için bunu açın. Buradaki bir kariyer "
+"başka bir cihazda değişti ve siz seçene kadar yedeklenmiyor. Bu cihazın "
+"kaydını seçmek oynadıklarınızı korur ve yükler. Siz seçene kadar hiçbir "
+"şeyin üzerine yazılmaz. {base}"
 
 #. one sentence of a longer line
 msgid ""
@@ -44656,6 +45070,9 @@ msgid ""
 "on duty. Double tap a driver to read their profile. Viewing it shares "
 "nothing about you."
 msgstr ""
+"Herkese açık profili olan her şoför, görevde olsun olmasın, ve her birinin "
+"en son ne zaman görevde olduğu. Profilini okumak için bir şoföre iki kez "
+"dokunun. Ona bakmak sizinle ilgili hiçbir şey paylaşmaz."
 
 #. placeholders: {on_off}
 msgid "Say when drivers go on or off duty: {on_off}"
@@ -44674,6 +45091,8 @@ msgid ""
 "Achievements earned across every career on this device. The main menu's "
 "Achievements is per career."
 msgstr ""
+"Bu cihazdaki tüm kariyerlerde kazanılan başarımlar. Ana menüdeki Başarımlar "
+"kariyer başınadır."
 
 msgid ""
 "Achievements earned across every career on this installation. The main "
@@ -44703,6 +45122,10 @@ msgid ""
 "losing their settings. Live weather, traffic, and parking have their own "
 "toggles under Settings."
 msgstr ""
+"orinks.net ve paylaşım hizmetlerinin ana anahtarı. Kapalı; şoför listesini, "
+"profil paylaşımını, bulut yedeğini ve istasyon önerilerini ayarlarını "
+"kaybetmeden durdurur. Canlı hava, trafik ve parkın Ayarlar altında kendi "
+"anahtarları var."
 
 msgid ""
 "Master switch for the orinks.net and sharing services. Off stops the "
@@ -44729,6 +45152,10 @@ msgid ""
 "on and starts backing your careers up. Each has its own item on this menu. "
 "Driver name and signed-in devices are on Open my driver setup page."
 msgstr ""
+"Oyunu orinks.net hesabınıza bağlar; bu, Profil paylaşımını açar ve "
+"kariyerlerinizi yedeklemeye başlar. Her birinin bu menüde kendi öğesi "
+"vardır. Şoför adı ve oturum açmış cihazlar Şoför kurulum sayfamı aç "
+"içindedir."
 
 msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
@@ -44758,6 +45185,8 @@ msgid ""
 "Opens your orinks.net driver setup page in a browser, for your driver name, "
 "profile sharing, and the devices signed in to your account."
 msgstr ""
+"Şoför adınız, profil paylaşımı ve hesabınızda oturum açmış cihazlar için "
+"orinks.net şoför kurulum sayfanızı tarayıcıda açar."
 
 msgid ""
 "Opens your orinks.net driver setup page in a browser, for your driver name, "
@@ -44801,6 +45230,10 @@ msgid ""
 "connect the account. Public profile statistics are read from these backups, "
 "so turning this off empties them."
 msgstr ""
+"Her kayıtlı kariyeri, başka bir cihazda geri yüklemek için orinks.net "
+"hesabınıza yükler. Yedekler özeldir, asla herkese açık indirme olmaz. "
+"Hesabı bağladığınızda açılır. Herkese açık profil istatistikleri bu "
+"yedeklerden okunur, bu yüzden bunu kapatmak onları boşaltır."
 
 msgid ""
 "Uploads each saved career to your orinks.net account, to restore on another "
@@ -44849,6 +45282,8 @@ msgstr ""
 msgid ""
 "Choose Set up now to connect this device, or Not now to start driving."
 msgstr ""
+"Bu cihazı bağlamak için Şimdi kur'u, sürmeye başlamak için Şimdi değil'i "
+"seçin."
 
 #. one sentence of a longer line
 msgid "Before you set off."
@@ -44862,6 +45297,11 @@ msgid ""
 "either of those off afterwards from Online on the main menu. It takes a "
 "code and your browser, and you can do it any time instead. {current}"
 msgstr ""
+"Yola çıkmadan önce. Bu cihazı bir orinks.net hesabına bağlayabilirsiniz. "
+"Bu, kariyerinizi başka bir cihaza götürebilmeniz için yedekler, şoför "
+"profilinizi ve görev etkinliğinizi herkese açık siteye koyar. İkisini de "
+"sonra ana menüdeki Çevrim içi bölümünden kapatabilirsiniz. Bir kod ve "
+"tarayıcınız gerekir, bunu istediğiniz zaman da yapabilirsiniz. {current}"
 
 #. one sentence of a longer line
 msgid ""
@@ -44874,10 +45314,12 @@ msgid ""
 "That backs your career up so you can bring it to another device, and puts "
 "your driver profile and on-duty activity on the public site."
 msgstr ""
+"Bu, kariyerinizi başka bir cihaza götürebilmeniz için yedekler, şoför "
+"profilinizi ve görev etkinliğinizi herkese açık siteye koyar."
 
 #. one sentence of a longer line
 msgid "You can connect this device to an orinks.net account."
-msgstr ""
+msgstr "Bu cihazı bir orinks.net hesabına bağlayabilirsiniz."
 
 #. one sentence of a longer line
 msgid ""
@@ -44925,6 +45367,8 @@ msgid ""
 "Connect this device to an orinks.net account, which turns on cloud backup "
 "and your public driver profile."
 msgstr ""
+"Bu cihazı bir orinks.net hesabına bağlayın; bu, bulut yedeğini ve herkese "
+"açık şoför profilinizi açar."
 
 msgid ""
 "Connect this computer to an orinks.net account, which turns on cloud backup "
@@ -45870,6 +46314,8 @@ msgid ""
 "This save was changed outside the game, or copied from another device, so "
 "it is marked as modified."
 msgstr ""
+"Bu kayıt oyun dışında değiştirildi ya da başka bir cihazdan kopyalandı, bu "
+"yüzden değiştirilmiş olarak işaretlendi."
 
 #. placeholders: {current_text}
 msgid ""
@@ -45877,12 +46323,18 @@ msgid ""
 "it is marked as modified. Your career still works on this device, but "
 "profile sharing may not accept a modified profile. {current_text}"
 msgstr ""
+"Bu kayıt oyun dışında değiştirildi ya da başka bir cihazdan kopyalandı, bu "
+"yüzden değiştirilmiş olarak işaretlendi. Kariyeriniz bu cihazda yine "
+"çalışır, ama profil paylaşımı değiştirilmiş bir profili kabul etmeyebilir. "
+"{current_text}"
 
 #. one sentence of a longer line
 msgid ""
 "Your career still works on this device, but profile sharing may not accept "
 "a modified profile."
 msgstr ""
+"Kariyeriniz bu cihazda yine çalışır, ama profil paylaşımı değiştirilmiş bir "
+"profili kabul etmeyebilir."
 
 #. one sentence of a longer line
 msgid ""
@@ -45925,7 +46377,7 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "Nothing was lost: the save is still on this device, untouched."
-msgstr ""
+msgstr "Hiçbir şey kaybolmadı: kayıt hâlâ bu cihazda, dokunulmadan duruyor."
 
 #. one sentence of a longer line
 msgid ""
@@ -45947,6 +46399,10 @@ msgid ""
 "starts fresh. Nothing was lost: the save is still on this device, "
 "untouched. {current_text}"
 msgstr ""
+"{driver_name}, Freight Fate'in eski bir sürümünde oluşturuldu. 1.9 sürümü, "
+"ücretten tırlara ve seviyelere kadar tüm kariyeri yeniden dengeliyor, bu "
+"yüzden her şoför sıfırdan başlıyor. Hiçbir şey kaybolmadı: kayıt hâlâ bu "
+"cihazda, dokunulmadan duruyor. {current_text}"
 
 #. one sentence of a longer line
 msgid ""
@@ -47892,6 +48348,9 @@ msgstr ""
 "İkinci bir düğme katmanı için sol omuz tuşunu basılı tutun. {pad_engine} "
 "motoru kontrol eder, {pad_fuel} yakıtı okur ve {pad_speed_limit} hız "
 "sınırını okur."
+
+#~ msgid "Tires on concrete grooved across the lane: texture, not a decision."
+#~ msgstr "Şeride enine oluklu betonda lastikler: doku, karar değil."
 
 #~ msgid "{name} fueled {volume_text} and took a 30-minute break at {place}."
 #~ msgstr ""

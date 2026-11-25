@@ -34,7 +34,7 @@ msgid "pacific"
 msgstr "pacifico"
 
 msgid "atlantic"
-msgstr ""
+msgstr "atlantico"
 
 msgid "A Secret the Manifest Is Keeping"
 msgstr "Un segreto che la bolla non svela"
@@ -4980,7 +4980,7 @@ msgid "id"
 msgstr "id"
 
 msgid "spoken"
-msgstr ""
+msgstr "pronunciato"
 
 msgid "type"
 msgstr "type"
@@ -4998,7 +4998,7 @@ msgid "cargo"
 msgstr "carico"
 
 msgid "traits"
-msgstr ""
+msgstr "caratteristiche"
 
 msgid "no yards"
 msgstr "nessun piazzale"
@@ -5388,7 +5388,7 @@ msgstr ""
 "{py_str_float}, non è tra 0 e 1"
 
 msgid "concrete"
-msgstr ""
+msgstr "cemento"
 
 msgid "asphalt"
 msgstr "asfalto"
@@ -6302,7 +6302,7 @@ msgid "welcome center"
 msgstr "centro di benvenuto"
 
 msgid "cardlock"
-msgstr ""
+msgstr "distributore a tessera"
 
 msgid "village"
 msgstr "village"
@@ -7395,13 +7395,13 @@ msgid "for {name}"
 msgstr "per {name}"
 
 msgid "Route "
-msgstr ""
+msgstr "Route "
 
 msgid "Highway "
-msgstr ""
+msgstr "Highway "
 
 msgid "Trunk "
-msgstr ""
+msgstr "Trunk "
 
 #. placeholders: {items}, {items2}
 msgid "{items} and {items2}"
@@ -7849,6 +7849,8 @@ msgid ""
 "Save {grouped} dollars: {grouped2} for the cheapest sleeper tractor and "
 "{grouped3} for working capital."
 msgstr ""
+"Metti da parte {grouped} dollari: {grouped2} per la motrice con cuccetta "
+"più economica e {grouped3} di capitale circolante."
 
 #. placeholders: {NO_CARRIER_STATUS}, {level}, {title}
 #. one sentence of a longer line
@@ -7916,6 +7918,8 @@ msgid ""
 "Next: the owner-operator buy-in under Business status, where you buy a "
 "tractor of your own."
 msgstr ""
+"Prossimo passo: il riscatto da padroncino in Situazione aziendale, dove "
+"compri una motrice tutta tua."
 
 #. placeholders: {join}
 msgid "Owner-operator gate locked: {join}"
@@ -8048,6 +8052,8 @@ msgid ""
 "Tractors start at {grouped} dollars, and {grouped2} dollars stays in the "
 "bank as working capital."
 msgstr ""
+"Le motrici partono da {grouped} dollari, e {grouped2} dollari restano in "
+"banca come capitale circolante."
 
 #. placeholders: {carrier_name}, {level}, {title}
 #. one sentence of a longer line
@@ -8062,12 +8068,19 @@ msgid ""
 "at {grouped} dollars, and {grouped2} dollars stays in the bank as working "
 "capital."
 msgstr ""
+"Sei autista dipendente per {carrier_name}, livello {level} {title}. Hai i "
+"requisiti per il riscatto da padroncino: compri una motrice tutta tua e "
+"continui a lavorare per la ditta come padroncino convenzionato. Le motrici "
+"partono da {grouped} dollari, e {grouped2} dollari restano in banca come "
+"capitale circolante."
 
 #. one sentence of a longer line
 msgid ""
 "You qualify for the owner-operator buy-in: you buy a tractor of your own "
 "and keep hauling for the carrier as a leased-on owner-operator."
 msgstr ""
+"Hai i requisiti per il riscatto da padroncino: compri una motrice tutta tua "
+"e continui a lavorare per la ditta come padroncino convenzionato."
 
 #. placeholders: {carrier_name}
 #. one sentence of a longer line
@@ -8481,6 +8494,10 @@ msgid ""
 "buy a tractor of your own and haul for the carrier as a leased-on "
 "owner-operator. TWIC port card enrollment opens under Licenses and training."
 msgstr ""
+"Il riscatto da padroncino si apre quando soddisfi gli altri requisiti: "
+"compri una motrice tutta tua e lavori per la ditta come padroncino "
+"convenzionato. L'iscrizione per la tessera portuale TWIC si apre in Patenti "
+"e formazione."
 
 msgid "Eligible to buy your own truck and pay its operating costs."
 msgstr "Puoi comprare il tuo camion e pagarne i costi di esercizio."
@@ -9056,7 +9073,7 @@ msgid "Get back on freight"
 msgstr "Torna ai carichi"
 
 msgid "carrier seat"
-msgstr ""
+msgstr "posto in una ditta"
 
 msgid "Build dispatcher trust"
 msgstr "Conquista la fiducia della centrale"
@@ -9524,7 +9541,7 @@ msgid "{name} {name2} terminal"
 msgstr ""
 
 msgid "inert"
-msgstr ""
+msgstr "inerte"
 
 msgid "dan"
 msgstr "dan"
@@ -9991,7 +10008,7 @@ msgid " Enter books it."
 msgstr " Enter lo prenota."
 
 msgid " Double tap books it."
-msgstr ""
+msgstr " Tocca due volte per prenotarlo."
 
 msgid "free"
 msgstr "gratis"
@@ -12556,6 +12573,8 @@ msgstr "pesante"
 msgid ""
 "{f} thousand newton meters torque, {f2} gallon tank, {f3} miles per gallon"
 msgstr ""
+"{f} mila newton metro di coppia, serbatoio da {f2} galloni, {f3} miglia per "
+"gallone"
 
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
@@ -13045,11 +13064,13 @@ msgstr "Night Drive"
 msgid "synth-music"
 msgstr "synth-music"
 
+# leave empty: the issue dates stay English, so a translated frame makes a mixed line
 #. placeholders: {masthead}, {issue}
 #. one sentence of a longer line
 msgid "{masthead}, issue {issue}."
 msgstr ""
 
+# leave empty: the dates stay English, so a translated frame makes a mixed line
 #. placeholders: {masthead}, {issue}, {dates}
 msgid "{masthead}, issue {issue}. {dates}."
 msgstr ""
@@ -13522,13 +13543,14 @@ msgstr "fermo"
 msgid "holding"
 msgstr "holding"
 
+# leave empty: loose frame; it caught "Crossing into" time zone lines and left "into" English
 #. placeholders: {name}
 msgid "Crossing {name}."
 msgstr ""
 
 #. placeholders: {name}
 msgid "Crossing the {name}."
-msgstr ""
+msgstr "Attraversi il {name}."
 
 msgid "up"
 msgstr "su"
@@ -13769,22 +13791,22 @@ msgid "used"
 msgstr "usato"
 
 msgid "northwest territories"
-msgstr ""
+msgstr "northwest territories"
 
 msgid "british columbia"
-msgstr ""
+msgstr "british columbia"
 
 msgid "new brunswick"
-msgstr ""
+msgstr "new brunswick"
 
 msgid "nova scotia"
-msgstr ""
+msgstr "nova scotia"
 
 msgid "prince edward island"
-msgstr ""
+msgstr "prince edward island"
 
 msgid "newfoundland and labrador"
-msgstr ""
+msgstr "newfoundland and labrador"
 
 msgid "alaska"
 msgstr "alaska"
@@ -13839,7 +13861,7 @@ msgid "Hours enforcement off."
 msgstr "Controllo delle ore di servizio spento."
 
 msgid "cycle"
-msgstr ""
+msgstr "ciclo"
 
 msgid ""
 "Take 36 hours off to restart your cycle, or wait for hours to age off your "
@@ -14539,13 +14561,13 @@ msgid "centred"
 msgstr ""
 
 msgid "counting"
-msgstr ""
+msgstr "conta"
 
 msgid "restless"
-msgstr ""
+msgstr "irrequieti"
 
 msgid "scrambling"
-msgstr ""
+msgstr "scivolano"
 
 msgid "Cattle settled"
 msgstr "Bestiame calmo"
@@ -14560,7 +14582,7 @@ msgid "One of the cattle is down"
 msgstr "Uno dei capi è a terra"
 
 msgid "cool"
-msgstr ""
+msgstr "fresco"
 
 msgid "running"
 msgstr "acceso"
@@ -14581,19 +14603,19 @@ msgid "The cattle have been aboard 28 hours."
 msgstr "Il bestiame è a bordo da 28 ore."
 
 msgid "booked"
-msgstr ""
+msgstr "prenotato"
 
 msgid "loading"
 msgstr "in caricamento"
 
 msgid "aboard"
-msgstr ""
+msgstr "a bordo"
 
 msgid "unloading"
-msgstr ""
+msgstr "in scaricamento"
 
 msgid "delivered"
-msgstr ""
+msgstr "consegnato"
 
 msgid "feeder calves"
 msgstr "vitelli da allevamento"
@@ -15319,16 +15341,16 @@ msgid "bunk"
 msgstr "cuccetta"
 
 msgid "Level set."
-msgstr ""
+msgstr "Posizione di riferimento impostata."
 
 msgid "This device has no motion sensor."
-msgstr ""
+msgstr "Questo dispositivo non ha un sensore di movimento."
 
 msgid "No tilt reading. Swipe to steer."
-msgstr ""
+msgstr "Nessuna lettura dell'inclinazione. Scorri per sterzare."
 
 msgid "Tilt steering back."
-msgstr ""
+msgstr "Sterzo a inclinazione di nuovo attivo."
 
 msgid "waiting"
 msgstr ""
@@ -15482,7 +15504,7 @@ msgstr "traffico più avanti"
 
 #. placeholders: {class}
 msgid "Oncoming {class}"
-msgstr ""
+msgstr "{class} in senso opposto"
 
 #. placeholders: {class}
 msgid "Merging {class} on the right ramp"
@@ -17864,7 +17886,7 @@ msgid "An engine starting, immediately after you started it."
 msgstr "Un motore che si accende, subito dopo che l'hai acceso."
 
 msgid "It is the running engine."
-msgstr ""
+msgstr "È il motore acceso."
 
 msgid "The same engine, in its earlier sound."
 msgstr "Lo stesso motore, con il suo suono di prima."
@@ -17915,16 +17937,23 @@ msgstr "Il giunto alla fine di un ponte: consistenza, non una decisione."
 
 msgid "Tires on a steel grate bridge deck: texture, not a decision."
 msgstr ""
+"Gomme su un impalcato di ponte a griglia d'acciaio: consistenza, non una "
+"decisione."
 
 msgid "Hollow resonance of a concrete bridge deck: texture, not a decision."
 msgstr ""
+"Risonanza vuota di un impalcato di ponte in cemento: consistenza, non una "
+"decisione."
 
 msgid "Turbocharger spool under engine load: texture, not a decision."
 msgstr ""
+"Il turbo che sale di giri sotto carico: consistenza, non una decisione."
 
 msgid ""
 "Turbocharger pressure release on lift-off or shift: texture, not a decision."
 msgstr ""
+"Il turbo che scarica la pressione quando molli l'acceleratore o cambi "
+"marcia: consistenza, non una decisione."
 
 msgid "A door."
 msgstr "Una portiera."
@@ -18343,7 +18372,7 @@ msgstr "voce principale"
 
 #. placeholders: {key}, {country}, {else}
 msgid "mode {key}; country {country}; effective {else}"
-msgstr ""
+msgstr "modalità {key}; paese {country}; effettivo {else}"
 
 #. one sentence of a longer line
 msgid "Do not press keys yourself meanwhile: they would be measured too."
@@ -18878,7 +18907,7 @@ msgid "Reefer on or off"
 msgstr "Frigo acceso o spento"
 
 msgid "apu"
-msgstr ""
+msgstr "apu"
 
 msgid "APU on or off"
 msgstr "APU acceso o spento"
@@ -18950,10 +18979,10 @@ msgid "Lane position"
 msgstr "Posizione nella corsia"
 
 msgid "Check left mirror"
-msgstr ""
+msgstr "Guarda lo specchietto sinistro"
 
 msgid "Check right mirror"
-msgstr ""
+msgstr "Guarda lo specchietto destro"
 
 msgid "Grade"
 msgstr "Pendenza"
@@ -19125,7 +19154,7 @@ msgid "Driving command list"
 msgstr "Elenco dei comandi di guida"
 
 msgid "Set tilt level"
-msgstr ""
+msgstr "Imposta la posizione di riferimento"
 
 msgid "Nothing"
 msgstr "Niente"
@@ -19298,7 +19327,7 @@ msgid "a flick right"
 msgstr "uno scorrimento a destra"
 
 msgid "Hold one finger still for half a second"
-msgstr ""
+msgstr "Tieni un dito fermo per mezzo secondo"
 
 msgid "a still hold for half a second"
 msgstr "una pressione ferma di mezzo secondo"
@@ -22391,6 +22420,8 @@ msgid ""
 "Enter repeats a line, or opens the buy-in when qualified. Escape returns to "
 "the terminal."
 msgstr ""
+"Enter ripete una riga, o apre il riscatto quando hai i requisiti. Escape "
+"torna alla sede."
 
 #. placeholders: {status_label}
 msgid "Current status: {status_label}"
@@ -22563,12 +22594,14 @@ msgid "The next career or business unlock."
 msgstr "Il prossimo sblocco di carriera o aziendale."
 
 msgid "Owner-operator buy-in: choose a tractor"
-msgstr ""
+msgstr "Riscatto da padroncino: scegli una motrice"
 
 msgid ""
 "You buy a tractor of your own. Loads pay more, and your business pays the "
 "operating costs."
 msgstr ""
+"Compri una motrice tutta tua. I carichi pagano di più, e la tua attività "
+"paga i costi di esercizio."
 
 msgid "Reopen the owner-operator plan"
 msgstr "Riapri il piano da padroncino"
@@ -22960,15 +22993,15 @@ msgid "Return to the terminal menu."
 msgstr "Torna al menu della sede."
 
 msgid "Owner-operator buy-in"
-msgstr ""
+msgstr "Riscatto da padroncino"
 
 #. placeholders: {name}, {traits}, {price}
 msgid "{name}, the tractor you drive now: {traits}, {price} dollars"
-msgstr ""
+msgstr "{name}, la motrice che guidi ora: {traits}, {price} dollari"
 
 #. placeholders: {name}, {traits}, {price}
 msgid "{name}: {traits}, {price} dollars"
-msgstr ""
+msgstr "{name}: {traits}, {price} dollari"
 
 #. one sentence of a longer line
 msgid "Owner-operator path locked."
@@ -22987,6 +23020,8 @@ msgid ""
 "Not enough money. The {label} costs {grouped} dollars, and {capital} "
 "dollars stays in the bank as working capital. You have {grouped2}."
 msgstr ""
+"Soldi insufficienti. Il {label} costa {grouped} dollari, e {capital} "
+"dollari restano in banca come capitale circolante. Hai {grouped2}."
 
 #. placeholders: {label}, {grouped}, {capital}
 #. one sentence of a longer line
@@ -22994,33 +23029,37 @@ msgid ""
 "The {label} costs {grouped} dollars, and {capital} dollars stays in the "
 "bank as working capital."
 msgstr ""
+"Il {label} costa {grouped} dollari, e {capital} dollari restano in banca "
+"come capitale circolante."
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
 msgid "You have {grouped2}."
-msgstr ""
+msgstr "Hai {grouped2}."
 
 msgid "Double tap again to buy it."
-msgstr ""
+msgstr "Tocca di nuovo due volte per comprarlo."
 
 msgid "Press Enter again to buy it."
-msgstr ""
+msgstr "Premi di nuovo Enter per comprarlo."
 
 #. placeholders: {grouped2}
 #. one sentence of a longer line
 msgid "You would have {grouped2} dollars left."
-msgstr ""
+msgstr "Ti resterebbero {grouped2} dollari."
 
 #. placeholders: {py_capitalize}, {grouped}
 #. one sentence of a longer line
 msgid "{py_capitalize}, {grouped} dollars."
-msgstr ""
+msgstr "{py_capitalize}, {grouped} dollari."
 
 #. placeholders: {py_capitalize}, {grouped}, {grouped2}, {again}
 msgid ""
 "{py_capitalize}, {grouped} dollars. You would have {grouped2} dollars left. "
 "{again}"
 msgstr ""
+"{py_capitalize}, {grouped} dollari. Ti resterebbero {grouped2} dollari. "
+"{again}"
 
 #. one sentence of a longer line
 msgid "Leased-on owner-operator status unlocked."
@@ -23031,6 +23070,8 @@ msgid ""
 "Leased-on owner-operator status unlocked. You bought the {label} for "
 "{grouped} dollars and have {grouped2} dollars left."
 msgstr ""
+"Stato di padroncino convenzionato sbloccato. Hai comprato il {label} per "
+"{grouped} dollari e ti restano {grouped2} dollari."
 
 #. placeholders: {label}, {grouped}, {grouped2}
 #. one sentence of a longer line
@@ -23038,21 +23079,25 @@ msgid ""
 "You bought the {label} for {grouped} dollars and have {grouped2} dollars "
 "left."
 msgstr ""
+"Hai comprato il {label} per {grouped} dollari e ti restano {grouped2} "
+"dollari."
 
 #. one sentence of a longer line
 msgid "Owner-operator buy-in."
-msgstr ""
+msgstr "Riscatto da padroncino."
 
 #. placeholders: {grouped}, {capital}, {current}
 msgid ""
 "Owner-operator buy-in. You have {grouped} dollars. {capital} dollars stays "
 "in the bank as working capital. {current}"
 msgstr ""
+"Riscatto da padroncino. Hai {grouped} dollari. {capital} dollari restano in "
+"banca come capitale circolante. {current}"
 
 #. placeholders: {capital}
 #. one sentence of a longer line
 msgid "{capital} dollars stays in the bank as working capital."
-msgstr ""
+msgstr "{capital} dollari restano in banca come capitale circolante."
 
 msgid "Move to another carrier: locked"
 msgstr "Passa a un'altra ditta: bloccato"
@@ -26184,6 +26229,9 @@ msgid ""
 "{mirror_left} and {mirror_right} check the left or right mirror and blind "
 "spot, briefly focusing traffic audio on that side."
 msgstr ""
+"{mirror_left} e {mirror_right} guardano lo specchietto e l'angolo cieco a "
+"sinistra o a destra, e per un attimo concentrano il suono del traffico su "
+"quel lato."
 
 #. placeholders: {last_announcement}
 msgid "{last_announcement} repeats the last driving announcement."
@@ -26565,7 +26613,7 @@ msgstr ""
 "comando di corsia. "
 
 msgid "Flick left or right to change lanes. "
-msgstr ""
+msgstr "Scorri a sinistra o a destra per cambiare corsia. "
 
 msgid ""
 "Flick left or right to change lanes, or swipe left or right and hold to "
@@ -26578,9 +26626,11 @@ msgid ""
 "Tilt the phone left or right to change one lane, and bring it back level "
 "before the next. "
 msgstr ""
+"Inclina il telefono a sinistra o a destra per cambiare una corsia, e "
+"rimettilo in piano prima della successiva. "
 
 msgid "Tilt the phone left or right to steer. "
-msgstr ""
+msgstr "Inclina il telefono a sinistra o a destra per sterzare. "
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. With "
@@ -26590,6 +26640,13 @@ msgid ""
 "stopped. Hold two fingers for the horn. While holding a pedal, a second "
 "finger's flicks and holds work the same way. "
 msgstr ""
+"Tieni un dito fermo per mezzo secondo per raddrizzare il volante. Con il "
+"cruise control spento, scorri in su per attivarlo. Tocca due volte per "
+"prendere un'uscita, accostare o confermare l'arrivo a un cancello. Tocca "
+"con due dita per fermare la voce. Ruota due dita a destra per accendere il "
+"motore, e a sinistra per spegnerlo quando il camion è fermo. Tieni premute "
+"due dita per il clacson. Mentre tieni un pedale, gli scorrimenti e le "
+"pressioni di un secondo dito funzionano allo stesso modo. "
 
 msgid ""
 "In a manual, hold a pedal and flick up or down with a second finger to "
@@ -26987,10 +27044,10 @@ msgid "On the exit ramp. No lanes to change."
 msgstr "Sei sulla rampa d'uscita. Nessuna corsia da cambiare."
 
 msgid "Lane change canceled."
-msgstr ""
+msgstr "Cambio di corsia annullato."
 
 msgid "Already waiting for a gap."
-msgstr ""
+msgstr "Stai già aspettando un varco."
 
 msgid "Still changing lanes."
 msgstr "Cambio di corsia ancora in corso."
@@ -27014,11 +27071,11 @@ msgstr "La corsia {name} qui è chiusa."
 #. placeholders: {side_word}
 #. one sentence of a longer line
 msgid "Signaling {side_word}, waiting for a gap."
-msgstr ""
+msgstr "Freccia a {side_word}, in attesa di un varco."
 
 #. placeholders: {prefix}, {side_word}
 msgid "{prefix}. Signaling {side_word}, waiting for a gap."
-msgstr ""
+msgstr "{prefix}. Freccia a {side_word}, in attesa di un varco."
 
 #. placeholders: {lane_label}
 msgid "Changing to the {lane_label} lane."
@@ -31452,41 +31509,42 @@ msgid "Missed the facility gate. Use the next safe turnaround."
 msgstr "Cancello mancato. Usa la prossima inversione sicura."
 
 msgid "Looking forward."
-msgstr ""
+msgstr "Sguardo avanti."
 
 msgid "Left"
-msgstr ""
+msgstr "Sinistra"
 
 msgid "Right"
-msgstr ""
+msgstr "Destra"
 
 #. placeholders: {side_word}
 msgid "{side_word} shoulder."
-msgstr ""
+msgstr "{side_word}: corsia d'emergenza."
 
+# leave empty: loose frame; it beat the whole-line lane closure calls ("Right lane closed ahead.")
 #. placeholders: {side_word}
 msgid "{side_word} lane closed."
 msgstr ""
 
 #. placeholders: {kind_cap}, {side_lower}
 msgid "{kind_cap} beside {side_lower}."
-msgstr ""
+msgstr "{kind_cap} accanto, a {side_lower}."
 
 #. placeholders: {kind_cap}, {side_lower}
 msgid "{kind_cap} closing {side_lower}."
-msgstr ""
+msgstr "{kind_cap} si avvicina, a {side_lower}."
 
 #. placeholders: {kind_cap}, {side_lower}
 msgid "{kind_cap} behind {side_lower}."
-msgstr ""
+msgstr "{kind_cap} dietro, a {side_lower}."
 
 #. placeholders: {kind_cap}, {side_lower}
 msgid "{kind_cap} ahead {side_lower}."
-msgstr ""
+msgstr "{kind_cap} davanti, a {side_lower}."
 
 #. placeholders: {side_word}
 msgid "{side_word} clear."
-msgstr ""
+msgstr "{side_word}: libero."
 
 #. placeholders: {capitalized}
 msgid "{capitalized} lane open."
@@ -32623,6 +32681,8 @@ msgstr "Comandi di guida"
 
 msgid "Tilt steering treats the way you hold the phone now as level."
 msgstr ""
+"Lo sterzo a inclinazione prende il modo in cui tieni il telefono adesso "
+"come posizione in piano."
 
 #. placeholders: {noun}
 msgid "At the wheel: {noun}."
@@ -32630,7 +32690,7 @@ msgstr "Al volante: {noun}."
 
 #. placeholders: {key}
 msgid "On the keyboard: {key}."
-msgstr ""
+msgstr "Sulla tastiera: {key}."
 
 msgid "Back to driving"
 msgstr "Torna alla guida"
@@ -33109,6 +33169,8 @@ msgid ""
 "How to play, opened at the driving gestures page. Flick up or down to "
 "change pages, and right or left to read lines."
 msgstr ""
+"Come si gioca, aperto alla pagina dei gesti di guida. Scorri in su o in giù "
+"per cambiare pagina, e a destra o a sinistra per leggere le righe."
 
 msgid "Learn game sounds"
 msgstr "Impara i suoni del gioco"
@@ -33714,6 +33776,8 @@ msgid ""
 "Freight Fate stations, your favorites, and stations nearby. Double tap one "
 "to tune it."
 msgstr ""
+"Stazioni di Freight Fate, i tuoi preferiti e le stazioni vicine. Tocca due "
+"volte una stazione per sintonizzarla."
 
 #. placeholders: {in_range}
 msgid "Stations in range: {in_range}"
@@ -37533,10 +37597,10 @@ msgid "The drive wheels are sliding under the engine brake."
 msgstr "Le ruote motrici slittano sotto il freno motore."
 
 msgid "ABS pulsing. Hold steady on the brake."
-msgstr ""
+msgstr "ABS in azione. Tieni il freno fermo."
 
 msgid "Drive wheels spinning. Ease off the throttle."
-msgstr ""
+msgstr "Le ruote motrici slittano. Alleggerisci l'acceleratore."
 
 msgid ""
 "A tire chain broke and is flailing. Slow down and pull over to check it."
@@ -38354,24 +38418,24 @@ msgstr "Assistenza in rampa rilasciata."
 
 #. one sentence of a longer line
 msgid "Gap open."
-msgstr ""
+msgstr "Varco libero."
 
 #. placeholders: {lane_label}
 msgid "Gap open. Gliding to the {lane_label} lane."
-msgstr ""
+msgstr "Varco libero. Ti sposti nella corsia {lane_label}."
 
 #. placeholders: {lane_label}
 #. one sentence of a longer line
 msgid "Gliding to the {lane_label} lane."
-msgstr ""
+msgstr "Ti sposti nella corsia {lane_label}."
 
 #. one sentence of a longer line
 msgid "No gap opened."
-msgstr ""
+msgstr "Nessun varco libero."
 
 #. placeholders: {lane_name}
 msgid "No gap opened. Staying in the {lane_name} lane."
-msgstr ""
+msgstr "Nessun varco libero. Resti nella corsia {lane_name}."
 
 #. placeholders: {lane_name}
 #. one sentence of a longer line
@@ -38559,10 +38623,10 @@ msgid "Traffic is stacking up and passing you on the right."
 msgstr "Il traffico si sta accodando e ti sorpassa a destra."
 
 msgid "Trailer off-tracking tight on the inside. Give the curve more room."
-msgstr ""
+msgstr "Il rimorchio stringe troppo all'interno. Prendi la curva più larga."
 
 msgid "Trailer swaying in the wind. Ease off your speed."
-msgstr ""
+msgstr "Il rimorchio ondeggia nel vento. Rallenta."
 
 #. placeholders: {fresh}
 msgid "Weather alert: {fresh}."
@@ -39247,7 +39311,7 @@ msgstr ""
 "Fate 1.8."
 
 msgid "Double tap offers to delete this save."
-msgstr ""
+msgstr "Tocca due volte per proporre di eliminare questo salvataggio."
 
 msgid ""
 "Double tap offers to delete this save. It still works in Freight Fate 1.8."
@@ -39557,6 +39621,8 @@ msgstr "Online"
 msgid ""
 "Drivers on duty, your orinks.net account, and cloud backup and restore."
 msgstr ""
+"Autisti in servizio, il tuo account orinks.net, e backup e ripristino dal "
+"cloud."
 
 msgid ""
 "Drivers on duty, your orinks.net account, cloud backup and restore, and "
@@ -39821,7 +39887,7 @@ msgstr ""
 "Unità, cambio, volumi, meteo, voci, canale degli aggiornamenti e ritmo."
 
 msgid "Units, transmission, volumes, weather, voices, and pacing."
-msgstr ""
+msgstr "Unità, cambio, volumi, meteo, voci e ritmo."
 
 msgid ""
 "Gameplay is now a category with its own submenu: Driving assistance, "
@@ -39995,13 +40061,13 @@ msgid "Custom"
 msgstr "Personalizzato"
 
 msgid "Manual"
-msgstr ""
+msgstr "Manuale"
 
 msgid "Partial"
-msgstr ""
+msgstr "Parziale"
 
 msgid "Full"
-msgstr ""
+msgstr "Completo"
 
 msgid "Light"
 msgstr "Leggero"
@@ -40058,6 +40124,8 @@ msgid ""
 "Lane keeping full: the truck holds the lane, flick left or right to change "
 "lanes."
 msgstr ""
+"Mantenimento di corsia completo: il camion tiene la corsia, scorri a "
+"sinistra o a destra per cambiare corsia."
 
 #. placeholders: {control_name}, {control_name2}
 msgid ""
@@ -40610,6 +40678,15 @@ msgid ""
 "the time left on a delivery. You can also switch from the pause menu during "
 "a drive. The change starts when the truck next stops."
 msgstr ""
+"Quanto corre l'orologio e quanto spinge la strada. Rilassata fa passare "
+"circa dieci minuti di strada e di orologio per ogni minuto reale, con più "
+"tempo per reagire ai pericoli, danni e stanchezza più leggeri e una voce "
+"più calma. Standard tiene la pressione normale a circa venti minuti per "
+"minuto reale. Tempo reale tiene la pressione di Standard e fa andare "
+"l'orologio a velocità reale, allineato a data e ora di questo dispositivo. "
+"Cambiare non modifica mai le tue ore di servizio né il tempo rimasto per "
+"una consegna. Puoi cambiare anche dal menu di pausa durante un viaggio. Il "
+"cambio parte alla prossima fermata del camion."
 
 msgid ""
 "How fast the clock runs and how hard the road pushes. Relaxed passes about "
@@ -40771,6 +40848,11 @@ msgid ""
 "or stop sign. A loaded run leaves straight onto the highway, and a pickup "
 "in town is one stretch of road. The change applies from your next drive."
 msgstr ""
+"Attivo, guidi sulle vere strade tra l'autostrada e la struttura, svolta "
+"dopo svolta. Spento, la rampa d'uscita finisce al cancello della struttura, "
+"e nessuna uscita ha un semaforo o uno stop. Un viaggio carico riparte "
+"dritto sull'autostrada, e un ritiro in città è un solo tratto di strada. Il "
+"cambio vale dal tuo prossimo viaggio."
 
 msgid ""
 "On, you drive the real streets between the highway and a facility, turn by "
@@ -40793,6 +40875,9 @@ msgid ""
 "On, the main menu offers to send a report if the game stopped while you "
 "were playing last time, with that run's log attached."
 msgstr ""
+"Attivo, il menu principale propone di inviare una segnalazione se il gioco "
+"si è fermato mentre giocavi l'ultima volta, con il registro di quella "
+"sessione allegato."
 
 msgid ""
 "On, the main menu offers to send a report when the game closed without "
@@ -40918,19 +41003,22 @@ msgstr "Suoni di pioggia, vento, tuoni, neve e nebbia."
 
 #. placeholders: {pct}
 msgid "Outside sounds volume: {pct} percent"
-msgstr ""
+msgstr "Volume dei suoni esterni: {pct} per cento"
 
 msgid "Birds by day, insects at night, and the rivers you pass."
-msgstr ""
+msgstr "Uccelli di giorno, insetti di notte, e i fiumi che passi."
 
 #. placeholders: {pct}
 msgid "Road surface volume: {pct} percent"
-msgstr ""
+msgstr "Volume del fondo stradale: {pct} per cento"
 
 msgid ""
 "The thump of pavement seams and bridge joints under the wheels, and the "
 "tires' hum on steel grate decks."
 msgstr ""
+"Il colpo delle giunture dell'asfalto e dei ponti sotto le ruote, il sibilo "
+"delle gomme sul cemento scanalato e il ronzio sugli impalcati a griglia "
+"d'acciaio."
 
 #. placeholders: {pct}
 msgid "Engine sounds volume: {pct} percent"
@@ -41039,6 +41127,8 @@ msgid ""
 "While the road voice speaks, the engine, weather, outside sounds, and radio "
 "drop to half volume, then come back."
 msgstr ""
+"Mentre parla la voce della strada, motore, meteo, suoni esterni e radio "
+"scendono a metà volume, poi tornano."
 
 #. placeholders: {pct}
 msgid "Menu and UI sounds volume: {pct} percent"
@@ -41076,20 +41166,22 @@ msgid ""
 "Automatic shifts for you. In manual, the clutch works itself. {up} to shift "
 "up. {down} to shift down."
 msgstr ""
+"Automatico cambia marcia per te. Con il manuale, la frizione fa da sola. "
+"{up} per salire di marcia. {down} per scalare."
 
 #. one sentence of a longer line
 msgid "In manual, the clutch works itself."
-msgstr ""
+msgstr "Con il manuale, la frizione fa da sola."
 
 #. placeholders: {down}
 #. one sentence of a longer line
 msgid "{down} to shift down."
-msgstr ""
+msgstr "{down} per scalare."
 
 #. placeholders: {up}
 #. one sentence of a longer line
 msgid "{up} to shift up."
-msgstr ""
+msgstr "{up} per salire di marcia."
 
 #. placeholders: {Metric}
 msgid "Units: {Metric}"
@@ -41130,6 +41222,8 @@ msgid ""
 "Game-controller input alongside the touch screen, which always stays "
 "active. The first connected controller is used."
 msgstr ""
+"Input da controller insieme al touchscreen, che resta sempre attivo. Viene "
+"usato il primo controller collegato."
 
 msgid ""
 "Game-controller input alongside the keyboard, which always stays active. "
@@ -41175,6 +41269,10 @@ msgid ""
 "screen, for sighted and low-vision players. Off keeps the screen dark and "
 "saves battery. Speech and sound are the same either way."
 msgstr ""
+"Disegna la strada, il cruscotto, i menu e i sottotitoli di ciò che viene "
+"detto sullo schermo, per i giocatori vedenti e ipovedenti. Spento tiene lo "
+"schermo scuro e risparmia batteria. Voce e suoni restano uguali in entrambi "
+"i casi."
 
 msgid ""
 "Draws the road, the dashboard, menus and captions of what is spoken in the "
@@ -41298,7 +41396,7 @@ msgstr ""
 
 #. placeholders: {steering_assist_label}
 msgid "Steering assist: {steering_assist_label}"
-msgstr ""
+msgstr "Assistenza allo sterzo: {steering_assist_label}"
 
 msgid ""
 "Sets steering and lane keeping independently of speed assists. Manual "
@@ -41306,10 +41404,15 @@ msgid ""
 "hold the lane. Full centers the lane and assists lane changes. Pair this "
 "with any speed assist level."
 msgstr ""
+"Regola sterzo e mantenimento di corsia indipendentemente dall'assistenza "
+"alla velocità. Manuale lascia a te sterzo e cambi di corsia. Parziale segue "
+"le curve mentre tu tieni la corsia. Completo centra il camion nella corsia "
+"e aiuta nei cambi di corsia. Abbinalo a qualsiasi livello di assistenza "
+"alla velocità."
 
 #. placeholders: {speed_assist_label}
 msgid "Speed assist: {speed_assist_label}"
-msgstr ""
+msgstr "Assistenza alla velocità: {speed_assist_label}"
 
 msgid ""
 "Sets speed, braking, and descent control independently of steering. Manual "
@@ -41317,6 +41420,10 @@ msgid ""
 "descent, curve, exit, and emergency braking assistance. Pair this with any "
 "steering assist level."
 msgstr ""
+"Regola velocità, frenata e controllo in discesa indipendentemente dallo "
+"sterzo. Manuale lascia a te la velocità e il freno motore. Leggero, "
+"Standard e Forte aumentano l'aiuto in discesa, in curva, in uscita e nella "
+"frenata d'emergenza. Abbinalo a qualsiasi livello di assistenza allo sterzo."
 
 #. placeholders: {lane_keeping_label}
 msgid "Lane keeping: {lane_keeping_label}"
@@ -41453,12 +41560,27 @@ msgid ""
 "yards and docks. Presets never change pacing, hours rules, transmission, "
 "weather, or hazards."
 msgstr ""
+"Realistico attiva ogni assistenza tranne l'assistenza alla fermata in "
+"struttura, mette il controllo della velocità in discesa su Leggero e lascia "
+"spento il mantenimento di corsia. Equilibrato aggiunge il mantenimento di "
+"corsia parziale, il controllo della velocità in discesa Standard e "
+"l'assistenza alla fermata in struttura. Tutte le assistenze attiva ogni "
+"assistenza, mette il controllo della velocità in discesa su Forte e il "
+"mantenimento di corsia su completo: il camion tiene la corsia, uno "
+"scorrimento a sinistra o a destra cambia corsia, e l'uscita della tua "
+"destinazione viene presa per te. Cambiare un'assistenza porta questo su "
+"Personalizzato. Scegli ancora tu i percorsi e gestisci piazzali e banchine. "
+"I preset non cambiano mai ritmo, regole sulle ore, cambio, meteo o pericoli."
 
 msgid ""
 "Brake briefly, lift, then swipe down and hold again for half a second. A "
 "click means the brake now holds by itself. Brake again or accelerate to "
 "release it. The gas never latches. Presets never change this."
 msgstr ""
+"Frena brevemente, solleva il dito, poi scorri in giù e tieni di nuovo per "
+"mezzo secondo. Un clic vuol dire che il freno ora tiene da solo. Frena di "
+"nuovo o accelera per sbloccarlo. L'acceleratore non si blocca mai. Le "
+"preimpostazioni non lo cambiano mai."
 
 #. one sentence of a longer line
 msgid ""
@@ -41475,6 +41597,11 @@ msgid ""
 "half a mile, advise 35. Bends you are already slow enough for stay silent. "
 "{upcoming} to list the next few either way. Presets never change this."
 msgstr ""
+"Le curve che richiedono di rallentare vengono annunciate prima di "
+"arrivarci, per esempio Curva stretta a sinistra, mezzo miglio, consigliati "
+"35. Le curve per cui sei già abbastanza lento restano in silenzio. "
+"{upcoming} per elencare le prossime in ogni caso. Le preimpostazioni non lo "
+"cambiano mai."
 
 #. one sentence of a longer line
 msgid "Bends you are already slow enough for stay silent."
@@ -41487,13 +41614,15 @@ msgstr "Le preimpostazioni non lo cambiano mai."
 #. placeholders: {upcoming}
 #. one sentence of a longer line
 msgid "{upcoming} to list the next few either way."
-msgstr ""
+msgstr "{upcoming} per elencare le prossime in ogni caso."
 
 #. one sentence of a longer line
 msgid ""
 "In low-speed zones, like facility roads, gates, and construction zones, "
 "cruise can hold your current speed."
 msgstr ""
+"Nelle zone lente, come strade di impianti, cancelli e cantieri, il cruise "
+"control può mantenere la tua velocità attuale."
 
 #. placeholders: {cruise}
 msgid ""
@@ -41502,6 +41631,11 @@ msgid ""
 "normal cruise on open roads. It eases off early for the next turn or the "
 "next lower limit. Braking cancels it. Presets never change this."
 msgstr ""
+"Nelle zone lente, come strade di impianti, cancelli e cantieri, il cruise "
+"control può mantenere la tua velocità attuale. {cruise} per impostarlo. "
+"Sulle strade libere torna al cruise control normale. Rallenta in anticipo "
+"per la prossima svolta o il prossimo limite più basso. Frenare lo annulla. "
+"Le preimpostazioni non lo cambiano mai."
 
 #. one sentence of a longer line
 msgid "It eases off early for the next turn or the next lower limit."
@@ -41510,12 +41644,12 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "It hands back to normal cruise on open roads."
-msgstr ""
+msgstr "Sulle strade libere torna al cruise control normale."
 
 #. placeholders: {cruise}
 #. one sentence of a longer line
 msgid "{cruise} to set it."
-msgstr ""
+msgstr "{cruise} per impostarlo."
 
 #. placeholders: {lean}
 msgid ""
@@ -41532,10 +41666,24 @@ msgid ""
 "steer and what leans. Realistic sets this off, Balanced partial, All "
 "assists full."
 msgstr ""
+"Quanta parte della guida fa il camion. Completo tiene la corsia, si sposta "
+"da una corsia chiusa da un cantiere e prende le tue uscite e le stazioni di "
+"pesatura aperte senza freccia, compresa l'uscita di destinazione. Su "
+"completo, scorri a sinistra o a destra per cambiare corsia. Parziale segue "
+"le curve ma lascia che il camion vada alla deriva, e i cambi di corsia e la "
+"velocità toccano a te. Spento sbanda come un vero camion. Le curve tocca a "
+"te prenderle, a meno che l'assistenza in curva sia attiva, e ogni uscita "
+"richiede la freccia e la corsia di uscita. Su parziale o spento, {lean}. Il "
+"rumore della strada si mette dove sei nella corsia. Al bordo della corsia "
+"senti un tremolio quando una gomma tocca le bande rumorose, un ronzio "
+"quando ci è sopra del tutto, e la ghiaia fuori dall'asfalto. Le righe Guida "
+"allo sterzo e Suono della guida di corsia, in Audio, cambiano da che parte "
+"sterzare e cosa si inclina. Realistico lo mette su spento, Equilibrato su "
+"parziale, Tutte le assistenze su completo."
 
 #. one sentence of a longer line
 msgid "On full, flick left or right to change lanes."
-msgstr ""
+msgstr "Su completo, scorri a sinistra o a destra per cambiare corsia."
 
 #. one sentence of a longer line
 msgid ""
@@ -41548,7 +41696,7 @@ msgstr ""
 
 #. one sentence of a longer line
 msgid "Do it again to cancel."
-msgstr ""
+msgstr "Rifallo per annullare."
 
 #. one sentence of a longer line
 msgid ""
@@ -41570,10 +41718,22 @@ msgid ""
 "your truck. It never buys anything. Hours warnings and readouts work "
 "whether this is on or off."
 msgstr ""
+"Consigli in anticipo per fermarti per una pausa o per dormire finché hai "
+"ancora tempo, più l'ultima sosta che puoi raggiungere in regola. {rest} per "
+"pianificare la sosta consigliata in marcia. Rifallo per annullare. Con la "
+"voce alla guida su Standard, arriva un consiglio prima del prossimo avviso "
+"sulle ore. Su Silenziosa o Solo urgenti non c'è nessun consiglio. Avvisa "
+"anche sugli obblighi di catene. Alla bacheca degli incarichi avvisa quando "
+"il carico passa su una strada che richiede le catene e l'officina della "
+"sede può ancora venderti un set. Su strada avvisa quando un obbligo di "
+"catene segnalato riguarda il tuo camion. Non compra mai niente. Gli avvisi "
+"sulle ore e le letture funzionano sia che sia acceso sia che sia spento."
 
 #. one sentence of a longer line
 msgid "Hours warnings and readouts work whether this is on or off."
 msgstr ""
+"Gli avvisi sulle ore e le letture funzionano sia che sia acceso sia che sia "
+"spento."
 
 #. one sentence of a longer line
 msgid "It also warns about chain laws."
@@ -41604,7 +41764,7 @@ msgstr ""
 #. placeholders: {rest}
 #. one sentence of a longer line
 msgid "{rest} to plan the recommended stop while rolling."
-msgstr ""
+msgstr "{rest} per pianificare la sosta consigliata in marcia."
 
 msgid ""
 "How loud the lane and edge cues are next to everything else: the rumble "
@@ -41613,17 +41773,27 @@ msgid ""
 "Gameplay cues volume. Quieter sits under the engine, standard matches it, "
 "louder cuts through."
 msgstr ""
+"Quanto forti sono i segnali di corsia e bordo rispetto a tutto il resto: le "
+"bande rumorose, la ghiaia fuori dall'asfalto, il localizzatore di corsia, e "
+"le bande trasversali prima di una curva pericolosa. Regola solo questi "
+"segnali, sopra il volume dei segnali di gioco. Più piano resta sotto il "
+"motore, standard lo pareggia, più forte si fa sentire."
 
 msgid ""
 "Double tap to type a seed, a whole number. Flick up or down to roll a new "
 "one. Every synthesized piece changes with it."
 msgstr ""
+"Tocca due volte per scrivere un seme, un numero intero. Scorri in su o in "
+"giù per estrarne uno nuovo. Ogni brano sintetizzato cambia con lui."
 
 msgid ""
 "On, driving lines name the gesture for the next step, like Double tap to "
 "signal for the exit. Off, they leave the gesture out. Driving school always "
 "names it."
 msgstr ""
+"Attivi, le frasi di guida nominano il gesto per il passo successivo, per "
+"esempio Tocca due volte per mettere la freccia per l'uscita. Disattivi, "
+"lasciano fuori il gesto. La scuola guida lo nomina sempre."
 
 msgid ""
 "Extra callouts between directions: parks, rivers, mountain passes, museums "
@@ -41631,6 +41801,11 @@ msgid ""
 "switches below pick each kind. Safety and navigation are never affected. "
 "Town names are the Place callouts row below."
 msgstr ""
+"Annunci in più tra le indicazioni: parchi, fiumi, passi di montagna, musei "
+"e cartelloni. Scorri in su per accenderli tutti, o in giù per spegnerli "
+"tutti. Gli interruttori qui sotto scelgono ogni tipo. Sicurezza e "
+"navigazione non cambiano mai. I nomi delle città sono la riga Annunci delle "
+"località, più sotto."
 
 #. placeholders: {engine_label}
 msgid "Voice engine: {engine_label}"
@@ -41849,6 +42024,8 @@ msgstr ""
 
 msgid "Double tap a gesture to choose the command it runs while driving."
 msgstr ""
+"Tocca due volte un gesto per scegliere il comando che esegue durante la "
+"guida."
 
 msgid "Gesture"
 msgstr "Gesto"
@@ -41888,33 +42065,51 @@ msgid ""
 "with the phone while you drive. With lane keeping on full, a tilt changes "
 "one lane. Swipes and flicks still steer. Flick up or down to change it."
 msgstr ""
+"Attivo, inclinare il telefono a sinistra o a destra sterza, e lo schermo "
+"smette di ruotare con il telefono mentre guidi. Con il mantenimento di "
+"corsia completo, un'inclinazione cambia una corsia. Gli scorrimenti "
+"continuano a sterzare. Scorri in su o in giù per cambiarlo."
 
 msgid ""
 "On, tilting the phone left or right steers, and the screen stops turning "
 "with the phone while you drive. With lane keeping on full, a tilt changes "
 "one lane. Swipes and flicks still steer. D-pad Right or Left changes it."
 msgstr ""
+"Attivo, inclinare il telefono a sinistra o a destra sterza, e lo schermo "
+"smette di ruotare con il telefono mentre guidi. Con il mantenimento di "
+"corsia completo, un'inclinazione cambia una corsia. Gli scorrimenti "
+"continuano a sterzare. D-pad destra o sinistra lo cambia."
 
 msgid ""
 "On, tilting the phone left or right steers, and the screen stops turning "
 "with the phone while you drive. With lane keeping on full, a tilt changes "
 "one lane. Swipes and flicks still steer. Right or Left arrow changes it."
 msgstr ""
+"Attivo, inclinare il telefono a sinistra o a destra sterza, e lo schermo "
+"smette di ruotare con il telefono mentre guidi. Con il mantenimento di "
+"corsia completo, un'inclinazione cambia una corsia. Gli scorrimenti "
+"continuano a sterzare. Freccia destra o sinistra lo cambia."
 
 msgid ""
 "How far the phone tilts for full steering. A smaller number steers harder. "
 "Flick up or down to change it."
 msgstr ""
+"Quanto si inclina il telefono per sterzare al massimo. Un numero più "
+"piccolo sterza di più. Scorri in su o in giù per cambiarlo."
 
 msgid ""
 "How far the phone tilts for full steering. A smaller number steers harder. "
 "D-pad Right or Left changes it."
 msgstr ""
+"Quanto si inclina il telefono per sterzare al massimo. Un numero più "
+"piccolo sterza di più. D-pad destra o sinistra lo cambia."
 
 msgid ""
 "How far the phone tilts for full steering. A smaller number steers harder. "
 "Right or Left arrow changes it."
 msgstr ""
+"Quanto si inclina il telefono per sterzare al massimo. Un numero più "
+"piccolo sterza di più. Freccia destra o sinistra lo cambia."
 
 msgid "Every touch gesture is back to its default."
 msgstr "Tutti i gesti touch sono tornati a quelli predefiniti."
@@ -41926,14 +42121,14 @@ msgid "Touch haptics disabled."
 msgstr "Vibrazione touch disattivata."
 
 msgid "Tilt steering: On"
-msgstr ""
+msgstr "Sterzo a inclinazione: attivo"
 
 msgid "Tilt steering: Off"
-msgstr ""
+msgstr "Sterzo a inclinazione: spento"
 
 #. placeholders: {touch_tilt_full}
 msgid "Tilt for full steering: {touch_tilt_full} degrees"
-msgstr ""
+msgstr "Inclinazione per sterzare al massimo: {touch_tilt_full} gradi"
 
 #. placeholders: {touch_deep_swipe_points}
 msgid "Deep swipe starts at: {touch_deep_swipe_points}"
@@ -41961,24 +42156,30 @@ msgid "Puts every gesture on this screen back where it started."
 msgstr "Rimette ogni gesto di questa schermata dov'era all'inizio."
 
 msgid "New gesture reading: On"
-msgstr ""
+msgstr "Nuova lettura dei gesti: attiva"
 
 msgid "New gesture reading: Off"
-msgstr ""
+msgstr "Nuova lettura dei gesti: spenta"
 
 msgid ""
 "A trial. Every gesture should work as before. Turn it off if one does not."
 msgstr ""
+"Una prova. Ogni gesto dovrebbe funzionare come prima. Spegnila se uno non "
+"funziona."
 
 msgid ""
 "Up and Down pick a command or a group, and Enter opens a group. Enter on a "
 "command puts it on the gesture. Escape keeps the one it has."
 msgstr ""
+"Su e giù scelgono un comando o un gruppo, ed Enter apre un gruppo. Enter su "
+"un comando lo mette sul gesto. Escape tiene quello che ha."
 
 msgid ""
 "Double tap a command to put it on the gesture, or a group to open it. Flick "
 "down with two fingers to keep the one it has."
 msgstr ""
+"Tocca due volte un comando per metterlo sul gesto, o un gruppo per aprirlo. "
+"Scorri in giù con due dita per tenere quello che ha."
 
 #. placeholders: {gesture_name}, {label}
 msgid "{gesture_name} now runs {label}."
@@ -41993,32 +42194,39 @@ msgstr "Ancora una volta per uscire dall'esercizio."
 #. one sentence of a longer line
 msgid "Steers left, or changes one lane with lane keeping on full."
 msgstr ""
+"Sterza a sinistra, o cambia una corsia con il mantenimento di corsia "
+"completo."
 
 #. placeholders: {whole}
 #. one sentence of a longer line
 msgid "Tilt left, {whole} degrees."
-msgstr ""
+msgstr "Inclinato a sinistra, {whole} gradi."
 
 #. placeholders: {whole}
 msgid ""
 "Tilt left, {whole} degrees. Steers left, or changes one lane with lane "
 "keeping on full."
 msgstr ""
+"Inclinato a sinistra, {whole} gradi. Sterza a sinistra, o cambia una corsia "
+"con il mantenimento di corsia completo."
 
 #. one sentence of a longer line
 msgid "Steers right, or changes one lane with lane keeping on full."
 msgstr ""
+"Sterza a destra, o cambia una corsia con il mantenimento di corsia completo."
 
 #. placeholders: {whole}
 #. one sentence of a longer line
 msgid "Tilt right, {whole} degrees."
-msgstr ""
+msgstr "Inclinato a destra, {whole} gradi."
 
 #. placeholders: {whole}
 msgid ""
 "Tilt right, {whole} degrees. Steers right, or changes one lane with lane "
 "keeping on full."
 msgstr ""
+"Inclinato a destra, {whole} gradi. Sterza a destra, o cambia una corsia con "
+"il mantenimento di corsia completo."
 
 #. one sentence of a longer line
 msgid "Deep swipe."
@@ -42422,7 +42630,7 @@ msgstr ""
 "indietro. Home ed End saltano alla prima o all'ultima opzione."
 
 msgid "Page Up and Page Down move ten options at a time."
-msgstr ""
+msgstr "Page Up e Page Down spostano di dieci opzioni alla volta."
 
 msgid ""
 "Type a letter to find an option starting with it. F1 explains the selected "
@@ -44883,23 +45091,35 @@ msgstr "Come si gioca, {title}, pagina {page} di {pages}"
 msgid ""
 "Flick left or right with three fingers to move ten options back or forward."
 msgstr ""
+"Scorri a sinistra o a destra con tre dita per spostarti di dieci opzioni "
+"indietro o avanti."
 
 msgid ""
 "Settings changes driving assistance, sound, speech, and controls. Report a "
 "problem opens the report form in your browser, with your game log attached."
 msgstr ""
+"Impostazioni cambia assistenza alla guida, suono, voce e comandi. Segnala "
+"un problema apre il modulo di segnalazione nel browser, con il registro di "
+"gioco allegato."
 
 msgid ""
 "Jobs name cargo, weight, pay, deadline, facilities, and equipment "
 "requirements. Flick up with two fingers on a job for the details. Fuel adds "
 "weight, so check the weight before filling up on a load near the limit."
 msgstr ""
+"Gli incarichi indicano carico, peso, paga, scadenza, strutture e requisiti "
+"dei mezzi. Scorri in su con due dita su un incarico per i dettagli. Il "
+"carburante aggiunge peso, quindi controlla il peso prima di fare il pieno "
+"con un carico vicino al limite."
 
 msgid ""
 "Facilities determine local cargo. Dispatch routes include stops for fuel "
 "and legal rest. Flick up with two fingers on a load for its requirements "
 "before you accept it."
 msgstr ""
+"Le strutture decidono il carico locale. I percorsi della centrale includono "
+"soste per carburante e riposo in regola. Scorri in su con due dita su un "
+"carico per i suoi requisiti prima di accettarlo."
 
 msgid ""
 "Partial follows bends with gentle drift. Off leaves steering to you unless "
@@ -44907,6 +45127,12 @@ msgid ""
 "to change lanes. With Tilt steering on under Touch gestures, tilting the "
 "phone steers too, and with lane keeping on full a tilt changes one lane."
 msgstr ""
+"Parziale segue le curve con una deriva leggera. Spento lascia lo sterzo a "
+"te, a meno che l'assistenza in curva non sia attiva. Tieni premuto un "
+"comando di sterzo oltre la linea di corsia per cambiare corsia. Con lo "
+"Sterzo a inclinazione attivo in Gesti touch, anche inclinare il telefono "
+"sterza, e con il mantenimento di corsia completo un'inclinazione cambia una "
+"corsia."
 
 msgid ""
 "The radio plays while the engine runs. A three-finger flick right tunes "
@@ -44959,9 +45185,12 @@ msgid ""
 "and controls. Audio, Speech, and Problem reports have separate choices. F1 "
 "explains the selected setting."
 msgstr ""
+"Gioco contiene assistenza alla guida, difficoltà e ore, mondo e traffico, e "
+"controlli. Audio, Voce e Segnalazioni di problemi hanno scelte separate. F1 "
+"spiega l'impostazione selezionata."
 
 msgid "You can choose a separate driving event voice."
-msgstr ""
+msgstr "Puoi scegliere una voce separata per gli eventi di guida."
 
 #. one sentence of a longer line
 msgid "How do I change stations?"
@@ -44988,101 +45217,144 @@ msgid ""
 "Controllers work alongside the screen. Button names use the Xbox layout. "
 "Change button assignments under Settings, Gameplay, Controls."
 msgstr ""
+"I controller funzionano insieme allo schermo. I nomi dei pulsanti usano lo "
+"schema Xbox. Cambia le assegnazioni dei pulsanti in Impostazioni, Gioco, "
+"Controlli."
 
 msgid ""
 "On newer Xbox controllers, Back is the View button, left of the Xbox "
 "button, and Start is the Menu button on its right."
 msgstr ""
+"Sui controller Xbox più recenti, Back è il pulsante Visualizza, a sinistra "
+"del pulsante Xbox, e Start è il pulsante Menu alla sua destra."
 
 msgid ""
 "If the controller does nothing, check that Controller is enabled under "
 "Settings, Gameplay, Controls. The game uses the first controller it finds, "
 "so disconnect other controllers."
 msgstr ""
+"Se il controller non fa nulla, controlla che Controller sia attivato in "
+"Impostazioni, Gioco, Controlli. Il gioco usa il primo controller che trova, "
+"quindi scollega gli altri controller."
 
 msgid ""
 "Flick right or left to move to the next or previous option. Double tap "
 "chooses it. Tap reads it again."
 msgstr ""
+"Scorri a destra o a sinistra per passare all'opzione successiva o "
+"precedente. Il doppio tocco la sceglie. Un tocco la rilegge."
 
 msgid ""
 "Flick down with two fingers to go back. Flick up or down with three fingers "
 "to jump to the first or last option."
 msgstr ""
+"Scorri in giù con due dita per tornare indietro. Scorri in su o in giù con "
+"tre dita per saltare alla prima o all'ultima opzione."
 
 msgid ""
 "On a setting, flick up for its next value and down for the previous one."
 msgstr ""
+"Su un'impostazione, scorri in su per il valore successivo e in giù per "
+"quello precedente."
 
 msgid "Flick up with two fingers to hear what the selected option does."
 msgstr ""
+"Scorri in su con due dita per sentire cosa fa l'opzione selezionata."
 
 msgid ""
 "Flick left with two fingers to repeat the latest message, then step back. "
 "Flick right with two fingers to move forward."
 msgstr ""
+"Scorri a sinistra con due dita per ripetere l'ultimo messaggio, poi tornare "
+"indietro. Scorri a destra con due dita per andare avanti."
 
 msgid "Tap with two fingers to stop speech."
-msgstr ""
+msgstr "Tocca con due dita per fermare la voce."
 
 msgid ""
 "In How to play, flick right or left to read one line at a time. Flick up "
 "for the next page and down for the previous one. Double tap reads the whole "
 "page."
 msgstr ""
+"In Come si gioca, scorri a destra o a sinistra per leggere una riga alla "
+"volta. Scorri in su per la pagina successiva e in giù per quella "
+"precedente. Il doppio tocco legge tutta la pagina."
 
 msgid ""
 "Flick up with three fingers for the first page, and down for the last."
 msgstr ""
+"Scorri in su con tre dita per la prima pagina, e in giù per l'ultima."
 
 msgid ""
 "Practice gestures names each gesture without moving the truck. It is on the "
 "main and pause menus. Flick down with two fingers twice to leave."
 msgstr ""
+"Esercitati con i gesti nomina ogni gesto senza muovere il camion. Si trova "
+"nel menu principale e nel menu di pausa. Scorri in giù con due dita due "
+"volte per uscire."
 
 msgid ""
 "Turn two fingers right to start the engine. Turn them left to stop it once "
 "the truck has stopped."
 msgstr ""
+"Ruota due dita a destra per accendere il motore. Ruotale a sinistra per "
+"spegnerlo quando il camion è fermo."
 
 msgid ""
 "Wait for air pressure to reach 100 psi, then swipe up and hold to release "
 "the parking brake. Repeated hard braking uses air."
 msgstr ""
+"Aspetta che la pressione dell'aria arrivi a 100 psi, poi scorri in su e "
+"tieni per togliere il freno di stazionamento. Frenare forte più volte "
+"consuma aria."
 
 msgid ""
 "Swipe up and hold to accelerate. Lift to coast. Swipe down and hold to "
 "brake."
 msgstr ""
+"Scorri in su e tieni per accelerare. Solleva il dito per andare per "
+"inerzia. Scorri in giù e tieni per frenare."
 
 msgid ""
 "A deep swipe down, about three flicks long, is the hardest stop. Under one "
 "mile per hour it sets the parking brake."
 msgstr ""
+"Uno scorrimento profondo in giù, lungo circa tre scorrimenti, è la frenata "
+"più forte. Sotto un miglio orario inserisce il freno di stazionamento."
 
 msgid ""
 "In automatic, stop fully, lift, then swipe down and hold again to reverse. "
 "A quick swipe or a brake held through the stop keeps the truck stopped."
 msgstr ""
+"Con il cambio automatico, fermati del tutto, solleva il dito, poi scorri in "
+"giù e tieni di nuovo per andare in retromarcia. Uno scorrimento breve o un "
+"freno tenuto durante la fermata tiene fermo il camion."
 
 msgid ""
 "While reversing, stop with a swipe up and hold, lift, then swipe up and "
 "hold again for forward."
 msgstr ""
+"In retromarcia, fermati scorrendo in su e tenendo, solleva il dito, poi "
+"scorri in su e tieni di nuovo per andare avanti."
 
 msgid ""
 "With Latching brake on, brake briefly, then swipe down and hold again for "
 "half a second. A click and announcement confirm the latch."
 msgstr ""
+"Con il freno bloccabile attivo, frena brevemente, poi scorri in giù e tieni "
+"di nuovo per mezzo secondo. Un clic e un annuncio confermano il blocco."
 
 msgid ""
 "Brake again or accelerate to release the latch. The gas never latches."
 msgstr ""
+"Frena di nuovo o accelera per sbloccarlo. L'acceleratore non si blocca mai."
 
 #. one sentence of a longer line
 msgid ""
 "Applying the parking brake at speed causes a hard stop and tire damage."
 msgstr ""
+"Inserire il freno di stazionamento in marcia causa una frenata brusca e "
+"danni alle gomme."
 
 #. placeholders: {do_cruise}
 msgid ""
@@ -45090,6 +45362,9 @@ msgid ""
 "Parked with the parking brake set, {do_cruise} to run the engine at a fast "
 "idle."
 msgstr ""
+"Inserire il freno di stazionamento in marcia causa una frenata brusca e "
+"danni alle gomme. Parcheggiato con il freno di stazionamento inserito, "
+"{do_cruise} per portare il motore al minimo accelerato."
 
 #. placeholders: {do_cruise}
 #. one sentence of a longer line
@@ -45097,46 +45372,61 @@ msgid ""
 "Parked with the parking brake set, {do_cruise} to run the engine at a fast "
 "idle."
 msgstr ""
+"Parcheggiato con il freno di stazionamento inserito, {do_cruise} per "
+"portare il motore al minimo accelerato."
 
 msgid ""
 "In a manual, hold a pedal and flick up or down with a second finger to "
 "shift. The flick works the clutch."
 msgstr ""
+"Con il cambio manuale, tieni premuto un pedale e scorri in su o in giù con "
+"un secondo dito per cambiare marcia. Lo scorrimento aziona la frizione."
 
 msgid ""
 "Slowing in a tall gear takes neutral. A flick up from neutral takes the "
 "gear that fits your speed."
 msgstr ""
+"Rallentando in una marcia alta si passa in folle. Uno scorrimento in su "
+"dalla folle inserisce la marcia adatta alla tua velocità."
 
 msgid ""
 "Neutral, Reverse, and Automatic or manual shifting are under Gears and "
 "engine brake on the three-finger tap list."
 msgstr ""
+"Folle, Retromarcia e Cambio automatico o manuale sono in Marce e freno "
+"motore, nell'elenco del tocco con tre dita."
 
 msgid "Hold two fingers to sound the horn."
-msgstr ""
+msgstr "Tieni premute due dita per suonare il clacson."
 
 #. placeholders: {do_cruise}
 #. one sentence of a longer line
 msgid "With cruise off, {do_cruise} to turn it on."
-msgstr ""
+msgstr "Con il cruise control spento, {do_cruise} per attivarlo."
 
 #. placeholders: {do_cruise}
 msgid ""
 "With cruise off, {do_cruise} to turn it on. On open roads it follows "
 "traffic. On low-speed roads it follows local limits, queues and corners."
 msgstr ""
+"Con il cruise control spento, {do_cruise} per attivarlo. Sulle strade "
+"libere segue il traffico. Sulle strade lente segue limiti locali, code e "
+"curve."
 
 #. placeholders: {do_cruise_up}, {do_cruise_down}
 msgid ""
 "With cruise on, {do_cruise_up} or {do_cruise_down} to move the cruise speed "
 "to the next multiple of five."
 msgstr ""
+"Con il cruise control attivo, {do_cruise_up} o {do_cruise_down} per portare "
+"la velocità del cruise control al multiplo di cinque successivo."
 
 msgid ""
 "That changes the open-road cruise speed, even while cruise holds a lower "
 "limit."
 msgstr ""
+"Questo cambia la velocità del cruise control su strada libera, anche mentre "
+"tiene un limite più basso."
 
 msgid ""
 "Cruise slows early for a sharp drop in the posted limit, and never holds "
@@ -45148,35 +45438,47 @@ msgstr ""
 #. placeholders: {do_speed}
 msgid "{do_speed} for the active speed-control mode and cruise speed."
 msgstr ""
+"{do_speed} per la modalità attiva di controllo della velocità e la velocità "
+"del cruise control."
 
 msgid ""
 "Touch the brakes to cancel cruise. Turned on again, it resumes the previous "
 "target. Cruise pauses at the pickup and comes back on after you leave with "
 "the load."
 msgstr ""
+"Sfiora i freni per annullare il cruise control. Riattivato, riprende "
+"l'obiettivo precedente. Il cruise control si mette in pausa al ritiro e si "
+"riattiva quando riparti con il carico."
 
 #. placeholders: {do_engine_brake}
 msgid "{do_engine_brake} to turn the engine brake on or off."
-msgstr ""
+msgstr "{do_engine_brake} per accendere o spegnere il freno motore."
 
 msgid ""
 "Engine brake stage 1, 2 and 3, and Automatic engine brake on or off, are "
 "under Gears and engine brake on the three-finger tap list."
 msgstr ""
+"Freno motore stadio 1, 2 e 3, e Freno motore automatico acceso o spento, "
+"sono in Marce e freno motore, nell'elenco del tocco con tre dita."
 
 msgid ""
 "Hot brakes lose stopping power. Safe speed, under Speed and cruise on the "
 "list, gives a safe speed for the load, grade, weather, and bend. Strong "
 "engine braking can break traction on ice."
 msgstr ""
+"I freni caldi perdono potenza frenante. Velocità sicura, in Velocità e "
+"cruise control nell'elenco, dà una velocità sicura per carico, pendenza, "
+"meteo e curva. Una forte frenata motore può far perdere aderenza sul "
+"ghiaccio."
 
 msgid "Driving gestures"
-msgstr ""
+msgstr "Gesti di guida"
 
 #. placeholders: {do_speed}
 #. one sentence of a longer line
 msgid "{do_speed} for your speed, gear, and speed-control mode."
 msgstr ""
+"{do_speed} per velocità, marcia e modalità di controllo della velocità."
 
 #. placeholders: {do_speed}
 msgid ""
@@ -45184,18 +45486,27 @@ msgid ""
 "transmission it adds RPM. It also adds air or brakes when they need "
 "attention, and the distance to an exit you signaled for."
 msgstr ""
+"{do_speed} per velocità, marcia e modalità di controllo della velocità. Col "
+"cambio manuale aggiunge i giri del motore. Aggiunge anche l'aria o i freni "
+"quando richiedono attenzione, e la distanza dall'uscita per cui hai messo "
+"la freccia."
 
 #. placeholders: {do_route}
 #. one sentence of a longer line
 msgid ""
 "{do_route} for how far along you are, distance remaining, and your location."
 msgstr ""
+"{do_route} per sapere a che punto sei, la distanza rimanente e dove ti "
+"trovi."
 
 #. placeholders: {do_route}
 msgid ""
 "{do_route} for how far along you are, distance remaining, and your "
 "location. A planned stop changes the distance to that stop."
 msgstr ""
+"{do_route} per sapere a che punto sei, la distanza rimanente e dove ti "
+"trovi. Con una sosta pianificata, la distanza diventa quella fino alla "
+"sosta."
 
 #. placeholders: {do_upcoming}
 msgid ""
@@ -45203,103 +45514,152 @@ msgid ""
 "sign at the end of the ramp, the next lower speed limit, the next stop, and "
 "the next bend you need to slow for."
 msgstr ""
+"{do_upcoming} per sapere cosa arriva: la tua uscita segnalata, il semaforo "
+"o lo stop in fondo alla rampa, il prossimo limite di velocità più basso, la "
+"prossima sosta e la prossima curva in cui devi rallentare."
 
 msgid "Double tap to signal for an announced exit or cancel the signal."
 msgstr ""
+"Tocca due volte per mettere la freccia per un'uscita annunciata o "
+"annullarla."
 
 msgid ""
 "Everything else is on the three-finger tap list. Tap with three fingers, "
 "flick to a command, and double tap to run it."
 msgstr ""
+"Tutto il resto è nell'elenco del tocco con tre dita. Tocca con tre dita, "
+"scorri fino a un comando e tocca due volte per eseguirlo."
 
 msgid ""
 "Its first row is the Status menu, with Route, Driver, Map, and Radio "
 "reports, plus Driver apps."
 msgstr ""
+"La sua prima riga è il menu Stato, con i rapporti Percorso, Autista, Mappa "
+"e Radio, più le App dell'autista."
 
 msgid ""
 "Under Speed and cruise, Posted speed limit reads the limit, the zone, and "
 "how far over you are. Safe speed is there too."
 msgstr ""
+"In Velocità e cruise control, Limite di velocità indicato legge il limite, "
+"la zona e di quanto lo stai superando. C'è anche Velocità sicura."
 
 msgid ""
 "Under Road and stops are Grade, Weather, and Lane position, which also says "
 "whether the lane beside you is open."
 msgstr ""
+"In Strada e soste ci sono Pendenza, Meteo e Posizione nella corsia, che "
+"dice anche se la corsia accanto è libera."
 
 msgid ""
 "Rest stop, also under Road and stops, plans rest while moving or opens a "
 "nearby stop when fully stopped."
 msgstr ""
+"Sosta, sempre in Strada e soste, pianifica il riposo in marcia o apre una "
+"sosta vicina quando sei del tutto fermo."
 
 msgid ""
 "Repeat the last announcement is on the list. Repeat the last CB chatter, "
 "under Radio and CB, gives its current distance."
 msgstr ""
+"Ripeti l'ultimo annuncio è nell'elenco. Ripeti l'ultimo messaggio al CB, in "
+"Radio e CB, dà la sua distanza attuale."
 
 msgid ""
 "Where am I has the state, the road, the town or nearest town, the "
 "direction, and the county."
 msgstr ""
+"Dove sono dice lo stato, la strada, la città o la più vicina, la direzione "
+"e la contea."
 
 msgid "Under Truck, Fuel reads fuel and range."
-msgstr ""
+msgstr "In Camion, Carburante legge carburante e autonomia."
 
 msgid ""
 "Under Hours and clock, Clock reads the clock, deadline, and nearest hours "
 "limit. Time at the wheel adds time on duty. What ends this shift adds "
 "reachable legal rest."
 msgstr ""
+"In Ore e orologio, Orologio legge l'ora, la scadenza e il limite di ore più "
+"vicino. Tempo al volante aggiunge il tempo in servizio. Cosa chiude questo "
+"turno aggiunge il riposo in regola raggiungibile."
 
 msgid ""
 "Tap with two fingers to stop the driving event voice. Flick down with two "
 "fingers to pause. Flick up with two fingers for the wheel's help."
 msgstr ""
+"Tocca con due dita per fermare la voce degli eventi di guida. Scorri in giù "
+"con due dita per mettere in pausa. Scorri in su con due dita per l'aiuto "
+"alla guida."
 
 msgid ""
 "Flick left or right with two fingers to review messages. Flick left or "
 "right with three fingers to tune the radio."
 msgstr ""
+"Scorri a sinistra o a destra con due dita per rileggere i messaggi. Scorri "
+"a sinistra o a destra con tre dita per sintonizzare la radio."
 
 msgid ""
 "Most gestures can be moved under Settings, Gameplay, Controls, then Touch "
 "gestures. These pages follow your assignments."
 msgstr ""
+"La maggior parte dei gesti si può spostare in Impostazioni, Gioco, "
+"Controlli, poi Gesti touch. Queste pagine seguono le tue assegnazioni."
 
 msgid ""
 "Full lane keeping centers the truck, follows bends, and takes route exits "
 "including the destination. Flick left or right to change one lane."
 msgstr ""
+"Il mantenimento di corsia completo tiene il camion al centro, segue le "
+"curve e prende le uscite del percorso, compresa quella di destinazione. "
+"Scorri a sinistra o a destra per cambiare una corsia."
 
 msgid ""
 "Partial follows bends with gentle drift. Off leaves steering to you unless "
 "curve assistance is enabled. Swipe left or right and hold to steer."
 msgstr ""
+"Parziale segue le curve con una deriva leggera. Spento lascia lo sterzo a "
+"te, a meno che l'assistenza in curva non sia attiva. Scorri a sinistra o a "
+"destra e tieni per sterzare."
 
 msgid ""
 "With partial or off, hold the swipe across the lane line to change lanes. A "
 "flick changes one lane with any lane keeping."
 msgstr ""
+"Su parziale o spento, tieni lo scorrimento oltre la linea di corsia per "
+"cambiare corsia. Uno scorrimento rapido cambia una corsia con qualsiasi "
+"mantenimento di corsia."
 
 msgid ""
 "With Tilt steering on under Touch gestures, tilting the phone steers too. "
 "With lane keeping on full, a tilt changes one lane."
 msgstr ""
+"Con lo Sterzo a inclinazione attivo in Gesti touch, anche inclinare il "
+"telefono sterza. Con il mantenimento di corsia completo, un'inclinazione "
+"cambia una corsia."
 
 msgid ""
 "With lane keeping off and curve assistance off, swipe and hold toward a "
 "called bend to follow the road. Lifting straightens the truck with the road."
 msgstr ""
+"Con mantenimento di corsia e assistenza in curva spenti, scorri e tieni "
+"verso una curva annunciata per seguire la strada. Sollevando il dito, il "
+"camion si raddrizza con la strada."
 
 msgid ""
 "Hold one finger still for half a second to straighten the wheel. Your "
 "position within the lane remains yours to correct."
 msgstr ""
+"Tieni un dito fermo per mezzo secondo per raddrizzare il volante. La "
+"posizione nella corsia resta da correggere a te."
 
 msgid ""
 "Lane locator, under Road and stops on the three-finger tap list, is a soft "
 "tock that follows your place in the lane, with lane keeping partial or off."
 msgstr ""
+"Localizzatore di corsia, in Strada e soste nell'elenco del tocco con tre "
+"dita, è un toc morbido che segue la tua posizione nella corsia, con il "
+"mantenimento di corsia parziale o spento."
 
 msgid ""
 "The Steering guide setting can reverse which way to steer, and Lane guide "
@@ -45313,89 +45673,138 @@ msgid ""
 "fuel and sleep, or food. It is under Road and stops on the three-finger tap "
 "list."
 msgstr ""
+"In marcia, Sosta chiede a cosa serve la sosta: carburante, una pausa, il "
+"sonno, carburante e sonno, o cibo. Si trova in Strada e soste, nell'elenco "
+"del tocco con tre dita."
 
 msgid ""
 "With hours-planning hints on, a break or sleep plan takes the recommended "
 "stop. Run Rest stop again to cancel the plan."
 msgstr ""
+"Con i suggerimenti per pianificare le ore attivi, un piano per pausa o "
+"sonno prende la sosta consigliata. Usa di nuovo Sosta per annullare il "
+"piano."
 
 msgid ""
 "Planning a stop does not signal for it. Double tap to signal for the "
 "announced exit or cancel the signal."
 msgstr ""
+"Pianificare una sosta non mette la freccia. Tocca due volte per mettere la "
+"freccia per l'uscita annunciata o annullarla."
 
 msgid ""
 "When clear, pull ahead as instructed. Facility stopping assistance can take "
 "the pedals to the gate. Braking ends it."
 msgstr ""
+"Quando è libero, vai avanti come indicato. L'assistenza alla fermata in "
+"struttura può prendere i pedali fino al cancello. Frenare la disattiva."
 
 msgid ""
 "Follow the local street and yard guidance, stop at the gate, then double "
 "tap to confirm arrival. At the receiver choose Dock and deliver."
 msgstr ""
+"Segui le indicazioni per le strade locali e il piazzale, fermati al "
+"cancello, poi tocca due volte per confermare l'arrivo. Dal destinatario "
+"scegli Attracca e consegna."
 
 msgid ""
 "Fully stopped at a route stop, double tap to open its services. Fully "
 "stopped elsewhere, Rest stop on the list offers emergency sleep on the "
 "shoulder. A nearby stop always comes first."
 msgstr ""
+"Fermo del tutto a una sosta del percorso, tocca due volte per aprire i suoi "
+"servizi. Fermo del tutto altrove, Sosta nell'elenco offre il sonno "
+"d'emergenza sulla corsia d'emergenza. Una sosta vicina viene sempre prima."
 
 msgid ""
 "Nearby vehicles merge, slow, pass, and queue. Lane position, under Road and "
 "stops on the three-finger tap list, tells you which neighboring lanes are "
 "available. Check before changing lanes or returning after a pass."
 msgstr ""
+"I veicoli vicini si immettono, rallentano, sorpassano e si mettono in coda. "
+"Posizione nella corsia, in Strada e soste nell'elenco del tocco con tre "
+"dita, ti dice quali corsie vicine sono disponibili. Controlla prima di "
+"cambiare corsia o di rientrare dopo un sorpasso."
 
 msgid ""
 "Weather changes grip, visibility, safe speed, following distance, and fuel "
 "use. Weather, under Road and stops on the list, reports conditions. Snow "
 "and ice need gentler braking and steering."
 msgstr ""
+"Il meteo cambia aderenza, visibilità, velocità sicura, distanza di "
+"sicurezza e consumo di carburante. Meteo, in Strada e soste nell'elenco, "
+"riporta le condizioni. Neve e ghiaccio richiedono frenate e sterzate più "
+"dolci."
 
 msgid ""
 "When a trooper signals you, double tap and brake to a stop for a license "
 "and logbook check. Ignoring the lights escalates to a forced stop or "
 "pursuit."
 msgstr ""
+"Quando un agente ti fa segno di fermarti, tocca due volte e frena fino a "
+"fermarti per un controllo di patente e registro delle ore. Ignorare i "
+"lampeggianti porta a un fermo forzato o a un inseguimento."
 
 msgid ""
 "CB chatter is what other drivers say they saw, and it is not always right. "
 "It can be stale and never claims the road is clear. Repeat the last CB "
 "chatter, under Radio and CB on the list, repeats it with updated distance."
 msgstr ""
+"Le chiacchiere al CB sono ciò che altri autisti dicono di aver visto, e non "
+"sempre sono giuste. Possono essere superate e non dicono mai che la strada "
+"è libera. Ripeti l'ultimo messaggio al CB, in Radio e CB nell'elenco, le "
+"ripete con la distanza aggiornata."
 
 msgid ""
 "At an open scale, slow into its lane and double tap to signal. Stop on the "
 "scale, then double tap again to check in."
 msgstr ""
+"A una pesa aperta, rallenta nella sua corsia e tocca due volte per mettere "
+"la freccia. Fermati sulla pesa, poi tocca di nuovo due volte per "
+"registrarti."
 
 msgid ""
 "Time at the wheel, When the break is due, and What ends this shift are "
 "under Hours and clock on the three-finger tap list. Check again as traffic "
 "or weather changes."
 msgstr ""
+"Tempo al volante, Quando tocca la pausa e Cosa chiude questo turno sono in "
+"Ore e orologio, nell'elenco del tocco con tre dita. Controlla di nuovo "
+"quando cambiano traffico o meteo."
 
 msgid ""
 "Away from route points and fully stopped, Rest stop under Road and stops, "
 "or the pause menu, offers emergency sleep on the shoulder. Ten hours pass "
 "with poor rest, and you may get a parking ticket or minor damage."
 msgstr ""
+"Lontano dai punti del percorso e del tutto fermo, Sosta in Strada e soste, "
+"o il menu di pausa, offre il riposo di emergenza sulla corsia d'emergenza. "
+"Passano dieci ore con un riposo scarso, e puoi prendere una multa per sosta "
+"o danni lievi."
 
 msgid ""
 "Open driving status with a three-finger tap, then a double tap, and choose "
 "Driver apps."
 msgstr ""
+"Apri lo stato di guida con un tocco con tre dita, poi un doppio tocco, e "
+"scegli App dell'autista."
 
 msgid ""
 "Flick right or left to choose an app, and double tap to open it. Flick down "
 "with two fingers to return."
 msgstr ""
+"Scorri a destra o a sinistra per scegliere un'app, e tocca due volte per "
+"aprirla. Scorri in giù con due dita per tornare indietro."
 
 msgid ""
 "In a report, flick right or left to move through the information, and "
 "double tap to repeat what you selected. Flick down with two fingers to "
 "return to Driver apps, then to driving status."
 msgstr ""
+"In un rapporto, scorri a destra o a sinistra per muoverti tra le "
+"informazioni, e tocca due volte per ripetere quello che hai selezionato. "
+"Scorri in giù con due dita per tornare alle App dell'autista, poi allo "
+"stato di guida."
 
 msgid ""
 "Road chatter gives informal driver reports that may be stale. With hours "
@@ -45403,102 +45812,147 @@ msgid ""
 "chatter, under Radio and CB on the three-finger tap list, repeats the last "
 "chatter with its distance updated."
 msgstr ""
+"Le chiacchiere della strada danno segnalazioni informali di autisti che "
+"possono essere superate. Con i controlli sulle ore spenti, non ci sono "
+"segnalazioni di controlli. Ripeti l'ultimo messaggio al CB, in Radio e CB "
+"nell'elenco del tocco con tre dita, ripete l'ultima chiacchiera con la "
+"distanza aggiornata."
 
 msgid ""
 "Settings save as you change them. Flick right or left to choose a setting, "
 "then flick up for its next value or down for the previous one."
 msgstr ""
+"Le impostazioni si salvano mentre le cambi. Scorri a destra o a sinistra "
+"per scegliere un'impostazione, poi scorri in su per il valore successivo o "
+"in giù per quello precedente."
 
 msgid ""
 "Gameplay holds driving assistance, difficulty and hours, world and traffic, "
 "and controls. Audio, Speech, and Problem reports have separate choices."
 msgstr ""
+"Gioco contiene assistenza alla guida, difficoltà e ore, mondo e traffico, e "
+"controlli. Audio, Voce e Segnalazioni di problemi hanno scelte separate."
 
 msgid "Flick up with two fingers on a setting to hear what it does."
-msgstr ""
+msgstr "Scorri in su con due dita su un'impostazione per sentire cosa fa."
 
 msgid ""
 "Relaxed pacing passes about ten minutes of road and clock each real minute, "
 "with more response time and gentler consequences. Standard moves twice as "
 "fast. Real time follows the clock at real speed."
 msgstr ""
+"Il ritmo Rilassata fa passare circa dieci minuti di strada e di orologio "
+"per ogni minuto reale, con più tempo per reagire e conseguenze più leggere. "
+"Standard va due volte più veloce. Tempo reale segue l'orologio a velocità "
+"reale."
 
 msgid ""
 "Driving speech chooses Standard, Quiet, or Urgent only announcements. "
 "Readouts still answer when asked. Place names and roadside chatter have "
 "separate controls."
 msgstr ""
+"Voce alla guida sceglie annunci Standard, Silenziosa o Solo urgenti. Le "
+"letture rispondono comunque quando le chiedi. Nomi delle località e "
+"commenti lungo la strada hanno comandi separati."
 
 msgid ""
 "Drivers on duty refreshes about once a minute. Double tap a driver for "
 "their public profile. Driver directory includes drivers who are not "
 "currently playing; Check again refreshes it."
 msgstr ""
+"Autisti in servizio si aggiorna circa una volta al minuto. Tocca due volte "
+"un autista per il suo profilo pubblico. Elenco degli autisti include "
+"autisti che non stanno giocando adesso; Controlla di nuovo lo aggiorna."
 
 msgid ""
 "Why can I not accept a load? It may need a certificate, endorsement, or "
 "trailer you do not have. Flick up with two fingers on the load for its "
 "requirements, and Licenses and training offers the courses."
 msgstr ""
+"Perché non posso accettare un carico? Potrebbe richiedere un attestato, "
+"un'abilitazione o un rimorchio che non hai. Scorri in su con due dita sul "
+"carico per i suoi requisiti, e Patenti e formazione offre i corsi."
 
 msgid ""
 "Why did I get a citation at a weigh station? When an open weigh station is "
 "called, every truck must pull in. Double tap to signal, stop on the scale, "
 "then double tap again to check in."
 msgstr ""
+"Perché ho preso una multa a una stazione di pesatura? Quando viene "
+"annunciata una stazione di pesatura aperta, ogni camion deve entrare. Tocca "
+"due volte per mettere la freccia, fermati sulla pesa, poi tocca di nuovo "
+"due volte per registrarti."
 
 msgid ""
 "Why is the limit 55 on a fast highway? Some states hold trucks below the "
 "car limit. Posted speed limit, under Speed and cruise on the three-finger "
 "tap list, names the state when it does."
 msgstr ""
+"Perché il limite è 55 su un'autostrada veloce? Alcuni stati tengono i "
+"camion sotto il limite delle auto. Limite di velocità indicato, in Velocità "
+"e cruise control nell'elenco del tocco con tre dita, nomina lo stato quando "
+"succede."
 
 #. placeholders: {do_route}
 msgid ""
 "I missed my exit. What now? Keep driving and follow the turnaround "
 "guidance. {do_route} for the distance left."
 msgstr ""
+"Ho mancato l'uscita. E adesso? Continua a guidare e segui le indicazioni "
+"per l'inversione. {do_route} per la distanza rimanente."
 
 #. placeholders: {do_route}
 #. one sentence of a longer line
 msgid "{do_route} for the distance left."
-msgstr ""
+msgstr "{do_route} per la distanza rimanente."
 
 msgid ""
 "How do I know when a hill ends? Grade, under Road and stops on the list, "
 "reads the grade under the wheels and the next one worth planning for."
 msgstr ""
+"Come faccio a sapere quando finisce una salita? Pendenza, in Strada e soste "
+"nell'elenco, legge la pendenza sotto le ruote e la prossima da tenere in "
+"conto."
 
 msgid ""
 "How do I change stations? With the engine running, a three-finger flick "
 "right or left tunes. Radio on or off is under Radio and CB on the list."
 msgstr ""
+"Come cambio stazione? Con il motore acceso, uno scorrimento a destra o a "
+"sinistra con tre dita sintonizza. Accendere o spegnere la radio si trova in "
+"Radio e CB, nell'elenco."
 
 msgid ""
 "Can I hear a weather warning again? With live weather on, the Weather app "
 "under Driver apps lists active alerts. A two-finger flick left also steps "
 "back through recent messages."
 msgstr ""
+"Posso risentire un avviso meteo? Con il meteo in diretta attivo, l'app "
+"Meteo nelle App dell'autista elenca gli avvisi attivi. Anche uno "
+"scorrimento a sinistra con due dita torna indietro tra i messaggi recenti."
 
 msgid "Newspaper"
-msgstr ""
+msgstr "Giornale"
 
 msgid "Driver news, records and carrier standings from orinks.net."
 msgstr ""
+"Notizie degli autisti, record e classifiche delle ditte da orinks.net."
 
 msgid "Enter opens a section. Escape goes back."
-msgstr ""
+msgstr "Enter apre una sezione. Escape torna indietro."
 
 msgid ""
 "Up and down review the lines. Enter repeats a line. Escape returns to the "
 "sections."
 msgstr ""
+"Su e giù scorrono le righe. Enter ripete una riga. Escape torna alle "
+"sezioni."
 
 msgid "Back to sections"
-msgstr ""
+msgstr "Torna alle sezioni"
 
 msgid "Return to the sections."
-msgstr ""
+msgstr "Torna alle sezioni."
 
 msgid ""
 "Enter opens an item or changes a setting to its next value. Right also "
@@ -45627,6 +46081,8 @@ msgid ""
 "The careers backed up to your orinks.net account, to bring one onto this "
 "device."
 msgstr ""
+"Le carriere con un backup sul tuo account orinks.net, per portarne una su "
+"questo dispositivo."
 
 msgid ""
 "The careers backed up to your orinks.net account, to bring one onto this "
@@ -45640,11 +46096,15 @@ msgid ""
 "A career here changed on another device, and it is not backing up until you "
 "pick."
 msgstr ""
+"Una carriera qui è cambiata su un altro dispositivo, e non fa il backup "
+"finché non scegli."
 
 #. one sentence of a longer line
 msgid ""
 "Choosing this device's save keeps what you have played and sends it up."
 msgstr ""
+"Scegliere il salvataggio di questo dispositivo tiene quello che hai giocato "
+"e lo carica."
 
 #. one sentence of a longer line
 msgid "Nothing is overwritten until you choose."
@@ -45661,6 +46121,10 @@ msgid ""
 "save keeps what you have played and sends it up. Nothing is overwritten "
 "until you choose. {base}"
 msgstr ""
+"Apri questa voce per scegliere quale copia tenere. Una carriera qui è "
+"cambiata su un altro dispositivo, e non fa il backup finché non scegli. "
+"Scegliere il salvataggio di questo dispositivo tiene quello che hai giocato "
+"e lo carica. Niente viene sovrascritto finché non scegli. {base}"
 
 #. one sentence of a longer line
 msgid ""
@@ -45706,6 +46170,9 @@ msgid ""
 "on duty. Double tap a driver to read their profile. Viewing it shares "
 "nothing about you."
 msgstr ""
+"Ogni autista con un profilo pubblico, in servizio o no, e quando è stato in "
+"servizio l'ultima volta. Tocca due volte un autista per leggere il suo "
+"profilo. Guardarlo non condivide niente di te."
 
 #. placeholders: {on_off}
 msgid "Say when drivers go on or off duty: {on_off}"
@@ -45724,6 +46191,8 @@ msgid ""
 "Achievements earned across every career on this device. The main menu's "
 "Achievements is per career."
 msgstr ""
+"Obiettivi ottenuti in tutte le carriere di questo dispositivo. Obiettivi "
+"nel menu principale è per singola carriera."
 
 msgid ""
 "Achievements earned across every career on this installation. The main "
@@ -45753,6 +46222,11 @@ msgid ""
 "losing their settings. Live weather, traffic, and parking have their own "
 "toggles under Settings."
 msgstr ""
+"Interruttore generale per orinks.net e i servizi di condivisione. Se "
+"spento, ferma l'elenco degli autisti, la condivisione del profilo, il "
+"backup nel cloud e i suggerimenti di stazioni senza perderne le "
+"impostazioni. Meteo, traffico e parcheggi in diretta hanno i loro "
+"interruttori in Impostazioni."
 
 msgid ""
 "Master switch for the orinks.net and sharing services. Off stops the "
@@ -45780,6 +46254,10 @@ msgid ""
 "on and starts backing your careers up. Each has its own item on this menu. "
 "Driver name and signed-in devices are on Open my driver setup page."
 msgstr ""
+"Collega il gioco al tuo account orinks.net, che attiva la Condivisione del "
+"profilo e inizia a fare il backup delle tue carriere. Ognuno ha una sua "
+"voce in questo menu. Nome dell'autista e dispositivi collegati sono in Apri "
+"la pagina di configurazione del mio autista."
 
 msgid ""
 "Connects the game to your orinks.net account, which turns Profile sharing "
@@ -45808,6 +46286,9 @@ msgid ""
 "Opens your orinks.net driver setup page in a browser, for your driver name, "
 "profile sharing, and the devices signed in to your account."
 msgstr ""
+"Apre nel browser la pagina di configurazione del tuo autista su orinks.net, "
+"per il nome dell'autista, la condivisione del profilo e i dispositivi "
+"collegati al tuo account."
 
 msgid ""
 "Opens your orinks.net driver setup page in a browser, for your driver name, "
@@ -45854,6 +46335,10 @@ msgid ""
 "connect the account. Public profile statistics are read from these backups, "
 "so turning this off empties them."
 msgstr ""
+"Carica ogni carriera salvata sul tuo account orinks.net, per ripristinarla "
+"su un altro dispositivo. I backup sono privati e mai scaricabili "
+"pubblicamente. Si attiva quando colleghi l'account. Le statistiche del "
+"profilo pubblico vengono lette da questi backup, quindi spegnerlo le svuota."
 
 msgid ""
 "Uploads each saved career to your orinks.net account, to restore on another "
@@ -45902,6 +46387,8 @@ msgstr ""
 msgid ""
 "Choose Set up now to connect this device, or Not now to start driving."
 msgstr ""
+"Scegli Configura ora per collegare questo dispositivo, o Non ora per "
+"iniziare a guidare."
 
 #. one sentence of a longer line
 msgid "Before you set off."
@@ -45915,6 +46402,12 @@ msgid ""
 "either of those off afterwards from Online on the main menu. It takes a "
 "code and your browser, and you can do it any time instead. {current}"
 msgstr ""
+"Prima di partire. Puoi collegare questo dispositivo a un account "
+"orinks.net. Così fai il backup della tua carriera per portarla su un altro "
+"dispositivo, e il tuo profilo di autista e l'attività in servizio finiscono "
+"sul sito pubblico. Puoi spegnere l'una o l'altra cosa dopo da Online nel "
+"menu principale. Servono un codice e il browser, e puoi farlo invece in "
+"qualsiasi momento. {current}"
 
 #. one sentence of a longer line
 msgid ""
@@ -45927,10 +46420,13 @@ msgid ""
 "That backs your career up so you can bring it to another device, and puts "
 "your driver profile and on-duty activity on the public site."
 msgstr ""
+"Così fai il backup della tua carriera per portarla su un altro dispositivo, "
+"e il tuo profilo di autista e l'attività in servizio finiscono sul sito "
+"pubblico."
 
 #. one sentence of a longer line
 msgid "You can connect this device to an orinks.net account."
-msgstr ""
+msgstr "Puoi collegare questo dispositivo a un account orinks.net."
 
 #. one sentence of a longer line
 msgid ""
@@ -45979,6 +46475,8 @@ msgid ""
 "Connect this device to an orinks.net account, which turns on cloud backup "
 "and your public driver profile."
 msgstr ""
+"Collega questo dispositivo a un account orinks.net, che attiva il backup "
+"nel cloud e il tuo profilo pubblico di autista."
 
 msgid ""
 "Connect this computer to an orinks.net account, which turns on cloud backup "
@@ -46938,6 +47436,8 @@ msgid ""
 "This save was changed outside the game, or copied from another device, so "
 "it is marked as modified."
 msgstr ""
+"Questo salvataggio è stato modificato fuori dal gioco, o copiato da un "
+"altro dispositivo, quindi è segnato come modificato."
 
 #. placeholders: {current_text}
 msgid ""
@@ -46945,12 +47445,18 @@ msgid ""
 "it is marked as modified. Your career still works on this device, but "
 "profile sharing may not accept a modified profile. {current_text}"
 msgstr ""
+"Questo salvataggio è stato modificato fuori dal gioco, o copiato da un "
+"altro dispositivo, quindi è segnato come modificato. La tua carriera "
+"funziona comunque su questo dispositivo, ma la condivisione del profilo "
+"potrebbe non accettare un profilo modificato. {current_text}"
 
 #. one sentence of a longer line
 msgid ""
 "Your career still works on this device, but profile sharing may not accept "
 "a modified profile."
 msgstr ""
+"La tua carriera funziona comunque su questo dispositivo, ma la condivisione "
+"del profilo potrebbe non accettare un profilo modificato."
 
 #. one sentence of a longer line
 msgid ""
@@ -46995,6 +47501,8 @@ msgstr ""
 #. one sentence of a longer line
 msgid "Nothing was lost: the save is still on this device, untouched."
 msgstr ""
+"Non si è perso niente: il salvataggio è ancora su questo dispositivo, "
+"intatto."
 
 #. one sentence of a longer line
 msgid ""
@@ -47017,6 +47525,10 @@ msgid ""
 "starts fresh. Nothing was lost: the save is still on this device, "
 "untouched. {current_text}"
 msgstr ""
+"{driver_name} è stato creato in una versione precedente di Freight Fate. La "
+"versione 1.9 ribilancia tutta la carriera, dalla paga ai camion ai livelli, "
+"quindi ogni autista riparte da zero. Non si è perso niente: il salvataggio "
+"è ancora su questo dispositivo, intatto. {current_text}"
 
 #. one sentence of a longer line
 msgid ""
@@ -48986,6 +49498,11 @@ msgstr ""
 "Tieni premuto il left bumper per un secondo livello di pulsanti. "
 "{pad_engine} controlla il motore, {pad_fuel} legge il carburante e "
 "{pad_speed_limit} legge il limite."
+
+#~ msgid "Tires on concrete grooved across the lane: texture, not a decision."
+#~ msgstr ""
+#~ "Gomme sul cemento scanalato di traverso alla corsia: consistenza, non una "
+#~ "decisione."
 
 #~ msgid "{name} fueled {volume_text} and took a 30-minute break at {place}."
 #~ msgstr ""
