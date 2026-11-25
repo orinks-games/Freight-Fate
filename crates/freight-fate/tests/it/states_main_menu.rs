@@ -1108,7 +1108,8 @@ fn test_carrier_counts_name_distinct_carriers_not_start_rows() {
 #[test]
 fn test_a_canadian_home_has_its_province_row_and_kilometer_start_rows() {
     let mut app = TestApp::new();
-    app.push_state(HomeTerminalState::new(&app.ctx, "Province Rows"));
+    let picker = HomeTerminalState::new(&app.ctx, "Province Rows");
+    app.push_state(picker);
     let regions = labels::<HomeTerminalState>(&app);
     for row in [
         "Alberta",
@@ -1125,11 +1126,8 @@ fn test_a_canadian_home_has_its_province_row_and_kilometer_start_rows() {
         );
     }
     // With Units on Automatic the start rows speak the home city's units.
-    app.push_state(CareerStartState::new(
-        &app.ctx,
-        "Province Rows",
-        "toronto_on_ca",
-    ));
+    let start = CareerStartState::new(&app.ctx, "Province Rows", "toronto_on_ca");
+    app.push_state(start);
     let rows = labels::<CareerStartState>(&app);
     assert!(rows.iter().any(|r| r.contains("kilometers")), "{rows:?}");
     assert!(!rows.iter().any(|r| r.contains(" miles")), "{rows:?}");
