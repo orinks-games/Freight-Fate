@@ -181,16 +181,6 @@ can use `--tag` or `--cargo-target-dir` when preparing a specific release.
 `FREIGHT_FATE_MUSIC_URL` and `FREIGHT_FATE_MUSIC_SHA256` remain emergency
 overrides for pinned release inputs.
 
-A release needs the licensed stereo cab engine recordings. A machine that
-has them in `assets/sounds-licensed/` packs them directly. Any other
-machine downloads the licensed engine pack from the address pinned in
-`crates/ff-tools/src/release/packs.rs` and checks its SHA-256, as it does
-for the music pack. To publish a new one, run `cargo tools pack-sounds
---licensed-out sounds-licensed.pak` where the recordings are, upload the
-file under a new name, and put its address and the printed SHA-256 in the
-pins. `FREIGHT_FATE_LICENSED_PACK_URL` and
-`FREIGHT_FATE_LICENSED_PACK_SHA256` override the pins.
-
 If the build succeeds but the archive seems to vanish on Windows, check
 your antivirus: freshly built unsigned executables are sometimes
 quarantined on sight. Add an exclusion for the `dist/` folder or restore
