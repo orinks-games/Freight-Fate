@@ -26,7 +26,7 @@ impl ArrivalState {
         let total_mi = d.job.distance_mi.max(team.co_driver_mi);
         let split = co_driver::team_split(business_status, *net_pay, total_mi, team.co_driver_mi);
         *net_pay = round_py_n(*net_pay - split.co_driver_pay, 2);
-        let name = team.co_driver.name;
+        let co_driver_name = team.co_driver.name;
         let miles = ctx.settings.distance_text(team.co_driver_mi, false);
         let share = if is_owner_operator(business_status) {
             format!(
@@ -37,7 +37,7 @@ impl ArrivalState {
             "their half of the pay".to_string()
         };
         let line = format!(
-            "{name} drove {miles} of this load: {share} is {} dollars, and those miles earn you \
+            "{co_driver_name} drove {miles} of this load: {share} is {} dollars, and those miles earn you \
              half the experience.",
             fmt_grouped(split.co_driver_pay, 0)
         );
@@ -45,7 +45,7 @@ impl ArrivalState {
         self.team_line = Some(line);
         self.team_miles = team.co_driver_mi;
         self.team_note = Some(format!(
-            "Team load: {name} drove {} of the miles",
+            "Team load: {co_driver_name} drove {} of the miles",
             ff_core::pyfmt::fmt_f(team.co_driver_mi, 0)
         ));
         let key = team.co_driver.key;

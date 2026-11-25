@@ -3,24 +3,23 @@
 //! Testers heard the rebuilt engine voice as EXTERNAL -- a truck heard from
 //! outside, not from the driver's seat (via Josh, 2026-08-13). The cuts were
 //! recorded in a working cab but cleanly; a driver's ear gets the engine
-//! through glass and firewall (strong high-frequency loss), through the body
-//! structure (low end the panels carry and amplify), and inside a small hard
-//! cavity (very short early reflections). This module applies that transfer
-//! to the engine band cuts at load time, so the voice sits around the player
-//! instead of in front of the windshield.
+//! through glass and firewall (strong high-frequency loss) and through the
+//! body structure (low end the panels carry and amplify). This module applies
+//! that transfer to the engine band cuts at load time, so the voice sits
+//! around the player instead of in front of the windshield.
 //!
 //! The parameters are the "sealed" (windows-up) variant the owner's ear
-//! picked from the sound-test/cab_transfer.py auditions (2026-08-13): a
-//! -16 dB shelf above 1 kHz, a 2.4 kHz lowpass, +5 dB of body low end, +4 dB
-//! of panel boom at 63 Hz, and two early reflections at 1.7 and 3.3 ms. The
-//! moderate variant from the same auditions is the natural "window cracked"
-//! setting when the cabin-state work (doors/windows) picks intensities.
+//! picked from the sound-test/cab_transfer.py auditions (2026-08-13): a -16 dB
+//! shelf above 1 kHz, a 2.4 kHz lowpass, +5 dB of body low end, and +4 dB of
+//! panel boom at 63 Hz. The moderate variant from the same auditions is the
+//! natural "window cracked" setting when the cabin-state work (doors/windows)
+//! picks intensities.
 //!
-//! Implementation: the biquad chain's exact z-transform response and the
-//! reflection comb are evaluated on the rfft bins of the whole loop and
-//! multiplied into its spectrum -- circular convolution, so a seamless loop
-//! stays seamless and the result equals the steady state a repeating loop
-//! would reach through the real-time chain. Each render is RMS-matched to
+//! Implementation: the biquad chain's exact z-transform response is
+//! evaluated on the rfft bins of the whole loop and multiplied into its
+//! spectrum -- circular convolution, so a seamless loop stays seamless and
+//! the result equals the steady state a repeating loop would reach through
+//! the real-time chain. Each render is RMS-matched to
 //! its input (the transfer shapes timbre, the mixer owns level) with a peak
 //! guard. Deterministic, one-time cost per cut (cached by the audio engine).
 //!
@@ -28,12 +27,12 @@
 //! unchanged (the classic voice's ogg deliberately keeps its old sound).
 //!
 //! Port of `freight_fate/cab_filter.py`. The Python render was numpy over
-//! pocketfft; this one is `realfft`/`rustfft`. The biquad and comb
-//! arithmetic follow numpy's own operation order (its Smith-style complex
+//! pocketfft; this one is `realfft`/`rustfft`. The biquad arithmetic follows
+//! numpy's own operation order (its Smith-style complex
 //! division, reciprocal-multiply for a complex-over-real quotient, pairwise
 //! summation for the RMS), and the FFTs differ only in rounding, so the
-//! int16 output agrees with the Python bytes to within one LSB -- see the
-//! fixture tests, which pin a Python render of a synthetic tone.
+//! int16 output agrees with the no-comb Python bytes to within one LSB -- see
+//! the fixture tests, which pin a render of synthetic tones.
 
 pub mod wav;
 
@@ -58,9 +57,6 @@ pub const SHELF_SLOPE: f64 = 0.9;
 // must keep the exact literal to stay byte-identical with the Python one.
 #[allow(clippy::approx_constant)]
 pub const LOWPASS_Q: f64 = 0.7071;
-pub const TAP_MS: [f64; 2] = [1.7, 3.3]; // first side-glass/firewall bounces of a cab-sized cavity
-pub const TAP_GAINS: [f64; 2] = [0.28, 0.20];
-
 type Coeffs = ([f64; 3], [f64; 3]);
 
 fn shelf_coeffs(sr: f64, fc: f64, gain_db: f64, high: bool) -> Coeffs {
@@ -153,22 +149,7 @@ fn transfer(sr: f64, n: usize) -> Vec<Complex<f64>> {
             h[k] *= np_cdiv(num, den);
         }
     }
-    let mut taps: Vec<Complex<f64>> = vec![Complex::new(1.0, 0.0); bins];
-    for (ms, g) in TAP_MS.iter().zip(TAP_GAINS.iter()) {
-        let delay = (sr * ms / 1000.0) as i64 as f64;
-        for (k, tap) in taps.iter_mut().enumerate() {
-            let theta = ((-2.0 * PI * k as f64) * delay) * recip_n;
-            *tap += Complex::new(theta.cos(), theta.sin()).scale(*g);
-        }
-    }
-    // `h * taps / (1.0 + sum(TAP_GAINS))`: numpy divides a complex array by
-    // a Python float through its complex loop, which multiplies by the
-    // reciprocal of the real part.
-    let norm = 1.0 / (1.0 + TAP_GAINS.iter().fold(0.0, |acc, g| acc + g));
-    h.iter()
-        .zip(taps.iter())
-        .map(|(hk, tk)| (hk * tk).scale(norm))
-        .collect()
+    h
 }
 
 /// numpy's pairwise summation over a contiguous float64 array (the `mean`
@@ -363,8 +344,7 @@ mod tests {
         assert_eq!(seal_wav(b"OggS not a wav at all"), b"OggS not a wav at all");
     }
 
-    /// Parity with the Python render: a numpy `seal_wav` of the same input,
-    /// generated by `scratchpad/gen_audio_fixtures.py` with the venv Python.
+    /// Parity with the no-comb NumPy render of the same input.
     fn assert_parity(input: &[u8], expected: &[u8]) -> i32 {
         let got = WavPcm16::parse(&seal_wav(input)).unwrap();
         let want = WavPcm16::parse(expected).unwrap();
@@ -383,7 +363,7 @@ mod tests {
             }
         }
         eprintln!(
-            "cab_filter parity: {} samples, worst |error| = {worst} LSB, {off_by_one} samples off by one",
+            "cab_filter reference: {} samples, worst |error| = {worst} LSB, {off_by_one} samples off by one",
             got.samples.len()
         );
         assert!(
@@ -394,7 +374,7 @@ mod tests {
     }
 
     #[test]
-    fn test_seal_matches_the_python_render_within_one_lsb_stereo() {
+    fn test_seal_matches_the_no_comb_render_within_one_lsb_stereo() {
         assert_parity(
             include_bytes!("cab_filter/fixtures/tone_in.wav"),
             include_bytes!("cab_filter/fixtures/tone_sealed.wav"),
@@ -402,7 +382,7 @@ mod tests {
     }
 
     #[test]
-    fn test_seal_matches_the_python_render_within_one_lsb_mono() {
+    fn test_seal_matches_the_no_comb_render_within_one_lsb_mono() {
         assert_parity(
             include_bytes!("cab_filter/fixtures/mono_in.wav"),
             include_bytes!("cab_filter/fixtures/mono_sealed.wav"),

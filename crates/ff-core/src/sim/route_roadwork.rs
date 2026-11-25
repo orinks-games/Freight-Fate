@@ -692,7 +692,8 @@ mod tests {
     #[test]
     fn test_a_lane_closure_costing_more_than_the_next_route_moves_dispatch_over() {
         // Chicago to Indianapolis: I-65 straight through, or I-90 then I-65
-        // through Gary and Lafayette, two miles and about five minutes longer.
+        // through Gary and Lafayette, two miles and about six minutes longer
+        // (the town postings at the Chicago end, read 2026-11-23).
         // Twenty miles of alternating one-way traffic cost more than that by
         // more than the one-minute margin a coin toss keeps the shorter route
         // on.
@@ -704,7 +705,7 @@ mod tests {
         let gap_min = (route_drive_hours(Some(&routes[1]), 0.0, Some(world))
             - route_drive_hours(Some(&routes[0]), 0.0, Some(world)))
             * 60.0;
-        assert!(gap_min > TIE_MINUTES && gap_min < 5.0, "{gap_min}");
+        assert!(gap_min > TIE_MINUTES && gap_min < 10.0, "{gap_min}");
         let provider = seeded(
             "illinois",
             vec![construction(

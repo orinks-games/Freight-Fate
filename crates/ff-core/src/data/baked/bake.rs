@@ -328,7 +328,8 @@ pub fn bake_bytes(data_dir: &Path) -> Result<(Vec<u8>, BakeReport), DataError> {
             }
         }
     }
-    let screened = curves::build_from_sources(&curve_text, &artifact_text, &world);
+    let geometry = crate::data::curve_road::read_leg_geometry(&world_dir);
+    let screened = curves::build_from_sources(&curve_text, &artifact_text, &geometry, &world);
     // `build_from_sources` answers with a hash map; sort so the bytes are the
     // same every run.
     let mut curve_keys: Vec<&String> = screened.keys().collect();

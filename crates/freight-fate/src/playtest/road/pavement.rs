@@ -1,7 +1,7 @@
 //! The `--find bridge`, `--find jointed`, `--find grooved` and `--find
 //! grating` finders, from the pavement layer (`ff_core::data::pavement`): a
-//! bridge with joints at its ends, a run of road with seams, a run the tires
-//! whine on, and an open steel grating they hum on.
+//! bridge with joints at its ends, a run of road with seams, grooved
+//! concrete, and an open steel grating the tires hum on.
 //!
 //! The miles are the drive's own (`Trip::bridge_joint_spans`,
 //! `Trip::pavement_reading_at`), so the mile the tool promises is where the
@@ -15,8 +15,8 @@ use ff_core::sim::trip::Trip;
 
 use super::{Hit, DEFAULT_LEAD_MI, SCAN_STEP_MI};
 
-/// The song finders' scan step: a movable span is a few hundred feet.
-const SONG_STEP_MI: f64 = 0.01;
+/// The surface finders' scan step: a movable span is a few hundred feet.
+const SURFACE_STEP_MI: f64 = 0.01;
 /// The most hits one route offers for either feature.
 const PER_ROUTE: usize = 3;
 
@@ -96,9 +96,8 @@ pub fn jointed_hits(trip: &mut Trip, origin: &str, destination: &str) -> Vec<Hit
         .collect()
 }
 
-/// The route's runs of the tires' song: `grating` the open steel gratings
-/// at any length, otherwise the runs grooved across the lane.
-pub fn song_hits(trip: &mut Trip, origin: &str, destination: &str, grating: bool) -> Vec<Hit> {
+/// The route's runs of a road texture: open steel gratings or grooved concrete.
+pub fn surface_hits(trip: &mut Trip, origin: &str, destination: &str, grating: bool) -> Vec<Hit> {
     let total = trip.total_miles();
     let wanted = |u: Underfoot| match u {
         Underfoot::Grating => grating,
@@ -112,7 +111,7 @@ pub fn song_hits(trip: &mut Trip, origin: &str, destination: &str, grating: bool
     let mut found: Vec<(f64, f64, String)> = Vec::new();
     let mut open: Option<(f64, Underfoot)> = None;
     // A grating can be a movable span of a few hundred feet: scan finer.
-    let step = SONG_STEP_MI;
+    let step = SURFACE_STEP_MI;
     let mut at = 0.0;
     while at <= total {
         let under = Some(trip.underfoot_at(at)).filter(|u| wanted(*u));

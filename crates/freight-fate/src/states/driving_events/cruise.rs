@@ -77,6 +77,17 @@ impl DrivingState {
         self.engage_cruise(ctx, speed, false);
     }
 
+    /// The number an automatic handoff sets cruise to when the driver set
+    /// none: the limit here, or, on the town streets at a leg's end, the
+    /// first limit past them. Cruise set to a town limit stayed at it on the
+    /// highway out of town; set past it, cruise's own limit cap holds the
+    /// truck in town and lets it build once the town ends.
+    pub fn handoff_cruise_target(&self, limit: f64) -> f64 {
+        self.trip
+            .limit_past_town(self.trip.position_mi)
+            .map_or(limit, |past| past.max(limit))
+    }
+
     /// Start adaptive cruise as part of the armed speed-control session.
     pub fn engage_cruise(&mut self, ctx: &mut GameContext, target_mph: f64, transition: bool) {
         let transition_label = transition.then_some("Open road");
@@ -428,7 +439,9 @@ impl DrivingState {
             // keeper bridged the crawl -- so this runs ahead of the manual
             // override below, which would otherwise hold the handoff until
             // the key lifted.
-            let target_mph = self.speed_control_target_mph.unwrap_or(limit);
+            let target_mph = self
+                .speed_control_target_mph
+                .unwrap_or_else(|| self.handoff_cruise_target(limit));
             self.cancel_keeper(ctx, true);
             self.engage_cruise(ctx, target_mph, true);
             return;
@@ -495,7 +508,9 @@ impl DrivingState {
             zone_reason = Some(KEEPER_OPEN_ROAD_BRIDGE.to_string());
         }
         let Some(zone_reason) = zone_reason else {
-            let target_mph = self.speed_control_target_mph.unwrap_or(limit);
+            let target_mph = self
+                .speed_control_target_mph
+                .unwrap_or_else(|| self.handoff_cruise_target(limit));
             self.cancel_keeper(ctx, true);
             self.engage_cruise(ctx, target_mph, true);
             return;
@@ -621,7 +636,9 @@ impl DrivingState {
                     && self.trip.truck.speed_mph() >= CRUISE_MIN_MPH
             })
         {
-            let target_mph = self.speed_control_target_mph.unwrap_or(limit);
+            let target_mph = self
+                .speed_control_target_mph
+                .unwrap_or_else(|| self.handoff_cruise_target(limit));
             self.cancel_keeper(ctx, true);
             self.engage_departure_cruise(ctx, target_mph);
             return;

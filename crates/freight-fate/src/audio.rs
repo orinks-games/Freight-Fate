@@ -86,7 +86,7 @@ pub const CH_NATURE_OPEN: u32 = 28; // the same bed through the open window
 pub const CH_WATER_SEALED: u32 = 29; // a river under the truck, window closed
 pub const CH_WATER_OPEN: u32 = 30; // the same river, window open
 /// The four outside bed slots, sealed and open for nature then water.
-/// The tires' song: the whine on grooved concrete or the grate deck's hum.
+/// The tires' song: the grate deck's hum.
 pub const CH_ROAD_SONG: u32 = 31;
 /// Hollow acoustic bed of a concrete/long-span bridge deck under the wheels.
 pub const CH_BRIDGE_DECK: u32 = 32;

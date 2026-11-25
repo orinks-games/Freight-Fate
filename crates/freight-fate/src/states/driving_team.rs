@@ -354,7 +354,7 @@ impl DrivingState {
             player_rest_owed,
             damage_seen: self.trip.truck.damage_pct,
         });
-        let name = team.co_driver.name;
+        let co_driver_name = team.co_driver.name;
         self.team_shift_event(TeamShiftEvent::HandedOver);
         ctx.settings.hand_assists_to_co_driver();
         // The co-driver drives the automatic box. Set here, not by the
@@ -375,7 +375,7 @@ impl DrivingState {
         self.nod.next(NodEvent::WheelHandedOver);
         log::info!(
             target: TRANSCRIPT_TARGET,
-            "[co-driver] {name} takes the wheel ({mode:?})"
+            "[co-driver] {co_driver_name} takes the wheel ({mode:?})"
         );
     }
 
@@ -441,48 +441,50 @@ impl DrivingState {
 }
 
 /// What the co-driver says when they need the player back.
-fn summon_line(name: &str, reason: &str) -> String {
+fn summon_line(co_driver_name: &str, reason: &str) -> String {
     match reason {
-        "gate" => format!("{name} has the truck at the receiver's gate."),
-        "hours up" => format!("{name} has parked and hands you the wheel. Their hours are up."),
+        "gate" => format!("{co_driver_name} has the truck at the receiver's gate."),
+        "hours up" => {
+            format!("{co_driver_name} has parked and hands you the wheel. Their hours are up.")
+        }
         "hours up, yours reach" => format!(
-            "{name} has parked and hands you the wheel. Their hours are up, and yours reach the \
+            "{co_driver_name} has parked and hands you the wheel. Their hours are up, and yours reach the \
              receiver."
         ),
         "shoulder hours" => format!(
-            "{name} stopped on the shoulder with no lot in reach and hands you the wheel. Their \
+            "{co_driver_name} stopped on the shoulder with no lot in reach and hands you the wheel. Their \
              hours are up."
         ),
         "shoulder hours, yours reach" => format!(
-            "{name} stopped on the shoulder with no lot in reach and hands you the wheel. Their \
+            "{co_driver_name} stopped on the shoulder with no lot in reach and hands you the wheel. Their \
              hours are up, and yours reach the receiver."
         ),
         "shoulder break" => {
-            format!("{name} stopped on the shoulder and hands you the wheel. Their break is due.")
+            format!("{co_driver_name} stopped on the shoulder and hands you the wheel. Their break is due.")
         }
-        "rested" => format!("{name} has parked and hands you the wheel. Your 10-hour rest is in."),
+        "rested" => format!("{co_driver_name} has parked and hands you the wheel. Your 10-hour rest is in."),
         "slept on" => format!(
-            "{name} parked when their hours ran out, and you slept on. Your 10-hour rest is in."
+            "{co_driver_name} parked when their hours ran out, and you slept on. Your 10-hour rest is in."
         ),
         "shoulder" => format!(
-            "{name} pulled onto the shoulder when their hours ran out, with no lot in reach, and \
+            "{co_driver_name} pulled onto the shoulder when their hours ran out, with no lot in reach, and \
              you slept on there. Your 10-hour rest is in."
         ),
         "last lot" => format!(
-            "{name} has parked for the end of their shift. Their hours run out before the next place to park."
+            "{co_driver_name} has parked for the end of their shift. Their hours run out before the next place to park."
         ),
-        "damage" => format!("{name} needs you. The truck took damage."),
-        "fuel" => format!("{name} needs you. The tank is empty."),
-        "off the road" => format!("{name} needs you. The truck has left the road."),
-        "stalled" => format!("{name} needs you. The truck is stopped and will not go on."),
-        "money" => format!("{name} needs you. There is not enough money for fuel."),
-        "roadside" => format!("{name} needs you. A trooper has the truck stopped."),
-        "parking" => format!("{name} needs you. The lot is full."),
+        "damage" => format!("{co_driver_name} needs you. The truck took damage."),
+        "fuel" => format!("{co_driver_name} needs you. The tank is empty."),
+        "off the road" => format!("{co_driver_name} needs you. The truck has left the road."),
+        "stalled" => format!("{co_driver_name} needs you. The truck is stopped and will not go on."),
+        "money" => format!("{co_driver_name} needs you. There is not enough money for fuel."),
+        "roadside" => format!("{co_driver_name} needs you. A trooper has the truck stopped."),
+        "parking" => format!("{co_driver_name} needs you. The lot is full."),
         "chains" => format!(
-            "{name} needs you. The chain control is holding the truck, and there are no chains aboard."
+            "{co_driver_name} needs you. The chain control is holding the truck, and there are no chains aboard."
         ),
-        "screen" | "stop" => format!("{name} has the truck stopped and needs you to choose what to do."),
-        _ => format!("{name} needs you to decide this one."),
+        "screen" | "stop" => format!("{co_driver_name} has the truck stopped and needs you to choose what to do."),
+        _ => format!("{co_driver_name} needs you to decide this one."),
     }
 }
 
@@ -517,17 +519,14 @@ fn rest_short_line(
 }
 
 /// The wake-up summary after a slept-through shift.
-fn wake_summary(name: &str, log: &ShiftLog, ctx: &GameContext) -> String {
+fn wake_summary(co_driver_name: &str, log: &ShiftLog, distance_text: &str) -> String {
     let hours = log.game_minutes / 60.0;
     let slept = if hours >= 1.0 {
         format!("You slept {} hours.", ff_core::pyfmt::fmt_f(hours, 1))
     } else {
         format!("You slept {} minutes.", log.game_minutes.round())
     };
-    let mut drove = format!(
-        "{name} drove {}",
-        ctx.settings.distance_text(log.miles, false)
-    );
+    let mut drove = format!("{co_driver_name} drove {distance_text}");
     if let Some(stop) = log.fuel_stops.last() {
         drove.push_str(&format!(" and fueled at {stop}"));
     }
@@ -547,7 +546,7 @@ impl DrivingState {
         let Some(team) = self.team.as_ref() else {
             return;
         };
-        let name = team.co_driver.name;
+        let co_driver_name = team.co_driver.name;
         let mode = team.wheel.as_ref().map(|wheel| wheel.mode);
         let owed_rest = team
             .wheel
@@ -566,9 +565,10 @@ impl DrivingState {
         log::info!(target: TRANSCRIPT_TARGET, "[co-driver] summons the driver: {reason}");
         let mut lines = Vec::new();
         if mode == Some(TeamMode::SleepThrough) {
-            lines.push(wake_summary(name, &log, ctx));
+            let distance_text = ctx.settings.distance_text(log.miles, false);
+            lines.push(wake_summary(co_driver_name, &log, &distance_text));
         }
-        lines.push(summon_line(name, reason));
+        lines.push(summon_line(co_driver_name, reason));
         lines.extend(shoulder);
         let slept_min = (mode == Some(TeamMode::SleepThrough)).then_some(log.game_minutes);
         // Straight after "yours reach the receiver", a line about the rest
@@ -619,6 +619,58 @@ impl DrivingState {
         }
         if self.selected_stop_key.as_ref().is_some_and(finished) {
             self.clear_selected_stop_intent();
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{summon_line, wake_summary, ShiftLog};
+    use ff_core::l10n::{Catalog, Translator};
+
+    #[test]
+    fn june_stays_verbatim_through_handbacks_and_wake_summary() {
+        let cases = [
+            (
+                "vi",
+                include_str!("../../../../lang/vi.po"),
+                "Tháng Sáu",
+                "June đã đưa xe tới cổng bên nhận hàng.",
+            ),
+            (
+                "tr",
+                include_str!("../../../../lang/tr.po"),
+                "Haziran",
+                "June tırı alıcının kapısına getirdi.",
+            ),
+        ];
+
+        for (language, po, month, expected_arrival) in cases {
+            let translator = Translator::new(Catalog::from_po(language, po).expect("parses"));
+            let arrival = summon_line("June", "gate");
+            let translated_arrival = translator.translate(&arrival);
+            assert_eq!(translated_arrival, expected_arrival, "{language}");
+            assert_eq!(translator.translate("June"), month, "{language}");
+            assert!(!translated_arrival.contains(month), "{language}");
+
+            for reason in ["hours up", "shoulder break"] {
+                let line = summon_line("June", reason);
+                let translated = translator.translate(&line);
+                assert_ne!(translated, line, "{language}: {line}");
+                assert!(translated.contains("June"), "{language}: {translated}");
+                assert!(!translated.contains(month), "{language}: {translated}");
+            }
+
+            let log = ShiftLog {
+                miles: 100.0,
+                game_minutes: 120.0,
+                ..ShiftLog::default()
+            };
+            let summary = wake_summary("June", &log, "100 miles");
+            let translated = translator.translate(&summary);
+            assert_ne!(translated, summary, "{language}: {summary}");
+            assert!(translated.contains("June"), "{language}: {translated}");
+            assert!(!translated.contains(month), "{language}: {translated}");
         }
     }
 }

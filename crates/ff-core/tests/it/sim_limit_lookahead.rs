@@ -321,6 +321,9 @@ fn test_one_posting_warns_once_however_the_frames_land() {
             }
         }
     }
+    // The town limit on Nashville's streets, 0.5 mile from the end, is a
+    // posting of its own and warns once too.
+    warned.retain(|mile| *mile < 286.0);
     assert!(!warned.is_empty(), "the drop to 55 never warned at all");
     let mut unique = warned.clone();
     unique.dedup();

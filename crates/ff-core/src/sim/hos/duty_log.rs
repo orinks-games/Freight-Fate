@@ -171,6 +171,50 @@ impl DutyLog {
         self.prune(end);
     }
 
+    /// Record a classified interval without filling gaps in earlier rows.
+    /// Adjacent rows with identical details coalesce so frame updates stay O(1).
+    pub fn record_exact(
+        &mut self,
+        status: &str,
+        start_hour: f64,
+        end_hour: f64,
+        location: &str,
+        note: &str,
+    ) {
+        if !is_duty_status(status) {
+            return;
+        }
+        let mut start = py_max(0.0, start_hour);
+        let end = py_max(start, end_hour);
+        if !start.is_finite() || !end.is_finite() || end == start {
+            return;
+        }
+        let location = if location.is_empty() {
+            "unknown location"
+        } else {
+            location
+        };
+        if let Some(last) = self.segments.last_mut() {
+            if start < last.end_hour {
+                if end <= last.end_hour {
+                    return;
+                }
+                start = last.end_hour;
+            }
+            if last.status == status
+                && last.location == location
+                && last.note == note
+                && (last.end_hour - start).abs() <= 1e-9
+            {
+                last.end_hour = end;
+                return;
+            }
+        }
+        self.segments
+            .push(DutySegment::new(status, start, end, location, note));
+        self.prune(end);
+    }
+
     /// Drop rows older than the RODS window (`prune(now_hour)` in Python).
     pub fn prune(&mut self, now_hour: f64) {
         self.prune_keeping(now_hour, RODS_WINDOW_HOURS);
@@ -187,6 +231,27 @@ impl DutyLog {
                 segment.start_hour = cutoff;
             }
             kept.push(segment);
+        }
+        self.segments = kept;
+    }
+
+    /// Rewind the ledger to a restored save boundary, clipping an interval
+    /// that crosses it and dropping entries from the discarded future.
+    pub fn truncate_after(&mut self, end_hour: f64) {
+        if !end_hour.is_finite() {
+            return;
+        }
+        let mut kept = Vec::with_capacity(self.segments.len());
+        for mut segment in self.segments.drain(..) {
+            if segment.start_hour >= end_hour {
+                continue;
+            }
+            if segment.end_hour > end_hour {
+                segment.end_hour = end_hour;
+            }
+            if segment.end_hour > segment.start_hour {
+                kept.push(segment);
+            }
         }
         self.segments = kept;
     }
@@ -240,5 +305,26 @@ impl DutyLog {
                 .unwrap_or(std::cmp::Ordering::Equal)
         });
         Self { segments }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn truncate_after_leaves_empty_logs_and_ignores_non_finite_boundaries() {
+        let mut empty = DutyLog::new();
+        empty.truncate_after(12.0);
+        assert!(empty.segments.is_empty());
+
+        let mut log = DutyLog::new();
+        log.record_exact("driving", 1.0, 2.0, "route", "");
+        let original = log.clone();
+
+        log.truncate_after(f64::NAN);
+        assert_eq!(log, original);
+        log.truncate_after(f64::INFINITY);
+        assert_eq!(log, original);
     }
 }

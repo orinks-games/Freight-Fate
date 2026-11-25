@@ -612,6 +612,7 @@ fn test_unloading_burns_fuel_only_while_the_engine_runs() {
         d.trip.truck.velocity_mps = 0.0;
     });
     let mut arrival = FacilityArrivalState::with_drive(drive_ref(&drive));
+    let facility = arrival.facility(&mut app.ctx);
     let before = with_drive(&drive, |d| d.trip.truck.fuel_gal);
 
     activate(&mut arrival, &mut app.ctx, "Shut down the engine");
@@ -628,6 +629,19 @@ fn test_unloading_burns_fuel_only_while_the_engine_runs() {
         "the unload settles at arrival"
     );
     assert_eq!(with_drive(&drive, |d| d.trip.truck.fuel_gal), before);
+    let unloading: Vec<_> = app
+        .ctx
+        .profile
+        .as_ref()
+        .unwrap()
+        .duty_log
+        .segments
+        .iter()
+        .filter(|row| row.note == "receiver unloading")
+        .collect();
+    assert_eq!(unloading.len(), 1, "{unloading:?}");
+    assert_eq!(unloading[0].status, "on_duty_not_driving");
+    assert!(unloading[0].location.contains(&facility), "{unloading:?}");
 }
 
 /// `finish_timed_state(app)`: run the timed message screen out.

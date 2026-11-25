@@ -1,5 +1,5 @@
 //! Bridge decks, and whether the surface under the tire is grooved across
-//! the lane: the readings the tire whine and the grate hum play from.
+//! the lane: road-surface readings used by the game and playtest finders.
 //!
 //! The deck is READ from the National Bridge Inventory (`cargo tools
 //! nbi-decks`). Whether a surface is grooved across the lane is never read:
