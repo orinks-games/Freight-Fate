@@ -184,9 +184,10 @@ impl GarageState {
         let canadian = canada_diesel_usd_per_gal(&state_code).is_some();
         if ctx.settings.imperial() {
             if canadian {
+                // A price per liter takes the fuel in liters too.
                 return format!(
-                    "Refuel {} gallons for {} dollars. Diesel here is {} Canadian dollars a liter.",
-                    fmt_f(need, 0),
+                    "Refuel {} for {} dollars. Diesel here is {} Canadian dollars a liter.",
+                    ctx.settings.liters_text(need),
                     fmt_grouped(cost, 0),
                     fmt_f(cad_per_litre(price), 2)
                 );

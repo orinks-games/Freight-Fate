@@ -73,6 +73,46 @@ pub fn region_label(region: &str) -> Option<&'static str> {
         .map(|(_, label)| *label)
 }
 
+/// The home region picker's rows for Canada, by province or territory code:
+/// the groups the Canadian regional carriers cover. `City::region` stays the
+/// nearest US region (it drives weather and markets); a Canadian home city
+/// is listed under one of these rows instead, never under a US region.
+pub const CANADA_PICKER_GROUPS: &[(&str, &str, &[&str])] = &[
+    ("ca_alberta", "Alberta", &["AB"]),
+    (
+        "ca_atlantic",
+        "Atlantic provinces",
+        &["NB", "NS", "PE", "NL"],
+    ),
+    ("ca_british_columbia", "British Columbia", &["BC"]),
+    ("ca_ontario", "Ontario", &["ON"]),
+    ("ca_quebec", "Quebec", &["QC"]),
+    ("ca_prairies", "Saskatchewan and Manitoba", &["SK", "MB"]),
+    (
+        "ca_north",
+        "Yukon and Northwest Territories",
+        &["YT", "NT", "NU"],
+    ),
+];
+
+/// The picker row key for a Canadian province or territory code, or `None`
+/// for a code outside Canada.
+pub fn canada_picker_group(state_code: &str) -> Option<&'static str> {
+    let code = state_code.trim().to_ascii_uppercase();
+    CANADA_PICKER_GROUPS
+        .iter()
+        .find(|(_, _, codes)| codes.contains(&code.as_str()))
+        .map(|(key, _, _)| *key)
+}
+
+/// The spoken name of a Canadian picker row key.
+pub fn canada_picker_label(key: &str) -> Option<&'static str> {
+    CANADA_PICKER_GROUPS
+        .iter()
+        .find(|(k, _, _)| *k == key)
+        .map(|(_, label, _)| *label)
+}
+
 /// States that fall entirely within one region, keyed by 2-letter code (the
 /// form city data stores since the slug-key migration). States that span more
 /// than one region (Texas, Nevada, Tennessee, Pennsylvania, New York) are
@@ -316,6 +356,30 @@ mod tests {
     //! coverage checks live in `crates/ff-core/tests/data_regions.rs`.
     use super::*;
     use crate::data::world_constants::{lookup, MARKET_TAG_FACILITY_TYPES, REGION_MARKET_TAGS};
+
+    #[test]
+    fn every_canadian_code_has_one_picker_row_and_no_us_code_has_one() {
+        for (code, row) in [
+            ("AB", "ca_alberta"),
+            ("BC", "ca_british_columbia"),
+            ("SK", "ca_prairies"),
+            ("MB", "ca_prairies"),
+            ("ON", "ca_ontario"),
+            ("QC", "ca_quebec"),
+            ("NB", "ca_atlantic"),
+            ("NS", "ca_atlantic"),
+            ("PE", "ca_atlantic"),
+            ("NL", "ca_atlantic"),
+            ("YT", "ca_north"),
+            ("NT", "ca_north"),
+        ] {
+            assert_eq!(super::canada_picker_group(code), Some(row), "{code}");
+            assert!(super::canada_picker_label(row).is_some(), "{row}");
+        }
+        for code in ["WA", "AK", "ME", "NY", "MT"] {
+            assert_eq!(super::canada_picker_group(code), None, "{code}");
+        }
+    }
 
     #[test]
     fn test_every_region_covered_in_flavor_tables() {

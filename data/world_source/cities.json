@@ -8264,6 +8264,45 @@
             "general"
           ],
           "source_note": "Real Canadian Superstore (Loblaw) at 2155 Ferry Avenue, Prince George BC. Pin is the centre of OSM way 251879848 (shop=supermarket, addr 2155 Ferry Avenue), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only grocery and retail."
+        },
+        {
+          "name": "Bandstra Transportation Prince George terminal (9499 Milwaukee Way)",
+          "type": "cross_dock",
+          "lat": 53.8356119,
+          "lon": -122.7413388,
+          "ships": [
+            "general",
+            "retail"
+          ],
+          "receives": [
+            "general",
+            "retail"
+          ],
+          "cargo": [
+            "general",
+            "retail"
+          ],
+          "source_note": "Read: Bandstra Transportation Systems, a family-owned carrier since 1955 with LTL general freight, truckload and overnight service to northern BC from Vancouver, Edmonton and Prince George (City of Prince George business directory https://www.princegeorge.ca/node/4086, read 2026-11-25). The address 9499 Milwaukee Way, Prince George BC V2N 5T3 is read from Old Dominion's page for its Prince George partner (https://www.odfl.com/us/en/tools/service-center-locator/BC/PRG.html, read 2026-11-25). Pin is OSM address node 4268597878 (9499 Milwaukee Way), Overpass API (maps.mail.ru mirror) read 2026-11-25. General freight and retail only."
+        },
+        {
+          "name": "CN Prince George Intermodal Terminal (855 River Road)",
+          "type": "intermodal",
+          "lat": 53.9200465,
+          "lon": -122.7458463,
+          "ships": [
+            "container",
+            "lumber_paper"
+          ],
+          "receives": [
+            "container",
+            "general"
+          ],
+          "cargo": [
+            "container",
+            "lumber_paper",
+            "general"
+          ],
+          "source_note": "Read: CN yard map 'Prince George Intermodal Terminal, 855 River Road, V2L 5M5', with a transload shed, lumber yard, lumber truck entrance and live-load entrance (https://cn.ca/-/media/files/our-services/intermodal/cn-prince-george-yard-map-en.pdf, read 2026-11-25); opened 2007 with truck pick-up facilities, to fill backhaul containers with 'lumber, panels, woodpulp, paper' for Asia through Prince Rupert (Progressive Railroading, 2007-10-16, https://www.progressiverailroading.com/rail_industry_trends/news/CN-opens-intermodal-terminal-distribution-center-in-Prince-George--2767, read 2026-11-25). Position derived: the terminal's buildings are not in OpenStreetMap, so the pin is the centre of the CN rail land beside River Road (OSM way 375102587, landuse=railway, name Prince George), Overpass API (maps.mail.ru mirror) read 2026-11-25."
         }
       ]
     },
@@ -8519,6 +8558,45 @@
             "construction"
           ],
           "source_note": "Ajax Steel Limited at 143 Industrial Road, Whitehorse YT (Marwell industrial area). Pin is the centre of OSM way 523966863 (shop=hardware, name Ajax Steel Limited, addr 143 Industrial Road), Overpass API (maps.mail.ru mirror) read 2026-11-22. Receive-only steel and building materials."
+        },
+        {
+          "name": "Kilrich Building Centre (30 Denver Road)",
+          "type": "construction_materials_yard",
+          "lat": 60.640892,
+          "lon": -135.000249,
+          "ships": [
+            "construction"
+          ],
+          "receives": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "cargo": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "source_note": "Read: Kilrich Industries, 30 Denver Road, Whitehorse YT Y1A 5S7, in the McCrae industrial area, 'the largest building materials supplier and truss manufacturer north of 60', which 'delivers a full range of building and construction materials to communities across Canada's north and Alaska' (Whitehorse Chamber of Commerce member page https://whitehorsechamber.ca/node/11097, read 2026-11-25). Pin is OSM address node 1710924393 (30 Denver Road, NRCan CanVec import), Overpass API (maps.mail.ru mirror) read 2026-11-25. Ships construction materials (trusses and building supply). Derived: the receive list (lumber, steel, building materials) from its trade, not from a shipment record."
+        },
+        {
+          "name": "Raven ReCentre (100 Galena Road)",
+          "type": "warehouse",
+          "lat": 60.7404513,
+          "lon": -135.0721324,
+          "ships": [
+            "general",
+            "bulk"
+          ],
+          "receives": [],
+          "cargo": [
+            "general",
+            "bulk"
+          ],
+          "traits": [
+            "thin_outbound"
+          ],
+          "source_note": "Read: Raven ReCentre (Raven Recycling Society), 100 Galena Rd, Whitehorse YT: 'All our materials are shipped out via backhaul, filling up trucks that would otherwise go south empty'; textiles and batteries go to BC, ferrous metal to General Recycling in Alberta, e-waste to Edmonton (https://www.ravenrecentre.org/faqs, read 2026-11-25). Pin is the centre of OSM building way 523966755 (100 Galena Road), Overpass API (maps.mail.ru mirror) read 2026-11-25. Derived: baled recyclables as general freight and scrap metal as bulk. thin_outbound: a backhaul shipper in a town that receives far more than it ships."
         }
       ]
     },

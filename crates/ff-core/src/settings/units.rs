@@ -126,6 +126,13 @@ impl Settings {
         }
     }
 
+    /// A fuel volume in whole liters whatever the Units row says, for a line
+    /// that quotes a Canadian price per liter: the amount and the price are
+    /// one sum the driver checks, so they share the unit.
+    pub fn liters_text(&self, gallons: f64) -> String {
+        spoken_distance(gallons * LITRES_PER_US_GALLON, "liter")
+    }
+
     /// The bare whole number of `volume_text`, for "75 of 150 gallons".
     pub fn volume_value(&self, gallons: f64) -> String {
         if self.imperial() {

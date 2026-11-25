@@ -4,6 +4,7 @@
 use crate::data::curves::route_curves;
 use crate::data::world::World;
 use crate::data::world_models::{Leg, Route};
+use crate::models::jobs::cross_border::route_stays_in_canada;
 use crate::models::jobs::{Job, LONG_HAUL_MILES};
 use crate::pyfmt::{fmt_f, round_py_n};
 use crate::sim::hos::HosClock;
@@ -116,6 +117,10 @@ impl HosPlan {
 /// less time than either country's law needs. Each customs booth adds
 /// `customs_h`. Planning each side on its own rules is the ROADMAP's
 /// route-wide HOS item.
+///
+/// The plan starts from the counts the road will hold the driver to
+/// ([`start_counts`]): the Canadian ones on a route that stays in Canada,
+/// where an 8-hour night clears them, and the US ones otherwise.
 pub fn plan_hos(
     miles: f64,
     route: Option<&Route>,
@@ -128,13 +133,29 @@ pub fn plan_hos(
     };
     match clock {
         None => plan_hos_for_drive_hours(drive_h, route, 0.0, 0.0, 0.0),
-        Some(clock) => plan_hos_for_drive_hours(
-            drive_h,
-            route,
-            clock.driving_min / 60.0,
-            clock.duty_min / 60.0,
-            clock.since_break_min / 60.0,
-        ),
+        Some(clock) => {
+            let (driving_h, duty_h) = start_counts(clock, route);
+            plan_hos_for_drive_hours(
+                drive_h,
+                route,
+                driving_h,
+                duty_h,
+                clock.since_break_min / 60.0,
+            )
+        }
+    }
+}
+
+/// Hours driven and on duty a plan starts from: the Canadian counts for a
+/// route that stays in Canada, the US counts for one that enters the United
+/// States or has no route. The US counts run on through an 8-hour Canadian
+/// night, so a load home after one starts on a spent US clock and plans the
+/// 10-hour rest it needs first (brief 2 review, 2026-11-25).
+pub fn start_counts(clock: &HosClock, route: Option<&Route>) -> (f64, f64) {
+    if route.is_some_and(route_stays_in_canada) {
+        (clock.ca_driving_min / 60.0, clock.ca_on_duty_min / 60.0)
+    } else {
+        (clock.driving_min / 60.0, clock.duty_min / 60.0)
     }
 }
 
@@ -238,11 +259,12 @@ pub fn remaining_route_hos_plan(
     world: Option<&World>,
     clock: &HosClock,
 ) -> HosPlan {
+    let (driving_h, duty_h) = start_counts(clock, Some(route));
     plan_hos_for_drive_hours(
         route_drive_hours(Some(route), start_mi, world),
         Some(route),
-        clock.driving_min / 60.0,
-        clock.duty_min / 60.0,
+        driving_h,
+        duty_h,
         clock.since_break_min / 60.0,
     )
 }

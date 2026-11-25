@@ -5083,9 +5083,55 @@ in the audited Windows run.
       national, nearest terminal first, owner-operator last.
       `tests/it/carrier_spread.rs` pins the coverage. Names were checked
       against FMCSA and web listings; the record is in the carriers report.
-- [ ] **No Canadian carrier yet (Found along the way).** BC and YT stay
-      closed as home bases; a Canadian carrier joins when the Canadian
-      roads open for hiring.
+- [x] **No Canadian carrier yet (Found along the way).** Built 2026-11-25
+      (brief 2): thirteen Canadian carriers, two nationals (Longspur
+      Transport, Great Shield Transport) hiring in the ten provinces, eight
+      regionals (the North regional, Liard River Freight, out of Edmonton,
+      Grande Prairie, Hay River, Yellowknife, Whitehorse and Dawson City with
+      runs to 1,400 miles) and three locals (Port Lands Cartage, Lachine
+      Cartage, Annacis Island Cartage). Hiring follows the US pattern inside
+      Canada; no carrier hires across the border. The home region picker has
+      seven Canadian rows by province group, and a second owner-operator
+      start leases to Longspur. A Canadian city is a home only when some site
+      there ships freight a level 1 driver with no certificate can load
+      (`has_first_load`, Canada only for now). `tests/it/canadian_start.rs`
+      pins it; the list is in the project files,
+      `alaska-canada-freight/canadian-carriers-proposed.md`.
+- [ ] **Canadian homes waiting for freight sites (Found along the way).**
+      Watson Lake, Haines Junction, Fort St. John, Dawson Creek, Fort Nelson,
+      Terrace, Smithers, Kitimat and Sept-Îles wait for real freight sites:
+      none ships a load a new driver can take (the last four ship only
+      flatbed lumber or steel).
+- [ ] **The first-load rule in the United States (Found along the way).**
+      Run over the United States, the home rule would close 27 homes offered
+      today: Blaine, Cape May, Coldfoot, Delta Junction, Denton, Elmira, Fort
+      Knox (Alaska), Gainesville (Georgia), Glennallen, Gloucester, Healy,
+      Ithaca, Johnstown, Lancaster, Lexington Park, Nikiski, North Pole,
+      Pascagoula, Pinehurst, Pittsfield, Point Comfort, Reading, Reedville,
+      Sandusky, Soldotna, Tok and Venice (Louisiana). The rule holds for
+      Canadian cities until the director rules on that list.
+      Before any US home closes, the list needs the measured first board at
+      level 1 for each city: `has_first_load` reads curated sites, and some
+      of these towns (Reading, Lancaster, Denton) may fill their boards from
+      template markets.
+- [ ] **A Canadian career still hears US license, endorsement and police
+      words (Found along the way).** The license is a CDL with the US
+      suspension ladder (49 CFR 383.51: "suspended for 60 days",
+      "disqualifies your CDL for life"); a Canadian holds a provincial Class 1
+      (AZ in Ontario) under demerit points and the carrier's National Safety
+      Code rating. The hazmat endorsement waits 30 days on a background
+      check, where Canada's dangerous goods training certificate is issued by
+      the employer after training; the tank endorsement is "the letter N",
+      which no Canadian licence carries; the port card is TWIC, where
+      Canadian ports use the Marine Transportation Security Clearance and,
+      at Vancouver, a truck licence and port pass; and the police are
+      troopers, where Canada has the provincial police, the RCMP and
+      provincial commercial vehicle officers. None misleads the driver about
+      what to do, and about forty CDL and twenty trooper lines are pinned in
+      eleven languages, so they stay for now (director ruling, 2026-11-25).
+- [ ] **Canadian dollars for a Canadian career (Found along the way).**
+      Money stays in US dollars by Orinks's ruling; a Canadian career's
+      pay, fines and prices in Canadian dollars wait for a ruling of his.
 - [ ] **A second Alaska regional waits for new Alaska lanes (Found along
       the way).** Chatanika covers every hirable Alaska city today; add a
       second only when the map adds Alaska freight a second carrier would
@@ -5292,8 +5338,48 @@ branch. The older Phase A/B plan checklists are not a live completion list.
 - [ ] (Found along the way) The Canadian carrier's transit rule is ASSUMED:
       a Canadian load through the United States is allowed in bond, the
       mirror of the US rule; no page read says either way.
-- [ ] (Found along the way) Canadian carriers, home cities and boards
-      (brief 2); the `base_country` field exists for them.
+- [x] (Found along the way) Canadian carriers, home cities and boards
+      (brief 2). Built 2026-11-25: the carriers carry `base_country`, and
+      their boards run on the lane table.
+- [x] **Canadian boards follow the survey's border share (brief 2).** A
+      Canadian carrier's board in Canada draws a US destination at
+      `CANADIAN_BORDER_WEIGHT` = 0.29, derived: the value at which the
+      reference fleet (every Canadian carrier with each city where it hires
+      and the home rule passes, levels 1, 8 and 20 in equal parts, an
+      assumed mix) measures the 2018 transborder share of long-distance
+      for-hire shipments, 19.2% (Statistics Canada table 23-10-0219-01). It
+      measures 19.15%, against 34.5% with no weight, over 532 pairs at 3
+      levels (1,596 cells, 1,592 that post loads); a slow test holds it
+      inside 19.0 to 21.5%, the table's 2014 to 2018 range. The nationals
+      stay well above 19% and the regionals fall below it.
+- [x] (Found along the way) Loaded miles across the border on Canadian
+      boards, a check not fitted into the weight: with it, 41.4% of the
+      reference fleet's loaded miles (pooled: its US loaded miles over all
+      its loaded miles) are on transborder loads, against 38.7% of
+      tonne-kilometres and 39.6% of shipment-kilometres (derived: 10.0 M at
+      1,504 km against 53.7 M at 427 km) in the same survey. Without the
+      weight it is 63.7%.
+- [ ] (Found along the way, test lever) A drive staged with the agent
+      server's `start_at` that begins in the other country speaks the origin
+      country's units for a few seconds, until "Speeds and distances are in
+      miles now." Seen staging Fargo and Winnipeg starts. A real drive starts
+      in its origin's country, so only the staging lever shows it.
+- [ ] (Found along the way) Highway 75 from Winnipeg to the border has no
+      stop with a lot to sleep in. A driver bound for the United States who
+      is short of hours at Winnipeg has nowhere to take the night before
+      Pembina.
+- [ ] (Found along the way) Unnamed truck lots take the name "Truck parking
+      near" the leg's end city, by the rule that named them, not a field of
+      their own. On I-29 at Pembina (exit 215) and on the Manitoba side of
+      the Winnipeg to Grand Forks leg, lots 60 miles from Winnipeg are
+      called "Truck parking near Winnipeg". Rename by the nearest place when
+      the stop names are next rebuilt.
+- [ ] (Found along the way) US carriers' share of loads into Canada is still
+      the plain distance weighting. No published share of US for-hire loads
+      that cross into Canada was found (plan doc, Sources).
+- [ ] (Found along the way) The border weight's survey year is 2018, the
+      last in the table. Recalibrate when Statistics Canada publishes a later
+      year of the origin and destination survey.
 - [ ] (Found along the way) The new Alaska sites have no street chains, and
       the two Deadhorse sites sit at the airport and the place centroid:
       neither terminal has an OpenStreetMap object.
@@ -5302,9 +5388,41 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       extensions, and deferral are not modeled.
 - [ ] **Route-wide HOS planning.** The job planner and planning hints use one
       rule set for the entire route rather than switching at jurisdiction
-      boundaries.
-- [ ] **Canadian rest menus.** Rest menus still offer 10 hours in Canada
-      rather than the modeled 8-hour reset.
+      boundaries. Since 2026-11-25 (brief 2 review) a plan for a route that
+      stays in Canada starts from the Canadian counts (`ca_driving_min`,
+      `ca_on_duty_min`), and a route that enters the United States from the
+      US counts; the plan itself stays on US daily rules, and only the
+      starting clock changes (`jobs::start_counts`).
+  - [ ] The board's trip hours, the deadline plan and the team hand-over
+        lines still say 10 hours in Canada.
+- [x] **Canadian rest menus.** Built 2026-11-25, corrected the same day
+      (brief 2 review): a full night is 8 hours only under Canadian rules
+      when the rest of the trip stays in Canada (`hos::FullNight`, chosen
+      from the rules in force and `Trip::road_ahead_stays_in_canada`; the
+      agent server's `status` reports `full_night`). Then the rest menu,
+      the rest preview, the lot and the motel rows (the rest stop's and the
+      full lot's) and the duty-window warning offer the 8-hour night, each
+      in a line of its own ("Sleep 8 hours", "take a full 8-hour reset").
+      The night ends the Canadian counts (SOR/2005-313 s.13) and leaves the
+      US counts running, which want 10 consecutive hours. A road ahead that
+      enters the United States, or no trip at all, gets the 10-hour night,
+      which ends both. The terminal sleeps 10 hours everywhere: it is where
+      a driver who spent the US counts in Canada clears them before a US
+      load. Second pass (same day): under Canadian rules with the United
+      States ahead, the C key, the pad's hours readout, the status line and
+      the ELD app add "US hours rules. {} of driving and {} on duty left."
+      after the Canadian sentence, and the board's accept confirm reads it
+      in place of the Canadian readout when the plan started from the US
+      counts. The split rest sentence is a US sentence: under Canadian rules
+      it is spoken only after that line, and on a road that stays in Canada
+      it is silent in the preview, the wake line and the readout.
+      Five-by-Two still takes 10 hours in the bunk; the 8-hour night does
+      not earn it.
+      The ELD route note and the last-stop warning plan from the limit that
+      comes first on the road ahead (`HosClock::next_limit_ahead`): with
+      the United States ahead, a US limit nearer than the Canadian ones.
+      Before, a driver with 33 minutes of US driving left was told "No rest
+      stop needed first" on a load to Fargo.
 - [ ] **Alaska cycle restart.** The 34-hour restart is an assumption; verify
       its applicability under Alaska's rules.
 - [x] **Whittier tunnel.** Whittier is connected through the Anton Anderson
@@ -6351,14 +6469,17 @@ a carrier slice (owner, 2026-10-26).
       take loads but were not driven for loads across the border.
 - [ ] (Found along the way) Shipping containers are hooked on a flatbed or
       a dry van at the Surrey and Bellingham terminals.
-- [ ] Canadian carriers and home bases, and loads inside Canada for them:
-      the next dispatch slice after loads across the border.
+- [x] Canadian carriers and home bases, and loads inside Canada for them:
+      the next dispatch slice after loads across the border. Carriers, home
+      bases and their boards built 2026-11-25 on the shared lane table, with
+      the border weight.
 - [ ] (Found along the way) Placarded loads across the border: Canada's
       Transportation of Dangerous Goods papers and the placard rules at the
       port are not modeled, so hazmat stays off Canadian lanes for now.
-- [ ] (Found along the way) Canadian shippers outside Surrey: Prince
-      George, the Peace River towns, Fort Nelson, Watson Lake and Whitehorse
-      receive freight but ship none yet (the Northwood pulp mill closed in
+- [ ] (Found along the way) Canadian shippers outside Surrey: the Peace
+      River towns, Fort Nelson and Watson Lake receive freight but ship none
+      yet; Prince George (Bandstra's terminal, the CN intermodal terminal)
+      and Whitehorse (Kilrich, Raven ReCentre) ship since 2026-11-25 (the Northwood pulp mill closed in
       2026). Until each has a verified sawmill, cross-dock or fuel
       terminal, a company driver there is sent on empty to the nearest city
       with a load (the reposition fallback, 2026-11-22).

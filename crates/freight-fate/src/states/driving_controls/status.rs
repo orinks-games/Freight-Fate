@@ -186,7 +186,7 @@ impl DrivingState {
                 lines.push(format!("Fatigue: {fatigue:.0} percent, {band}"));
             }
             let mode = ctx.settings.hos_mode.clone();
-            let summary = hos_of(ctx).summary(&mode);
+            let summary = hos_of(ctx).summary_ahead(&mode, self.trip.road_ahead_stays_in_canada());
             lines.push(format!("HOS: {}", summary.trim_end_matches('.')));
             let context = self.hos_route_context(ctx);
             if !context.is_empty() {

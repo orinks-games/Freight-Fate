@@ -113,11 +113,11 @@ When you first launch the game, it asks how much driving assistance you'd like. 
 
 Choose New career on the main menu and enter your name. Then pick a home region, a home city in it, and a carrier that hires there. The last list also has the owner-operator start. A company supplies your equipment and covers routine equipment costs. If you start as an owner-operator, those bills are yours. Keep that difference in mind when planning how much money you need between loads.
 
-Home cities are in the lower 48 states and Alaska, which is its own region. You can't make your home in Canada yet, because no Canadian carrier hires there.
+Home cities are in the lower 48 states, Alaska and Canada. Alaska is its own region, and Canada has a region for each province group: Alberta, the Atlantic provinces, British Columbia, Ontario, Quebec, Saskatchewan and Manitoba, and the Yukon and Northwest Territories. Only Canadian carriers hire in Canada, and only US carriers hire in the United States. In the Yukon and the Northwest Territories, Liard River Freight is the one carrier. A Canadian career has its own owner-operator start, leased to Longspur Transport, and its training list has no doubles or LCV course, since no Canadian lane offers that freight. A town where nothing ships a load a new driver can take isn't offered as a home.
 
 ### Choosing your carrier and home terminal
 
-Fifty-four carriers hire drivers. The career start list names how many hire in your home city, then lists local carriers, then regional, then national, nearest terminal first in each group, with the owner-operator start last. Each row says the carrier's kind, what freight it leans toward, its longest loads, and the terminal where your truck starts. Press F1 on a row for more.
+Sixty-seven carriers hire drivers, thirteen of them in Canada. The career start list names how many hire in your home city, then lists local carriers, then regional, then national, nearest terminal first in each group, with the owner-operator start last. Each row says the carrier's kind, what freight it leans toward, its longest loads, and the terminal where your truck starts. Press F1 on a row for more.
 
 | Kind | Where it hires | What it hauls |
 | --- | --- | --- |
@@ -439,6 +439,8 @@ Fairbanks, Seward, Valdez, Kenai and the other Alaska towns offer their real fre
 
 Dispatch offers loads from US cities into Canada and loads from Canada back to the United States. A US carrier may not haul between two Canadian towns, so a board in Canada offers only loads to the United States. Twin trailers, live cattle and placarded hazardous loads stay in their own country. A road load between Alaska and the lower 48 crosses Canada, so only a carrier that runs to Canada offers one, and it carries flatbed freight (steel, lumber, machinery, building materials) or food and refrigerated freight. Every national except Great Lakes Training Transport runs to Canada, and so do the regionals whose terminals sit near the border; local carriers stay home. A load's deadline includes time at customs.
 
+A Canadian carrier's board is the mirror. It offers loads inside Canada and loads to the United States, and in a US city only loads back to Canada; it never hauls between two US towns. Canadian nationals post the most US loads, regionals fewer, and the Canadian locals and Mattawa River Freight stay in Canada. Across all the Canadian careers, about one load in five goes to the United States, as in Canadian trucking.
+
 ### Speeds, distances and money
 
 With Units on Automatic, the default, you hear miles in the United States and kilometers in Canada. Crossing the border, the GPS says "Speeds and distances are in kilometers now." or "Speeds and distances are in miles now." In kilometers, fuel is in liters, loads in tonnes, weights in kilograms and low bridges in meters, and the cruise dial steps 95, 100, 105. Imperial keeps miles everywhere and Metric keeps kilometers everywhere; neither says anything at the border. Canadian speed limits are said as signed: a 100 sign is 100 kilometers per hour, or 62 miles per hour in Imperial. Heavy trucks in British Columbia are held to 105 kilometers per hour.
@@ -456,7 +458,7 @@ Hours of service follow the place the truck is in, and you hear the new rules as
 | Canada south of 60 degrees north | 13 hours of driving and 14 on duty in a 16-hour window, and 70 hours in 7 days. |
 | North of 60 degrees north: the Yukon and the Northwest Territories | 15 hours of driving and 18 on duty in a 20-hour window, and 80 hours in 7 days. |
 
-The C key, the ELD app and the logbook read the rules you are under, starting "Canadian hours rules" or "Alaska hours rules". In the United States 34 hours off in a row restart your cycle; in Canada it takes 36. Rest menus offer the same rests in Canada as in the United States. A load's deadline is planned on the lower-48 daily rules for the whole route: 11 hours of driving, the 14-hour window and the 30-minute break. The work cycle isn't part of that plan.
+The C key, the ELD app and the logbook read the rules you are under, starting "Canadian hours rules" or "Alaska hours rules". In the United States 34 hours off in a row restart your cycle; in Canada it takes 36. Under Canadian rules 8 hours off reset your hours, so on a load that stays in Canada the rest menu offers an 8-hour sleep, in the sleeper, the lot or a motel. The US rules want 10 hours off, so on a load headed into the United States the night is 10 hours, and you cross with fresh hours. After a night in Canada on a load that ended there, the US clocks are still counting, and a load to the United States plans the rest you need first. On a road that enters the United States, the C key and the ELD app add a second sentence for the US clocks, such as "US hours rules. 39 minutes of driving and 2 hours on duty left.", and a load into the United States that needs a rest is warned on those US hours. A split sleeper rest is a US rule: under Canadian rules it is mentioned only with the US hours. Five-by-Two still takes 10 hours in the bunk. A night at a terminal is always 10 hours. A load's deadline is planned on the lower-48 daily rules for the whole route: 11 hours of driving, the 14-hour window and the 30-minute break. The work cycle isn't part of that plan.
 
 ### Time zones on the map
 

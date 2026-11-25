@@ -78,7 +78,6 @@ that is refused, or a 1.9 backup that changed.
 
 Don't report these as missing; they are planned:
 
-- No Canadian carrier, so no home city or career start in Canada.
 - No ferries: Juneau, Kodiak, Newfoundland and the other places with no
   road are not on the map.
 - Not yet built: Route 138 east of Sept-Îles, The Pas and Flin Flon,
@@ -150,8 +149,8 @@ longest loads, and the terminal where your truck starts. F1 on a row says
 more.
 
 Pass when: every lower-48 city has at least eight carriers, Anchorage has
-two (Chatanika Freight Lines and Knik Arm Cartage), no Canadian city is
-offered as a home, and the distances in the rows are in your units.
+two (Chatanika Freight Lines and Knik Arm Cartage), and the distances in
+the rows are in your units.
 
 ### 2.2 The first day at your carrier's terminal
 
@@ -164,7 +163,25 @@ your truck is parked; a level 1 board that isn't empty.
 Pass when: the terminal names the carrier and its city, and your first
 assigned load leaves from there.
 
-### 2.3 Losing a job and getting a seat back
+### 2.3 A career in Canada
+
+Do: New career, then pick a Canadian region (Alberta, Atlantic provinces,
+British Columbia, Ontario, Quebec, Saskatchewan and Manitoba, Yukon and
+Northwest Territories) and a home city. Try Toronto, Regina and
+Whitehorse.
+
+Listen for: only Canadian carriers in the list; in Toronto, Port Lands
+Cartage, Speed River Freight, Mattawa River Freight, Longspur Transport,
+Great Shield Transport, then the owner-operator start leased to Longspur;
+in Whitehorse, Liard River Freight alone. With Units on Automatic the rows
+give kilometers.
+
+Pass when: no US city sits under a Canadian row and no Canadian city
+under a US one, every carrier listed has a terminal in Canada, the first
+board holds a load you can take, and the Licenses and training list has
+no doubles or LCV course.
+
+### 2.4 Losing a job and getting a seat back
 
 Setup: a company career near the reputation floor or the debt ceiling.
 `FREIGHT_FATE_FORCE_PERSIST` off, so nothing sticks.
@@ -180,7 +197,7 @@ carrier where the dispatch board was.
 Pass when: the new carrier hires near your home, and Get Back is earned
 at the next terminal visit once you're on another carrier's payroll.
 
-### 2.4 Moving up from Great Lakes
+### 2.5 Moving up from Great Lakes
 
 Setup: a Great Lakes Training Transport career at level 4 with full
 dispatch trust.
@@ -193,7 +210,7 @@ Listen for: carriers that hire where you live, and "You start at their
 Pass when: the move names your new terminal, the truck waits there, and
 Takin' Care of Business is earned.
 
-### 2.5 A 1.9 career carried over
+### 2.6 A 1.9 career carried over
 
 Setup: Chapter 0.2, with at least one 1.9 career.
 
@@ -374,12 +391,11 @@ Yukon resumes with the bond lines at the Alcan port.
 
 Setup: a company career.
 
-Do: deliver to Whitehorse, Watson Lake or Prince George, which ship
-nothing, then open the dispatch board.
+Do: deliver to Watson Lake or Fort Nelson, which ship nothing, then open
+the dispatch board.
 
-Listen for: an assigned empty run to the nearest city with a load, such
-as "Assigned load: Reposition, empty, to Skagway, Alaska, 177
-kilometers. Pays 54 dollars."
+Listen for: an assigned empty run to the nearest city with a load, with
+its distance and pay.
 
 Pass when: the empty run parks and settles when you arrive, with no dock
 menu, and the next board has a load. An empty board with no way to leave
@@ -419,7 +435,8 @@ the booth saying the Canadian price, such as 35 Canadian dollars at the
 Blue Water Bridge.
 
 Pass when: the pump and the booth speak Canadian dollars, and the
-settlement and your cash stay in US dollars.
+settlement and your cash stay in US dollars. With Units on Imperial, a
+fuel row that gives the price a liter gives the fuel in liters too.
 
 ## Chapter 6. Hours of service
 
@@ -460,10 +477,23 @@ is earned; at your home terminal, Take Me Home, Country Roads too.
 
 ### 6.4 Sleeping in Canada
 
-Do: at a Canadian stop, read the sleep row before choosing it.
+Do: on a load that stays in Canada, read the sleep rows at a Canadian stop
+before choosing one, then sleep. Then take a load to the United States,
+and read the sleep rows at a stop before the border.
 
-Pass when: it says "Afterward, driving allowance is 13.0 hours. Your
-legal driving window closes in 16.0 hours", the Canadian numbers.
+Listen for: on the load in Canada, "Sleep 8 hours", "Sleep 8 hours in the
+lot" and "Motel room: sleep 8 hours for 95 dollars", and in the preview "A
+full 8-hour sleep resets your driving hours and legal driving window." On
+the load to the United States, "Sleep 10 hours" and the other 10-hour
+rows.
+
+Pass when: in Canada the preview says "Afterward, driving allowance is
+13.0 hours. Your legal driving window closes in 16.0 hours", the Canadian
+numbers, and the clock moves 8 hours. On the load to the United States the
+night is 10 hours, and the hours are fresh when you cross. The terminal's
+sleep is 10 hours on both sides of the border. Before the border, the C key
+reads the Canadian sentence and then "US hours rules." with your US hours;
+on the load that stays in Canada it reads no US sentence.
 
 ## Chapter 7. Canadian roads
 
@@ -707,9 +737,17 @@ Known and recorded. Report them only if one costs you a load or a drive.
 - Canada has no county lines, so Alt+5 says less there.
 - Canadian traffic is estimated, not read from provincial counts.
 - Canadian diesel prices are fixed 2025 averages.
-- Canadian rest menus offer the US rests; Canada's daily off-duty rules
-  and cycle 2 are not modeled.
-- The deadline plans the whole route on US rules.
+- Canada's daily off-duty rules and cycle 2 are not modeled.
+- The deadline plans the whole route on US rules, so the board's trip
+  hours, the deadline plan and the team hand-over lines still say 10
+  hours in Canada.
+- A Canadian career still hears US license, endorsement and police
+  words: CDL and its suspensions, the hazmat background check, the tank
+  endorsement letter, the TWIC port card and troopers.
+- Watson Lake, Haines Junction, Fort St. John, Dawson Creek, Fort Nelson,
+  Terrace, Smithers, Kitimat and Sept-Îles are not offered as homes:
+  nothing there ships a load a new driver can take.
+- Money stays in US dollars for a Canadian career.
 - Passports and FAST cards are not modeled; Huntingdon clears trucks on
   weekends, when the real port is closed.
 - No Ambassador Bridge, Peace Bridge, Fort Frances crossing or Highway 407.

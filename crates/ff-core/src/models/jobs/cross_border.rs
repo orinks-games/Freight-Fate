@@ -344,6 +344,16 @@ pub fn route_crossings(route: &Route) -> usize {
         .count()
 }
 
+/// Whether every city on the route is in Canada: a load that never enters
+/// the United States.
+pub fn route_stays_in_canada(route: &Route) -> bool {
+    !route.cities.is_empty()
+        && route
+            .cities
+            .iter()
+            .all(|key| CarrierBase::from_code(country_of_key(key)) == Some(CarrierBase::Ca))
+}
+
 /// Hours a deadline books at the border for this route.
 pub fn route_customs_hours(route: Option<&Route>) -> f64 {
     route.map_or(0.0, |r| route_crossings(r) as f64 * CUSTOMS_PLANNED_H)

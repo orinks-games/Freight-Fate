@@ -100,6 +100,11 @@ impl HosRules {
         }
     }
 
+    /// Whether these are the federal Canadian rules, south or north of 60.
+    pub fn is_canadian(self) -> bool {
+        matches!(self, Self::CanadaSouth60 | Self::CanadaNorth60)
+    }
+
     /// Parse a saved rule key, defaulting unknown values to US rules.
     pub fn from_key(key: &str) -> Self {
         match key.trim().to_ascii_lowercase().as_str() {
@@ -107,6 +112,57 @@ impl HosRules {
             "canada_south_60" => Self::CanadaSouth60,
             "canada_north_60" => Self::CanadaNorth60,
             _ => Self::Us,
+        }
+    }
+}
+
+/// The full night a rest offers, chosen in one place for the rest menu, the
+/// preview, the lot, the motel and their lines (director's review of brief
+/// 2, 2026-11-25).
+///
+/// Eight consecutive hours off end the Canadian counts (SOR/2005-313 s.12
+/// and s.13; north of 60, s.39) but not the US ones, which want 10 (49 CFR
+/// 395.3(a)(1)). So the night is 8 hours only under Canadian rules on a road
+/// that stays in Canada; a road ahead that enters the United States, or no
+/// trip at all, gets the 10-hour night that clears both.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum FullNight {
+    TenHours,
+    EightHours,
+}
+
+impl FullNight {
+    /// The night on offer under `rules`, with the road still ahead staying
+    /// in Canada or not.
+    pub fn choose(rules: HosRules, road_ahead_stays_in_canada: bool) -> Self {
+        if rules.is_canadian() && road_ahead_stays_in_canada {
+            Self::EightHours
+        } else {
+            Self::TenHours
+        }
+    }
+
+    /// Minutes of consecutive rest the night takes.
+    pub fn minutes(self) -> f64 {
+        match self {
+            Self::TenHours => SLEEP_MIN,
+            Self::EightHours => CANADA_RESET_MIN,
+        }
+    }
+
+    /// Whole hours, for the lines.
+    pub fn hours(self) -> i64 {
+        match self {
+            Self::TenHours => 10,
+            Self::EightHours => 8,
+        }
+    }
+
+    /// The agent server's name for it.
+    pub fn key(self) -> &'static str {
+        match self {
+            Self::TenHours => "ten_hours",
+            Self::EightHours => "eight_hours",
         }
     }
 }
@@ -138,10 +194,10 @@ pub const ALASKA_CYCLE_LIMIT_MIN: f64 = 80.0 * 60.0;
 /// <https://www.ecfr.gov/current/title-49/subtitle-B/chapter-III/subchapter-B/part-395/subpart-A/section-395.1>
 pub const ALASKA_RESTART_MIN: f64 = RESTART_MIN;
 /// READ: Canada south of 60 permits 13 hours driving and 14 hours on duty
-/// under SOR/2005-313 s.13.
+/// in a day under SOR/2005-313 s.12, then 8 hours off under s.13.
 /// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
 pub const CANADA_SOUTH_DRIVE_LIMIT_MIN: f64 = 13.0 * 60.0;
-/// READ: Canada south of 60 permits 14 hours on duty under SOR/2005-313 s.13.
+/// READ: Canada south of 60 permits 14 hours on duty under SOR/2005-313 s.12.
 /// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
 pub const CANADA_SOUTH_ON_DUTY_LIMIT_MIN: f64 = 14.0 * 60.0;
 /// READ: Canada south of 60 permits 16 elapsed hours after the last 8-hour
@@ -164,9 +220,13 @@ pub const CANADA_NORTH_ON_DUTY_LIMIT_MIN: f64 = 18.0 * 60.0;
 /// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
 pub const CANADA_NORTH_SHIFT_LIMIT_MIN: f64 = 20.0 * 60.0;
 /// READ: Canada north of 60 permits 80 hours in 7 days under
-/// SOR/2005-313 s.39.
+/// SOR/2005-313 s.51.
 /// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
 pub const CANADA_NORTH_CYCLE_LIMIT_MIN: f64 = 80.0 * 60.0;
+/// READ: 8 consecutive hours off reset the Canadian daily counts, south of
+/// 60 under SOR/2005-313 s.13 and north of 60 under s.39.
+/// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>
+pub const CANADA_RESET_MIN: f64 = 8.0 * 60.0;
 /// READ: both Canadian cycle variants restart after 36 consecutive hours off
 /// under SOR/2005-313 ss.28 and 53.
 /// <https://laws-lois.justice.gc.ca/eng/Regulations/SOR-2005-313/FullText.html>

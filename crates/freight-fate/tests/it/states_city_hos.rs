@@ -231,6 +231,36 @@ fn test_city_sleep_resets_hours_and_advances_the_clock() {
 }
 
 #[test]
+fn test_a_terminal_in_canada_sleeps_the_10_hour_night() {
+    // Brief 2 review, 2026-11-25: the terminal has no trip to read the road
+    // ahead from, so its night is 10 hours everywhere, which clears the US
+    // and the Canadian counts alike.
+    let mut app = TestApp::new();
+    career(&mut app, "Port Lands", "Toronto");
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+    let before = {
+        let p = profile_mut(&mut app);
+        p.hos.drive(600.0);
+        p.fatigue = 75.0;
+        p.game_hours
+    };
+    app.clear_speech();
+    select::<CityMenuState>(&mut app, "Sleep 10 hours");
+    let p = profile(&app);
+    assert!(approx(p.game_hours, before + 10.0), "{}", p.game_hours);
+    assert_eq!(p.hos.driving_min, 0.0);
+    assert_eq!(p.hos.ca_driving_min, 0.0);
+    assert!(
+        app.main_lines()
+            .iter()
+            .any(|l| l.starts_with("Slept 10 hours.")),
+        "{:?}",
+        app.main_lines()
+    );
+}
+
+#[test]
 fn test_the_sleep_that_finishes_a_restart_says_the_cycle_reset() {
     // R1 review, 2026-11-22: four nights in the bunk room cleared a spent
     // 70-hour week without a word.
@@ -718,4 +748,60 @@ fn the_departure_line_says_nothing_of_night_on_a_daytime_run() {
     let (said, expected) = austin_departure_at(8.0);
     assert_eq!(expected, None);
     assert!(!said.contains("night driving"), "{said}");
+}
+
+/// Under Canadian rules a load into the United States plans from the US
+/// counts, so the accept confirm reads the US hours line in place of the
+/// Canadian readout; a load that stays in Canada reads the Canadian one
+/// (director, 2026-11-25).
+#[test]
+fn test_dispatch_confirm_reads_the_counts_the_plan_started_from() {
+    use ff_core::models::jobs::cargo_type;
+    use ff_core::sim::hos::HosRules;
+    for (destination, driven_h, us) in [
+        ("grand_forks_nd_us", 10.5, true),
+        ("portage_la_prairie_mb_ca", 12.75, false),
+    ] {
+        let mut app = TestApp::new();
+        app.record_audio();
+        app.ctx.profile = Some(Profile::named_in("Border Confirm", "Winnipeg"));
+        app.ctx.settings.hos_mode = "realistic".to_string();
+        {
+            let p = profile_mut(&mut app);
+            p.carrier_key = "longspur_transport".to_string();
+            p.hos.set_rules(HosRules::CanadaSouth60);
+            p.hos.drive(driven_h * 60.0);
+        }
+        let job = Job::new(
+            cargo_type("general").expect("general freight"),
+            12.0,
+            "winnipeg_mb_ca",
+            "Winnipeg Cross-Dock",
+            destination,
+            100.0,
+            900.0,
+            24.0,
+        );
+        let mut board = JobBoardState::new(&app.ctx, vec![job]);
+        app.clear_speech();
+        board.accept(&mut app.ctx, 0);
+        app.ctx.run_deferred();
+        let line = app.main_lines().last().cloned().unwrap_or_default();
+        assert!(
+            line.starts_with("Needs an extra rest on this shift's hours."),
+            "{line}"
+        );
+        if us {
+            assert_eq!(
+                line,
+                "Needs an extra rest on this shift's hours. US hours rules. 30 minutes of \
+                 driving and 3.5 hours on duty left. Enter again to accept."
+            );
+        } else {
+            assert!(line.contains("Canadian hours rules."), "{line}");
+            assert!(!line.contains("US hours rules."), "{line}");
+        }
+        drop(board);
+        drop(app);
+    }
 }

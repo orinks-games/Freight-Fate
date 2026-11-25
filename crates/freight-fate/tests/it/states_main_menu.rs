@@ -866,8 +866,12 @@ fn test_home_picker_offers_only_cities_where_a_carrier_hires() {
     let app = TestApp::new();
     let picker = HomeTerminalState::new(&app.ctx, "Picker");
     let offered = picker.offered_cities();
-    for blocked in ["whitehorse_yt_ca", "surrey_bc_ca"] {
+    // Watson Lake ships nothing a new driver can load, so it is closed.
+    for blocked in ["watson_lake_yt_ca", "fort_st_john_bc_ca"] {
         assert!(!offered.iter().any(|c| c == blocked), "{blocked} offered");
+    }
+    for open in ["whitehorse_yt_ca", "surrey_bc_ca", "toronto_on_ca"] {
+        assert!(offered.iter().any(|c| c == open), "{open} not offered");
     }
     // Alaska opens with the Alaska regional and the Anchorage local.
     for open in [
@@ -879,12 +883,15 @@ fn test_home_picker_offers_only_cities_where_a_carrier_hires() {
         assert!(offered.iter().any(|c| c == open), "{open} missing");
     }
     // A city picker handed a blocked city still leaves it out.
-    let region = app.ctx.world.cities["whitehorse_yt_ca"].region.clone();
+    let region = app.ctx.world.cities["watson_lake_yt_ca"].region.clone();
     let cities = HomeCityState::new(
         &app.ctx,
         "Picker",
         &region,
-        &["whitehorse_yt_ca".to_string(), "surrey_bc_ca".to_string()],
+        &[
+            "watson_lake_yt_ca".to_string(),
+            "fort_st_john_bc_ca".to_string(),
+        ],
     );
     assert!(cities.cities().is_empty());
 }
@@ -989,7 +996,7 @@ fn test_every_offered_home_city_has_a_carrier_that_hires_there() {
         let picker = CareerStartState::new(&app.ctx, "Coverage", city);
         assert!(!picker.option_keys().is_empty(), "{city} has no carrier");
         let st = app.ctx.world.cities[city].state_code.to_ascii_uppercase();
-        assert!(!matches!(st.as_str(), "BC" | "YT" | "HI"), "{city}");
+        assert_ne!(st, "HI", "{city}");
     }
 }
 
@@ -1099,4 +1106,37 @@ fn test_carrier_counts_name_distinct_carriers_not_start_rows() {
         freight_fate::states::base::Menu::current_help(s, ctx)
     });
     assert!(help.contains("8 carriers hire here."), "{help}");
+}
+
+#[test]
+fn test_a_canadian_home_has_its_province_row_and_kilometer_start_rows() {
+    let mut app = TestApp::new();
+    let picker = HomeTerminalState::new(&app.ctx, "Province Rows");
+    app.push_state(picker);
+    let regions = labels::<HomeTerminalState>(&app);
+    for row in [
+        "Alberta",
+        "Atlantic provinces",
+        "British Columbia",
+        "Ontario",
+        "Quebec",
+        "Saskatchewan and Manitoba",
+        "Yukon and Northwest Territories",
+    ] {
+        assert!(
+            regions.iter().any(|r| r.starts_with(row)),
+            "{row}: {regions:?}"
+        );
+    }
+    // With Units on Automatic the start rows speak the home city's units.
+    let start = CareerStartState::new(&app.ctx, "Province Rows", "toronto_on_ca");
+    app.push_state(start);
+    let rows = labels::<CareerStartState>(&app);
+    assert!(rows.iter().any(|r| r.contains("kilometers")), "{rows:?}");
+    assert!(!rows.iter().any(|r| r.contains(" miles")), "{rows:?}");
+    assert!(
+        rows.iter().any(|r| r.starts_with("Port Lands Cartage")),
+        "{rows:?}"
+    );
+    assert!(rows.iter().any(|r| r.contains("Longspur")), "{rows:?}");
 }

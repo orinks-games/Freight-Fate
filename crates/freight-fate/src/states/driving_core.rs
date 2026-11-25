@@ -45,7 +45,7 @@ use ff_core::radio::{
 };
 use ff_core::settings::Settings;
 use ff_core::sim::enforcement_posts::EnforcementPost;
-use ff_core::sim::hos::HosClock;
+use ff_core::sim::hos::{FullNight, HosClock};
 use ff_core::sim::trip_models::{RoadStop, TripEvent, TripEventKind};
 use ff_core::sim::vehicle::TruckState;
 use ff_core::speech_pacing::SpeechCategory;
@@ -153,6 +153,12 @@ pub fn hos_of(ctx: &GameContext) -> &HosClock {
 
 pub fn hos_mut_of(ctx: &mut GameContext) -> &mut HosClock {
     &mut profile_mut_of(ctx).hos
+}
+
+/// The full night this drive's rest offers: 8 hours only under Canadian
+/// rules on a road that stays in Canada ([`FullNight::choose`]).
+pub fn full_night_of(ctx: &GameContext, d: &DrivingState) -> FullNight {
+    hos_of(ctx).full_night(d.trip.road_ahead_stays_in_canada())
 }
 
 // -- pure helpers ---------------------------------------------------------------------

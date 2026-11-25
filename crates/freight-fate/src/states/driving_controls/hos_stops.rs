@@ -5,7 +5,7 @@ use crate::speech::{DeliveryStatus, EventPriority};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{hos_mut_of, hos_of};
 use ff_core::models::jobs::hos_stops::{
-    nearest_sleep_stop_travel_min, plan_hos_stop, HosStopAdvice, StopPlanningRoute,
+    nearest_sleep_stop_travel_min, plan_hos_stop_ahead, HosStopAdvice, StopPlanningRoute,
 };
 use ff_core::models::jobs::route_drive_hours;
 use ff_core::speech_pacing::SpeechCategory;
@@ -171,10 +171,11 @@ impl DrivingState {
     }
 
     pub fn hos_stop_advice(&self, ctx: &GameContext) -> Option<HosStopAdvice> {
-        plan_hos_stop(
+        plan_hos_stop_ahead(
             &self.stop_planning_route(ctx)?,
             hos_of(ctx),
             &ctx.settings.hos_mode,
+            self.trip.road_ahead_stays_in_canada(),
         )
     }
 

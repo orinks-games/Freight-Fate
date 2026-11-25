@@ -305,7 +305,7 @@ fn test_back_to_back_berth_rests_are_one_period() {
     c.sleeper_split_rest(180.0);
     assert_eq!(c.split_rest_history.len(), 1);
     assert_eq!(c.split_rest_history[0].minutes, 360.0);
-    assert_eq!(c.reset_minutes_left(), Some(240.0));
+    assert_eq!(c.reset_minutes_left(FullNight::TenHours), Some(240.0));
 
     // Reaching 7 hours takes the whole period off the window.
     c.sleeper_split_rest(60.0);
@@ -315,7 +315,7 @@ fn test_back_to_back_berth_rests_are_one_period() {
     c.sleeper_split_rest(180.0);
     assert_eq!(c.driving_min, 0.0);
     assert_eq!(c.duty_min, 0.0);
-    assert_eq!(c.reset_minutes_left(), None);
+    assert_eq!(c.reset_minutes_left(FullNight::TenHours), None);
 }
 
 #[test]
@@ -2401,4 +2401,144 @@ fn a_waived_break_is_not_named_in_the_readouts() {
     assert!(c
         .break_summary(mode, false)
         .starts_with("30-minute break due in"));
+}
+
+/// The full night on offer, over (rules, road ahead): 8 hours only under
+/// Canadian rules on a road that stays in Canada (brief 2 review).
+#[test]
+fn the_full_night_is_eight_hours_only_in_canada_on_a_road_that_stays_there() {
+    use FullNight::{EightHours, TenHours};
+    let table = [
+        (HosRules::Us, false, TenHours),
+        (HosRules::Us, true, TenHours),
+        (HosRules::Alaska, false, TenHours),
+        (HosRules::Alaska, true, TenHours),
+        (HosRules::CanadaSouth60, false, TenHours),
+        (HosRules::CanadaSouth60, true, EightHours),
+        (HosRules::CanadaNorth60, false, TenHours),
+        (HosRules::CanadaNorth60, true, EightHours),
+    ];
+    for (rules, stays, night) in table {
+        assert_eq!(
+            FullNight::choose(rules, stays),
+            night,
+            "{rules:?}, stays {stays}"
+        );
+        let mut clock = HosClock::new();
+        clock.set_rules(rules);
+        assert_eq!(clock.full_night(stays), night, "{rules:?}, stays {stays}");
+    }
+    assert_eq!((TenHours.hours(), TenHours.minutes()), (10, SLEEP_MIN));
+    assert_eq!(
+        (EightHours.hours(), EightHours.minutes()),
+        (8, CANADA_RESET_MIN)
+    );
+}
+
+#[test]
+fn the_eight_hour_night_ends_the_canadian_counts_and_leaves_the_us_counts_running() {
+    let mut ca = HosClock::new();
+    ca.set_rules(HosRules::CanadaSouth60);
+    let night = ca.full_night(true);
+    assert_eq!(night, FullNight::EightHours);
+    ca.drive(12.0 * 60.0);
+    ca.rest_reset(night);
+    assert_eq!(ca.ca_driving_min, 0.0);
+    assert_eq!(ca.ca_on_duty_min, 0.0);
+    assert!(!ca.in_violation("realistic"));
+    assert_eq!(ca.reset_minutes_left(night), None);
+    // 8 hours off is not the US reset: back in the US the driving count
+    // still holds the 12 hours.
+    assert_eq!(ca.driving_min, 12.0 * 60.0);
+    assert_eq!(ca.off_duty_min, 8.0 * 60.0);
+
+    // A rest already under way owes only the rest of the 8 hours.
+    let mut part = HosClock::new();
+    part.set_rules(HosRules::CanadaNorth60);
+    part.drive(60.0);
+    part.sleeper(3.0 * 60.0);
+    assert_eq!(
+        part.reset_minutes_left(FullNight::EightHours),
+        Some(5.0 * 60.0)
+    );
+    part.rest_reset(FullNight::EightHours);
+    assert_eq!(part.off_duty_min, 8.0 * 60.0);
+    assert_eq!(part.ca_driving_min, 0.0);
+
+    // Under Canadian rules with the road ahead entering the US, the night
+    // is the 10-hour one, which ends both sets of counts.
+    let mut crossing = HosClock::new();
+    crossing.set_rules(HosRules::CanadaSouth60);
+    let night = crossing.full_night(false);
+    assert_eq!(night, FullNight::TenHours);
+    crossing.drive(12.0 * 60.0);
+    crossing.rest_reset(night);
+    assert_eq!(crossing.driving_min, 0.0);
+    assert_eq!(crossing.ca_driving_min, 0.0);
+
+    let mut us = HosClock::new();
+    us.drive(10.0 * 60.0);
+    us.rest_reset(us.full_night(true));
+    assert_eq!(us.driving_min, 0.0);
+    assert_eq!(us.history.last().unwrap().source, "full_reset");
+}
+
+/// The US hours line is the Alaska line's shape over the US counts, and the
+/// split sentence under Canadian rules is spoken only after it (director,
+/// 2026-11-25).
+#[test]
+fn test_us_hours_line_and_the_split_under_canadian_rules() {
+    let mut c = HosClock::default();
+    c.set_rules(HosRules::CanadaSouth60);
+    c.drive(10.0 * 60.0 + 21.0);
+    assert_eq!(
+        c.us_hours_line("realistic").as_deref(),
+        Some("US hours rules. 39 minutes of driving and 3.6 hours on duty left.")
+    );
+    assert_eq!(c.summary_ahead("realistic", true), c.summary("realistic"));
+    let ahead = c.summary_ahead("realistic", false);
+    assert!(ahead.starts_with(&c.summary("realistic")), "{ahead}");
+    assert!(ahead.ends_with("US hours rules. 39 minutes of driving and 3.6 hours on duty left."));
+    assert_eq!(c.us_hours_line("off"), None);
+
+    c.sleeper_split_rest(480.0);
+    let pending = c.split_pending_summary().expect("a split under way");
+    assert_eq!(c.split_pending_spoken(), None);
+    assert!(!c.summary("realistic").contains(pending));
+    let readout = c.us_hours_readout("realistic").expect("enforced");
+    assert!(readout.starts_with("US hours rules."));
+    assert!(readout.ends_with(pending), "{readout}");
+
+    c.set_rules(HosRules::Alaska);
+    assert_eq!(c.split_pending_spoken(), Some(pending));
+    c.set_rules(HosRules::Us);
+    assert_eq!(c.split_pending_spoken(), Some(pending));
+}
+
+/// Under Canadian rules on a road into the United States the US limit can
+/// come first; on a road that stays in Canada only the Canadian ones count.
+#[test]
+fn test_next_limit_ahead_takes_the_nearer_us_limit_toward_the_border() {
+    let mut c = HosClock::default();
+    c.set_rules(HosRules::CanadaSouth60);
+    c.drive(10.0 * 60.0 + 21.0);
+    // An 8-hour night in Canada: the Canadian counts and the break are
+    // fresh, the US driving and duty counts are not.
+    c.ca_driving_min = 0.0;
+    c.ca_on_duty_min = 0.0;
+    c.since_break_min = 0.0;
+    let canada = c.next_limit_ahead("realistic", true).expect("enforced");
+    assert_eq!(
+        canada.remaining_min,
+        c.next_limit("realistic").unwrap().remaining_min
+    );
+    assert!(canada.remaining_min > 60.0, "{canada:?}");
+    let border = c.next_limit_ahead("realistic", false).expect("enforced");
+    assert_eq!(border.kind, "drive");
+    assert_eq!(border.remaining_min, 39.0);
+    c.set_rules(HosRules::Us);
+    assert_eq!(
+        c.next_limit_ahead("realistic", false),
+        c.next_limit("realistic")
+    );
 }

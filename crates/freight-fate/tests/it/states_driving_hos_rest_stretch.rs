@@ -46,7 +46,10 @@ fn back_to_back_berth_sleeps_count_toward_the_reset() {
         woke.contains("Finish the split or sleep 4 hours more here to finish a 10-hour reset"),
         "{woke}"
     );
-    assert_eq!(hos(&h).reset_minutes_left(), Some(240.0));
+    assert_eq!(
+        hos(&h).reset_minutes_left(ff_core::sim::hos::FullNight::TenHours),
+        Some(240.0)
+    );
 
     let before = h.read_drive(|d| d.trip.local_hour());
     h.clear_speech();

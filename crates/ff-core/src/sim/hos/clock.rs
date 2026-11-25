@@ -5,7 +5,7 @@ use serde_json::{json, Value};
 use super::pyjson::{py_float_or, py_iter, py_max, py_repr_str, py_str, py_str_or};
 use super::{
     cycle_limit, duration_text, is_duty_status, is_non_enforced, limits, positive_minutes,
-    HosRules, ALASKA_CYCLE_LIMIT_MIN, ALASKA_DRIVE_LIMIT_MIN, ALASKA_ON_DUTY_LIMIT_MIN,
+    FullNight, HosRules, ALASKA_CYCLE_LIMIT_MIN, ALASKA_DRIVE_LIMIT_MIN, ALASKA_ON_DUTY_LIMIT_MIN,
     ALASKA_RESTART_MIN, BREAK_MIN, CANADA_CYCLE_WINDOW_MIN, CANADA_NORTH_CYCLE_LIMIT_MIN,
     CANADA_NORTH_DRIVE_LIMIT_MIN, CANADA_NORTH_ON_DUTY_LIMIT_MIN, CANADA_NORTH_SHIFT_LIMIT_MIN,
     CANADA_RESTART_MIN, CANADA_SOUTH_CYCLE_LIMIT_MIN, CANADA_SOUTH_DRIVE_LIMIT_MIN,
@@ -453,11 +453,31 @@ impl HosClock {
         self.off_duty(minutes);
     }
 
+    /// The full night on offer under the rules in force, with the road
+    /// ahead staying in Canada or not ([`FullNight::choose`]).
+    pub fn full_night(&self, road_ahead_stays_in_canada: bool) -> FullNight {
+        FullNight::choose(self.rules, road_ahead_stays_in_canada)
+    }
+
     /// A full 10-hour off-duty reset: a fresh shift (`sleep()` in Python,
     /// which defaults the status to the sleeper berth).
     pub fn sleep(&mut self) {
         self.advance_cycle(SLEEP_MIN, false);
         self.sleep_as("sleeper_berth");
+    }
+
+    /// The full night: on an 8-hour night, the berth time still owed (8
+    /// hours from a fresh stop), which ends the Canadian counts and leaves
+    /// the US counts running; on a 10-hour night the full reset of
+    /// [`Self::sleep`], which ends both.
+    pub fn rest_reset(&mut self, night: FullNight) {
+        match night {
+            FullNight::EightHours => {
+                let owed = self.reset_minutes_left(night).unwrap_or(night.minutes());
+                self.sleeper(owed);
+            }
+            FullNight::TenHours => self.sleep(),
+        }
     }
 
     /// A full cycle restart under the selected rules, recorded as a
@@ -711,11 +731,11 @@ impl HosClock {
         }
     }
 
-    /// Minutes still owed on a 10-hour reset already under way: resting
-    /// since the wheel, and not yet ten hours of it.
-    pub fn reset_minutes_left(&self) -> Option<f64> {
-        (self.off_duty_min > 0.0 && self.off_duty_min < SLEEP_MIN)
-            .then_some(SLEEP_MIN - self.off_duty_min)
+    /// Minutes still owed on a reset already under way: resting since the
+    /// wheel, and not yet the reset's hours of it (10, 8 in Canada).
+    pub fn reset_minutes_left(&self, night: FullNight) -> Option<f64> {
+        let reset = night.minutes();
+        (self.off_duty_min > 0.0 && self.off_duty_min < reset).then_some(reset - self.off_duty_min)
     }
 
     fn key_is_credited(&self, first: usize, second: usize) -> bool {
@@ -860,38 +880,65 @@ impl HosClock {
 
     // -- rule queries ----------------------------------------------------------
 
-    /// (kind, minutes remaining, what is due) per enforced limit.
-    pub(crate) fn statuses(&self, mode: &str) -> Vec<HosLimit> {
+    /// The US limits from the US counts, whatever rules are in force.
+    fn us_statuses(&self, mode: &str) -> Vec<HosLimit> {
         let Some((us_drive_limit, us_duty_limit, break_after)) = limits(mode) else {
             return Vec::new();
         };
+        let mut limits = vec![
+            HosLimit {
+                kind: "break",
+                remaining_min: break_after - self.since_break_min,
+                due: "you must take a 30 minute break at a rest stop",
+            },
+            HosLimit {
+                kind: "drive",
+                remaining_min: us_drive_limit - self.driving_min,
+                due: "your driving time for this shift ends. You need 10 hours of sleep",
+            },
+            HosLimit {
+                kind: "duty",
+                remaining_min: us_duty_limit - self.duty_min,
+                due: "your duty window closes. You need 10 hours of sleep",
+            },
+            HosLimit {
+                kind: "cycle",
+                remaining_min: cycle_limit(mode).unwrap_or(0.0) - self.cycle_used_min(),
+                due: "your 70-hour cycle is used up. You need a 34-hour restart",
+            },
+        ];
+        if self.break_waived {
+            limits.retain(|limit| limit.kind != "break");
+        }
+        limits
+    }
+
+    /// The limit that comes first on the road ahead. Under Canadian rules on
+    /// a road that enters the United States the US counts decide too, so the
+    /// nearer of the two rule sets' limits (director, 2026-11-25); otherwise
+    /// [`Self::next_limit`].
+    pub fn next_limit_ahead(
+        &self,
+        mode: &str,
+        road_ahead_stays_in_canada: bool,
+    ) -> Option<HosLimit> {
+        let here = self.next_limit(mode);
+        if !self.rules.is_canadian() || road_ahead_stays_in_canada {
+            return here;
+        }
+        self.us_statuses(mode)
+            .into_iter()
+            .chain(here)
+            .min_by(|a, b| a.remaining_min.total_cmp(&b.remaining_min))
+    }
+
+    /// (kind, minutes remaining, what is due) per enforced limit.
+    pub(crate) fn statuses(&self, mode: &str) -> Vec<HosLimit> {
+        if limits(mode).is_none() {
+            return Vec::new();
+        }
         if self.rules == HosRules::Us {
-            let mut limits = vec![
-                HosLimit {
-                    kind: "break",
-                    remaining_min: break_after - self.since_break_min,
-                    due: "you must take a 30 minute break at a rest stop",
-                },
-                HosLimit {
-                    kind: "drive",
-                    remaining_min: us_drive_limit - self.driving_min,
-                    due: "your driving time for this shift ends. You need 10 hours of sleep",
-                },
-                HosLimit {
-                    kind: "duty",
-                    remaining_min: us_duty_limit - self.duty_min,
-                    due: "your duty window closes. You need 10 hours of sleep",
-                },
-                HosLimit {
-                    kind: "cycle",
-                    remaining_min: cycle_limit(mode).unwrap_or(0.0) - self.cycle_used_min(),
-                    due: "your 70-hour cycle is used up. You need a 34-hour restart",
-                },
-            ];
-            if self.break_waived {
-                limits.retain(|limit| limit.kind != "break");
-            }
-            return limits;
+            return self.us_statuses(mode);
         }
 
         let rule_limits = self.non_us_limits().expect("non-US rules selected");
@@ -1106,6 +1153,59 @@ impl HosClock {
     /// Spoken status for the C key and Tab report.
     pub fn summary(&self, mode: &str) -> String {
         self.summary_with(mode, true)
+    }
+
+    /// The hours readout with the road ahead in it: under Canadian rules on
+    /// a road that enters the United States, the US hours line (and a split
+    /// rest under way, after it) follows the Canadian sentence, because the
+    /// US counts decide once the truck crosses (director, 2026-11-25). On a
+    /// road that stays in Canada, and under any other rules, it is
+    /// [`Self::summary`].
+    pub fn summary_ahead(&self, mode: &str, road_ahead_stays_in_canada: bool) -> String {
+        let summary = self.summary(mode);
+        if !self.rules.is_canadian() || road_ahead_stays_in_canada {
+            return summary;
+        }
+        match self.us_hours_readout(mode) {
+            Some(us) => format!("{summary} {us}"),
+            None => summary,
+        }
+    }
+
+    /// "US hours rules. {} of driving and {} on duty left.", from the US
+    /// counts whatever rules are in force, in the shape of the Alaska line;
+    /// None with enforcement off.
+    pub fn us_hours_line(&self, mode: &str) -> Option<String> {
+        if is_non_enforced(mode) {
+            return None;
+        }
+        let (drive_limit, duty_limit, _) = limits(mode)?;
+        Some(format!(
+            "US hours rules. {} of driving and {} on duty left.",
+            duration_text(py_max(0.0, drive_limit - self.driving_min) / 60.0),
+            duration_text(py_max(0.0, duty_limit - self.duty_min) / 60.0),
+        ))
+    }
+
+    /// [`Self::us_hours_line`] with a US split rest under way after it: the
+    /// one place a split sentence is spoken under Canadian rules.
+    pub fn us_hours_readout(&self, mode: &str) -> Option<String> {
+        let line = self.us_hours_line(mode)?;
+        Some(match self.split_pending_summary() {
+            Some(pending) => format!("{line} {pending}"),
+            None => line,
+        })
+    }
+
+    /// [`Self::split_pending_summary`] where it is spoken on its own: under
+    /// US and Alaska rules. The split is a US rule, so under Canadian rules
+    /// it is said only after the US hours line ([`Self::us_hours_readout`]).
+    pub fn split_pending_spoken(&self) -> Option<&'static str> {
+        if self.rules.is_canadian() {
+            None
+        } else {
+            self.split_pending_summary()
+        }
     }
 
     /// The summary without the ELD status sentence: the hours alone, for a
@@ -1541,7 +1641,7 @@ impl HosClock {
                 ". Your 30-minute break is overdue and comes first"
             });
         }
-        match self.split_pending_summary() {
+        match self.split_pending_spoken() {
             Some(pending) => format!("{text}. {pending}"),
             None => format!("{text}."),
         }

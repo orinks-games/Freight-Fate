@@ -18,6 +18,9 @@ pub const START_MODE_OWNER_OPERATOR: &str = "owner_operator";
 
 pub const DEFAULT_START_KEY: &str = "northstar";
 pub const OWNER_OPERATOR_START_KEY: &str = "roadstead_owner_operator";
+/// The owner-operator start for a home in the ten provinces: the same start,
+/// word for word, leased to Longspur Transport, which hires there.
+pub const CANADIAN_OWNER_OPERATOR_START_KEY: &str = "longspur_owner_operator";
 
 /// Carrier wage knobs for company-driver settlements.
 #[derive(Debug, Clone, Copy, PartialEq, Serialize)]
@@ -203,7 +206,45 @@ pub const NORTHSTAR_PAY: CompanyPayPlan = CompanyPayPlan {
 
 /// `START_OPTIONS`, in the Python dict's order. Look entries up with
 /// [`start_option`].
-pub const START_OPTIONS: [CareerStartOption; 5] = [
+/// The owner-operator start, leased to Northstar in the lower 48.
+const OWNER_OPERATOR_START: CareerStartOption = CareerStartOption {
+    key: OWNER_OPERATOR_START_KEY,
+    label: "Owner-operator start: higher risk, higher responsibility",
+    carrier_name: "Northstar Freight Lines",
+    mode: START_MODE_OWNER_OPERATOR,
+    menu_summary: "Leased-on owner-operator from day one: a brand-new truck of your \
+                   own, and every operating cost is yours.",
+    help_text: "The hardest way to begin. You start leased on with a brand-new \
+                truck you have just bought: full tank, no damage, nothing worn. \
+                Working capital is limited, and the operating costs of fuel, \
+                repairs, reserves, and settlement fees come out of your own \
+                cash instead of the carrier's. You still start at level one and \
+                climb the same career as everyone else: this changes who pays, \
+                not how far along you are.",
+    default_city: "Chicago",
+    // The career itself starts at zero. This option is about ECONOMICS --
+    // your truck, your costs -- and never about skipping the ladder. It
+    // used to grant level 18 with 35 deliveries, 42,000 miles and 70,000
+    // dollars of lifetime earnings, which handed the player most of a
+    // thirty-level arc and published a career history that never happened
+    // on their public profile.
+    //
+    // The truck itself is a design change of its own (owner, 2026-08-11):
+    // it used to open with 110 gallons and 4 percent damage, which read as
+    // a hand-me-down. Buying in means buying NEW, so the condition record
+    // is left pristine and the tank is filled from the model's own specs.
+    // The difficulty stays where it belongs -- in the costs and the thin
+    // cushion -- rather than in a truck that starts already worn.
+    starting_money: 18_000.0,
+    owned_trucks: &["rig"],
+    dispatch: DispatchProfile {
+        long_haul_bias: 0.25,
+        ..DispatchProfile::BALANCED
+    },
+    ..DEFAULTS
+};
+
+pub const START_OPTIONS: [CareerStartOption; 6] = [
     CareerStartOption {
         key: DEFAULT_START_KEY,
         label: "Northstar Freight Lines: national company driver",
@@ -294,41 +335,12 @@ pub const START_OPTIONS: [CareerStartOption; 5] = [
         },
         ..DEFAULTS
     },
+    OWNER_OPERATOR_START,
     CareerStartOption {
-        key: OWNER_OPERATOR_START_KEY,
-        label: "Owner-operator start: higher risk, higher responsibility",
-        carrier_name: "Northstar Freight Lines",
-        mode: START_MODE_OWNER_OPERATOR,
-        menu_summary: "Leased-on owner-operator from day one: a brand-new truck of your \
-                       own, and every operating cost is yours.",
-        help_text: "The hardest way to begin. You start leased on with a brand-new \
-                    truck you have just bought: full tank, no damage, nothing worn. \
-                    Working capital is limited, and the operating costs of fuel, \
-                    repairs, reserves, and settlement fees come out of your own \
-                    cash instead of the carrier's. You still start at level one and \
-                    climb the same career as everyone else: this changes who pays, \
-                    not how far along you are.",
-        default_city: "Chicago",
-        // The career itself starts at zero. This option is about ECONOMICS --
-        // your truck, your costs -- and never about skipping the ladder. It
-        // used to grant level 18 with 35 deliveries, 42,000 miles and 70,000
-        // dollars of lifetime earnings, which handed the player most of a
-        // thirty-level arc and published a career history that never happened
-        // on their public profile.
-        //
-        // The truck itself is a design change of its own (owner, 2026-08-11):
-        // it used to open with 110 gallons and 4 percent damage, which read as
-        // a hand-me-down. Buying in means buying NEW, so the condition record
-        // is left pristine and the tank is filled from the model's own specs.
-        // The difficulty stays where it belongs -- in the costs and the thin
-        // cushion -- rather than in a truck that starts already worn.
-        starting_money: 18_000.0,
-        owned_trucks: &["rig"],
-        dispatch: DispatchProfile {
-            long_haul_bias: 0.25,
-            ..DispatchProfile::BALANCED
-        },
-        ..DEFAULTS
+        key: CANADIAN_OWNER_OPERATOR_START_KEY,
+        carrier_name: "Longspur Transport",
+        default_city: "Toronto",
+        ..OWNER_OPERATOR_START
     },
 ];
 

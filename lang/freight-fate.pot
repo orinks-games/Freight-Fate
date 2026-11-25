@@ -5632,7 +5632,7 @@ msgstr ""
 msgid "Contents"
 msgstr ""
 
-#: crates/ff-core/src/data/data_resources.rs crates/ff-core/src/data/grades.rs crates/ff-core/src/models/carriers.rs crates/ff-core/src/models/jobs/cross_border.rs
+#: crates/ff-core/src/data/data_resources.rs crates/ff-core/src/data/grades.rs crates/ff-core/src/models/jobs/cross_border.rs crates/ff-core/src/sim/hos.rs
 msgid "us"
 msgstr ""
 
@@ -6006,6 +6006,34 @@ msgstr ""
 
 #: crates/ff-core/src/data/regions.rs
 msgid "the Pacific Northwest"
+msgstr ""
+
+#: crates/ff-core/src/data/regions.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Alberta"
+msgstr ""
+
+#: crates/ff-core/src/data/regions.rs
+msgid "Atlantic provinces"
+msgstr ""
+
+#: crates/ff-core/src/data/regions.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/states/driving_core/constants.rs
+msgid "British Columbia"
+msgstr ""
+
+#: crates/ff-core/src/data/regions.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
+msgid "Ontario"
+msgstr ""
+
+#: crates/ff-core/src/data/regions.rs crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/online_activation.rs
+msgid "Quebec"
+msgstr ""
+
+#: crates/ff-core/src/data/regions.rs
+msgid "Saskatchewan and Manitoba"
+msgstr ""
+
+#: crates/ff-core/src/data/regions.rs
+msgid "Yukon and Northwest Territories"
 msgstr ""
 
 #: crates/ff-core/src/data/seasonal_weight.rs
@@ -10965,10 +10993,6 @@ msgid ""
 "is now available."
 msgstr ""
 
-#: crates/ff-core/src/models/credentials.rs crates/ff-core/src/models/jobs/catalog.rs
-msgid "lcv"
-msgstr ""
-
 #: crates/ff-core/src/models/credentials.rs
 msgid "LCV certificate"
 msgstr ""
@@ -11183,16 +11207,8 @@ msgid ""
 "{doubles_break_extra_min} extra minutes on duty"
 msgstr ""
 
-#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/states/driving_core/constants.rs
-msgid "British Columbia"
-msgstr ""
-
 #: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
 msgid "Yukon"
-msgstr ""
-
-#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
-msgid "Alberta"
 msgstr ""
 
 #: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
@@ -11201,14 +11217,6 @@ msgstr ""
 
 #: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
 msgid "Manitoba"
-msgstr ""
-
-#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
-msgid "Ontario"
-msgstr ""
-
-#: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs crates/freight-fate/src/online_activation.rs
-msgid "Quebec"
 msgstr ""
 
 #: crates/ff-core/src/models/economy.rs crates/ff-core/src/sim/timezones.rs
@@ -12376,6 +12384,10 @@ msgstr ""
 
 #: crates/ff-core/src/models/jobs/catalog.rs
 msgid "48-foot turnpike doubles freight"
+msgstr ""
+
+#: crates/ff-core/src/models/jobs/catalog.rs
+msgid "lcv"
 msgstr ""
 
 #: crates/ff-core/src/models/jobs/catalog.rs
@@ -13624,6 +13636,26 @@ msgid "balanced dispatch"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
+msgid "Owner-operator start: higher risk, higher responsibility"
+msgstr ""
+
+#: crates/ff-core/src/models/start_options.rs
+msgid ""
+"Leased-on owner-operator from day one: a brand-new truck of your own, and "
+"every operating cost is yours."
+msgstr ""
+
+#: crates/ff-core/src/models/start_options.rs
+msgid ""
+"The hardest way to begin. You start leased on with a brand-new truck you "
+"have just bought: full tank, no damage, nothing worn. Working capital is "
+"limited, and the operating costs of fuel, repairs, reserves, and settlement "
+"fees come out of your own cash instead of the carrier's. You still start at "
+"level one and climb the same career as everyone else: this changes who "
+"pays, not how far along you are."
+msgstr ""
+
+#: crates/ff-core/src/models/start_options.rs
 msgid "Northstar Freight Lines: national company driver"
 msgstr ""
 
@@ -13709,23 +13741,11 @@ msgid "Denver"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
-msgid "Owner-operator start: higher risk, higher responsibility"
+msgid "Longspur Transport"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
-msgid ""
-"Leased-on owner-operator from day one: a brand-new truck of your own, and "
-"every operating cost is yours."
-msgstr ""
-
-#: crates/ff-core/src/models/start_options.rs
-msgid ""
-"The hardest way to begin. You start leased on with a brand-new truck you "
-"have just bought: full tank, no damage, nothing worn. Working capital is "
-"limited, and the operating costs of fuel, repairs, reserves, and settlement "
-"fees come out of your own cash instead of the carrier's. You still start at "
-"level one and climb the same career as everyone else: this changes who "
-"pays, not how far along you are."
+msgid "Toronto"
 msgstr ""
 
 #: crates/ff-core/src/models/start_options.rs
@@ -15746,6 +15766,24 @@ msgstr ""
 msgid "you had driven 20 hours after your last 8 hours off"
 msgstr ""
 
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/hos/clock.rs
+msgid "US hours rules."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+#: crates/ff-core/src/sim/hos/clock.rs
+msgid ""
+"US hours rules. {duration_text} of driving and {duration_text2} on duty "
+"left."
+msgstr ""
+
+#. placeholders: {duration_text}, {duration_text2}
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/hos/clock.rs
+msgid "{duration_text} of driving and {duration_text2} on duty left."
+msgstr ""
+
 #: crates/ff-core/src/sim/hos/clock.rs
 msgid "Hours of service: 30-minute break overdue."
 msgstr ""
@@ -15844,12 +15882,6 @@ msgstr ""
 msgid ""
 "Alaska hours rules. {duration_text} of driving and {duration_text2} on duty "
 "left."
-msgstr ""
-
-#. placeholders: {duration_text}, {duration_text2}
-#. one sentence of a longer line
-#: crates/ff-core/src/sim/hos/clock.rs
-msgid "{duration_text} of driving and {duration_text2} on duty left."
 msgstr ""
 
 #. one sentence of a longer line
@@ -24757,6 +24789,10 @@ msgid "Based in {lane_area}."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/extras.rs
+msgid "No carrier hires near your home or in your province right now"
+msgstr ""
+
+#: crates/freight-fate/src/states/city/extras.rs
 msgid "No carrier hires near your home or in your state right now"
 msgstr ""
 
@@ -26484,22 +26520,22 @@ msgstr ""
 msgid "Refuel: {volume_text}"
 msgstr ""
 
-#. placeholders: {f2}
+#. placeholders: {f}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_garage.rs
-msgid "Diesel here is {f2} Canadian dollars a liter."
+msgid "Diesel here is {f} Canadian dollars a liter."
 msgstr ""
 
-#. placeholders: {f}, {grouped}
+#. placeholders: {liters_text}, {grouped}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/city_garage.rs
-msgid "Refuel {f} gallons for {grouped} dollars."
+msgid "Refuel {liters_text} for {grouped} dollars."
 msgstr ""
 
-#. placeholders: {f}, {grouped}, {f2}
+#. placeholders: {liters_text}, {grouped}, {f}
 #: crates/freight-fate/src/states/city_garage.rs
 msgid ""
-"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"Refuel {liters_text} for {grouped} dollars. Diesel here is {f} Canadian "
 "dollars a liter."
 msgstr ""
 
@@ -38879,11 +38915,17 @@ msgstr ""
 msgid "Refuel {volume_text} on the carrier fuel card. {margin}"
 msgstr ""
 
-#. placeholders: {f}, {grouped}, {f2}, {margin}
+#. placeholders: {liters_text}, {grouped}, {f}, {margin}
 #: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
 msgid ""
-"Refuel {f} gallons for {grouped} dollars. Diesel here is {f2} Canadian "
+"Refuel {liters_text} for {grouped} dollars. Diesel here is {f} Canadian "
 "dollars a liter. {margin}"
+msgstr ""
+
+#. placeholders: {f}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/fuel_pump.rs
+msgid "Refuel {f} gallons for {grouped} dollars."
 msgstr ""
 
 #. placeholders: {f}, {grouped}, {margin}
@@ -39056,8 +39098,9 @@ msgstr ""
 msgid "Use shower credit, {shower_credits} available"
 msgstr ""
 
+#. placeholders: {volume_text}
 #: crates/freight-fate/src/states/driving_rest_states/loyalty.rs
-msgid "A shower credit from fueling 50 gallons or more."
+msgid "A shower credit from fueling {volume_text} or more."
 msgstr ""
 
 #. placeholders: {reward_cost_text}
@@ -39124,6 +39167,17 @@ msgstr ""
 
 #. placeholders: {f}
 #: crates/freight-fate/src/states/driving_rest_states/parking_full.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Motel room: sleep 8 hours for {f} dollars"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/parking_full.rs
+msgid ""
+"A motel near the exit, paid from your own pocket. Legal 8-hour reset, and "
+"sleep takes off 8 points of fatigue an hour."
+msgstr ""
+
+#. placeholders: {f}
+#: crates/freight-fate/src/states/driving_rest_states/parking_full.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "Motel room: sleep 10 hours for {f} dollars"
 msgstr ""
 
@@ -39151,6 +39205,25 @@ msgstr ""
 #. placeholders: {engine_off}, {grouped}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/parking_full.rs
+msgid "{engine_off}Motel, {grouped} dollars, 8 hours."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}, {clock_text}, {grouped2}, {control_hint}
+#: crates/freight-fate/src/states/driving_rest_states/parking_full.rs
+msgid ""
+"{engine_off}Motel, {grouped} dollars, 8 hours. {clock_text}. Driving and "
+"duty clocks reset. {grouped2} dollars. {control_hint} starts the engine."
+msgstr ""
+
+#. placeholders: {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/parking_full.rs
+msgid "{grouped2} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/parking_full.rs
 msgid "{engine_off}Motel, {grouped} dollars, 10 hours."
 msgstr ""
 
@@ -39159,12 +39232,6 @@ msgstr ""
 msgid ""
 "{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. Driving and "
 "duty clocks reset. {grouped2} dollars. {control_hint} starts the engine."
-msgstr ""
-
-#. placeholders: {grouped2}
-#. one sentence of a longer line
-#: crates/freight-fate/src/states/driving_rest_states/parking_full.rs
-msgid "{grouped2} dollars."
 msgstr ""
 
 #. placeholders: {control_hint}
@@ -39196,6 +39263,11 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_preview.rs
 msgid " more"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_preview.rs
+msgid ""
+"A full 8-hour sleep resets your driving hours and legal driving window."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_preview.rs
@@ -39305,6 +39377,10 @@ msgid ""
 "sleep move the clock and the deadline."
 msgstr ""
 
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Sleep 8 hours"
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "You are already rested."
@@ -39348,10 +39424,31 @@ msgid ""
 "Sleep takes off 8 points of fatigue an hour."
 msgstr ""
 
+#. placeholders: {duration_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Sleep {duration_text} more to finish an 8-hour reset"
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid ""
 "Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
 "an hour. Clock and deadline advance 10 hours."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
+"Full reset and fresh hours of service. Sleep takes off 8 points of fatigue "
+"an hour. Clock and deadline advance 8 hours."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "Sleep 8 hours in the lot"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
+"A legal 8-hour reset with poor rest: 5 points of fatigue off an hour, never "
+"below 30. Clock and deadline advance 8 hours."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -39362,6 +39459,12 @@ msgstr ""
 msgid ""
 "A legal 10-hour reset with poor rest: 5 points of fatigue off an hour, "
 "never below 30. Clock and deadline advance 10 hours."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
+"A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 "
+"points of fatigue an hour. Clock and deadline advance 8 hours."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
@@ -39541,8 +39644,17 @@ msgstr ""
 msgid "sleep {duration_text} more here to finish a 10-hour reset"
 msgstr ""
 
+#. placeholders: {duration_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "sleep {duration_text} more here to finish an 8-hour reset"
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "take a full 10-hour reset"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "take a full 8-hour reset"
 msgstr ""
 
 #. placeholders: {reset}
@@ -39629,12 +39741,33 @@ msgid ""
 "tired."
 msgstr ""
 
+#. placeholders: {duration_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
+"You slept {duration_text} more, 8 hours of rest in a row, and woke rested."
+msgstr ""
+
+#. placeholders: {duration_text}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
+"You slept {duration_text} more, 8 hours of rest in a row, and woke still "
+"tired."
+msgstr ""
+
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "You slept 10 hours and woke rested."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "You slept 10 hours and woke still tired."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "You slept 8 hours and woke rested."
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "You slept 8 hours and woke still tired."
 msgstr ""
 
 #. placeholders: {engine_off}, {slept}, {clock_text}
@@ -39659,6 +39792,13 @@ msgstr ""
 #. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid ""
+"{engine_off}Motel, {grouped} dollars, 8 hours. {clock_text}. {clocks} "
+"{grouped2} dollars. {deadline_text}{wake_air_instruction}"
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}, {clock_text}, {clocks}, {grouped2}, {deadline_text}, {wake_air_instruction}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
 "{engine_off}Motel, {grouped} dollars, 10 hours. {clock_text}. {clocks} "
 "{grouped2} dollars. {deadline_text}{wake_air_instruction}"
 msgstr ""
@@ -39667,6 +39807,19 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "{clocks} Rest was poor."
+msgstr ""
+
+#. placeholders: {engine_off}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid "{engine_off}Slept 8 hours in the lot."
+msgstr ""
+
+#. placeholders: {engine_off}, {clock_text}, {clocks}, {deadline_text}, {wake_air_instruction}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+msgid ""
+"{engine_off}Slept 8 hours in the lot. {clock_text}. {clocks} Rest was poor. "
+"{deadline_text}{wake_air_instruction}"
 msgstr ""
 
 #. placeholders: {engine_off}

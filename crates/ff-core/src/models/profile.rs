@@ -711,6 +711,13 @@ impl Profile {
         )
     }
 
+    /// The country this career is based in: the lane table's answer for
+    /// its carrier key ([`cross_border::carrier_base`]), so the course rows,
+    /// the move-up line and the board agree on it.
+    pub fn base_country(&self) -> &'static str {
+        crate::models::jobs::cross_border::carrier_base(&self.carrier_key).code()
+    }
+
     /// Re-derive `home_terminal_city` for the current hiring carrier: kept
     /// when it is already one of that carrier's terminal cities, otherwise
     /// the carrier's nearest terminal city to it (or to `current_city` when

@@ -4,7 +4,7 @@
 //! follows.
 
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
-use ff_core::sim::hos;
+use ff_core::sim::hos::{self, FullNight};
 use ff_core::sim::stop_lot::StopLot;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
@@ -14,8 +14,8 @@ use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, hos_mut_of, poi_ambient_key, profile_mut_of, profile_of,
-    settle_lift_before_sleep, shut_down_engine, FacilityEngine, MOTEL_COST,
+    advance_rest_clock, clock_text, full_night_of, hos_mut_of, poi_ambient_key, profile_mut_of,
+    profile_of, settle_lift_before_sleep, shut_down_engine, FacilityEngine, MOTEL_COST,
 };
 use crate::states::driving_menu_states::{keep_rows, DriveRef};
 use crate::states::driving_rest_states::back_on_the_road_line;
@@ -136,19 +136,29 @@ impl ParkingFullState {
             })
             .help("Back to the road for the next rest stop."),
         );
-        items.push(
-            MenuItem::new(
+        // Under Canadian rules on a road that stays in Canada, 8 hours off
+        // resets the clocks (SOR/2005-313 s.13), so the motel sells an 8-hour
+        // night there: each its own line.
+        let (motel_label, motel_help) = if full_night_of(ctx, d) == FullNight::EightHours {
+            (
+                format!(
+                    "Motel room: sleep 8 hours for {} dollars",
+                    fmt_f(MOTEL_COST, 0)
+                ),
+                "A motel near the exit, paid from your own pocket. Legal 8-hour reset, and \
+                 sleep takes off 8 points of fatigue an hour.",
+            )
+        } else {
+            (
                 format!(
                     "Motel room: sleep 10 hours for {} dollars",
                     fmt_f(MOTEL_COST, 0)
                 ),
-                |s: &mut Self, ctx| s.motel(ctx),
-            )
-            .help(
                 "A motel near the exit, paid from your own pocket. Legal 10-hour reset, and \
                  sleep takes off 8 points of fatigue an hour.",
-            ),
-        );
+            )
+        };
+        items.push(MenuItem::new(motel_label, |s: &mut Self, ctx| s.motel(ctx)).help(motel_help));
         items.push(
             MenuItem::new("Park on the shoulder and sleep", |s: &mut Self, ctx| {
                 s.shoulder(ctx)
@@ -193,12 +203,15 @@ impl ParkingFullState {
             // because the driver bedded down in a motel instead of the
             // sleeper.
             let engine_off = shut_down_engine(d, ctx);
-            advance_rest_clock(d, ctx, hos::SLEEP_MIN, None, "");
+            let night = full_night_of(ctx, d);
+            let reset_min = night.minutes();
+            let canadian_reset = night == FullNight::EightHours;
+            advance_rest_clock(d, ctx, reset_min, None, "");
             settle_lift_before_sleep(d, ctx);
-            hos_mut_of(ctx).sleep();
+            hos_mut_of(ctx).rest_reset(night);
             {
                 let p = profile_mut_of(ctx);
-                p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
+                p.fatigue = hos::rest_sleep(p.fatigue, reset_min);
             }
             let snapshot = d.snapshot(ctx);
             {
@@ -208,14 +221,25 @@ impl ParkingFullState {
             }
             let money = profile_of(ctx).money();
             let control_hint = ff_core::speech_text::sentence_start(&ctx.control_hint("engine"));
-            let text = format!(
-                "{engine_off}Motel, {} dollars, 10 hours. {}. Driving and duty clocks reset. \
-                 {} dollars. {} starts the engine.",
-                fmt_grouped(MOTEL_COST, 0),
-                clock_text(d.trip.local_hour()),
-                fmt_grouped(money, 0),
-                control_hint
-            );
+            let text = if canadian_reset {
+                format!(
+                    "{engine_off}Motel, {} dollars, 8 hours. {}. Driving and duty clocks reset. \
+                     {} dollars. {} starts the engine.",
+                    fmt_grouped(MOTEL_COST, 0),
+                    clock_text(d.trip.local_hour()),
+                    fmt_grouped(money, 0),
+                    control_hint
+                )
+            } else {
+                format!(
+                    "{engine_off}Motel, {} dollars, 10 hours. {}. Driving and duty clocks reset. \
+                     {} dollars. {} starts the engine.",
+                    fmt_grouped(MOTEL_COST, 0),
+                    clock_text(d.trip.local_hour()),
+                    fmt_grouped(money, 0),
+                    control_hint
+                )
+            };
             let starts = format!("{control_hint} starts the engine.");
             let text = d.without_key_hint(ctx, text, &starts);
             d.with_touch_sentence(

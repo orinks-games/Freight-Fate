@@ -372,7 +372,8 @@ fn test_start_option_lookup_falls_back_to_northstar() {
             "great_lakes_training",
             "prairie_link",
             "summit_value",
-            OWNER_OPERATOR_START_KEY
+            OWNER_OPERATOR_START_KEY,
+            CANADIAN_OWNER_OPERATOR_START_KEY
         ]
     );
     assert_eq!(
@@ -459,9 +460,11 @@ fn test_start_options_for_a_city_are_only_carriers_that_hire_there() {
     assert!(keys("hutchinson_ks_us").contains(&"prairie_link"));
     assert!(!keys("boston_ma_us").contains(&"prairie_link"));
     assert!(!keys("seattle_wa_us").contains(&"prairie_link"));
-    for blocked in ["whitehorse_yt_ca", "surrey_bc_ca"] {
-        assert!(keys(blocked).is_empty(), "{blocked}");
-    }
+    // Canada lists Canadian carriers only.
+    assert_eq!(keys("whitehorse_yt_ca"), ["liard_river_freight"]);
+    assert!(keys("surrey_bc_ca")
+        .iter()
+        .all(|k| { crate::models::carriers::carrier(k).is_none_or(|c| c.home_country() == "CA") }));
     // Alaska homes see only the Alaska carriers, never a lower-48 one.
     // The local first, then the regional (the picker's tier order).
     assert_eq!(

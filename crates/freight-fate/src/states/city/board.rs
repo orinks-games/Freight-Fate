@@ -16,7 +16,7 @@ use ff_core::models::dispatch_policy::{
     declines_remaining, dispatch_policy, DECLINE_REPUTATION_PENALTY, SENIOR_LOAD_CHOICE_LEVEL,
 };
 use ff_core::models::enforcement;
-use ff_core::models::jobs::{route_drive_hours, Job};
+use ff_core::models::jobs::{cross_border, route_drive_hours, start_counts, Job};
 use ff_core::models::profile::Profile;
 use ff_core::models::trailers::{
     compatible_with_programs, owned_trailer_for_cargo, required_program_text,
@@ -545,6 +545,25 @@ impl JobBoardState {
     /// rest the job would not need on a fresh clock. Multi-shift routes
     /// budget their own sleeps into the deadline, so a rested driver is
     /// never warned just because the run is long.
+    /// The hours the accept confirm reads: the counts the plan started
+    /// from. A route that enters the United States under Canadian rules
+    /// planned from the US counts, so the US hours line takes the place of
+    /// the Canadian readout (director, 2026-11-25).
+    fn hours_for_confirm(&self, ctx: &GameContext, job: &Job) -> String {
+        let hos = &profile(ctx).hos;
+        let mode = &ctx.settings.hos_mode;
+        let enters_us = matches!(
+            ctx.world.supported_route(&job.origin, &job.destination, None),
+            Ok(Some(route)) if !cross_border::route_stays_in_canada(&route)
+        );
+        if hos.rules.is_canadian() && enters_us {
+            if let Some(us) = hos.us_hours_readout(mode) {
+                return us;
+            }
+        }
+        hos.hours_summary(mode)
+    }
+
     fn job_exceeds_current_hos(&self, ctx: &GameContext, job: &Job) -> bool {
         // A team load is booked for two drivers: the co-driver can take the
         // first shift while this driver rests, so hours already spent today
@@ -577,8 +596,11 @@ impl JobBoardState {
         let fresh_first_h = (drive_limit - HOS_FIT_CUSHION_MIN)
             .min(duty_limit - pickup_work_min - HOS_FIT_CUSHION_MIN)
             / 60.0;
-        let current_first_h = (drive_limit - p.hos.driving_min - HOS_FIT_CUSHION_MIN)
-            .min(duty_limit - p.hos.duty_min - pickup_work_min - HOS_FIT_CUSHION_MIN)
+        // The counts this road holds the driver to: the Canadian ones on a
+        // load that stays in Canada, the US ones otherwise.
+        let (driving_h, duty_h) = start_counts(&p.hos, Some(&route));
+        let current_first_h = (drive_limit - driving_h * 60.0 - HOS_FIT_CUSHION_MIN)
+            .min(duty_limit - duty_h * 60.0 - pickup_work_min - HOS_FIT_CUSHION_MIN)
             .max(0.0)
             / 60.0;
         sleeps_needed(drive_h, current_first_h, shift_h)
@@ -669,7 +691,7 @@ impl JobBoardState {
             held_load::hold_for_rest(profile_mut(ctx), &job);
             ctx.save_profile();
             ctx.audio.play("ui/warning");
-            let summary = profile(ctx).hos.hours_summary(&ctx.settings.hos_mode);
+            let summary = self.hours_for_confirm(ctx, &job);
             if ctx.touch_hints() {
                 ctx.say(&format!(
                     "Needs an extra rest on this shift's hours. {summary} Double tap again to accept."

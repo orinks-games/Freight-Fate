@@ -136,8 +136,15 @@ impl Carrier {
             .map(|(_, k)| k)
     }
 
+    /// The country the carrier is based in (`base_country` in
+    /// `carriers.json`), as an upper-case two-letter code.
+    pub fn home_country(&self) -> &'static str {
+        self.base.code()
+    }
+
     /// Terminal city this carrier would hire a driver living in `city_key`
-    /// into: nearest terminal for nationals (lower 48 only), nearest terminal
+    /// into: nearest terminal for nationals (the lower 48 for a US national,
+    /// the ten provinces for a Canadian one), nearest terminal
     /// within `hiring_radius_mi` for regional and local carriers (same
     /// country as that terminal). `None` means the carrier does not hire
     /// there.
@@ -145,7 +152,7 @@ impl Carrier {
         let key = world.resolve_city_key(city_key);
         let origin = world.cities.get(&key)?;
         if self.is_national() {
-            if !in_lower_48(origin) {
+            if !in_national_hiring_area(origin, self.home_country()) {
                 return None;
             }
             return self
@@ -208,11 +215,20 @@ fn sort_nearest_first(terminals: &mut [(f64, String)]) {
 /// `HomeTerminal::kind` for a carrier-owned terminal (spoken by name only).
 pub const CARRIER_TERMINAL_KIND: &str = "carrier_terminal";
 
-/// National carriers hire in the lower 48 only: Alaska waits for an Alaska
-/// regional, Hawaii has no road network, and BC/YT are not US hiring areas.
-fn in_lower_48(city: &City) -> bool {
-    city.country.eq_ignore_ascii_case("us")
-        && !matches!(city.state_code.to_ascii_uppercase().as_str(), "AK" | "HI")
+/// Where a national hires. A US national hires in the lower 48 only: Alaska
+/// has its own regional, Hawaii has no road network. A Canadian national
+/// hires in the ten provinces: the territories hire through the North
+/// regional, the way Alaska does.
+fn in_national_hiring_area(city: &City, home_country: &str) -> bool {
+    if !city.country.eq_ignore_ascii_case(home_country) {
+        return false;
+    }
+    let code = city.state_code.to_ascii_uppercase();
+    if home_country.eq_ignore_ascii_case("CA") {
+        !matches!(code.as_str(), "YT" | "NT" | "NU")
+    } else {
+        !matches!(code.as_str(), "AK" | "HI")
+    }
 }
 
 fn same_country(a: &City, b: &City) -> bool {
@@ -448,16 +464,42 @@ pub fn hiring_carrier(
     })
 }
 
-/// A home base is offerable only when some carrier hires there.
+/// A home base is offerable only when some carrier hires there and the
+/// city has a first load to give.
 pub fn is_offerable_home_city(world: &World, city_key: &str) -> bool {
     // A road endpoint with no freight (Whittier, Bear Valley) has no work.
     let key = world.resolve_city_key(city_key);
-    if world.cities.get(&key).is_some_and(|city| city.no_freight) {
+    let Some(city) = world.cities.get(&key) else {
+        return false;
+    };
+    if city.no_freight {
+        return false;
+    }
+    // The first-load rule holds for Canadian cities only for now: run over
+    // the United States it would close 27 homes offered today (Denton,
+    // Reading, Tok among them), and that list waits for a ruling.
+    if city.country.eq_ignore_ascii_case("CA") && !has_first_load(city) {
         return false;
     }
     carrier_catalog()
         .values()
         .any(|c| c.hires_in(world, city_key))
+}
+
+/// Whether some site in `city` ships freight a level 1 driver holding no
+/// certificate or endorsement may load. A town whose sites only receive
+/// (Whitehorse before its own shippers, Fort St. John) or ship only freight
+/// that needs a credential (Kitimat's smelter) would hand a new career an
+/// empty first board, so it is not offered as a home. It stays a place
+/// loads go to.
+pub fn has_first_load(city: &City) -> bool {
+    city.locations.iter().any(|site| {
+        site.min_level <= 1
+            && site.ships.iter().any(|cargo| {
+                crate::models::jobs::cargo_type(cargo)
+                    .is_some_and(|c| c.credentials.is_empty() && c.min_level <= 1)
+            })
+    })
 }
 
 /// Home terminal city for a career based near `city_key`: the hiring
@@ -632,7 +674,7 @@ mod tests {
     #[test]
     fn test_carriers_json_loads_and_retiers() {
         let catalog = carrier_catalog();
-        assert_eq!(catalog.len(), 54);
+        assert_eq!(catalog.len(), 67);
         let northstar = carrier("northstar").expect("northstar");
         assert_eq!(northstar.tier, "national");
         assert_eq!(northstar.run_band.min_mi, 400.0);
@@ -759,9 +801,11 @@ mod tests {
         assert!(northstar
             .hiring_terminal_city(world, "anchorage_ak_us")
             .is_none());
-        // BC and YT stay blocked.
-        assert!(!is_offerable_home_city(world, "whitehorse_yt_ca"));
-        assert!(!is_offerable_home_city(world, "surrey_bc_ca"));
+        // Canadian carriers open BC and the Yukon; a town with no first
+        // load stays closed.
+        assert!(is_offerable_home_city(world, "whitehorse_yt_ca"));
+        assert!(is_offerable_home_city(world, "surrey_bc_ca"));
+        assert!(!is_offerable_home_city(world, "watson_lake_yt_ca"));
         // Prairie Link hires within 250 mi of its terminals only.
         let prairie = carrier("prairie_link").unwrap();
         assert_eq!(

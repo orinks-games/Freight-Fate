@@ -51,6 +51,21 @@ impl<'w> JobBoard<'w> {
         self.lane_for_base(cross_border::carrier_base(carrier_key), origin, destination)
     }
 
+    /// Whether `CANADIAN_BORDER_WEIGHT` applies to this draw: a carrier
+    /// based in Canada, an origin in Canada and a destination in the United
+    /// States. A Canadian destination reached through the United States
+    /// stays domestic.
+    pub(crate) fn is_border_draw(
+        &self,
+        carrier_key: &str,
+        origin: &str,
+        destination: &str,
+    ) -> bool {
+        cross_border::carrier_base(carrier_key) == CarrierBase::Ca
+            && self.country_of(origin).eq_ignore_ascii_case("CA")
+            && self.country_of(destination).eq_ignore_ascii_case("US")
+    }
+
     /// Whether this carrier may haul a load between the two cities.
     pub(crate) fn carrier_may_haul(
         &self,

@@ -365,6 +365,9 @@ fn stranded_in_canada() -> Vec<String> {
                 if nearest_us > JobBoard::distance_cap_for_carrier(level, carrier) {
                     continue;
                 }
+                if !canadian_carrier_can_be_in(world, carrier, city) {
+                    continue;
+                }
                 for seed in 0..3 {
                     let board = company_board(city, carrier, level, seed);
                     let Some(first) = board.first() else {
@@ -373,10 +376,10 @@ fn stranded_in_canada() -> Vec<String> {
                         ));
                         continue;
                     };
-                    if first.bobtail
-                        && company_board(&first.destination, carrier, level, seed)
-                            .iter()
-                            .all(|job| job.bobtail)
+                    // A thin board can send the driver one town further on
+                    // empty (Meziadin Junction on to Stewart); stranded is
+                    // a chain of empty moves that never reaches a load.
+                    if first.bobtail && !reaches_a_load(&first.destination, carrier, level, seed, 2)
                     {
                         stranded.push(format!(
                             "{city}, {carrier}, level {level}, seed {seed}: reposition to {} finds no load",
@@ -390,6 +393,43 @@ fn stranded_in_canada() -> Vec<String> {
     stranded
 }
 
+/// A Canadian carrier's truck is only ever within its run band of one of
+/// its terminals: a southern Ontario regional never parks in Prince Rupert.
+/// US carriers are tested everywhere, as before.
+fn canadian_carrier_can_be_in(
+    world: &crate::data::world::World,
+    carrier: &str,
+    city: &str,
+) -> bool {
+    let Some(c) = crate::models::carriers::carrier(carrier) else {
+        return true;
+    };
+    if c.base != cross_border::CarrierBase::Ca {
+        return true;
+    }
+    let Ok(here) = world.city(city) else {
+        return true;
+    };
+    c.terminal_city_keys.iter().any(|t| {
+        world.city(t).is_ok_and(|t| {
+            crate::data::world::air_miles(here.lat, here.lon, t.lat, t.lon) <= c.run_band.max_mi
+        })
+    })
+}
+
+/// Whether the board at `city` posts a load, or sends the driver on empty
+/// to a city that does, within `hops` more empty moves.
+fn reaches_a_load(city: &str, carrier: &str, level: i64, seed: i64, hops: u32) -> bool {
+    let board = company_board(city, carrier, level, seed);
+    if board.iter().any(|job| !job.bobtail) {
+        return true;
+    }
+    hops > 0
+        && board
+            .iter()
+            .any(|job| reaches_a_load(&job.destination, carrier, level, seed, hops - 1))
+}
+
 #[test]
 #[cfg_attr(
     not(feature = "slow-tests"),
@@ -401,13 +441,68 @@ fn no_driver_is_left_without_a_load_in_canada() {
 }
 
 #[test]
-fn a_driver_who_delivers_to_whitehorse_is_sent_on_empty() {
-    let board = company_board("whitehorse_yt_ca", "northstar", 1, 0);
+fn a_driver_who_delivers_to_watson_lake_is_sent_on_empty() {
+    // Watson Lake ships nothing (fuel and parking pins only); Whitehorse
+    // ships since its freight sites of 2026-11-25.
+    let board = company_board("watson_lake_yt_ca", "northstar", 1, 0);
     assert_eq!(board.len(), 1, "{board:?}");
     let reposition = &board[0];
     assert!(reposition.bobtail && reposition.assigned, "{reposition:?}");
     assert!(reposition.pay > 0.0);
     assert!(!company_board(&reposition.destination, "northstar", 1, 0).is_empty());
+}
+
+fn in_canada(city: &str) -> bool {
+    country(city).eq_ignore_ascii_case("CA")
+}
+
+/// A Canadian carrier in a Canadian town that ships nothing is sent empty to
+/// a Canadian city, not across the line (brief 2, the real carriers).
+#[test]
+fn a_canadian_carrier_with_an_empty_board_is_sent_on_in_canada() {
+    for (city, carrier) in [
+        ("fort_st_john_bc_ca", "longspur_transport"),
+        ("watson_lake_yt_ca", "liard_river_freight"),
+    ] {
+        for level in [1, 8, 20] {
+            for seed in 0..5 {
+                let board = company_board(city, carrier, level, seed);
+                // A relayed load from a nearby town may cross; an empty move
+                // stays in Canada.
+                for job in board.iter().filter(|j| j.bobtail) {
+                    assert!(
+                        in_canada(&job.destination),
+                        "{carrier} at {city}, level {level}, seed {seed}: {job:?}"
+                    );
+                }
+                if level == 1 && seed == 0 {
+                    assert!(
+                        board.iter().any(|j| j.bobtail),
+                        "{carrier} at {city} is sent on empty: {board:?}"
+                    );
+                }
+            }
+        }
+    }
+}
+
+/// The owner-operator start leased to Longspur takes Longspur's Canadian
+/// base: in Chicago it is offered Canadian destinations only, no cabotage.
+#[test]
+fn the_longspur_owner_operator_in_chicago_is_offered_canada_only() {
+    let mut loads = 0;
+    for level in [1, 8, 20] {
+        for seed in 0..10 {
+            for job in board_at("chicago_il_us", seed, level, "longspur_owner_operator") {
+                loads += 1;
+                assert!(in_canada(&job.destination), "level {level}: {job:?}");
+            }
+        }
+    }
+    assert!(
+        loads > 0,
+        "Chicago offers the Longspur lease no load at all"
+    );
 }
 
 fn in_alaska(city: &str) -> bool {

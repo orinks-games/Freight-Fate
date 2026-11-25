@@ -6,7 +6,7 @@ use ff_core::data::buffs::{buffs_for_stop, Buff};
 use ff_core::models::solvency;
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_int, round_py_n};
 use ff_core::sim::alertness::Alertness;
-use ff_core::sim::hos;
+use ff_core::sim::hos::{self, FullNight};
 use ff_core::sim::roadside_inspection::InspectionLevel;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
@@ -19,12 +19,12 @@ use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::city::PayDebtState;
 use crate::states::driving::{DrivingState, StopVisit};
 use crate::states::driving_core::{
-    advance_on_duty_clock, advance_rest_clock, clock_text, deadline_text, hos_mut_of, hos_of,
-    pay_advance_grant, pay_advance_unavailable_reason, player_pays_operating_costs,
-    poi_ambient_key, profile_mut_of, profile_of, record_inspection, road_repair_cost,
-    settle_lift_before_sleep, shut_down_engine, wake_air_instruction, FacilityEngine, RigBuff,
-    FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN, MOTEL_COST,
-    ROAD_BRAKE_COST_PER_PCT, ROAD_BRAKE_MIN, ROAD_TIRE_COST_PER_PCT, ROAD_TIRE_MIN,
+    advance_on_duty_clock, advance_rest_clock, clock_text, deadline_text, full_night_of,
+    hos_mut_of, hos_of, pay_advance_grant, pay_advance_unavailable_reason,
+    player_pays_operating_costs, poi_ambient_key, profile_mut_of, profile_of, record_inspection,
+    road_repair_cost, settle_lift_before_sleep, shut_down_engine, wake_air_instruction,
+    FacilityEngine, RigBuff, FIELD_REPAIR_DAMAGE_PCT, MECHANIC_CALLOUT_FEE, MECHANIC_WAIT_MIN,
+    MOTEL_COST, ROAD_BRAKE_COST_PER_PCT, ROAD_BRAKE_MIN, ROAD_TIRE_COST_PER_PCT, ROAD_TIRE_MIN,
     ROAD_TIRE_SPECIALIST_COST_PER_PCT, ROAD_TIRE_SPECIALIST_MIN, WALK_AROUND_MIN, WAVE_THROUGH_MIN,
 };
 use crate::states::driving_menu_states::{keep_rows, DriveRef};
@@ -120,7 +120,9 @@ impl RestStopState {
                 // The fuel row's label carries the gallons and the price.
                 RestFocus::Fuel => text.starts_with("Refuel ") || text.starts_with("Fuel: "),
                 RestFocus::Food => text == FOOD_ROW,
-                RestFocus::Sleep | RestFocus::Default => text == "Sleep 10 hours",
+                RestFocus::Sleep | RestFocus::Default => {
+                    text == "Sleep 10 hours" || text == "Sleep 8 hours"
+                }
             };
             let index = self
                 .menu
@@ -266,7 +268,16 @@ impl RestStopState {
             items.push(Self::break_item());
         }
         if has("sleep") {
-            for hours in [2, 3, 7, 8] {
+            // Under Canadian rules 8 hours in the berth is the whole reset,
+            // so the 8-hour split row would be the reset row twice.
+            let night = full_night_of(ctx, d);
+            let canadian_reset = night == FullNight::EightHours;
+            let split_hours: &[i64] = if canadian_reset {
+                &[2, 3, 7]
+            } else {
+                &[2, 3, 7, 8]
+            };
+            for &hours in split_hours {
                 items.push(
                     MenuItem::new(
                         format!("Sleep {hours} hours in sleeper berth"),
@@ -277,8 +288,8 @@ impl RestStopState {
             }
             // A rest already under way counts toward the ten hours, so the
             // reset row only asks for what is left of it.
-            let (label, help) = match hos_of(ctx).reset_minutes_left() {
-                Some(left) => (
+            let (label, help) = match (hos_of(ctx).reset_minutes_left(night), canadian_reset) {
+                (Some(left), false) => (
                     format!(
                         "Sleep {} more to finish a 10-hour reset",
                         hos::duration_text(left / 60.0)
@@ -286,10 +297,23 @@ impl RestStopState {
                     "Your rest since you parked counts. Full reset and fresh hours of service. \
                      Sleep takes off 8 points of fatigue an hour.",
                 ),
-                None => (
+                (Some(left), true) => (
+                    format!(
+                        "Sleep {} more to finish an 8-hour reset",
+                        hos::duration_text(left / 60.0)
+                    ),
+                    "Your rest since you parked counts. Full reset and fresh hours of service. \
+                     Sleep takes off 8 points of fatigue an hour.",
+                ),
+                (None, false) => (
                     "Sleep 10 hours".to_string(),
                     "Full reset and fresh hours of service. Sleep takes off 8 points of fatigue \
                      an hour. Clock and deadline advance 10 hours.",
+                ),
+                (None, true) => (
+                    "Sleep 8 hours".to_string(),
+                    "Full reset and fresh hours of service. Sleep takes off 8 points of fatigue \
+                     an hour. Clock and deadline advance 8 hours.",
                 ),
             };
             items.push(MenuItem::new(label, |s: &mut Self, ctx| s.sleep(ctx)).help(help));
@@ -303,27 +327,46 @@ impl RestStopState {
             // parks or takes a break): a fuel-only stop, a cardlock or a lone
             // pump, has neither a lot to sleep in nor a motel, so both rows
             // are absent and nothing is said.
-            items.push(
-                MenuItem::new("Sleep 10 hours in the lot", |s: &mut Self, ctx| {
-                    s.emergency_lot_sleep(ctx)
-                })
-                .help(
+            let night = full_night_of(ctx, d);
+            let canadian_reset = night == FullNight::EightHours;
+            let (lot_label, lot_help) = if canadian_reset {
+                (
+                    "Sleep 8 hours in the lot",
+                    "A legal 8-hour reset with poor rest: 5 points of fatigue off an hour, \
+                     never below 30. Clock and deadline advance 8 hours.",
+                )
+            } else {
+                (
+                    "Sleep 10 hours in the lot",
                     "A legal 10-hour reset with poor rest: 5 points of fatigue off an hour, \
                      never below 30. Clock and deadline advance 10 hours.",
-                ),
-            );
+                )
+            };
             items.push(
-                MenuItem::new(
+                MenuItem::new(lot_label, |s: &mut Self, ctx| s.emergency_lot_sleep(ctx))
+                    .help(lot_help),
+            );
+            let (motel_label, motel_help) = if canadian_reset {
+                (
+                    format!(
+                        "Motel room: sleep 8 hours for {} dollars",
+                        fmt_f(MOTEL_COST, 0)
+                    ),
+                    "A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 \
+                     points of fatigue an hour. Clock and deadline advance 8 hours.",
+                )
+            } else {
+                (
                     format!(
                         "Motel room: sleep 10 hours for {} dollars",
                         fmt_f(MOTEL_COST, 0)
                     ),
-                    |s: &mut Self, ctx| s.motel_sleep(ctx),
-                )
-                .help(
                     "A real bed, paid from your own pocket. Legal reset, and sleep takes off 8 \
                      points of fatigue an hour. Clock and deadline advance 10 hours.",
-                ),
+                )
+            };
+            items.push(
+                MenuItem::new(motel_label, |s: &mut Self, ctx| s.motel_sleep(ctx)).help(motel_help),
             );
         }
         if has("repair") {
@@ -577,7 +620,7 @@ impl RestStopState {
                 // speak again after waking.
                 hos_mut_of(ctx).re_arm_warnings();
                 let pending = hos_of(ctx)
-                    .split_pending_summary()
+                    .split_pending_spoken()
                     .unwrap_or("Sleeper berth rest recorded.")
                     .to_string();
                 if hos::HOS_NON_ENFORCED_MODES.contains(&mode.as_str()) {
@@ -586,12 +629,19 @@ impl RestStopState {
                     let duty_limit = hos::limits(&mode).map(|(_, duty, _)| duty).unwrap_or(0.0);
                     let duty_left_h = (duty_limit - hos_of(ctx).duty_min).max(0.0) / 60.0;
                     let window = if duty_left_h <= 0.0 {
-                        let reset = match hos_of(ctx).reset_minutes_left() {
-                            Some(left) => format!(
+                        let night = full_night_of(ctx, d);
+                        let canadian_reset = night == FullNight::EightHours;
+                        let reset = match (hos_of(ctx).reset_minutes_left(night), canadian_reset) {
+                            (Some(left), false) => format!(
                                 "sleep {} more here to finish a 10-hour reset",
                                 hos::duration_text(left / 60.0)
                             ),
-                            None => "take a full 10-hour reset".to_string(),
+                            (Some(left), true) => format!(
+                                "sleep {} more here to finish an 8-hour reset",
+                                hos::duration_text(left / 60.0)
+                            ),
+                            (None, false) => "take a full 10-hour reset".to_string(),
+                            (None, true) => "take a full 8-hour reset".to_string(),
                         };
                         format!(
                             "Warning: this sleep did not reset your hours, and your duty window \
@@ -645,15 +695,21 @@ impl RestStopState {
         let before_fatigue = profile_of(ctx).fatigue;
         // Finishing a reset already under way sleeps only what is left of it,
         // which is not the full ten hours the badge asks for.
-        let full_night = hos_of(ctx).reset_minutes_left().is_none();
+        let stays = self
+            .driving
+            .read(|d| d.trip.road_ahead_stays_in_canada())
+            .unwrap_or(false);
+        let night = hos_of(ctx).full_night(stays);
+        let full_night = hos_of(ctx).reset_minutes_left(night).is_none();
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let engine_off = shut_down_engine(d, ctx);
-            let owed = hos_of(ctx).reset_minutes_left();
-            let minutes = owed.unwrap_or(hos::SLEEP_MIN);
+            let owed = hos_of(ctx).reset_minutes_left(night);
+            let canadian_reset = night == FullNight::EightHours;
+            let minutes = owed.unwrap_or(night.minutes());
             advance_rest_clock(d, ctx, minutes, Some("sleeper_berth"), "");
             settle_lift_before_sleep(d, ctx);
             let cycle_before = hos_of(ctx).cycle_used_min();
-            hos_mut_of(ctx).sleep();
+            hos_mut_of(ctx).rest_reset(night);
             let clocks = clocks_reset_text(hos_of(ctx).cycle_restarted_since(cycle_before));
             // Sleep takes fatigue off by the hour, so a driver who went to
             // bed exhausted can wake with some left.
@@ -662,17 +718,27 @@ impl RestStopState {
                 p.fatigue = hos::rest_sleep(p.fatigue, minutes);
                 Alertness::from_fatigue(p.fatigue) == Alertness::Rested
             };
-            let slept = match (owed, rested) {
-                (Some(left), true) => format!(
+            let slept = match (owed, rested, canadian_reset) {
+                (Some(left), true, false) => format!(
                     "You slept {} more, 10 hours of rest in a row, and woke rested.",
                     hos::duration_text(left / 60.0)
                 ),
-                (Some(left), false) => format!(
+                (Some(left), false, false) => format!(
                     "You slept {} more, 10 hours of rest in a row, and woke still tired.",
                     hos::duration_text(left / 60.0)
                 ),
-                (None, true) => "You slept 10 hours and woke rested.".to_string(),
-                (None, false) => "You slept 10 hours and woke still tired.".to_string(),
+                (Some(left), true, true) => format!(
+                    "You slept {} more, 8 hours of rest in a row, and woke rested.",
+                    hos::duration_text(left / 60.0)
+                ),
+                (Some(left), false, true) => format!(
+                    "You slept {} more, 8 hours of rest in a row, and woke still tired.",
+                    hos::duration_text(left / 60.0)
+                ),
+                (None, true, false) => "You slept 10 hours and woke rested.".to_string(),
+                (None, false, false) => "You slept 10 hours and woke still tired.".to_string(),
+                (None, true, true) => "You slept 8 hours and woke rested.".to_string(),
+                (None, false, true) => "You slept 8 hours and woke still tired.".to_string(),
             };
             format!(
                 "{engine_off}{slept} It is {}. {clocks} {}{}",
@@ -686,7 +752,9 @@ impl RestStopState {
         self.save_here(ctx, true);
         ctx.audio.play("ui/notify");
         ctx.say(&text);
-        if full_night {
+        // Five-by-Two is ten hours in the bunk: the 8-hour Canadian night
+        // does not earn it (director, 2026-11-25).
+        if full_night && night == FullNight::TenHours {
             ctx.award_achievement("slept_on_route");
         }
         if Alertness::from_fatigue(before_fatigue) < Alertness::Severe {
@@ -721,25 +789,40 @@ impl RestStopState {
             // shuts the engine down first; the motel room was the one path
             // that skipped it while still sending the driver off to bed.
             let engine_off = shut_down_engine(d, ctx);
-            advance_rest_clock(d, ctx, hos::SLEEP_MIN, None, "");
+            let night = full_night_of(ctx, d);
+            let reset_min = night.minutes();
+            let canadian_reset = night == FullNight::EightHours;
+            advance_rest_clock(d, ctx, reset_min, None, "");
             settle_lift_before_sleep(d, ctx);
             let cycle_before = hos_of(ctx).cycle_used_min();
-            hos_mut_of(ctx).sleep();
+            hos_mut_of(ctx).rest_reset(night);
             let clocks = clocks_reset_text(hos_of(ctx).cycle_restarted_since(cycle_before));
             {
                 let p = profile_mut_of(ctx);
-                p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
+                p.fatigue = hos::rest_sleep(p.fatigue, reset_min);
             }
             let money = profile_of(ctx).money();
-            format!(
-                "{engine_off}Motel, {} dollars, 10 hours. {}. {clocks} \
-                 {} dollars. {}{}",
-                fmt_grouped(MOTEL_COST, 0),
-                clock_text(d.trip.local_hour()),
-                fmt_grouped(money, 0),
-                deadline_text(d, ctx),
-                wake_air_instruction(d)
-            )
+            if canadian_reset {
+                format!(
+                    "{engine_off}Motel, {} dollars, 8 hours. {}. {clocks} \
+                     {} dollars. {}{}",
+                    fmt_grouped(MOTEL_COST, 0),
+                    clock_text(d.trip.local_hour()),
+                    fmt_grouped(money, 0),
+                    deadline_text(d, ctx),
+                    wake_air_instruction(d)
+                )
+            } else {
+                format!(
+                    "{engine_off}Motel, {} dollars, 10 hours. {}. {clocks} \
+                     {} dollars. {}{}",
+                    fmt_grouped(MOTEL_COST, 0),
+                    clock_text(d.trip.local_hour()),
+                    fmt_grouped(money, 0),
+                    deadline_text(d, ctx),
+                    wake_air_instruction(d)
+                )
+            }
         }) else {
             return;
         };
@@ -760,31 +843,50 @@ impl RestStopState {
         if self.confirm_sleep(ctx, SleepChoice::Lot, hos::FATIGUE_SHOULDER_FLOOR) {
             return;
         }
+        let ten_hours = self
+            .driving
+            .read(|d| d.trip.road_ahead_stays_in_canada())
+            .is_some_and(|stays| hos_of(ctx).full_night(stays) == FullNight::TenHours);
         let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
             let engine_off = shut_down_engine(d, ctx);
-            advance_rest_clock(d, ctx, hos::SLEEP_MIN, None, "");
+            let night = full_night_of(ctx, d);
+            let reset_min = night.minutes();
+            let canadian_reset = night == FullNight::EightHours;
+            advance_rest_clock(d, ctx, reset_min, None, "");
             settle_lift_before_sleep(d, ctx);
             let cycle_before = hos_of(ctx).cycle_used_min();
-            hos_mut_of(ctx).sleep();
+            hos_mut_of(ctx).rest_reset(night);
             let clocks = clocks_reset_text(hos_of(ctx).cycle_restarted_since(cycle_before));
             {
                 let p = profile_mut_of(ctx);
-                p.fatigue = hos::rest_poor_sleep(p.fatigue, hos::SLEEP_MIN);
+                p.fatigue = hos::rest_poor_sleep(p.fatigue, reset_min);
             }
-            format!(
-                "{engine_off}Slept 10 hours in the lot. {}. {clocks} Rest was poor. \
-                 {}{}",
-                clock_text(d.trip.local_hour()),
-                deadline_text(d, ctx),
-                wake_air_instruction(d)
-            )
+            if canadian_reset {
+                format!(
+                    "{engine_off}Slept 8 hours in the lot. {}. {clocks} Rest was poor. \
+                     {}{}",
+                    clock_text(d.trip.local_hour()),
+                    deadline_text(d, ctx),
+                    wake_air_instruction(d)
+                )
+            } else {
+                format!(
+                    "{engine_off}Slept 10 hours in the lot. {}. {clocks} Rest was poor. \
+                     {}{}",
+                    clock_text(d.trip.local_hour()),
+                    deadline_text(d, ctx),
+                    wake_air_instruction(d)
+                )
+            }
         }) else {
             return;
         };
         self.save_here(ctx, true);
         ctx.audio.play("ui/notify");
         ctx.say(&text);
-        ctx.award_achievement("slept_on_route");
+        if ten_hours {
+            ctx.award_achievement("slept_on_route");
+        }
         ctx.award_restart_badges(false);
     }
 

@@ -332,6 +332,15 @@ pub fn lcv_state(state_code: &str) -> bool {
     LCV_STATES.contains(&state_code)
 }
 
+/// Whether the school offers this course to a career based in
+/// `base_country`. A Canadian career is not offered the doubles or the LCV
+/// course: no Canadian lane posts either freight, twins may not cross, and
+/// a crossing career never hauls between two US cities (director ruling,
+/// 2026-11-25). The row is absent, with no line saying why.
+pub fn course_offered_to(cred: &Credential, base_country: &str) -> bool {
+    !(base_country == "CA" && matches!(cred.key, "doubles_triples" | "lcv"))
+}
+
 /// A course booking judged against everything but money: level, held,
 /// pending, prerequisites, record. Returns `(bookable, reasons)` in the
 /// weigh-station-transponder shape -- every blocking reason, spoken.
@@ -578,6 +587,20 @@ mod tests {
             bookable,
             ["manual_transmission", "refrigerated", "flatbed_securement"]
         );
+    }
+
+    #[test]
+    fn a_canadian_career_is_not_offered_doubles_or_lcv() {
+        for key in ["doubles_triples", "lcv"] {
+            let cred = credential(key).unwrap();
+            assert!(!course_offered_to(cred, "CA"), "{key}");
+            assert!(course_offered_to(cred, "US"), "{key}");
+        }
+        for cred in CREDENTIALS {
+            if !matches!(cred.key, "doubles_triples" | "lcv") {
+                assert!(course_offered_to(cred, "CA"), "{}", cred.key);
+            }
+        }
     }
 
     #[test]
