@@ -862,3 +862,31 @@ fn a_long_line_of_commas_is_matched_without_retrying_every_cut() {
     assert_eq!(caps["e"], "");
     assert_eq!(caps["f"], "Right");
 }
+
+#[test]
+fn a_carrier_display_name_is_translated_when_said_alone() {
+    // Display names live in the catalog so a language can give them their
+    // own form. Spoken lines that only name the carrier go through the
+    // ordinary exact match. A name filled into a sentence stays English:
+    // carrier name recordings stay in English for now, and company names
+    // are proper names.
+    let tr = Translator::new(
+        Catalog::from_po(
+            "es",
+            "msgid \"Pennsauken Creek Drayage\"\n\
+             msgstr \"Pennsauken Creek Drayage (ES)\"\n\
+             \n\
+             msgid \"{carrier} is hiring.\"\n\
+             msgstr \"{carrier} está contratando.\"\n",
+        )
+        .expect("parses"),
+    );
+    assert_eq!(
+        tr.translate("Pennsauken Creek Drayage"),
+        "Pennsauken Creek Drayage (ES)"
+    );
+    assert_eq!(
+        tr.translate("Pennsauken Creek Drayage is hiring."),
+        "Pennsauken Creek Drayage está contratando."
+    );
+}

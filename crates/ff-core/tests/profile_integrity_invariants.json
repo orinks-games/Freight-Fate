@@ -1379,6 +1379,7 @@
     "carquinez_drayage": "Carquinez Drayage",
     "chatanika_freight": "Chatanika Freight Lines",
     "chehalis_freight": "Chehalis Freight Lines",
+    "colgate_creek_drayage": "Colgate Creek Drayage",
     "cosumnes_freight": "Cosumnes Freight",
     "cuyama_transport": "Cuyama Transport",
     "des_plaines_cartage": "Des Plaines River Cartage",
@@ -1411,6 +1412,7 @@
     "olentangy_valley": "Olentangy Valley Freight",
     "open_hearth_flatbed": "Open Hearth Flatbed Lines",
     "pasquotank_freight": "Pasquotank Freight Lines",
+    "pennsauken_creek_drayage": "Pennsauken Creek Drayage",
     "pinyon_basin": "Pinyon Basin Transport",
     "port_lands_cartage": "Port Lands Cartage",
     "prairie_link": "Prairie Link Regional",
@@ -1594,6 +1596,19 @@
       },
       "suggestedHomeTerminal": "Seattle"
     },
+    "colgate_creek_drayage": {
+      "description": "A local company-driver start in the Port of Baltimore. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Colgate Creek Drayage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Baltimore"
+    },
     "cosumnes_freight": {
       "description": "A regional company-driver start in northern California and northern Nevada. Dispatch offers loads of up to 500 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
       "dispatch": "more same-region lanes",
@@ -1761,7 +1776,7 @@
         "payShare": 0.34,
         "stopPay": 135
       },
-      "suggestedHomeTerminal": "Harrisburg"
+      "suggestedHomeTerminal": "Newark"
     },
     "knik_arm_cartage": {
       "description": "A local company-driver start in Anchorage, the Mat-Su valley, and Seward. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
@@ -1996,6 +2011,19 @@
         "stopPay": 135
       },
       "suggestedHomeTerminal": "Raleigh"
+    },
+    "pennsauken_creek_drayage": {
+      "description": "A local company-driver start in the Port of Philadelphia and South Jersey. Dispatch offers loads of up to 150 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",
+      "dispatch": "more appointment slack",
+      "favoredFreight": [],
+      "name": "Pennsauken Creek Drayage",
+      "pay": {
+        "minPerMile": 1.05,
+        "onTimeBonusShare": 0.03,
+        "payShare": 0.3,
+        "stopPay": 210
+      },
+      "suggestedHomeTerminal": "Philadelphia"
     },
     "pinyon_basin": {
       "description": "A regional company-driver start in the Great Basin, between Salt Lake City, Boise, and Las Vegas. Dispatch offers loads of up to 600 miles. The carrier assigns and maintains the tractor and pays fuel and routine repairs.",

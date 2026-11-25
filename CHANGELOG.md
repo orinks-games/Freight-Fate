@@ -54,7 +54,9 @@
 - **The ELD now tracks your 70-hour, 8-day work cycle.** A 34-hour rest starts a fresh week, and the sleep that finishes it says so.
 - **The clock now keeps Atlantic Time in the Maritimes and Mountain Time in the Yukon and the Northwest Territories.**
 - **Fuel stops, lodges and rest areas now line the northern roads.** Loaded trucks fuel at the lodges, and only year-round stops are offered.
-- **Fifty-four carriers now hire across the map, including Alaska.** Regional carriers serve every lower-48 city, and local carriers work 16 big cities and ports.
+- **Fifty-six carriers now hire across the map, including Alaska.** Regional carriers serve every lower-48 city, and local carriers work 18 big cities and ports.
+- **Pennsauken Creek Drayage hires at the Port of Philadelphia and South Jersey, and Colgate Creek Drayage at the Port of Baltimore.**
+- **Kittatinny Crossroads Freight now covers the Mid-Atlantic from Newark through Philadelphia, Harrisburg and Baltimore to Pittsburgh.** It no longer covers Worcester.
 - **Three new national carriers lean toward refrigerated freight, doubles, or steel, machinery and lumber.**
 - **Live cattle are a new freight class from level 5,** hauled from sale barns to feed yards and from feed yards to beef plants.
 - **Cattle react to hard braking and sharp turns.** If one goes down, stop and choose Check the cattle to get it up.
