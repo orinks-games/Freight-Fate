@@ -10806,6 +10806,23 @@ msgstr "{join} ve {last}"
 msgid "cattle"
 msgstr "sığır"
 
+msgid "home"
+msgstr "home"
+
+msgid "cabotage"
+msgstr ""
+
+msgid "READ: Mercer Transportation, as for steel"
+msgstr ""
+
+msgid ""
+"ASSUMED: seafood and other food going south by truck; no page read gives a "
+"figure"
+msgstr ""
+
+msgid "ASSUMED: as for food"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} driving hours"
 msgstr "{f} saat sürüş"
@@ -13220,6 +13237,12 @@ msgstr "durdu"
 
 msgid "holding"
 msgstr "bekliyor"
+
+msgid "filed"
+msgstr ""
+
+msgid "closed"
+msgstr ""
 
 # leave empty: loose frame; it caught "Crossing into" time zone lines and left "into" English
 #. placeholders: {name}
@@ -25164,6 +25187,9 @@ msgstr "Saat {now}."
 msgid "delivery"
 msgstr "teslimat"
 
+msgid "bond"
+msgstr ""
+
 msgid "alertness"
 msgstr "uyanıklık"
 
@@ -25233,29 +25259,17 @@ msgstr ""
 "tahsil edildi"
 
 #. one sentence of a longer line
-msgid ""
-"The officer asks for your passport and checks the eManifest filed for this "
-"load."
-msgstr ""
-"Memur pasaportunuzu ister ve bu yük için gönderilen eManifest'i kontrol "
-"eder."
+msgid "Cleared."
+msgstr "Geçiş onaylandı."
 
-#. placeholders: {name}, {agency}
-msgid ""
-"{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest filed for this load."
-msgstr ""
-"{name}, {agency}. Memur pasaportunuzu ister ve bu yük için gönderilen "
-"eManifest'i kontrol eder."
+#. placeholders: {country}
+msgid "Cleared. Welcome to {country}."
+msgstr "Geçiş onaylandı. {country} topraklarına hoş geldiniz."
 
-msgid "customs clearance"
-msgstr "gümrük işlemi"
-
-msgid "Canada"
-msgstr "Kanada"
-
-msgid "the United States"
-msgstr "Amerika Birleşik Devletleri"
+#. placeholders: {country}
+#. one sentence of a longer line
+msgid "Welcome to {country}."
+msgstr "{country} topraklarına hoş geldiniz."
 
 #. one sentence of a longer line
 msgid "Officers examine the trailer for 45 minutes, then clear you."
@@ -25273,18 +25287,84 @@ msgstr ""
 "İkincil denetime yönlendirildiniz. Memurlar dorseyi 45 dakika inceler, "
 "sonra geçmenize izin verir. {country} topraklarına hoş geldiniz."
 
-#. placeholders: {country}
 #. one sentence of a longer line
-msgid "Welcome to {country}."
-msgstr "{country} topraklarına hoş geldiniz."
-
-#. one sentence of a longer line
-msgid "Cleared."
-msgstr "Geçiş onaylandı."
+msgid "Cleared in bond."
+msgstr ""
 
 #. placeholders: {country}
-msgid "Cleared. Welcome to {country}."
-msgstr "Geçiş onaylandı. {country} topraklarına hoş geldiniz."
+msgid "Cleared in bond. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Officers examine the trailer for 45 minutes, then clear you in bond."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you in bond. Welcome to {country}."
+msgstr ""
+
+#. placeholders: {country}
+msgid "Cleared. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The bond is closed."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
+msgstr ""
+"Memur pasaportunuzu ister ve bu yük için gönderilen eManifest'i kontrol "
+"eder."
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"eManifest filed for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest and "
+"bond for this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest and bond for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest for "
+"this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest for this load."
+msgstr ""
+
+msgid "customs clearance"
+msgstr "gümrük işlemi"
+
+msgid "Canada"
+msgstr "Kanada"
+
+msgid "the United States"
+msgstr "Amerika Birleşik Devletleri"
 
 msgid "Answer the officer's questions and hand over your documents"
 msgstr "Memurun sorularını yanıtlayın ve belgelerinizi verin"
@@ -48229,9 +48309,6 @@ msgstr "Right ok tuşu"
 msgid "Home"
 msgstr "Home"
 
-msgid "home"
-msgstr "home"
-
 msgid "end"
 msgstr "end"
 
@@ -48507,6 +48584,13 @@ msgstr ""
 "İkinci bir düğme katmanı için sol omuz tuşunu basılı tutun. {pad_engine} "
 "motoru kontrol eder, {pad_fuel} yakıtı okur ve {pad_speed_limit} hız "
 "sınırını okur."
+
+#~ msgid ""
+#~ "{name}, {agency}. The officer asks for your passport and checks the "
+#~ "eManifest filed for this load."
+#~ msgstr ""
+#~ "{name}, {agency}. Memur pasaportunuzu ister ve bu yük için gönderilen "
+#~ "eManifest'i kontrol eder."
 
 #~ msgid "Legacy Driver"
 #~ msgstr "Eski Sürüm Şoförü"

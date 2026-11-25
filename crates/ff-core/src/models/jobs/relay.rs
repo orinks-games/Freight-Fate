@@ -84,6 +84,19 @@ pub struct RelayRequest<'a> {
     pub seed: i64,
 }
 
+impl RelayRequest<'_> {
+    /// Whether the carrier may send the truck from `here` to `town`: the
+    /// lane table, empty or loaded, so a carrier without the authority
+    /// never deadheads through the other country for a relay.
+    fn may_run(&self, world: &World, here: &str, town: &str) -> bool {
+        let carrier = match self.carrier_key {
+            Some(key) if !key.is_empty() => key,
+            _ => crate::models::start_options::DEFAULT_START_KEY,
+        };
+        JobBoard::new(world, Some(0), None).carrier_may_haul(carrier, here, town)
+    }
+}
+
 /// A load relayed from a nearby city, its deadhead priced and timed.
 #[derive(Debug, Clone, PartialEq)]
 pub struct RelayLoad {
@@ -175,6 +188,9 @@ pub fn best_relay(
     let plan = pay_plan_for_key(request.carrier_key);
     let mut best: Option<RelayLoad> = None;
     for (city, _, _) in relay_towns(world, &here, nearby, request.level) {
+        if !request.may_run(world, &here, city) {
+            continue;
+        }
         let Some(deadhead) = world.supported_route(&here, city, None).ok().flatten() else {
             continue;
         };
@@ -300,7 +316,7 @@ pub fn fallback_reposition(
         .collect();
     towns.sort_by(|a, b| a.1.total_cmp(&b.1));
     for (city, _, _) in towns {
-        if !ships(city) {
+        if !ships(city) || !request.may_run(world, &here, city) {
             continue;
         }
         let seed = request.seed ^ i64::from(crc32(city.as_bytes()));

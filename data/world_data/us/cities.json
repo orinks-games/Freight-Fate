@@ -573,6 +573,43 @@
             "retail",
             "food"
           ]
+        },
+        {
+          "name": "Alaska Marine Lines Seattle Terminal 115",
+          "type": "port",
+          "lat": 47.5454094,
+          "lon": -122.3438153,
+          "ships": [
+            "container"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "food",
+            "refrigerated",
+            "automotive",
+            "construction",
+            "machinery",
+            "container",
+            "lumber_paper",
+            "steel"
+          ],
+          "cargo": [
+            "container",
+            "general",
+            "retail",
+            "food",
+            "refrigerated",
+            "automotive",
+            "construction",
+            "machinery",
+            "lumber_paper",
+            "steel"
+          ],
+          "traits": [
+            "thin_outbound"
+          ],
+          "source_note": "Alaska Marine Lines (Lynden) Seattle Terminal 115, 6110 W Marginal Way SW, Seattle WA 98106. READ: https://www.lynden.com/aml/about/locations/seattle-terminal/ (receiving for Central Alaska; barge to Anchorage 9 days) and NWSA https://nwseaportalliance.com/cargo-operations/terminals/terminal-115 (gives 6700 W Marginal Way SW; Lynden's receiving address used). Position: OSM way 226135039, the building at 6110 (address geocode), accessed 2026-11-25. ASSUMED: ships little southbound, hence thin_outbound."
         }
       ],
       "lat": 47.6062,
@@ -3420,6 +3457,105 @@
           "name": "Frederickson Distribution Center",
           "type": "distribution",
           "source_note": "Frederickson industrial/distribution area south of Tacoma (Amazon, IKEA and other DCs)."
+        },
+        {
+          "name": "TOTE Maritime Alaska Terminal",
+          "type": "port_terminal",
+          "lat": 47.2782589,
+          "lon": -122.408439,
+          "ships": [
+            "refrigerated",
+            "container"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "food",
+            "refrigerated",
+            "automotive",
+            "construction",
+            "machinery",
+            "container"
+          ],
+          "cargo": [
+            "refrigerated",
+            "container",
+            "general",
+            "retail",
+            "food",
+            "automotive",
+            "construction",
+            "machinery"
+          ],
+          "traits": [
+            "thin_outbound"
+          ],
+          "source_note": "TOTE Maritime Alaska Terminal, 500 E Alexander Ave, Tacoma WA 98421. READ: Northwest Seaport Alliance terminal page https://nwseaportalliance.com/cargo-operations/terminals/tote-maritime-alaska-terminal (ro/ro trailer and container terminal, 48 acres, 140 reefer plugs) and TOTE https://www.totemaritime.com/alaska/alaska-cargo/ (twice-weekly Tacoma-Anchorage, 66-hour port-to-port, retail goods, groceries, industrial supplies). Position: OSM way 1035171508, the building at that address (address geocode), accessed 2026-11-25. ASSUMED: southbound it ships little (refrigerated seafood and containers), hence thin_outbound."
+        },
+        {
+          "name": "Matson West Sitcum Terminal",
+          "type": "port_terminal",
+          "lat": 47.2580563,
+          "lon": -122.4116798,
+          "ships": [
+            "refrigerated",
+            "container"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "food",
+            "refrigerated",
+            "automotive",
+            "construction",
+            "machinery",
+            "container"
+          ],
+          "cargo": [
+            "refrigerated",
+            "container",
+            "general",
+            "retail",
+            "food",
+            "automotive",
+            "construction",
+            "machinery"
+          ],
+          "traits": [
+            "thin_outbound"
+          ],
+          "source_note": "West Sitcum Terminal, 1675 Lincoln Ave, Bldg. 950, Tacoma WA 98421; primary client Matson, operated by SSA Terminals. READ: NWSA Tacoma harbor terminal fact sheets (15 May 2026) and Matson's Alaska service page https://www.matson.com/matnav/services/alaska.html (Tacoma-Anchorage-Kodiak twice weekly). Position: OSM way 555585855, the building at that address (address geocode), accessed 2026-11-25. ASSUMED: the fact sheet does not say the terminal is Alaska-only; it ships little southbound, hence thin_outbound."
+        },
+        {
+          "name": "Carlile Tacoma Shipping Terminal",
+          "type": "terminal",
+          "lat": 47.2693796,
+          "lon": -122.380029,
+          "ships": [
+            "general",
+            "retail",
+            "parcel"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "parcel",
+            "food",
+            "construction",
+            "machinery"
+          ],
+          "cargo": [
+            "general",
+            "retail",
+            "parcel",
+            "food",
+            "construction",
+            "machinery"
+          ],
+          "traits": [
+            "thin_outbound"
+          ],
+          "source_note": "Carlile Transportation Tacoma Shipping Terminal, 2301 Taylor Way, Tacoma WA 98421. READ: https://www.carlile.biz/contact-and-terminals/ . Position: OSM way 1035171386 \"Carlile Trucking\" (OSM object), accessed 2026-11-25. ASSUMED: freight here is consolidated for the Alaska ships, so it receives far more than it ships."
         }
       ],
       "lat": 47.2529,
@@ -8108,7 +8244,8 @@
             "container"
           ],
           "traits": [
-            "thin_outbound"
+            "thin_outbound",
+            "ships_in_state"
           ],
           "source_note": "Carlile Transportation Fairbanks Shipping Terminal at 900 Aurora Drive, Fairbanks AK 99709. Operator: https://www.carlile.biz/contact-and-terminals/fairbanks/ (LTL/FTL; Anchorage\u2194Fairbanks 5 days/week). Cross-dock receive+ship; thin_outbound trait keeps ship/origin weight low so inbound outweighs outbound. ESRI World Imagery export 2026-09-24: multi-building terminal yard with dozens of staged vans/containers and trailers at building faces."
         },
@@ -8129,6 +8266,93 @@
             "steel"
           ],
           "source_note": "Spenard Builders Supply (Builders FirstSource) Fairbanks lumber yard at 2460 Phillips Field Road, Fairbanks AK 99701. Operator: https://www.sbsalaska.com/locations/fairbanks/. Receive-only construction materials (no bulk). ESRI World Imagery export 2026-09-24: large materials yard with stacked wrapped lumber/sheet goods and wide truck aisles at Peger Road / Phillips Field Road."
+        },
+        {
+          "name": "Lynden Transport Fairbanks Service Center",
+          "type": "cross_dock",
+          "lat": 64.8181182,
+          "lon": -147.7783679,
+          "ships": [
+            "general",
+            "retail",
+            "parcel",
+            "container",
+            "machinery"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "parcel",
+            "container",
+            "machinery",
+            "food"
+          ],
+          "cargo": [
+            "general",
+            "retail",
+            "parcel",
+            "container",
+            "machinery",
+            "food"
+          ],
+          "traits": [
+            "ships_in_state"
+          ],
+          "source_note": "Lynden Transport Fairbanks Service Center, 3001 Peger Road, Fairbanks AK 99709. READ: https://www.lynden.com/ltia/about/locations/fairbanks/ and the Fairbanks departures schedule (Fairbanks to Prudhoe Bay daily, Monday to Friday). Position: OSM way 293807309, the building at that address (address geocode), accessed 2026-11-25. ships_in_state: Fairbanks freight goes on to the Slope and the Interior."
+        },
+        {
+          "name": "Alaska West Express Fairbanks",
+          "type": "steel_industrial",
+          "lat": 64.8056353,
+          "lon": -147.7334253,
+          "ships": [
+            "machinery",
+            "steel",
+            "construction"
+          ],
+          "receives": [
+            "machinery",
+            "steel",
+            "construction",
+            "general"
+          ],
+          "cargo": [
+            "machinery",
+            "steel",
+            "construction",
+            "general"
+          ],
+          "traits": [
+            "ships_in_state"
+          ],
+          "source_note": "Alaska West Express (Lynden), 1095 Sanduri Street, Fairbanks AK 99701. READ: https://www.lynden.com/awe/about/contact-us/ . Position: OSM way 8958852, the building at that address (address geocode), accessed 2026-11-25. ASSUMED: the yard handles flatbed and heavy freight for the oil fields (the type is a stand-in; the page lists the terminal, not its freight). ships_in_state: hauls to the Slope."
+        },
+        {
+          "name": "Sourdough Express Fairbanks Terminal",
+          "type": "cross_dock",
+          "lat": 64.848454,
+          "lon": -147.729041,
+          "ships": [
+            "general",
+            "retail",
+            "parcel"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "parcel",
+            "food"
+          ],
+          "cargo": [
+            "general",
+            "retail",
+            "parcel",
+            "food"
+          ],
+          "traits": [
+            "ships_in_state"
+          ],
+          "source_note": "Sourdough Express Fairbanks terminal, 600 Driveway Street, Fairbanks AK 99701. READ: https://sourdoughexpress.com/contact/ and https://sourdoughexpress.com/ (\"From Fairbanks to Anchorage, Homer to Prudhoe Bay\"). Position: OSM way 8961890, the building at that address (address geocode), accessed 2026-11-25. ships_in_state: freight inside Alaska."
         }
       ]
     },
@@ -8169,7 +8393,10 @@
           "type": "company_yard",
           "lat": 61.5997,
           "lon": -149.1128,
-          "source_note": "Palmer AK Mat-Su market stand-in yard. No verified public tractor-stop pin: Palmer Chevron on Glenn (~MP 42) remains unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. City is the sole Mat-Su market node on B1."
+          "source_note": "Palmer AK Mat-Su market stand-in yard. No verified public tractor-stop pin: Palmer Chevron on Glenn (~MP 42) remains unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. City is the sole Mat-Su market node on B1. ships_in_state: DERIVED from the site's kind (a company yard in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -8193,7 +8420,186 @@
           "type": "terminal",
           "lat": 61.2446867,
           "lon": -149.8816953,
-          "source_note": "Port of Alaska (Anchorage) industrial / consignee delivery end near the port complex north of downtown / Ship Creek industrial area. Nominatim 'Port of Alaska, Anchorage' 2026-09-24. Delivery end for Anchorage \u2014 not a public truck stop; fuel/parking remains Essential One (~3 spaces)."
+          "source_note": "Port of Alaska (Anchorage) industrial / consignee delivery end near the port complex north of downtown / Ship Creek industrial area. Nominatim 'Port of Alaska, Anchorage' 2026-09-24. Delivery end for Anchorage \u2014 not a public truck stop; fuel/parking remains Essential One (~3 spaces).",
+          "traits": [
+            "ships_in_state"
+          ]
+        },
+        {
+          "name": "TOTE Maritime Anchorage Terminal",
+          "type": "port_terminal",
+          "lat": 61.2431668,
+          "lon": -149.8809501,
+          "ships": [
+            "general",
+            "retail",
+            "food",
+            "refrigerated",
+            "automotive",
+            "construction",
+            "machinery",
+            "container"
+          ],
+          "receives": [
+            "refrigerated",
+            "food",
+            "container"
+          ],
+          "cargo": [
+            "general",
+            "retail",
+            "food",
+            "refrigerated",
+            "automotive",
+            "construction",
+            "machinery",
+            "container"
+          ],
+          "traits": [
+            "ships_in_state"
+          ],
+          "source_note": "TOTE Maritime Anchorage terminal, 2511 Tidewater Road, Anchorage AK 99501, at the Port of Alaska. READ: TOTE contact page https://www.totemaritime.com/alaska/tote-alaska-contact-us ; Port of Alaska fact sheet https://www.portofalaska.com/wp-content/uploads/port_fact_sheet_April_2025.pdf (TOTE and Matson each twice-weekly container ships from Tacoma; the port handles half of Alaska's inbound freight, half of it delivered outside Anchorage). Position: OSM node 12115994873 \"Tote Maritime Anchorage Terminal\" (OSM object), accessed 2026-11-25. ships_in_state: what comes off the ship is handed to Alaska carriers for Alaska."
+        },
+        {
+          "name": "Matson Anchorage Terminal",
+          "type": "port_terminal",
+          "lat": 61.2381337,
+          "lon": -149.8843209,
+          "ships": [
+            "general",
+            "retail",
+            "food",
+            "refrigerated",
+            "automotive",
+            "construction",
+            "machinery",
+            "container"
+          ],
+          "receives": [
+            "refrigerated",
+            "food",
+            "container"
+          ],
+          "cargo": [
+            "general",
+            "retail",
+            "food",
+            "refrigerated",
+            "automotive",
+            "construction",
+            "machinery",
+            "container"
+          ],
+          "traits": [
+            "ships_in_state"
+          ],
+          "source_note": "Matson, 1717 Tidewater Road, Anchorage AK 99501, at the Port of Alaska. READ: Anchorage Chamber member listing https://business.anchoragechamber.org/list/member/matson-1888 (containership Tacoma-Anchorage-Kodiak-Dutch Harbor, statewide trucking) and the Port of Alaska fact sheet as for TOTE. Position: OSM node 5900610301 \"Matson Navigation Company\" on Tidewater Road (OSM object), accessed 2026-11-25. ships_in_state as for TOTE."
+        },
+        {
+          "name": "Carlile Anchorage Shipping Terminal",
+          "type": "cross_dock",
+          "lat": 61.220551,
+          "lon": -149.8472401,
+          "ships": [
+            "general",
+            "retail",
+            "parcel",
+            "container"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "parcel",
+            "container",
+            "food",
+            "construction",
+            "machinery"
+          ],
+          "cargo": [
+            "general",
+            "retail",
+            "parcel",
+            "container",
+            "food",
+            "construction",
+            "machinery"
+          ],
+          "traits": [
+            "ships_in_state"
+          ],
+          "source_note": "Carlile Transportation Anchorage Shipping Terminal, 1800 East 1st Avenue, Anchorage AK 99501. READ: https://www.carlile.biz/contact-and-terminals/ . Position: OSM way 772277851 \"Carlile Enterprises\" (OSM object), accessed 2026-11-25. ships_in_state: distribution inside Alaska (Anchorage to Fairbanks and the Slope)."
+        },
+        {
+          "name": "Lynden Transport Anchorage Service Center",
+          "type": "cross_dock",
+          "lat": 61.2227705,
+          "lon": -149.8237636,
+          "ships": [
+            "general",
+            "retail",
+            "parcel",
+            "container"
+          ],
+          "receives": [
+            "general",
+            "retail",
+            "parcel",
+            "container",
+            "food",
+            "refrigerated",
+            "machinery"
+          ],
+          "cargo": [
+            "general",
+            "retail",
+            "parcel",
+            "container",
+            "food",
+            "refrigerated",
+            "machinery"
+          ],
+          "traits": [
+            "ships_in_state"
+          ],
+          "source_note": "Lynden Transport Anchorage Service Center, 3027 Rampart Drive, Anchorage AK 99501. READ: https://www.lynden.com/ltia/about/locations/ and the Anchorage departures schedule (Anchorage to Fairbanks nightly, next-day delivery). Position: OSM way 765800926 \"Lynden Transport\" (OSM object), accessed 2026-11-25. ships_in_state: distribution inside Alaska."
+        },
+        {
+          "name": "Spenard Builders Supply Anchorage Distribution Center",
+          "type": "construction_materials_yard",
+          "lat": 61.1300857,
+          "lon": -149.8641057,
+          "ships": [],
+          "receives": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "cargo": [
+            "construction",
+            "lumber_paper",
+            "steel"
+          ],
+          "source_note": "Spenard Builders Supply (Builders FirstSource) Anchorage AK DC (Galco), 10010 Old Seward Hwy, Anchorage AK 99515. READ: https://bldr.com/location/spenard-builders-supply-anchorage-ak-dc-galco/ANCHALDC (\"Our Anchorage, AK distribution center\", lumber and building materials). Position: OSM way 651634727, the building at that address (address geocode), accessed 2026-11-25. Receive-only."
+        },
+        {
+          "name": "Costco Anchorage Dimond",
+          "type": "retail_distribution",
+          "lat": 61.1432983,
+          "lon": -149.8843665,
+          "ships": [],
+          "receives": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "cargo": [
+            "food",
+            "retail",
+            "refrigerated",
+            "general"
+          ],
+          "source_note": "Costco Wholesale, 330 West Dimond Blvd, Anchorage AK 99515. READ: OSM way 183107551 (shop=wholesale, Costco), accessed 2026-11-25; no Costco page read. Receive-only big-box retail, like the Fairbanks Costco."
         }
       ]
     },
@@ -8232,7 +8638,10 @@
           "type": "company_yard",
           "lat": 64.5635293,
           "lon": -149.0959778,
-          "source_note": "Nenana AK Parks Highway pass-through stand-in. No verified public tractor-stop pin: A-Frame SVC / Parks fuel remains unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. Not a job-board market."
+          "source_note": "Nenana AK Parks Highway pass-through stand-in. No verified public tractor-stop pin: A-Frame SVC / Parks fuel remains unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. Not a job-board market. ships_in_state: DERIVED from the site's kind (a company yard in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -8266,7 +8675,10 @@
           "type": "company_yard",
           "lat": 61.5824216,
           "lon": -149.442563,
-          "source_note": "Wasilla AK Parks Highway pass-through stand-in. Not a Mat-Su job-board market \u2014 Palmer remains the sole Mat-Su market. Holiday / Three Bears / Fishers Big Lake lots remain unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. No fuel pin."
+          "source_note": "Wasilla AK Parks Highway pass-through stand-in. Not a Mat-Su job-board market \u2014 Palmer remains the sole Mat-Su market. Holiday / Three Bears / Fishers Big Lake lots remain unverified for diesel AND tractor parking (ALCAN Phase B plan). Do not invent parking capacity. No fuel pin. ships_in_state: DERIVED from the site's kind (a company yard in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -8312,7 +8724,10 @@
             "general",
             "construction"
           ],
-          "source_note": "City of Valdez terminal page https://www.valdezak.gov/296/Ryan-J-Sontag-Valdez-Container-Terminal and its official terminal brochure (1460 Container Terminal Road; published coordinates 61.1271,-146.2972; floating freight pier). The local Geofabrik Alaska OSM extract identifies terminal relation 11301693; Overture did not identify the exact terminal. Container, general, and construction freight roles follow the official terminal description."
+          "source_note": "City of Valdez terminal page https://www.valdezak.gov/296/Ryan-J-Sontag-Valdez-Container-Terminal and its official terminal brochure (1460 Container Terminal Road; published coordinates 61.1271,-146.2972; floating freight pier). The local Geofabrik Alaska OSM extract identifies terminal relation 11301693; Overture did not identify the exact terminal. Container, general, and construction freight roles follow the official terminal description. ships_in_state: DERIVED from the site's kind (a container terminal in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         },
         {
           "name": "Silver Bay Seafoods Valdez South",
@@ -8350,7 +8765,10 @@
           "receives": [
             "general"
           ],
-          "source_note": "Alaska Railroad 2024 Seward Freight Dock Expansion fact sheet https://www.alaskarailroad.com/sites/default/files/FCTSHT_2024_Seward_Freight_Dock_Expansion_FactSheet.pdf documents cargo staging/transfer and roll-on/roll-off freight operations. The berth location is matched to local Geofabrik Alaska OSM freight-dock track features 1157424039 and 1157424040; Overture did not return an exact dock. General freight roles only."
+          "source_note": "Alaska Railroad 2024 Seward Freight Dock Expansion fact sheet https://www.alaskarailroad.com/sites/default/files/FCTSHT_2024_Seward_Freight_Dock_Expansion_FactSheet.pdf documents cargo staging/transfer and roll-on/roll-off freight operations. The berth location is matched to local Geofabrik Alaska OSM freight-dock track features 1157424039 and 1157424040; Overture did not return an exact dock. General freight roles only. ships_in_state: DERIVED from the site's kind (a freight dock in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         },
         {
           "name": "Essential One Seward",
@@ -8386,7 +8804,10 @@
             "container",
             "general"
           ],
-          "source_note": "Alaska Railroad Seward rail yard behind the freight dock: position read from the screened local Geofabrik Alaska OSM railway-land endpoint way 464455056 (\"Seward Yard\"); the Alaska Railroad 2024 Seward Freight Dock Expansion fact sheet https://www.alaskarailroad.com/sites/default/files/FCTSHT_2024_Seward_Freight_Dock_Expansion_FactSheet.pdf documents rail cargo transfer there. Container and general roles only; automotive, retail and parcel template roles are not claimed."
+          "source_note": "Alaska Railroad Seward rail yard behind the freight dock: position read from the screened local Geofabrik Alaska OSM railway-land endpoint way 464455056 (\"Seward Yard\"); the Alaska Railroad 2024 Seward Freight Dock Expansion fact sheet https://www.alaskarailroad.com/sites/default/files/FCTSHT_2024_Seward_Freight_Dock_Expansion_FactSheet.pdf documents rail cargo transfer there. Container and general roles only; automotive, retail and parcel template roles are not claimed. ships_in_state: DERIVED from the site's kind (a rail yard in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -8428,7 +8849,10 @@
           "receives": [
             "general"
           ],
-          "source_note": "Carlile operator page https://www.carlile.biz/contact-and-terminals/kenai/ confirms 1216 Bridge Access Road and freight receiving, storage, distribution, FTL and LTL service. Local Geofabrik Alaska OSM building way 424614663 matches the address/name; Overture also returned Carlile at that address. General freight only; no unsupported cargo classes inferred."
+          "source_note": "Carlile operator page https://www.carlile.biz/contact-and-terminals/kenai/ confirms 1216 Bridge Access Road and freight receiving, storage, distribution, FTL and LTL service. Local Geofabrik Alaska OSM building way 424614663 matches the address/name; Overture also returned Carlile at that address. General freight only; no unsupported cargo classes inferred. ships_in_state: DERIVED from the site's kind (a carrier terminal in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         },
         {
           "name": "Inlet Fish Producers Kenai",
@@ -8466,7 +8890,10 @@
           "receives": [
             "general"
           ],
-          "source_note": "City of Homer page https://www.cityofhomer-ak.gov/port/deep-water-dock-scheduling identifies the Deep Water Dock as the Freight Dock at 4667 Freight Dock Road and publishes dockage, berth, depth, and crane details; official city dock material gives 59\u00b036\u203225\u2033N, 151\u00b025\u203240\u2033W. Local OSM contains Freight Dock Road but no exact berth feature; Overture returned Port & Harbor records but no exact freight dock. General freight only, from the official Freight Dock designation; no commodity classes inferred."
+          "source_note": "City of Homer page https://www.cityofhomer-ak.gov/port/deep-water-dock-scheduling identifies the Deep Water Dock as the Freight Dock at 4667 Freight Dock Road and publishes dockage, berth, depth, and crane details; official city dock material gives 59\u00b036\u203225\u2033N, 151\u00b025\u203240\u2033W. Local OSM contains Freight Dock Road but no exact berth feature; Overture returned Port & Harbor records but no exact freight dock. General freight only, from the official Freight Dock designation; no commodity classes inferred. ships_in_state: DERIVED from the site's kind (a freight dock in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         },
         {
           "name": "Essential One Homer",
@@ -8503,7 +8930,68 @@
       "lat": 70.1999496,
       "lon": -148.461816,
       "source_note": "Place name and centroid coordinates read from local Geofabrik Alaska OpenStreetMap place feature 150918086, accessed 2026-10-07; state/country are read as Alaska, US, and the region is assigned from the game's pacific_northwest map-region classification.",
-      "locations": []
+      "locations": [
+        {
+          "name": "Carlile Prudhoe Bay Shipping Terminal",
+          "type": "cross_dock",
+          "lat": 70.1954693,
+          "lon": -148.4587465,
+          "ships": [
+            "general",
+            "machinery"
+          ],
+          "receives": [
+            "general",
+            "machinery",
+            "steel",
+            "construction",
+            "food",
+            "parcel"
+          ],
+          "cargo": [
+            "general",
+            "machinery",
+            "steel",
+            "construction",
+            "food",
+            "parcel"
+          ],
+          "traits": [
+            "thin_outbound",
+            "ships_in_state"
+          ],
+          "source_note": "Carlile Transportation Prudhoe Bay Shipping Terminal, Deadhorse Airport, 500 Airport Way, Prudhoe Bay AK 99734. READ: https://www.carlile.biz/contact-and-terminals/prudhoe-bay/ (FTL, LTL from Fairbanks, heavy haul, laydown yard). Position ASSUMED: the Deadhorse Airport centroid, OSM relation 12543930 (accessed 2026-11-25); no OSM object for the terminal. Ships little, and what it ships goes back down the Dalton: thin_outbound and ships_in_state."
+        },
+        {
+          "name": "Lynden Prudhoe Bay Service Center",
+          "type": "cross_dock",
+          "lat": 70.1999496,
+          "lon": -148.461816,
+          "ships": [
+            "general",
+            "machinery"
+          ],
+          "receives": [
+            "general",
+            "machinery",
+            "steel",
+            "construction",
+            "food"
+          ],
+          "cargo": [
+            "general",
+            "machinery",
+            "steel",
+            "construction",
+            "food"
+          ],
+          "traits": [
+            "thin_outbound",
+            "ships_in_state"
+          ],
+          "source_note": "Lynden Transport and Alaska West Express Prudhoe Bay Service Center. READ: https://www.lynden.com/ltia/about/locations/prudhoe-bay/ (mail pouch 340071, Prudhoe Bay AK 99734; no street address). Position ASSUMED: the Deadhorse place centroid, OSM node 150918086 (accessed 2026-11-25). Ships little: thin_outbound and ships_in_state."
+        }
+      ]
     },
     "manassas_va_us": {
       "spoken_city": "Manassas",
@@ -8551,7 +9039,10 @@
           "receives": [
             "general"
           ],
-          "source_note": "Read: OpenStreetMap way 743711655 (industrial=refinery, name Petro Star Refinery) south of North Pole, OpenStreetMap planet file of 2026-11-16; Petro Star names its refineries in North Pole and Valdez and says the North Pole refinery makes heating oil, jet fuel and diesel (https://www.petrostar.com/locations, read 2026-11-22). Position is the centre of the mapped site. Roles derived: bulk fuel out by truck, general supplies in; crude arrives by pipeline, so no crude role."
+          "source_note": "Read: OpenStreetMap way 743711655 (industrial=refinery, name Petro Star Refinery) south of North Pole, OpenStreetMap planet file of 2026-11-16; Petro Star names its refineries in North Pole and Valdez and says the North Pole refinery makes heating oil, jet fuel and diesel (https://www.petrostar.com/locations, read 2026-11-22). Position is the centre of the mapped site. Roles derived: bulk fuel out by truck, general supplies in; crude arrives by pipeline, so no crude role. ships_in_state: DERIVED from the site's kind (a refinery in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -8575,7 +9066,10 @@
           "receives": [
             "general"
           ],
-          "source_note": "Read: OpenStreetMap way 573930303 (industrial=refinery, name Kenai Refinery, operator Marathon Petroleum) at Port Nikiski on the Kenai Spur Highway, OpenStreetMap planet file of 2026-11-16; Marathon Petroleum lists Kenai, Alaska among its refineries at 68,000 barrels a day (https://www.marathonpetroleum.com/Operations/Refining/, read 2026-11-22). Position is the centre of the mapped site. Roles derived: bulk fuel out by truck, general supplies in."
+          "source_note": "Read: OpenStreetMap way 573930303 (industrial=refinery, name Kenai Refinery, operator Marathon Petroleum) at Port Nikiski on the Kenai Spur Highway, OpenStreetMap planet file of 2026-11-16; Marathon Petroleum lists Kenai, Alaska among its refineries at 68,000 barrels a day (https://www.marathonpetroleum.com/Operations/Refining/, read 2026-11-22). Position is the centre of the mapped site. Roles derived: bulk fuel out by truck, general supplies in. ships_in_state: DERIVED from the site's kind (a refinery in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },
@@ -8602,7 +9096,10 @@
             "construction",
             "steel"
           ],
-          "source_note": "Read: OpenStreetMap relation 16916230 (industrial=port, port=cargo, port:type=deep_water, name Port Mackenzie) on Knik Arm, OpenStreetMap planet file of 2026-11-16. Roles assumed from a deep-water bulk port with no published cargo list read: aggregate and construction material both ways, steel and pipe in; no container or food roles claimed."
+          "source_note": "Read: OpenStreetMap relation 16916230 (industrial=port, port=cargo, port:type=deep_water, name Port Mackenzie) on Knik Arm, OpenStreetMap planet file of 2026-11-16. Roles assumed from a deep-water bulk port with no published cargo list read: aggregate and construction material both ways, steel and pipe in; no container or food roles claimed. ships_in_state: DERIVED from the site's kind (a port in Alaska ships what was landed or made for Alaska; director ruling 2026-11-25).",
+          "traits": [
+            "ships_in_state"
+          ]
         }
       ]
     },

@@ -44,6 +44,10 @@ pub struct Carrier {
     /// back. Data, from `carriers.json`: the nationals and the regionals
     /// whose lanes reach the border.
     pub cross_border: bool,
+    /// The country the carrier is based in, which decides what its lanes
+    /// are (`jobs::cross_border::LaneKind`). Data: `base_country` in
+    /// `carriers.json`, "US" when absent.
+    pub base: crate::models::jobs::cross_border::CarrierBase,
     /// Spoken freight the carrier is known for ("refrigerated freight"),
     /// named in a generated national start row. Empty when it has none.
     pub specialty: String,
@@ -267,6 +271,8 @@ struct RawCarrier {
     #[serde(default)]
     cross_border: bool,
     #[serde(default)]
+    base_country: Option<String>,
+    #[serde(default)]
     specialty: String,
 }
 
@@ -324,6 +330,15 @@ fn parse_catalog(text: &str) -> Result<IndexMap<String, Carrier>, DataError> {
         if raw.solvency_fallback {
             fallbacks += 1;
         }
+        let base = match raw.base_country.as_deref() {
+            None => crate::models::jobs::cross_border::CarrierBase::Us,
+            Some(code) => crate::models::jobs::cross_border::CarrierBase::from_code(code)
+                .ok_or_else(|| {
+                    DataError::value(format!(
+                        "carriers.json: carrier {key} has unknown base_country {code}"
+                    ))
+                })?,
+        };
         let carrier = Carrier {
             key: key.clone(),
             name: raw.name,
@@ -351,6 +366,7 @@ fn parse_catalog(text: &str) -> Result<IndexMap<String, Carrier>, DataError> {
             solvency_fallback: raw.solvency_fallback,
             lane_area: raw.lane_area,
             cross_border: raw.cross_border,
+            base,
             specialty: raw.specialty,
         };
         catalog.insert(key, carrier);

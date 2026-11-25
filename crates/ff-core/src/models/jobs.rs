@@ -33,7 +33,9 @@ mod urgency;
 #[cfg(test)]
 mod urgency_tests;
 
-pub use board::{reachable_cities, turn_angle_deg, Candidate, JobBoard, OfferOptions};
+pub use board::{
+    reachable_cities, reachable_cities_for, turn_angle_deg, Candidate, JobBoard, OfferOptions,
+};
 pub use deadline::{
     curve_ceilings, departure_deadline_hours, dispatch_deadline_hours, fair_active_deadline,
     minimum_pay_for_level, plan_hos, remaining_route_hos_plan, required_hours, route_drive_hours,

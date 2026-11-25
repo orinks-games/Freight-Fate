@@ -319,6 +319,8 @@ pub struct DrivingObservation {
     pub structure: Option<(ff_core::data::pavement::StructureKind, f64)>,
     /// The chain law posted at the truck, and the chains against the road.
     pub chain_control: ff_core::sim::chain_control::ChainControl,
+    /// The load's border papers.
+    pub bond: ff_core::sim::bond::BondState,
     pub chains: ff_core::sim::chain_control::ChainSet,
     /// Who does the chain work now, and the chain stop they are making.
     pub chain_worker: ff_core::sim::chain_work::ChainWorker,
@@ -1198,6 +1200,7 @@ impl App {
             tire_song: drive.road_texture.song,
             structure: drive.trip.structure_at_mile(drive.trip.position_mi),
             chain_control: drive.trip.chain_control,
+            bond: drive.trip.bond,
             chains: drive.chain_set,
             chain_worker: drive.chain_worker(&self.ctx),
             chain_stop: drive.chain_stop.as_ref().map(|stop| stop.kind),

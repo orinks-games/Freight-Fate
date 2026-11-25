@@ -434,6 +434,10 @@ from the words, and synonyms cost them a re-read.
 | What the carrier owes for freight it damaged | freight claim | damages, cargo insurance, write-off | `CargoSettlement.claim_value` |
 | The receiver refusing a load outright | the receiver refused the load | bounced, returned, kicked back | `CARGO_OUTCOME_REJECTED` |
 | The Mexican city a southbound load is finally bound for, spoken on the load card and at the yard; never a place the truck drives | consignee; "for consignee Saltillo, Coahuila" | destination (that is the yard's US city), receiver (that is the yard), customer | `border_yards.json` `consignees` |
+| The papers a load crossing once is filed under, checked at its one booth | eManifest; "checks the eManifest filed for this load" | customs papers, declaration, paperwork | `BoothPapers::Ordinary`, `states/driving_border.rs` |
+| The guarantee that lets a home load (lower 48 to Alaska) ride through the other country without entering its commerce | bond; "the bond is closed" | customs bond (on its own), surety, T&E | `sim::bond::BondState` |
+| A load riding through the other country under that guarantee | in bond; "Cleared in bond." | in transit (on its own), sealed, bonded load | `BondState::InBond` |
+| The manifest such a load carries through the other country | in-transit manifest | eManifest (that is a load crossing once), transit papers, through bill | `BoothPapers::EnteringInBond`, `BoothPapers::ClosingBond` |
 | The carrier that takes a trailer across the border from a Laredo yard, or brings a northbound one over | transfer carrier | drayage, cross-border carrier, the Mexican truck | `border_yards.json` `text` |
 | Damage a safety committee rules the driver's fault | preventable damage | at-fault, chargeable, negligence | `TruckState.preventable_damage_pct` |
 | The polling secret bound to this device | never spoken -- internal only | activation code | `Activation.device_code` |

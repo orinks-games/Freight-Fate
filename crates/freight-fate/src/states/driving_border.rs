@@ -6,6 +6,7 @@ use ff_core::models::enforcement::{
 };
 use ff_core::pyfmt::fmt_grouped;
 use ff_core::pyrandom::PyRandom;
+use ff_core::sim::bond::BoothPapers;
 use ff_core::sim::hos;
 use ff_core::sim::trip_models::BorderBooth;
 use ff_core::speech_pacing::SpeechCategory;
@@ -222,7 +223,8 @@ impl DrivingState {
 
     pub fn open_border_clearance(&mut self, ctx: &mut GameContext, booth: BorderBooth) {
         self.pending_border_clearance = None;
-        let mut state = BorderClearanceState::new(ctx, booth, self.trip_seed);
+        let papers = self.trip.booth_papers(&booth);
+        let mut state = BorderClearanceState::new(ctx, booth, self.trip_seed, papers);
         state.enter(ctx);
         push_over_drive(ctx, state);
     }
@@ -300,29 +302,67 @@ pub fn border_secondary_referral(trip_seed: i64, key: &str) -> bool {
     rng.random() < BORDER_SECONDARY_REFERRAL_CHANCE
 }
 
+/// What the officer says on clearing the truck.
+pub fn clearance_line(papers: BoothPapers, referred: bool, country: &str) -> String {
+    match (papers, referred) {
+        (BoothPapers::Ordinary, false) => format!("Cleared. Welcome to {country}."),
+        (BoothPapers::Ordinary, true) => format!(
+            "Referred to secondary inspection. Officers examine the trailer for 45 minutes, then \
+             clear you. Welcome to {country}."
+        ),
+        (BoothPapers::EnteringInBond, false) => {
+            format!("Cleared in bond. Welcome to {country}.")
+        }
+        (BoothPapers::EnteringInBond, true) => format!(
+            "Referred to secondary inspection. Officers examine the trailer for 45 minutes, then \
+             clear you in bond. Welcome to {country}."
+        ),
+        (BoothPapers::ClosingBond, false) => {
+            format!("Cleared. The bond is closed. Welcome to {country}.")
+        }
+        (BoothPapers::ClosingBond, true) => format!(
+            "Referred to secondary inspection. Officers examine the trailer for 45 minutes, then \
+             clear you. The bond is closed. Welcome to {country}."
+        ),
+    }
+}
+
 pub struct BorderClearanceState {
     menu: MenuCore<Self>,
     driving: DriveRef,
     booth: BorderBooth,
     trip_seed: i64,
+    /// What this booth checks on this load (`sim::bond`).
+    papers: BoothPapers,
 }
 
 impl BorderClearanceState {
-    pub fn new(ctx: &GameContext, booth: BorderBooth, trip_seed: i64) -> Self {
+    pub fn new(ctx: &GameContext, booth: BorderBooth, trip_seed: i64, papers: BoothPapers) -> Self {
         Self {
             menu: MenuCore::new(&booth.name),
             driving: DriveRef::active(ctx),
             booth,
             trip_seed,
+            papers,
         }
     }
 
     fn opening_line(&self) -> String {
-        format!(
-            "{}, {}. The officer asks for your passport and checks the eManifest filed for this \
-             load.",
-            self.booth.name, self.booth.agency
-        )
+        let (booth, agency) = (&self.booth.name, &self.booth.agency);
+        match self.papers {
+            BoothPapers::Ordinary => format!(
+                "{booth}, {agency}. The officer asks for your passport and checks the eManifest \
+                 filed for this load."
+            ),
+            BoothPapers::EnteringInBond => format!(
+                "{booth}, {agency}. The officer asks for your passport and checks the in-transit \
+                 manifest and bond for this load."
+            ),
+            BoothPapers::ClosingBond => format!(
+                "{booth}, {agency}. The officer asks for your passport and checks the in-transit \
+                 manifest for this load."
+            ),
+        }
     }
 
     fn answer_officer(&mut self, ctx: &mut GameContext) {
@@ -333,7 +373,9 @@ impl BorderClearanceState {
             0.0
         };
         let minutes = BORDER_PRIMARY_MIN + extra_minutes;
+        let booth = self.booth.clone();
         let drive = self.driving.clone().with(ctx, |driving, ctx| {
+            driving.trip.clear_booth(&booth);
             advance_on_duty_clock(
                 driving,
                 ctx,
@@ -361,14 +403,7 @@ impl BorderClearanceState {
         } else {
             "the United States"
         };
-        let result = if referred {
-            format!(
-                "Referred to secondary inspection. Officers examine the trailer for 45 minutes, \
-                 then clear you. Welcome to {country}."
-            )
-        } else {
-            format!("Cleared. Welcome to {country}.")
-        };
+        let result = clearance_line(self.papers, referred, country);
         ctx.pop_state();
         ctx.say(&result);
         ctx.award_achievement("first_customs");

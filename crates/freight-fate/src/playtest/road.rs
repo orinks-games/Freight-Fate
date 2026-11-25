@@ -1478,6 +1478,9 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
     let total = driving.trip.total_miles();
     let start_mi = (hit.at_mi - lead_mi).clamp(0.0, (total - 1.0).max(0.0));
     driving.trip.position_mi = start_mi;
+    // The load's papers as the booths behind the start left them: staged
+    // past the booth into Canada, a load to Alaska is in bond.
+    driving.trip.bond = driving.trip.bond_at(start_mi);
     // The road behind the start is driven, not passed on the first frame:
     // unset, the jump from mile 0 spoke every state line and toll on the way
     // and played a trooper pass for every post (agent drives, 2026-09-23).

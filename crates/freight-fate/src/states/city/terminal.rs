@@ -29,11 +29,10 @@ use crate::states::career_setback::CareerSetbackNoticeState;
 use crate::states::career_stats::{fully_rested, CareerStatsState};
 use crate::states::city::weather::time_and_weather_lines;
 use crate::states::city::{
-    base_menu_enter, board_candidates, first_day_guidance_active, first_day_orientation_lines,
-    open_freight_market, parked_at, profile, profile_mut, record_city_duty, warm_dispatch_board,
-    ApplyToCarrierState, BobtailDestState, BusinessStatusState, EndorsementCourseState,
-    GarageState, PayDebtState, TruckShopState, BACKUP_RESULT_WAIT_S, BOBTAIL_RANGE_MI,
-    DRIVING_SCHOOL_ENABLED,
+    base_menu_enter, first_day_guidance_active, first_day_orientation_lines, open_freight_market,
+    parked_at, profile, profile_mut, record_city_duty, warm_dispatch_board, ApplyToCarrierState,
+    BobtailDestState, BusinessStatusState, EndorsementCourseState, GarageState, PayDebtState,
+    TruckShopState, BACKUP_RESULT_WAIT_S, BOBTAIL_RANGE_MI, DRIVING_SCHOOL_ENABLED,
 };
 use crate::states::driving_core::{town_hand_work_min, WALK_AROUND_MIN};
 use crate::states::driving_school::DrivingSchoolState;
@@ -200,7 +199,9 @@ impl CityMenuState {
             ctx.say(&line);
             return;
         }
-        let mut cands = board_candidates(ctx.world, &profile(ctx).current_city);
+        let p = profile(ctx);
+        let mut cands =
+            ff_core::models::jobs::reachable_cities_for(ctx.world, &p.current_city, &p.carrier_key);
         cands.sort_by(|a, b| a.1.partial_cmp(&b.1).unwrap_or(std::cmp::Ordering::Equal));
         let mut nearby: Vec<String> = cands
             .iter()

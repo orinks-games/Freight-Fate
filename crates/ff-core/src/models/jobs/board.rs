@@ -34,8 +34,10 @@ use crate::sim::livestock::{livestock_lane_ok, LIVESTOCK_CARGO_KEY};
 use crate::sim::vehicle::{
     combination_tare_kg, TrailerSet, TruckSpecs, TruckState, KG_PER_TON, TRAILER_TARE_KG,
 };
+use lanes::SHIPS_IN_STATE;
 
 mod cattle;
+mod lanes;
 
 /// A team load's deadline stays this far short of the solo driver's legal
 /// hours, whatever its urgency, so it never leaves room for the 10-hour
@@ -73,14 +75,45 @@ pub type Candidate = (String, f64, usize);
 // the city hub and the tests spin up many fresh boards, and recomputing a
 // supported route to every city each time scaled terribly as the network grew
 // to 160+.
-type CandidateCache = HashMap<usize, HashMap<String, Vec<Candidate>>>;
+type CandidateCache = HashMap<usize, HashMap<String, std::sync::Arc<CandidateSet>>>;
+
+/// What the cache holds for one origin: facts that do not depend on the
+/// carrier, so every carrier's board shares them. The lane kind is worked
+/// out per carrier when a board filters (`JobBoard::lane`).
+#[derive(Debug, Clone, Default)]
+pub(crate) struct CandidateSet {
+    /// Every city in the United States or Canada with a supported route.
+    pub(crate) all: Vec<Candidate>,
+    /// The destinations in the origin's own country whose supported route
+    /// leaves that country on the way.
+    pub(crate) through: std::collections::HashSet<String>,
+}
 static CANDIDATES_CACHE: Lazy<Mutex<CandidateCache>> = Lazy::new(|| Mutex::new(HashMap::new()));
 
 /// Every other city reachable from `city`, from the same cache the boards
 /// fill: one supported route per city on the map, so the first ask in a city
 /// is the expensive part of opening its board.
+///
+/// Every city a carrier of either country could run to: the lane depends on
+/// the carrier, so a relay or a reposition asks the lane table for its own
+/// carrier (`RelayRequest::may_run`), and a bobtail list uses
+/// [`reachable_cities_for`].
 pub fn reachable_cities(world: &World, city: &str) -> Vec<Candidate> {
-    JobBoard::new(world, Some(0), None).candidates(&world.resolve_city_key(city))
+    let board = JobBoard::new(world, Some(0), None);
+    let city = world.resolve_city_key(city);
+    board.candidates(&city)
+}
+
+/// The reachable cities on lanes this carrier may run (a start with no
+/// carrier record runs on its own authority, as a US carrier).
+pub fn reachable_cities_for(world: &World, city: &str, carrier_key: &str) -> Vec<Candidate> {
+    let board = JobBoard::new(world, Some(0), None);
+    let city = world.resolve_city_key(city);
+    board
+        .candidates(&city)
+        .into_iter()
+        .filter(|c| board.carrier_may_haul(carrier_key, &city, &c.0))
+        .collect()
 }
 
 /// The keyword arguments of `JobBoard.offers` / `offer_to`, each with its
@@ -220,14 +253,12 @@ impl<'w> JobBoard<'w> {
         let Ok(city_obj) = self.world.city(&city) else {
             return jobs;
         };
-        // A carrier without Canadian authority keeps to the United States.
-        let to_canada = cross_border::carrier_runs_to_canada(carrier_key);
+        // The lanes this carrier may haul (`cross_border::lane_permitted`).
         let candidates: Vec<Candidate> = self
-            .candidates(&city)
+            .candidates_for(&city, carrier_key)
             .into_iter()
             .filter(|c| c.1 >= MIN_JOB_DISTANCE_MI)
             .filter(|c| self.city_has_freight_receiver(&c.0))
-            .filter(|c| to_canada || !self.crosses_border(&city, &c.0))
             .collect();
         let cap = Self::distance_cap_for_carrier(level, carrier_key);
         // Run-band *max* is already folded into `cap` (tighter of level cap and
@@ -265,6 +296,7 @@ impl<'w> JobBoard<'w> {
             came_from.as_deref(),
         );
         let held: Vec<&str> = endorsements.iter().map(AsRef::as_ref).collect();
+        let mut in_state_cycle: Option<Vec<Candidate>> = None;
         let mut attempts = 0;
         while jobs.len() < count && attempts < count * 30 {
             attempts += 1;
@@ -290,7 +322,7 @@ impl<'w> JobBoard<'w> {
             // allows: their destination is chosen for them.
             if cargo.key == LIVESTOCK_CARGO_KEY {
                 let Some((destination, miles, dest_location)) =
-                    self.livestock_destination(&city, location, &candidates, level)
+                    self.livestock_destination(&city, location, &candidates, level, carrier_key)
                 else {
                     continue;
                 };
@@ -313,24 +345,46 @@ impl<'w> JobBoard<'w> {
                 }
                 continue;
             }
-            let slot = jobs.len() % dest_cycle.len();
-            let (mut destination, mut miles, _legs) = dest_cycle[slot].clone();
-            // Freight that stays home (twins, cattle, placards) drawn for a
-            // slot across the border takes the next home destination in the
-            // spread instead of being dropped, so the border does not thin
-            // that freight out of a board near it.
-            if !cross_border::cargo_type_may_cross(cargo)
-                && self.crosses_border(&city, &destination)
-            {
-                let home = (1..dest_cycle.len())
-                    .map(|step| &dest_cycle[(slot + step) % dest_cycle.len()])
-                    .find(|c| !self.crosses_border(&city, &c.0));
-                let Some((home_destination, home_miles, _)) = home else {
-                    continue;
-                };
-                destination = home_destination.clone();
-                miles = *home_miles;
+            // A site whose freight stays in its own state (`ships_in_state`)
+            // draws from the in-state cities instead, with the same weights,
+            // and steps past a town with no receiver for the cargo: most
+            // small Alaska towns have only a fuel stop, and a slot that kept
+            // landing on one thinned the board (Wasilla 3.6 loads to 1.7).
+            let in_state = location.traits.iter().any(|t| t == SHIPS_IN_STATE);
+            if in_state && in_state_cycle.is_none() {
+                in_state_cycle = Some(self.in_state_spread(
+                    &city,
+                    &candidates,
+                    cap,
+                    level,
+                    count,
+                    carrier_key,
+                    came_from.as_deref(),
+                ));
             }
+            let cycle: &[Candidate] = match (&in_state_cycle, in_state) {
+                (Some(cycle), true) => cycle,
+                _ => &dest_cycle,
+            };
+            if cycle.is_empty() {
+                continue;
+            }
+            let slot = jobs.len() % cycle.len();
+            // Freight that does not fit the slot's lane (twins, cattle and
+            // placards that stay home; freight that is not road freight on a
+            // lane through the other country) takes the next destination in
+            // the spread whose lane it fits, instead of being dropped, so no
+            // board near the border thins out.
+            let Some((destination, miles, _legs)) = (0..cycle.len())
+                .map(|step| &cycle[(slot + step) % cycle.len()])
+                .find(|c| {
+                    self.cargo_fits(carrier_key, &city, &c.0, cargo)
+                        && (!in_state || self.city_receives(&c.0, cargo))
+                })
+                .cloned()
+            else {
+                continue;
+            };
             // LCV freight only runs where the frozen network reaches: both
             // ends of the lane must sit in states that allow the combination.
             if cargo.lcv_lanes && !self.lcv_lane(&city, &destination) {
@@ -391,7 +445,7 @@ impl<'w> JobBoard<'w> {
         let destination = self.world.resolve_city_key(destination);
         let city_obj = self.world.city(&city).ok()?;
         let matches: Vec<Candidate> = self
-            .candidates(&city)
+            .candidates_for(&city, carrier_key)
             .into_iter()
             .filter(|c| c.0 == destination)
             .collect();
@@ -409,6 +463,14 @@ impl<'w> JobBoard<'w> {
                 self.choose_cargo_for_location(city_obj, location, level, carrier_key, &held)?;
             let cargo = cargo_type(cargo_key).expect("a catalog cargo key");
             if !cargo.missing_credentials(endorsements).is_empty() {
+                continue;
+            }
+            if !self.cargo_fits(carrier_key, &city, &destination, cargo) {
+                continue;
+            }
+            if location.traits.iter().any(|t| t == SHIPS_IN_STATE)
+                && !self.same_state(&city, &destination)
+            {
                 continue;
             }
             if cargo.lcv_lanes && !self.lcv_lane(&city, &destination) {
@@ -624,60 +686,59 @@ impl<'w> JobBoard<'w> {
         }
     }
 
-    /// `(destination, route miles, route leg count)` for every other city.
+    /// `(destination, route miles, route leg count)` for every other city in
+    /// the United States or Canada, whatever the carrier.
     pub(crate) fn candidates(&self, city: &str) -> Vec<Candidate> {
+        self.candidate_set(city).all.clone()
+    }
+
+    /// The shared, carrier-free facts for one origin, from the cache.
+    pub(crate) fn candidate_set(&self, city: &str) -> std::sync::Arc<CandidateSet> {
         let world_id = self.world as *const World as usize;
         {
             let cache = CANDIDATES_CACHE.lock();
             if let Some(cached) = cache.get(&world_id).and_then(|per| per.get(city)) {
-                return cached.clone();
+                return std::sync::Arc::clone(cached);
             }
         }
-        let mut computed: Vec<Candidate> = Vec::new();
-        // The driver works for a US carrier: loads into Canada and back out,
-        // never between two Canadian points (`cross_border`). A Canadian
-        // carrier's board is a later slice.
-        let origin_country = self
-            .world
-            .cities
-            .get(city)
-            .map(|c| c.country.as_str())
-            .unwrap_or("US");
-        for dest in self.world.city_names() {
-            if dest == city {
-                continue;
-            }
-            let dest_country = self
-                .world
-                .cities
-                .get(&dest)
-                .map(|c| c.country.as_str())
-                .unwrap_or("US");
-            if !cross_border::lane_allowed(origin_country, dest_country) {
-                continue;
-            }
-            if let Ok(Some(route)) = self.world.supported_route(city, &dest, None) {
-                computed.push((dest, route.miles(), route.legs.len()));
-            }
-        }
-        CANDIDATES_CACHE
-            .lock()
-            .entry(world_id)
-            .or_default()
-            .insert(city.to_string(), computed.clone());
-        computed
-    }
-
-    /// Whether a load between these cities crosses the border.
-    pub(crate) fn crosses_border(&self, origin: &str, destination: &str) -> bool {
-        let country = |key: &str| {
+        let mut computed = CandidateSet::default();
+        // Every city in the two countries with a supported route. Which of
+        // them a carrier may haul to is the lane table's answer, per carrier
+        // (`candidates_for`); the cache holds only what every carrier shares.
+        let country_of = |key: &str| {
             self.world
                 .cities
                 .get(key)
                 .map(|c| c.country.as_str())
                 .unwrap_or("US")
         };
-        cross_border::lane_crosses(country(origin), country(destination))
+        let origin_country = country_of(city);
+        if cross_border::CarrierBase::from_code(origin_country).is_some() {
+            for dest in self.world.city_names() {
+                if dest == city {
+                    continue;
+                }
+                let dest_country = country_of(&dest);
+                if cross_border::CarrierBase::from_code(dest_country).is_none() {
+                    continue;
+                }
+                if let Ok(Some(route)) = self.world.supported_route(city, &dest, None) {
+                    if origin_country.eq_ignore_ascii_case(dest_country)
+                        && cross_border::route_crossings(&route) > 0
+                    {
+                        computed.through.insert(dest.clone());
+                    }
+                    computed.all.push((dest, route.miles(), route.legs.len()));
+                }
+            }
+        }
+        let computed = std::sync::Arc::new(computed);
+        CANDIDATES_CACHE
+            .lock()
+            .entry(world_id)
+            .or_default()
+            .insert(city.to_string(), std::sync::Arc::clone(&computed));
+        computed
     }
 
     /// True when the city has at least one facility that receives freight.
@@ -926,12 +987,18 @@ impl<'w> JobBoard<'w> {
                 origin_facility.id, destination_facility.id
             ),
         );
-        if self.crosses_border(origin, destination)
-            && !cross_border::cargo_may_cross(
-                cargo.national_network,
-                cargo.key == LIVESTOCK_CARGO_KEY,
-                material.is_some(),
-            )
+        // The lane law, for every way a load reaches here: a lane this
+        // carrier may not haul, or freight that does not fit it, is no job.
+        let lane = self.lane(carrier_key, origin, destination);
+        if !cross_border::lane_permitted(lane, cross_border::carrier_runs_to_canada(carrier_key))
+            || !lane.is_some_and(|kind| {
+                cross_border::cargo_fits_lane(
+                    kind,
+                    self.lane_sea(origin, destination),
+                    cargo,
+                    material.is_some(),
+                )
+            })
         {
             return None;
         }

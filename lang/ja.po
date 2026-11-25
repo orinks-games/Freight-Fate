@@ -9922,6 +9922,23 @@ msgstr "{join}と{last}"
 msgid "cattle"
 msgstr "牛"
 
+msgid "home"
+msgstr "home"
+
+msgid "cabotage"
+msgstr ""
+
+msgid "READ: Mercer Transportation, as for steel"
+msgstr ""
+
+msgid ""
+"ASSUMED: seafood and other food going south by truck; no page read gives a "
+"figure"
+msgstr ""
+
+msgid "ASSUMED: as for food"
+msgstr ""
+
 #. placeholders: {f}
 msgid "{f} driving hours"
 msgstr "運転{f}時間"
@@ -12160,6 +12177,12 @@ msgstr "停止中"
 
 msgid "holding"
 msgstr "holding"
+
+msgid "filed"
+msgstr ""
+
+msgid "closed"
+msgstr ""
 
 # leave empty: loose frame; it caught "Crossing into" time zone lines and left "into" English
 #. placeholders: {name}
@@ -23390,6 +23413,9 @@ msgstr "{now}です。"
 msgid "delivery"
 msgstr "配達"
 
+msgid "bond"
+msgstr ""
+
 msgid "alertness"
 msgstr "覚醒度"
 
@@ -23452,25 +23478,17 @@ msgid ""
 msgstr "{grouped}カナダドルの罰金、{grouped2}米ドルで請求"
 
 #. one sentence of a longer line
-msgid ""
-"The officer asks for your passport and checks the eManifest filed for this "
-"load."
-msgstr "係官がパスポートを求め、この積荷に提出されたeManifestを確認します。"
+msgid "Cleared."
+msgstr "通過を許可されました。"
 
-#. placeholders: {name}, {agency}
-msgid ""
-"{name}, {agency}. The officer asks for your passport and checks the "
-"eManifest filed for this load."
-msgstr "{name}、{agency}。係官がパスポートを求め、この積荷に提出されたeManifestを確認します。"
+#. placeholders: {country}
+msgid "Cleared. Welcome to {country}."
+msgstr "通過を許可されました。{country}へようこそ。"
 
-msgid "customs clearance"
-msgstr "通関"
-
-msgid "Canada"
-msgstr "カナダ"
-
-msgid "the United States"
-msgstr "アメリカ"
+#. placeholders: {country}
+#. one sentence of a longer line
+msgid "Welcome to {country}."
+msgstr "{country}へようこそ。"
 
 #. one sentence of a longer line
 msgid "Officers examine the trailer for 45 minutes, then clear you."
@@ -23486,18 +23504,82 @@ msgid ""
 "minutes, then clear you. Welcome to {country}."
 msgstr "二次検査に回されました。係官が45分かけてトレーラーを調べ、通過を許可します。{country}へようこそ。"
 
-#. placeholders: {country}
 #. one sentence of a longer line
-msgid "Welcome to {country}."
-msgstr "{country}へようこそ。"
-
-#. one sentence of a longer line
-msgid "Cleared."
-msgstr "通過を許可されました。"
+msgid "Cleared in bond."
+msgstr ""
 
 #. placeholders: {country}
-msgid "Cleared. Welcome to {country}."
-msgstr "通過を許可されました。{country}へようこそ。"
+msgid "Cleared in bond. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Officers examine the trailer for 45 minutes, then clear you in bond."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you in bond. Welcome to {country}."
+msgstr ""
+
+#. placeholders: {country}
+msgid "Cleared. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "The bond is closed."
+msgstr ""
+
+#. placeholders: {country}
+msgid ""
+"Referred to secondary inspection. Officers examine the trailer for 45 "
+"minutes, then clear you. The bond is closed. Welcome to {country}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the eManifest filed for this "
+"load."
+msgstr "係官がパスポートを求め、この積荷に提出されたeManifestを確認します。"
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"eManifest filed for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest and "
+"bond for this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest and bond for this load."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"The officer asks for your passport and checks the in-transit manifest for "
+"this load."
+msgstr ""
+
+#. placeholders: {booth}, {agency}
+msgid ""
+"{booth}, {agency}. The officer asks for your passport and checks the "
+"in-transit manifest for this load."
+msgstr ""
+
+msgid "customs clearance"
+msgstr "通関"
+
+msgid "Canada"
+msgstr "カナダ"
+
+msgid "the United States"
+msgstr "アメリカ"
 
 msgid "Answer the officer's questions and hand over your documents"
 msgstr "係官の質問に答え、書類を渡す"
@@ -44349,9 +44431,6 @@ msgstr "右矢印キー"
 msgid "Home"
 msgstr "Home"
 
-msgid "home"
-msgstr "home"
-
 msgid "end"
 msgstr "end"
 
@@ -44621,6 +44700,11 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid ""
+#~ "{name}, {agency}. The officer asks for your passport and checks the "
+#~ "eManifest filed for this load."
+#~ msgstr "{name}、{agency}。係官がパスポートを求め、この積荷に提出されたeManifestを確認します。"
 
 #~ msgid "Legacy Driver"
 #~ msgstr "Legacy Driver"
