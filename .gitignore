@@ -54,6 +54,10 @@ sound-source/
 assets/music.pak
 # Channel 3000's clips (tools/build_channel3000.py); downloaded like music.pak.
 assets/channel3000.pak
+# The licensed stereo engine cuts as one pack, downloaded from the pinned
+# address in crates/ff-tools/src/release/packs.rs on a builder that has no
+# assets/sounds-licensed/ folder. Licensed audio: never commit it.
+assets/sounds-licensed.pak
 # The loose assets/sounds tree is builder-local source material and never
 # ships through the repo (owner, 2026-08-08); only the credits ride along
 # so licensing stays reviewable in a clean clone.

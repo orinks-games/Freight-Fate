@@ -25,6 +25,22 @@ const DEFAULT_CHANNEL3000_URL: &str =
     "https://crisp-crystal-9a9y.here.now/channel3000-a8343d91.pak";
 const DEFAULT_CHANNEL3000_SHA256: &str =
     "a8343d916fdd31083a46497dd393865cbc78f4045faa9c6ef42f817f684dd179";
+/// The licensed stereo cab engine cuts, packed alone with `cargo tools
+/// pack-sounds --licensed-out` on the owner's machine, which is the only
+/// place the purchased recordings live. Staging fetches it when there is no
+/// `assets/sounds-licensed` folder, so a CI builder can package. Both empty
+/// means no pack is published yet and staging behaves as if this did not
+/// exist; `FREIGHT_FATE_LICENSED_PACK_URL` and `_SHA256` override them.
+/// Publish each rebuild under a new name, as with Channel 3000.
+#[cfg(feature = "world")]
+const DEFAULT_LICENSED_SOUNDS_URL: &str = "";
+#[cfg(feature = "world")]
+const DEFAULT_LICENSED_SOUNDS_SHA256: &str = "";
+#[cfg(feature = "world")]
+const LICENSED_PACK_ENV: &str = "FREIGHT_FATE_LICENSED_PACK";
+/// Where the downloaded licensed pack is kept (gitignored).
+#[cfg(feature = "world")]
+const LICENSED_PACK_FILE: &str = "sounds-licensed.pak";
 /// Git LFS writes this text in place of a pack that was never fetched.
 const LFS_POINTER_PREFIX: &[u8] = b"version https://git-lfs";
 
@@ -141,6 +157,43 @@ pub fn ensure_channel3000_pack(path: Option<&Path>) -> Result<()> {
     ensure_pinned_pack(&path, &url, &sha, "Channel 3000 pack")
 }
 
+/// The licensed pack's address and digest, or `None` while none is pinned.
+#[cfg(feature = "world")]
+fn licensed_pin() -> Result<Option<(String, String)>> {
+    let env = |suffix: &str, default: &str| {
+        std::env::var(format!("{LICENSED_PACK_ENV}_{suffix}"))
+            .unwrap_or_else(|_| default.to_string())
+    };
+    let url = env("URL", DEFAULT_LICENSED_SOUNDS_URL);
+    let sha = env("SHA256", DEFAULT_LICENSED_SOUNDS_SHA256);
+    match (url.trim().is_empty(), sha.trim().is_empty()) {
+        (true, true) => Ok(None),
+        (false, false) => pinned_config(
+            LICENSED_PACK_ENV,
+            DEFAULT_LICENSED_SOUNDS_URL,
+            DEFAULT_LICENSED_SOUNDS_SHA256,
+        )
+        .map(Some),
+        _ => Err(format!(
+            "The licensed engine pack needs both an address and a SHA-256 \
+             ({LICENSED_PACK_ENV}_URL and {LICENSED_PACK_ENV}_SHA256, or the pins in \
+             release/packs.rs)"
+        )),
+    }
+}
+
+/// Download and verify the licensed engine pack into `assets_dir` when one
+/// is pinned. `None` when nothing is pinned.
+#[cfg(feature = "world")]
+pub fn ensure_licensed_sounds_pack(assets_dir: &Path) -> Result<Option<PathBuf>> {
+    let Some((url, sha)) = licensed_pin()? else {
+        return Ok(None);
+    };
+    let path = assets_dir.join(LICENSED_PACK_FILE);
+    ensure_pinned_pack(&path, &url, &sha, "Licensed engine pack")?;
+    Ok(Some(path))
+}
+
 #[cfg(feature = "world")]
 fn pack_names(path: &Path) -> Result<Vec<String>> {
     ff_core::assets_pack::SoundPack::open(path)
@@ -177,11 +230,31 @@ pub fn missing_licensed_engine_entries(names: &[String]) -> Vec<&'static str> {
 /// Stage the runtime `sounds.pak` by overlaying the private licensed sound tree
 /// (`FREIGHT_FATE_LICENSED_SOUNDS` or `<assets>/sounds-licensed`) onto the base
 /// `assets/sounds.pak` when present, never touching the tracked repo pack.
+/// Without that folder, the pinned licensed engine pack is fetched and
+/// merged in its place.
 #[cfg(feature = "world")]
 pub fn stage_effects_pack(assets_dir: &Path, out: &Path) -> Result<()> {
-    crate::pack_sounds::stage_effects_pack(assets_dir, out, None)?;
-    verify_staged_engine_pack(out)
+    let folder = crate::pack_sounds::resolve_licensed_overlay(assets_dir, None);
+    let licensed = if folder.is_dir() {
+        None
+    } else {
+        ensure_licensed_sounds_pack(assets_dir)?
+    };
+    crate::pack_sounds::stage_effects_pack(assets_dir, out, None, licensed.as_deref())?;
+    verify_staged_engine_pack(out).map_err(|e| {
+        if !folder.is_dir() && licensed.is_none() {
+            format!("{e}. {}", NO_LICENSED_PIN)
+        } else {
+            e
+        }
+    })
 }
+
+/// Added to the guard's refusal when there is neither a folder nor a pin.
+#[cfg(feature = "world")]
+const NO_LICENSED_PIN: &str = "No licensed engine pack is pinned either \
+     (DEFAULT_LICENSED_SOUNDS_URL in crates/ff-tools/src/release/packs.rs, or \
+     FREIGHT_FATE_LICENSED_PACK_URL and FREIGHT_FATE_LICENSED_PACK_SHA256)";
 
 #[cfg(not(feature = "world"))]
 pub fn stage_effects_pack(assets_dir: &Path, out: &Path) -> Result<()> {
@@ -367,5 +440,38 @@ mod tests {
         )
         .unwrap();
         verify_sound_packs(&build).unwrap();
+    }
+
+    #[cfg(feature = "world")]
+    #[test]
+    fn an_empty_pin_means_no_licensed_pack() {
+        if std::env::var_os("FREIGHT_FATE_LICENSED_PACK_URL").is_some()
+            || std::env::var_os("FREIGHT_FATE_LICENSED_PACK_SHA256").is_some()
+        {
+            return;
+        }
+        let dir = tempfile::tempdir().unwrap();
+        assert_eq!(ensure_licensed_sounds_pack(dir.path()).unwrap(), None);
+        assert!(!dir.path().join(LICENSED_PACK_FILE).exists());
+    }
+
+    #[cfg(feature = "world")]
+    #[test]
+    fn unpinned_staging_without_a_folder_names_the_pin() {
+        if std::env::var_os("FREIGHT_FATE_LICENSED_PACK_URL").is_some()
+            || std::env::var_os("FREIGHT_FATE_LICENSED_SOUNDS").is_some()
+            || allow_unlicensed_release()
+        {
+            return;
+        }
+        let dir = tempfile::tempdir().unwrap();
+        let assets = dir.path().join("assets");
+        let src = dir.path().join("src");
+        std::fs::create_dir_all(&src).unwrap();
+        std::fs::write(src.join("horn.ogg"), b"horn").unwrap();
+        ff_core::assets_pack::write_pack(&src, &assets.join("sounds.pak"), None, None).unwrap();
+        let err = stage_effects_pack(&assets, &dir.path().join("staged.pak")).unwrap_err();
+        assert!(err.contains("engine_stereo/idle.wav"), "{err}");
+        assert!(err.contains("No licensed engine pack is pinned"), "{err}");
     }
 }
