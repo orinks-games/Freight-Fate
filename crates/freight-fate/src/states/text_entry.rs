@@ -60,7 +60,8 @@ fn voice_over_field_help(
     }
     // The opening prompt runs before SDL requests the keyboard from UIKit.
     "Type your text. If the on-screen keyboard opens, select Freight Fate above it and flick \
-     down for the previous letter or up for the next. Use Return to confirm."
+     down for the previous letter or up for the next. Use Return to confirm, or a two-finger \
+     scrub on Freight Fate to cancel."
 }
 
 #[cfg(test)]
@@ -76,6 +77,7 @@ mod tests {
             voice_over_field_help(true, true)
         );
         assert!(voice_over_field_help(false, false).contains("If the on-screen keyboard opens"));
+        assert!(voice_over_field_help(false, false).contains("scrub on Freight Fate to cancel"));
     }
 }
 

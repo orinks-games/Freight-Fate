@@ -111,6 +111,22 @@ fn adjustable_actions_review_the_previous_and_next_letter() {
 }
 
 #[test]
+fn accessibility_escape_cancels_name_entry() {
+    let mut app = TestApp::new();
+    open_name_entry(&mut app);
+    type_text(&mut app, "Jo");
+    app.clear_speech();
+
+    app.dispatch_gesture(Gesture::Escape);
+
+    assert!(app.state().unwrap().borrow().as_any().is::<MainMenuState>());
+    assert!(spoken(&app)
+        .iter()
+        .any(|line| line.starts_with("New career.")));
+    app.shutdown();
+}
+
+#[test]
 fn test_typed_characters_are_echoed_including_space_and_capitals() {
     let mut app = TestApp::new();
     open_name_entry(&mut app);
