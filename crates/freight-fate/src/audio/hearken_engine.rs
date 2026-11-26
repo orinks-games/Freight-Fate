@@ -457,10 +457,13 @@ mod tests {
         for (key, _) in STEREO_ENGINE_BANDS {
             register_generated_sound(key, source.clone(), "wav");
         }
+        // The five plain bands: an unusable pull hides the pack's own, so
+        // the top band stays the high loop this test reads.
+        register_generated_sound(STEREO_HIGH_PULL.0, b"not a recording".to_vec(), "wav");
         let (backend, _) = RecordingBackend::new();
         let mut engine = HearkenBackend::with_backend(Box::new(backend));
         engine.engine_start(false);
-        for (key, _) in STEREO_ENGINE_BANDS {
+        for (key, _) in STEREO_ENGINE_BANDS.into_iter().chain([STEREO_HIGH_PULL]) {
             unregister_generated_sound(key);
         }
         assert!(engine.engine_stereo_ring);
@@ -541,7 +544,9 @@ mod tests {
         }
 
         engine.engine_stop(false);
-        unregister_generated_sound(STEREO_HIGH_COAST.0);
+        // A generated sound is found before the pack's, so an unusable one
+        // stands for a missing coast whether or not the pack carries one.
+        register_generated_sound(STEREO_HIGH_COAST.0, b"not a recording".to_vec(), "wav");
         engine.engine_start(false);
         engine.engine_intro_gain.set(1.0);
         engine.set_engine_rpm(2_200.0, 0.0);
@@ -550,7 +555,10 @@ mod tests {
         assert_eq!(pull.native, STEREO_HIGH_PULL.1);
         assert!(pull.last_volume > 0.0);
 
-        for (key, _) in STEREO_ENGINE_BANDS.into_iter().chain([STEREO_HIGH_PULL]) {
+        for (key, _) in STEREO_ENGINE_BANDS
+            .into_iter()
+            .chain([STEREO_HIGH_PULL, STEREO_HIGH_COAST])
+        {
             unregister_generated_sound(key);
         }
         unregister_generated_sound(STEREO_ENGINE_START_KEY);

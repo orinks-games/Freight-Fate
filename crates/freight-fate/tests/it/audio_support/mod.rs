@@ -17,7 +17,10 @@ use std::thread::JoinHandle;
 use std::time::{Duration, Instant};
 
 use ff_core::assets_pack;
-use freight_fate::audio::{assets_dir, Audio, AudioEngine, HearkenBackend};
+use freight_fate::audio::{
+    asset_bytes, assets_dir, Audio, AudioEngine, HearkenBackend, SFX_EXTENSIONS,
+    STEREO_ENGINE_BANDS,
+};
 use hearken::audio::{Recorder, RecordingBackend};
 
 static AUDIO_LOCK: Mutex<()> = Mutex::new(());
@@ -77,6 +80,22 @@ impl HearkenRig {
             .channel_of(key)
             .unwrap_or_else(|| panic!("{key} was never played"))
     }
+}
+
+/// The loops the recorded engine plays with the recordings on hand: the five
+/// bands, with the pull recording in place of the top band and the coast
+/// recording beside it when the pack carries them.
+pub fn stereo_engine_loops() -> Vec<&'static str> {
+    let have = |key| asset_bytes(key, SFX_EXTENSIONS).is_some();
+    let mut keys: Vec<&str> = STEREO_ENGINE_BANDS.iter().map(|(key, _)| *key).collect();
+    if have("engine_stereo/high_pull") {
+        keys.pop();
+        keys.push("engine_stereo/high_pull");
+        if have("engine_stereo/high_coast") {
+            keys.push("engine_stereo/high_coast");
+        }
+    }
+    keys
 }
 
 /// [`hearken_rig`] when the shipped recordings are here, or `None` (with a

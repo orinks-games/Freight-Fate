@@ -13,7 +13,9 @@ use freight_fate::audio::hearken_clips::clip_sample_rate;
 use freight_fate::audio::*;
 use hearken::audio::{Call, LoopRegion};
 
-use crate::audio_support::{audio_lock, hearken_rig, shipped_sounds, sine_wav, HearkenRig};
+use crate::audio_support::{
+    audio_lock, hearken_rig, shipped_sounds, sine_wav, stereo_engine_loops, HearkenRig,
+};
 
 /// Every facade call must be safe on this backend too.
 fn exercise(a: &mut AudioEngine) {
@@ -93,9 +95,12 @@ fn test_hearken_engine_model_matches_available_cuts() {
     r.engine.engine_start_with(false);
     assert!(r.engine.engine_running());
     if all_engine_cuts() {
-        assert_eq!(r.hearken().engine_bands().len(), STEREO_ENGINE_BANDS.len());
+        assert_eq!(
+            r.hearken().engine_bands().len(),
+            stereo_engine_loops().len()
+        );
         assert!(r.hearken().engine_sound().is_none());
-        for (key, _rpm) in STEREO_ENGINE_BANDS {
+        for key in stereo_engine_loops() {
             let Call::Play { looping, mix, .. } = play_call(&r, r.channel(key)) else {
                 unreachable!()
             };
@@ -143,7 +148,10 @@ fn test_hearken_engine_voice_setting_switches_models_live() {
     if all_engine_cuts() {
         r.engine.set_engine_voice(false);
         assert!(r.engine.engine_running());
-        assert_eq!(r.hearken().engine_bands().len(), STEREO_ENGINE_BANDS.len());
+        assert_eq!(
+            r.hearken().engine_bands().len(),
+            stereo_engine_loops().len()
+        );
         assert!(r.hearken().engine_sound().is_none());
     }
     r.engine.engine_stop();
@@ -230,7 +238,10 @@ fn test_hearken_silent_engine_start_skips_the_ignition_crank() {
         .iter()
         .any(|k| k == "engine/start"));
     if all_engine_cuts() {
-        assert_eq!(r.hearken().engine_bands().len(), STEREO_ENGINE_BANDS.len());
+        assert_eq!(
+            r.hearken().engine_bands().len(),
+            stereo_engine_loops().len()
+        );
     } else {
         assert!(r.hearken().engine_bands().is_empty());
         assert!(r.hearken().engine_sound().is_none());
