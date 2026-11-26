@@ -388,11 +388,11 @@ impl TextEntry for StationSuggestionEntryState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        if crate::states::text_entry::touch_prompt(ctx) {
+        if let Some(help) = crate::states::text_entry::touch_field_help(ctx) {
             ctx.say(&format!(
-                "{} {}",
+                "{} {TOUCH_FIELD_HELP}",
                 self.prompt(ctx),
-                crate::states::text_entry::TOUCH_FIELD_HELP
+                TOUCH_FIELD_HELP = help
             ));
             return;
         }

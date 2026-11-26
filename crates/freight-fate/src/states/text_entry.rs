@@ -30,6 +30,57 @@ pub fn touch_prompt(ctx: &GameContext) -> bool {
     ctx.controller.device() == ff_core::input_hints::TOUCH
 }
 
+pub(crate) fn touch_field_help(ctx: &GameContext) -> Option<&'static str> {
+    if !touch_prompt(ctx) {
+        return None;
+    }
+    #[cfg(target_os = "ios")]
+    if crate::app::sdl_shell::voice_over_running() {
+        return Some(voice_over_field_help(
+            crate::app::sdl_shell::direct_interaction_suspended(),
+            ctx.controller.hardware_keyboard(),
+        ));
+    }
+    Some(TOUCH_FIELD_HELP)
+}
+
+#[cfg(any(target_os = "ios", test))]
+fn voice_over_field_help(
+    direct_interaction_suspended: bool,
+    hardware_keyboard: bool,
+) -> &'static str {
+    if direct_interaction_suspended {
+        return "Type with the on-screen keyboard. To review letters, select Freight Fate above the \
+                keyboard and flick down for the previous letter or up for the next. Use Return on \
+                the keyboard to confirm, or a two-finger scrub to cancel.";
+    }
+    if hardware_keyboard {
+        return "Type with your keyboard. Use the left and right arrow keys to review letters, \
+                Return to confirm, or Escape to cancel.";
+    }
+    // The opening prompt runs before SDL requests the keyboard from UIKit.
+    "Type your text. If the on-screen keyboard opens, select Freight Fate above it and flick \
+     down for the previous letter or up for the next. Use Return to confirm, or a two-finger \
+     scrub on Freight Fate to cancel."
+}
+
+#[cfg(test)]
+mod tests {
+    use super::voice_over_field_help;
+
+    #[test]
+    fn voice_over_help_follows_the_actual_direct_interaction_mode() {
+        assert!(voice_over_field_help(false, true).contains("left and right arrow keys"));
+        assert!(voice_over_field_help(true, true).contains("flick down for the previous letter"));
+        assert_eq!(
+            voice_over_field_help(true, false),
+            voice_over_field_help(true, true)
+        );
+        assert!(voice_over_field_help(false, false).contains("If the on-screen keyboard opens"));
+        assert!(voice_over_field_help(false, false).contains("scrub on Freight Fate to cancel"));
+    }
+}
+
 /// The field itself: what the Python class kept on `self`.
 pub struct TextEntryCore {
     pub heading: String,
@@ -101,8 +152,8 @@ pub trait TextEntry: Sized + 'static {
 
     fn enter(&mut self, ctx: &mut GameContext) {
         let heading = self.entry().heading.clone();
-        if touch_prompt(ctx) {
-            ctx.say(&format!("{heading}. {TOUCH_FIELD_HELP}"));
+        if let Some(help) = touch_field_help(ctx) {
+            ctx.say(&format!("{heading}. {help}"));
             return;
         }
         ctx.say(&format!(
@@ -173,13 +224,11 @@ pub trait TextEntry: Sized + 'static {
         let field = self.entry();
         let before: String = field.name[..field.cursor].iter().collect();
         let after: String = field.name[field.cursor..].iter().collect();
-        let help = if touch_prompt(ctx) {
-            TOUCH_FIELD_HELP
-        } else {
+        let help = touch_field_help(ctx).unwrap_or(
             "Left and right arrows review letters, Home and End jump to the \
              ends. Enter to confirm, Escape to cancel, F2 to hear the whole text, \
-             Control V to paste."
-        };
+             Control V to paste.",
+        );
         vec![
             field.heading.clone(),
             String::new(),
