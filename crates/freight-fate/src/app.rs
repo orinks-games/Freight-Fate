@@ -341,6 +341,10 @@ pub struct DrivingObservation {
     /// a tilt has asked for one lane and not come back yet.
     pub lane: &'static str,
     pub lane_push: ff_core::sim::lane_push::LanePush,
+    /// With a set of doubles hooked: the rear trailer's swing and its whip
+    /// threshold, in g, and whether partial lane keeping is easing the
+    /// steer.
+    pub rear_trailer: Option<(f64, f64, bool)>,
     /// Slick-surface ABS modulation, drive-axle traction, single-trailer
     /// stability, and mirror-glance state machines.
     pub abs: ff_core::sim::vehicle::AbsState,
@@ -1221,6 +1225,17 @@ impl App {
             jake_stage: drive.trip.truck.engine_brake_stage,
             lane: drive.lane.lane_name(),
             lane_push: drive.lane_push,
+            rear_trailer: drive.trip.truck.doubles_hooked().then(|| {
+                let truck = &drive.trip.truck;
+                (
+                    truck.rear_trailer_lateral_g(
+                        drive.lane.transient_lateral_g(),
+                        drive.lane.wind_lateral_g,
+                    ),
+                    truck.rear_trailer_whip_threshold_g(),
+                    drive.lane.rear_steer_limit.is_some(),
+                )
+            }),
             abs: drive.trip.truck.abs_state,
             drive_traction: drive.trip.truck.drive_traction_state,
             trailer_sway: drive.trip.truck.trailer_sway_state,

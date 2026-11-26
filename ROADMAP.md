@@ -5839,6 +5839,18 @@ turnpike gross caps are only recorded is superseded by this implementation.
       stay refused. Gust sway uses a fixed reference mass per program
       (80,000 lb pups, 127,400 lb turnpike doubles), never the route cap,
       with the reference-over-actual ratio clamped to 1.0–2.0.
+- [x] **Partial lane keeping eases the steer with doubles (landed).** A
+      held lane change under partial lane keeping whipped loaded pups on
+      the assist's snap back. Partial now holds the driver's share of the
+      steer (keys, stick, tilt and its own helper, never a bend's) inside
+      the steady part plus what the rear trailer can take less the gust's
+      share (`TruckState::rear_trailer_steer_limit`,
+      `LaneKeeping::rear_steer_limit`), from 35 mph. A held lane change
+      at 60 crosses in 1.85 s instead of 1.75 s. Off still whips on a held
+      lane change and an evasive swerve; full is unchanged. Turnpike
+      doubles are eased too, a little: their limit (0.199 g) sits just
+      under the driver's 0.2 g cap, and a left-then-right hold of 2 s each
+      whipped them under partial before.
 - [ ] **Honesty debt: deadhead to a doubles pickup.** The run to a
       doubles shipper pulls one empty trailer. It should be bobtail or an
       empty set of doubles.
@@ -5857,7 +5869,11 @@ turnpike gross caps are only recorded is superseded by this implementation.
       steer) rate-limited to 0.3 g/s
       (`sim::lane::REAR_WHIP_STEER_SLEW_G_PER_S`, ASSUMED), because a
       steering key is a switch that steps the tractor to its lateral cap in
-      one frame; the slew is not calibrated either.
+      one frame; the slew is not calibrated either. Partial lane keeping's
+      easing leaves the steer 0.9 of the whip threshold
+      (`sim::vehicle::doubles::ASSIST_REAR_WHIP_SHARE`, ASSUMED) and starts
+      5 mph below the whip floor (`ASSIST_EASE_LEAD_MPH`, ASSUMED); neither
+      is calibrated.
 
 ### Mexico freight v1: Laredo border transfer yards
 
@@ -6102,9 +6118,10 @@ with Facility streets off (transcripts in the project's
       route and dispatch's first option disagree for it.
 - [x] The agent server's `scenario` takes `board_load_to`, a city or a
       facility by name ("SCI Cross Dock"), and the next board adds a load
-      delivered there: the southbound Laredo yard load can be driven. A
-      rear-trailer whip under partial lane keeping still cannot be staged.
-      (Found along the way)
+      delivered there: the southbound Laredo yard load can be driven.
+      (Found along the way) A rear-trailer whip under partial lane keeping
+      could be staged with `start_at` (`cargo_type: parcel_doubles`) before
+      the easing landed; it no longer happens.
 - [x] Live cattle are never dropped or picked up in a yard: drop and hook
       is not offered for a cattle load at either end. (Found along the
       way)

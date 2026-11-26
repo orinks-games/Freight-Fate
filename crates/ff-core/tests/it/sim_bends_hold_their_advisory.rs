@@ -12,7 +12,8 @@
 //! truck is really in it.
 
 use ff_core::data::curves::{load, superelevation_at, CurveRecord, ADVISORY_LATERAL_G};
-use ff_core::sim::lane::{LaneKeeping, RoadConditions, LANE_EDGE, MPH_PER_MPS};
+use ff_core::sim::lane::{LaneKeeping, RearSteerLimit, RoadConditions, LANE_EDGE, MPH_PER_MPS};
+use ff_core::sim::vehicle::{TrailerSet, TruckState, KG_PER_TON};
 
 /// How far through the bend the truck is carried, in seconds of arc.
 fn seconds_in(record: &CurveRecord, mph: f64) -> f64 {
@@ -23,6 +24,23 @@ fn seconds_in(record: &CurveRecord, mph: f64) -> f64 {
 
 /// The worst the truck sits in its lane taking `record` at `mph`, hands off.
 fn offset_through(record: &CurveRecord, mph: f64) -> f64 {
+    offset_through_eased(record, mph, None)
+}
+
+/// What partial lane keeping eases the steer to with loaded twin pups
+/// (10 tons) at `mph`; None below the speed the easing starts.
+fn loaded_pups_limit(mph: f64) -> Option<RearSteerLimit> {
+    let truck = TruckState {
+        trailer_set: TrailerSet::for_trailer("double_van", 80_000.0),
+        cargo_kg: 10.0 * KG_PER_TON,
+        velocity_mps: mph / MPH_PER_MPS,
+        ..TruckState::default()
+    };
+    truck.rear_trailer_steer_limit()
+}
+
+/// [`offset_through`] with partial lane keeping easing the steer to `limit`.
+fn offset_through_eased(record: &CurveRecord, mph: f64, limit: Option<RearSteerLimit>) -> f64 {
     let mut lane = LaneKeeping::new(Some(11));
     let dt = 0.05;
     let speed_mps = mph / MPH_PER_MPS;
@@ -32,6 +50,7 @@ fn offset_through(record: &CurveRecord, mph: f64) -> f64 {
     let steps = (seconds_in(record, mph) / dt) as i64;
     let mut worst: f64 = 0.0;
     for _ in 0..steps {
+        lane.rear_steer_limit = limit;
         lane.update(
             dt,
             speed_mps,
@@ -65,13 +84,18 @@ fn test_every_signed_bend_is_holdable_at_its_own_advisory() {
                 continue;
             }
             checked += 1;
-            let worst = offset_through(record, record.advisory_mph as f64);
-            worst_of_all = worst_of_all.max(worst);
-            if worst >= LANE_EDGE {
-                failures.push(format!(
-                    "{leg} at mile {:.2}: {} ft, advisory {}, offset {worst:.2}",
-                    record.start_mi, record.min_radius_ft, record.advisory_mph
-                ));
+            let mph = record.advisory_mph as f64;
+            // A single trailer, and loaded twin pups with partial lane
+            // keeping easing the steer.
+            for (set, limit) in [("single", None), ("pups", loaded_pups_limit(mph))] {
+                let worst = offset_through_eased(record, mph, limit);
+                worst_of_all = worst_of_all.max(worst);
+                if worst >= LANE_EDGE {
+                    failures.push(format!(
+                        "{leg} at mile {:.2}: {} ft, advisory {}, {set}, offset {worst:.2}",
+                        record.start_mi, record.min_radius_ft, record.advisory_mph
+                    ));
+                }
             }
         }
     }
@@ -97,6 +121,31 @@ fn test_every_signed_bend_is_holdable_at_its_own_advisory() {
         worst_of_all < 0.9,
         "the worst bend rides the lane line at its own advisory: {worst_of_all:.2}"
     );
+}
+
+#[test]
+fn test_loaded_pups_hold_a_signed_bend_at_its_advisory_under_partial_lane_keeping() {
+    // Partial lane keeping eases the driver's steer with a set of doubles,
+    // never the bend's own: the easing must not cost the bend. The 200
+    // tightest bends signed at highway speed, where the easing is in force.
+    let mut bends: Vec<&CurveRecord> = load()
+        .values()
+        .flatten()
+        .filter(|r| !r.connector && r.advisory_mph >= 40 && r.min_radius_ft > 0)
+        .collect();
+    bends.sort_by_key(|r| (r.min_radius_ft, r.advisory_mph));
+    assert!(bends.len() >= 200, "{} highway-speed bends", bends.len());
+    for record in bends.iter().take(200) {
+        let mph = record.advisory_mph as f64;
+        let limit = loaded_pups_limit(mph);
+        assert!(limit.is_some(), "the easing is in force at {mph}");
+        let worst = offset_through_eased(record, mph, limit);
+        assert!(
+            worst < LANE_EDGE,
+            "{} ft at its {mph} advisory, offset {worst:.2}",
+            record.min_radius_ft
+        );
+    }
 }
 
 #[test]

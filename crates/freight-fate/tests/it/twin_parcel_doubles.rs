@@ -403,17 +403,105 @@ fn an_evasive_swerve_on_loaded_pups_still_whips_and_says_so() {
     assert_eq!(whips, vec![REAR_TRAILER_WHIP_EMPTY_TEXT.to_string()]);
 }
 
+/// The held steers partial lane keeping is checked against: holds of 0.5,
+/// 1.0, 1.5 and 2.5 s, left a second then right a second, and 0.3 s pulses.
+fn held_steers() -> Vec<Vec<(Option<Key>, f64)>> {
+    let mut lists: Vec<Vec<(Option<Key>, f64)>> = [0.5, 1.0, 1.5, 2.5]
+        .iter()
+        .map(|&hold| vec![(Some(Key::Left), hold)])
+        .collect();
+    lists.push(vec![(Some(Key::Left), 1.0), (Some(Key::Right), 1.0)]);
+    lists.push([(Some(Key::Left), 0.3), (None, 0.3)].repeat(6));
+    lists
+}
+
 #[test]
-fn a_held_steer_under_partial_lane_keeping_still_whips_on_the_snap_back() {
-    // Holding a key for a second under partial lane keeping throws the
-    // truck well off its line; the assist's correction rides the driver's
-    // steer, so its snap back still whips loaded pups, and says so.
+fn partial_lane_keeping_eases_a_held_steer_so_doubles_never_whip() {
+    // Holding a key under partial lane keeping used to whip loaded pups on
+    // the assist's snap back. The assist now eases the driver's steer to
+    // what the rear trailer can take: no whip, no freight shifted, loaded
+    // or empty, in still air or a strong crosswind, and a held key still
+    // changes lanes.
+    for tons in [10.0, 0.0] {
+        for windy in [false, true] {
+            for steps in held_steers() {
+                let mut app = TestApp::new();
+                app.ctx.settings.lane_keeping = "partial".to_string();
+                let mut d = drive(&mut app, "parcel_doubles", "Buffalo", "Rochester", 10.0);
+                d.trip.truck.cargo_kg = tons * KG_PER_TON;
+                if windy {
+                    d.trip.weather.current = WeatherKind::Wind;
+                }
+                let (damage, whips) = steer_through(&mut app, &mut d, &steps);
+                let case = format!("{tons} t, wind {windy}, {steps:?}");
+                assert_eq!(damage, 0.0, "{case}");
+                assert!(whips.is_empty(), "{case}: {whips:?}");
+                if steps == [(Some(Key::Left), 2.5)] {
+                    assert_eq!(d.lane.lane, 1, "{case}: a held key changes lanes");
+                }
+                drop(app);
+            }
+        }
+    }
+}
+
+#[test]
+fn a_steer_held_while_accelerating_through_forty_does_not_whip_under_partial() {
+    // The whip counts from 40 mph; the easing is already in force below it,
+    // so a hold that starts at 35 and is let go as the truck passes 40 does
+    // not whip on the snap back.
     let mut app = TestApp::new();
     app.ctx.settings.lane_keeping = "partial".to_string();
     let mut d = drive(&mut app, "parcel_doubles", "Buffalo", "Rochester", 10.0);
-    let (damage, whips) = steer_through(&mut app, &mut d, &[(Some(Key::Left), 1.0)]);
+    let clock = app.fake_pacer_clock();
+    let dt = 0.05;
+    let mut mph = 35.0;
+    app.ctx.input.press(Key::Left, Mods::NONE);
+    for frame in 0..200 {
+        if frame == 50 {
+            app.ctx.input.release(Key::Left, Mods::NONE);
+        }
+        d.trip.truck.velocity_mps = mph / 2.23694;
+        d.update_lane(&mut app.ctx, dt);
+        clock.advance(dt);
+        mph = (mph + 2.0 * dt).min(50.0);
+    }
+    assert!(mph > 40.0);
+    assert_eq!(d.trip.truck.cargo_damage_pct, 0.0);
+    assert!(!app.event_lines().iter().any(|l| l.contains("whipped")));
+}
+
+#[test]
+fn with_lane_keeping_off_a_single_held_lane_change_still_whips() {
+    // No steering assist: the swing is the driver's to manage.
+    let mut app = TestApp::new();
+    app.ctx.settings.lane_keeping = "off".to_string();
+    let mut d = drive(&mut app, "parcel_doubles", "Buffalo", "Rochester", 10.0);
+    let (damage, whips) = steer_through(&mut app, &mut d, &[(Some(Key::Left), 1.5)]);
     assert!(damage > 0.0);
     assert_eq!(whips, vec![REAR_TRAILER_WHIP_TEXT.to_string()]);
+}
+
+#[test]
+fn with_lane_keeping_off_short_holds_change_lanes_without_a_whip() {
+    // The manual's advice: four holds of half a second, half a second
+    // apart, cross one lane with the rear trailer well under its whip,
+    // loaded in a strong crosswind and empty in still air.
+    let holds = [(Some(Key::Left), 0.5), (None, 0.5)].repeat(4);
+    for (tons, windy) in [(10.0, false), (10.0, true), (0.0, false)] {
+        let mut app = TestApp::new();
+        app.ctx.settings.lane_keeping = "off".to_string();
+        let mut d = drive(&mut app, "parcel_doubles", "Buffalo", "Rochester", 10.0);
+        d.trip.truck.cargo_kg = tons * KG_PER_TON;
+        if windy {
+            d.trip.weather.current = WeatherKind::Wind;
+        }
+        let (damage, whips) = steer_through(&mut app, &mut d, &holds);
+        assert_eq!(damage, 0.0, "{tons} t, wind {windy}");
+        assert!(whips.is_empty(), "{tons} t, wind {windy}: {whips:?}");
+        assert_eq!(d.lane.lane, 1, "{tons} t, wind {windy}: one lane over");
+        drop(app);
+    }
 }
 
 #[test]

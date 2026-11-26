@@ -627,8 +627,9 @@ Pass when: a clean load earns Rawhide, and the hours readouts name no
 Setup: the doubles endorsement; for turnpike doubles, the LCV certificate.
 
 Listen for: hook-up time once at the shipper and once at the receiver, a
-25-minute walk-around, the rear trailer whipping on a hard swerve at 40
-miles per hour, reverse refused.
+25-minute walk-around, and reverse refused. With lane keeping off, the rear
+trailer whips on a held lane change at 40 miles per hour. With partial lane
+keeping, the same lane change doesn't whip it.
 
 Pass when: the board posts the miles of the road the doubles must take,
 and no doubles load is offered into Canada.

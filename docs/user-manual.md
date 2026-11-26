@@ -408,7 +408,7 @@ On a hot day, cattle heat up while the truck stands. On a hot afternoon at the s
 
 Twin parcel loads pull two short trailers on a converter dolly and need the doubles endorsement. They stay on the Interstates: dispatch drops a lane whose roads are closed to them, and says so when no lane is left. Turnpike doubles pull two 48-foot vans on the New York Thruway, the Massachusetts Turnpike and the Ohio, Indiana and Kansas turnpikes, and need the doubles endorsement and the LCV certificate.
 
-A set of doubles counts both trailers and the dolly in its gross weight, and turnpike doubles use each turnpike's own weight limit. Hooking or breaking the set adds time on duty, and the walk-around takes 25 minutes instead of 15. A hard swerve at 40 miles per hour or more can make the rear trailer whip; you hear it when it starts. You can't reverse with doubles hooked.
+A set of doubles counts both trailers and the dolly in its gross weight, and turnpike doubles use each turnpike's own weight limit. Hooking or breaking the set adds time on duty, and the walk-around takes 25 minutes instead of 15. A hard steer at 40 miles per hour or more can make the rear trailer whip and shift its freight; you hear it when it starts. Full lane keeping changes lanes for you, and partial lane keeping eases your steering, so neither whips it. With lane keeping off, change lanes in short holds of the arrow, about half a second each with half a second between, until you cross the line. You can't reverse with doubles hooked.
 
 ### Hazardous loads, tunnels and bridges
 

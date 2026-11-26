@@ -27,6 +27,7 @@ use crate::models::doubles::{
     DOUBLES_NO_REVERSE_TEXT, LIGHT_SET_SWAY_MAX, REAR_TRAILER_FREIGHT_SHARE,
 };
 use crate::pyfmt::fmt_grouped;
+use crate::sim::lane::RearSteerLimit;
 use crate::sim::transmission::ShiftResult;
 
 /// Below this the rear trailer's swing is not worth a word: yard and street
@@ -34,6 +35,21 @@ use crate::sim::transmission::ShiftResult;
 /// SAE J2179 lane-change test FHWA cites for rearward amplification is run
 /// at 55 mph.
 pub const REAR_WHIP_MIN_MPH: f64 = 40.0;
+
+/// The share of the rear trailer's whip threshold partial lane keeping
+/// leaves the driver's steer to reach ([`TruckState::rear_trailer_steer_limit`]).
+/// The rest covers what the easing cannot see coming: the gust changing
+/// from one frame to the next after the allowance was set, and the frame
+/// step itself. ASSUMED, not calibrated against a measurement.
+pub const ASSIST_REAR_WHIP_SHARE: f64 = 0.9;
+
+/// How far below [`REAR_WHIP_MIN_MPH`] partial lane keeping starts easing
+/// the steer, mph, so the easing is already in force when a truck holding a
+/// steer accelerates through the whip speed. ASSUMED: the worst steer the
+/// easing has to take back (the driver's whole 0.2 g, both ways) closes at
+/// the rear trailer's slew in about a second, and a loaded truck gains well
+/// under 5 mph in a second.
+pub const ASSIST_EASE_LEAD_MPH: f64 = 5.0;
 
 /// The trailers on the fifth wheel, as far as weight and handling go.
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -231,6 +247,26 @@ impl TruckState {
         }
         self.rear_trailer_lateral_g(steer_lateral_g, wind_lateral_g)
             - self.rear_trailer_whip_threshold_g()
+    }
+
+    /// What the rear trailer can take from a steer, for partial lane keeping
+    /// to ease the driver's steer to (`LaneKeeping::rear_steer_limit`): the
+    /// quick steer at the tractor that leaves the rear trailer
+    /// [`ASSIST_REAR_WHIP_SHARE`] of its whip threshold, and the gust's gain
+    /// against the same threshold ([`Self::light_set_wind_mult`]). None for
+    /// a single trailer or none, and below [`REAR_WHIP_MIN_MPH`] less
+    /// [`ASSIST_EASE_LEAD_MPH`], where the driver keeps the whole steer for
+    /// yards, streets and corners.
+    pub fn rear_trailer_steer_limit(&self) -> Option<RearSteerLimit> {
+        if !self.doubles_hooked() || self.speed_mph() < REAR_WHIP_MIN_MPH - ASSIST_EASE_LEAD_MPH {
+            return None;
+        }
+        // A set never amplifies less than the tractor steers.
+        let amplification = self.trailer_set.rearward_amplification.max(1.0);
+        Some(RearSteerLimit {
+            steer_g: ASSIST_REAR_WHIP_SHARE * self.rear_trailer_whip_threshold_g() / amplification,
+            gust_gain: self.light_set_wind_mult(),
+        })
     }
 
     /// Freight in the rear trailer works against its straps when a quick
@@ -499,6 +535,47 @@ mod tests {
                 .expect("some steer whips a set of doubles")
         };
         assert!(first_whip_in_wind(&empty) < first_whip_in_wind(&loaded));
+    }
+
+    #[test]
+    fn the_steer_a_rear_trailer_can_take_is_set_by_the_set_and_the_gust() {
+        let highway = 60.0 / 2.23694;
+        let mut loaded = pups();
+        loaded.cargo_kg = REFERENCE_CARGO_KG;
+        loaded.velocity_mps = highway;
+        let limit = loaded.rear_trailer_steer_limit().expect("pups at 60");
+        // 0.9 of the 0.30 g threshold over an amplification of 1.7.
+        assert!((limit.steer_g - 0.1588).abs() < 0.001, "{}", limit.steer_g);
+        assert!(
+            limit.allowance(0.02) < limit.allowance(0.0),
+            "a gust takes room"
+        );
+        // At the limit the rear trailer sits at the share, under the whip.
+        assert!(loaded.rear_trailer_whip_excess_g(limit.steer_g, 0.0) < 0.0);
+        // Turnpike doubles amplify less, so take more.
+        let mut lcv = turnpike(127_400.0);
+        lcv.cargo_kg = REFERENCE_CARGO_KG;
+        lcv.velocity_mps = highway;
+        assert!(lcv.rear_trailer_steer_limit().unwrap().steer_g > limit.steer_g);
+        // Empty, the threshold is floored, so the steer is the same; the
+        // gust counts for more.
+        let mut empty = pups();
+        empty.cargo_kg = 0.0;
+        empty.velocity_mps = highway;
+        let empty_limit = empty.rear_trailer_steer_limit().unwrap();
+        assert_eq!(empty_limit.steer_g, limit.steer_g);
+        assert!(empty_limit.gust_gain > limit.gust_gain);
+        // In force from 35 mph, below the whip's 40, and not below.
+        loaded.velocity_mps = (REAR_WHIP_MIN_MPH - ASSIST_EASE_LEAD_MPH) / 2.23694 + 0.01;
+        assert!(loaded.rear_trailer_steer_limit().is_some());
+        loaded.velocity_mps = 34.0 / 2.23694;
+        assert_eq!(loaded.rear_trailer_steer_limit(), None);
+        // A single trailer has none.
+        let single = TruckState {
+            velocity_mps: highway,
+            ..TruckState::default()
+        };
+        assert_eq!(single.rear_trailer_steer_limit(), None);
     }
 
     #[test]

@@ -1099,12 +1099,20 @@ impl AgentPolicy {
                                     l.hours_aboard
                                 )
                             });
+                            let rear =
+                                o.rear_trailer
+                                    .map_or(String::new(), |(swing, whip, eased)| {
+                                        format!(
+                                    "Rear trailer: swing {swing:.3} g, whips at {whip:.3} g, \
+                                     steer eased: {eased}. "
+                                )
+                                    });
                             format!(
                                 "INSPECTOR (ground truth, not ears): mile {:.2}. Speed {:.0} mph, \
                              limit {}. Air ready: {}. Parking brake: {}. Speed control armed: \
                              {}. Keeper: {}. Cruise: {}. Hazard active: {}. Pull-over active: \
                              {}. Off pavement: {}. Truck damage: {:.0}%. Cargo damage: \
-                             {:.0}%. {}{cattle}",
+                             {:.0}%. {rear}{}{cattle}",
                                 o.position_mi,
                                 o.speed_mph,
                                 o.speed_limit_mph.map_or("not read yet".to_string(), |mph| {
