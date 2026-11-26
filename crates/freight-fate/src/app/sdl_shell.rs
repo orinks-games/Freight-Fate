@@ -42,7 +42,8 @@ mod ios;
 mod tilt_sensor;
 #[cfg(target_os = "ios")]
 pub(crate) use ios::{
-    direct_interaction_suspended, set_touch_haptics, set_touch_tuning, voice_over_running,
+    direct_interaction_suspended, set_touch_haptics, set_touch_tuning, software_keyboard_shown,
+    voice_over_running,
 };
 #[cfg(target_os = "ios")]
 use ios::{install_touch_surface, next_gesture};
