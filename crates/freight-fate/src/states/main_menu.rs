@@ -818,10 +818,10 @@ impl TextEntry for NameEntryState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        if crate::states::text_entry::touch_prompt(ctx) {
+        if let Some(help) = crate::states::text_entry::touch_field_help(ctx) {
             ctx.say(&format!(
-                "New career. Type your driver name. {}",
-                crate::states::text_entry::TOUCH_FIELD_HELP
+                "New career. Type your driver name. {TOUCH_FIELD_HELP}",
+                TOUCH_FIELD_HELP = help
             ));
             return;
         }

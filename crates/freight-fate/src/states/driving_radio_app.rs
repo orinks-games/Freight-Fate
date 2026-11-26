@@ -650,10 +650,10 @@ impl TextEntry for RadioSearchEntryState {
     }
 
     fn enter(&mut self, ctx: &mut GameContext) {
-        if crate::states::text_entry::touch_prompt(ctx) {
+        if let Some(help) = crate::states::text_entry::touch_field_help(ctx) {
             ctx.say(&format!(
-                "Search stations. Type part of a name, call sign, or format. {}",
-                crate::states::text_entry::TOUCH_FIELD_HELP
+                "Search stations. Type part of a name, call sign, or format. {TOUCH_FIELD_HELP}",
+                TOUCH_FIELD_HELP = help
             ));
             return;
         }

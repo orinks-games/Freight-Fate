@@ -96,6 +96,21 @@ fn visible_name_help_follows_touch_and_hardware_keys() {
 }
 
 #[test]
+fn adjustable_actions_review_the_previous_and_next_letter() {
+    let mut app = TestApp::new();
+    open_name_entry(&mut app);
+    type_text(&mut app, "Jo");
+    app.clear_speech();
+
+    app.dispatch_gesture(Gesture::Decrement);
+    assert_eq!(cursor(&app), 1);
+    app.dispatch_gesture(Gesture::Increment);
+    assert_eq!(cursor(&app), 2);
+    assert_eq!(spoken(&app), vec!["o", "o"]);
+    app.shutdown();
+}
+
+#[test]
 fn test_typed_characters_are_echoed_including_space_and_capitals() {
     let mut app = TestApp::new();
     open_name_entry(&mut app);

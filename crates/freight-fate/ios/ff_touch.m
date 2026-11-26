@@ -99,6 +99,10 @@ int32_t ff_touch_keyboard_connected(void);
 void ff_fingers_attach(UIView *surface);
 void ff_fingers_touches(NSSet<UITouch *> *touches, UIView *view, int32_t kind);
 
+int32_t ff_touch_voice_over_running(void) {
+    return UIAccessibilityIsVoiceOverRunning();
+}
+
 #define FF_QUEUE_CAPACITY 64
 
 static int32_t ff_queue[FF_QUEUE_CAPACITY];
