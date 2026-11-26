@@ -23,9 +23,9 @@ const LIFT_THROTTLE: f64 = 0.12;
 /// Boost threshold below which the spool loop fades out.
 const AUDIBLE_BOOST: f64 = 0.04;
 /// Peak loop level at full boost and `turbo_level = 1.0`.
-const MAX_SPOOL_LEVEL: f64 = 0.18;
+const MAX_SPOOL_LEVEL: f64 = 0.34;
 /// Peak one-shot level for the release cue at full boost and `turbo_level = 1.0`.
-const MAX_BLOWOFF_LEVEL: f64 = 0.24;
+const MAX_BLOWOFF_LEVEL: f64 = 0.34;
 /// Loop fade time in milliseconds.
 pub const TURBO_FADE_MS: u32 = 160;
 
@@ -159,7 +159,7 @@ impl TurboState {
         } else {
             (self.boost * self.boost.sqrt() * level * MAX_SPOOL_LEVEL).clamp(0.0, MAX_SPOOL_LEVEL)
         };
-        let spool_rate = 0.86 + 0.28 * self.boost;
+        let spool_rate = 0.72 + 0.50 * self.boost;
 
         TurboOutput {
             spool_level,
@@ -240,5 +240,30 @@ mod tests {
         });
         assert_eq!(s.phase, TurboPhase::Idle);
         assert_eq!(out.spool_level, 0.0);
+    }
+
+    #[test]
+    fn spool_rate_sweeps_across_boost_range() {
+        let mut s = TurboState::default();
+        let low = s.step(TurboInput {
+            rpm: 900.0,
+            throttle: 0.3,
+            ..base_input()
+        });
+        for _ in 0..30 {
+            s.step(TurboInput {
+                rpm: 2_100.0,
+                throttle: 1.0,
+                ..base_input()
+            });
+        }
+        let high = s.step(TurboInput {
+            rpm: 2_100.0,
+            throttle: 1.0,
+            ..base_input()
+        });
+        assert!(low.spool_rate < 0.80, "low rate {}", low.spool_rate);
+        assert!(high.spool_rate > 1.10, "high rate {}", high.spool_rate);
+        assert!(high.spool_level > low.spool_level);
     }
 }

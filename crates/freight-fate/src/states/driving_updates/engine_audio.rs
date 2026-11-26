@@ -13,10 +13,10 @@ use crate::audio::{CH_AIR, CH_JAKE, CH_TURBO};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 use crate::states::driving_updates::{
-    shift_recovery_curve, AIR_FILL_REARM_PSI, AIR_FILL_VOLUME, AUTO_JAKE_OVER_MPH,
-    AUTO_JAKE_RELEASE_MPH, AUTO_JAKE_REVERSE_S, AUTO_JAKE_STEP_S, AUTO_JAKE_UNDER_MPH,
-    ENGINE_LOAD_SMOOTH_S, JAKE_CUE_HOLD_S, JAKE_LOOP_RPMS, JAKE_MIN_RPM, JAKE_RATE_MAX,
-    JAKE_RATE_MIN, JAKE_STAGE_GAIN, JAKE_VOICE_NATIVE_RPM, SHIFT_DISENGAGE_DUCK,
+    shift_recovery_curve, AIR_FILL_REARM_PSI, AIR_FILL_VOLUME, AUTO_BRAKE_DOWNSHIFT_VOLUME,
+    AUTO_JAKE_OVER_MPH, AUTO_JAKE_RELEASE_MPH, AUTO_JAKE_REVERSE_S, AUTO_JAKE_STEP_S,
+    AUTO_JAKE_UNDER_MPH, ENGINE_LOAD_SMOOTH_S, JAKE_CUE_HOLD_S, JAKE_LOOP_RPMS, JAKE_MIN_RPM,
+    JAKE_RATE_MAX, JAKE_RATE_MIN, JAKE_STAGE_GAIN, JAKE_VOICE_NATIVE_RPM, SHIFT_DISENGAGE_DUCK,
     SHIFT_END_CLUNK_VOLUME, SHIFT_LOAD_CAP, SHIFT_LOAD_RECOVERY_S,
 };
 
@@ -217,6 +217,8 @@ impl DrivingState {
             // off -- inaudible under the old RPM-weighted band volumes, but
             // plainly audible with the constant-volume BASS engine loop.
             ctx.audio.engine_stop_with(false);
+            self.shift_hold_rpm = None;
+            self.manual_engage_clunk_pending = false;
         }
         // A shift briefly unloads the engine, but the old 0.08 clamp cut loop
         // gain by roughly forty percent and made repeated shifts sound like the
@@ -246,7 +248,7 @@ impl DrivingState {
             self.shift_recover_t = 0.0;
             cap = SHIFT_LOAD_CAP;
             duck = SHIFT_DISENGAGE_DUCK;
-            if automatic {
+            if automatic && self.trip.truck.engine_on {
                 // Marker only: an auto shift is in flight. The voice follows
                 // the live physics rpm, which already sighs down toward the
                 // new gear's road speed through the interrupt (vehicle
@@ -266,13 +268,20 @@ impl DrivingState {
             cap = SHIFT_LOAD_CAP + (1.0 - SHIFT_LOAD_CAP) * recovered;
             duck = SHIFT_DISENGAGE_DUCK + (1.0 - SHIFT_DISENGAGE_DUCK) * recovered;
             if self.shift_hold_rpm.is_some() {
-                // Engagement: the gear takes.
-                ctx.audio.play_bank_with(
-                    "vehicle/shift_auto",
-                    "vehicle/gear_shift",
-                    SHIFT_END_CLUNK_VOLUME,
-                    0.0,
-                );
+                if self.trip.truck.engine_on {
+                    // Engagement: the gear takes. Keep unloaded braking
+                    // downshifts subtle so stopping from speed does not clatter.
+                    let braking = self.trip.truck.brake > 0.05
+                        || (self.trip.truck.air_brakes_holding()
+                            && self.trip.truck.velocity_mps.abs() > 0.1);
+                    let vol = if braking {
+                        AUTO_BRAKE_DOWNSHIFT_VOLUME
+                    } else {
+                        SHIFT_END_CLUNK_VOLUME
+                    };
+                    ctx.audio
+                        .play_bank_with("vehicle/shift_auto", "vehicle/gear_shift", vol, 0.0);
+                }
                 self.shift_hold_rpm = None;
             }
         } else {

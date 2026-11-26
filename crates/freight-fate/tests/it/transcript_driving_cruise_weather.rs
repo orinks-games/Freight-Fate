@@ -1039,3 +1039,103 @@ fn test_powered_upshift_clunks_only_when_the_next_gear_takes() {
     frames(&mut harness, 2, DT);
     assert_eq!(shift_volumes().len(), 1, "no repeat after engagement");
 }
+
+#[test]
+fn test_braking_downshift_skips_opening_clunk_and_engages_softly() {
+    let mut harness = bench_drive("Brake Downshift", 200.0, 0.0);
+    let log = harness.app.record_audio();
+    harness.with_drive(|d, _| {
+        let truck = d.truck_mut();
+        truck.start_engine();
+        truck.transmission.gear = 6;
+        truck.velocity_mps = 6.0;
+        truck.rpm = truck.coupled_rpm(None);
+        truck.brake = 0.6;
+    });
+    hold(&mut harness, &[Key::Down]);
+
+    let shift_volumes = || -> Vec<f64> {
+        log.borrow()
+            .played
+            .iter()
+            .filter(|(key, _, _)| {
+                key == "vehicle/gear_shift" || key.starts_with("vehicle/shift_auto")
+            })
+            .map(|(_, volume, _)| *volume)
+            .collect()
+    };
+    let shifting =
+        |d: &freight_fate::states::driving::DrivingState| d.truck().transmission.shifting();
+    for _ in 0..30 {
+        frame(&mut harness, DT);
+        if harness.read_drive(shifting) {
+            break;
+        }
+    }
+    assert!(
+        harness.read_drive(shifting),
+        "the truck must start a braking downshift"
+    );
+    assert!(
+        shift_volumes().is_empty(),
+        "braking downshift must skip opening clunk: {:?}",
+        shift_volumes()
+    );
+    for _ in 0..60 {
+        frame(&mut harness, DT);
+        if !harness.read_drive(shifting) {
+            break;
+        }
+    }
+    let vols = shift_volumes();
+    assert!(!vols.is_empty(), "expected soft engagement cue");
+    let expected = freight_fate::states::driving_updates::AUTO_BRAKE_DOWNSHIFT_VOLUME;
+    assert!(
+        vols.iter().all(|v| (*v - expected).abs() < 1e-6),
+        "expected braking downshift volume {expected}, got {vols:?}"
+    );
+}
+
+#[test]
+fn test_engine_shutdown_clears_pending_shift_engagement_clunk() {
+    let mut harness = bench_drive("Shutdown During Shift", 200.0, 0.0);
+    let log = harness.app.record_audio();
+    harness.with_drive(|d, _| {
+        let truck = d.truck_mut();
+        truck.start_engine();
+        truck.transmission.gear = 6;
+        truck.velocity_mps = 6.0;
+        truck.rpm = truck.coupled_rpm(None);
+        truck.brake = 0.6;
+    });
+    hold(&mut harness, &[Key::Down]);
+    for _ in 0..30 {
+        frame(&mut harness, DT);
+        if harness.read_drive(|d| d.truck().transmission.shifting()) {
+            break;
+        }
+    }
+    assert!(harness.read_drive(|d| d.truck().transmission.shifting()));
+    log.borrow_mut().played.clear();
+
+    // Shut down the engine via the engine key while the shift is still in flight
+    // (at safe low speed so toggle_engine_with accepts shutdown directly).
+    harness.with_drive(|d, _| {
+        d.truck_mut().velocity_mps = 1.0;
+    });
+    press(&mut harness, Key::E, Some('e'));
+    assert!(!harness.read_drive(|d| d.truck().engine_on));
+    frames(&mut harness, 30, DT);
+
+    let shifts: Vec<_> = log
+        .borrow()
+        .played
+        .iter()
+        .filter(|(key, _, _)| key == "vehicle/gear_shift" || key.starts_with("vehicle/shift_auto"))
+        .cloned()
+        .collect();
+    assert!(
+        shifts.is_empty(),
+        "no orphan shift clunk should play after engine shutdown: {shifts:?}"
+    );
+}
