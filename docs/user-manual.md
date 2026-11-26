@@ -851,14 +851,14 @@ Inside the **Tab** menu, you have five screens:
 | Route | Review your progress along the current route. |
 | Driver | Driver name, cash, load, objective, truck fuel and damage, transmission, fatigue, hours, and deadline. |
 | Map | Route cities, highways, progress, next guidance, upcoming stops, map points, and toll exposure. |
-| Driver apps | A tablet-style menu for Radio, Navigation, Weather, Traffic, Truck stops, Road chatter, and ELD. |
+| Driver apps | A tablet-style menu for Radio, Navigation, Weather, Traffic, Truck stops, Road chatter, ELD, and Newspaper. |
 | Driving commands | Every driving command by name. Pick one to run it and jump back to the road. This is how controller players reach commands without a dedicated button. |
 
 Inside any status report, move with **Up** and **Down**, press **Enter** to repeat the highlighted line, and press **Escape** to go back (controller: **D-pad**, **A**, and **B**).
 
 ## Driver apps
 
-Press **Tab** on the road (controller: **right bumper + Start**) and open **Driver apps**. You get seven cab apps: Radio, Navigation, Weather, Traffic, Truck stops, Road chatter, and ELD. Pick one with **Up/Down** and **Enter**; inside a report, **Up/Down** moves through lines, **Enter** repeats, and **Escape** steps back out (controller: **D-pad**, **A**, **B**).
+Press **Tab** on the road (controller: **right bumper + Start**) and open **Driver apps**. You get seven cab apps: Radio, Navigation, Weather, Traffic, Truck stops, Road chatter, and ELD. An eighth, Newspaper, joins them once orinks.net has published an issue. Pick one with **Up/Down** and **Enter**; inside a report, **Up/Down** moves through lines, **Enter** repeats, and **Escape** steps back out (controller: **D-pad**, **A**, **B**).
 
 ### Radio app
 
@@ -899,6 +899,14 @@ Once you pick a stop, press **T** while rolling to plan it and **X** to signal f
 ### ELD app
 
 **ELD** gives your hours-of-service summary and the legal rest stops along your route so you can tell whether you can make the next stop before a clock runs out. It also reminds you of **Alt+A** (time used), **Alt+S** (break due), and **Alt+D** (shift limits). Recheck if traffic or weather slows your pace.
+
+### Newspaper app
+
+**Newspaper** reads the latest issue of the weekly driver paper from orinks.net: driver news, new hires, records, carrier standings, freight and road reports, the blotter, achievements, game news, and the back page. The same screen opens from **Newspaper** on the main menu's Online menu, so you can read it off the road.
+
+Opening it says the paper's name, the issue, and the week it covers, then lists its sections. When the paper has a Since Monday summary of the week so far, it comes first. **Enter** opens a section. **Up** and **Down** move through its lines, **Enter** repeats a line, and **Escape** returns to the sections (controller: **D-pad**, **A**, and **B**).
+
+The game fetches the issue at launch and again when you open the app. It keeps the last issue, so the app opens without a connection. With Online services off, it keeps the issue it has and fetches nothing. Records and standings name only drivers who have Profile sharing on.
 
 ## Pause, save, and resume
 
