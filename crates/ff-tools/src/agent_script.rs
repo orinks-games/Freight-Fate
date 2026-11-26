@@ -152,7 +152,10 @@ pub fn main(argv: &[String]) -> Result<i32> {
             json!({ "name": step.tool, "arguments": tool_args }),
         )?;
         let text = extract_tool_text(&resp);
-        let failures = check_assertions(&text, &step.expect, &step.forbid);
+        let mut failures = check_assertions(&text, &step.expect, &step.forbid);
+        if is_tool_error(&resp) {
+            failures.insert(0, format!("tool returned isError: {text}"));
+        }
         if !failures.is_empty() {
             any_failed = true;
         }
@@ -299,6 +302,13 @@ fn rpc(
     }
 }
 
+fn is_tool_error(resp: &Value) -> bool {
+    resp.get("result")
+        .and_then(|r| r.get("isError"))
+        .and_then(Value::as_bool)
+        .unwrap_or(false)
+}
+
 fn extract_tool_text(resp: &Value) -> String {
     let Some(items) = resp
         .get("result")
@@ -417,5 +427,13 @@ mod tests {
             }
         });
         assert_eq!(extract_tool_text(&resp), "line 1\nline 2");
+    }
+
+    #[test]
+    fn is_tool_error_detects_mcp_error_flag() {
+        let ok = json!({"jsonrpc": "2.0", "id": 1, "result": {"content": []}});
+        let err = json!({"jsonrpc": "2.0", "id": 2, "result": {"isError": true, "content": [{"type": "text", "text": "unknown setting"}]}});
+        assert!(!is_tool_error(&ok));
+        assert!(is_tool_error(&err));
     }
 }
