@@ -134,6 +134,7 @@
 
 ### Fixed
 
+- **Partial lane keeping now eases your steering with a set of doubles.** Lane changes no longer whip the rear trailer.
 - **Braking to a stop no longer rattles through automatic downshifts, and shutting off the engine no longer plays an extra shift clunk.**
 - **A fuel row that gives the Canadian price a liter now gives the fuel in liters too,** with Units set to Imperial.
 - **The shower credit row now names the fuel it takes in your units.**

@@ -473,6 +473,15 @@ impl DrivingState {
         // The turn a hold toward follows the road for, from its call on
         // (`hold_turn_side`, `LaneKeeping::turn_in_play`).
         self.lane.turn_in_play = self.hold_turn_side();
+        // Partial lane keeping eases the driver's steer to what the rear
+        // trailer of a set of doubles can take, so the driver's own steering
+        // never whips it under that assist. Lane keeping off leaves the swing
+        // to the driver; dropped out on snow it runs as off.
+        self.lane.rear_steer_limit = if ff_core::sim::lane::assist_steers(effective_mode) {
+            self.trip.truck.rear_trailer_steer_limit()
+        } else {
+            None
+        };
         let off_road_event = self
             .lane
             .update(dt, speed_mps, road, effective_mode, takes_the_bend);

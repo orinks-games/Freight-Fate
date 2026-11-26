@@ -144,6 +144,31 @@ pub const LATERAL_STEADY_TAU_S: f64 = 3.0;
 /// past the whip threshold. ASSUMED; not calibrated against a measurement.
 pub const REAR_WHIP_STEER_SLEW_G_PER_S: f64 = 0.3;
 
+/// How much quick steer the rear trailer of a set of doubles can take at the
+/// tractor, for partial lane keeping to ease the driver's steer to
+/// (`TruckState::rear_trailer_steer_limit` works it out from the set).
+///
+/// The rear trailer whips when `(steer + gust * gust_gain) * amplification`
+/// passes its threshold, so the room the steer has left this frame is
+/// `steer_g` less the gust's share ([`Self::allowance`]).
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct RearSteerLimit {
+    /// The quick steer at the tractor, g, that leaves the rear trailer its
+    /// stated share under the whip threshold in still air.
+    pub steer_g: f64,
+    /// What the gust counts for against the same threshold, relative to the
+    /// steer: the light-set multiplier.
+    pub gust_gain: f64,
+}
+
+impl RearSteerLimit {
+    /// The quick steer left to the driver with the gust shoving
+    /// `wind_lateral_g` this frame, g, never below zero.
+    pub fn allowance(&self, wind_lateral_g: f64) -> f64 {
+        (self.steer_g - wind_lateral_g.abs() * self.gust_gain).max(0.0)
+    }
+}
+
 /// Only the modes where the driver does the lane work have a drift model.
 /// "full" is absent on purpose: it pins the offset to lane centre. The
 /// multiplier scales the wander.
@@ -300,6 +325,21 @@ pub struct LaneKeeping {
     /// rate-limited to [`REAR_WHIP_STEER_SLEW_G_PER_S`]: the steer the rear
     /// trailer of a set of doubles feels, g, signed.
     pub rear_steer_g: f64,
+    /// Set by the driving state every frame, before `update`: what the rear
+    /// trailer of a set of doubles can take from a steer, while partial
+    /// lane keeping is steering for the driver. None otherwise, and the
+    /// driver's steer is not eased.
+    ///
+    /// When present, the driver's share of the yaw is held so the driver's
+    /// lateral acceleration stays within the steady part
+    /// ([`LATERAL_STEADY_TAU_S`]) plus or minus the allowance
+    /// ([`RearSteerLimit::allowance`]). [`Self::rear_steer_g`] slews toward
+    /// the driver's lateral acceleration and never passes it, and the steady
+    /// part follows it, so [`Self::transient_lateral_g`] stays at or under
+    /// the allowance -- exactly while the allowance holds still, and closing
+    /// back in at the slew when a gust shrinks it from one frame to the next.
+    /// The bend's own steer is never eased: it is not the driver's.
+    pub rear_steer_limit: Option<RearSteerLimit>,
     steady_lateral_g: f64,
     /// How hard the crosswind gust is shoving sideways this update, g,
     /// unsigned: the rate the gust's sideways speed is changing. The tractor
@@ -346,6 +386,7 @@ impl LaneKeeping {
             event_cooldown: 0.0,
             lateral_g: 0.0,
             rear_steer_g: 0.0,
+            rear_steer_limit: None,
             steady_lateral_g: 0.0,
             wind_lateral_g: 0.0,
             wind_lateral_fps: None,
@@ -558,7 +599,25 @@ impl LaneKeeping {
         // is not, or a bend could not be held at the speed its own advisory
         // names. Both together still stop at the rollover ceiling.
         let driver_cap = rate_at(MAX_STEER_LATERAL_G);
-        let driver_yaw = (fps * commanded.tan() / WHEELBASE_FT).clamp(-driver_cap, driver_cap);
+        let mut driver_yaw = (fps * commanded.tan() / WHEELBASE_FT).clamp(-driver_cap, driver_cap);
+        // Partial lane keeping with a set of doubles: ease the driver's steer
+        // to what the rear trailer can take (see `rear_steer_limit`): a steer
+        // builds in and lets go gradually instead of in one frame. The band
+        // always holds the steady part, which is inside the driver's cap
+        // (the cap is applied again for a frame whose grip just fell).
+        let grip_share = grip.clamp(0.0, 1.0);
+        if let Some(limit) = self.rear_steer_limit {
+            if grip_share > 0.0 && fps > 1.0 {
+                let allowance = limit.allowance(self.wind_lateral_g);
+                let yaw_per_g = G_FPS2 / (fps * grip_share);
+                driver_yaw = driver_yaw
+                    .clamp(
+                        (self.steady_lateral_g - allowance) * yaw_per_g,
+                        (self.steady_lateral_g + allowance) * yaw_per_g,
+                    )
+                    .clamp(-driver_cap, driver_cap);
+            }
+        }
         let mut yaw_rate = driver_yaw + tracking_yaw;
         // The tire limit plus whatever the road's bank carries for the truck.
         let road_cap = rate_at(MAX_ROAD_LATERAL_G + bank.clamp(0.0, MAX_CREDITED_BANK));
@@ -1385,3 +1444,7 @@ mod tests {
         );
     }
 }
+
+#[cfg(test)]
+#[path = "lane_rear_steer_tests.rs"]
+mod rear_steer_tests;
