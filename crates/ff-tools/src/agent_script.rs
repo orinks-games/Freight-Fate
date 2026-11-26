@@ -17,7 +17,7 @@ use serde_json::{json, Value};
 use crate::cli::{Args, Spec};
 use crate::util::{repo_root, Result};
 
-const USAGE: &str = "usage: agent-script [--bin PATH] [--filter PATTERNS] [--verbose] [--no-reset] [--json] <script.json | ->";
+const USAGE: &str = "usage: agent-script [--bin PATH] [--filter PATTERNS] [--verbose] [--reset] [--json] <script.json | ->";
 
 #[derive(Debug, Clone, Deserialize)]
 struct ScriptStep {
@@ -46,7 +46,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         argv,
         &Spec {
             values: &["bin", "filter"],
-            flags: &["verbose", "no-reset", "json", "help"],
+            flags: &["verbose", "reset", "json", "help"],
         },
     )
     .map_err(|e| format!("{e}\n{USAGE}"))?;
@@ -75,7 +75,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let filters = parse_filters(args.value("filter"));
     let verbose = args.flag("verbose");
     let json_out = args.flag("json");
-    let reset = !args.flag("no-reset");
+    let reset = args.flag("reset");
 
     let root = repo_root();
     let bin = resolve_binary(&root, args.path("bin").as_deref())?;

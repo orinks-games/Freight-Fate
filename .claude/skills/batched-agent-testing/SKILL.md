@@ -43,9 +43,10 @@ Each object in the JSON array supports:
 - `expect` (optional): Array of substrings that must appear in the step's output (exits non-zero if any is missing).
 - `forbid` (optional): Array of substrings that must NOT appear in the step's output (exits non-zero if any matches).
 
-`quit_game` is sent automatically at the end if omitted, and `--reset` is
-passed to `--agent-server` by default so each batch starts from a clean
-playtest sandbox (pass `--no-reset` to keep sandbox state across runs).
+`quit_game` is sent automatically at the end if omitted. Start each batch
+with a `scenario` step to stage clean truck/route/settings state without
+wiping the shared playtest sandbox (pass `--reset` only when you explicitly
+want to reset the shared sandbox).
 
 ## Flags
 
@@ -53,4 +54,4 @@ playtest sandbox (pass `--no-reset` to keep sandbox state across runs).
 - `--filter PATTERNS`: Comma-separated substrings; only output lines containing at least one pattern are printed.
 - `--verbose`: Include quiet steps (`(quiet -- nothing new to hear)`).
 - `--json`: Emit structured JSON instead of plain text.
-- `--no-reset`: Reuse the existing playtest sandbox instead of resetting it before launch.
+- `--reset`: Pass `--reset` to `--agent-server` to wipe and re-seed the shared playtest sandbox before launch.
