@@ -126,7 +126,8 @@ of `crates/ff-tools/src/release/android.rs`. In short:
     without rumble;
   - SDL's controller manager (`crates/freight-fate-android/sdl/`), which
     otherwise opens a Bluetooth keyboard as a controller, because Android
-    lists its arrow keys as a D-pad.
+    lists its arrow keys as a D-pad and a volume wheel or media keys as a
+    joystick.
 
   The build stops if a library's own file changes, so a new SDL or Prism
   is checked against the copy before it ships.

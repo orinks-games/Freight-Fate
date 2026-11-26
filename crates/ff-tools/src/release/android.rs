@@ -425,8 +425,9 @@ struct JavaOverride {
 /// - SDL 2.26's controller manager. It opens any device that reports a
 ///   D-pad as a joystick, and Android lists a Bluetooth keyboard as one for
 ///   its arrow keys, so the game said "Controller connected" with the
-///   keyboard's name and its arrows arrived as D-pad buttons. The copy
-///   leaves out a device with a full letter keyboard and no joystick axes.
+///   keyboard's name and its arrows arrived as D-pad buttons. A keyboard
+///   with a volume wheel reports a joystick axis too. The copy leaves out a
+///   device with a full letter keyboard and no stick, hat or trigger axis.
 const JAVA_OVERRIDES: &[JavaOverride] = &[
     JavaOverride {
         library: Library::Prism,

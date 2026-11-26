@@ -2,11 +2,12 @@
 // (android-project, from the sdl2-sys 0.38 crate), compiled into the APK in
 // place of SDL's own (see JAVA_OVERRIDES in crates/ff-tools/src/release/android.rs).
 // One change from SDL, in isDeviceSDLJoystick: a device with a full letter
-// keyboard and no joystick axes is not a joystick. Android lists a Bluetooth
-// keyboard as a keyboard and a D-pad, for its arrow keys, so SDL opened it as
-// a game controller: the game announced "Controller connected" with the
-// keyboard's name, and the arrow keys reached it as D-pad buttons instead of
-// arrow keys.
+// keyboard and no stick, hat or trigger axis is not a joystick. Android lists
+// a Bluetooth keyboard as a D-pad, for its arrow keys, and as a joystick when
+// it has a volume wheel or media keys (a Logitech MX Mechanical reports its
+// volume as one GENERIC_1 axis), so SDL opened it as a game controller: the
+// game announced "Controller connected" with the keyboard's name, and the
+// arrow keys reached it as D-pad buttons instead of arrow keys.
 package org.libsdl.app;
 
 import java.util.ArrayList;
@@ -124,17 +125,44 @@ public class SDLControllerManager
         }
         */
 
-        if ((sources & InputDevice.SOURCE_CLASS_JOYSTICK) != 0) {
-            return true;
-        }
-        // A full keyboard's arrow keys make it a D-pad too, and some report
-        // gamepad buttons; with no sticks it is a keyboard. (Freight Fate)
-        if (device.getKeyboardType() == InputDevice.KEYBOARD_TYPE_ALPHABETIC) {
+        // A full keyboard's arrow keys make it a D-pad, and a volume wheel or
+        // media keys make it a joystick; with no stick, hat or trigger it is
+        // a keyboard. (Freight Fate)
+        if (device.getKeyboardType() == InputDevice.KEYBOARD_TYPE_ALPHABETIC &&
+                !hasStickHatOrTrigger(device)) {
             return false;
         }
-        return (((sources & InputDevice.SOURCE_DPAD) == InputDevice.SOURCE_DPAD) ||
+        return ((sources & InputDevice.SOURCE_CLASS_JOYSTICK) != 0 ||
+                ((sources & InputDevice.SOURCE_DPAD) == InputDevice.SOURCE_DPAD) ||
                 ((sources & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD)
         );
+    }
+
+    /** Whether the device has an axis a game controller has: a stick, a hat or a trigger. (Freight Fate) */
+    private static boolean hasStickHatOrTrigger(InputDevice device) {
+        for (InputDevice.MotionRange range : device.getMotionRanges()) {
+            if ((range.getSource() & InputDevice.SOURCE_CLASS_JOYSTICK) == 0) {
+                continue;
+            }
+            switch (range.getAxis()) {
+                case MotionEvent.AXIS_X:
+                case MotionEvent.AXIS_Y:
+                case MotionEvent.AXIS_Z:
+                case MotionEvent.AXIS_RX:
+                case MotionEvent.AXIS_RY:
+                case MotionEvent.AXIS_RZ:
+                case MotionEvent.AXIS_HAT_X:
+                case MotionEvent.AXIS_HAT_Y:
+                case MotionEvent.AXIS_LTRIGGER:
+                case MotionEvent.AXIS_RTRIGGER:
+                case MotionEvent.AXIS_GAS:
+                case MotionEvent.AXIS_BRAKE:
+                    return true;
+                default:
+                    break;
+            }
+        }
+        return false;
     }
 
 }
