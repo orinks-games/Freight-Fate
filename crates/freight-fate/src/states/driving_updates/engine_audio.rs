@@ -248,7 +248,7 @@ impl DrivingState {
             self.shift_recover_t = 0.0;
             cap = SHIFT_LOAD_CAP;
             duck = SHIFT_DISENGAGE_DUCK;
-            if automatic {
+            if automatic && self.trip.truck.engine_on {
                 // Marker only: an auto shift is in flight. The voice follows
                 // the live physics rpm, which already sighs down toward the
                 // new gear's road speed through the interrupt (vehicle
@@ -268,15 +268,17 @@ impl DrivingState {
             cap = SHIFT_LOAD_CAP + (1.0 - SHIFT_LOAD_CAP) * recovered;
             duck = SHIFT_DISENGAGE_DUCK + (1.0 - SHIFT_DISENGAGE_DUCK) * recovered;
             if self.shift_hold_rpm.is_some() {
-                // Engagement: the gear takes. Keep unloaded braking
-                // downshifts subtle so stopping from speed does not clatter.
-                let vol = if self.trip.truck.brake > 0.05 {
-                    AUTO_BRAKE_DOWNSHIFT_VOLUME
-                } else {
-                    SHIFT_END_CLUNK_VOLUME
-                };
-                ctx.audio
-                    .play_bank_with("vehicle/shift_auto", "vehicle/gear_shift", vol, 0.0);
+                if self.trip.truck.engine_on {
+                    // Engagement: the gear takes. Keep unloaded braking
+                    // downshifts subtle so stopping from speed does not clatter.
+                    let vol = if self.trip.truck.brake > 0.05 {
+                        AUTO_BRAKE_DOWNSHIFT_VOLUME
+                    } else {
+                        SHIFT_END_CLUNK_VOLUME
+                    };
+                    ctx.audio
+                        .play_bank_with("vehicle/shift_auto", "vehicle/gear_shift", vol, 0.0);
+                }
                 self.shift_hold_rpm = None;
             }
         } else {

@@ -1118,10 +1118,13 @@ fn test_engine_shutdown_clears_pending_shift_engagement_clunk() {
     assert!(harness.read_drive(|d| d.truck().transmission.shifting()));
     log.borrow_mut().played.clear();
 
-    // Shut down the engine while the shift is still in flight.
+    // Shut down the engine via the engine key while the shift is still in flight
+    // (at safe low speed so toggle_engine_with accepts shutdown directly).
     harness.with_drive(|d, _| {
-        d.truck_mut().engine_on = false;
+        d.truck_mut().velocity_mps = 1.0;
     });
+    press(&mut harness, Key::E, Some('e'));
+    assert!(!harness.read_drive(|d| d.truck().engine_on));
     frames(&mut harness, 30, DT);
 
     let shifts: Vec<_> = log

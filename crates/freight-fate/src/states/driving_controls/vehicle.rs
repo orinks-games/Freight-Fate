@@ -182,6 +182,8 @@ impl DrivingState {
             }
             self.trip.truck.stop_engine();
             ctx.audio.engine_stop();
+            self.shift_hold_rpm = None;
+            self.manual_engage_clunk_pending = false;
             self.set_status("Engine off.");
             ctx.say_with(
                 "Engine off.",

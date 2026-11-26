@@ -344,6 +344,7 @@ fn test_auto_shift_voice_sighs_with_physics_and_clunks_on_engagement() {
     let (mut harness, log) = a_drive("Shift Voice");
     harness.with_drive(|drive, _| {
         let truck = drive.truck_mut();
+        truck.engine_on = true;
         truck.transmission.automatic = true;
         truck.transmission.gear = 4;
         truck.rpm = 1400.0;
