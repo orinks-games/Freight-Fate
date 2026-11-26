@@ -15,6 +15,8 @@
 
 use crate::app::{GameContext, Say};
 use crate::states::base::{spoken_char, InputEvent, Key, State};
+#[cfg(any(target_os = "ios", test))]
+use std::time::{Duration, Instant};
 
 /// The longest string a field takes.
 pub const MAX_LEN: usize = 24;
@@ -58,15 +60,75 @@ fn voice_over_field_help(
         return "Type with your keyboard. Use the left and right arrow keys to review letters, \
                 Return to confirm, or Escape to cancel.";
     }
-    // The opening prompt runs before SDL requests the keyboard from UIKit.
+    // A help request or prompt timeout can precede UIKit showing the keyboard.
     "Type your text. If the on-screen keyboard opens, select Freight Fate above it and flick \
      down for the previous letter or up for the next. Use Return to confirm, or a two-finger \
      scrub on Freight Fate to cancel."
 }
 
+#[cfg(any(target_os = "ios", test))]
+#[derive(Default)]
+struct VoiceOverFieldPrompt {
+    deadline: Option<Instant>,
+}
+
+#[cfg(any(target_os = "ios", test))]
+impl VoiceOverFieldPrompt {
+    const WAIT: Duration = Duration::from_secs(1);
+
+    fn defer(&mut self, voice_over: bool, software_keyboard_shown: bool, now: Instant) -> bool {
+        self.deadline = (voice_over && !software_keyboard_shown).then_some(now + Self::WAIT);
+        self.deadline.is_some()
+    }
+
+    fn take_ready(
+        &mut self,
+        voice_over: bool,
+        software_keyboard_shown: bool,
+        now: Instant,
+    ) -> bool {
+        if self
+            .deadline
+            .is_some_and(|deadline| !voice_over || software_keyboard_shown || now >= deadline)
+        {
+            self.deadline = None;
+            return true;
+        }
+        false
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use super::voice_over_field_help;
+    use super::{voice_over_field_help, Instant, VoiceOverFieldPrompt};
+
+    #[test]
+    fn voice_over_waits_for_the_keyboard_then_announces_once() {
+        let now = Instant::now();
+        let mut prompt = VoiceOverFieldPrompt::default();
+        assert!(prompt.defer(true, false, now));
+        assert!(!prompt.take_ready(true, false, now));
+        assert!(prompt.take_ready(true, true, now));
+        assert!(!prompt.take_ready(true, true, now));
+    }
+
+    #[test]
+    fn voice_over_does_not_wait_indefinitely_if_the_keyboard_stays_hidden() {
+        let now = Instant::now();
+        let mut prompt = VoiceOverFieldPrompt::default();
+        assert!(prompt.defer(true, false, now));
+        assert!(prompt.take_ready(true, false, now + VoiceOverFieldPrompt::WAIT));
+        assert!(!prompt.take_ready(true, true, now + VoiceOverFieldPrompt::WAIT));
+    }
+
+    #[test]
+    fn voice_over_off_or_keyboard_already_shown_does_not_defer() {
+        let now = Instant::now();
+        let mut prompt = VoiceOverFieldPrompt::default();
+        assert!(!prompt.defer(false, false, now));
+        assert!(!prompt.defer(true, true, now));
+        assert!(!prompt.take_ready(true, true, now));
+    }
 
     #[test]
     fn voice_over_help_follows_the_actual_direct_interaction_mode() {
@@ -92,6 +154,8 @@ pub struct TextEntryCore {
     /// caret works.
     pub cursor: usize,
     pub max_len: usize,
+    #[cfg(target_os = "ios")]
+    voice_over_prompt: VoiceOverFieldPrompt,
 }
 
 impl TextEntryCore {
@@ -102,6 +166,8 @@ impl TextEntryCore {
             name: Vec::new(),
             cursor: 0,
             max_len: MAX_LEN,
+            #[cfg(target_os = "ios")]
+            voice_over_prompt: VoiceOverFieldPrompt::default(),
         }
     }
 
@@ -191,7 +257,13 @@ pub trait TextEntry: Sized + 'static {
             Key::Return | Key::KpEnter => self.confirm(ctx),
             // Help, a two-finger flick up on a phone: the field's opening
             // line again, which says how it works.
-            Key::F1 => self.enter(ctx),
+            Key::F1 => {
+                #[cfg(target_os = "ios")]
+                {
+                    self.entry_mut().voice_over_prompt = VoiceOverFieldPrompt::default();
+                }
+                self.enter(ctx);
+            }
             Key::Backspace => self.backspace(ctx),
             Key::Left => self.move_cursor(ctx, -1),
             Key::Right => self.move_cursor(ctx, 1),
@@ -345,6 +417,33 @@ pub fn is_printable(ch: char) -> bool {
     !(ch.is_control() || ch.is_whitespace())
 }
 
+#[cfg(target_os = "ios")]
+pub(crate) fn defer_voice_over_prompt(field: &mut impl TextEntry) -> bool {
+    use crate::app::sdl_shell::{software_keyboard_shown, voice_over_running};
+    field.entry_mut().voice_over_prompt.defer(
+        voice_over_running(),
+        software_keyboard_shown(),
+        Instant::now(),
+    )
+}
+
+#[cfg(target_os = "ios")]
+pub(crate) fn announce_voice_over_prompt(field: &mut impl TextEntry, ctx: &mut GameContext) {
+    use crate::app::sdl_shell::{software_keyboard_shown, voice_over_running};
+    if field.entry().voice_over_prompt.deadline.is_none() {
+        return;
+    }
+    let keyboard_shown = software_keyboard_shown();
+    if field.entry_mut().voice_over_prompt.take_ready(
+        voice_over_running(),
+        keyboard_shown,
+        Instant::now(),
+    ) {
+        log::debug!("VoiceOver field prompt ready (software keyboard shown: {keyboard_shown})");
+        field.enter(ctx);
+    }
+}
+
 /// Write the [`State`] impl for a [`TextEntry`] screen, forwarding the
 /// hooks to the `TextEntry` methods of the same name.
 #[macro_export]
@@ -352,16 +451,22 @@ macro_rules! impl_state_for_text_entry {
     ($ty:ty) => {
         impl $crate::states::base::State for $ty {
             fn enter(&mut self, ctx: &mut $crate::app::GameContext) {
+                #[cfg(target_os = "ios")]
+                if $crate::states::text_entry::defer_voice_over_prompt(self) {
+                    return;
+                }
                 <Self as $crate::states::text_entry::TextEntry>::enter(self, ctx)
             }
             fn on_app_return(&mut self, ctx: &mut $crate::app::GameContext) {
                 // The field's own prompt, as it says on opening.
-                <Self as $crate::states::text_entry::TextEntry>::enter(self, ctx)
+                <Self as $crate::states::base::State>::enter(self, ctx)
             }
             fn exit(&mut self, ctx: &mut $crate::app::GameContext) {
                 <Self as $crate::states::text_entry::TextEntry>::exit(self, ctx)
             }
             fn update(&mut self, ctx: &mut $crate::app::GameContext, dt: f64) {
+                #[cfg(target_os = "ios")]
+                $crate::states::text_entry::announce_voice_over_prompt(self, ctx);
                 <Self as $crate::states::text_entry::TextEntry>::update(self, ctx, dt)
             }
             fn handle_event(

@@ -15,6 +15,7 @@
 
 ### Fixed
 
+- **VoiceOver announces the driver-name prompt after the on-screen keyboard opens on iPhone and iPad.**
 - **VoiceOver reads keyboard keys during iPhone and iPad name entry.** Review letters with the Freight Fate control or a hardware keyboard’s arrow keys.
 - **Cruise no longer slows on the highway for a town limit past your exit,** then speeds up again before the exit. It eases to its exit speed by the exit.
 - **The ramp curve warning comes before the exit when the truck needs more room than the exit lane to slow.**

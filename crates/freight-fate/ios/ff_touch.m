@@ -684,6 +684,7 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 @end
 
 @interface FFTouchView : UIView <UIGestureRecognizerDelegate>
+@property(nonatomic) BOOL softwareKeyboardShown;
 @end
 
 static __weak FFTouchView *ff_touch_surface;
@@ -695,6 +696,10 @@ int32_t ff_touch_voice_over_running(void) {
 int32_t ff_touch_direct_interaction_suspended(void) {
     FFTouchView *surface = ff_touch_surface;
     return surface && !(surface.accessibilityTraits & UIAccessibilityTraitAllowsDirectInteraction);
+}
+
+int32_t ff_touch_software_keyboard_shown(void) {
+    return ff_touch_surface.softwareKeyboardShown;
 }
 
 @implementation FFTouchView {
@@ -729,6 +734,10 @@ int32_t ff_touch_direct_interaction_suspended(void) {
     [center addObserver:self
                selector:@selector(keyboardWillShow:)
                    name:UIKeyboardWillShowNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(keyboardDidShow:)
+                   name:UIKeyboardDidShowNotification
                  object:nil];
     [center addObserver:self
                selector:@selector(keyboardDidHide:)
@@ -874,7 +883,12 @@ int32_t ff_touch_direct_interaction_suspended(void) {
     self.accessibilityTraits &= ~UIAccessibilityTraitAllowsDirectInteraction;
 }
 
+- (void)keyboardDidShow:(NSNotification *)notification {
+    self.softwareKeyboardShown = YES;
+}
+
 - (void)keyboardDidHide:(NSNotification *)notification {
+    self.softwareKeyboardShown = NO;
     self.accessibilityTraits |= UIAccessibilityTraitAllowsDirectInteraction;
     if (UIAccessibilityIsVoiceOverRunning()) {
         UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, self);
