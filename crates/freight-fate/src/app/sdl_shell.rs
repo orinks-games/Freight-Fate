@@ -41,9 +41,11 @@ mod display;
 mod ios;
 mod tilt_sensor;
 #[cfg(target_os = "ios")]
-use ios::{install_touch_surface, next_gesture};
+pub(crate) use ios::{
+    direct_interaction_suspended, set_touch_haptics, set_touch_tuning, voice_over_running,
+};
 #[cfg(target_os = "ios")]
-pub(crate) use ios::{set_touch_haptics, set_touch_tuning, voice_over_running};
+use ios::{install_touch_surface, next_gesture};
 
 /// Keep drawing while the window is covered (macOS stops otherwise), for
 /// capture software that records the window from behind other windows.

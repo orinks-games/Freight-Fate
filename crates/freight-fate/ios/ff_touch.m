@@ -99,10 +99,6 @@ int32_t ff_touch_keyboard_connected(void);
 void ff_fingers_attach(UIView *surface);
 void ff_fingers_touches(NSSet<UITouch *> *touches, UIView *view, int32_t kind);
 
-int32_t ff_touch_voice_over_running(void) {
-    return UIAccessibilityIsVoiceOverRunning();
-}
-
 #define FF_QUEUE_CAPACITY 64
 
 static int32_t ff_queue[FF_QUEUE_CAPACITY];
@@ -690,6 +686,17 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 @interface FFTouchView : UIView <UIGestureRecognizerDelegate>
 @end
 
+static __weak FFTouchView *ff_touch_surface;
+
+int32_t ff_touch_voice_over_running(void) {
+    return UIAccessibilityIsVoiceOverRunning();
+}
+
+int32_t ff_touch_direct_interaction_suspended(void) {
+    FFTouchView *surface = ff_touch_surface;
+    return surface && !(surface.accessibilityTraits & UIAccessibilityTraitAllowsDirectInteraction);
+}
+
 @implementation FFTouchView {
     UILongPressGestureRecognizer *_twoHold;
     UIRotationGestureRecognizer *_rotation;
@@ -1017,6 +1024,7 @@ int32_t ff_touch_install(void *window) {
     }
     FFTouchView *surface = [[FFTouchView alloc] initWithFrame:host.bounds];
     [host addSubview:surface];
+    ff_touch_surface = surface;
     ff_fingers_attach(surface);
     ff_defer_screen_edges(host.window.rootViewController);
     ff_no_editing_gestures(host.window.rootViewController);

@@ -36,13 +36,47 @@ pub(crate) fn touch_field_help(ctx: &GameContext) -> Option<&'static str> {
     }
     #[cfg(target_os = "ios")]
     if crate::app::sdl_shell::voice_over_running() {
-        return Some(
-            "Type with the on-screen keyboard. To review letters, select Freight Fate above the \
-             keyboard and flick down for the previous letter or up for the next. Use Return on \
-             the keyboard to confirm, or a two-finger scrub to cancel.",
-        );
+        return Some(voice_over_field_help(
+            crate::app::sdl_shell::direct_interaction_suspended(),
+            ctx.controller.hardware_keyboard(),
+        ));
     }
     Some(TOUCH_FIELD_HELP)
+}
+
+#[cfg(any(target_os = "ios", test))]
+fn voice_over_field_help(
+    direct_interaction_suspended: bool,
+    hardware_keyboard: bool,
+) -> &'static str {
+    if direct_interaction_suspended {
+        return "Type with the on-screen keyboard. To review letters, select Freight Fate above the \
+                keyboard and flick down for the previous letter or up for the next. Use Return on \
+                the keyboard to confirm, or a two-finger scrub to cancel.";
+    }
+    if hardware_keyboard {
+        return "Type with your keyboard. Use the left and right arrow keys to review letters, \
+                Return to confirm, or Escape to cancel.";
+    }
+    // The opening prompt runs before SDL requests the keyboard from UIKit.
+    "Type your text. If the on-screen keyboard opens, select Freight Fate above it and flick \
+     down for the previous letter or up for the next. Use Return to confirm."
+}
+
+#[cfg(test)]
+mod tests {
+    use super::voice_over_field_help;
+
+    #[test]
+    fn voice_over_help_follows_the_actual_direct_interaction_mode() {
+        assert!(voice_over_field_help(false, true).contains("left and right arrow keys"));
+        assert!(voice_over_field_help(true, true).contains("flick down for the previous letter"));
+        assert_eq!(
+            voice_over_field_help(true, false),
+            voice_over_field_help(true, true)
+        );
+        assert!(voice_over_field_help(false, false).contains("If the on-screen keyboard opens"));
+    }
 }
 
 /// The field itself: what the Python class kept on `self`.
