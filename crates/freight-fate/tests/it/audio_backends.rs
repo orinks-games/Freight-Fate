@@ -20,8 +20,8 @@ use freight_fate::audio::*;
 use hearken::audio::Call;
 
 use crate::audio_support::{
-    hearken_rig, recordings_rig, rig, shipped_music, shipped_sounds, sine_wav, wait_for,
-    HearkenRig, IcyServer,
+    hearken_rig, recordings_rig, rig, shipped_music, shipped_sounds, sine_wav, stereo_engine_loops,
+    wait_for, HearkenRig, IcyServer,
 };
 
 /// Every facade call must be safe regardless of backend.
@@ -441,7 +441,7 @@ fn test_hearken_engine_model_matches_available_cuts_on_the_facade() {
     assert!(r.engine.engine_running());
     let h = r.hearken();
     if have_all_cuts {
-        assert_eq!(h.engine_bands().len(), STEREO_ENGINE_BANDS.len());
+        assert_eq!(h.engine_bands().len(), stereo_engine_loops().len());
         assert!(h.engine_sound().is_none());
     } else {
         assert!(h.engine_bands().is_empty());
@@ -473,7 +473,10 @@ fn test_engine_voice_setting_switches_models_live() {
     if have_all_cuts {
         r.engine.set_engine_voice(false); // back to real, live, mid-run
         assert!(r.engine.engine_running());
-        assert_eq!(r.hearken().engine_bands().len(), STEREO_ENGINE_BANDS.len());
+        assert_eq!(
+            r.hearken().engine_bands().len(),
+            stereo_engine_loops().len()
+        );
         assert!(r.hearken().engine_sound().is_none());
     }
     r.engine.engine_stop();
@@ -583,7 +586,7 @@ fn test_silent_engine_start_skips_the_ignition_crank() {
         .all(|(key, _)| asset_bytes(key, SFX_EXTENSIONS).is_some());
     assert_eq!(
         h.engine_bands().len(),
-        usize::from(have_stereo) * STEREO_ENGINE_BANDS.len()
+        usize::from(have_stereo) * stereo_engine_loops().len()
     );
     assert!(h.engine_sound().is_none());
     r.engine.engine_stop();

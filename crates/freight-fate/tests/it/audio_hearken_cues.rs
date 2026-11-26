@@ -112,7 +112,7 @@ fn test_hearken_engine_pan_is_inherited_and_moves_without_restarting() {
         let keys: Vec<&str> = if classic {
             vec![ENGINE_CLASSIC_LOOP_KEY]
         } else if all_engine_cuts() {
-            STEREO_ENGINE_BANDS.iter().map(|(key, _)| *key).collect()
+            stereo_engine_loops()
         } else {
             Vec::new()
         };
