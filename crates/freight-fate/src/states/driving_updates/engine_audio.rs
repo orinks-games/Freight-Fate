@@ -271,7 +271,10 @@ impl DrivingState {
                 if self.trip.truck.engine_on {
                     // Engagement: the gear takes. Keep unloaded braking
                     // downshifts subtle so stopping from speed does not clatter.
-                    let vol = if self.trip.truck.brake > 0.05 {
+                    let braking = self.trip.truck.brake > 0.05
+                        || (self.trip.truck.air_brakes_holding()
+                            && self.trip.truck.velocity_mps.abs() > 0.1);
+                    let vol = if braking {
                         AUTO_BRAKE_DOWNSHIFT_VOLUME
                     } else {
                         SHIFT_END_CLUNK_VOLUME
