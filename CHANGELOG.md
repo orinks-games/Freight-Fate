@@ -134,6 +134,8 @@
 
 ### Fixed
 
+- **The turbocharger now spools smoothly in pitch under load and releases cleanly on lift-off without loop seams.**
+- **Braking to a stop no longer rattles through automatic downshifts, and shutting off the engine no longer plays an extra shift clunk.**
 - **A fuel row that gives the Canadian price a liter now gives the fuel in liters too,** with Units set to Imperial.
 - **The shower credit row now names the fuel it takes in your units.**
 - **Cruise no longer slows on the highway for a town limit past your exit,** then speeds up again before the exit. It eases to its exit speed by the exit.

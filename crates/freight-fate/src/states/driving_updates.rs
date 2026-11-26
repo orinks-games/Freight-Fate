@@ -158,10 +158,13 @@ pub const SHIFT_LOAD_CAP: f64 = 0.58;
 // Keep the duck gentle enough that an upshift sighs into the next gear
 // without sounding like a power cut or hesitation.
 pub const SHIFT_DISENGAGE_DUCK: f64 = 0.78;
-// Powered upshifts use the RPM drop at release and a clunk at engagement.
-// Other automatic shifts also cue the opening of the driveline.
+// Powered upshifts and braking downshifts skip the opening clunk.
+// Other automatic shifts cue the opening of the driveline.
 pub const AUTO_SHIFT_START_CLUNK_VOLUME: f64 = 0.12;
 pub const SHIFT_END_CLUNK_VOLUME: f64 = 0.22;
+// Unloaded automatic downshifts under service braking engage softly so
+// braking from highway speed to a stop does not rattle through every gear.
+pub const AUTO_BRAKE_DOWNSHIFT_VOLUME: f64 = 0.08;
 // When the shift completes the cap eases from SHIFT_LOAD_CAP back to full over
 // this window. The curve (a key into audio_fades.CURVES) shapes the return: an
 // ease-out leaves the shift level smoothly without snapping or hesitating.

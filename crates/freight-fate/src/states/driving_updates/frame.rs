@@ -558,7 +558,10 @@ impl DrivingState {
                 && truck.throttle > 0.05
                 && truck.brake <= 0.01
                 && !truck.air_brakes_holding();
-            if !powered_upshift {
+            let braking_downshift = old_gear > 0
+                && new_gear < old_gear
+                && (truck.brake > 0.05 || truck.air_brakes_holding());
+            if !powered_upshift && !braking_downshift {
                 ctx.audio.play_bank_with(
                     "vehicle/shift_auto",
                     "vehicle/gear_shift",
@@ -586,6 +589,8 @@ impl DrivingState {
         self.check_fuel_range_warning(ctx);
         if was_on && !self.trip.truck.engine_on {
             ctx.audio.engine_stop();
+            self.shift_hold_rpm = None;
+            self.manual_engage_clunk_pending = false;
             if self.trip.truck.stalled {
                 let tr = &self.trip.truck.transmission;
                 // A manual only stalls in fourth or taller, and restarting it
