@@ -1877,6 +1877,70 @@ fn test_players_own_parking_brake_press_arms_waiting() {
     assert!(!harness.read_drive(|d| d.trip.waiting));
 }
 
+/// A drive at Standard pacing with the duty window 31 minutes short of
+/// its limit, the truck `parked` with the driver's own brake or rolling.
+fn a_window_near_its_mark(name: &str, parked: bool) -> PlaytestHarness {
+    let mut harness = a_drive(name);
+    harness.app.ctx.settings.hos_mode = "realistic".to_string();
+    harness.app.ctx.settings.time_scale = 60.0;
+    let duty_limit = hos::limits("realistic").expect("realistic has limits").1;
+    harness.with_drive(|d, _| {
+        d.trip.time_scale = 60.0;
+        d.truck_mut().velocity_mps = if parked { 0.0 } else { 25.0 };
+        d.truck_mut().parking_brake = false;
+    });
+    if parked {
+        harness.with_drive(|d, ctx| d.toggle_parking_brake(ctx));
+        assert!(harness.read_drive(|d| d.trip.waiting));
+    }
+    {
+        let p = harness.app.ctx.profile.as_mut().expect("a career");
+        p.hos.duty_min = duty_limit - 31.0;
+        p.hos.driving_min = 60.0;
+        p.hos.since_break_min = 0.0;
+        p.hos.warned.clear();
+    }
+    harness
+}
+
+#[test]
+fn test_an_hours_notice_in_a_parked_wait_drops_the_clock_to_normal_speed() {
+    // Owner ruling, 2026-11-26: the double-pace wait could spend a limit
+    // before the driver looked up, so the notice ends the fast wait.
+    let mut harness = a_window_near_its_mark("Parked Notice", true);
+    harness.clear_speech();
+    hours_frame(&mut harness, 2.0);
+    let calls = harness.app.event_calls();
+    let notice = calls
+        .iter()
+        .find(|(text, _)| text.starts_with("Hours of service: 30 minutes"))
+        .unwrap_or_else(|| panic!("the countdown was never spoken: {calls:?}"));
+    assert!(
+        notice.0.ends_with(" The clock is back to normal speed."),
+        "{}",
+        notice.0
+    );
+    harness.with_drive(|d, _| {
+        assert!(!d.trip.waiting);
+        assert!(d.trip.truck.parking_brake, "the brake stays set");
+        // Ordinary parked pace: never past the configured pacing.
+        assert!(d.trip.effective_time_scale() <= d.trip.time_scale);
+    });
+
+    drop(harness);
+
+    // Rolling, the same notice has nothing to add.
+    let mut harness = a_window_near_its_mark("Rolling Notice", false);
+    harness.clear_speech();
+    hours_frame(&mut harness, 2.0);
+    let calls = harness.app.event_calls();
+    let notice = calls
+        .iter()
+        .find(|(text, _)| text.starts_with("Hours of service: 30 minutes"))
+        .unwrap_or_else(|| panic!("the countdown was never spoken: {calls:?}"));
+    assert!(!notice.0.contains("normal speed"), "{}", notice.0);
+}
+
 // `test_pre_1_5_snapshot_resumes_with_fresh_clock` runs in
 // `crates/freight-fate/tests/states_driving_trip_resume.rs`, beside the other
 // old-snapshot resume cases it shares its fixture with.

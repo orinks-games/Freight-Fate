@@ -284,6 +284,7 @@ The terminal is your stop between jobs. Before taking another load, you can revi
 | Time and weather | Check the clock, date, season, career day, and local weather, including the age of a live weather report when available. |
 | Logbook | Review your Record of Duty Status: what you are doing now, your hours limits, today's totals, and the recent entries. |
 | Sleep 10 hours | Rest at the terminal and reset hours of service. When the sleep finishes a restart, it also says "Cycle clock reset." |
+| Take a 34-hour restart | Shown once a day or less of your cycle is left. Rests until 34 hours off in a row are in, 36 under Canadian rules, and starts a fresh cycle. |
 | Save game | Save the current career. |
 | Settings | Open settings categories. |
 | Quit to main menu | Save and return to the title menu. |
@@ -817,7 +818,9 @@ If you're already at Great Lakes, or at the carrier that took you on after your 
 
 Your legal hours are the same in both hours modes. In the lower 48 they are eleven driving hours after ten off, a fourteen-hour duty window, and a thirty-minute break after eight cumulative driving hours. Alaska and Canada have their own limits, listed under [Hours rules where you drive](#hours-rules-where-you-drive). Relaxed reduces enforcement pressure; it doesn't extend those limits.
 
-On top of each day's limits there is a work cycle: 70 hours on duty in any 8 days in the lower 48. When a day of cycle hours is left, the ELD status line says so. Thirty-four hours off duty in a row start a fresh week, and the sleep that finishes them says your cycle clock reset.
+On top of each day's limits there is a work cycle: 70 hours on duty in any 8 days in the lower 48. When a day of cycle hours is left, the ELD status line says so. Thirty-four hours off duty in a row start a fresh week, and the sleep that finishes them says your cycle clock reset. Once a day or less of cycle hours is left, the terminal and any stop where you can sleep offer Take a 34-hour restart, which rests the whole stretch in one go. Rest you have already taken counts toward it. Under Canadian rules the row reads Take 36 hours off. A sleep that leaves the cycle used up says how much more rest restarts it.
+
+Time in the truck on the road counts as on duty, stopped or moving, and that includes a wait with the parking brake set. Rest taken from a stop's menu or at the terminal is off duty and counts toward your 10 hours and your restart. In Relaxed and Standard a wait with the parking brake set runs the clock faster. When an hours notice comes due the clock drops back to normal speed, and setting the brake again resumes the wait.
 
 Any thirty consecutive minutes without driving can meet the driving-break requirement. Loading and inspections can count, but they won't reset the duty window. Moving the truck for work counts even when you're driving without a trailer.
 

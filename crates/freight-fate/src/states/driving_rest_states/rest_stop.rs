@@ -37,6 +37,7 @@ use crate::states::driving_rest_states::short_stay::{ShortStay, BREAK_ROW, FOOD_
 mod cat_scale;
 mod cattle;
 mod chains;
+mod restart;
 mod services;
 
 const REST_STOP_INTRO_HELP: &str =
@@ -317,6 +318,7 @@ impl RestStopState {
                 ),
             };
             items.push(MenuItem::new(label, |s: &mut Self, ctx| s.sleep(ctx)).help(help));
+            items.extend(Self::restart_item(ctx, false));
         } else if !is_scale && (has("park") || has("break")) {
             // No proper sleeper facility here, but you can always bed down in
             // the lot -- a legal reset, just cramped and poor rest. Except at
@@ -346,6 +348,7 @@ impl RestStopState {
                 MenuItem::new(lot_label, |s: &mut Self, ctx| s.emergency_lot_sleep(ctx))
                     .help(lot_help),
             );
+            items.extend(Self::restart_item(ctx, true));
             let (motel_label, motel_help) = if canadian_reset {
                 (
                     format!(
@@ -740,6 +743,8 @@ impl RestStopState {
                 (None, true, true) => "You slept 8 hours and woke rested.".to_string(),
                 (None, false, true) => "You slept 8 hours and woke still tired.".to_string(),
             };
+            // Said after the clocks when the night left the cycle used up.
+            let clocks = format!("{clocks}{}", restart::still_used_up(ctx));
             format!(
                 "{engine_off}{slept} It is {}. {clocks} {}{}",
                 clock_text(d.trip.local_hour()),
@@ -802,6 +807,7 @@ impl RestStopState {
                 p.fatigue = hos::rest_sleep(p.fatigue, reset_min);
             }
             let money = profile_of(ctx).money();
+            let clocks = format!("{clocks}{}", restart::still_used_up(ctx));
             if canadian_reset {
                 format!(
                     "{engine_off}Motel, {} dollars, 8 hours. {}. {clocks} \
@@ -834,6 +840,8 @@ impl RestStopState {
         // report, 2026-08-20). The cramped-lot sleep keeps the award -- the
         // stop has no beds, so the lot night IS a bunk night.
         ctx.award_restart_badges(false);
+        // The lot's restart row reads the rest so far, or goes once done.
+        self.refresh(ctx, true);
     }
 
     /// Bed down in a break/fuel stop's lot when out of hours: a legal HOS
@@ -861,6 +869,7 @@ impl RestStopState {
                 let p = profile_mut_of(ctx);
                 p.fatigue = hos::rest_poor_sleep(p.fatigue, reset_min);
             }
+            let clocks = format!("{clocks}{}", restart::still_used_up(ctx));
             if canadian_reset {
                 format!(
                     "{engine_off}Slept 8 hours in the lot. {}. {clocks} Rest was poor. \
@@ -888,6 +897,8 @@ impl RestStopState {
             ctx.award_achievement("slept_on_route");
         }
         ctx.award_restart_badges(false);
+        // The restart row reads the rest so far, or goes once it is done.
+        self.refresh(ctx, true);
     }
 
     /// [`FacilityEngine::facility_engine_item`] with engine state already in hand

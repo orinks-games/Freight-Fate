@@ -469,8 +469,12 @@ Setup: a career late in its week (60 or more hours on duty in the last
 8 days).
 
 Listen for: the ELD status line saying a day of cycle hours is left; the
-sleep that finishes 34 hours off (36 in Canada) saying "Cycle clock
-reset."
+"Take a 34-hour restart" row ("Take 36 hours off" in Canada) right after
+the sleep row at the terminal and at any stop where you can sleep; a sleep
+that leaves the cycle used up ending "Your cycle is still used up. Rest 24
+hours more to restart it.", and the row then reading "Rest 24 hours more
+to finish a 34-hour restart"; the sleep or restart that finishes 34 hours
+off (36 in Canada) saying "Cycle clock reset."
 
 Pass when: the restart clears the cycle, and Sunday Morning Coming Down
 is earned; at your home terminal, Take Me Home, Country Roads too.

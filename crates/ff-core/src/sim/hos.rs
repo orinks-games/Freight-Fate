@@ -18,14 +18,18 @@
 mod clock;
 mod duty_log;
 mod pyjson;
+mod restart;
 #[cfg(test)]
 mod tests;
 #[cfg(test)]
 mod tests_rest;
+#[cfg(test)]
+mod tests_restart;
 mod warnings;
 
 pub use clock::{CycleEntry, HosClock, HosEvent, HosLimit};
 pub use duty_log::{DutyLog, DutySegment, DutyTotals};
+pub use restart::{RestartOffer, RestartPlace};
 
 use crate::pyfmt::{fmt_f, pct02, py_int, round_py_int};
 use crate::pyrandom::PyRandom;

@@ -52,6 +52,8 @@
 - **Diesel and tolls in Canada cost what they do there.** Pumps and booths say the Canadian price, and you are billed in US dollars.
 - **Hours of service now follow Alaska and Canadian rules where you drive.** You hear the new limits as you cross into each place.
 - **The ELD now tracks your 70-hour, 8-day work cycle.** A 34-hour rest starts a fresh week, and the sleep that finishes it says so.
+- **Terminals and rest stops now offer a 34-hour restart** once a day or less of your cycle is left.
+- **A sleep that leaves your cycle used up now says how much more rest restarts it.**
 - **The clock now keeps Atlantic Time in the Maritimes and Mountain Time in the Yukon and the Northwest Territories.**
 - **Fuel stops, lodges and rest areas now line the northern roads.** Loaded trucks fuel at the lodges, and only year-round stops are offered.
 - **Fifty-six carriers now hire across the map, including Alaska.** Regional carriers serve every lower-48 city, and local carriers work 18 big cities and ports.
@@ -90,6 +92,7 @@
 
 ### Changed
 
+- **Waiting with the parking brake set now drops to normal clock speed when an hours notice comes due.**
 - **On a load that stays in Canada, the rest menu offers the 8-hour Canadian night.** A load headed into the United States still sleeps 10 hours, so you cross with fresh hours.
 - **In Canada with the United States ahead, the hours readout also gives your US hours.** The board's rest warning for a load into the United States reads them too.
 - **The career start rows now speak in the units of the home city you are picking,** kilometers for a Canadian city on Automatic.

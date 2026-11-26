@@ -305,6 +305,8 @@ from the words, and synonyms cost them a re-read.
 | Driving time already spent this shift | at the wheel | hours driven, drive time used, hours on the road (that is the run) | `HosClock.wheel_time_summary` |
 | The 14-hour clock that starts when you go on duty | duty window | 14-hour clock, on-duty clock, shift window | `HosClock.duty_min` |
 | The 30 minutes off the wheel the law requires | break | rest break, 30, half-hour rest | `HosClock.break_summary` |
+| The on-duty limit over several days: 70 hours in 8 days in the lower 48 | cycle, 70-hour cycle ("Your cycle is still used up.") | week limit, weekly hours | `HosClock.cycle_remaining_min`, `cycle_entries` |
+| The long rest that starts a fresh cycle: 34 hours off in a row, 36 in Canada | 34-hour restart ("Take a 34-hour restart"); in Canada, 36 hours off ("Take 36 hours off") | reset (that is the 10-hour night), weekly reset | `HosClock.restart_offer`, `RestartOffer`, `HosClock.finish_restart` |
 | The second driver on a team load, who drives while the player is in the sleeper | co-driver, or their name ("Dan needs you. The truck took damage.") | partner, teammate, relief driver, autopilot, AI driver | `TeamDrive`, `models::co_driver` |
 | A delivery run with a co-driver, including a load dispatch books for two drivers ("Team load" in the job details) | team load | team run, relay, duo | `TeamDrive`, `Job.team`, the `team:loads:` counters |
 | Resting in the sleeper while the co-driver drives at the normal pace | ride along ("Hand the wheel to Dan and ride along"; at the shipper, "Depart with Dan driving, and ride along") | watch, spectate, passenger seat | `TeamMode::RideAlong` |

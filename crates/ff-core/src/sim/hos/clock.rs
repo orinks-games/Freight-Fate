@@ -480,16 +480,24 @@ impl HosClock {
         }
     }
 
-    /// A full cycle restart under the selected rules, recorded as a
-    /// sleeper-berth reset.
+    /// A full cycle restart under the selected rules, recorded as one
+    /// sleeper-berth reset of the restart's true length (34 hours, 36 in
+    /// Canada), not the 10 hours of a night.
     pub fn restart(&mut self) {
-        self.advance_cycle(self.restart_threshold_min(), false);
-        self.sleep_as("sleeper_berth");
+        let minutes = self.restart_threshold_min();
+        self.advance_cycle(minutes, false);
+        self.reset_as("sleeper_berth", minutes);
     }
 
     /// A full 10-hour off-duty reset recorded under `status`.
     pub fn sleep_as(&mut self, status: &str) {
-        self.record_event(status, SLEEP_MIN, "full_reset");
+        self.reset_as(status, SLEEP_MIN);
+    }
+
+    /// A full off-duty reset recorded under `status` as one rest period of
+    /// `minutes`: a fresh shift, whatever the length of the rest.
+    pub(super) fn reset_as(&mut self, status: &str, minutes: f64) {
+        self.record_event(status, minutes, "full_reset");
         self.driving_min = 0.0;
         self.duty_min = 0.0;
         self.shift_on_duty_min = 0.0;
@@ -511,7 +519,7 @@ impl HosClock {
     /// Advance the cycle ledger. `on_duty` minutes accrue; anything else
     /// builds toward the selected restart. An entry counts whole until its
     /// end falls out of the trailing 8-day window.
-    fn advance_cycle(&mut self, minutes: f64, on_duty: bool) {
+    pub(super) fn advance_cycle(&mut self, minutes: f64, on_duty: bool) {
         self.cycle_clock_min += minutes;
         if on_duty {
             self.restart_off_min = 0.0;
@@ -591,7 +599,9 @@ impl HosClock {
         true
     }
 
-    fn restart_threshold_min(&self) -> f64 {
+    /// The off-duty time that restarts the cycle under the rules in force:
+    /// 34 hours under US and Alaska rules, 36 under either Canadian set.
+    pub fn restart_threshold_min(&self) -> f64 {
         match self.rules {
             HosRules::CanadaSouth60 | HosRules::CanadaNorth60 => CANADA_RESTART_MIN,
             HosRules::Alaska => ALASKA_RESTART_MIN,

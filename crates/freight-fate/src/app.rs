@@ -400,6 +400,24 @@ impl PlayerInputFrame<'_> {
         }
     }
 
+    /// The hours clock as `status` reports it: cycle minutes left (or
+    /// "unenforced"), the restart on offer and the off-duty minutes the
+    /// restart still needs, or "no_career".
+    pub fn hours_state(&self) -> String {
+        let mode = &self.app.ctx.settings.hos_mode;
+        match self.app.ctx.profile.as_ref() {
+            Some(p) => format!(
+                "cycle_left {}; restart_offer {}; restart_rest_left {:.0} min",
+                p.hos
+                    .cycle_remaining_min(mode)
+                    .map_or("unenforced".to_string(), |left| format!("{left:.0} min")),
+                p.hos.restart_offer(mode).key(),
+                p.hos.restart_remaining_min()
+            ),
+            None => "no_career".to_string(),
+        }
+    }
+
     /// The carry-over as `status` reports it: the state key, the carrier
     /// and where the driver lives, or "no_career".
     pub fn carryover_state(&self) -> String {

@@ -199,6 +199,7 @@ mod states_driving_place_keys_arrival;
 mod states_driving_ramp_light_assist;
 mod states_driving_ramps;
 mod states_driving_rest_choice_scenarios;
+mod states_driving_restart;
 mod states_driving_retarder;
 mod states_driving_road;
 mod states_driving_road_chains;

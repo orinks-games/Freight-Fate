@@ -4854,12 +4854,13 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
 - [x] No more low bridge and weight limit calls (owner, 2026-11-22: they spammed the player about bridges a truck never meets). Routing already avoids anything a legal truck cannot pass, so every call ended "Your route clears it"; Joplin to Tulsa spoke up to 122 of them, and Detroit to Windsor six in the eight miles before customs. The `corridor.restrictions` layer, its parser and the bake stay for a route that weighs the truck's own height and weight. The dispatch board help no longer promises restrictions in Route planning, which never listed them.
 - [x] Opt-in cloud resume: main-menu checks pick up clean, tracked careers from this release line's cloud slots; changed local copies use Cloud backup's conflict choice. Off by default; 1.9 backups stay separate.
 - [x] (Found along the way) CI builds of 2.0 stopped at packaging because the licensed stereo engine recordings were only in the owner's `assets/sounds-licensed/` folder (2026-11-25). They now ride in the committed `assets/sounds.pak` with the other sounds (owner, 2026-11-25). To change them, run `cargo tools pack-sounds --require-licensed` on the machine that has the folder and commit the pack it writes.
+- [ ] (Found along the way) Restart rows for the motel, a full lot and the team (co-driver) stop menus are not built; a driver there still restarts with nights in a row (2026-11-26).
 - [ ] (Found along the way) The committed pack carries the recut idle, low, mid and upper-mid loops, the trimmed cab shutdown, the 2.75 second starter, and the high pull (52,848 frames) and high coast (16,372 frames) loops (owner, 2026-11-25). With pull and coast in the pack the game no longer plays the earlier high loop: it carries a steady 596 Hz tone, heard as a dirt-bike whine on every run-up to a shift in the first full drive recording. The newer high on the owner's PC (52,648 frames) is a piece of the same recording with the same tone. The earlier high stays in the pack only because packaging requires the entry. Still owed: a clean high loop for a pack without pull and coast, the owner's ear on the pull loop (its firing line at 2,160 RPM is weak next to a 139 Hz tone, and its right channel is 5.6 dB louder), and a ruling on the 6.7 second starter in the owner's copy.
 
 There is no separate 1.10 release: the working-week-and-home slate that
 was planned under that number is the opening slice of 2.0, on the
 `feat/career-2.0` branch. The ELD and home-terminal foundations are built;
-the restart choice, home-time behavior, and local working week are not
+the restart choice is built; home-time behavior and the local working week are not
 complete. `docs/eld-home-terminal-design.md` remains a design reference,
 but its Python paths, missing-home-field description, and old migration
 proposal predate the current Rust implementation. Use the status below
@@ -4901,12 +4902,20 @@ remain planned or explicitly deferred.
       `cycle_ages_out_after_eight_days`, `restart_clears_ledger`, and
       `cycle_round_trips_through_save` in
       [`sim/hos/tests.rs`](crates/ff-core/src/sim/hos/tests.rs).
-- [ ] **Partial: choose a 34-hour restart.** The clock has a restart
-      helper, but terminal and road-rest menus still offer 10-hour sleep
-      or shorter rest choices, not an explicit 34-hour action. Wire the
-      preview, elapsed game time, duty log, fatigue, cost, deadline, and
-      save/resume together; do not expose the helper alone, because its
-      reset history currently records the ordinary 10-hour reset event.
+- [x] **Choose a 34-hour restart (2026-11-26).** Once a day or less of
+      the cycle is left, the terminal (after Sleep 10 hours) and a rest
+      stop (after the full night, or after the lot's night where there is
+      no sleeper spot) offer "Take a 34-hour restart", "Take 36 hours off"
+      under Canadian rules, or "Rest ... more to finish" it when rest is
+      already under way. The terminal rests it in one pick; the road gives
+      the forecast first. One `RestartOffer` from
+      `HosClock::restart_offer` feeds the rows, lines and the agent
+      server's `status` HOURS line; `HosClock::finish_restart` logs the
+      rest as one period of its true length, and `restart()` now does too.
+      A night that leaves the cycle used up says how much more rest
+      restarts it, and waiting out a suspension logs the whole wait off
+      duty. A parked wait at double pace drops to normal speed when an
+      hours notice comes due.
 - [x] **Home terminal, driver home, and parked location persist.**
       `home_terminal_city`, separate `home_city`, and `parked_facility`
       round-trip. New careers keep the picked home city while starting at
