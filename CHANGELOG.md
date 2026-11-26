@@ -93,7 +93,7 @@
 - **On a load that stays in Canada, the rest menu offers the 8-hour Canadian night.** A load headed into the United States still sleeps 10 hours, so you cross with fresh hours.
 - **In Canada with the United States ahead, the hours readout also gives your US hours.** The board's rest warning for a load into the United States reads them too.
 - **The career start rows now speak in the units of the home city you are picking,** kilometers for a Canadian city on Automatic.
-- **Gearshifts, turbocharger cues, and the engine brake now use real vehicle recordings instead of synthesized sounds.** Saved classic engine-brake settings migrate to recorded playback.
+- **Gearshifts, the turbo's pressure release, and the engine brake now use real vehicle recordings instead of synthesized sounds.** Saved classic engine-brake settings migrate to recorded playback.
 - **The main engine and startup now use approved stereo cab recordings in installed builds.**
 - **The Mack sounds different at high RPM when pulling than when coasting.**
 - **Engine shutdown now uses a matching Mack cab recording.**
@@ -134,7 +134,6 @@
 
 ### Fixed
 
-- **The turbocharger now spools smoothly in pitch under load and releases cleanly on lift-off without loop seams.**
 - **Braking to a stop no longer rattles through automatic downshifts, and shutting off the engine no longer plays an extra shift clunk.**
 - **A fuel row that gives the Canadian price a liter now gives the fuel in liters too,** with Units set to Imperial.
 - **The shower credit row now names the fuel it takes in your units.**

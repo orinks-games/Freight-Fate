@@ -25,7 +25,7 @@ path:
 ```bash
 cargo tools agent-script --filter "[sound],[spoken],[engine]" - <<'EOF'
 [
-  {"tool": "scenario", "args": {"truck": "heavy", "settings": {"music_volume": 0.0, "radio_enabled": false}}},
+  {"tool": "scenario", "args": {"business_stage": "own_authority", "owned_trucks": ["heavy_hauler"], "settings": {"music_volume": 0.0, "radio_enabled": false}}},
   {"tool": "start_at", "args": {"feature": "departure"}},
   {"label": "accelerate", "tool": "pedal", "args": {"key": "up", "seconds": 8.0}, "expect": ["vehicle/turbo_spool"]},
   {"label": "brake", "tool": "pedal", "args": {"key": "down", "seconds": 8.0}, "expect": ["vehicle/brake_hiss_bed"]}
