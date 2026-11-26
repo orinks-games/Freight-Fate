@@ -94,7 +94,16 @@ impl DrivingState {
                 destination_min
                     .is_some_and(|minutes| minutes + HOS_STOP_MARGIN_MIN <= limit.remaining_min)
             });
-            for message in warnings {
+            for mut message in warnings {
+                // A wait with the parking brake set runs the clock at double
+                // pace, fast enough to spend an hours limit before the driver
+                // looks up (owner ruling, 2026-11-26). The notice drops it to
+                // ordinary parked pace and says so; setting the brake again
+                // resumes the wait, and each notice fires once per limit.
+                if self.trip.waiting {
+                    self.trip.waiting = false;
+                    message.push_str(" The clock is back to normal speed.");
+                }
                 // The clock running down is the drive, not colour: even the
                 // non-urgent countdown must not queue behind chatter, and if
                 // something cuts it off it comes back. The alarm and the

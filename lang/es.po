@@ -14621,6 +14621,157 @@ msgstr "ubicación desconocida"
 msgid "segments"
 msgstr "segments"
 
+msgid "fresh"
+msgstr ""
+
+msgid "finish"
+msgstr ""
+
+msgid "Take 36 hours off"
+msgstr ""
+
+msgid "Take 36 hours off in the lot"
+msgstr ""
+
+#. placeholders: {hours}
+msgid "Take a {hours}-hour restart"
+msgstr ""
+
+#. placeholders: {hours}
+msgid "Take a {hours}-hour restart in the lot"
+msgstr ""
+
+#. placeholders: {duration_text}
+msgid "Rest {duration_text} more to finish 36 hours off"
+msgstr ""
+
+#. placeholders: {duration_text}
+msgid "Rest {duration_text} more to finish 36 hours off in the lot"
+msgstr ""
+
+#. placeholders: {duration_text}, {hours}
+msgid "Rest {duration_text} more to finish a {hours}-hour restart"
+msgstr ""
+
+#. placeholders: {duration_text}, {hours}
+msgid ""
+"Rest {duration_text} more to finish a {hours}-hour restart in the lot"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A fresh cycle and fresh hours of service."
+msgstr ""
+
+#. placeholders: {span}
+msgid ""
+"A fresh cycle and fresh hours of service. Sleep takes off 8 points of "
+"fatigue an hour. Clock advances {span}."
+msgstr ""
+
+#. placeholders: {span}
+#. one sentence of a longer line
+msgid "Clock advances {span}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Sleep takes off 8 points of fatigue an hour."
+msgstr ""
+
+#. placeholders: {span}
+msgid ""
+"A fresh cycle and fresh hours of service. Sleep takes off 8 points of "
+"fatigue an hour. Clock and deadline advance {span}."
+msgstr ""
+
+#. placeholders: {span}
+#. one sentence of a longer line
+msgid "Clock and deadline advance {span}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"A fresh cycle with poor rest: 5 points of fatigue off an hour, never below "
+"30."
+msgstr ""
+
+#. placeholders: {span}
+msgid ""
+"A fresh cycle with poor rest: 5 points of fatigue off an hour, never below "
+"30. Clock and deadline advance {span}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your rest so far counts."
+msgstr ""
+
+#. placeholders: {body}
+msgid "Your rest so far counts. {body}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Cycle clock reset."
+msgstr ""
+
+#. placeholders: {clock}, {time_of_day}
+#. one sentence of a longer line
+msgid "It is {clock}, {time_of_day}."
+msgstr ""
+
+#. placeholders: {span}
+#. one sentence of a longer line
+msgid "Rested {span} more."
+msgstr ""
+
+#. placeholders: {span}, {clock}, {time_of_day}
+msgid "Rested {span} more. It is {clock}, {time_of_day}. Cycle clock reset."
+msgstr ""
+
+#. placeholders: {span}
+#. one sentence of a longer line
+msgid "Rested {span}."
+msgstr ""
+
+#. placeholders: {span}, {clock}, {time_of_day}
+msgid "Rested {span}. It is {clock}, {time_of_day}. Cycle clock reset."
+msgstr ""
+
+#. placeholders: {span}, {hours}
+msgid "You rested {span} more, {hours} hours off in a row, and woke rested."
+msgstr ""
+
+#. placeholders: {span}, {hours}
+msgid ""
+"You rested {span} more, {hours} hours off in a row, and woke still tired."
+msgstr ""
+
+#. placeholders: {span}
+msgid "You rested {span} and woke rested."
+msgstr ""
+
+#. placeholders: {span}
+msgid "You rested {span} and woke still tired."
+msgstr ""
+
+#. placeholders: {hours}
+msgid ""
+"{hours} hours off in a row restart your cycle and reset your driving hours "
+"and legal driving window."
+msgstr ""
+
+#. placeholders: {duration_text}
+#. one sentence of a longer line
+msgid "Rest {duration_text} more to restart it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your cycle is still used up."
+msgstr ""
+
+#. placeholders: {duration_text}
+msgid ""
+"Your cycle is still used up. Rest {duration_text} more to restart it."
+msgstr ""
+
 msgid "2 hours"
 msgstr "2 horas"
 
@@ -18503,6 +18654,19 @@ msgstr "Tomas el volante {start_mi} millas más adelante."
 
 #. placeholders: {key}, {buy_in_paid}
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
+msgstr ""
+
+#. placeholders: {map_or}, {key}, {restart_remaining_min}
+msgid ""
+"cycle_left {map_or}; restart_offer {key}; restart_rest_left "
+"{restart_remaining_min} min"
+msgstr ""
+
+msgid "unenforced"
+msgstr ""
+
+#. placeholders: {left}
+msgid "{left} min"
 msgstr ""
 
 #. placeholders: {key}, {carrier_key}, {home_city}, {home_terminal_city}
@@ -22538,6 +22702,9 @@ msgstr ""
 
 msgid "The backup will keep retrying in the background."
 msgstr "La copia de seguridad seguirá reintentándose en segundo plano."
+
+msgid "cycle restart"
+msgstr ""
 
 msgid ""
 "Until level 9, dispatch matches a spare to each load, and each spare keeps "
@@ -27936,14 +28103,11 @@ msgstr ""
 msgid "You are now {remaining} hours past the deadline."
 msgstr "Ya vas {remaining} horas pasado el plazo de entrega."
 
-#. placeholders: {wake_air_instruction}
+#. placeholders: {after_clocks}
 #. one sentence of a longer line
 msgid ""
-"Driving and duty clocks reset, but you are still "
-"tired.{wake_air_instruction}"
+"Driving and duty clocks reset, but you are still tired.{after_clocks}"
 msgstr ""
-"Relojes de conducción y de servicio reiniciados, pero sigues "
-"cansado.{wake_air_instruction}"
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
@@ -27954,15 +28118,12 @@ msgstr ""
 "{engine_off}Duermes mal en la explanada del control; los camiones que pasan "
 "te despiertan una y otra vez."
 
-#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {clock_text}, {after_clocks}
 msgid ""
 "{engine_off}You sleep poorly at the chain control, woken again and again by "
 "passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
-"are still tired.{wake_air_instruction}"
+"are still tired.{after_clocks}"
 msgstr ""
-"{engine_off}Duermes mal en la explanada del control; los camiones que pasan "
-"te despiertan una y otra vez. Son las {clock_text}. Relojes de conducción y "
-"de servicio reiniciados, pero sigues cansado.{wake_air_instruction}"
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
@@ -27973,15 +28134,12 @@ msgstr ""
 "{engine_off}Duermes mal en el arcén; los camiones que pasan te despiertan "
 "una y otra vez."
 
-#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {clock_text}, {after_clocks}
 msgid ""
 "{engine_off}You sleep poorly on the shoulder, woken again and again by "
 "passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
-"are still tired.{wake_air_instruction}"
+"are still tired.{after_clocks}"
 msgstr ""
-"{engine_off}Duermes mal en el arcén; los camiones que pasan te despiertan "
-"una y otra vez. Son las {clock_text}. Relojes de conducción y de servicio "
-"reiniciados, pero sigues cansado.{wake_air_instruction}"
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}, {grouped2}
 msgid ""
@@ -35178,6 +35336,27 @@ msgstr "El reloj avanza {span}."
 
 #. placeholders: {span}, {more}, {name}
 #. one sentence of a longer line
+msgid "Rest {span}{more} at {name}."
+msgstr ""
+
+#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}
+msgid ""
+"Rest {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
+"moves ahead {span}. {deadline}{cattle} Select again to rest."
+msgstr ""
+
+#. placeholders: {deadline}, {cattle}
+#. one sentence of a longer line
+msgid "{deadline}{cattle} Select again to rest."
+msgstr ""
+
+#. placeholders: {effect}, {legal}, {f}, {f2}
+#. one sentence of a longer line
+msgid "{effect} {legal} Fatigue {f} to {f2}."
+msgstr "{effect} {legal} Fatiga de {f} a {f2}."
+
+#. placeholders: {span}, {more}, {name}
+#. one sentence of a longer line
 msgid "Sleep {span}{more} at {name}."
 msgstr "Dormir {span}{more} en {name}."
 
@@ -35194,11 +35373,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{deadline}{cattle}{pending}{cost} Select again to sleep."
 msgstr "{deadline}{cattle}{pending}{cost} Selecciona otra vez para dormir."
-
-#. placeholders: {effect}, {legal}, {f}, {f2}
-#. one sentence of a longer line
-msgid "{effect} {legal} Fatigue {f} to {f2}."
-msgstr "{effect} {legal} Fatiga de {f} a {f2}."
 
 msgid ""
 "Select a choice. Sleep reads a preview. Select again to sleep. Breaks and "
@@ -35809,6 +35983,17 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{billing} It is {clock_text}."
 msgstr "{billing} Son las {clock_text}."
+
+#. placeholders: {engine_off}, {woke_line}, {clock_text}
+#. one sentence of a longer line
+msgid "{engine_off}{woke_line} It is {clock_text}."
+msgstr ""
+
+#. placeholders: {engine_off}, {woke_line}, {clock_text}, {clocks_reset_text}, {deadline_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}{woke_line} It is {clock_text}. {clocks_reset_text} "
+"{deadline_text}{wake_air_instruction}"
+msgstr ""
 
 msgid "The truck does not need repair."
 msgstr "El camión no necesita reparación."
@@ -38601,6 +38786,9 @@ msgid ""
 msgstr ""
 "Reglas de horas al norte del paralelo 60: 15 horas de conducción y 18 en "
 "servicio en una ventana de 20 horas."
+
+msgid " The clock is back to normal speed."
+msgstr ""
 
 msgid "buff"
 msgstr "estímulo"
@@ -50185,6 +50373,31 @@ msgstr ""
 "Mantén el botón superior izquierdo para una segunda capa de botones. "
 "{pad_engine} controla el motor, {pad_fuel} lee el combustible y "
 "{pad_speed_limit} lee el límite."
+
+#~ msgid ""
+#~ "Driving and duty clocks reset, but you are still "
+#~ "tired.{wake_air_instruction}"
+#~ msgstr ""
+#~ "Relojes de conducción y de servicio reiniciados, pero sigues "
+#~ "cansado.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{engine_off}You sleep poorly at the chain control, woken again and again by "
+#~ "passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
+#~ "are still tired.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}Duermes mal en la explanada del control; los camiones que pasan "
+#~ "te despiertan una y otra vez. Son las {clock_text}. Relojes de conducción y "
+#~ "de servicio reiniciados, pero sigues cansado.{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{engine_off}You sleep poorly on the shoulder, woken again and again by "
+#~ "passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
+#~ "are still tired.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}Duermes mal en el arcén; los camiones que pasan te despiertan "
+#~ "una y otra vez. Son las {clock_text}. Relojes de conducción y de servicio "
+#~ "reiniciados, pero sigues cansado.{wake_air_instruction}"
 
 #~ msgid "Diesel here is {f2} Canadian dollars a liter."
 #~ msgstr "Aquí el diésel cuesta {f2} dólares canadienses el litro."

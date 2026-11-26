@@ -13088,6 +13088,157 @@ msgstr "不明な場所"
 msgid "segments"
 msgstr "segments"
 
+msgid "fresh"
+msgstr ""
+
+msgid "finish"
+msgstr ""
+
+msgid "Take 36 hours off"
+msgstr ""
+
+msgid "Take 36 hours off in the lot"
+msgstr ""
+
+#. placeholders: {hours}
+msgid "Take a {hours}-hour restart"
+msgstr ""
+
+#. placeholders: {hours}
+msgid "Take a {hours}-hour restart in the lot"
+msgstr ""
+
+#. placeholders: {duration_text}
+msgid "Rest {duration_text} more to finish 36 hours off"
+msgstr ""
+
+#. placeholders: {duration_text}
+msgid "Rest {duration_text} more to finish 36 hours off in the lot"
+msgstr ""
+
+#. placeholders: {duration_text}, {hours}
+msgid "Rest {duration_text} more to finish a {hours}-hour restart"
+msgstr ""
+
+#. placeholders: {duration_text}, {hours}
+msgid ""
+"Rest {duration_text} more to finish a {hours}-hour restart in the lot"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "A fresh cycle and fresh hours of service."
+msgstr ""
+
+#. placeholders: {span}
+msgid ""
+"A fresh cycle and fresh hours of service. Sleep takes off 8 points of "
+"fatigue an hour. Clock advances {span}."
+msgstr ""
+
+#. placeholders: {span}
+#. one sentence of a longer line
+msgid "Clock advances {span}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Sleep takes off 8 points of fatigue an hour."
+msgstr ""
+
+#. placeholders: {span}
+msgid ""
+"A fresh cycle and fresh hours of service. Sleep takes off 8 points of "
+"fatigue an hour. Clock and deadline advance {span}."
+msgstr ""
+
+#. placeholders: {span}
+#. one sentence of a longer line
+msgid "Clock and deadline advance {span}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid ""
+"A fresh cycle with poor rest: 5 points of fatigue off an hour, never below "
+"30."
+msgstr ""
+
+#. placeholders: {span}
+msgid ""
+"A fresh cycle with poor rest: 5 points of fatigue off an hour, never below "
+"30. Clock and deadline advance {span}."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your rest so far counts."
+msgstr ""
+
+#. placeholders: {body}
+msgid "Your rest so far counts. {body}"
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Cycle clock reset."
+msgstr ""
+
+#. placeholders: {clock}, {time_of_day}
+#. one sentence of a longer line
+msgid "It is {clock}, {time_of_day}."
+msgstr ""
+
+#. placeholders: {span}
+#. one sentence of a longer line
+msgid "Rested {span} more."
+msgstr ""
+
+#. placeholders: {span}, {clock}, {time_of_day}
+msgid "Rested {span} more. It is {clock}, {time_of_day}. Cycle clock reset."
+msgstr ""
+
+#. placeholders: {span}
+#. one sentence of a longer line
+msgid "Rested {span}."
+msgstr ""
+
+#. placeholders: {span}, {clock}, {time_of_day}
+msgid "Rested {span}. It is {clock}, {time_of_day}. Cycle clock reset."
+msgstr ""
+
+#. placeholders: {span}, {hours}
+msgid "You rested {span} more, {hours} hours off in a row, and woke rested."
+msgstr ""
+
+#. placeholders: {span}, {hours}
+msgid ""
+"You rested {span} more, {hours} hours off in a row, and woke still tired."
+msgstr ""
+
+#. placeholders: {span}
+msgid "You rested {span} and woke rested."
+msgstr ""
+
+#. placeholders: {span}
+msgid "You rested {span} and woke still tired."
+msgstr ""
+
+#. placeholders: {hours}
+msgid ""
+"{hours} hours off in a row restart your cycle and reset your driving hours "
+"and legal driving window."
+msgstr ""
+
+#. placeholders: {duration_text}
+#. one sentence of a longer line
+msgid "Rest {duration_text} more to restart it."
+msgstr ""
+
+#. one sentence of a longer line
+msgid "Your cycle is still used up."
+msgstr ""
+
+#. placeholders: {duration_text}
+msgid ""
+"Your cycle is still used up. Rest {duration_text} more to restart it."
+msgstr ""
+
 msgid "2 hours"
 msgstr "2時間"
 
@@ -16740,6 +16891,19 @@ msgstr "{start_mi}マイル先からハンドルを握ります。"
 
 #. placeholders: {key}, {buy_in_paid}
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
+msgstr ""
+
+#. placeholders: {map_or}, {key}, {restart_remaining_min}
+msgid ""
+"cycle_left {map_or}; restart_offer {key}; restart_rest_left "
+"{restart_remaining_min} min"
+msgstr ""
+
+msgid "unenforced"
+msgstr ""
+
+#. placeholders: {left}
+msgid "{left} min"
 msgstr ""
 
 #. placeholders: {key}, {carrier_key}, {home_city}, {home_terminal_city}
@@ -20419,6 +20583,9 @@ msgstr "すでにバックアップ済みです。クラウドのコピーはこ
 
 msgid "The backup will keep retrying in the background."
 msgstr "バックアップはバックグラウンドで再試行を続けます。"
+
+msgid "cycle restart"
+msgstr ""
 
 msgid ""
 "Until level 9, dispatch matches a spare to each load, and each spare keeps "
@@ -25278,12 +25445,11 @@ msgstr "配達まで残り{remaining}時間、期限は{deadline_appointment}で
 msgid "You are now {remaining} hours past the deadline."
 msgstr "期限を{remaining}時間過ぎています。"
 
-#. placeholders: {wake_air_instruction}
+#. placeholders: {after_clocks}
 #. one sentence of a longer line
 msgid ""
-"Driving and duty clocks reset, but you are still "
-"tired.{wake_air_instruction}"
-msgstr "運転と勤務の時計はリセットされましたが、まだ疲れています。{wake_air_instruction}"
+"Driving and duty clocks reset, but you are still tired.{after_clocks}"
+msgstr ""
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
@@ -25292,14 +25458,12 @@ msgid ""
 "passing trucks."
 msgstr "{engine_off}検問所の待機場ではよく眠れず、通り過ぎるトラックに何度も起こされました。"
 
-#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {clock_text}, {after_clocks}
 msgid ""
 "{engine_off}You sleep poorly at the chain control, woken again and again by "
 "passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
-"are still tired.{wake_air_instruction}"
+"are still tired.{after_clocks}"
 msgstr ""
-"{engine_off}検問所の待機場ではよく眠れず、通り過ぎるトラックに何度も起こされました。{clock_text}です。運転と勤務の時計はリセット"
-"されましたが、まだ疲れています。{wake_air_instruction}"
 
 #. placeholders: {engine_off}
 #. one sentence of a longer line
@@ -25308,14 +25472,12 @@ msgid ""
 "passing trucks."
 msgstr "{engine_off}路肩ではよく眠れず、通り過ぎるトラックに何度も起こされました。"
 
-#. placeholders: {engine_off}, {clock_text}, {wake_air_instruction}
+#. placeholders: {engine_off}, {clock_text}, {after_clocks}
 msgid ""
 "{engine_off}You sleep poorly on the shoulder, woken again and again by "
 "passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
-"are still tired.{wake_air_instruction}"
+"are still tired.{after_clocks}"
 msgstr ""
-"{engine_off}路肩ではよく眠れず、通り過ぎるトラックに何度も起こされました。{clock_text}です。運転と勤務の時計はリセットされました"
-"が、まだ疲れています。{wake_air_instruction}"
 
 #. placeholders: {grouped}, {construction_zone_fine_clause}, {grouped2}
 msgid ""
@@ -31909,6 +32071,27 @@ msgstr "時計が{span}進みます。"
 
 #. placeholders: {span}, {more}, {name}
 #. one sentence of a longer line
+msgid "Rest {span}{more} at {name}."
+msgstr ""
+
+#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}
+msgid ""
+"Rest {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
+"moves ahead {span}. {deadline}{cattle} Select again to rest."
+msgstr ""
+
+#. placeholders: {deadline}, {cattle}
+#. one sentence of a longer line
+msgid "{deadline}{cattle} Select again to rest."
+msgstr ""
+
+#. placeholders: {effect}, {legal}, {f}, {f2}
+#. one sentence of a longer line
+msgid "{effect} {legal} Fatigue {f} to {f2}."
+msgstr "{effect}{legal}疲労は{f}から{f2}になります。"
+
+#. placeholders: {span}, {more}, {name}
+#. one sentence of a longer line
 msgid "Sleep {span}{more} at {name}."
 msgstr "{name}で{more}{span}眠ります。"
 
@@ -31924,11 +32107,6 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{deadline}{cattle}{pending}{cost} Select again to sleep."
 msgstr "{deadline}{cattle}{pending}{cost}眠るにはもう一度選んでください。"
-
-#. placeholders: {effect}, {legal}, {f}, {f2}
-#. one sentence of a longer line
-msgid "{effect} {legal} Fatigue {f} to {f2}."
-msgstr "{effect}{legal}疲労は{f}から{f2}になります。"
 
 msgid ""
 "Select a choice. Sleep reads a preview. Select again to sleep. Breaks and "
@@ -32478,6 +32656,17 @@ msgstr "新しいタイヤチェーンのセットがサイドボックスに入
 #. one sentence of a longer line
 msgid "{billing} It is {clock_text}."
 msgstr "{billing}{clock_text}です。"
+
+#. placeholders: {engine_off}, {woke_line}, {clock_text}
+#. one sentence of a longer line
+msgid "{engine_off}{woke_line} It is {clock_text}."
+msgstr ""
+
+#. placeholders: {engine_off}, {woke_line}, {clock_text}, {clocks_reset_text}, {deadline_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}{woke_line} It is {clock_text}. {clocks_reset_text} "
+"{deadline_text}{wake_air_instruction}"
+msgstr ""
 
 msgid "The truck does not need repair."
 msgstr "トラックに修理は必要ありません。"
@@ -34963,6 +35152,9 @@ msgid ""
 "North of 60 hours rules: 15 hours of driving and 18 on duty in a 20-hour "
 "window."
 msgstr "北緯60度以北の運転時間規制：20時間の枠の中で運転15時間、勤務18時間。"
+
+msgid " The clock is back to normal speed."
+msgstr ""
 
 msgid "buff"
 msgstr "ボーナス"
@@ -45016,6 +45208,27 @@ msgid ""
 msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
+
+#~ msgid ""
+#~ "Driving and duty clocks reset, but you are still "
+#~ "tired.{wake_air_instruction}"
+#~ msgstr "運転と勤務の時計はリセットされましたが、まだ疲れています。{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{engine_off}You sleep poorly at the chain control, woken again and again by "
+#~ "passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
+#~ "are still tired.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}検問所の待機場ではよく眠れず、通り過ぎるトラックに何度も起こされました。{clock_text}です。運転と勤務の時計はリセット"
+#~ "されましたが、まだ疲れています。{wake_air_instruction}"
+
+#~ msgid ""
+#~ "{engine_off}You sleep poorly on the shoulder, woken again and again by "
+#~ "passing trucks. It is {clock_text}. Driving and duty clocks reset, but you "
+#~ "are still tired.{wake_air_instruction}"
+#~ msgstr ""
+#~ "{engine_off}路肩ではよく眠れず、通り過ぎるトラックに何度も起こされました。{clock_text}です。運転と勤務の時計はリセットされました"
+#~ "が、まだ疲れています。{wake_air_instruction}"
 
 #~ msgid "Diesel here is {f2} Canadian dollars a liter."
 #~ msgstr "ここの軽油は1リットル{f2}カナダドルです。"

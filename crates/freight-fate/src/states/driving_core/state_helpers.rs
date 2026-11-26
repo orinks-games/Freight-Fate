@@ -16,7 +16,7 @@ use ff_core::sim::timezones::city_zone;
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
 
-use super::{hos_mut_of, profile_mut_of, profile_of, set_engine_running, DOCKING_MAX_MPH};
+use super::{hos_mut_of, hos_of, profile_mut_of, profile_of, set_engine_running, DOCKING_MAX_MPH};
 
 /// Resting advances game time, so deadlines keep counting.
 ///
@@ -346,19 +346,29 @@ pub fn perform_shoulder_sleep(
         let p = profile_mut_of(ctx);
         p.fatigue = hos::rest_poor_sleep(p.fatigue, hos::SLEEP_MIN);
     }
+    // A night that leaves the cycle used up says how much more rest
+    // restarts it, after the clocks.
+    let after_clocks = format!(
+        "{}{}",
+        hos_of(ctx)
+            .cycle_still_used_up_text(&ctx.settings.hos_mode)
+            .map(|text| format!(" {text}"))
+            .unwrap_or_default(),
+        wake_air_instruction(driving)
+    );
     let mut parts = vec![if at_chain_checkpoint {
         format!(
             "{engine_off}You sleep poorly at the chain control, woken again and again by \
              passing trucks. It is {}. Driving and duty clocks reset, but you are still tired.{}",
             clock_text(driving.trip.local_hour()),
-            wake_air_instruction(driving)
+            after_clocks
         )
     } else {
         format!(
             "{engine_off}You sleep poorly on the shoulder, woken again and again by passing \
              trucks. It is {}. Driving and duty clocks reset, but you are still tired.{}",
             clock_text(driving.trip.local_hour()),
-            wake_air_instruction(driving)
+            after_clocks
         )
     }];
     // Held at a chain checkpoint, the officer keeps the truck there: no

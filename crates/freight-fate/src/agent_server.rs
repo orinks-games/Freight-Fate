@@ -822,6 +822,7 @@ impl AgentPolicy {
                 text.push_str(&format!("\nINPUT: {}.", input.input_state()));
                 text.push_str(&format!("\nNEWSPAPER: {}.", input.newspaper_state()));
                 text.push_str(&format!("\nBUSINESS: {}.", input.business_state()));
+                text.push_str(&format!("\nHOURS: {}.", input.hours_state()));
                 text.push_str(&format!("\nCARRYOVER: {}.", input.carryover_state()));
             }
             let _ = waiting.reply.send(Ok(text));

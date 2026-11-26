@@ -45,6 +45,9 @@ use super::close_out::CloseOutCareerState;
 use super::truck_status::TruckStatusState;
 
 mod backup;
+mod restart;
+
+use restart::at_home_terminal;
 
 /// The hub screen while parked at a company terminal or yard.
 pub struct CityMenuState {
@@ -420,14 +423,18 @@ impl CityMenuState {
             (before_fatigue, start, p.game_hours)
         };
         record_city_duty(ctx, "sleeper_berth", start, end, "terminal sleep");
-        let cycle_restarted = {
+        let mode = ctx.settings.hos_mode.clone();
+        let (cycle_restarted, used_up) = {
             let p = profile_mut(ctx);
             let cycle_before = p.hos.cycle_used_min();
             p.hos.sleep();
             p.fatigue = hos::rest_sleep(p.fatigue, hos::SLEEP_MIN);
             let day = p.market_day();
             p.market.advance_to(day);
-            p.hos.cycle_restarted_since(cycle_before)
+            (
+                p.hos.cycle_restarted_since(cycle_before),
+                p.hos.cycle_still_used_up_text(&mode),
+            )
         };
         ctx.save_profile();
         ctx.audio.play("ui/notify");
@@ -439,23 +446,25 @@ impl CityMenuState {
         } else {
             ""
         };
-        ctx.say(&format!(
+        // A night that leaves the cycle used up says how much more rest
+        // restarts it, so the restart row is not the only place to learn it.
+        let slept = format!(
             "Slept 10 hours. It is {}, {}.{cycle}",
             clock_text(hour),
             time_of_day(hour)
-        ));
+        );
+        match used_up {
+            Some(used_up) => ctx.say(&format!("{slept} {used_up}")),
+            None => ctx.say(&slept),
+        }
         // The same judgement as a rest stop's: asleep before the band
         // where the nods begin.
         if Alertness::from_fatigue(before_fatigue) < Alertness::Severe {
             ctx.award_achievement("sleep_before_exhaustion");
         }
-        let at_home = {
-            let p = profile(ctx);
-            !p.carrier_key.is_empty()
-                && ctx.world.resolve_city_key(&p.current_city)
-                    == ctx.world.resolve_city_key(&p.home_terminal_city)
-        };
-        ctx.award_restart_badges(at_home);
+        ctx.award_restart_badges(at_home_terminal(ctx));
+        // The restart row reads the rest so far, or goes once it is done.
+        self.refresh(ctx, true);
     }
 
     /// Sit out the rest of a CDL suspension in one go.
@@ -487,7 +496,13 @@ impl CityMenuState {
             let p = profile_mut(ctx);
             let now = p.game_hours;
             p.driving_record.serve_until(now);
-            p.hos.sleep();
+            // The whole wait is off duty on the hours clock, so a long
+            // suspension ages the cycle out and restarts it.
+            if hours * 60.0 >= hos::SLEEP_MIN {
+                p.hos.off_duty(hours * 60.0);
+            } else {
+                p.hos.sleep();
+            }
             p.fatigue = hos::rest_sleep(p.fatigue, hours * 60.0);
             let day = p.market_day();
             p.market.advance_to(day);
@@ -1046,6 +1061,7 @@ impl Menu for CityMenuState {
                  advances 10 hours.",
             ),
         );
+        items.extend(Self::restart_item(ctx));
         items.push(
             MenuItem::new("Save game", |s: &mut Self, ctx| s.save(ctx)).help("Saves the career."),
         );

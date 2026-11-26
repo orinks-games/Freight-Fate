@@ -273,11 +273,12 @@ fn test_the_sleep_that_finishes_a_restart_says_the_cycle_reset() {
         p.hos.drive(600.0);
         p.hos.cycle_entries = vec![ff_core::sim::hos::CycleEntry {
             end_min: p.hos.cycle_clock_min,
-            on_duty_min: 69.0 * 60.0,
+            on_duty_min: 70.0 * 60.0,
         }];
         p.fatigue = 60.0;
     }
     let mut cycle_lines = Vec::new();
+    let mut used_up_lines = Vec::new();
     for night in 1..=4 {
         app.clear_speech();
         select::<CityMenuState>(&mut app, "Sleep 10 hours");
@@ -296,10 +297,182 @@ fn test_the_sleep_that_finishes_a_restart_says_the_cycle_reset() {
             .collect();
         assert_eq!(said.len(), 1, "night {night}: {:?}", app.main_lines());
         cycle_lines.push(said[0].ends_with("Cycle clock reset."));
+        used_up_lines.push(said[0].contains("Your cycle is still used up."));
     }
-    // 34 hours off finish on the fourth night, and only that night says so.
+    // 34 hours off finish on the fourth night, and only that night says so;
+    // the nights before it say the cycle is still used up.
     assert_eq!(cycle_lines, vec![false, false, false, true]);
+    assert_eq!(used_up_lines, vec![true, true, true, false]);
     assert_eq!(profile(&app).hos.cycle_used_min(), 0.0);
+}
+
+/// A career at Austin's terminal with `used_h` hours on its cycle and a
+/// worked shift, the terminal menu open on it.
+fn a_terminal_with_cycle(name: &str, city: &str, used_h: f64) -> TestApp {
+    let mut app = TestApp::new();
+    career(&mut app, name, city);
+    {
+        let p = profile_mut(&mut app);
+        p.hos.drive(600.0);
+        p.hos.cycle_entries = vec![ff_core::sim::hos::CycleEntry {
+            end_min: p.hos.cycle_clock_min,
+            on_duty_min: used_h * 60.0,
+        }];
+        p.fatigue = 60.0;
+    }
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+    app
+}
+
+fn has_row(app: &TestApp, row: &str) -> bool {
+    labels::<CityMenuState>(app).iter().any(|r| r == row)
+}
+
+fn restart_rows(app: &TestApp) -> Vec<String> {
+    labels::<CityMenuState>(app)
+        .into_iter()
+        .filter(|r| r.contains("restart") || r.contains("hours off"))
+        .collect()
+}
+
+#[test]
+fn test_the_terminal_offers_no_restart_on_a_fresh_career_or_with_a_day_left() {
+    let mut app = TestApp::new();
+    career(&mut app, "Fresh Week", "Austin");
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+    assert!(
+        restart_rows(&app).is_empty(),
+        "{:?}",
+        labels::<CityMenuState>(&app)
+    );
+    drop(app);
+
+    let app = a_terminal_with_cycle("Forty Hours", "Austin", 40.0);
+    assert!(
+        restart_rows(&app).is_empty(),
+        "{:?}",
+        labels::<CityMenuState>(&app)
+    );
+}
+
+#[test]
+fn test_the_terminal_restart_rests_the_whole_restart_in_one_pick() {
+    let mut app = a_terminal_with_cycle("Spent Week", "Austin", 70.0);
+    let rows = labels_and_help::<CityMenuState>(&app);
+    let sleep_at = rows
+        .iter()
+        .position(|(r, _)| r == "Sleep 10 hours")
+        .expect("the sleep row");
+    assert_eq!(
+        rows[sleep_at + 1],
+        (
+            "Take a 34-hour restart".to_string(),
+            "A fresh cycle and fresh hours of service. Sleep takes off 8 points of fatigue an \
+             hour. Clock advances 34 hours."
+                .to_string()
+        )
+    );
+    let before = profile(&app).game_hours;
+    let log_before = profile(&app).duty_log.segments.len();
+    app.clear_speech();
+    select::<CityMenuState>(&mut app, "Take a 34-hour restart");
+    let said = app.main_lines();
+    assert!(
+        said.iter().any(
+            |l| l.starts_with("Rested 34 hours. It is ") && l.ends_with(". Cycle clock reset.")
+        ),
+        "{said:?}"
+    );
+    let p = profile(&app);
+    assert!(approx(p.game_hours, before + 34.0), "{}", p.game_hours);
+    assert_eq!(p.hos.cycle_used_min(), 0.0);
+    assert!(p.hos.restart_complete());
+    assert_eq!(p.hos.driving_min, 0.0);
+    assert_eq!(p.fatigue, 0.0);
+    assert_eq!(p.duty_log.segments.len(), log_before + 1);
+    let entry = p.duty_log.segments.last().expect("the restart's entry");
+    assert_eq!(entry.status, "sleeper_berth");
+    assert_eq!(entry.note, "cycle restart");
+    assert!(p.achievements.iter().any(|a| a == "restart_34"));
+    assert!(
+        restart_rows(&app).is_empty(),
+        "{:?}",
+        labels::<CityMenuState>(&app)
+    );
+}
+
+#[test]
+fn test_a_night_at_a_spent_cycle_counts_toward_the_restart_row() {
+    let mut app = a_terminal_with_cycle("Night First", "Austin", 70.0);
+    app.clear_speech();
+    select::<CityMenuState>(&mut app, "Sleep 10 hours");
+    let said = app.main_lines();
+    assert!(
+        said.iter().any(|l| l.starts_with("Slept 10 hours. It is ")
+            && l.ends_with(". Your cycle is still used up. Rest 24 hours more to restart it.")),
+        "{said:?}"
+    );
+    assert!(
+        has_row(&app, "Rest 24 hours more to finish a 34-hour restart"),
+        "{:?}",
+        labels::<CityMenuState>(&app)
+    );
+    let before = profile(&app).game_hours;
+    app.clear_speech();
+    select::<CityMenuState>(&mut app, "Rest 24 hours more");
+    let said = app.main_lines();
+    assert!(
+        said.iter()
+            .any(|l| l.starts_with("Rested 24 hours more. It is ")
+                && l.ends_with(". Cycle clock reset.")),
+        "{said:?}"
+    );
+    assert!(approx(profile(&app).game_hours, before + 24.0));
+    assert!(profile(&app).hos.restart_complete());
+    assert!(restart_rows(&app).is_empty());
+}
+
+#[test]
+fn test_canadian_rules_at_the_terminal_read_36_hours_off() {
+    let mut app = TestApp::new();
+    career(&mut app, "North Week", "Toronto");
+    {
+        let p = profile_mut(&mut app);
+        p.hos.set_rules(ff_core::sim::hos::HosRules::CanadaSouth60);
+        p.hos.drive(600.0);
+        p.hos.cycle_entries = vec![ff_core::sim::hos::CycleEntry {
+            end_min: p.hos.cycle_clock_min,
+            on_duty_min: 70.0 * 60.0,
+        }];
+    }
+    let city = CityMenuState::new(&app.ctx, false);
+    app.push_state(city);
+    assert!(
+        has_row(&app, "Take 36 hours off"),
+        "{:?}",
+        labels::<CityMenuState>(&app)
+    );
+    let before = profile(&app).game_hours;
+    select::<CityMenuState>(&mut app, "Take 36 hours off");
+    assert!(approx(profile(&app).game_hours, before + 36.0));
+    assert!(profile(&app).hos.restart_complete());
+}
+
+#[test]
+fn test_waiting_out_a_long_suspension_restarts_the_cycle() {
+    let mut app = a_terminal_with_cycle("Long Wait", "Austin", 70.0);
+    {
+        let p = profile_mut(&mut app);
+        let now = p.game_hours;
+        p.driving_record.suspended_until_h = now + 60.0 * 24.0;
+    }
+    with_state_mut::<CityMenuState, _>(&mut app, |s, ctx| s.wait_out_suspension(ctx));
+    let p = profile(&app);
+    assert_eq!(p.hos.cycle_used_min(), 0.0);
+    assert!(p.hos.restart_complete());
+    assert_eq!(p.hos.driving_min, 0.0);
 }
 
 #[test]

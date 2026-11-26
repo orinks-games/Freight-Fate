@@ -383,7 +383,10 @@ fn tools_list() -> Value {
              paid for the first tractor, 0 when none is on record). A CARRYOVER line \
              gives the carry-over state of a career copied from 1.9 (native, settled \
              or carrier_choice_due), the carrier key, home_city (blank when none is \
-             saved) and home_terminal_city. An INPUT line \
+             saved) and home_terminal_city. An HOURS line gives cycle_left (cycle \
+             minutes left, or unenforced), restart_offer (none, fresh or finish: the \
+             restart row on offer) and restart_rest_left (off-duty minutes the cycle \
+             restart still needs). An INPUT line \
              ends it: phone (whether this run plays as a phone), device (keyboard, \
              controller or touch: the input prompts name), last_used, and keyboard \
              and controller (connected or none).",
