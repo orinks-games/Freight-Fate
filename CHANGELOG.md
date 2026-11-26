@@ -7,6 +7,7 @@
 - **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
 - **Page Up and Page Down now move ten options at a time in every menu.**
 - **Tires hum on steel grate bridge decks.** The pitch rises and falls with your speed.
+- **Driver apps and the Online menu have a Newspaper, the weekly driver paper from orinks.net.** Each section reads as a list of lines: driver news, records, carrier standings and the back page.
 
 ### Removed
 
