@@ -17,7 +17,7 @@ use serde_json::{json, Value};
 use crate::cli::{Args, Spec};
 use crate::util::{repo_root, Result};
 
-const USAGE: &str = "usage: agent-script [--bin PATH] [--filter PATTERNS] [--verbose] [--keep-dir] [--json] <script.json | ->";
+const USAGE: &str = "usage: agent-script [--bin PATH] [--filter PATTERNS] [--verbose] [--no-reset] [--json] <script.json | ->";
 
 #[derive(Debug, Clone, Deserialize)]
 struct ScriptStep {
@@ -46,7 +46,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
         argv,
         &Spec {
             values: &["bin", "filter"],
-            flags: &["verbose", "keep-dir", "json", "help"],
+            flags: &["verbose", "no-reset", "json", "help"],
         },
     )
     .map_err(|e| format!("{e}\n{USAGE}"))?;
@@ -75,25 +75,17 @@ pub fn main(argv: &[String]) -> Result<i32> {
     let filters = parse_filters(args.value("filter"));
     let verbose = args.flag("verbose");
     let json_out = args.flag("json");
-    let keep_dir = args.flag("keep-dir");
+    let reset = !args.flag("no-reset");
 
     let root = repo_root();
     let bin = resolve_binary(&root, args.path("bin").as_deref())?;
 
-    let temp_dir = tempfile::Builder::new()
-        .prefix("ff_agent_script_")
-        .tempdir()
-        .map_err(|e| format!("creating temp data dir: {e}"))?;
-    let data_dir = if keep_dir {
-        temp_dir.keep()
-    } else {
-        temp_dir.path().to_path_buf()
-    };
-
     let mut cmd = Command::new(&bin);
-    cmd.arg("--agent-server")
-        .current_dir(&root)
-        .env("FREIGHT_FATE_DATA_DIR", &data_dir)
+    cmd.arg("--agent-server");
+    if reset {
+        cmd.arg("--reset");
+    }
+    cmd.current_dir(&root)
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::null());
@@ -202,9 +194,6 @@ pub fn main(argv: &[String]) -> Result<i32> {
             for fail in &r.failures {
                 println!("FAIL: {fail}");
             }
-        }
-        if keep_dir {
-            println!("data_dir: {}", data_dir.display());
         }
     }
 

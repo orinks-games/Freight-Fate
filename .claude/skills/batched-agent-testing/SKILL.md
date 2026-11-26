@@ -43,14 +43,14 @@ Each object in the JSON array supports:
 - `expect` (optional): Array of substrings that must appear in the step's output (exits non-zero if any is missing).
 - `forbid` (optional): Array of substrings that must NOT appear in the step's output (exits non-zero if any matches).
 
-`quit_game` is sent automatically at the end if omitted, and an isolated
-temporary `FREIGHT_FATE_DATA_DIR` is created and cleaned up automatically
-(pass `--keep-dir` to keep it).
+`quit_game` is sent automatically at the end if omitted, and `--reset` is
+passed to `--agent-server` by default so each batch starts from a clean
+playtest sandbox (pass `--no-reset` to keep sandbox state across runs).
 
 ## Flags
 
-- `--bin PATH`: Explicit `freightfate` binary path (defaults to `target/release/freightfate`, then `target/debug/freightfate`).
+- `--bin PATH`: Explicit `freightfate` binary path (defaults to the newest of `target/release/freightfate` and `target/debug/freightfate`).
 - `--filter PATTERNS`: Comma-separated substrings; only output lines containing at least one pattern are printed.
 - `--verbose`: Include quiet steps (`(quiet -- nothing new to hear)`).
 - `--json`: Emit structured JSON instead of plain text.
-- `--keep-dir`: Keep the temporary `FREIGHT_FATE_DATA_DIR` and print its path.
+- `--no-reset`: Reuse the existing playtest sandbox instead of resetting it before launch.
