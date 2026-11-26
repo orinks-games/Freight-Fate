@@ -237,10 +237,16 @@ fn resolve_binary(root: &Path, explicit: Option<&Path>) -> Result<PathBuf> {
         root.join("target").join("release").join(exe),
         root.join("target").join("debug").join(exe),
     ];
-    for c in &candidates {
-        if c.is_file() {
-            return Ok(c.clone());
-        }
+    let newest = candidates
+        .into_iter()
+        .filter(|c| c.is_file())
+        .max_by_key(|c| {
+            std::fs::metadata(c)
+                .and_then(|m| m.modified())
+                .unwrap_or(std::time::SystemTime::UNIX_EPOCH)
+        });
+    if let Some(bin) = newest {
+        return Ok(bin);
     }
     Err("no freightfate binary found in target/release or target/debug; build it first (`cargo build -p freight-fate --bin freightfate`) or pass --bin PATH".to_string())
 }
@@ -424,5 +430,23 @@ mod tests {
         let err = json!({"jsonrpc": "2.0", "id": 2, "result": {"isError": true, "content": [{"type": "text", "text": "unknown setting"}]}});
         assert!(!is_tool_error(&ok));
         assert!(is_tool_error(&err));
+    }
+
+    #[test]
+    fn resolve_binary_prefers_newest_build() {
+        let dir = tempfile::tempdir().unwrap();
+        let exe = if cfg!(windows) {
+            "freightfate.exe"
+        } else {
+            "freightfate"
+        };
+        let rel = dir.path().join("target").join("release").join(exe);
+        let dbg = dir.path().join("target").join("debug").join(exe);
+        std::fs::create_dir_all(rel.parent().unwrap()).unwrap();
+        std::fs::create_dir_all(dbg.parent().unwrap()).unwrap();
+        std::fs::write(&rel, b"old-release").unwrap();
+        std::thread::sleep(std::time::Duration::from_millis(25));
+        std::fs::write(&dbg, b"fresh-debug").unwrap();
+        assert_eq!(resolve_binary(dir.path(), None).unwrap(), dbg);
     }
 }
