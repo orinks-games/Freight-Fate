@@ -13,6 +13,7 @@
 //! feature, so a CI job that runs one of them does not compile the game's
 //! core crate: `cargo run -p ff-tools --no-default-features -- <command>`.
 
+mod agent_script;
 mod check_test_targets;
 mod cli;
 mod http;
@@ -102,6 +103,11 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "version",
         "print the project version (--release-line drops a .devN suffix)",
         release::version_main,
+    ),
+    (
+        "agent-script",
+        "run a batched JSON script against `freightfate --agent-server` in one command",
+        agent_script::main,
     ),
     (
         "test-targets",

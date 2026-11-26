@@ -128,7 +128,10 @@ the diff and then carried out before the PR is marked ready.
   turn `lockstep` on where timing matters, act with `press`, `select`,
   `pedal`, `cruise` and `hold`/`release`, and read the result with
   `listen`, `wait_for` and `status`. End with `quit_game` once every item
-  is driven.
+  is driven. To conserve token usage on multi-step drives, batch the steps
+  into one command with `cargo tools agent-script` (see the
+  `batched-agent-testing` skill in `.claude/skills/`) instead of making
+  separate interactive MCP turns for each step.
 - **Check a box only on what was heard**, and paste the line or cue under
   it. A box that needed `observe` to confirm is an accessibility finding:
   say what was missing from the spoken surface. A step that failed, or
