@@ -6,7 +6,8 @@
 // VoiceOver on or off. The standard VoiceOver actions (double tap to
 // activate, swipe up and down on an adjustable element, the two-finger
 // scrub, the magic tap, the three-finger scroll) are answered too, for when
-// direct touch is not active.
+// direct touch is not active. While the system keyboard is open, it owns
+// VoiceOver touch exploration instead.
 //
 // The core rule: a flick is one step, a swipe and hold is continuous. A
 // stroke that travels ff_flick_points and lifts within ff_flick_seconds is
@@ -714,6 +715,14 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
                selector:@selector(voiceOverChanged:)
                    name:UIAccessibilityVoiceOverStatusDidChangeNotification
                  object:nil];
+    [center addObserver:self
+               selector:@selector(keyboardWillShow:)
+                   name:UIKeyboardWillShowNotification
+                 object:nil];
+    [center addObserver:self
+               selector:@selector(keyboardDidHide:)
+                   name:UIKeyboardDidHideNotification
+                 object:nil];
     if (@available(iOS 14.0, *)) {
         [center addObserver:self
                    selector:@selector(keyboardChanged:)
@@ -845,7 +854,20 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 }
 
 - (void)voiceOverChanged:(NSNotification *)notification {
-    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self);
+    if (self.accessibilityTraits & UIAccessibilityTraitAllowsDirectInteraction) {
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self);
+    }
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification {
+    self.accessibilityTraits &= ~UIAccessibilityTraitAllowsDirectInteraction;
+}
+
+- (void)keyboardDidHide:(NSNotification *)notification {
+    self.accessibilityTraits |= UIAccessibilityTraitAllowsDirectInteraction;
+    if (UIAccessibilityIsVoiceOverRunning()) {
+        UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, self);
+    }
 }
 
 - (void)keyboardChanged:(NSNotification *)notification {
@@ -997,4 +1019,3 @@ int32_t ff_touch_install(void *window) {
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, surface);
     return 1;
 }
-
