@@ -1,0 +1,6 @@
+{
+ "dropped": [],
+ "notes": "Hand corrections to radio_imported_canada.json, applied by cargo tools import-canada-stations on top of the build. overrides sets fields on a built station by id (with a why saying read, derived or hand); dropped leaves a station out. An entry whose station is no longer built fails the run.",
+ "overrides": {},
+ "schema": 1
+}

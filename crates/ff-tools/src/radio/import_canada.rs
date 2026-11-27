@@ -25,6 +25,7 @@
 //! cargo tools import-canada-stations
 //! cargo tools import-canada-stations --check
 //! cargo tools import-canada-stations --transmitters FILE
+//! cargo tools import-canada-stations --names FILE
 //! ```
 //!
 //! Two cached inputs, both under the gitignored `data/radio-cache/` and
@@ -38,7 +39,15 @@
 //!
 //! `--transmitters FILE` also writes every operating Canadian station's
 //! main transmitter, with or without a stream, for the site's placement
-//! table.
+//! table. `--names FILE` writes a review table of every built station's
+//! id, call sign, directory name and spoken name.
+//!
+//! A station's name is its brand, derived from the directory name by
+//! [`spoken_name`]. What a rule cannot derive goes in
+//! `radio_imported_canada_overrides.json`, keyed by station id the way
+//! `radio_imported_overrides.json` is for the US file: `overrides` sets
+//! fields on a built row, `dropped` leaves a row out, and an entry whose
+//! station is no longer built fails the run.
 
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::path::{Path, PathBuf};
@@ -49,8 +58,9 @@ use ff_core::radio::{call_sign_base, canonical_stream_url, normalize_stream_url}
 use regex::Regex;
 
 use super::canada_join::{
-    band_word, call_signs_in, cbc_mount, clean_terrestrial_name, frequency_in, load_ised,
-    main_transmitter, province_named, range_for, Band, Stations, Transmitter,
+    band_word, call_signs_in, cbc_mount, clean_terrestrial_name, dial_text, frequency_in,
+    load_ised, main_transmitter, province_named, range_for, spoken_name, Band, Stations,
+    Transmitter,
 };
 use super::{catalog_rows, data_path, text};
 use crate::cli::{Args, Spec};
@@ -58,6 +68,7 @@ use crate::pyjson::{self, Object, Options, Value};
 use crate::util::{self, Result};
 
 pub const OUTPUT: &str = "radio_imported_canada.json";
+pub const OVERRIDES: &str = "radio_imported_canada_overrides.json";
 pub const SOURCE_TEXT: &str = "community radio directory, Canadian transmitter site";
 const RB_URL: &str = "https://de1.api.radio-browser.info/json/stations/search?countrycode=CA&hidebroken=true&limit=10000&order=clickcount&reverse=true";
 const ISED_URL: &str = "https://www.ic.gc.ca/engineering/BC_DBF_FILES/baserad.zip";
@@ -237,7 +248,11 @@ fn stable_stream_url(row: &Object) -> String {
 fn station_row(c: &Candidate, stream_url: String) -> Object {
     let site = c.site;
     let call_sign = site.call_sign.replace('-', " ");
-    let name = clean_terrestrial_name(text(c.row, "name"));
+    let name = spoken_name(
+        &clean_terrestrial_name(text(c.row, "name")),
+        &dial_text(site.band, site.frequency),
+        &site.community,
+    );
     let tags = text(c.row, "tags").trim();
     let mut row = crate::pyobj! {
         "id" => format!("rb-ised-{}", text(c.row, "stationuuid")),
@@ -324,6 +339,46 @@ fn health() -> (HashSet<String>, HashMap<String, String>) {
     (dead, repaired)
 }
 
+/// Hand corrections to the built rows: fields to set by station id, and
+/// ids to leave out.
+struct Overrides {
+    set: Vec<(String, Object)>,
+    dropped: HashSet<String>,
+}
+
+fn overrides() -> Result<Overrides> {
+    let path = data_path(OVERRIDES);
+    if !path.exists() {
+        return Ok(Overrides {
+            set: Vec::new(),
+            dropped: HashSet::new(),
+        });
+    }
+    let doc = pyjson::load_path(&path)?;
+    let set = doc
+        .get("overrides")
+        .and_then(Value::as_object)
+        .map(|o| {
+            o.iter()
+                .filter_map(|(id, fields)| {
+                    let mut fields = fields.as_object()?.clone();
+                    fields.remove("why");
+                    Some((id.clone(), fields))
+                })
+                .collect()
+        })
+        .unwrap_or_default();
+    let dropped = doc
+        .get("dropped")
+        .and_then(Value::as_array)
+        .into_iter()
+        .flatten()
+        .filter_map(Value::as_object)
+        .map(|r| text(r, "id").to_string())
+        .collect();
+    Ok(Overrides { set, dropped })
+}
+
 /// The ISED export date, from the log file name ISED ships in the zip
 /// (`IC_CANADA_EXPORT_D20261124_...`), as `2026-11-24`.
 fn export_date(ised: &Path) -> String {
@@ -347,6 +402,7 @@ fn export_date(ised: &Path) -> String {
 fn build(directory: &[Object], stations: &Stations, ised_date: &str) -> Result<Value> {
     let dial = dial()?;
     let (dead, repaired) = health();
+    let hand = overrides()?;
     let mut counts: BTreeMap<&'static str, usize> = BTreeMap::new();
     let mut candidates = Vec::new();
     for row in directory {
@@ -377,6 +433,8 @@ fn build(directory: &[Object], stations: &Stations, ised_date: &str) -> Result<V
         let key = (c.site.base.clone(), c.site.band);
         let reason = if dial.call_signs.contains(&c.site.base) {
             "dropped_call_sign_already_on_dial"
+        } else if hand.dropped.contains(&id) {
+            "dropped_by_override"
         } else if dead.contains(&id) {
             "dropped_unreachable"
         } else if placed.contains(&key) {
@@ -397,6 +455,35 @@ fn build(directory: &[Object], stations: &Stations, ised_date: &str) -> Result<V
             }
         };
         *counts.entry(reason).or_default() += 1;
+    }
+    let built: HashSet<String> = rows.iter().map(|r| text(r, "id").to_string()).collect();
+    let candidate_ids: HashSet<String> = candidates
+        .iter()
+        .map(|c| format!("rb-ised-{}", text(c.row, "stationuuid")))
+        .collect();
+    let stale: Vec<&String> = hand
+        .set
+        .iter()
+        .map(|(id, _)| id)
+        .filter(|id| !built.contains(*id))
+        .chain(
+            hand.dropped
+                .iter()
+                .filter(|id| !candidate_ids.contains(*id)),
+        )
+        .collect();
+    if !stale.is_empty() {
+        return Err(format!(
+            "{OVERRIDES} names stations this build does not place: {stale:?}"
+        ));
+    }
+    for row in &mut rows {
+        let id = text(row, "id").to_string();
+        if let Some((_, fields)) = hand.set.iter().find(|(k, _)| *k == id) {
+            for (key, value) in fields.iter() {
+                row.insert(key.clone(), value.clone());
+            }
+        }
     }
     rows.sort_by(|a, b| {
         (text(a, "call_sign"), text(a, "id")).cmp(&(text(b, "call_sign"), text(b, "id")))
@@ -457,6 +544,34 @@ fn transmitter_table(stations: &Stations, ised_date: &str) -> Value {
         "ised_export" => ised_date,
         "transmitters" => rows,
     })
+}
+
+/// Every built station's id, call sign, directory name and spoken name,
+/// tab-separated and sorted by call sign, for a person to read through.
+fn names_review(catalog: &Value, directory: &[Object]) -> String {
+    let raw: HashMap<&str, &str> = directory
+        .iter()
+        .map(|r| (text(r, "stationuuid"), text(r, "name")))
+        .collect();
+    let mut out = String::from("id\tcall_sign\tdirectory_name\tname\n");
+    let clean = |s: &str| s.replace(['\t', '\n'], " ");
+    for row in catalog
+        .get("stations")
+        .and_then(Value::as_array)
+        .into_iter()
+        .flatten()
+        .filter_map(Value::as_object)
+    {
+        let id = text(row, "id");
+        let uuid = id.trim_start_matches("rb-ised-");
+        out.push_str(&format!(
+            "{id}\t{}\t{}\t{}\n",
+            text(row, "call_sign"),
+            clean(raw.get(uuid).copied().unwrap_or("")),
+            clean(text(row, "name")),
+        ));
+    }
+    out
 }
 
 fn render(value: &Value) -> String {
@@ -527,13 +642,13 @@ fn fetch(cache: &Path) -> Result<()> {
 }
 
 const USAGE: &str =
-    "usage: import-canada-stations [--fetch] [--check] [--transmitters FILE] [--output FILE]";
+    "usage: import-canada-stations [--fetch] [--check] [--transmitters FILE] [--names FILE] [--output FILE]";
 
 pub fn main(argv: &[String]) -> Result<i32> {
     let args = Args::parse(
         argv,
         &Spec {
-            values: &["transmitters", "output"],
+            values: &["transmitters", "output", "names"],
             flags: &["fetch", "check"],
         },
     )
@@ -584,6 +699,10 @@ pub fn main(argv: &[String]) -> Result<i32> {
     }
     let catalog = build(&directory, &stations, &date)?;
     let text_out = render(&catalog);
+    if let Some(path) = args.path("names") {
+        util::write_text(&path, &names_review(&catalog, &directory))?;
+        println!("Wrote {}", path.display());
+    }
     if let Some(counts) = catalog.get("counts").and_then(Value::as_object) {
         for (k, v) in counts.iter() {
             println!("  {k}: {}", v.py_str());

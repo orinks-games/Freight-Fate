@@ -268,6 +268,144 @@ pub fn clean_terrestrial_name(raw: &str) -> String {
     }
 }
 
+// -- the spoken name --
+
+/// A Canadian call sign as a whole word, with the band or a stray hyphen
+/// the directory wrote after it. "CBC" is the network, never a station.
+const CALL: &str = r"(?:C[BFHIJKY][A-Z]{1,2}|VO[A-Z]{2})(?:[- ]?(?:FM|AM)\b|-)?";
+static FRONT_CALL: Lazy<Regex> =
+    Lazy::new(|| Regex::new(&format!(r"^({CALL})(?:\s+-\s+|\s+|$)")).expect("regex"));
+static BRACKETED_CALL: Lazy<Regex> =
+    Lazy::new(|| Regex::new(&format!(r"\s*\(\s*{CALL}\s*\)")).expect("regex"));
+static DASHED_CALL: Lazy<Regex> =
+    Lazy::new(|| Regex::new(&format!(r"\s+-\s+\b{CALL}(\s+-\s+|\s*$)")).expect("regex"));
+static QUOTED: Lazy<Regex> = Lazy::new(|| Regex::new(r#""+([^"]*?)"+"#).expect("regex"));
+/// A bracket that is the directory editor's note about the listing, not
+/// part of the station's name.
+static EDITORS_NOTE: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(
+        r"(?i)\s*\(\s*(?:correction|corrected|alt|alternate|backup|mobile|low|high|hq|lq|new|old|test|mp3|aac|ogg|stream|web)?\s*\)",
+    )
+    .expect("regex")
+});
+static BRACKET: Lazy<Regex> = Lazy::new(|| Regex::new(r"\s*\(\s*([^()]*?)\s*\)").expect("regex"));
+const PROVINCE_WORDS: &str = r"(?:AB|BC|MB|NB|NL|NF|NS|NT|NU|ON|PE|PEI|QC|PQ|SK|YT|B\.\s?C\.?|P\.E\.I\.?|Alberta|British Columbia|Manitoba|New Brunswick|Newfoundland(?: and Labrador)?|Nova Scotia|Northwest Territories|Nunavut|Ontario|Prince Edward Island|Qu[eé]bec|Saskatchewan|Yukon(?: Territory)?)";
+static TRAILING_PROVINCE: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(&format!(
+        r"(?:[\s,.\-]+){PROVINCE_WORDS}(?:[\s,]+Canada)?\.?\s*$"
+    ))
+    .expect("regex")
+});
+static TRAILING_CANADA: Lazy<Regex> =
+    Lazy::new(|| Regex::new(r"[\s,\-]+Canada\.?\s*$").expect("regex"));
+static DASHED_PROVINCE: Lazy<Regex> =
+    Lazy::new(|| Regex::new(&format!(r"\s+-\s+{PROVINCE_WORDS}\s+-\s+")).expect("regex"));
+/// A dial position: an FM frequency, or an AM one in the broadcast band.
+static DIAL: Lazy<Regex> = Lazy::new(|| {
+    Regex::new(r"(?:^|[\s,&(/-])((?:8[89]|9\d|10[0-7])[.,]\d|(?:5[4-9]\d|[6-9]\d\d|1[0-6]\d\d))\b")
+        .expect("regex")
+});
+static SPACED_DASH: Lazy<Regex> = Lazy::new(|| Regex::new(r"\s+-\s+").expect("regex"));
+static WORD_SLASH: Lazy<Regex> = Lazy::new(|| Regex::new(r"\s*/\s*").expect("regex"));
+static NUMBER_DASH_WORD: Lazy<Regex> = Lazy::new(|| Regex::new(r"(\d)-(\p{L})").expect("regex"));
+static SPACE_BEFORE_COMMA: Lazy<Regex> = Lazy::new(|| Regex::new(r"\s+,").expect("regex"));
+
+/// The placed transmitter's dial position as a listener reads it: `105.5`
+/// on FM, `1240` on AM.
+pub fn dial_text(band: Band, frequency: f64) -> String {
+    match band {
+        Band::Fm => format!("{frequency:.1}"),
+        Band::Am => format!("{frequency:.0}"),
+    }
+}
+
+fn without_trailing_province(mut s: String) -> String {
+    loop {
+        let next = TRAILING_CANADA.replace(&s, "").into_owned();
+        let next = TRAILING_PROVINCE.replace(&next, "").into_owned();
+        if next == s {
+            return s;
+        }
+        s = next;
+    }
+}
+
+fn tidy(name: &str) -> String {
+    let collapsed = SPACES.replace_all(name, " ");
+    let tidied = SPACE_BEFORE_COMMA.replace_all(collapsed.trim(), ",");
+    py_trim(&tidied, " ,-&").to_string()
+}
+
+/// The name a Canadian station is spoken by: its brand, without the call
+/// sign the dial already says in front of it, the province, the editor's
+/// notes or the rebroadcasters this row is not placed at.
+///
+/// `name` is the directory name after [`clean_terrestrial_name`]; `dial`
+/// and `community` are the placed transmitter's ISED frequency and
+/// licensed community, used when the name holds nothing else.
+pub fn spoken_name(name: &str, dial: &str, community: &str) -> String {
+    if let Some(brand) = QUOTED
+        .captures(name)
+        .map(|c| tidy(&c[1]))
+        .filter(|b| !b.is_empty())
+    {
+        if DIAL_ONLY.is_match(&brand) {
+            // "AM 940": a brand that is only its dial position says where.
+            return tidy(&format!("{brand} {community}"));
+        }
+        if brand.chars().any(|c| c.is_ascii_digit()) {
+            return brand;
+        }
+        return format!("{brand} {dial}");
+    }
+    let mut s = name.trim().to_string();
+    if !s.starts_with("CBC") {
+        s = FRONT_CALL.replace(&s, "").into_owned();
+    }
+    s = BRACKETED_CALL.replace_all(&s, "").into_owned();
+    // "The Hawk - CIGO-FM", "Seaside FM 105.9 - CFEP-FM - Eastern Passage":
+    // the dash that joined the call sign stays only if more name follows.
+    loop {
+        let next = DASHED_CALL
+            .replace(&s, |c: &regex::Captures| {
+                if c[1].trim().is_empty() {
+                    String::new()
+                } else {
+                    " - ".to_string()
+                }
+            })
+            .into_owned();
+        if next == s {
+            break;
+        }
+        s = next;
+    }
+    s = EDITORS_NOTE.replace_all(&s, "").into_owned();
+    s = BRACKET.replace_all(&s, " $1").into_owned();
+    s = DASHED_PROVINCE.replace_all(&s, " - ").into_owned();
+    s = without_trailing_province(s);
+    let dials: Vec<usize> = DIAL
+        .captures_iter(&s)
+        .filter_map(|c| c.get(1))
+        .map(|m| m.start())
+        .collect();
+    if let Some(&second) = dials.get(1) {
+        s.truncate(second);
+        // "103.9 Balmoral, NB & 96.7 Dalhousie, NB": the first town's
+        // province is at the end now.
+        s = without_trailing_province(tidy(&s));
+    }
+    s = tidy(&s);
+    s = SPACED_DASH.replace_all(&s, ", ").into_owned();
+    s = WORD_SLASH.replace_all(&s, " ").into_owned();
+    s = NUMBER_DASH_WORD.replace_all(&s, "$1 $2").into_owned();
+    s = tidy(&s);
+    if s.is_empty() || DIAL_ONLY.is_match(&s) {
+        return tidy(&format!("{dial} {community}"));
+    }
+    s
+}
+
 // -- what a Radio Browser row says about itself --
 
 /// A Canadian broadcast call sign written in capitals inside a name,
@@ -473,6 +611,66 @@ mod tests {
             clean_terrestrial_name("Énergie 98,9 Québec"),
             "Énergie 98,9 Québec"
         );
+    }
+
+    #[test]
+    fn a_station_is_spoken_by_its_brand() {
+        let cases = [
+            ("CHBM \"Boom 97.3\" Toronto, ON", "97.3", "Toronto", "Boom 97.3"),
+            ("CFBK 105.5 \"Moose FM\" Huntsville, ON", "105.5", "Huntsville", "Moose FM 105.5"),
+            ("CKRW 96.1 \"The Rush\" Whitehorse, YT", "96.1", "Whitehorse", "The Rush 96.1"),
+            ("CHYK \"Le Loup\" 104.1 Timmins, 92.9 Hearst, 93.7 Kapuskasing, ON", "104.1", "Timmins", "Le Loup 104.1"),
+            ("CKDQ \"910 CFCW\" Drumheller, AB", "910", "Drumheller", "910 CFCW"),
+            ("CFAM 950 Altona, MB", "950", "Altona", "950 Altona"),
+            ("CFRB News/Talk 1010 (Toronto, ON)", "1010", "Toronto", "News Talk 1010 Toronto"),
+            ("CBC Radio One - Moncton, NB", "106.1", "Moncton", "CBC Radio One, Moncton"),
+            ("CBC Radio One - CFGB-FM - Happy Valley-Goose Bay - NL - 89.5 FM", "89.5", "Happy Valley-Goose Bay", "CBC Radio One, Happy Valley-Goose Bay, 89.5 FM"),
+            ("CFBU 103.7 Brock University, St. Catharines, ON", "103.7", "St. Catharines", "103.7 Brock University, St. Catharines"),
+            ("CINA-FM 102.3 (Radio CINA Arabic Hits ) Windsor, ON", "102.3", "Windsor", "102.3 Radio CINA Arabic Hits Windsor"),
+            ("CHNC-FM 107.1 New Carlisle, 99.1 Carleton, 99.3 Gaspe, 98.1 Chandler, 107.3 Perce, 106.7 Riviere-au-Renaud, QC", "107.1", "New Carlisle", "107.1 New Carlisle"),
+            ("CKAJ 92.5 & 99.7 Saguenay, QC", "92.5", "Saguenay", "92.5 Saguenay"),
+            (
+                "CIMS-FM 103.9 Balmoral, NB & 96.7 Dalhousie, NB",
+                "103.9",
+                "Balmoral",
+                "103.9 Balmoral",
+            ),
+            ("CHIN-AM 1540 Toronto, ON", "1540", "Toronto", "1540 Toronto"),
+            ("CIRV- 88.9 (Portuguese ) Toronto, ON", "88.9", "Toronto", "88.9 Portuguese Toronto"),
+            ("CISS - Kiss FM", "105.3", "Ottawa", "Kiss FM"),
+            ("Z99 98.9 (CIZL)", "98.9", "Regina", "Z99 98.9"),
+            ("CBC Radio 1 Ottawa (CBO-FM)", "91.5", "Ottawa", "CBC Radio 1 Ottawa"),
+            ("The Hawk - CIGO-FM", "101.5", "Port Hawkesbury", "The Hawk"),
+            ("Seaside FM 105.9 - CFEP-FM - Eastern Passage", "105.9", "Eastern Passage", "Seaside FM 105.9, Eastern Passage"),
+            ("XFM - CJFX", "98.9", "Antigonish", "XFM"),
+            ("Jazz FM CJRT", "91.1", "Toronto", "Jazz FM CJRT"),
+            ("CFNV \"AM 940\" Montreal, QC", "940", "Montréal", "AM 940 Montréal"),
+            (
+                "CHIR FM Gulf Islands Community Radio",
+                "107.9",
+                "Galiano Island",
+                "Gulf Islands Community Radio",
+            ),
+            ("UMFM 101.5", "101.5", "Winnipeg", "UMFM 101.5"),
+            ("CHKF \"FM 94.7\" Calgary, AB (correction)", "94.7", "Calgary", "FM 94.7 Calgary"),
+            ("CKUA (correction) Edmonton, AB", "94.9", "Edmonton", "Edmonton"),
+            ("CBC Music Eastern (Toronto)", "94.1", "Toronto", "CBC Music Eastern Toronto"),
+            ("CHFI 98.1-Toronto", "98.1", "Toronto", "98.1 Toronto"),
+            ("Lite 92 Moose Jaw. SK", "92.1", "Moose Jaw", "Lite 92 Moose Jaw"),
+            ("Coast 101 Courtenay B.C. Canada", "101.1", "Courtenay", "Coast 101 Courtenay"),
+            ("Rock 106,NS", "106.1", "Halifax", "Rock 106"),
+            ("Country 94 Sudbury, Ontario", "94.1", "Sudbury", "Country 94 Sudbury"),
+            ("CKRB 103.5 Saint-Georges, QC", "103.5", "Saint-Georges", "103.5 Saint-Georges"),
+        ];
+        for (raw, dial, community, spoken) in cases {
+            assert_eq!(
+                spoken_name(&clean_terrestrial_name(raw), dial, community),
+                spoken,
+                "{raw}"
+            );
+        }
+        assert_eq!(dial_text(Band::Fm, 105.5), "105.5");
+        assert_eq!(dial_text(Band::Am, 1240.0), "1240");
     }
 
     #[test]
