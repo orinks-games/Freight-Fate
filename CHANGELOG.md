@@ -137,6 +137,7 @@
 
 ### Fixed
 
+- **Softened concrete pavement seam hits and smoothed the highway engine loop cycle.** Jointed highway stretches now sound like muffled tire thuds instead of repeating clunks.
 - **The turbocharger whistle now fades out completely once the truck settles at steady cruise speed.**
 - **Fixed train-like road clunks, idle-sounding passing traffic, throttle-release engine fade, and abrupt trooper pass-bys.** Acceleration now stays smooth inside the cab.
 - **Partial lane keeping now eases your steering with a set of doubles.** Lane changes no longer whip the rear trailer.
