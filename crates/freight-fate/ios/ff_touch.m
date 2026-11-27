@@ -700,7 +700,13 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
     UIKeyCommand *escape = [UIKeyCommand keyCommandWithInput:UIKeyInputEscape
                                               modifierFlags:0
                                                      action:@selector(cancelField:)];
-    return [(super.keyCommands ?: @[]) arrayByAddingObject:escape];
+    UIKeyCommand *paste = [UIKeyCommand keyCommandWithInput:@"v"
+                                             modifierFlags:UIKeyModifierControl
+                                                    action:@selector(paste:)];
+    if (@available(iOS 15.0, *)) {
+        paste.wantsPriorityOverSystemBehavior = YES;
+    }
+    return [(super.keyCommands ?: @[]) arrayByAddingObjectsFromArray:@[escape, paste]];
 }
 
 - (void)cancelField:(UIKeyCommand *)command {
