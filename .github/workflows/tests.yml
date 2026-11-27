@@ -7,9 +7,9 @@ name: Tests
 # on it; a red run is the signal.
 #
 # Once a night it tests dev's head, and skips the night when that is the
-# commit it tested last. A schedule runs the copy of this file on the
-# default branch (main), so the nightly starts once main has this file. A
-# manual run tests any branch.
+# commit it tested last. A manual run tests any branch. GitHub offers
+# neither the schedule nor the Run workflow button until this file is on the
+# default branch (main).
 
 on:
   schedule:
