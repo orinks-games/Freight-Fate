@@ -1,8 +1,14 @@
 //! Lane-keeping availability state machine.
 //!
 //! Tracks whether lane-keeping sensors can read lane markings or have dropped
-//! out (for example on snow- or ice-covered northern roads), giving a clean
-//! edge for the non-verbal dropout earcon and Agent MCP inspection.
+//! out, giving a clean edge for the dropout earcon and Agent MCP inspection.
+//!
+//! Nothing raises `DroppedOut` today. Lane keeping steers whenever it is
+//! switched on, full or partial, in snow and in freezing rain (Orinks's
+//! ruling, 2026-11-27): the snow and ice dropout handed the wheel back with a
+//! tone alone and put trucks off the road (2.0 alpha report). The game
+//! evaluates with `snow_covered` false; the machine, its scenario tag and
+//! status key stay in place, and so does the tone asset.
 
 use serde::{Deserialize, Serialize};
 

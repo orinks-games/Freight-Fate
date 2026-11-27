@@ -268,11 +268,10 @@ impl DrivingState {
             // nothing at all. `over_mph`, not `excess_now`: a ramp has a
             // number to be over too, and reading the retarder's gate here
             // pressed a flat tenth of the pedal down every hot ramp.
-            self.trip.truck.brake = self
-                .trip
-                .truck
-                .brake
-                .max(service_share * 0.35f64.min(0.1 + over_mph * 0.02));
+            // A dry-road pedal, carried to the grip under the wheels.
+            let dry = 0.35f64.min(0.1 + over_mph * 0.02);
+            let pedal = service_share * self.trip.truck.assist_brake_pedal(dry);
+            self.trip.truck.brake = self.trip.truck.brake.max(pedal);
         }
         // ON A RAMP, THE RAMP OWNS THE SPEECH. A ramp with no baked bend is
         // priced off its own radius above, so an exit taken over that number
@@ -444,15 +443,16 @@ impl DrivingState {
             grip,
             bank,
         };
-        // Evaluate snow/ice lane-keep availability before running the lane
-        // controller: on snow-covered northern roads with low grip, lane
-        // keeping drops out with a short non-verbal earcon instead of crowding
-        // speech.
+        // Lane-keep availability before the lane controller. Nothing raises
+        // the dropout today: lane keeping steers whenever it is switched on,
+        // full or partial, in snow and in freezing rain (Orinks's ruling,
+        // 2026-11-27). Handing the wheel back there, with a tone and no
+        // spoken line, put the truck off the slickest roads in the game (2.0
+        // alpha report). The machine, its scenario tag and the tone stay: a
+        // dropout staged through `scenario` holds (and runs as off) until lane
+        // keeping is switched off, and nothing in play starts one.
         let prev_lk = self.lane_keep_availability;
-        let snow_covered = matches!(
-            self.trip.weather.current,
-            ff_core::sim::weather::WeatherKind::Snow | ff_core::sim::weather::WeatherKind::Ice
-        ) && grip < 0.72;
+        let snow_covered = prev_lk.is_dropped_out();
         self.lane_keep_availability = self.lane_keep_availability.next(
             ff_core::sim::lane_keep_status::LaneKeepStatusEvent::Evaluate {
                 enabled: mode != "off",

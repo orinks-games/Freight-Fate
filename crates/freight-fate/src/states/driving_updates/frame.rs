@@ -378,6 +378,8 @@ impl DrivingState {
             t.brake = 1.0;
         }
         self.trip.truck.emergency_brake = emergency;
+        self.driver_brake_down = (braking || emergency) && !backing;
+        self.driver_throttle_down = accelerating;
         // Hard braking (emergency or heavy service) shudders the pad while it
         // lasts; the engine's TTL lets it lapse a few frames after we stop. Only
         // while moving *forward*: rolling backward, the sim ramps the service

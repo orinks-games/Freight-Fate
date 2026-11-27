@@ -281,7 +281,18 @@ pub fn weather_cap_releases_when_the_sky_does() -> Outcome {
 
     rig.drive.weather_mut().forced = Some(WeatherKind::Thunderstorm);
     rig.drive.weather_mut().current = WeatherKind::Thunderstorm;
-    rig.run_frames(600);
+    // How far over the storm's number the truck ran where the posted limit
+    // was above it: under a lower posted limit the limit is what slows it.
+    let mut storm_top = 0.0f64;
+    for _ in 0..20 {
+        rig.run_frames(30);
+        let here = rig.drive.trip.position_mi;
+        let (posted, _) = rig.drive.trip.speed_limit_at(here);
+        let safe_now = rig.drive.weather().effects().safe_speed_mph;
+        if posted > safe_now {
+            storm_top = storm_top.max(rig.drive.truck().speed_mph());
+        }
+    }
     let safe = rig.drive.weather().effects().safe_speed_mph;
     if safe >= 68.0 {
         let note = format!("this storm's safe speed is {safe:.0}, no cap to test below 68");
@@ -309,7 +320,10 @@ pub fn weather_cap_releases_when_the_sky_does() -> Outcome {
              speed of {safe:.0}"
         ));
     }
-    if rig.said("easing to") == 0 {
+    // The easing line speaks only when the cap really slows the truck. A rig
+    // that climbs out of town under the storm's number is never over it, and
+    // silence there is the rule, not a missing line.
+    if rig.said("easing to") == 0 && storm_top.max(top) > safe + 2.0 {
         findings.push("the storm cap was applied with nothing said about it".to_string());
     }
 

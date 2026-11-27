@@ -799,7 +799,8 @@ impl DrivingState {
         // gravity put the truck straight back over after each application,
         // and every application costs air.
         let over = self.trip.truck.speed_mph() - self.gore_acceptance_mph(Some(stop)) - margin;
-        self.trip.truck.brake = self.trip.truck.brake.max(0.35 * over.min(1.0));
+        let pedal = self.trip.truck.assist_brake_pedal(0.35 * over.min(1.0));
+        self.trip.truck.brake = self.trip.truck.brake.max(pedal);
         if self.assist_exit_slowing_said {
             return;
         }

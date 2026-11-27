@@ -208,6 +208,7 @@ mod states_driving_rollover;
 mod states_driving_scale_lane_keeping;
 mod states_driving_scale_pairs;
 mod states_driving_scale_reminder;
+mod states_driving_slick_assists;
 mod states_driving_speech_ladder;
 mod states_driving_speed_keeper_sweep;
 mod states_driving_status_screens;

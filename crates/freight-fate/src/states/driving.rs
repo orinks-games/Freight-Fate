@@ -304,8 +304,13 @@ pub struct DrivingState {
     pub brake_squeal_cooldown_s: f64, // hot-brake squeal cue spacing
     pub hydro_active: bool,           // spoken hydroplane warning edge tracking
     pub jake_slip_active: bool,       // spoken jake-slip warning edge tracking
-    pub abs_active: bool,             // spoken ABS pulsing edge tracking
-    pub wheelspin_active: bool,       // spoken drive-wheel spin edge tracking
+    pub abs_active: bool,             // spoken ABS pulsing edge tracking (driver's own brake)
+    pub wheelspin_active: bool, // spoken drive-wheel spin edge tracking (driver's own throttle)
+    // The driver's own pedals this frame, from the input pass: the ABS and
+    // wheelspin lines tell the driver what to do with a pedal, so they speak
+    // only while the driver's own foot is on it, never an assist's.
+    pub driver_brake_down: bool,
+    pub driver_throttle_down: bool,
     pub trailer_sway_state: ff_core::sim::vehicle::TrailerSwayState,
     pub mirror_glance: ff_core::sim::mirror_glance::MirrorGlance,
     // The cylinder selector's position, like the real dash switch: J
