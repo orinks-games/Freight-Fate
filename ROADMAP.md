@@ -7475,6 +7475,54 @@ a carrier slice (owner, 2026-10-26).
       a spot on a built-in station; today it says the station sends no song
       information.
 
+### Canadian radio stations (November 27)
+
+- [x] Canada is on the radio directory. `data/radio_imported_canada.json`
+      holds 485 Canadian stations, built by `cargo tools
+      import-canada-stations` from a Radio Browser snapshot (stream
+      addresses only, never fetched by the game) joined to ISED's
+      Broadcasting Database (export of 2026-11-24). A station is matched by
+      the call sign in its name or CBC stream mount (690 directory rows), or
+      by the one dial position in its name plus its province when exactly
+      one operating ISED transmitter there matches (7 rows). Rows that
+      contradict ISED on province (6) or frequency (8) are left out.
+      Position, frequency and community are read from ISED; range is
+      derived from licensed ERP through the US tier's table, AM a flat 25
+      miles. One row per station, at its main transmitter. 108 of the
+      map's 150 Canadian cities have a Canadian station in range
+      (`tests/it/radio_canada.rs` holds a floor of 105).
+- [x] Suggest a station asks for the state or province; the site takes
+      the ten provinces and three territories and Newfoundland's VO call
+      signs, and places a Canadian suggestion from a checked-in ISED table
+      written by `import-canada-stations --transmitters`.
+- [ ] (Found along the way) Rebroadcasters are not placed. A station is
+      heard only around its main transmitter, so CBC and the regional
+      networks are missing along most of the highway between cities.
+      Placing them needs a dial rule for one stream at several sites
+      (the multi-site identity the US tier uses for KZYX and WNPN).
+- [ ] (Found along the way) 42 Canadian map cities have no Canadian
+      station in range: Ashern, Baie-Comeau, Cache Creek, Carmacks, Dawson
+      Creek, Dease Lake, Drummondville, Edmundston, Fort Nelson, Fort
+      Providence, Fort St. John, Golden, Grand Rapids, Haines Junction,
+      Hay River, Hearst, High Level, Hope, Ignace, Jasper, Kitimat,
+      Longlac, Marathon, McBride, Meziadin Junction, Mont-Laurier,
+      Osoyoos, Prince Rupert, Princeton, Revelstoke, Rivière-du-Loup,
+      Sherbrooke, Smithers, Stewart, Thompson, Trois-Rivières, Val-d'Or,
+      Valemount, Vanderhoof, Wandering River, Watson Lake and Wawa. Several
+      have a local station whose directory name carries no call sign, and
+      rebroadcasters would cover others.
+- [ ] (Found along the way) Streams that refuse listeners outside Canada
+      stay off the dial: Corus (`leanstream.co`, HTTP 404 or 500 from the
+      US) and Cogeco (StreamTheWorld, HTTP 426), 33 stations,
+      Toronto's Q107 and The Edge, Vancouver's CFOX and Rock 101, Calgary's
+      Country 105 and Montréal's CKOI among them.
+- [ ] (Found along the way) 85 Canadian stations whose streams are on a
+      port other than 80 or 443 could not be checked from a cloud session (its proxy refuses
+      those ports) and are counted as unreachable, CKRW Whitehorse among
+      them. Sweep them from a desktop: drop the `rb-ised-` rows from
+      `radio_stream_health.json`'s dead list, rebuild, run `cargo tools
+      check-radio-streams --only canada`, and rebuild again.
+
 ### Winter cab, wipers and ice roads (designed November 22)
 
 The owner asked for heat and air that do something (frost with the heat

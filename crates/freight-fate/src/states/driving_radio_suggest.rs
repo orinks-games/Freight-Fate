@@ -91,7 +91,7 @@ impl Menu for SuggestKindState {
             MenuItem::new("On AM or FM, and online", |s: &mut Self, ctx| {
                 s.choose(ctx, "terrestrial")
             })
-            .help("A broadcast station. You'll be asked its call sign and state."),
+            .help("A broadcast station. You'll be asked its call sign and state or province."),
             MenuItem::new("Online only", |s: &mut Self, ctx| s.choose(ctx, "web"))
                 .help("A station that streams on the internet and has no AM or FM signal."),
             MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)).help("Go back."),
@@ -137,7 +137,7 @@ impl Question {
             Question::Name => "Station name",
             Question::StreamUrl => "Stream address",
             Question::CallSign => "Call sign",
-            Question::State => "State",
+            Question::State => "State or province",
             Question::City => "City",
             Question::Frequency => "Frequency",
             Question::Genre => "Format",
@@ -152,7 +152,7 @@ impl Question {
                 "The direct link to the audio stream, not the station's web page. streamurl.link finds one. Control V pastes."
             }
             Question::CallSign => "Like W X Y Z, or K A B C dash F M.",
-            Question::State => "The state it broadcasts from.",
+            Question::State => "The state or province it broadcasts from.",
             Question::City => "Optional. Enter skips.",
             Question::Frequency => "Optional, like 101.5 or 1090. Enter skips.",
             Question::Genre => "Optional, like classic country. Enter skips.",

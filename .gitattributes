@@ -17,6 +17,7 @@ data/street_limits.json text eol=lf
 data/buffs.json text eol=lf
 data/radio_catalog.json text eol=lf
 data/radio_imported.json text eol=lf
+data/radio_imported_canada.json text eol=lf
 
 # The cloud-validator invariants export is pinned byte for byte against the
 # Rust exporter's output, which is LF on every platform. A CRLF checkout

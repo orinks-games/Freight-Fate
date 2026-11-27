@@ -1218,7 +1218,7 @@ A playlist can also hold YouTube links, livestreams included. Freight Fate doesn
 
 ### Suggesting a station
 
-If a station is missing, open Suggest a station in the Radio app. Enter its type, name, and stream address; Control V lets you paste. For AM or FM, include the call sign and state. City and frequency are optional. You'll need account setup and Online services enabled.
+If a station is missing, open Suggest a station in the Radio app. Enter its type, name, and stream address; Control V lets you paste. For AM or FM, include the call sign and state or province. City and frequency are optional. You'll need account setup and Online services enabled.
 
 The service checks whether the stream plays and whether the station is already listed before sending your suggestion for review. If it's accepted, it can appear when you launch the game later, without a game update. A station with a matched transmitter location is available within reception range. If its license can't be matched to a location, it's listed as web radio instead. You can also use the [station suggestion page](https://orinks.net/freight-fate/suggest-a-station). The [streamurl.link site](https://streamurl.link) can help you find a stream address.
 

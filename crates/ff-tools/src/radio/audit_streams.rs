@@ -80,6 +80,9 @@ fn rows_to_audit(only: &str, recheck_dropped: bool) -> Result<Vec<Object>> {
     }
     if only == "all" || only == "imported" {
         rows.extend(catalog_rows("radio_imported.json", "imported")?);
+        if super::data_path("radio_imported_canada.json").exists() {
+            rows.extend(catalog_rows("radio_imported_canada.json", "imported")?);
+        }
         let health = super::data_path("radio_stream_health.json");
         if recheck_dropped && health.exists() {
             let present: HashSet<String> = rows.iter().map(|r| text(r, "id").to_string()).collect();

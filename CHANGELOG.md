@@ -17,6 +17,7 @@
 
 ### Added
 
+- **Canadian radio stations are on the dial.** Stations come in near their real transmitters across Canada, and Suggest a station takes a province.
 - **Live weather now covers Canada.** Canadian roads get current conditions and weather alerts from Environment and Climate Change Canada.
 - **Predictive cruise now prepares the jake brake before crests and downgrades.** It also resumes smoothly out of work zones and green lights.
 - **Steering toward an occupied lane now plays a directional blind-spot chirp.** On All assists, a tap signals, waits for a gap, and glides over.

@@ -3,8 +3,14 @@
 //! still play.
 
 pub mod audit_streams;
+#[cfg(feature = "world")]
+mod canada_join;
 pub mod check_streams;
+#[cfg(feature = "world")]
+mod dbf;
 pub mod fold_community;
+#[cfg(feature = "world")]
+pub mod import_canada;
 
 use std::path::PathBuf;
 

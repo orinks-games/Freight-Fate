@@ -15,6 +15,7 @@
 //! cargo tools check-radio-streams
 //! cargo tools check-radio-streams --only curated --workers 8
 //! cargo tools check-radio-streams --recheck-dead
+//! cargo tools check-radio-streams --only canada
 //! ```
 //!
 //! A probe asks curl for the first couple of kilobytes and hangs up.
@@ -240,6 +241,13 @@ fn rows_to_check(only: &str) -> Result<Vec<Object>> {
     if (only == "all" || only == "imported") && super::data_path("radio_imported.json").exists() {
         rows.extend(catalog_rows("radio_imported.json", "imported")?);
     }
+    // The Canadian rows are the same imported tier, in their own file;
+    // `--only canada` sweeps them alone after a rebuild.
+    if (only == "all" || only == "imported" || only == "canada")
+        && super::data_path("radio_imported_canada.json").exists()
+    {
+        rows.extend(catalog_rows("radio_imported_canada.json", "imported")?);
+    }
     Ok(rows
         .into_iter()
         .filter(|r| web_stream(r).is_some())
@@ -254,7 +262,8 @@ fn pick(row: &Object, keys: &[&str]) -> Value {
     Value::Object(out)
 }
 
-const USAGE: &str = "usage: check-radio-streams [--only all|curated|imported] [--workers N] \
+const USAGE: &str =
+    "usage: check-radio-streams [--only all|curated|imported|canada] [--workers N] \
 [--timeout S] [--limit N] [--output FILE] [--recheck-dead]";
 
 pub fn main(argv: &[String]) -> Result<i32> {
@@ -267,7 +276,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     )
     .map_err(|e| format!("{e}\n{USAGE}"))?;
     let only = args
-        .choice("only", &["all", "curated", "imported"], "all")
+        .choice("only", &["all", "curated", "imported", "canada"], "all")
         .map_err(|e| e.0)?;
     let workers: usize = args.number("workers", 12).map_err(|e| e.0)?;
     let timeout: f64 = args.number("timeout", 12.0).map_err(|e| e.0)?;

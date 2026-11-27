@@ -1,8 +1,8 @@
 {
  "counts": {
-  "dead": 21,
-  "ok": 719,
-  "playlist": 11
+  "dead": 1,
+  "ok": 356,
+  "playlist": 129
  },
  "dead": [
   {
@@ -881,6 +881,370 @@
    "tier": "imported"
   },
   {
+   "detail": "HTTP 502",
+   "id": "rb-ised-487ac5e0-4368-47b7-abaa-ad8cf1cc941a",
+   "name": "CFBG 99.5 \"Moose FM\" Bracebridge, ON",
+   "stream_url": "https://vistaradio.streamb.live/SB00115",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9620bcea-0601-11e8-ae97-52543be04c81",
+   "name": "CFGQ 107.3 \"Q107\" Calgary, AB",
+   "stream_url": "http://live.leanstream.co/CFGQFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9616961c-0601-11e8-ae97-52543be04c81",
+   "name": "CFHK 103.1 \"Fresh Radio\" St. Thomas, ON",
+   "stream_url": "http://live.leanstream.co/CFHKFM-MP3?args=web_02",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-961c0217-0601-11e8-ae97-52543be04c81",
+   "name": "CFLG 104.5 \"Fresh Radio\" Cornwall, ON",
+   "stream_url": "http://live.leanstream.co/CFLGFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-b8b3601f-6576-4c36-a75e-b70e3082afb3",
+   "name": "CFMI Rock 101.1 Vancouver",
+   "stream_url": "http://live.leanstream.co/CFMIFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9609965b-0601-11e8-ae97-52543be04c81",
+   "name": "CFMK \"Big 96.3\" Kingston, ON",
+   "stream_url": "http://live.leanstream.co/CFMKFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 500",
+   "id": "rb-ised-75324816-227f-49e1-902f-1c8e0f00981b",
+   "name": "CFMK 96.3 Big FM",
+   "stream_url": "https://corus.leanstream.co/CFMKFM",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-19cad729-0c38-429e-984c-966f9b6bd4ef",
+   "name": "CFMK-FM 96.3 \"Big FM\" Kingston, ON",
+   "stream_url": "http://live.leanstream.co/CFMKFM",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-96213ce2-0601-11e8-ae97-52543be04c81",
+   "name": "CFNY 102.1 \"The Edge\" Toronto, ON",
+   "stream_url": "http://live.leanstream.co/CFNYFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-961aee5d-0601-11e8-ae97-52543be04c81",
+   "name": "CFNY 102.1 Toronto, ON",
+   "stream_url": "http://live.leanstream.co/CFNYFM",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-96217747-0601-11e8-ae97-52543be04c81",
+   "name": "CFOX 99.3 Vancouver, BC",
+   "stream_url": "http://live.leanstream.co/CFOXFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 500",
+   "id": "rb-ised-e877dcfd-8e91-4470-8cc2-af5d2420ae4b",
+   "name": "CFOX Radio",
+   "stream_url": "https://corus.leanstream.co/CFOXFM",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9620f1c0-0601-11e8-ae97-52543be04c81",
+   "name": "CFPL-FM 95.9 \"FM96\" London, ON",
+   "stream_url": "http://live.leanstream.co/CFPLFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 401",
+   "id": "rb-ised-c0f70edf-19f3-4993-9258-954656c2746e",
+   "name": "CFRC 101.9fm - Queen's University, Kingston, ON",
+   "stream_url": "https://audio.cfrc.ca/stream",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9621c2a8-0601-11e8-ae97-52543be04c81",
+   "name": "CHAY 93.1 \"Fresh Radio\" Barrie, ON",
+   "stream_url": "http://live.leanstream.co/CHAYFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 401",
+   "id": "rb-ised-3b98729a-8355-42f1-bcba-742e5e5eac33",
+   "name": "CHCR 102.9 / 104.5 FM \"Canadian Homegrown Community Radio\" Killaloe, Ontario",
+   "stream_url": "https://canada1.reliastream.com/proxy/canadian?mp=/stream",
+   "tier": "imported"
+  },
+  {
+   "detail": "not audio: empty",
+   "id": "rb-ised-7d9d82a2-155b-4002-bc67-4cd79f65d6b8",
+   "name": "CHMK 93.1 Manawan",
+   "stream_url": "https://s33.myradiostream.com/15364/listen.mp3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 403",
+   "id": "rb-ised-9621347f-0601-11e8-ae97-52543be04c81",
+   "name": "CHYR \"MIX 96.7\" Leamington, ON",
+   "stream_url": "http://live.leanstream.co/CHYRFM",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9613ed33-0601-11e8-ae97-52543be04c81",
+   "name": "CILQ 107.1 \"Q107\" Toronto",
+   "stream_url": "http://live.leanstream.co/CILQFM",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9621effa-0601-11e8-ae97-52543be04c81",
+   "name": "CIMJ 106.1 \"Magic 106\" Guelph, ON",
+   "stream_url": "http://live.leanstream.co/CIMJFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-0b63b14d-0ee2-4811-a410-e2d0785f7ad3",
+   "name": "CING-FM \"Energy 95.3\" Hamilton, ON",
+   "stream_url": "http://live.leanstream.co/CINGFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-78d56c99-ebe5-425b-923c-3dba1149f389",
+   "name": "CING-FM \"Energy 95.3\" Hamilton, ON",
+   "stream_url": "http://live.leanstream.co/CINGFM",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 502",
+   "id": "rb-ised-fccdf1da-21c1-46cf-aabf-d28934b0b965",
+   "name": "CIOG 91.3 \"PEI's Inspire FM\" - Charlottetown, Prince Edward Island",
+   "stream_url": "https://harvestersciog.radioca.st/CIOG",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9620f040-0601-11e8-ae97-52543be04c81",
+   "name": "CIQB \"Big 101.1\" Barrie, ON",
+   "stream_url": "http://live.leanstream.co/CIQBFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9622ab26-0601-11e8-ae97-52543be04c81",
+   "name": "CISN \"Country 103.9\" Edmonton, AB",
+   "stream_url": "http://live.leanstream.co/CISNFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 500",
+   "id": "rb-ised-aae17d98-fc23-4a9b-91f0-ca883604c0c5",
+   "name": "CISN Country",
+   "stream_url": "https://corus.leanstream.co/CISNFM?args=web_01&startTime=1692203406",
+   "tier": "imported"
+  },
+  {
+   "detail": "not audio: text/html",
+   "id": "rb-ised-96182301-0601-11e8-ae97-52543be04c81",
+   "name": "CIUT 89.5 University of Toronto",
+   "stream_url": "http://128.100.197.46/",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9621f7bc-0601-11e8-ae97-52543be04c81",
+   "name": "CJDV 107.5 \"Dave Rocks\" Kitchener, ON",
+   "stream_url": "http://live.leanstream.co/CJDVFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-961364d9-0601-11e8-ae97-52543be04c81",
+   "name": "CJKR 97.5 \"Power 97\" Winnipeg, MB",
+   "stream_url": "http://live.leanstream.co/CJKRFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 503",
+   "id": "rb-ised-dbdfe075-67d5-11e9-af37-52543be04c81",
+   "name": "CJNC 97.9 Norway House, MB",
+   "stream_url": "https://ais-sa1.streamon.fm/7036_24k.aac/playlist.m3u8",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-96215869-0601-11e8-ae97-52543be04c81",
+   "name": "CJOT \"Boom 99.7\" Ottawa, ON",
+   "stream_url": "http://live.leanstream.co/CJOTFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-96216366-0601-11e8-ae97-52543be04c81",
+   "name": "CJSS \"Boom 101.9\" Cornwall, ON",
+   "stream_url": "http://live.leanstream.co/CJSSFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9621ff29-0601-11e8-ae97-52543be04c81",
+   "name": "CJXY 107.9 \"Y108\" Burlington, ON",
+   "stream_url": "http://live.leanstream.co/CJXYFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 426",
+   "id": "rb-ised-b174bdc3-5f5f-45b2-8b3d-56f03d434186",
+   "name": "CKAC 730 \"Radio Circulation\" Montreal",
+   "stream_url": "https://playerservices.streamtheworld.com/api/livestream-redirect/CKACAMAAC.aac",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 426",
+   "id": "rb-ised-d51e3893-63f6-43c5-a2eb-f6ca49882bf5",
+   "name": "CKAC Montréal",
+   "stream_url": "https://playerservices.streamtheworld.com/api/livestream-redirect/CKACAMAAC_SC.aac",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9621bbde-0601-11e8-ae97-52543be04c81",
+   "name": "CKBT 91.5 \"The Beat\" Kitchener, ON",
+   "stream_url": "http://live.leanstream.co/CKBTFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-96220253-0601-11e8-ae97-52543be04c81",
+   "name": "CKCB 95.1 \"The Peak\" Collingwood, ON",
+   "stream_url": "http://live.leanstream.co/CKCBFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-96217384-0601-11e8-ae97-52543be04c81",
+   "name": "CKDK 103.9 \"Country 104\" Woodstock, ON",
+   "stream_url": "http://live.leanstream.co/CKDKFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "not audio: empty",
+   "id": "rb-ised-ba9353b1-eed5-4eb0-8034-dbbbe18c72c1",
+   "name": "CKMS-FM Radio Waterloo DI",
+   "stream_url": "https://radiowaterloo.ca/stream",
+   "tier": "imported"
+  },
+  {
+   "detail": "not audio: empty",
+   "id": "rb-ised-f2560c62-abe8-44af-bb9f-301a83efaec0",
+   "name": "CKMS-FM Radio Waterloo S2",
+   "stream_url": "https://radiowaterloo.ca/stream2",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-96214bd0-0601-11e8-ae97-52543be04c81",
+   "name": "CKNG \"Fresh Radio 92.5\" Edmonton, AB",
+   "stream_url": "http://live.leanstream.co/CKNGFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 500",
+   "id": "rb-ised-6c1e932d-50cc-4451-be88-ab0dccb1a86a",
+   "name": "CKNG-FM \"The Chuck 92.5\" Edmonton, AB",
+   "stream_url": "https://corus.leanstream.co/CKNGFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 500",
+   "id": "rb-ised-588dfba2-86a6-42fd-8957-83f8addc160a",
+   "name": "CKNG-FM \"The Chuck 92.5\" Edmonton, AB",
+   "stream_url": "https://corus.leanstream.co/CKNGFM",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 426",
+   "id": "rb-ised-e32ebf5b-ae03-42ff-911f-462120807edb",
+   "name": "CKOB \"FM 106.9 Mauricie\" Trois-Rivieres, QC",
+   "stream_url": "https://playerservices.streamtheworld.com/api/livestream-redirect/CKOBFMAAC.m3u8",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 426",
+   "id": "rb-ised-b8ef0f44-0815-4ab2-a5e6-e37630e9037d",
+   "name": "CKOF \"FM 104.7 Outaouais\" Gatineau, QC",
+   "stream_url": "https://playerservices.streamtheworld.com/api/livestream-redirect/CKOFFMAAC.aac",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 426",
+   "id": "rb-ised-6ead1c3e-8174-4abe-bab2-12952912e817",
+   "name": "CKOI Montréal",
+   "stream_url": "https://playerservices.streamtheworld.com/api/livestream-redirect/CKOIFMAAC_SC.aac",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 426",
+   "id": "rb-ised-97776883-6893-4b88-b4c7-e92678b16e52",
+   "name": "CKOY \"107.7 FM Estrie\" Sherbrooke, QC",
+   "stream_url": "https://playerservices.streamtheworld.com/api/livestream-redirect/CKOYFMAAC.aac",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9622018a-0601-11e8-ae97-52543be04c81",
+   "name": "CKQB \"JUMP! 106.9\" Ottawa, ON",
+   "stream_url": "http://live.leanstream.co/CKQBFM",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-961e2b56-0601-11e8-ae97-52543be04c81",
+   "name": "CKRU 100.5 \"Fresh Radio\" Peterborough, ON",
+   "stream_url": "http://live.leanstream.co/CKRUFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9622b1eb-0601-11e8-ae97-52543be04c81",
+   "name": "CKRY 105.1 \"Country 105\" Calgary, AB",
+   "stream_url": "http://live.leanstream.co/CKRYFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-96162afe-0601-11e8-ae97-52543be04c81",
+   "name": "CKWF 101.5 \"The Wolf\" Peterborough",
+   "stream_url": "http://live.leanstream.co/CKWFFM-MP3",
+   "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-96220a11-0601-11e8-ae97-52543be04c81",
+   "name": "CKWS 104.3 \"Fresh Radio\" Kingston, ON",
+   "stream_url": "http://live.leanstream.co/CKWSFM?args=web_01",
+   "tier": "imported"
+  },
+  {
    "detail": "HTTP 404",
    "id": "rb-web-404397ef-b6ec-48fc-88a8-cf68490df80e",
    "name": "CRB - Leonard Bernstein",
@@ -1018,6 +1382,13 @@
    "id": "rb-962e1bc6-0601-11e8-ae97-52543be04c81",
    "name": "Clarion, PA",
    "stream_url": "http://wcucfm.clarion.edu:8000/wcuc-stream",
+   "tier": "imported"
+  },
+  {
+   "detail": "not audio: empty",
+   "id": "rb-ised-751a088f-04b0-4740-aaee-1703d9c6b915",
+   "name": "Classic 1220 AM CFAJ",
+   "stream_url": "https://s19.myradiostream.com/19156/listen.mp3",
    "tier": "imported"
   },
   {
@@ -7300,7 +7671,7 @@
    "tier": "imported"
   }
  ],
- "notes": "Stream reachability, written by tools/check_radio_streams.py. tools/import_radio_catalog.py drops the imported ids listed here; curated casualties are marked supported: false by hand with a note. Re-probe with --recheck-dead before deleting anything: a station can come back.",
+ "notes": "Stream reachability, written by `cargo tools check-radio-streams`. The imported catalog's build drops the imported ids listed here; curated casualties are marked supported: false by hand with a note. Re-probe with --recheck-dead before deleting anything: a station can come back.",
  "repaired": [
   {
    "id": "wbwc-berea",
