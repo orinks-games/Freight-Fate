@@ -733,13 +733,10 @@ impl RoadsideCallout {
         self.category == "village" || self.explains_limit
     }
 
-    /// Whether this callout waits on the chatter budget. A placed attraction
-    /// sign does not: its copy was written and approved for that spot, and a
-    /// random pool board or a river line spoken a mile before it must not
-    /// silence it. It still spends the budget once spoken, so the next joke
-    /// board waits behind it.
+    /// Named rivers and placed attraction signs bypass the chatter budget.
+    /// They still spend it, so the next random billboard waits behind them.
     pub fn waits_for_chatter_budget(&self) -> bool {
-        !self.is_place_callout() && self.category != "billboard_sign"
+        !self.is_place_callout() && !matches!(self.category.as_str(), "river" | "billboard_sign")
     }
 }
 
