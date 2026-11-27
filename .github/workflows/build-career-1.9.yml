@@ -768,6 +768,7 @@ jobs:
           TAG: ${{ needs.prepare.outputs.tag }}
           COMMIT_SHA: ${{ needs.prepare.outputs.commit_sha }}
           IS_PRERELEASE: ${{ needs.prepare.outputs.is_prerelease }}
+          CHANNEL: ${{ needs.prepare.outputs.channel }}
           VERSION: ${{ needs.prepare.outputs.version }}
         run: |
           test "$(git rev-parse HEAD)" = "$COMMIT_SHA"
@@ -778,7 +779,12 @@ jobs:
           (cd release-assets && sha256sum -c checksums.txt)
 
           if [ "$IS_PRERELEASE" = "true" ]; then
-            LAST_TAG=$(git tag --list "1.9-tester-*" --sort=-version:refname | grep -v "^$TAG$" | head -1)
+            if [ "$CHANNEL" = "alpha" ]; then
+              TAG_PATTERN="alpha-*"
+            else
+              TAG_PATTERN="1.9-tester-*"
+            fi
+            LAST_TAG=$(git tag --list "$TAG_PATTERN" --sort=-version:refname | grep -v "^$TAG$" | head -1)
             if [ -n "$LAST_TAG" ]; then
               gh release view "$LAST_TAG" --json body -q .body > previous-notes.md || true
               "$FF_TOOLS" release-notes nightly \
