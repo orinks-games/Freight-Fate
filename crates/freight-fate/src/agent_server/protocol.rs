@@ -362,12 +362,14 @@ fn tools_list() -> Value {
              Control Center, the app switcher, the lock button; the window's focus is \
              lost with it), did_enter_background, will_enter_foreground, \
              did_become_active (focus comes back with it), audio_interruption_began, \
-             audio_interruption_ended and output_device_lost (headphones out). Leaving \
+             audio_interruption_ended, output_device_lost (headphones out) and \
+             will_terminate (the system ending the app; nothing moves the place \
+             after it, so send it last). Leaving \
              is will_resign_active then did_enter_background; coming back is \
              will_enter_foreground then did_become_active; Control Center is \
              will_resign_active then did_become_active. status reports app (active, \
-             inactive or background, and sound_taken while an interruption holds the \
-             sound).",
+             inactive, background or ending, and sound_taken while an interruption \
+             holds the sound).",
             json!({"name": {"type": "string"}}),
             &["name"],
         ),

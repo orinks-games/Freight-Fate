@@ -23,6 +23,13 @@
 //!   being said when the player left was cut off.
 //! - Sound that the system took (a call, an alarm, Siri) or the output that
 //!   went away (headphones out) pauses the drive as leaving does.
+//! - Once the system says the app is ending, nothing after it is a return.
+//!   Android ends an app swiped out of its recent apps screen by waking it
+//!   to quit: SDL queues the quit and "terminating", then the four
+//!   foreground events of the wake. Taken as a return, they read the screen
+//!   to a player who just closed the game, and track the run again after
+//!   the quit ended it, so the next start offers a problem report for a
+//!   crash that never happened.
 //!
 //! A desktop window losing focus is not one of these events: the game keeps
 //! running there.
@@ -38,6 +45,8 @@ pub enum AppPlace {
     Inactive,
     /// Off screen. The system may end the app here without a word.
     Background,
+    /// The system said the app is ending. Nothing moves it again.
+    Ending,
 }
 
 /// A platform notification about the app or its sound.
@@ -58,6 +67,9 @@ pub enum AppEvent {
     /// The output the game was playing through went away: headphones out, a
     /// Bluetooth device off or out of range.
     OutputDeviceLost,
+    /// SDL `APP_TERMINATING`: the system is ending the app (Android's
+    /// activity destroyed, iOS `willTerminate`).
+    WillTerminate,
 }
 
 /// What the game does on a transition, in the order given.
@@ -104,6 +116,9 @@ impl AppLifecycle {
     /// The state after `event`, and what to do about it.
     pub fn next(self, event: AppEvent) -> (Self, &'static [AppAction]) {
         use AppEvent::*;
+        if self.place == AppPlace::Ending {
+            return (self, &[]);
+        }
         let active = self.place == AppPlace::Active;
         match event {
             AudioInterruptionBegan => {
@@ -194,6 +209,8 @@ impl AppPlace {
             // The output gone while playing: the drive pauses as it does
             // when the player leaves.
             (Active, OutputDeviceLost) => (Active, &[ReleaseControls, PauseDrive]),
+            // Ending, from anywhere: the run ended cleanly, and stays ended.
+            (_, WillTerminate) => (Ending, &[EndReportSession]),
             // Everything else repeats what the place already says, or is
             // news away from the foreground, where leaving already paused
             // the drive.
@@ -207,13 +224,14 @@ impl AppPlace {
             Self::Active => "active",
             Self::Inactive => "inactive",
             Self::Background => "background",
+            Self::Ending => "ending",
         }
     }
 }
 
 impl AppEvent {
     /// Every event, in the order [`AppEvent::key`] lists them.
-    pub const ALL: [AppEvent; 7] = [
+    pub const ALL: [AppEvent; 8] = [
         AppEvent::WillResignActive,
         AppEvent::DidEnterBackground,
         AppEvent::WillEnterForeground,
@@ -221,6 +239,7 @@ impl AppEvent {
         AppEvent::AudioInterruptionBegan,
         AppEvent::AudioInterruptionEnded,
         AppEvent::OutputDeviceLost,
+        AppEvent::WillTerminate,
     ];
 
     /// The name the agent server's `app_event` tool takes.
@@ -233,6 +252,7 @@ impl AppEvent {
             Self::AudioInterruptionBegan => "audio_interruption_began",
             Self::AudioInterruptionEnded => "audio_interruption_ended",
             Self::OutputDeviceLost => "output_device_lost",
+            Self::WillTerminate => "will_terminate",
         }
     }
 
@@ -266,6 +286,7 @@ mod tests {
         EndReportSession,
     ];
     const FOREGROUND: &[AppAction] = &[ResumeReportSession, RestoreStopSave];
+    const END: &[AppAction] = &[EndReportSession];
     const BACK_FROM_BACKGROUND: &[AppAction] = &[
         ResumeReportSession,
         RestoreStopSave,
@@ -292,7 +313,7 @@ mod tests {
     #[test]
     fn transition_table() {
         #[rustfmt::skip]
-        let table: [Row; 42] = [
+        let table: [Row; 64] = [
             (Active, false, WillResignActive, Inactive, false, LEAVE),
             (Active, false, DidEnterBackground, Background, false, LEAVE_AND_SAVE),
             (Active, false, WillEnterForeground, Active, false, NONE),
@@ -300,6 +321,7 @@ mod tests {
             (Active, false, AudioInterruptionBegan, Active, true, LEAVE),
             (Active, false, AudioInterruptionEnded, Active, false, WAKE),
             (Active, false, OutputDeviceLost, Active, false, LEAVE),
+            (Active, false, WillTerminate, Ending, false, END),
             (Active, true, WillResignActive, Inactive, true, LEAVE),
             (Active, true, DidEnterBackground, Background, true, LEAVE_AND_SAVE),
             (Active, true, WillEnterForeground, Active, true, NONE),
@@ -307,6 +329,7 @@ mod tests {
             (Active, true, AudioInterruptionBegan, Active, true, LEAVE),
             (Active, true, AudioInterruptionEnded, Active, false, BACK),
             (Active, true, OutputDeviceLost, Active, true, LEAVE),
+            (Active, true, WillTerminate, Ending, true, END),
             (Inactive, false, WillResignActive, Inactive, false, NONE),
             (Inactive, false, DidEnterBackground, Background, false, SAVE),
             (Inactive, false, WillEnterForeground, Inactive, false, NONE),
@@ -314,6 +337,7 @@ mod tests {
             (Inactive, false, AudioInterruptionBegan, Inactive, true, NONE),
             (Inactive, false, AudioInterruptionEnded, Inactive, false, WAKE),
             (Inactive, false, OutputDeviceLost, Inactive, false, NONE),
+            (Inactive, false, WillTerminate, Ending, false, END),
             (Inactive, true, WillResignActive, Inactive, true, NONE),
             (Inactive, true, DidEnterBackground, Background, true, SAVE),
             (Inactive, true, WillEnterForeground, Inactive, true, NONE),
@@ -321,6 +345,7 @@ mod tests {
             (Inactive, true, AudioInterruptionBegan, Inactive, true, NONE),
             (Inactive, true, AudioInterruptionEnded, Inactive, false, WAKE),
             (Inactive, true, OutputDeviceLost, Inactive, true, NONE),
+            (Inactive, true, WillTerminate, Ending, true, END),
             (Background, false, WillResignActive, Background, false, NONE),
             (Background, false, DidEnterBackground, Background, false, NONE),
             (Background, false, WillEnterForeground, Inactive, false, FOREGROUND),
@@ -328,6 +353,7 @@ mod tests {
             (Background, false, AudioInterruptionBegan, Background, true, NONE),
             (Background, false, AudioInterruptionEnded, Background, false, WAKE),
             (Background, false, OutputDeviceLost, Background, false, NONE),
+            (Background, false, WillTerminate, Ending, false, END),
             (Background, true, WillResignActive, Background, true, NONE),
             (Background, true, DidEnterBackground, Background, true, NONE),
             (Background, true, WillEnterForeground, Inactive, true, FOREGROUND),
@@ -335,6 +361,23 @@ mod tests {
             (Background, true, AudioInterruptionBegan, Background, true, NONE),
             (Background, true, AudioInterruptionEnded, Background, false, WAKE),
             (Background, true, OutputDeviceLost, Background, true, NONE),
+            (Background, true, WillTerminate, Ending, true, END),
+            (Ending, false, WillResignActive, Ending, false, NONE),
+            (Ending, false, DidEnterBackground, Ending, false, NONE),
+            (Ending, false, WillEnterForeground, Ending, false, NONE),
+            (Ending, false, DidBecomeActive, Ending, false, NONE),
+            (Ending, false, AudioInterruptionBegan, Ending, false, NONE),
+            (Ending, false, AudioInterruptionEnded, Ending, false, NONE),
+            (Ending, false, OutputDeviceLost, Ending, false, NONE),
+            (Ending, false, WillTerminate, Ending, false, NONE),
+            (Ending, true, WillResignActive, Ending, true, NONE),
+            (Ending, true, DidEnterBackground, Ending, true, NONE),
+            (Ending, true, WillEnterForeground, Ending, true, NONE),
+            (Ending, true, DidBecomeActive, Ending, true, NONE),
+            (Ending, true, AudioInterruptionBegan, Ending, true, NONE),
+            (Ending, true, AudioInterruptionEnded, Ending, true, NONE),
+            (Ending, true, OutputDeviceLost, Ending, true, NONE),
+            (Ending, true, WillTerminate, Ending, true, NONE),
         ];
         for (place, taken, event, to, to_taken, actions) in table {
             assert_eq!(
@@ -343,7 +386,7 @@ mod tests {
                 "{place:?} (sound taken {taken}) + {event:?}"
             );
         }
-        for place in [Active, Inactive, Background] {
+        for place in [Active, Inactive, Background, Ending] {
             for taken in [false, true] {
                 for event in AppEvent::ALL {
                     assert!(
@@ -462,6 +505,24 @@ mod tests {
         }
     }
 
+    /// Swiped out of Android's recent apps: SDL queues the quit's
+    /// "terminating" ahead of the foreground events of the wake it ends
+    /// the app with. The run stays ended and nothing is read.
+    #[test]
+    fn an_app_ended_from_the_recent_apps_screen_never_comes_back() {
+        let (state, actions) = run(&[
+            WillResignActive,
+            DidEnterBackground,
+            WillTerminate,
+            WillEnterForeground,
+            DidBecomeActive,
+        ]);
+        assert_eq!(state.place, Ending);
+        assert_eq!(count(&actions, ResumeReportSession), 0);
+        assert_eq!(count(&actions, ReadScreenAgain), 0);
+        assert_eq!(actions.last(), Some(&EndReportSession));
+    }
+
     #[test]
     fn a_background_with_no_resign_still_pauses_first() {
         let (state, actions) = run(&[DidEnterBackground]);
@@ -482,7 +543,7 @@ mod tests {
             assert_eq!(AppEvent::from_code(code as i32), Some(event));
         }
         assert_eq!(AppEvent::from_code(-1), None);
-        assert_eq!(AppEvent::from_code(7), None);
+        assert_eq!(AppEvent::from_code(8), None);
         assert_eq!(AppEvent::from_key("resume"), None);
     }
 }

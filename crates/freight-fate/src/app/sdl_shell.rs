@@ -653,6 +653,13 @@ pub fn translate_events_with(raw: Vec<Event>, soft_keyboard: bool) -> Vec<InputE
             Event::AppDidEnterForeground { .. } => {
                 out.push(InputEvent::App(AppEvent::DidBecomeActive));
             }
+            // Android ends an app swiped out of recent apps by queueing the
+            // quit and this, then waking the loop with the four foreground
+            // events above, which this makes the lifecycle ignore.
+            #[cfg(touch_screen)]
+            Event::AppTerminating { .. } => {
+                out.push(InputEvent::App(AppEvent::WillTerminate));
+            }
             Event::Quit { .. } => out.push(InputEvent::Quit),
             _ => {}
         }

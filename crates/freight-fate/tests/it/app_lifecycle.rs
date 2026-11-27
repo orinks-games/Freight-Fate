@@ -147,6 +147,33 @@ fn coming_back_to_a_menu_reads_its_focused_row_once() {
     app.shutdown();
 }
 
+/// Swiped out of Android's recent apps: SDL queues the quit's
+/// "terminating", then wakes the loop with the foreground events. That
+/// wake is not a return: nothing is read to a player who closed the game.
+#[test]
+fn an_app_ended_from_recent_apps_reads_nothing_on_its_way_out() {
+    let mut app = TestApp::new();
+    start_drive(&mut app);
+    let status = DrivingStatusState::new(&app.ctx);
+    app.push_state(status);
+    send(
+        &mut app,
+        &[AppEvent::WillResignActive, AppEvent::DidEnterBackground],
+    );
+    app.clear_speech();
+    send(
+        &mut app,
+        &[
+            AppEvent::WillTerminate,
+            AppEvent::WillEnterForeground,
+            AppEvent::DidBecomeActive,
+        ],
+    );
+    assert_eq!(app.app_place(), AppPlace::Ending);
+    assert!(app.main_lines().is_empty(), "{:?}", app.main_lines());
+    app.shutdown();
+}
+
 #[test]
 fn the_background_saves_the_drive_and_coming_back_puts_the_stop_back() {
     let mut app = TestApp::new();
