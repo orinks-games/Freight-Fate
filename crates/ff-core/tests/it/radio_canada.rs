@@ -7,8 +7,8 @@ use ff_core::sim::trip_route_helpers::haversine_distance_mi;
 
 use crate::data_support::world;
 
-/// The November 27 build reached 108 of the map's 150 Canadian cities.
-const CITIES_WITH_A_STATION: usize = 105;
+/// The November 27 build reached 117 of the map's 150 Canadian cities.
+const CITIES_WITH_A_STATION: usize = 114;
 
 #[test]
 fn most_canadian_cities_have_a_canadian_station_in_range() {

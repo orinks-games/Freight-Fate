@@ -139,6 +139,7 @@
 
 ### Fixed
 
+- **A newly tuned station no longer reads out the last station's song.** Now playing waits for the new station's own title.
 - **Lane keeping keeps steering in snow and freezing rain.** It used to switch off with a tone and let the truck leave the road.
 - **Cruise brakes harder on ice and snow.** It reaches the weather's safe speed sooner and holds it on downgrades it used to lose.
 - **ABS and wheelspin warnings wait for your own foot.** They stay quiet while cruise works the pedals, and ABS no longer pulses on a light brake.

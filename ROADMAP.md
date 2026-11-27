@@ -7478,7 +7478,7 @@ a carrier slice (owner, 2026-10-26).
 ### Canadian radio stations (November 27)
 
 - [x] Canada is on the radio directory. `data/radio_imported_canada.json`
-      holds 485 Canadian stations, built by `cargo tools
+      holds 570 Canadian stations, built by `cargo tools
       import-canada-stations` from a Radio Browser snapshot (stream
       addresses only, never fetched by the game) joined to ISED's
       Broadcasting Database (export of 2026-11-24). A station is matched by
@@ -7488,9 +7488,9 @@ a carrier slice (owner, 2026-10-26).
       contradict ISED on province (6) or frequency (8) are left out.
       Position, frequency and community are read from ISED; range is
       derived from licensed ERP through the US tier's table, AM a flat 25
-      miles. One row per station, at its main transmitter. 108 of the
+      miles. One row per station, at its main transmitter. 117 of the
       map's 150 Canadian cities have a Canadian station in range
-      (`tests/it/radio_canada.rs` holds a floor of 105).
+      (`tests/it/radio_canada.rs` holds a floor of 114).
 - [x] Suggest a station asks for the state or province; the site takes
       the ten provinces and three territories and Newfoundland's VO call
       signs, and places a Canadian suggestion from a checked-in ISED table
@@ -7500,28 +7500,32 @@ a carrier slice (owner, 2026-10-26).
       networks are missing along most of the highway between cities.
       Placing them needs a dial rule for one stream at several sites
       (the multi-site identity the US tier uses for KZYX and WNPN).
-- [ ] (Found along the way) 42 Canadian map cities have no Canadian
-      station in range: Ashern, Baie-Comeau, Cache Creek, Carmacks, Dawson
-      Creek, Dease Lake, Drummondville, Edmundston, Fort Nelson, Fort
-      Providence, Fort St. John, Golden, Grand Rapids, Haines Junction,
-      Hay River, Hearst, High Level, Hope, Ignace, Jasper, Kitimat,
-      Longlac, Marathon, McBride, Meziadin Junction, Mont-Laurier,
-      Osoyoos, Prince Rupert, Princeton, Revelstoke, Rivière-du-Loup,
-      Sherbrooke, Smithers, Stewart, Thompson, Trois-Rivières, Val-d'Or,
-      Valemount, Vanderhoof, Wandering River, Watson Lake and Wawa. Several
-      have a local station whose directory name carries no call sign, and
-      rebroadcasters would cover others.
+- [ ] (Found along the way) 33 Canadian map cities have no Canadian
+      station in range: Ashern, Cache Creek, Carmacks, Dawson Creek, Dease
+      Lake, Fort Nelson, Fort Providence, Fort St. John, Golden, Grand
+      Rapids, Haines Junction, Hay River, Hearst, High Level, Hope, Ignace,
+      Jasper, Kitimat, Longlac, Marathon, McBride, Meziadin Junction,
+      Osoyoos, Prince Rupert, Princeton, Revelstoke, Smithers, Stewart,
+      Thompson, Valemount, Vanderhoof, Wandering River and Watson Lake.
+      Several have a local station whose directory name carries no call
+      sign, and rebroadcasters would cover others.
 - [ ] (Found along the way) Streams that refuse listeners outside Canada
       stay off the dial: Corus (`leanstream.co`, HTTP 404 or 500 from the
       US) and Cogeco (StreamTheWorld, HTTP 426), 33 stations,
       Toronto's Q107 and The Edge, Vancouver's CFOX and Rock 101, Calgary's
       Country 105 and Montréal's CKOI among them.
-- [ ] (Found along the way) 85 Canadian stations whose streams are on a
-      port other than 80 or 443 could not be checked from a cloud session (its proxy refuses
-      those ports) and are counted as unreachable, CKRW Whitehorse among
-      them. Sweep them from a desktop: drop the `rb-ised-` rows from
-      `radio_stream_health.json`'s dead list, rebuild, run `cargo tools
-      check-radio-streams --only canada`, and rebuild again.
+- [ ] (Found along the way) Some Canadian directory names reach the
+      dial untidy: "CHKF "FM 94.7" Calgary, AB (correction)", "Flow 98 7
+      CKFG-FM - Toronto", "CIRV- 88.9 (Portuguese ) Toronto, ON". The name
+      cleaner needs rules for an editor's note, a split frequency and a
+      stray space before a bracket.
+- [x] (Found along the way) 85 Canadian stations whose streams are on a
+      port other than 80 or 443 could not be checked from a cloud session
+      (its proxy refuses those ports). Swept from a Windows desktop on
+      November 27 instead: all 570 Canadian streams answered (439 audio,
+      131 playlists). `check-radio-streams` now passes its OpenSSL cipher
+      string only to an OpenSSL curl, since Windows' Schannel curl refused
+      it and failed every HTTPS probe.
 
 ### Winter cab, wipers and ice roads (designed November 22)
 

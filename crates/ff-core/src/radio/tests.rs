@@ -1440,8 +1440,8 @@ fn test_directory_stations_sit_at_their_licensed_transmitter() {
     assert!(ranges.len() >= 4);
 }
 
-/// The November 27 build placed 485 Canadian stations.
-const CANADIAN_STATION_FLOOR: usize = 460;
+/// The November 27 build placed 570 Canadian stations.
+const CANADIAN_STATION_FLOOR: usize = 560;
 
 /// The Canadian half of the imported tier (`radio_imported_canada.json`).
 fn canadian() -> Vec<RadioStation> {

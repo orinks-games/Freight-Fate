@@ -920,6 +920,30 @@ fn test_a_playlist_stream_song_survives_into_the_reception_tick() {
 }
 
 #[test]
+fn test_a_new_station_is_not_read_as_playing_the_last_ones_song() {
+    // Toronto, November 27: tuned from CHFI to CIUT in the Radio app, the
+    // front row read "Now playing on CIUT 89.5FM: 98.1 CHFI Toronto." The
+    // song remembered from the station just left answered for the new one,
+    // which had sent no title yet.
+    let mut app = TestApp::new();
+    let mut d = a_denver_drive(&mut app, 5);
+    let tape = MusicAudio::install(&mut app);
+    tape.set_now_playing("98.1 CHFI Toronto");
+    tune_playlist(&mut app, &mut d, "pl-first", &["https://radio.test/chfi"]);
+    radio_frame(&mut d, &mut app);
+    assert_eq!(d.radio_now_playing.as_deref(), Some("98.1 CHFI Toronto"));
+
+    *tape.now_playing.borrow_mut() = None;
+    tune_playlist(&mut app, &mut d, "pl-second", &["https://radio.test/ciut"]);
+
+    assert_eq!(d.radio_now_playing, None);
+    assert_eq!(
+        d.radio_now_playing_text(&mut app.ctx),
+        "My Playlist is not sending song information right now."
+    );
+}
+
+#[test]
 fn test_a_playlist_station_on_a_file_entry_still_sends_no_song_information() {
     // A file off the player's own disk is not a broadcast: nothing is
     // publishing a title, so the honest answer is the one it always gave.

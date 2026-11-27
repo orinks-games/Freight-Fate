@@ -147,6 +147,33 @@ fn a_broadcast_station_also_asks_where_it_is() {
 }
 
 #[test]
+fn a_canadian_station_is_asked_for_its_province() {
+    let mut app = TestApp::new();
+    let (send, sent) = sender(vec![Ok(json!({"ok": true, "message": "Thanks."}))]);
+    start(&mut app, send, "On AM or FM, and online");
+    answer(&mut app, "CHFI 98.1");
+    answer(&mut app, "https://stream.example/chfi");
+    answer(&mut app, "CHFI-FM");
+    assert!(
+        last(&app).starts_with("State or province."),
+        "{}",
+        last(&app)
+    );
+    for text in ["Ontario", "", "98.1", ""] {
+        answer(&mut app, text);
+    }
+    app.tick(0.016);
+    assert_eq!(
+        sent.lock().unwrap().as_slice(),
+        [json!({
+            "driverId": "night-owl-1234", "kind": "terrestrial", "name": "CHFI 98.1",
+            "streamUrl": "https://stream.example/chfi", "callSign": "CHFI-FM",
+            "state": "Ontario", "frequency": "98.1",
+        })]
+    );
+}
+
+#[test]
 fn a_required_answer_cannot_be_skipped() {
     let mut app = TestApp::new();
     let (send, _) = sender(vec![]);
