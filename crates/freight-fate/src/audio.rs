@@ -362,7 +362,7 @@ fn quoted_field<'a>(raw: &'a str, key: &str) -> Option<&'a str> {
 /// Both recordings track the same RPM while they overlap, so the transition
 /// changes timbre without making the engine note step between fixed pitches.
 pub fn engine_band_weights(rpm: f64, natives: &[f64]) -> Vec<f64> {
-    const XFADE_LOG_FRAC: f64 = 0.45;
+    const XFADE_LOG_FRAC: f64 = 0.30;
 
     let mut weights = vec![0.0; natives.len()];
     if natives.is_empty() {
