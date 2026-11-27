@@ -21,10 +21,13 @@ const BLOWOFF_COOLDOWN_S: f64 = 1.2;
 /// Throttle threshold below which a lift-off releases boost.
 const LIFT_THROTTLE: f64 = 0.12;
 /// Boost threshold below which the spool loop fades completely out.
-/// Set above flat-ground 75 mph cruise load even in a fully loaded standard
-/// rig (~0.70 throttle at ~1,550 RPM) so steady cruising never leaves a
-/// faint lingering turbo whistle, while acceleration and grades still spool.
-const AUDIBLE_BOOST: f64 = 0.50;
+const AUDIBLE_BOOST: f64 = 0.12;
+/// Excess throttle above `hold_throttle` ignored so minor cruise-control
+/// speed-hold nudges do not re-trigger the turbo whistle at steady speed.
+const CRUISE_EXCESS_DEADBAND: f64 = 0.10;
+/// `hold_throttle` above which continuous grade-pulling load keeps the turbo
+/// audibly spooled even without net acceleration (steep uphill climbs).
+const CLIMB_HOLD_THRESHOLD: f64 = 0.85;
 /// Peak loop level at full boost and `turbo_level = 1.0`.
 const MAX_SPOOL_LEVEL: f64 = 0.34;
 /// Peak one-shot level for the release cue at full boost and `turbo_level = 1.0`.
@@ -62,6 +65,9 @@ pub struct TurboInput {
     pub idle_rpm: f64,
     pub max_rpm: f64,
     pub throttle: f64,
+    /// Steady-state throttle required to hold the current speed against grade,
+    /// drag, and rolling resistance (`TruckState::hold_throttle`).
+    pub hold_throttle: f64,
     pub shifting: bool,
     pub clutch_out: bool,
     /// Per-truck turbo prominence in `0.0..=1.0` (`0.0` = no audible turbo).
@@ -118,12 +124,25 @@ impl TurboState {
         let rpm_span = (input.max_rpm - input.idle_rpm).max(100.0);
         let rpm_frac = ((input.rpm - input.idle_rpm) / rpm_span).clamp(0.0, 1.0);
         let throttle = input.throttle.clamp(0.0, 1.0);
+        let hold_throttle = input.hold_throttle.clamp(0.0, 1.0);
         let unloaded = input.shifting || input.clutch_out;
+
+        // Turbo boost follows power demanded above steady-state cruise
+        // (accelerating) plus continuous heavy climb load on steep grades.
+        // At steady flat-ground cruise (`throttle ≈ hold_throttle`), excess
+        // demand is near zero so the whistle fades completely out.
+        let excess = (throttle - hold_throttle - CRUISE_EXCESS_DEADBAND).max(0.0);
+        let headroom = (1.0 - hold_throttle - CRUISE_EXCESS_DEADBAND).max(0.15);
+        let accel_load = (excess / headroom).clamp(0.0, 1.0);
+        let climb_load = ((hold_throttle - CLIMB_HOLD_THRESHOLD) / (1.0 - CLIMB_HOLD_THRESHOLD))
+            .clamp(0.0, 1.0)
+            * throttle;
+        let load = accel_load.max(climb_load);
 
         let target = if unloaded {
             0.0
         } else {
-            rpm_frac.powf(0.85) * throttle
+            rpm_frac.powf(0.85) * load
         };
 
         let lifted = (unloaded || throttle < LIFT_THROTTLE) && self.boost >= BLOWOFF_MIN_BOOST;
@@ -184,6 +203,7 @@ mod tests {
             idle_rpm: 600.0,
             max_rpm: 2_200.0,
             throttle: 0.9,
+            hold_throttle: 0.0,
             shifting: false,
             clutch_out: false,
             turbo_level: 0.85,
@@ -285,7 +305,7 @@ mod tests {
         assert!(s.boost > 0.6);
 
         // Settle into steady flat-ground 75 mph cruise (including a fully
-        // loaded standard rig holding ~0.72 throttle at ~1,550 RPM).
+        // loaded rig holding ~0.72 throttle against ~0.70 hold_throttle).
         let mut last = TurboOutput {
             spool_level: 1.0,
             spool_rate: 1.0,
@@ -295,10 +315,22 @@ mod tests {
             last = s.step(TurboInput {
                 rpm: 1_550.0,
                 throttle: 0.72,
+                hold_throttle: 0.70,
                 ..base_input()
             });
         }
         assert_eq!(s.phase, TurboPhase::Idle);
         assert_eq!(last.spool_level, 0.0);
+
+        // Pulling up a steep grade (hold_throttle near 1.0) spools again.
+        for _ in 0..25 {
+            last = s.step(TurboInput {
+                rpm: 1_550.0,
+                throttle: 1.0,
+                hold_throttle: 0.96,
+                ..base_input()
+            });
+        }
+        assert!(last.spool_level > 0.0);
     }
 }
