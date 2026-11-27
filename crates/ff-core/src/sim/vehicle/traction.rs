@@ -9,6 +9,16 @@ pub const ABS_MIN_SPEED_MPH: f64 = 5.0;
 pub const ABS_GRIP_CEILING: f64 = 0.85;
 /// Ratio of demanded brake force to grip limit that engages ABS.
 pub const ABS_SLIP_RATIO: f64 = 0.95;
+/// Highest pedal an assist holds on a slick road: under `ABS_SLIP_RATIO`, so
+/// an assist's own braking never sets the ABS pulsing.
+pub const ASSIST_BRAKE_PEDAL_CAP: f64 = 0.90;
+/// Share of the drive-wheel traction limit an assist's throttle may demand
+/// while the tires hold: a little under the limit, so they stay hooked up.
+pub const ASSIST_TRACTION_MARGIN: f64 = 0.95;
+/// The same share once the wheels are spinning: under
+/// `WHEELSPIN_RECOVER_RATIO`, so wheels the driver broke loose hook back up
+/// once an assist has the pedal.
+pub const ASSIST_TRACTION_RECOVER_MARGIN: f64 = 0.85;
 /// ABS pulse frequency in Hz (typical air-brake commercial ABS: 6-10 Hz).
 pub const ABS_CYCLE_HZ: f64 = 8.0;
 /// Minimum fraction of peak grip-limited brake force at the trough of an ABS cycle.
@@ -511,8 +521,14 @@ mod tests {
         slick_hard.brake = 0.9;
         slick_hard.update(0.05);
         assert!(
+            !slick_hard.abs_active(),
+            "an assist's capped pedal on snow is short of the wheels' limit"
+        );
+        slick_hard.brake = 1.0;
+        slick_hard.update(0.05);
+        assert!(
             slick_hard.abs_active(),
-            "firm braking on snow/ice should trigger ABS"
+            "a full application on snow/ice should trigger ABS"
         );
 
         slick_hard.brake = 0.0;

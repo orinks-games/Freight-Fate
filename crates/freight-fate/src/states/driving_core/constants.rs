@@ -611,8 +611,11 @@ pub const CRUISE_BRAKE_OVER_MPH: f64 = 2.5; // retarder maxed and still this far
 pub const CRUISE_CHAIN_BRAKE_OVER_MPH: f64 = 1.0;
 pub const CRUISE_SNUB_UNDER_MPH: f64 = 0.5; // snub runs until this far back under the target
 pub const CRUISE_SNUB_BRAKE: f64 = 0.3; // a real application, not a drag
-                                        // Interactive descent control's ceiling while a grade lasts. A cap on the
-                                        // working target only -- it must never be written into the set speed.
+/// The most service trim cruise uses closing on a lower target, as a
+/// dry-road pedal (`TruckState::assist_brake_pedal` carries it to the road).
+pub const CRUISE_CLOSE_MAX_BRAKE: f64 = 0.65;
+// Interactive descent control's ceiling while a grade lasts. A cap on the
+// working target only -- it must never be written into the set speed.
 pub const DESCENT_SAFE_MAX_MPH: f64 = 55.0;
 
 /// Closing on a lower target, cruise's service trim fades in from this far

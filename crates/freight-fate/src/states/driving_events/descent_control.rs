@@ -315,7 +315,8 @@ impl DrivingState {
                         // the pedal and pumped it on a grade the retarder
                         // could not hold: air is charged per application.
                         let feather = (speed - safe_target - 7.0).min(1.0);
-                        let brake = feather * 0.7f64.min((speed - safe_target) / 25.0);
+                        let dry = 0.7f64.min((speed - safe_target) / 25.0);
+                        let brake = feather * self.trip.truck.assist_brake_pedal(dry);
                         self.trip.truck.brake = self.trip.truck.brake.max(brake);
                     }
                 }

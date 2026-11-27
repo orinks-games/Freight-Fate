@@ -33,7 +33,8 @@ pub use updates::chain_wear_pct_per_mile;
 pub use traction::{
     crosswind_lateral_g, single_trailer_offtrack_clipping, single_trailer_offtrack_ft,
     single_trailer_sway_step, AbsEvent, AbsState, DriveTractionEvent, DriveTractionState,
-    TrailerSwayEvent, TrailerSwayState,
+    TrailerSwayEvent, TrailerSwayState, ASSIST_BRAKE_PEDAL_CAP, ASSIST_TRACTION_MARGIN,
+    ASSIST_TRACTION_RECOVER_MARGIN,
 };
 
 pub use axles::{AxleLoads, TANDEM_LIMIT_LB};
@@ -55,6 +56,8 @@ mod damage_band_tests;
 mod physics_bench_tests;
 #[cfg(test)]
 mod realism_tests;
+#[cfg(test)]
+mod slick_assist_tests;
 #[cfg(test)]
 mod tests;
 

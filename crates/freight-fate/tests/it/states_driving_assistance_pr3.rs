@@ -2,7 +2,7 @@
 //! 1. Grade-aware predictive cruise & smooth resume
 //! 2. Directional blind-spot warning & assisted signal-wait-glide lane change
 //! 3. Independent Steering vs. Speed assist toggles & save migration
-//! 4. Non-verbal assist handoff earcons & snow lane-keep dropout
+//! 4. Non-verbal assist handoff earcons; lane keeping keeps steering on snow
 
 use ff_core::settings::Settings;
 use ff_core::sim::lane_change_assist::{AssistedLaneChange, BlindSpotSide};
@@ -190,49 +190,60 @@ fn independent_steering_and_speed_assist_pairings_work_and_migrate() {
 }
 
 #[test]
-fn snow_covered_road_drops_out_lane_keep_with_earcon_and_recovers() {
-    let mut harness = open_highway_drive("PR3 Snow Dropout", "all");
-    let audio = harness.app.record_audio();
-
-    harness.with_drive(|d, _| {
-        d.trip.weather.current = WeatherKind::Snow;
-        d.trip.truck.grip = 0.55;
-    });
-    frame(&mut harness, DT);
-
-    assert_eq!(
-        harness.read_drive(|d| d.lane_keep_availability),
-        LaneKeepAvailability::DroppedOut {
-            reason: LaneKeepDropoutReason::SnowCovered,
+fn lane_keep_keeps_steering_on_snow_and_ice_with_no_dropout_tone() {
+    // Handing the wheel back on snow and freezing rain put the truck off the
+    // road (2.0 alpha report, 2026-11-27). Lane keeping steers whenever it is
+    // on, full or partial; nothing raises the dropout in play.
+    for preset in ["all", "balanced"] {
+        let mut harness = open_highway_drive("PR3 Snow Keeps Steering", preset);
+        let audio = harness.app.record_audio();
+        for (kind, grip) in [(WeatherKind::Snow, 0.45), (WeatherKind::Ice, 0.15)] {
+            harness.with_drive(move |d, _| {
+                d.trip.weather.current = kind;
+                d.trip.truck.grip = grip;
+            });
+            frame(&mut harness, DT);
+            assert_eq!(
+                harness.read_drive(|d| d.lane_keep_availability),
+                LaneKeepAvailability::Active,
+                "{preset}, {kind:?}"
+            );
+            let driving = harness
+                .app
+                .driving_observation()
+                .expect("driving observation");
+            assert_eq!(driving.lane_keep_availability.key(), "active");
         }
-    );
-    let dropout_plays = audio
-        .borrow()
-        .played
-        .iter()
-        .filter(|(k, _, _)| k == LANE_KEEP_DROPOUT_KEY)
-        .count();
-    assert!(
-        dropout_plays >= 1,
-        "expected lane-keep dropout earcon on snow-covered low-grip road"
-    );
+        let dropout_plays = audio
+            .borrow()
+            .played
+            .iter()
+            .filter(|(k, _, _)| k == LANE_KEEP_DROPOUT_KEY)
+            .count();
+        assert_eq!(dropout_plays, 0, "{preset}: no dropout tone");
+    }
+}
 
+#[test]
+fn a_staged_lane_keep_dropout_still_holds() {
+    // The mechanism stays for a later trigger: a dropout staged through
+    // `scenario` holds until lane keeping is switched off.
+    let mut harness = open_highway_drive("PR3 Staged Dropout", "all");
+    let staged = LaneKeepAvailability::DroppedOut {
+        reason: LaneKeepDropoutReason::SnowCovered,
+    };
+    assert_eq!(
+        LaneKeepAvailability::from_tag("dropped_out_snow"),
+        Some(staged)
+    );
+    harness.with_drive(move |d, _| d.lane_keep_availability = staged);
+    frame(&mut harness, DT);
+    assert_eq!(harness.read_drive(|d| d.lane_keep_availability), staged);
     let driving = harness
         .app
         .driving_observation()
         .expect("driving observation");
     assert_eq!(driving.lane_keep_availability.key(), "dropped_out_snow");
-
-    // Recovery when snow clears and grip returns.
-    harness.with_drive(|d, _| {
-        d.trip.weather.current = WeatherKind::Clear;
-        d.trip.truck.grip = 1.0;
-    });
-    frame(&mut harness, DT);
-    assert_eq!(
-        harness.read_drive(|d| d.lane_keep_availability),
-        LaneKeepAvailability::Active
-    );
 }
 
 #[test]
