@@ -237,7 +237,7 @@ pub struct App {
 /// This deliberately contains values the observer may use to decide its next
 /// key, rather than the driving state itself. A policy cannot reach physics,
 /// assists, or the state stack through this snapshot.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 pub struct DrivingObservation {
     pub position_mi: f64,
     pub air_ready: bool,
@@ -302,6 +302,10 @@ pub struct DrivingObservation {
     /// The live weather service the truck's position is on (None: no
     /// service answers there).
     pub weather_service: Option<ff_core::sim::weather_service::WeatherService>,
+    /// The live report's station and how its condition was decided:
+    /// "Barrie-Oro, 6.1 mi, code, station 6151064" ("none" with no live
+    /// report or no station).
+    pub weather_station: String,
     /// What is alive outside, and the bed playing for it ("none" if quiet).
     pub outside: ff_core::sim::outside::OutsideScene,
     pub outside_bed: &'static str,
@@ -1212,6 +1216,10 @@ impl App {
             }),
             window: drive.cab.window(),
             weather_service: drive.trip.weather.live_service(),
+            weather_station: drive.trip.weather.live_report().map_or_else(
+                || "none".to_string(),
+                ff_core::sim::weather_report::describe_station,
+            ),
             outside: drive.outside.scene,
             outside_bed: drive.outside.nature.bed.map_or("none", |bed| bed.name),
             outside_temperature_c: drive.outside.temperature_c(),

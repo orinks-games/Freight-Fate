@@ -5380,7 +5380,7 @@ msgid "the District of Columbia"
 msgstr "District of Columbia"
 
 msgid "northeast"
-msgstr "northeast"
+msgstr "nordeste"
 
 msgid "appalachia"
 msgstr "appalachia"
@@ -15332,11 +15332,81 @@ msgstr ""
 msgid "no Environment Canada site near {lat},{lon}"
 msgstr ""
 
+#. placeholders: {site}
+msgid "site {site} has only a forecast"
+msgstr ""
+
+#. placeholders: {basis}, {site}
+msgid "city page {basis}, site {site}"
+msgstr ""
+
+msgid "and no measurement"
+msgstr ""
+
+msgid "derived"
+msgstr ""
+
+msgid "with its measured temperature and wind"
+msgstr ""
+
+msgid "read, stale"
+msgstr ""
+
 msgid "no site reported a condition"
 msgstr ""
 
 #. placeholders: {join}
 msgid "every site failed: {join}"
+msgstr ""
+
+msgid "forecast only"
+msgstr ""
+
+msgid "no station near enough has a fresh observation"
+msgstr ""
+
+msgid "nothing decides the sky"
+msgstr ""
+
+#. placeholders: {id}
+msgid "station {id}"
+msgstr ""
+
+#. placeholders: {site}
+msgid "site {site}"
+msgstr ""
+
+msgid "no observation"
+msgstr ""
+
+msgid "vis"
+msgstr ""
+
+msgid "code"
+msgstr ""
+
+msgid "text"
+msgstr "texto"
+
+msgid "gauge"
+msgstr ""
+
+msgid "cloud amount"
+msgstr ""
+
+msgid "forecast"
+msgstr ""
+
+msgid "Freezing Rain"
+msgstr ""
+
+msgid "Snow"
+msgstr ""
+
+msgid "Heavy Rain"
+msgstr ""
+
+msgid "Rain"
 msgstr ""
 
 msgid "jointed"
@@ -17395,6 +17465,98 @@ msgstr "seca"
 msgid "wet"
 msgstr "molhada"
 
+msgid "north"
+msgstr "norte"
+
+msgid "east"
+msgstr "leste"
+
+msgid "southeast"
+msgstr "sudeste"
+
+msgid "south"
+msgstr "sul"
+
+msgid "southwest"
+msgstr "sudoeste"
+
+msgid "west"
+msgstr "oeste"
+
+msgid "northwest"
+msgstr "noroeste"
+
+#. placeholders: {station}
+msgid "Station: {station}."
+msgstr "Estação: {station}."
+
+#. placeholders: {station}
+msgid "Station: {station}, nearby."
+msgstr "Estação: {station}, por perto."
+
+#. placeholders: {station}, {distance}
+msgid "Station: {station}, {distance} away."
+msgstr "Estação: {station}, a {distance}."
+
+msgid "Wind: calm."
+msgstr "Vento: calmo."
+
+#. placeholders: {counted}
+msgid "{counted} per hour"
+msgstr ""
+
+#. placeholders: {from}, {sustained}, {gust}
+msgid "Wind: {from} at {sustained}, gusting to {gust}."
+msgstr "Vento: de {from} a {sustained}, com rajadas de até {gust}."
+
+#. placeholders: {from}, {sustained}
+msgid "Wind: {from} at {sustained}."
+msgstr "Vento: de {from} a {sustained}."
+
+#. placeholders: {sustained}, {gust}
+msgid "Wind: {sustained}, gusting to {gust}."
+msgstr "Vento: {sustained}, com rajadas de até {gust}."
+
+#. placeholders: {sustained}
+msgid "Wind: {sustained}."
+msgstr "Vento: {sustained}."
+
+#. placeholders: {distance}
+msgid "Visibility: {distance}."
+msgstr "Visibilidade: {distance}."
+
+msgid "1 inch"
+msgstr "1 polegada"
+
+#. placeholders: {inches}
+msgid "{inches} inches"
+msgstr ""
+
+msgid "centimeter"
+msgstr ""
+
+#. placeholders: {depth}
+msgid "Snow on the ground: {depth}."
+msgstr "Neve no chão: {depth}."
+
+#. placeholders: {value}
+msgid "Forecast ahead: {value}."
+msgstr "Previsão à frente: {value}."
+
+#. placeholders: {join}
+msgid "Forecast ahead: {join}."
+msgstr "Previsão à frente: {join}."
+
+#. placeholders: {mi}
+msgid "{mi} mi"
+msgstr ""
+
+msgid "Airport"
+msgstr ""
+
+msgid "Municipal"
+msgstr ""
+
 msgid "nws"
 msgstr ""
 
@@ -19146,9 +19308,6 @@ msgstr "artista"
 
 msgid "no desc"
 msgstr "sem descrição"
-
-msgid "text"
-msgstr "texto"
 
 msgid "ogg"
 msgstr "ogg"
@@ -32308,10 +32467,6 @@ msgstr "Condições: {source_conditions}."
 msgid "Safe speed guidance: about {speed_text}."
 msgstr "Orientação de velocidade segura: cerca de {speed_text}."
 
-#. placeholders: {join}
-msgid "Forecast ahead: {join}."
-msgstr "Previsão à frente: {join}."
-
 msgid "Forecast ahead: unavailable."
 msgstr "Previsão à frente: indisponível."
 
@@ -41241,13 +41396,13 @@ msgid "real world"
 msgstr "mundo real"
 
 msgid ""
-"Real world uses live city conditions when available. It also uses the "
-"Weather Service's active warnings along your route. Dispatch plans around a "
-"blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
-"as you drive into it."
+"Real world uses live city conditions when available. It also uses active "
+"weather warnings along your route. Dispatch plans around a blizzard, ice "
+"storm, hurricane or tornado warning, and you hear a warning as you drive "
+"into it."
 msgstr ""
 "Mundo real usa as condições reais das cidades quando disponíveis. Também "
-"usa os alertas ativos do Weather Service ao longo da sua rota. O despacho "
+"usa os alertas meteorológicos ativos ao longo da sua rota. O despacho "
 "planeja evitando um alerta de nevasca, tempestade de gelo, furacão ou "
 "tornado, e você ouve o alerta quando entra na área dele."
 
@@ -50123,6 +50278,42 @@ msgstr ""
 "Segure o left bumper para uma segunda camada de botões. {pad_engine} "
 "controla o motor, {pad_fuel} lê o combustível e {pad_speed_limit} lê o "
 "limite."
+
+#. The Weather app's station lines: a wind speed, and snow on the ground.
+msgid "{count} mile per hour"
+msgstr "{count} milha por hora"
+
+msgid "{count} kilometer per hour"
+msgstr "{count} quilômetro por hora"
+
+msgid "{count} inches"
+msgstr "{count} polegadas"
+
+msgid "{count} centimeters"
+msgstr "{count} centímetros"
+
+msgid "{count} centimeter"
+msgstr "{count} centímetro"
+
+#~ msgid "Station: {name}."
+#~ msgstr "Estação: {name}."
+
+#~ msgid "Station: {name}, nearby."
+#~ msgstr "Estação: {name}, por perto."
+
+#~ msgid "Station: {name}, {distance} away."
+#~ msgstr "Estação: {name}, a {distance}."
+
+#~ msgid ""
+#~ "Real world uses live city conditions when available. It also uses the "
+#~ "Weather Service's active warnings along your route. Dispatch plans around a "
+#~ "blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
+#~ "as you drive into it."
+#~ msgstr ""
+#~ "Mundo real usa as condições reais das cidades quando disponíveis. Também "
+#~ "usa os alertas ativos do Weather Service ao longo da sua rota. O despacho "
+#~ "planeja evitando um alerta de nevasca, tempestade de gelo, furacão ou "
+#~ "tornado, e você ouve o alerta quando entra na área dele."
 
 #~ msgid "A broadcast station. You'll be asked its call sign and state."
 #~ msgstr "Uma estação de rádio aberta. Vão pedir o prefixo e o estado dela."

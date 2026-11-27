@@ -5536,7 +5536,7 @@ msgid "the District of Columbia"
 msgstr "District of Columbia"
 
 msgid "northeast"
-msgstr "northeast"
+msgstr "đông bắc"
 
 msgid "appalachia"
 msgstr "appalachia"
@@ -15438,11 +15438,81 @@ msgstr ""
 msgid "no Environment Canada site near {lat},{lon}"
 msgstr ""
 
+#. placeholders: {site}
+msgid "site {site} has only a forecast"
+msgstr ""
+
+#. placeholders: {basis}, {site}
+msgid "city page {basis}, site {site}"
+msgstr ""
+
+msgid "and no measurement"
+msgstr ""
+
+msgid "derived"
+msgstr ""
+
+msgid "with its measured temperature and wind"
+msgstr ""
+
+msgid "read, stale"
+msgstr ""
+
 msgid "no site reported a condition"
 msgstr ""
 
 #. placeholders: {join}
 msgid "every site failed: {join}"
+msgstr ""
+
+msgid "forecast only"
+msgstr ""
+
+msgid "no station near enough has a fresh observation"
+msgstr ""
+
+msgid "nothing decides the sky"
+msgstr ""
+
+#. placeholders: {id}
+msgid "station {id}"
+msgstr ""
+
+#. placeholders: {site}
+msgid "site {site}"
+msgstr ""
+
+msgid "no observation"
+msgstr ""
+
+msgid "vis"
+msgstr ""
+
+msgid "code"
+msgstr ""
+
+msgid "text"
+msgstr "văn bản"
+
+msgid "gauge"
+msgstr ""
+
+msgid "cloud amount"
+msgstr ""
+
+msgid "forecast"
+msgstr ""
+
+msgid "Freezing Rain"
+msgstr ""
+
+msgid "Snow"
+msgstr ""
+
+msgid "Heavy Rain"
+msgstr ""
+
+msgid "Rain"
 msgstr ""
 
 msgid "jointed"
@@ -17493,6 +17563,98 @@ msgstr "khô ráo"
 msgid "wet"
 msgstr "ướt"
 
+msgid "north"
+msgstr "bắc"
+
+msgid "east"
+msgstr "đông"
+
+msgid "southeast"
+msgstr "đông nam"
+
+msgid "south"
+msgstr "nam"
+
+msgid "southwest"
+msgstr "tây nam"
+
+msgid "west"
+msgstr "tây"
+
+msgid "northwest"
+msgstr "tây bắc"
+
+#. placeholders: {station}
+msgid "Station: {station}."
+msgstr "Trạm: {station}."
+
+#. placeholders: {station}
+msgid "Station: {station}, nearby."
+msgstr "Trạm: {station}, ở gần."
+
+#. placeholders: {station}, {distance}
+msgid "Station: {station}, {distance} away."
+msgstr "Trạm: {station}, cách {distance}."
+
+msgid "Wind: calm."
+msgstr "Gió: lặng."
+
+#. placeholders: {counted}
+msgid "{counted} per hour"
+msgstr ""
+
+#. placeholders: {from}, {sustained}, {gust}
+msgid "Wind: {from} at {sustained}, gusting to {gust}."
+msgstr "Gió: hướng {from}, {sustained}, giật đến {gust}."
+
+#. placeholders: {from}, {sustained}
+msgid "Wind: {from} at {sustained}."
+msgstr "Gió: hướng {from}, {sustained}."
+
+#. placeholders: {sustained}, {gust}
+msgid "Wind: {sustained}, gusting to {gust}."
+msgstr "Gió: {sustained}, giật đến {gust}."
+
+#. placeholders: {sustained}
+msgid "Wind: {sustained}."
+msgstr "Gió: {sustained}."
+
+#. placeholders: {distance}
+msgid "Visibility: {distance}."
+msgstr "Tầm nhìn: {distance}."
+
+msgid "1 inch"
+msgstr "1 in-sơ"
+
+#. placeholders: {inches}
+msgid "{inches} inches"
+msgstr ""
+
+msgid "centimeter"
+msgstr ""
+
+#. placeholders: {depth}
+msgid "Snow on the ground: {depth}."
+msgstr "Tuyết trên mặt đất: {depth}."
+
+#. placeholders: {value}
+msgid "Forecast ahead: {value}."
+msgstr "Dự báo phía trước: {value}."
+
+#. placeholders: {join}
+msgid "Forecast ahead: {join}."
+msgstr "Dự báo phía trước: {join}."
+
+#. placeholders: {mi}
+msgid "{mi} mi"
+msgstr ""
+
+msgid "Airport"
+msgstr ""
+
+msgid "Municipal"
+msgstr ""
+
 msgid "nws"
 msgstr ""
 
@@ -19240,9 +19402,6 @@ msgstr "nghệ sĩ"
 
 msgid "no desc"
 msgstr "không có mô tả"
-
-msgid "text"
-msgstr "văn bản"
 
 msgid "ogg"
 msgstr "ogg"
@@ -32280,10 +32439,6 @@ msgstr "Điều kiện thời tiết: {source_conditions}."
 msgid "Safe speed guidance: about {speed_text}."
 msgstr "Khuyến nghị tốc độ an toàn: khoảng {speed_text}."
 
-#. placeholders: {join}
-msgid "Forecast ahead: {join}."
-msgstr "Dự báo phía trước: {join}."
-
 msgid "Forecast ahead: unavailable."
 msgstr "Dự báo phía trước: chưa có dữ liệu."
 
@@ -41133,15 +41288,15 @@ msgid "real world"
 msgstr "thực tế ngoài đời"
 
 msgid ""
-"Real world uses live city conditions when available. It also uses the "
-"Weather Service's active warnings along your route. Dispatch plans around a "
-"blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
-"as you drive into it."
+"Real world uses live city conditions when available. It also uses active "
+"weather warnings along your route. Dispatch plans around a blizzard, ice "
+"storm, hurricane or tornado warning, and you hear a warning as you drive "
+"into it."
 msgstr ""
 "Chế độ thực tế ngoài đời lấy thời tiết trực tiếp tại các thành phố khi có "
-"dữ liệu. Nó cũng dùng các cảnh báo thời tiết hiện hành từ Sở Khí tượng dọc "
-"tuyến của bạn. Điều phối sẽ tránh vùng có cảnh báo bão tuyết, bão băng, bão "
-"lớn hay lốc xoáy, và bạn sẽ nghe cảnh báo khi chạy vào vùng đó."
+"dữ liệu. Nó cũng dùng các cảnh báo thời tiết hiện hành dọc tuyến của bạn. "
+"Điều phối sẽ tránh vùng có cảnh báo bão tuyết, bão băng, bão lớn hay lốc "
+"xoáy, và bạn sẽ nghe cảnh báo khi chạy vào vùng đó."
 
 #. placeholders: {else}
 msgid "Traffic source: {else}"
@@ -49912,6 +50067,42 @@ msgid ""
 msgstr ""
 "Giữ nút vai trái để mở lớp nút thứ hai. {pad_engine} bật tắt động cơ, "
 "{pad_fuel} đọc nhiên liệu và {pad_speed_limit} đọc tốc độ giới hạn."
+
+#. The Weather app's station lines: a wind speed, and snow on the ground.
+msgid "{count} mile per hour"
+msgstr "{count} dặm/giờ"
+
+msgid "{count} kilometer per hour"
+msgstr "{count} km/h"
+
+msgid "{count} inches"
+msgstr "{count} in-sơ"
+
+msgid "{count} centimeters"
+msgstr "{count} xen-ti-mét"
+
+msgid "{count} centimeter"
+msgstr "{count} xen-ti-mét"
+
+#~ msgid "Station: {name}."
+#~ msgstr "Trạm: {name}."
+
+#~ msgid "Station: {name}, nearby."
+#~ msgstr "Trạm: {name}, ở gần."
+
+#~ msgid "Station: {name}, {distance} away."
+#~ msgstr "Trạm: {name}, cách {distance}."
+
+#~ msgid ""
+#~ "Real world uses live city conditions when available. It also uses the "
+#~ "Weather Service's active warnings along your route. Dispatch plans around a "
+#~ "blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
+#~ "as you drive into it."
+#~ msgstr ""
+#~ "Chế độ thực tế ngoài đời lấy thời tiết trực tiếp tại các thành phố khi có "
+#~ "dữ liệu. Nó cũng dùng các cảnh báo thời tiết hiện hành từ Sở Khí tượng dọc "
+#~ "tuyến của bạn. Điều phối sẽ tránh vùng có cảnh báo bão tuyết, bão băng, bão "
+#~ "lớn hay lốc xoáy, và bạn sẽ nghe cảnh báo khi chạy vào vùng đó."
 
 #~ msgid "A broadcast station. You'll be asked its call sign and state."
 #~ msgstr "Đài phát thanh truyền thống. Bạn sẽ cần nhập mã hiệu đài và bang."

@@ -5226,7 +5226,7 @@ msgid "the District of Columbia"
 msgstr "District of Columbia"
 
 msgid "northeast"
-msgstr "northeast"
+msgstr "kuzeydoğu"
 
 msgid "appalachia"
 msgstr "appalachia"
@@ -14990,11 +14990,81 @@ msgstr ""
 msgid "no Environment Canada site near {lat},{lon}"
 msgstr ""
 
+#. placeholders: {site}
+msgid "site {site} has only a forecast"
+msgstr ""
+
+#. placeholders: {basis}, {site}
+msgid "city page {basis}, site {site}"
+msgstr ""
+
+msgid "and no measurement"
+msgstr ""
+
+msgid "derived"
+msgstr ""
+
+msgid "with its measured temperature and wind"
+msgstr ""
+
+msgid "read, stale"
+msgstr ""
+
 msgid "no site reported a condition"
 msgstr ""
 
 #. placeholders: {join}
 msgid "every site failed: {join}"
+msgstr ""
+
+msgid "forecast only"
+msgstr ""
+
+msgid "no station near enough has a fresh observation"
+msgstr ""
+
+msgid "nothing decides the sky"
+msgstr ""
+
+#. placeholders: {id}
+msgid "station {id}"
+msgstr ""
+
+#. placeholders: {site}
+msgid "site {site}"
+msgstr ""
+
+msgid "no observation"
+msgstr ""
+
+msgid "vis"
+msgstr ""
+
+msgid "code"
+msgstr ""
+
+msgid "text"
+msgstr "metin"
+
+msgid "gauge"
+msgstr ""
+
+msgid "cloud amount"
+msgstr ""
+
+msgid "forecast"
+msgstr ""
+
+msgid "Freezing Rain"
+msgstr ""
+
+msgid "Snow"
+msgstr ""
+
+msgid "Heavy Rain"
+msgstr ""
+
+msgid "Rain"
 msgstr ""
 
 msgid "jointed"
@@ -17036,6 +17106,99 @@ msgstr "kuru"
 msgid "wet"
 msgstr "ıslak"
 
+msgid "north"
+msgstr "kuzey"
+
+msgid "east"
+msgstr "doğu"
+
+msgid "southeast"
+msgstr "güneydoğu"
+
+msgid "south"
+msgstr "güney"
+
+msgid "southwest"
+msgstr "güneybatı"
+
+msgid "west"
+msgstr "batı"
+
+msgid "northwest"
+msgstr "kuzeybatı"
+
+#. placeholders: {station}
+msgid "Station: {station}."
+msgstr "İstasyon: {station}."
+
+#. placeholders: {station}
+msgid "Station: {station}, nearby."
+msgstr "İstasyon: {station}, yakında."
+
+#. placeholders: {station}, {distance}
+msgid "Station: {station}, {distance} away."
+msgstr "İstasyon: {station}, {distance} uzakta."
+
+msgid "Wind: calm."
+msgstr "Rüzgar: sakin."
+
+#. placeholders: {counted}
+msgid "{counted} per hour"
+msgstr ""
+
+#. placeholders: {from}, {sustained}, {gust}
+msgid "Wind: {from} at {sustained}, gusting to {gust}."
+msgstr ""
+"Rüzgar: {from} yönünden {sustained}, hamleler {gust} değerine kadar."
+
+#. placeholders: {from}, {sustained}
+msgid "Wind: {from} at {sustained}."
+msgstr "Rüzgar: {from} yönünden {sustained}."
+
+#. placeholders: {sustained}, {gust}
+msgid "Wind: {sustained}, gusting to {gust}."
+msgstr "Rüzgar: {sustained}, hamleler {gust} değerine kadar."
+
+#. placeholders: {sustained}
+msgid "Wind: {sustained}."
+msgstr "Rüzgar: {sustained}."
+
+#. placeholders: {distance}
+msgid "Visibility: {distance}."
+msgstr "Görüş mesafesi: {distance}."
+
+msgid "1 inch"
+msgstr "1 inç"
+
+#. placeholders: {inches}
+msgid "{inches} inches"
+msgstr ""
+
+msgid "centimeter"
+msgstr ""
+
+#. placeholders: {depth}
+msgid "Snow on the ground: {depth}."
+msgstr "Yerdeki kar: {depth}."
+
+#. placeholders: {value}
+msgid "Forecast ahead: {value}."
+msgstr "İleride tahmin: {value}."
+
+#. placeholders: {join}
+msgid "Forecast ahead: {join}."
+msgstr "İleride tahmin: {join}."
+
+#. placeholders: {mi}
+msgid "{mi} mi"
+msgstr ""
+
+msgid "Airport"
+msgstr ""
+
+msgid "Municipal"
+msgstr ""
+
 msgid "nws"
 msgstr ""
 
@@ -18754,9 +18917,6 @@ msgstr "sanatçı"
 
 msgid "no desc"
 msgstr "açıklama yok"
-
-msgid "text"
-msgstr "metin"
 
 msgid "ogg"
 msgstr "ogg"
@@ -31703,10 +31863,6 @@ msgstr "Koşullar: {source_conditions}."
 msgid "Safe speed guidance: about {speed_text}."
 msgstr "Güvenli hız önerisi: yaklaşık {speed_text}."
 
-#. placeholders: {join}
-msgid "Forecast ahead: {join}."
-msgstr "İleride tahmin: {join}."
-
 msgid "Forecast ahead: unavailable."
 msgstr "İleride tahmin: yok."
 
@@ -40482,14 +40638,14 @@ msgid "real world"
 msgstr "gerçek dünya"
 
 msgid ""
-"Real world uses live city conditions when available. It also uses the "
-"Weather Service's active warnings along your route. Dispatch plans around a "
-"blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
-"as you drive into it."
+"Real world uses live city conditions when available. It also uses active "
+"weather warnings along your route. Dispatch plans around a blizzard, ice "
+"storm, hurricane or tornado warning, and you hear a warning as you drive "
+"into it."
 msgstr ""
 "Gerçek dünya varsa canlı şehir koşullarını kullanır. Ayrıca rotanız boyunca "
-"Weather Service'in etkin uyarılarını kullanır. Sevkiyat bir kar fırtınası, "
-"buz fırtınası, kasırga ya da hortum uyarısının etrafından plan yapar ve "
+"etkin hava durumu uyarılarını kullanır. Sevkiyat bir kar fırtınası, buz "
+"fırtınası, kasırga ya da hortum uyarısının etrafından plan yapar ve "
 "uyarının bölgesine girdiğinizde onu duyarsınız."
 
 #. placeholders: {else}
@@ -49191,6 +49347,42 @@ msgstr ""
 "İkinci bir düğme katmanı için sol omuz tuşunu basılı tutun. {pad_engine} "
 "motoru kontrol eder, {pad_fuel} yakıtı okur ve {pad_speed_limit} hız "
 "sınırını okur."
+
+#. The Weather app's station lines: a wind speed, and snow on the ground.
+msgid "{count} mile per hour"
+msgstr "saatte {count} mil"
+
+msgid "{count} kilometer per hour"
+msgstr "saatte {count} kilometre"
+
+msgid "{count} inches"
+msgstr "{count} inç"
+
+msgid "{count} centimeters"
+msgstr "{count} santimetre"
+
+msgid "{count} centimeter"
+msgstr "{count} santimetre"
+
+#~ msgid "Station: {name}."
+#~ msgstr "İstasyon: {name}."
+
+#~ msgid "Station: {name}, nearby."
+#~ msgstr "İstasyon: {name}, yakında."
+
+#~ msgid "Station: {name}, {distance} away."
+#~ msgstr "İstasyon: {name}, {distance} uzakta."
+
+#~ msgid ""
+#~ "Real world uses live city conditions when available. It also uses the "
+#~ "Weather Service's active warnings along your route. Dispatch plans around a "
+#~ "blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
+#~ "as you drive into it."
+#~ msgstr ""
+#~ "Gerçek dünya varsa canlı şehir koşullarını kullanır. Ayrıca rotanız boyunca "
+#~ "Weather Service'in etkin uyarılarını kullanır. Sevkiyat bir kar fırtınası, "
+#~ "buz fırtınası, kasırga ya da hortum uyarısının etrafından plan yapar ve "
+#~ "uyarının bölgesine girdiğinizde onu duyarsınız."
 
 #~ msgid "A broadcast station. You'll be asked its call sign and state."
 #~ msgstr "Bir yayın istasyonu. Çağrı işareti ve eyaleti sorulacak."

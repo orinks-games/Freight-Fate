@@ -1,0 +1,718 @@
+# Environment and Climate Change Canada present weather codes, as SWOB
+# reports them in prsnt_wx_1 and prsnt_wx_2. Read: every code and its
+# English description come from the SWOB-ML Product User Guide, version
+# 8.17 (July 15, 2026), section 6.5.7 present_weather (std_code_src). The
+# guide lists no code 844.
+# Derived: the phrase column is the code put in Environment Canada's own
+# current-condition words, which then go through map_condition_canada like
+# any observed condition. An empty phrase is not weather at the station now:
+# a code about the preceding hour (the manned 20 to 29 and automated 321 to
+# 326 groups, numbered as WMO tables 4677 and 4680 head them, and every
+# "Recent" code), cloud development, weather in the vicinity or at a
+# distance, deposits on the ground, and reserved or missing values.
+# Columns: code, phrase, description (tab separated).
+0		Manned Observation: Cloud development not observed or not observable
+1		Manned Observation: Clouds generally dissolving or becoming less developed. (Characteristic change of the state of sky during the past hour)
+2		Manned Observation: State of sky on the whole unchanged. (Characteristic change of the state of sky during the past hour)
+3		Manned Observation: Clouds generally forming or developing. (Characteristic change of the state of sky during the past hour)
+4	Smoke	Manned Observation: Visibility reduced by smoke, e.g. veldt or forest fires, industrial smoke or volcanic ashes
+5	Haze	Manned Observation: Haze
+6	Dust	Manned Observation: Widespread dust in suspension in the air, not raised by wind at or near the station at the time of observation
+7	Blowing Dust	Manned Observation: Dust or sand raised by wind at or near the station at the time of observation, but no well-developed dust whirl(s) or sand whirl(s), and no dust storm or sandstorm seen; or, in the case of sea stations and coastal stations, blowing spray at the station
+8	Dust	Manned Observation: Well-developed dust whirl(s) or sand whirl(s) seen at or near the station during the preceding hour or at the time of observation, but no dust storm or sandstorm.
+9		Manned Observation: Duststorm or sandstorm within sight at the time of observation, or at the station during the preceding hour
+10	Mist	Manned Observation: Mist
+11	Shallow Fog	Manned Observation: Shallow fog or ice fog patches at the station, whether on land or sea, not deeper than about 2 metres on land or 10 metres at sea
+12	Shallow Fog	Manned Observation: Shallow fog or ice fog, more or less continuous, at the station, whether on land or sea, not deeper than about 2 metres on land or 10 metres at sea
+13		Manned Observation: Lightning visible, no thunder heard
+14		Manned Observation: Precipitation within sight, not reaching the ground or the surface of the sea
+15		Manned Observation: Precipitation within sight, reaching the ground or the surface of the sea, but distant, i.e. estimated to be more than 5 km from the station
+16		Manned Observation: Precipitation within sight, reaching the ground or the surface of the sea, near to, but not at the station
+17	Thunderstorm	Manned Observation: Thunderstorm, but no precipitation at the time of observation
+18	Squalls	Manned Observation: Squalls (at or within sight of the station during the preceding hour or at the time of observation)
+19	Funnel Cloud	Manned Observation: Funnel cloud(s) [Tornado cloud or water-spout] (at or within sight of the station during the preceding hour or at the time of observation)
+20		Manned Observation: Drizzle (not freezing) or snow grains (not falling as shower(s))
+21		Manned Observation: Rain (not freezing) (not falling as shower(s))
+22		Manned Observation: Snow (not falling as shower(s))
+23		Manned Observation: Rain and snow or ice pellets (not falling as shower(s))
+24		Manned Observation: Freezing drizzle or freezing rain (not falling as shower(s))
+25		Manned Observation: Shower(s) of rain
+26		Manned Observation: Shower(s) of snow, or of rain and snow
+27		Manned Observation: Shower(s) of hail [hail, small hail, snow pellets], or of rain and hail [hail, small hail, snow pellets]
+28		Manned Observation: Fog or ice fog
+29		Manned Observation: Thunderstorm (with or without precipitation)
+30	Duststorm	Manned Observation: Slight or moderate duststorm or sandstorm has decreased during the preceding hour
+31	Duststorm	Manned Observation: Slight or moderate duststorm or sandstorm - no appreciable change during the preceding hour
+32	Duststorm	Manned Observation: Slight or moderate duststorm or sandstorm has begun or has increased during the preceding hour
+33	Duststorm	Manned Observation: Severe duststorm or sandstorm has decreased during the preceding hour
+34	Duststorm	Manned Observation: Severe duststorm or sandstorm - no appreciable change during the preceding hour
+35	Duststorm	Manned Observation: Severe duststorm or sandstorm has begun or has increased during the preceding hour
+36	Drifting Snow	Manned Observation: Slight or moderate drifting snow - generally low (below eye level)
+37	Drifting Snow	Manned Observation: Heavy drifting snow - generally low (below eye level)
+38	Blowing Snow	Manned Observation: Slight or moderate blowing snow - generally high (above eye level)
+39	Blowing Snow	Manned Observation: Heavy blowing snow - generally high (above eye level)
+40		Manned Observation: Fog or ice fog at a distance at the time of observation, but not at the station during the preceding hour, the fog or ice fog extending to a level above that of the observer
+41	Fog Patches	Manned Observation: Fog or ice fog in patches
+42	Fog	Manned Observation: Fog or ice fog, sky visible - has become thinner during the preceding hour
+43	Fog	Manned Observation: Fog or ice fog, sky invisible - has become thinner during the preceding hour
+44	Fog	Manned Observation: Fog or ice fog, sky visible - no appreciable change during the preceding hour
+45	Fog	Manned Observation: Fog or ice fog, sky invisible - no appreciable change during the preceding hour
+46	Fog	Manned Observation: Fog or ice fog, sky visible - has begun or has become thicker during the preceding hour
+47	Fog	Manned Observation: Fog or ice fog, sky invisible - has begun or has become thicker during the preceding hour
+48	Freezing Fog	Manned Observation: Fog, depositing rime, sky visible
+49	Freezing Fog	Manned Observation: Fog, depositing rime, sky invisible
+50	Light Drizzle	Manned Observation: Very light drizzle
+51	Light Drizzle	Manned Observation: Light drizzle (not freezing, continuous)
+52	Drizzle	Manned Observation: Moderate drizzle (not freezing, continuous)
+53	Heavy Drizzle	Manned Observation: Heavy drizzle (not freezing, continuous)
+54	Light Drizzle	Manned Observation: Light drizzle (not freezing, intermittent)
+55	Drizzle	Manned Observation: Moderate drizzle (not freezing, intermittent)
+56	Heavy Drizzle	Manned Observation: Heavy drizzle (not freezing, intermittent)
+57	Freezing Drizzle	Manned Observation: Very light freezing drizzle
+58	Freezing Drizzle	Manned Observation: Light freezing drizzle
+59	Freezing Drizzle	Manned Observation: Moderate freezing drizzle
+60	Freezing Drizzle	Manned Observation: Heavy freezing drizzle
+61	Freezing Drizzle	Manned Observation: Moderate or heavy freezing drizzle
+62	Drizzle and Rain	Manned Observation: Light drizzle and rain
+63	Drizzle and Rain	Manned Observation: Moderate or heavy drizzle and rain
+64	Light Rain	Manned Observation: Very light rain
+65	Light Rain	Manned Observation: Light rain (not freezing, continuous)
+66	Rain	Manned Observation: Moderate rain (not freezing, continuous)
+67	Heavy Rain	Manned Observation: Heavy rain (not freezing, continuous)
+68	Light Rain	Manned Observation: Light rain (not freezing, intermittent)
+69	Rain	Manned Observation: Moderate rain (not freezing, intermittent)
+70	Heavy Rain	Manned Observation: Heavy rain (not freezing, intermittent)
+71	Freezing Rain	Manned Observation: Very light freezing rain
+72	Freezing Rain	Manned Observation: Light freezing rain
+73	Freezing Rain	Manned Observation: Moderate freezing rain
+74	Freezing Rain	Manned Observation: Heavy freezing rain
+75	Freezing Rain	Manned Observation: Moderate or heavy freezing rain
+76	Rain and Snow	Manned Observation: Rain or drizzle and snow, slight
+77	Rain and Snow	Manned Observation: Rain or drizzle and snow, moderate or heavy
+78	Light Snow	Manned Observation: Very light snow
+79	Light Snow	Manned Observation: Light snow (continuous)
+80	Snow	Manned Observation: Moderate snow (continuous)
+81	Heavy Snow	Manned Observation: Heavy snow (continuous)
+82	Light Snow	Manned Observation: Light snow (intermittent)
+83	Snow	Manned Observation: Moderate snow (intermittent)
+84	Heavy Snow	Manned Observation: Heavy snow (intermittent)
+85	Ice Crystals	Manned Observation: Ice crystals
+86	Snow Grains	Manned Observation: Snow grains (with or without fog)
+87	Snow Grains	Manned Observation: Very light snow grains
+88	Snow Grains	Manned Observation: Light snow grains
+89	Snow Grains	Manned Observation: Moderate snow grains
+90	Snow Grains	Manned Observation: Heavy snow grains
+91	Ice Crystals	Manned Observation: Isolated star-like snow crystals (with or without fog)
+92	Ice Pellets	Manned Observation: Ice pellets
+93	Ice Pellets	Manned Observation: Very light ice pellets
+94	Ice Pellets	Manned Observation: Light ice pellets
+95	Ice Pellets	Manned Observation: Moderate ice pellets
+96	Ice Pellets	Manned Observation: Heavy ice pellets
+97	Light Rain Showers	Manned Observation: Very light rain showers
+98	Light Rain Showers	Manned Observation: Light rain showers
+99	Rain Showers	Manned Observation: Moderate rain showers
+100	Heavy Rain Showers	Manned Observation: Heavy rain showers
+101	Rain Showers	Manned Observation: Moderate or heavy rain showers
+102	Rain and Snow Showers	Manned Observation: Light showers of rain and snow mixed
+103	Rain and Snow Showers	Manned Observation: Moderate or heavy showers of rain and snow mixed
+104	Light Snow Showers	Manned Observation: Very light snow showers
+105	Light Snow Showers	Manned Observation: Light snow showers
+106	Snow Showers	Manned Observation: Moderate snow showers
+107	Heavy Snow Showers	Manned Observation: Heavy snow showers
+108	Snow Showers	Manned Observation: Moderate or heavy snow showers
+109	Snow Pellets	Manned Observation: Light showers of snow pellets or small hail, with or without rain or rain and snow mixed
+110	Snow Pellets	Manned Observation: Moderate or heavy showers of snow pellets or small hail, with or without rain or rain and snow mixed
+111	Hail	Manned Observation: Very light hail
+112	Hail	Manned Observation: Light showers of hail, with or without rain or rain and snow mixed, not associated with thunder
+113	Hail	Manned Observation: Moderate hail
+114	Hail	Manned Observation: Heavy hail
+115	Hail	Manned Observation: Moderate or heavy showers of hail, with or without rain or rain and snow mixed, not associated with thunder
+116	Light Rain	Manned Observation: Light rain at time of observation - Thunderstorm during the preceding hour but not at time of observation
+117	Rain	Manned Observation: Moderate or heavy rain at time of observation - Thunderstorm during the preceding hour but not at time of observation
+118	Snow	Manned Observation: Light snow, or rain and snow mixed or hail [hail, small hail, snow pellets] at time of observation - Thunderstorm during the preceding hour but not at time of observation
+119	Snow	Manned Observation: Moderate or heavy snow, or rain and snow mixed or hail [hail, small hail, snow pellets] at time of observation - Thunderstorm during the preceding hour but not at time of observation
+120	Thunderstorm	Manned Observation: Thunderstorm, slight or moderate, without hail [hail, small hail, snow pellets], but with rain and/or snow at time of observation - Thunderstorm at time of observation
+121	Thunderstorm	Manned Observation: Thunderstorm, slight or moderate, with hail [hail, small hail, snow pellets] at time of observation - Thunderstorm at time of observation
+122	Thunderstorm	Manned Observation: Thunderstorm, heavy, without hail [hail, small hail, snow pellets], but with rain and/or snow at time of observation - Thunderstorm at time of observation
+123	Thunderstorm	Manned Observation: Thunderstorm combined with duststorm or sandstorm at time of observation - Thunderstorm at time of observation
+124	Thunderstorm	Manned Observation: Thunderstorm, heavy, with hail [hail, small hail, snow pellets] at time of observation - Thunderstorm at time of observation
+125		Manned Observation: No present or recent weather
+126	Blowing Dust	Manned Observation: Slight or moderate blowing dust
+127	Blowing Dust	Manned Observation: Heavy blowing dust
+128	Blowing Snow	Manned Observation: Slight or moderate blowing snow
+129	Blowing Sand	Manned Observation: Slight or moderate blowing sand
+130	Blowing Sand	Manned Observation: Heavy blowing sand
+131	Sand	Manned Observation: Drifting sand
+132	Drifting Snow	Manned Observation: Drifting snow
+133	Dust	Manned Observation: Drifting dust
+134	Funnel Cloud	Manned Observation: Funnel cloud(s)
+135	Tornado	Manned Observation: Tornado
+136	Waterspout	Manned Observation: Waterspout
+137	Tornado	Manned Observation: Tornado or waterspout
+138	Fog	Manned Observation: Fog (prevailing visibility < 5/8 miles)
+139	Freezing Fog	Manned Observation: Freezing fog (prevailing visibility < 5/8 miles, temperatures < 0 °C and ≥ -30 °C)
+140	Shallow Fog	Manned Observation: Shallow Fog
+141	Ice Fog	Manned Observation: Ice Fog
+142	Fog Patches	Manned Observation: Patchy fog
+143	Fog Patches	Manned Observation: Fog covering part of the aerodrome
+144	Smoke	Manned Observation: Smoke
+145	Thunderstorm	Manned Observation: Thunderstorm
+146	Thunderstorm	Manned Observation: Heavy Thunderstorm
+147	Dust	Manned Observation: Well-developed dust whirl(s) or sand whirl(s), but no duststorm or sandstorm
+148	Snow Pellets	Manned Observation: Very light snow pellet showers, or small hail (i.e. diameter of largest stone < 5mm)
+149	Snow Pellets	Manned Observation: Light snow pellet showers, or small hail (i.e. diameter of largest stone < 5mm)
+150	Snow Pellets	Manned Observation: Moderate snow pellet showers, or small hail (i.e. diameter of largest stone < 5mm)
+151	Snow Pellets	Manned Observation: Heavy snow pellet showers, or small hail (i.e. diameter of largest stone < 5mm)
+152	Ice Pellets	Manned Observation: Very light ice pellet showers
+153	Ice Pellets	Manned Observation: Light ice pellet showers
+154	Ice Pellets	Manned Observation: Moderate ice pellet showers
+155	Ice Pellets	Manned Observation: Heavy ice pellet showers
+156	Sandstorm	Manned Observation: Slight or moderate sandstorm
+157	Sandstorm	Manned Observation: Severe sandstorm
+158	Duststorm	Manned Observation: Slight or moderate duststorm
+159	Duststorm	Manned Observation: Severe duststorm
+160	Volcanic Ash	Manned Observation: Volcanic ash
+161		Manned Observation: Blowing dust in the vicinity
+162		Manned Observation: Blowing sand in the vicinity
+163		Manned Observation: Blowing snow in the vicinity
+164		Manned Observation: Duststorm in the vicinity
+165		Manned Observation: Fog in the vicinity
+166		Manned Observation: Dust/sand whirls in the vicinity
+167		Manned Observation: Showers in the vicinity
+168		Manned Observation: Sandstorm in the vicinity
+169		Manned Observation: Volcanic ash in the vicinity
+170		Manned Observation: Funnel cloud in the vicinity
+171		Manned Observation: Recent blowing snow
+172		Manned Observation: Recent duststorm
+173		Manned Observation: Recent Funnel Cloud, Tornado, Waterspout
+174		Manned Observation: Recent freezing drizzle
+175		Manned Observation: Recent freezing rain
+176		Manned Observation: Recent hail
+177		Manned Observation: Recent snow pellets
+178		Manned Observation: Recent ice pellets
+179		Manned Observation: Recent sandstorm
+180		Manned Observation: Recent volcanic ash
+181		Manned Observation: Recent drizzle
+182		Manned Observation: Recent snow
+183		Manned Observation: Recent rain
+184		Manned Observation: Recent thunderstorm
+185		RESERVED
+186		RESERVED
+187		RESERVED
+188		RESERVED
+189		RESERVED
+190		RESERVED
+191		RESERVED
+192		RESERVED
+193		RESERVED
+194		RESERVED
+195		RESERVED
+196		RESERVED
+197		RESERVED
+198		RESERVED
+199		RESERVED
+200		RESERVED
+201		RESERVED
+202		RESERVED
+203		RESERVED
+204		RESERVED
+205		RESERVED
+206		RESERVED
+207		RESERVED
+208		RESERVED
+209		RESERVED
+210		RESERVED
+300		Automated Station Observation: No significant weather observed
+301		Automated Station Observation: Clouds generally dissolving or becoming less developed during the past hour
+302		Automated Station Observation: State of sky on the whole unchanged during the past hour
+303		Automated Station Observation: Clouds generally forming or developing during the past hour
+304	Haze	Automated Station Observation: Haze or smoke, or dust in suspension in the air, visibility equal to or greater than 1 km
+305	Haze	Automated Station Observation: Haze or smoke, or dust in suspension in the air, visibility less than 1 km
+306		RESERVED
+307		RESERVED
+308		RESERVED
+309		RESERVED
+310	Mist	Automated Station Observation: Mist
+311	Ice Crystals	Automated Station Observation: Diamond dust
+312		Automated Station Observation: Distant lightning
+313		RESERVED
+314		RESERVED
+315		RESERVED
+316		RESERVED
+317		RESERVED
+318	Squalls	Automated Station Observation: Squalls
+319		RESERVED
+320	Fog	Automated Station Observation: Fog
+321		Automated Station Observation: PRECIPITATION at the station during the preceding hour but not at the time of observation
+322		Automated Station Observation: Drizzle (not freezing) or snow grains
+323		Automated Station Observation: Rain (not freezing)
+324		Automated Station Observation: Snow
+325		Automated Station Observation: Freezing drizzle or freezing rain
+326		Automated Station Observation: Thunderstorm (with or without precipitation)
+327	Blowing Snow	Automated Station Observation: BLOWING OR DRIFTING SNOW OR SAND
+328	Blowing Snow	Automated Station Observation: Blowing or drifting snow or sand, visibility equal to or greater than 1 km
+329	Blowing Snow	Automated Station Observation: Blowing or drifting snow or sand, visibility less than 1 km
+330	Fog	Automated Station Observation: FOG
+331	Fog Patches	Automated Station Observation: Fog or ice fog in patches
+332	Fog	Automated Station Observation: Fog or ice fog, has become thinner during the past hour
+333	Fog	Automated Station Observation: Fog or ice fog, no appreciable change during the past hour
+334	Fog	Automated Station Observation: Fog or ice fog, has begun or has become thicker during the past hour
+335	Freezing Fog	Automated Station Observation: Fog, depositing rime. Freezing Fog for Nav Canada stations
+336		RESERVED
+337		RESERVED
+338		RESERVED
+339		RESERVED
+340	Precipitation	Automated Station Observation: PRECIPITATION
+341	Precipitation	Automated Station Observation: Light or moderate precipitation
+342	Heavy Precipitation	Automated Station Observation: Heavy precipitation
+343	Rain	Automated Station Observation: Light or moderate liquid precipitation
+344	Heavy Rain	Automated Station Observation: Heavy liquid precipitation
+345	Snow	Automated Station Observation: Light or moderate solid precipitation
+346	Heavy Snow	Automated Station Observation: Heavy solid precipitation
+347	Freezing Precipitation	Automated Station Observation: Light or moderate freezing precipitation
+348	Freezing Precipitation	Automated Station Observation: Heavy freezing precipitation
+349		RESERVED
+350	Drizzle	Automated Station Observation: DRIZZLE
+351	Light Drizzle	Automated Station Observation: Very light drizzle
+352	Light Drizzle	Automated Station Observation: Light drizzle (not freezing)
+353	Drizzle	Automated Station Observation: Moderate drizzle (not freezing)
+354	Heavy Drizzle	Automated Station Observation: Heavy drizzle (not freezing)
+355	Freezing Drizzle	Automated Station Observation: Very light freezing drizzle
+356	Freezing Drizzle	Automated Station Observation: Light freezing drizzle
+357	Freezing Drizzle	Automated Station Observation: Moderate freezing drizzle
+358	Freezing Drizzle	Automated Station Observation: Heavy freezing drizzle
+359	Drizzle and Rain	Automated Station Observation: Light drizzle and rain
+360	Drizzle and Rain	Automated Station Observation: Moderate or heavy drizzle and rain
+361		RESERVED
+362	Rain	Automated Station Observation: RAIN
+363	Light Rain	Automated Station Observation: Very light rain
+364	Light Rain	Automated Station Observation: Light rain (not freezing)
+365	Rain	Automated Station Observation: Moderate rain (not freezing)
+366	Heavy Rain	Automated Station Observation: Heavy rain (not freezing)
+367	Freezing Rain	Automated Station Observation: Very light freezing rain
+368	Freezing Rain	Automated Station Observation: Light freezing rain
+369	Freezing Rain	Automated Station Observation: Moderate freezing rain
+370	Freezing Rain	Automated Station Observation: Heavy freezing rain
+371	Rain and Snow	Automated Station Observation: Light rain (or drizzle) and snow
+372	Rain and Snow	Automated Station Observation: Moderate or heavy rain (or drizzle) and snow
+373		RESERVED
+374	Snow	Automated Station Observation: SNOW
+375	Light Snow	Automated Station Observation: Very light snow
+376	Light Snow	Automated Station Observation: Light snow
+377	Snow	Automated Station Observation: Moderate snow
+378	Heavy Snow	Automated Station Observation: Heavy snow
+379	Ice Pellets	Automated Station Observation: Light ice pellets
+380	Ice Pellets	Automated Station Observation: Moderate ice pellets
+381	Ice Pellets	Automated Station Observation: Heavy ice pellets
+382	Snow Grains	Automated Station Observation: Snow grains
+383	Ice Crystals	Automated Station Observation: Ice crystals
+384		RESERVED
+385	Showers	Automated Station Observation: SHOWERS or INTERMITTENT PRECIPITATION
+386	Light Rain Showers	Automated Station Observation: Light rain showers or light intermittent rain
+387	Rain Showers	Automated Station Observation: Moderate rain showers or moderate intermittent rain
+388	Heavy Rain Showers	Automated Station Observation: Heavy rain showers or heavy intermittent rain
+389	Heavy Rain Showers	Automated Station Observation: Violent rain showers or violent intermittent rain
+390	Light Snow Showers	Automated Station Observation: Light snow showers or light intermittent snow
+391	Snow Showers	Automated Station Observation: Moderate snow showers or moderate intermittent snow
+392	Heavy Snow Showers	Automated Station Observation: Heavy snow showers or heavy intermittent snow
+393		RESERVED
+394	Hail	Automated Station Observation: Hail
+395	Hail	Automated Station Observation: Very light hail
+396	Hail	Automated Station Observation: Light hail
+397	Hail	Automated Station Observation: Moderate hail
+398	Hail	Automated Station Observation: Heavy hail
+399	Thunderstorm	Automated Station Observation: THUNDERSTORM
+400	Thunderstorm	Automated Station Observation: Thunderstorm, slight or moderate with no precipitation
+401	Thunderstorm	Automated Station Observation: Thunderstorm, slight or moderate, with rain showers and/or snow showers
+402	Thunderstorm	Automated Station Observation: Thunderstorm, slight or moderate, with hail
+403	Thunderstorm	Automated Station Observation: Thunderstorm, heavy, with no precipitation
+404	Thunderstorm	Automated Station Observation: Thunderstorm, heavy, with rain showers and/or snow showers
+405	Thunderstorm	Automated Station Observation: Thunderstorm, heavy, with hail
+406		RESERVED
+407		RESERVED
+408	Tornado	Automated Station Observation: Tornado
+409		Automated Station Observation: No precipitation
+410	Light Precipitation	Automated Station Observation: Very light unclassified precipitation
+411	Light Precipitation	Automated Station Observation: Light unclassified precipitation
+412	Precipitation	Automated Station Observation: Moderate unclassified precipitation
+413	Heavy Precipitation	Automated Station Observation: Heavy unclassified precipitation
+414		Automated Station Observation: Error in present weather determination, none could be reported
+415	Light Snow	Automated Station Observation: Light frozen precipitation
+416	Snow	Automated Station Observation: Moderate frozen precipitation
+417	Heavy Snow	Automated Station Observation: Heavy frozen precipitation
+418		Automated Station Observation: Other
+500		Not used
+501		Not used
+502		Not used
+503		Not used
+504		Manned or Automated Station Observation: Volcanic ash suspended In the air aloft
+505		Not used
+506	Haze	Manned or Automated Station Observation: Thick dust haze, visibility less than 1 km
+507	Blowing Spray	Manned or Automated Station Observation: Blowing spray at the station
+508	Dust	Manned or Automated Station Observation: Drifting dust (sand)
+509		Manned or Automated Station Observation: Wall of dust or sand in distance (like haboob)
+510	Snow Haze	Manned or Automated Station Observation: Snow haze
+511	Blowing Snow	Manned or Automated Station Observation: Whiteout
+512		Not used
+513	Thunderstorm	Manned or Automated Station Observation: Lightning, cloud to surface
+514		Not used
+515		Not used
+516		Not used
+517	Thunderstorm	Manned or Automated Station Observation: Dry thunderstorm
+518		Not used
+519	Tornado	Manned or Automated Station Observation: Tornado cloud (destructive) at or within sight of the station during preceding hour or at the time of observation
+520		Manned or Automated Station Observation: Deposition of volcanic ash
+521		Manned or Automated Station Observation: Deposition of dust or sand
+522		Manned or Automated Station Observation: Deposition of dew
+523		Manned or Automated Station Observation: Deposition of wet snow
+524		Manned or Automated Station Observation: Deposition of soft rime
+525		Manned or Automated Station Observation: Deposition of hard rime
+526		Manned or Automated Station Observation: Deposition of hoarfrost
+527		Manned or Automated Station Observation: Deposition of glaze
+528		Manned or Automated Station Observation: Deposition of ice crust (ice slick)
+529		Not used
+530	Duststorm	Manned or Automated Station Observation: Dust storm or sandstorm with temperature below 0 degrees C
+531		Not used
+532		Not used
+533		Not used
+534		Not used
+535		Not used
+536		Not used
+537		Not used
+538		Not used
+539	Blowing Snow	Manned or Automated Station Observation: Blowing snow, impossible to determine whether snow is falling or not
+540		Not used
+541		Manned or Automated Station Observation: Fog on sea
+542		Manned or Automated Station Observation: Fog in valleys
+543		Manned or Automated Station Observation: Arctic or Antarctic sea smoke
+544	Fog	Manned or Automated Station Observation: Steam fog (sea, lake or river)
+545	Fog	Manned or Automated Station Observation: Steam fog (land)
+546	Fog	Manned or Automated Station Observation: Fog over ice or snow cover
+547	Fog	Manned or Automated Station Observation: Dense fog, visibility 60-90 m
+548	Fog	Manned or Automated Station Observation: Dense fog, visibility 30-60 m
+549	Fog	Manned or Automated Station Observation: Dense fog, visibility less than 30 m
+550	Light Drizzle	Manned or Automated Station Observation: Drizzle, rate of fall less than 0.10 mm/h
+551	Light Drizzle	Manned or Automated Station Observation: Drizzle, rate of fall 0.10-0.19 mm/h
+552	Light Drizzle	Manned or Automated Station Observation: Drizzle, rate of fall 0.20-0.39 mm/h
+553	Light Drizzle	Manned or Automated Station Observation: Drizzle, rate of fall 0.40-0.79 mm/h
+554	Drizzle	Manned or Automated Station Observation: Drizzle, rate of fall 0.80-1.59 mm/h
+555	Drizzle	Manned or Automated Station Observation: Drizzle, rate of fall 1.60-3.19 mm/h
+556	Heavy Drizzle	Manned or Automated Station Observation: Drizzle, rate of fall 3.20-6.39 mm/h
+557	Heavy Drizzle	Manned or Automated Station Observation: Drizzle, rate of fall 6.4 mm/h or more
+558		Not used
+559	Drizzle and Snow	Manned or Automated Station Observation: Drizzle and snow
+560	Light Rain	Manned or Automated Station Observation: Rain, rate of fall less than 1.0 mm/h
+561	Light Rain	Manned or Automated Station Observation: Rain, rate of fall 1.- 1.9 mm/h
+562	Rain	Manned or Automated Station Observation: Rain, rate of fall 2.- 3.9 mm/h
+563	Rain	Manned or Automated Station Observation: Rain, rate of fall 4.- 7.9 mm/h
+564	Heavy Rain	Manned or Automated Station Observation: Rain, rate of fall 8.-15.9 mm/h
+565	Heavy Rain	Manned or Automated Station Observation: Rain, rate of fall 16.0-31.9 mm/h
+566	Heavy Rain	Manned or Automated Station Observation: Rain, rate of fall 32.0-63.9 mm/h
+567	Heavy Rain	Manned or Automated Station Observation: Rain, rate of fall 64.0 mm/h or more
+568		Not used
+569		Not used
+570	Light Snow	Manned or Automated Station Observation: Snow, rate of fall less than 1.0 cm/h
+571	Light Snow	Manned or Automated Station Observation: Snow, rate of fall 1.0-1.9 cm/h
+572	Snow	Manned or Automated Station Observation: Snow, rate of fall 2.0-3.9 cm/h
+573	Snow	Manned or Automated Station Observation: Snow, rate of fall 4.0-7.9 cm/h
+574	Heavy Snow	Manned or Automated Station Observation: Snow, rate of fall 8.0-15.9 cm/h
+575	Heavy Snow	Manned or Automated Station Observation: Snow, rate of fall 16.0-31.9 cm/h
+576	Heavy Snow	Manned or Automated Station Observation: Snow, rate of fall 32.0-63.9 cm/h
+577	Heavy Snow	Manned or Automated Station Observation: Snow, rate of fall 64.0 cm/h or more
+578	Ice Crystals	Manned or Automated Station Observation: Snow or Ice crystal precipitation from a clear sky
+579	Wet Snow	Manned or Automated Station Observation: Wet snow, freezing on contact
+580	Rain	Manned or Automated Station Observation: Precipitation of rain
+581	Freezing Rain	Manned or Automated Station Observation: Precipitation of rain, freezing
+582	Rain and Snow	Manned or Automated Station Observation: Precipitation of rain and snow mixed.
+583	Snow	Manned or Automated Station Observation: Precipitation of snow
+584	Snow Pellets	Manned or Automated Station Observation: Precipitation of snow pellets or small hall
+585	Snow Pellets	Manned or Automated Station Observation: Precipitation of snow pellets or small hail, with rain
+586	Snow Pellets	Manned or Automated Station Observation: Precipitation of snow pellets or small hail, with rain and snow mixed
+587	Snow Pellets	Manned or Automated Station Observation: Precipitation of snow pellets or small hail, with snow
+588	Hail	Manned or Automated Station Observation: Precipitation of hail
+589	Hail	Manned or Automated Station Observation: Precipitation of hail, with rain
+590	Hail	Manned or Automated Station Observation: Precipitation of hall, with rain and snow mixed
+591	Snow	Manned or Automated Station Observation: Precipitation of hail, with snow
+592		Manned or Automated Station Observation: Shower(s) or thunderstorm over sea
+593		Manned or Automated Station Observation: Shower(s) or thunderstorm over mountains
+594		Not used
+595		Not used
+596		Not used
+597		Not used
+598		Not used
+599		Not used
+600		Reserved
+601		Reserved
+602		Reserved
+603		Reserved
+604		Reserved
+605		Reserved
+606		Reserved
+607		Reserved
+608		Reserved
+609		Reserved
+610		Reserved
+611		Reserved
+612		Reserved
+613		Reserved
+614		Reserved
+615		Reserved
+616		Reserved
+617		Reserved
+618		Reserved
+619		Reserved
+620		Reserved
+621		Reserved
+622		Reserved
+623		Reserved
+624		Reserved
+625		Reserved
+626		Reserved
+627		Reserved
+628		Reserved
+629		Reserved
+630		Reserved
+631		Reserved
+632		Reserved
+633		Reserved
+634		Reserved
+635		Reserved
+636		Reserved
+637		Reserved
+638		Reserved
+639		Reserved
+640		Reserved
+641		Reserved
+642		Reserved
+643		Reserved
+644		Reserved
+645		Reserved
+646		Reserved
+647		Reserved
+648		Reserved
+649		Reserved
+650		Reserved
+651		Reserved
+652		Reserved
+653		Reserved
+654		Reserved
+655		Reserved
+656		Reserved
+657		Reserved
+658		Reserved
+659		Reserved
+660		Reserved
+661		Reserved
+662		Reserved
+663		Reserved
+664		Reserved
+665		Reserved
+666		Reserved
+667		Reserved
+668		Reserved
+669		Reserved
+670		Reserved
+671		Reserved
+672		Reserved
+673		Reserved
+674		Reserved
+675		Reserved
+676		Reserved
+677		Reserved
+678		Reserved
+679		Reserved
+680		Reserved
+681		Reserved
+682		Reserved
+683		Reserved
+684		Reserved
+685		Reserved
+686		Reserved
+687		Reserved
+688		Reserved
+689		Reserved
+690		Reserved
+691		Reserved
+692		Reserved
+693		Reserved
+694		Reserved
+695		Reserved
+696		Reserved
+697		Reserved
+698		Reserved
+699		Reserved
+700		Reserved
+701		Reserved
+702		Reserved
+703		Reserved
+704		Reserved
+705		Reserved
+706		Reserved
+707		Reserved
+708		Reserved
+709		Reserved
+710		Reserved
+711		Reserved
+712		Reserved
+713		Reserved
+714		Reserved
+715		Reserved
+716		Reserved
+717		Reserved
+718		Reserved
+719		Reserved
+720		Reserved
+721		Reserved
+722		Reserved
+723		Reserved
+724		Reserved
+725		Reserved
+726		Reserved
+727		Reserved
+728		Reserved
+729		Reserved
+730		Reserved
+731		Reserved
+732		Reserved
+733		Reserved
+734		Reserved
+735		Reserved
+736		Reserved
+737		Reserved
+738		Reserved
+739		Reserved
+740		Reserved
+741		Reserved
+742		Reserved
+743		Reserved
+744		Reserved
+745		Reserved
+746		Reserved
+747		Reserved
+748		Reserved
+749		Reserved
+750		Reserved
+751		Reserved
+752		Reserved
+753		Reserved
+754		Reserved
+755		Reserved
+756		Reserved
+757		Reserved
+758		Reserved
+759		Reserved
+760		Reserved
+761		Reserved
+762		Reserved
+763		Reserved
+764		Reserved
+765		Reserved
+766		Reserved
+767		Reserved
+768		Reserved
+769		Reserved
+770		Reserved
+771		Reserved
+772		Reserved
+773		Reserved
+774		Reserved
+775		Reserved
+776		Reserved
+777		Reserved
+778		Reserved
+779		Reserved
+780		Reserved
+781		Reserved
+782		Reserved
+783		Reserved
+784		Reserved
+785		Reserved
+786		Reserved
+787		Reserved
+788		Reserved
+789		Reserved
+790		Reserved
+791		Reserved
+792		Reserved
+793		Reserved
+794		Reserved
+795		Reserved
+796		Reserved
+797		Reserved
+798		Reserved
+799		Reserved
+800		Reserved
+801		Reserved
+802		Reserved
+803		Reserved
+804		Reserved
+805		Reserved
+806		Reserved
+807		Reserved
+808		Manned or Automated Station Observation: No significant phenomenon to report, present and past weather omitted
+809		Manned or Automated Station Observation: No observation, data not available, present and past weather omitted
+810		Manned or Automated Station Observation: Present and past weather missing, but expected
+811		Missing value
+812	Rain	Automated Station Observation: Rain, hail detected
+813	Rain and Snow	Automated Station Observation: Snow, rain detected
+814	Snow	Automated Station Observation: Snow, hail detected
+815	Rain and Snow	Automated Station Observation: Snow, rain, hail detected
+816	Precipitation	Automated Station Observation: Unclassified precipitation detected
+817	Rain	Automated Station Observation: Rain, unclassified precipitation detected
+818	Hail	Automated Station Observation: Hail, unclassified precipitation detected
+819	Rain	Automated Station Observation: Rain, hail, unclassified precipitation detected
+820	Snow	Automated Station Observation: Snow, unclassified precipitation detected
+821	Rain and Snow	Automated Station Observation: Snow, rain, unclassified precipitation detected
+822	Snow	Automated Station Observation: Snow, hail, unclassified precipitation detected
+823	Rain and Snow	Automated Station Observation: Snow, hail, rain, unclassified precipitation detected
+824	Light Snow Grains	Automated Station Observation: Light snow grains
+825	Snow Grains	Automated Station Observation: Moderate snow grains
+826	Snow Grains	Automated Station Observation: Heavy snow grains
+827	Snow Pellets	Automated Station Observation: Snow pellets
+828		Automated Station Observation: Thunderstorm in vicinity
+829	Sand	Automated Station Observation: Sand
+830	Dust	Automated Station Observation: Dust
+831	Haze	Automated Station Observation: Haze
+832	Smoke	Automated Station Observation: Smoke
+833	Volcanic Ash	Automated Station Observation: Volcanic ash
+834	Blowing Snow	Automated Station Observation: Blowing snow
+835	Blowing Sand	Automated Station Observation: Blowing sand
+836	Freezing Precipitation	Automated Station Observation: Light unclassified freezing precipitation
+837	Freezing Precipitation	Automated Station Observation: Moderate unclassified freezing precipitation
+838	Freezing Precipitation	Automated Station Observation: Heavy unclassified freezing precipitation
+839		Automated Station Observation: No precipitation detected
+840	Thunderstorm	Manned or Automated Station Observation: Thunderstorm with rain (light)
+841	Light Rain	Manned or Automated Station Observation: Precipitation of rain and drizzle (light)
+842	Rain	Manned or Automated Station Observation: Precipitation of rain and drizzle (moderate)
+843	Heavy Rain	Manned or Automated Station Observation: Precipitation of rain and drizzle (heavy)
+845	Drizzle and Rain	Manned or Automated Station Observation: Heavy drizzle and rain
+846	Drizzle	Manned or Automated Station Observation: Drizzle and mist
+847	Sand	Manned Observation: Sand
+848	Light Showers	Manned or Automated Station Observation: Light showers
+849	Haze	Manned or Automated Station Observation: Light haze
+850	Thunderstorm	Manned or Automated Station Observation: Light Thunderstorm
+851	Thunderstorm	Manned or Automated Station Observation: Thunderstorm with drizzle, light
+852	Thunderstorm	Manned or Automated Station Observation: Thunderstorm with drizzle, moderate
+853	Thunderstorm	Manned or Automated Station Observation: Thunderstorm with drizzle, heavy
+854	Thunderstorm	Manned or Automated Station Observation: Thunderstorm with mist in vicinity
+855	Thunderstorm	Manned or Automated Station Observation: Thunderstorm with drizzle in vicinity
+856	Thunderstorm	Manned or Automated Station Observation: Thunderstorm with rain in vicinity
+857	Thunderstorm	Manned or Automated Station Observation: Thunderstorm with showers in vicinity
+858		Manned or Automated Station Observation: Rain in vicinity
+859	Light Rain Showers	Manned or Automated Station Observation: Showers with rain and drizzle, light
+860	Rain Showers	Manned or Automated Station Observation: Showers with rain and drizzle, moderate
+861	Heavy Rain Showers	Manned or Automated Station Observation: Showers with rain and drizzle, heavy
+862	Rain and Snow Showers	Manned or Automated Station Observation: Showers with rain and snow, light
+863	Rain and Snow Showers	Manned or Automated Station Observation: Showers with rain and snow, moderate
+864	Rain and Snow Showers	Manned or Automated Station Observation: Showers with rain and snow, heavy
+865	Mist	Manned or Automated Station Observation: Patches of mist
+866	Blowing Dust	Manned or Automated Station Observation: Blowing widespread dust
+867	Shallow Fog	Manned or Automated Station Observation: Shallow fog
+868	Fog Patches	Manned or Automated Station Observation: Partial fog
+869		Manned or Automated Station Observation: Snow in vicinity
+870		Manned or Automated Station Observation: Rain showers in vicinity
+871	Light Rain and Snow	Manned or Automated Station Observation: Light rain and snow
+872	Rain and Snow	Manned or Automated Station Observation: Rain and snow
+873		Manned or Automated Station Observation: Recent drizzle
+874		Manned or Automated Station Observation: Recent rain
+875		Manned or Automated Station Observation: Recent snow

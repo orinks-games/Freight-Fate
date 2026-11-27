@@ -388,7 +388,7 @@ fn fatigue_state_line(
          touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {}; bridge {}; road_surface {}, {}; \
          tire song {}; structure {}; chain_control {}; bond {}; full_night {}; chains {}; abs {}; drive_traction {}; trailer_sway {}; mirror_glance {}; \
          predictive_cruise {}; assisted_lane_change {}; lane_keep_availability {}; chain_worker {}; chain_stop {}; chain_wear {:.3} at {:.2} mph; \
-         air {:.1} psi; brake {:.2}{}; jake {}; weather_service {}; app {}.",
+         air {:.1} psi; brake {:.2}{}; jake {}; weather_service {}; weather_station {}; app {}.",
         o.alertness.key(),
         o.nod.key(),
         o.nod.misses,
@@ -434,6 +434,7 @@ fn fatigue_state_line(
         if o.cruise_snubbing { ", cruise snubbing" } else { "" },
         o.jake_stage,
         ff_core::sim::weather_service::service_key(o.weather_service),
+        o.weather_station,
         place.key()
     )
 }

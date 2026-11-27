@@ -4710,7 +4710,7 @@ msgid "the District of Columbia"
 msgstr "District of Columbia"
 
 msgid "northeast"
-msgstr "northeast"
+msgstr "东北"
 
 msgid "appalachia"
 msgstr "appalachia"
@@ -13726,11 +13726,81 @@ msgstr ""
 msgid "no Environment Canada site near {lat},{lon}"
 msgstr ""
 
+#. placeholders: {site}
+msgid "site {site} has only a forecast"
+msgstr ""
+
+#. placeholders: {basis}, {site}
+msgid "city page {basis}, site {site}"
+msgstr ""
+
+msgid "and no measurement"
+msgstr ""
+
+msgid "derived"
+msgstr ""
+
+msgid "with its measured temperature and wind"
+msgstr ""
+
+msgid "read, stale"
+msgstr ""
+
 msgid "no site reported a condition"
 msgstr ""
 
 #. placeholders: {join}
 msgid "every site failed: {join}"
+msgstr ""
+
+msgid "forecast only"
+msgstr ""
+
+msgid "no station near enough has a fresh observation"
+msgstr ""
+
+msgid "nothing decides the sky"
+msgstr ""
+
+#. placeholders: {id}
+msgid "station {id}"
+msgstr ""
+
+#. placeholders: {site}
+msgid "site {site}"
+msgstr ""
+
+msgid "no observation"
+msgstr ""
+
+msgid "vis"
+msgstr ""
+
+msgid "code"
+msgstr ""
+
+msgid "text"
+msgstr "text"
+
+msgid "gauge"
+msgstr ""
+
+msgid "cloud amount"
+msgstr ""
+
+msgid "forecast"
+msgstr ""
+
+msgid "Freezing Rain"
+msgstr ""
+
+msgid "Snow"
+msgstr ""
+
+msgid "Heavy Rain"
+msgstr ""
+
+msgid "Rain"
 msgstr ""
 
 msgid "jointed"
@@ -15732,6 +15802,98 @@ msgstr "干燥"
 msgid "wet"
 msgstr "潮湿"
 
+msgid "north"
+msgstr "北"
+
+msgid "east"
+msgstr "东"
+
+msgid "southeast"
+msgstr "东南"
+
+msgid "south"
+msgstr "南"
+
+msgid "southwest"
+msgstr "西南"
+
+msgid "west"
+msgstr "西"
+
+msgid "northwest"
+msgstr "西北"
+
+#. placeholders: {station}
+msgid "Station: {station}."
+msgstr "气象站：{station}。"
+
+#. placeholders: {station}
+msgid "Station: {station}, nearby."
+msgstr "气象站：{station}，就在附近。"
+
+#. placeholders: {station}, {distance}
+msgid "Station: {station}, {distance} away."
+msgstr "气象站：{station}，距离{distance}。"
+
+msgid "Wind: calm."
+msgstr "风：静风。"
+
+#. placeholders: {counted}
+msgid "{counted} per hour"
+msgstr ""
+
+#. placeholders: {from}, {sustained}, {gust}
+msgid "Wind: {from} at {sustained}, gusting to {gust}."
+msgstr "风：{from}风，{sustained}，阵风{gust}。"
+
+#. placeholders: {from}, {sustained}
+msgid "Wind: {from} at {sustained}."
+msgstr "风：{from}风，{sustained}。"
+
+#. placeholders: {sustained}, {gust}
+msgid "Wind: {sustained}, gusting to {gust}."
+msgstr "风：{sustained}，阵风{gust}。"
+
+#. placeholders: {sustained}
+msgid "Wind: {sustained}."
+msgstr "风：{sustained}。"
+
+#. placeholders: {distance}
+msgid "Visibility: {distance}."
+msgstr "能见度：{distance}。"
+
+msgid "1 inch"
+msgstr "1英寸"
+
+#. placeholders: {inches}
+msgid "{inches} inches"
+msgstr ""
+
+msgid "centimeter"
+msgstr ""
+
+#. placeholders: {depth}
+msgid "Snow on the ground: {depth}."
+msgstr "积雪深度：{depth}。"
+
+#. placeholders: {value}
+msgid "Forecast ahead: {value}."
+msgstr "前方预报：{value}。"
+
+#. placeholders: {join}
+msgid "Forecast ahead: {join}."
+msgstr "前方预报：{join}。"
+
+#. placeholders: {mi}
+msgid "{mi} mi"
+msgstr ""
+
+msgid "Airport"
+msgstr ""
+
+msgid "Municipal"
+msgstr ""
+
 msgid "nws"
 msgstr ""
 
@@ -17241,9 +17403,6 @@ msgstr "artist"
 
 msgid "no desc"
 msgstr "no desc"
-
-msgid "text"
-msgstr "text"
 
 msgid "ogg"
 msgstr "ogg"
@@ -29182,10 +29341,6 @@ msgstr "天气状况：{source_conditions}。"
 msgid "Safe speed guidance: about {speed_text}."
 msgstr "安全车速建议：大约{speed_text}。"
 
-#. placeholders: {join}
-msgid "Forecast ahead: {join}."
-msgstr "前方预报：{join}。"
-
 msgid "Forecast ahead: unavailable."
 msgstr "前方预报：暂无。"
 
@@ -37125,13 +37280,12 @@ msgid "real world"
 msgstr "真实世界"
 
 msgid ""
-"Real world uses live city conditions when available. It also uses the "
-"Weather Service's active warnings along your route. Dispatch plans around a "
-"blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
-"as you drive into it."
+"Real world uses live city conditions when available. It also uses active "
+"weather warnings along your route. Dispatch plans around a blizzard, ice "
+"storm, hurricane or tornado warning, and you hear a warning as you drive "
+"into it."
 msgstr ""
-"真实世界在可用时使用各城市的实时天气。它还使用气象局在你路线沿线发布的有效警报。调度会避开暴风雪、冰暴、飓风或龙卷风警报来规划，你驶入警报区域时会听到警"
-"报。"
+"真实世界在可用时使用各城市的实时天气。它还使用你路线沿线的有效天气警报。调度会避开暴风雪、冰暴、飓风或龙卷风警报来规划，你驶入警报区域时会听到警报。"
 
 #. placeholders: {else}
 msgid "Traffic source: {else}"
@@ -44495,6 +44649,40 @@ msgid ""
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
+
+#. The Weather app's station lines: a wind speed, and snow on the ground.
+msgid "{count} mile per hour"
+msgstr "每小时{count}英里"
+
+msgid "{count} kilometer per hour"
+msgstr "每小时{count}公里"
+
+msgid "{count} inches"
+msgstr "{count}英寸"
+
+msgid "{count} centimeters"
+msgstr "{count}厘米"
+
+msgid "{count} centimeter"
+msgstr "{count}厘米"
+
+#~ msgid "Station: {name}."
+#~ msgstr "气象站：{name}。"
+
+#~ msgid "Station: {name}, nearby."
+#~ msgstr "气象站：{name}，就在附近。"
+
+#~ msgid "Station: {name}, {distance} away."
+#~ msgstr "气象站：{name}，距离{distance}。"
+
+#~ msgid ""
+#~ "Real world uses live city conditions when available. It also uses the "
+#~ "Weather Service's active warnings along your route. Dispatch plans around a "
+#~ "blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
+#~ "as you drive into it."
+#~ msgstr ""
+#~ "真实世界在可用时使用各城市的实时天气。它还使用气象局在你路线沿线发布的有效警报。调度会避开暴风雪、冰暴、飓风或龙卷风警报来规划，你驶入警报区域时会听到警"
+#~ "报。"
 
 #~ msgid "A broadcast station. You'll be asked its call sign and state."
 #~ msgstr "广播电台。会问你它的呼号和所在州。"

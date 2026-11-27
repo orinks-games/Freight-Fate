@@ -10,6 +10,7 @@ use ff_core::sim::season::{
 };
 use ff_core::sim::timezones::{city_zone, to_local};
 use ff_core::sim::weather::{WeatherKind, WeatherSystem};
+use ff_core::sim::weather_report::{self, ObservationDetails};
 use ff_core::sim::weather_service::WeatherService;
 
 use crate::app::GameContext;
@@ -23,6 +24,7 @@ struct LiveReading {
     refreshing: bool,
     loading: bool,
     observed_temperature: Option<f64>,
+    details: Option<ObservationDetails>,
 }
 
 pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
@@ -88,6 +90,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
                         refreshing: provider.refreshing(&city_key),
                         loading: false,
                         observed_temperature: provider.get_temperature(&city_key),
+                        details: provider.get_details(&city_key),
                     },
                     None => LiveReading {
                         kind: None,
@@ -96,6 +99,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
                         refreshing: false,
                         loading: !provider.unavailable(&city_key),
                         observed_temperature: None,
+                        details: None,
                     },
                 }
             });
@@ -203,6 +207,14 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
     let freshness = freshness.trim();
     if !freshness.is_empty() {
         lines.push(freshness.to_string());
+    }
+    // The station a live report came from; nothing else it measured.
+    if live && !last_known {
+        let station = reading
+            .as_ref()
+            .and_then(|r| r.details.as_ref())
+            .and_then(|details| weather_report::station_line(details, imperial));
+        lines.extend(station);
     }
     lines
 }

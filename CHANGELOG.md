@@ -19,6 +19,7 @@
 
 - **Canadian radio stations are on the dial.** Stations come in near their real transmitters across Canada, and Suggest a station takes a province.
 - **Live weather now covers Canada.** Canadian roads get current conditions and weather alerts from Environment and Climate Change Canada.
+- **Canadian live weather reads the real weather stations.** The Weather app names the station and adds wind, gusts, visibility and a forecast.
 - **Predictive cruise now prepares the jake brake before crests and downgrades.** It also resumes smoothly out of work zones and green lights.
 - **Steering toward an occupied lane now plays a directional blind-spot chirp.** On All assists, a tap signals, waits for a gap, and glides over.
 - **Driving assistance settings now let you set Steering assist and Speed assist independently.** Existing presets still work, and saved settings carry over.
@@ -94,6 +95,7 @@
 
 ### Changed
 
+- **The Weather app names the weather station.** A live report also gives wind, gusts and visibility when the station measures them.
 - **Waiting with the parking brake set now drops to normal clock speed when an hours notice comes due.**
 - **On a load that stays in Canada, the rest menu offers the 8-hour Canadian night.** A load headed into the United States still sleeps 10 hours, so you cross with fresh hours.
 - **In Canada with the United States ahead, the hours readout also gives your US hours.** The board's rest warning for a load into the United States reads them too.
