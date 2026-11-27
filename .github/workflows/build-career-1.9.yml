@@ -83,7 +83,9 @@ permissions:
   contents: write
 
 concurrency:
-  group: career-snapshot-${{ inputs.channel || 'beta' }}
+  # A dry run has a group of its own, so testing this file on a branch never
+  # cancels a build that publishes, and a publishing build never cancels it.
+  group: career-snapshot-${{ inputs.channel || 'beta' }}${{ inputs.dry_run && '-dry-run' || '' }}
   # A push or a dispatch cancels the build in flight: the newer commit is
   # the one testers should get, and publishing replaces the day's release
   # wholesale, so a cancelled run leaves the last published snapshot
