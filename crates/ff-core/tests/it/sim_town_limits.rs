@@ -245,3 +245,44 @@ fn test_the_trip_applies_the_town_limit_in_both_directions() {
     );
     assert!(forward.corridor_limit_at(0.1) <= MAX_PLAUSIBLE_MPH);
 }
+
+#[test]
+fn test_canada_and_alaska_town_limits_and_canadian_80_kmh_tail_screening() {
+    use ff_core::sim::town_limits::town_mph;
+
+    let (ak_mph, ak_src) = town_mph("Alaska");
+    assert!(
+        (ak_mph - 20.0).abs() < 0.01,
+        "Alaska statutory business limit: {ak_mph}"
+    );
+    assert!(ak_src.contains("13 AAC 02.275"), "{ak_src}");
+
+    let (bc_mph, bc_src) = town_mph("British Columbia");
+    assert!(
+        (bc_mph - 31.07).abs() < 0.05,
+        "BC 50 km/h statutory limit: {bc_mph}"
+    );
+    assert!(bc_src.contains("Motor Vehicle Act"), "{bc_src}");
+
+    let (yt_mph, _) = town_mph("Yukon");
+    assert!(
+        (yt_mph - 31.07).abs() < 0.05,
+        "Yukon 50 km/h limit: {yt_mph}"
+    );
+
+    // An 80 km/h (~49.7 mph) Canadian highway posting carried to the far end
+    // of a leg must still be screened into the town stretch on arrival.
+    let leg = Leg::new("A", "B", 20.0, "BC-97", "flat", Vec::new()).with_detail(CorridorDetail {
+        speed_limits: vec![sample(1.0, Some(49.7))],
+        state_miles: vec![StateMileage {
+            state: "British Columbia".to_string(),
+            miles: 20.0,
+        }],
+        ..Default::default()
+    });
+    let ends = town_ends(&leg, &[bend(19.0, 19.6, 20, true)]);
+    let end = ends
+        .end
+        .expect("80 km/h Canadian highway tail should be screened into town");
+    assert!((end.mph - 31.07).abs() < 0.05);
+}

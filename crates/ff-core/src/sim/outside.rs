@@ -142,8 +142,10 @@ pub struct Bed {
 
 /// How far the road covers a bed at speed, unless the bed says otherwise.
 pub const ROAD_FLOOR: f64 = 0.5;
-/// The insects' muffled copy at speed. Orinks's ear sets it.
-pub const INSECTS_SEALED_ROAD_FLOOR: f64 = 0.8;
+/// The insects' muffled copy at speed. Kept under the cab road bed through
+/// closed glass at highway speed while still audible when stopped or with the
+/// window cracked.
+pub const INSECTS_SEALED_ROAD_FLOOR: f64 = 0.35;
 
 pub const INSECTS: Bed = Bed {
     name: "insects",

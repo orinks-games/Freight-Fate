@@ -2512,3 +2512,24 @@ fn browse_by_category_keeps_to_one_group_with_out_of_range_included() {
     assert!(categories.iter().any(|(g, _, _)| *g == 9));
     assert!(categories.windows(2).all(|w| w[0].0 < w[1].0));
 }
+
+#[test]
+fn test_favoriting_station_does_not_kick_dial_into_favorites_list() {
+    let mut all = vec![
+        web_fixture("web-a", "Alpha Web", "https://example.test/a"),
+        web_fixture("web-b", "Beta Web", "https://example.test/b"),
+        web_fixture("web-c", "Gamma Web", "https://example.test/c"),
+    ];
+    all.extend(catalog());
+    let mut radio = RadioState::new(all)
+        .with_enabled(true)
+        .with_position(Some(DALLAS));
+    radio.select_station("web-a", None);
+    assert_eq!(radio.current_station().id, "web-a");
+    let msg = radio.toggle_favorite();
+    assert!(msg.contains("Saved"), "{msg}");
+    // Stepping forward after favoriting stays in the Web list (`web-b`),
+    // rather than jumping into Favorites and stepping to Terrestrial.
+    radio.tune(1, None);
+    assert_eq!(radio.current_station().id, "web-b");
+}

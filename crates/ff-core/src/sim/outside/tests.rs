@@ -172,8 +172,8 @@ fn the_mix_follows_the_glass_and_the_road() {
 }
 
 #[test]
-fn the_closed_window_keeps_more_of_the_insects_at_speed_than_of_the_birds() {
-    const { assert!(INSECTS.sealed_road_floor > ROAD_FLOOR) };
+fn the_closed_window_ducks_insects_below_road_at_highway_speed() {
+    const { assert!(INSECTS.sealed_road_floor < ROAD_FLOOR && INSECTS.sealed_road_floor > 0.0) };
     assert_eq!(BIRDS.sealed_road_floor, ROAD_FLOOR);
 }
 

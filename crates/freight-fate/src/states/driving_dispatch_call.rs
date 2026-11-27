@@ -200,6 +200,9 @@ impl Menu for DispatchCallState {
                 ),
             );
         }
+        items.push(
+            MenuItem::new("Back", |s: &mut Self, ctx| s.go_back(ctx)).help("Hang up and go back."),
+        );
         items
     }
 }

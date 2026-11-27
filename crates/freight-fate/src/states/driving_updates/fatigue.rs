@@ -40,7 +40,14 @@ pub fn hours_rules_line(rules: HosRules) -> &'static str {
 impl DrivingState {
     /// Advance the HOS shift clock and fatigue on game time, not wall time.
     pub fn update_hours_and_fatigue(&mut self, ctx: &mut GameContext, dt: f64) {
-        let gm = dt * self.trip.effective_time_scale() / 60.0; // game minutes this frame
+        let gm = dt * self.trip.effective_time_scale() / 60.0;
+        self.update_hours_and_fatigue_with_minutes(ctx, gm);
+    }
+
+    /// Advance the HOS shift clock and fatigue using the exact elapsed game
+    /// minutes (`gm`) that `Trip::update` charged for this frame, so mid-frame
+    /// turn-pacing changes cannot make HOS sample a different duration.
+    pub fn update_hours_and_fatigue_with_minutes(&mut self, ctx: &mut GameContext, gm: f64) {
         let moving = self.trip.truck.speed_mph() > 5.0;
         let mode = ctx.settings.hos_mode.clone();
         let first_jurisdiction_frame = !self.hos_jurisdiction_initialized;

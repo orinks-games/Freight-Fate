@@ -54,8 +54,14 @@
 use crate::data::curves::CurveRecord;
 use crate::data::street_limits::{load_street_limits, FALLBACK_MPH};
 use crate::data::world_models::Leg;
+use crate::sim::hos::HosRules;
 use crate::sim::limit_gaps::GAP_HOLD_HIGHWAY_MPH;
 use crate::sim::trip_models::{leg_state_at, URBAN_RADIUS_MI};
+
+/// Canadian rural highways are often posted at 80 km/h (~49.7 mph), below the
+/// 55 mph US highway-tail threshold. Screen down to 49 mph on Canadian legs so
+/// an 80 km/h highway posting carried into town is capped to the town limit.
+const CANADIAN_HIGHWAY_TAIL_MPH: f64 = 49.0;
 
 /// A bend advised at this or less is a street corner, not a highway curve.
 /// It is the threshold the defect was measured with; of the mainline bends
@@ -168,7 +174,13 @@ pub fn town_ends(leg: &Leg, curves: &[CurveRecord]) -> TownEnds {
                 source,
             }
         });
-    let highway_tail = last.mph.is_none_or(|mph| mph >= GAP_HOLD_HIGHWAY_MPH);
+    let end_state = leg_state_at(leg, leg.miles);
+    let tail_floor = if HosRules::for_jurisdiction(&end_state).is_canadian() {
+        CANADIAN_HIGHWAY_TAIL_MPH
+    } else {
+        GAP_HOLD_HIGHWAY_MPH
+    };
+    let highway_tail = last.mph.is_none_or(|mph| mph >= tail_floor);
     let end = highway_tail
         .then(|| {
             let after = last.at_mi.max(leg.miles - URBAN_RADIUS_MI);
@@ -181,7 +193,7 @@ pub fn town_ends(leg: &Leg, curves: &[CurveRecord]) -> TownEnds {
         .flatten()
         .filter(|from| *from < leg.miles)
         .map(|from_mi| {
-            let (mph, source) = town_mph(&leg_state_at(leg, leg.miles));
+            let (mph, source) = town_mph(&end_state);
             TownStretch {
                 from_mi,
                 to_mi: leg.miles,
