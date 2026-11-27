@@ -96,17 +96,17 @@ fn visible_name_help_follows_touch_and_hardware_keys() {
 }
 
 #[test]
-fn adjustable_actions_review_the_previous_and_next_letter() {
+fn adjustable_actions_no_longer_move_the_field_cursor() {
     let mut app = TestApp::new();
     open_name_entry(&mut app);
     type_text(&mut app, "Jo");
     app.clear_speech();
 
     app.dispatch_gesture(Gesture::Decrement);
-    assert_eq!(cursor(&app), 1);
+    assert_eq!(cursor(&app), 2);
     app.dispatch_gesture(Gesture::Increment);
     assert_eq!(cursor(&app), 2);
-    assert_eq!(spoken(&app), vec!["o", "o"]);
+    assert!(spoken(&app).is_empty());
     app.shutdown();
 }
 

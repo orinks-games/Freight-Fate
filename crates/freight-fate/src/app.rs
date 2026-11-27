@@ -1631,6 +1631,16 @@ impl App {
             },
             None => Vec::new(),
         };
+        #[cfg(target_os = "ios")]
+        if let Some((text, cursor)) = self
+            .shell
+            .as_mut()
+            .and_then(SdlShell::take_native_field_edit)
+        {
+            if let Some(state) = self.ctx.state() {
+                state.borrow_mut().apply_ios_field_edit(&text, cursor);
+            }
+        }
         // The pad's own presses, not the queued ones (the agent server and
         // tests press the game's buttons, which are already the roles).
         events = self
@@ -1684,16 +1694,17 @@ impl App {
         let open = state
             .as_ref()
             .is_some_and(|state| state.captures_text_input());
-        shell.set_text_field(open);
         #[cfg(target_os = "ios")]
-        {
-            let text = if sdl_shell::voice_over_running() {
-                state.as_ref().and_then(|state| state.ios_field_text())
+        let open = {
+            let field = if open && sdl_shell::voice_over_running() {
+                state.as_ref().and_then(|state| state.ios_field())
             } else {
                 None
             };
-            shell.set_field_review(text, || self.ctx.tr("Typed text"));
-        }
+            let native = shell.set_native_field(field, || self.ctx.tr("Typed text"));
+            open && !native
+        };
+        shell.set_text_field(open);
         let practice = self.touch_mode() == crate::touch::TouchMode::Practice;
         let shared = self.ctx.settings.touch_shared_recogniser;
         if let Some(shell) = self.shell.as_mut() {

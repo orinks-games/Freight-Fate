@@ -39,7 +39,7 @@ pub(crate) fn touch_field_help(ctx: &GameContext) -> Option<&'static str> {
     #[cfg(target_os = "ios")]
     if crate::app::sdl_shell::voice_over_running() {
         return Some(voice_over_field_help(
-            crate::app::sdl_shell::direct_interaction_suspended(),
+            crate::app::sdl_shell::software_keyboard_shown(),
             ctx.controller.hardware_keyboard(),
         ));
     }
@@ -47,24 +47,18 @@ pub(crate) fn touch_field_help(ctx: &GameContext) -> Option<&'static str> {
 }
 
 #[cfg(any(target_os = "ios", test))]
-fn voice_over_field_help(
-    direct_interaction_suspended: bool,
-    hardware_keyboard: bool,
-) -> &'static str {
-    if direct_interaction_suspended {
-        return "Type with the on-screen keyboard. Select Typed text to hear what you typed. \
-                To review letters, select Freight Fate above the \
-                keyboard and flick down for the previous letter or up for the next. Use Return on \
-                the keyboard to confirm, or a two-finger scrub to cancel.";
+fn voice_over_field_help(software_keyboard: bool, hardware_keyboard: bool) -> &'static str {
+    if software_keyboard {
+        return "Type with the on-screen keyboard. On Typed text, choose Characters in the \
+                VoiceOver rotor, then flick up or down to move the cursor. Use Delete to remove \
+                the character before the cursor, Return to confirm, or a two-finger scrub to cancel.";
     }
     if hardware_keyboard {
         return "Type with your keyboard. Use the left and right arrow keys to review letters, \
                 Return to confirm, or Escape to cancel.";
     }
-    // A help request or prompt timeout can precede UIKit showing the keyboard.
-    "Type your text. If the on-screen keyboard opens, select Freight Fate above it and flick \
-     down for the previous letter or up for the next. Use Return to confirm, or a two-finger \
-     scrub on Freight Fate to cancel."
+    "On Typed text, choose Characters in the VoiceOver rotor, then flick up or down to move the \
+     cursor. Use Return to confirm, or a two-finger scrub to cancel."
 }
 
 #[cfg(any(target_os = "ios", test))]
@@ -101,7 +95,9 @@ impl VoiceOverFieldPrompt {
 
 #[cfg(test)]
 mod tests {
-    use super::{voice_over_field_help, Instant, State, TextEntryState, VoiceOverFieldPrompt};
+    use super::{
+        voice_over_field_help, Instant, State, TextEntryCore, TextEntryState, VoiceOverFieldPrompt,
+    };
 
     #[test]
     fn voice_over_waits_for_the_keyboard_then_announces_once() {
@@ -132,30 +128,50 @@ mod tests {
     }
 
     #[test]
-    fn voice_over_help_follows_the_actual_direct_interaction_mode() {
+    fn voice_over_help_follows_the_keyboard_in_use() {
         assert!(voice_over_field_help(false, true).contains("left and right arrow keys"));
-        assert!(voice_over_field_help(true, true).contains("flick down for the previous letter"));
-        assert!(voice_over_field_help(true, true).contains("Select Typed text"));
+        assert!(voice_over_field_help(true, true).contains("Characters in the VoiceOver rotor"));
+        assert!(voice_over_field_help(true, true).contains("Delete"));
         assert_eq!(
             voice_over_field_help(true, false),
             voice_over_field_help(true, true)
         );
-        assert!(voice_over_field_help(false, false).contains("If the on-screen keyboard opens"));
-        assert!(voice_over_field_help(false, false).contains("scrub on Freight Fate to cancel"));
+        assert!(voice_over_field_help(false, false).contains("On Typed text"));
+        assert!(voice_over_field_help(false, false).contains("two-finger scrub to cancel"));
     }
 
     #[test]
-    fn field_review_exposes_current_text_without_the_cursor() {
+    fn native_field_syncs_utf16_cursor_and_mid_text_edits() {
         let mut field = TextEntryState::new("Heading", "Field", |_, _| {});
-        assert_eq!((&field as &dyn State).ios_field_text(), Some([].as_slice()));
-        field.entry.set_text("Zoë 🚚");
-        field.entry.cursor = 1;
+        let field: &mut dyn State = &mut field;
+        assert_eq!(field.ios_field(), Some(([].as_slice(), 0)));
+        field.apply_ios_field_edit("A🚚bc", 4);
         assert_eq!(
-            (&field as &dyn State).ios_field_text(),
-            Some(['Z', 'o', 'ë', ' ', '🚚'].as_slice())
+            field.ios_field(),
+            Some((['A', '🚚', 'b', 'c'].as_slice(), 3))
         );
-        field.entry.set_text("");
-        assert_eq!((&field as &dyn State).ios_field_text(), Some([].as_slice()));
+        field.apply_ios_field_edit("A🚚bc", 3);
+        assert_eq!(
+            field.ios_field(),
+            Some((['A', '🚚', 'b', 'c'].as_slice(), 2))
+        );
+        field.apply_ios_field_edit("Abc", 1);
+        assert_eq!(field.ios_field(), Some((['A', 'b', 'c'].as_slice(), 1)));
+        field.apply_ios_field_edit("Aëbc", 2);
+        assert_eq!(
+            field.ios_field(),
+            Some((['A', 'ë', 'b', 'c'].as_slice(), 2))
+        );
+    }
+
+    #[test]
+    fn native_field_rejects_invalid_text_without_losing_the_suffix() {
+        let mut entry = TextEntryCore::new("Heading", "Field");
+        entry.max_len = 3;
+        entry.apply_ios_edit("abc", 1);
+        entry.apply_ios_edit("axbc", 2);
+        entry.apply_ios_edit("a\nb", 2);
+        assert_eq!((entry.text().as_str(), entry.cursor), ("abc", 1));
     }
 }
 
@@ -196,6 +212,25 @@ impl TextEntryCore {
     pub fn set_text(&mut self, text: &str) {
         self.name = text.chars().collect();
         self.cursor = self.name.len();
+    }
+
+    #[cfg(any(target_os = "ios", test))]
+    pub(crate) fn apply_ios_edit(&mut self, text: &str, cursor_utf16: usize) {
+        let mut name = Vec::with_capacity(self.max_len);
+        let mut offset = 0;
+        let mut cursor = 0;
+        for ch in text.chars() {
+            if !is_printable(ch) || name.len() == self.max_len {
+                return;
+            }
+            offset += ch.len_utf16();
+            name.push(ch);
+            if offset <= cursor_utf16 {
+                cursor += 1;
+            }
+        }
+        self.name = name;
+        self.cursor = cursor;
     }
 }
 
@@ -499,8 +534,16 @@ macro_rules! impl_state_for_text_entry {
                 <Self as $crate::states::text_entry::TextEntry>::captures_text_input(self)
             }
             #[cfg(any(target_os = "ios", test))]
-            fn ios_field_text(&self) -> Option<&[char]> {
-                Some(&<Self as $crate::states::text_entry::TextEntry>::entry(self).name)
+            fn ios_field(&self) -> Option<(&[char], usize)> {
+                let entry = <Self as $crate::states::text_entry::TextEntry>::entry(self);
+                Some((&entry.name, entry.cursor))
+            }
+            #[cfg(any(target_os = "ios", test))]
+            fn apply_ios_field_edit(&mut self, text: &str, cursor_utf16: usize) {
+                use $crate::states::text_entry::TextEntry;
+                if !TextEntry::input_paused(self) {
+                    TextEntry::entry_mut(self).apply_ios_edit(text, cursor_utf16);
+                }
             }
             fn touch_mode(&self) -> $crate::touch::TouchMode {
                 $crate::touch::TouchMode::Field

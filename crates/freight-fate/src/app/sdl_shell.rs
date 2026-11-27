@@ -41,12 +41,18 @@ mod display;
 mod ios;
 mod tilt_sensor;
 #[cfg(target_os = "ios")]
-pub(crate) use ios::{
-    direct_interaction_suspended, set_touch_haptics, set_touch_tuning, software_keyboard_shown,
-    voice_over_running,
-};
-#[cfg(target_os = "ios")]
 use ios::{install_touch_surface, next_gesture};
+#[cfg(target_os = "ios")]
+pub(crate) use ios::{
+    set_touch_haptics, set_touch_tuning, software_keyboard_shown, voice_over_running,
+};
+
+#[cfg(target_os = "ios")]
+enum NativeField {
+    Closed,
+    Synced(Vec<char>, usize),
+    Edited,
+}
 
 /// Keep drawing while the window is covered (macOS stops otherwise), for
 /// capture software that records the window from behind other windows.
@@ -127,7 +133,7 @@ pub struct SdlShell {
     #[cfg(touch_screen)]
     text_field_open: bool,
     #[cfg(target_os = "ios")]
-    field_review: Option<Vec<char>>,
+    native_field: NativeField,
     #[cfg(touch_screen)]
     report_travel: bool,
 }
@@ -298,7 +304,7 @@ impl SdlShell {
             #[cfg(touch_screen)]
             text_field_open: false,
             #[cfg(target_os = "ios")]
-            field_review: None,
+            native_field: NativeField::Closed,
             #[cfg(touch_screen)]
             report_travel: false,
         })
@@ -394,7 +400,20 @@ impl SdlShell {
         #[cfg(not(touch_screen))]
         let events = translate_events(raw);
         #[cfg(target_os = "ios")]
-        let events = self.with_touch(translate_events(raw));
+        let events = {
+            let mut events = translate_events(raw);
+            if !matches!(self.native_field, NativeField::Closed) {
+                // GameController can send SDL keys even when UIKit owns the
+                // field. Only the game's help shortcuts still belong to SDL.
+                events.retain(|event| match event {
+                    InputEvent::KeyDown { key, .. } | InputEvent::KeyUp { key, .. } => {
+                        matches!(key, Key::F1 | Key::F2)
+                    }
+                    _ => true,
+                });
+            }
+            self.with_touch(events)
+        };
         #[cfg(target_os = "android")]
         let events = {
             let window = self.canvas.window().size();
@@ -429,16 +448,41 @@ impl SdlShell {
     pub fn set_text_field(&mut self, _open: bool) {}
 
     #[cfg(target_os = "ios")]
-    pub(super) fn set_field_review(
+    pub(super) fn set_native_field(
         &mut self,
-        text: Option<&[char]>,
+        field: Option<(&[char], usize)>,
         label: impl FnOnce() -> String,
-    ) {
-        if self.field_review.as_deref() != text {
-            let value = text.map(|chars| chars.iter().collect::<String>());
-            ios::set_field_review(value.as_deref(), label);
-            self.field_review = text.map(<[char]>::to_vec);
-        }
+    ) -> bool {
+        self.native_field = match (&self.native_field, field) {
+            (NativeField::Synced(last_text, last_cursor), Some((text, cursor)))
+                if last_text == text && *last_cursor == cursor =>
+            {
+                return true;
+            }
+            (_, Some((text, cursor))) => {
+                let value: String = text.iter().collect();
+                let offset = text[..cursor].iter().map(|ch| ch.len_utf16()).sum();
+                if ios::set_native_field(Some(&value), offset, label) {
+                    NativeField::Synced(text.to_vec(), cursor)
+                } else {
+                    NativeField::Closed
+                }
+            }
+            (NativeField::Closed, None) => return false,
+            (_, None) => {
+                ios::set_native_field(None, 0, label);
+                NativeField::Closed
+            }
+        };
+        !matches!(self.native_field, NativeField::Closed)
+    }
+
+    #[cfg(target_os = "ios")]
+    pub(super) fn take_native_field_edit(&mut self) -> Option<(String, usize)> {
+        let edit = ios::take_native_field_edit()?;
+        // Reconcile even if Rust rejects the edit or normalizes its caret.
+        self.native_field = NativeField::Edited;
+        Some(edit)
     }
 
     /// Follow the active screen: Practice gestures hears how far each hold

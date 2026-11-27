@@ -14,9 +14,15 @@ extern "C" {
     fn ff_use_hardware_vertical_arrows(window: *mut std::ffi::c_void);
     fn ff_touch_install(window: *mut std::ffi::c_void) -> i32;
     fn ff_touch_voice_over_running() -> i32;
-    fn ff_touch_direct_interaction_suspended() -> i32;
     fn ff_touch_software_keyboard_shown() -> i32;
-    fn ff_touch_set_field_review(label: *const u8, label_len: usize, text: *const u8, len: usize);
+    fn ff_touch_set_field(
+        label: *const u8,
+        label_len: usize,
+        text: *const u8,
+        len: usize,
+        cursor: usize,
+    ) -> i32;
+    fn ff_touch_take_field_edit(len: *mut usize, cursor: *mut usize) -> *const u8;
     fn ff_refresh_orientations(window: *mut std::ffi::c_void);
     #[cfg(feature = "visuals")]
     fn ff_phone_safe_top_fraction(window: *mut std::ffi::c_void) -> f64;
@@ -47,26 +53,46 @@ pub(crate) fn voice_over_running() -> bool {
     unsafe { ff_touch_voice_over_running() != 0 }
 }
 
-pub(crate) fn direct_interaction_suspended() -> bool {
-    // SAFETY: reads the UIKit touch surface on the app thread.
-    unsafe { ff_touch_direct_interaction_suspended() != 0 }
-}
-
 pub(crate) fn software_keyboard_shown() -> bool {
     // SAFETY: reads keyboard notification state on the app thread.
     unsafe { ff_touch_software_keyboard_shown() != 0 }
 }
 
-pub(super) fn set_field_review(text: Option<&str>, label: impl FnOnce() -> String) {
+pub(super) fn set_native_field(
+    text: Option<&str>,
+    cursor: usize,
+    label: impl FnOnce() -> String,
+) -> bool {
     // SAFETY: UIKit is called on the app thread and copies the UTF-8 bytes
     // within the call. A null text pointer removes the element.
     unsafe {
         if let Some(text) = text {
             let label = label();
-            ff_touch_set_field_review(label.as_ptr(), label.len(), text.as_ptr(), text.len());
+            ff_touch_set_field(
+                label.as_ptr(),
+                label.len(),
+                text.as_ptr(),
+                text.len(),
+                cursor,
+            ) != 0
         } else {
-            ff_touch_set_field_review(std::ptr::null(), 0, std::ptr::null(), 0);
+            ff_touch_set_field(std::ptr::null(), 0, std::ptr::null(), 0, 0) != 0
         }
+    }
+}
+
+pub(super) fn take_native_field_edit() -> Option<(String, usize)> {
+    let mut len = 0;
+    let mut cursor = 0;
+    // SAFETY: both outputs live for the call. UIKit retains the returned UTF-8
+    // string until the next field call on this thread, and we copy it here.
+    unsafe {
+        let text = ff_touch_take_field_edit(&mut len, &mut cursor);
+        if text.is_null() {
+            return None;
+        }
+        let text = std::str::from_utf8(std::slice::from_raw_parts(text, len)).ok()?;
+        Some((text.to_owned(), cursor))
     }
 }
 

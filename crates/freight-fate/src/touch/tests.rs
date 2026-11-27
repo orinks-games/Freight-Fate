@@ -156,13 +156,13 @@ fn every_gesture_has_a_route_on_every_screen() {
         (
             Gesture::Increment,
             R::Screen(Some(Key::Up)),
-            R::Screen(Some(Key::Right)),
+            R::Nothing,
             R::Screen(Some(Key::Up)),
         ),
         (
             Gesture::Decrement,
             R::Screen(Some(Key::Down)),
-            R::Screen(Some(Key::Left)),
+            R::Nothing,
             R::Screen(Some(Key::Down)),
         ),
         (

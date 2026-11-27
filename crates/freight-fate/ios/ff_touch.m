@@ -683,13 +683,28 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 
 @end
 
-@interface FFFieldReviewView : UITextView
+@interface FFTextField : UITextField <UITextFieldDelegate>
+@property(nonatomic, copy) NSString *publishedText;
+@property(nonatomic) NSUInteger publishedCursor;
+@property(nonatomic, strong) NSData *publishedBytes;
 @end
 
-@implementation FFFieldReviewView
+@implementation FFTextField
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    ff_emit(FF_ACTIVATE);
     return NO;
+}
+
+- (NSArray<UIKeyCommand *> *)keyCommands {
+    UIKeyCommand *escape = [UIKeyCommand keyCommandWithInput:UIKeyInputEscape
+                                              modifierFlags:0
+                                                     action:@selector(cancelField:)];
+    return [(super.keyCommands ?: @[]) arrayByAddingObject:escape];
+}
+
+- (void)cancelField:(UIKeyCommand *)command {
+    [self accessibilityPerformEscape];
 }
 
 - (BOOL)accessibilityPerformEscape {
@@ -701,7 +716,8 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 
 @interface FFTouchView : UIView <UIGestureRecognizerDelegate>
 @property(nonatomic) BOOL softwareKeyboardShown;
-- (void)setFieldReviewLabel:(NSString *)label text:(NSString *)text;
+- (BOOL)setFieldLabel:(NSString *)label text:(NSString *)text cursor:(NSUInteger)cursor;
+- (const char *)takeFieldEdit:(size_t *)len cursor:(size_t *)cursor;
 @end
 
 static __weak FFTouchView *ff_touch_surface;
@@ -710,29 +726,28 @@ int32_t ff_touch_voice_over_running(void) {
     return UIAccessibilityIsVoiceOverRunning();
 }
 
-int32_t ff_touch_direct_interaction_suspended(void) {
-    FFTouchView *surface = ff_touch_surface;
-    return surface && !(surface.accessibilityTraits & UIAccessibilityTraitAllowsDirectInteraction);
-}
-
 int32_t ff_touch_software_keyboard_shown(void) {
     return ff_touch_surface.softwareKeyboardShown;
 }
 
-void ff_touch_set_field_review(const uint8_t *label, size_t labelLen, const uint8_t *text, size_t len) {
+int32_t ff_touch_set_field(const uint8_t *label, size_t labelLen, const uint8_t *text, size_t len, size_t cursor) {
     if (!text) {
-        [ff_touch_surface setFieldReviewLabel:nil text:nil];
-        return;
+        [ff_touch_surface setFieldLabel:nil text:nil cursor:0];
+        return 0;
     }
     NSString *name = [[NSString alloc] initWithBytes:label length:labelLen encoding:NSUTF8StringEncoding];
     NSString *value = [[NSString alloc] initWithBytes:text length:len encoding:NSUTF8StringEncoding];
-    [ff_touch_surface setFieldReviewLabel:name text:value];
+    return [ff_touch_surface setFieldLabel:name text:value cursor:cursor];
+}
+
+const char *ff_touch_take_field_edit(size_t *len, size_t *cursor) {
+    return [ff_touch_surface takeFieldEdit:len cursor:cursor];
 }
 
 @implementation FFTouchView {
     UILongPressGestureRecognizer *_twoHold;
     UIRotationGestureRecognizer *_rotation;
-    FFFieldReviewView *_fieldReview;
+    FFTextField *_field;
     BOOL _rotationFired;
     BOOL _hornCancelled;
 }
@@ -902,7 +917,7 @@ void ff_touch_set_field_review(const uint8_t *label, size_t labelLen, const uint
 }
 
 - (void)voiceOverChanged:(NSNotification *)notification {
-    if (self.accessibilityTraits & UIAccessibilityTraitAllowsDirectInteraction) {
+    if (!_field && (self.accessibilityTraits & UIAccessibilityTraitAllowsDirectInteraction)) {
         UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self);
     }
 }
@@ -918,39 +933,101 @@ void ff_touch_set_field_review(const uint8_t *label, size_t labelLen, const uint
 - (void)keyboardDidHide:(NSNotification *)notification {
     self.softwareKeyboardShown = NO;
     self.accessibilityTraits |= UIAccessibilityTraitAllowsDirectInteraction;
-    if (UIAccessibilityIsVoiceOverRunning()) {
+    if (!_field && UIAccessibilityIsVoiceOverRunning()) {
         UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, self);
     }
 }
 
-- (void)setFieldReviewLabel:(NSString *)label text:(NSString *)text {
+- (BOOL)setFieldLabel:(NSString *)label text:(NSString *)text cursor:(NSUInteger)cursor {
     if (!text) {
-        [_fieldReview removeFromSuperview];
-        _fieldReview = nil;
-        return;
+        if (_field) {
+            FFTextField *closed = _field;
+            _field = nil;
+            self.isAccessibilityElement = YES;
+            [closed resignFirstResponder];
+            [closed removeFromSuperview];
+            if (!self.softwareKeyboardShown && UIAccessibilityIsVoiceOverRunning()) {
+                UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, self);
+            }
+        }
+        return NO;
     }
     UIView *host = self.superview;
-    if (!_fieldReview && host) {
-        _fieldReview = [[FFFieldReviewView alloc] initWithFrame:CGRectZero];
-        _fieldReview.editable = NO;
-        _fieldReview.selectable = YES;
-        _fieldReview.scrollEnabled = NO;
-        _fieldReview.isAccessibilityElement = YES;
-        _fieldReview.backgroundColor = UIColor.clearColor;
-        _fieldReview.textColor = UIColor.clearColor;
-        _fieldReview.translatesAutoresizingMaskIntoConstraints = NO;
-        [host addSubview:_fieldReview];
+    BOOL opening = !_field;
+    if (opening) {
+        if (!host.window) {
+            return NO;
+        }
+        _field = [[FFTextField alloc] initWithFrame:CGRectZero];
+        _field.delegate = _field;
+        _field.accessibilityLabel = label;
+        _field.borderStyle = UITextBorderStyleRoundedRect;
+        _field.backgroundColor = UIColor.systemBackgroundColor;
+        _field.textColor = UIColor.labelColor;
+        _field.autocorrectionType = UITextAutocorrectionTypeNo;
+        _field.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        _field.spellCheckingType = UITextSpellCheckingTypeNo;
+        _field.smartQuotesType = UITextSmartQuotesTypeNo;
+        _field.smartDashesType = UITextSmartDashesTypeNo;
+        _field.translatesAutoresizingMaskIntoConstraints = NO;
+        [host addSubview:_field];
         UILayoutGuide *safe = host.safeAreaLayoutGuide;
+        NSLayoutYAxisAnchor *bottom = safe.bottomAnchor;
+        if (@available(iOS 15.0, *)) {
+            bottom = host.keyboardLayoutGuide.topAnchor;
+        }
         [NSLayoutConstraint activateConstraints:@[
-            [_fieldReview.topAnchor constraintEqualToAnchor:safe.topAnchor],
-            [_fieldReview.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
-            [_fieldReview.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
-            [_fieldReview.heightAnchor constraintEqualToConstant:44],
+            [_field.bottomAnchor constraintEqualToAnchor:bottom constant:-8],
+            [_field.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor constant:8],
+            [_field.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor constant:-8],
+            [_field.heightAnchor constraintEqualToConstant:44],
         ]];
+        if (![_field becomeFirstResponder]) {
+            [_field removeFromSuperview];
+            _field = nil;
+            return NO;
+        }
+        self.isAccessibilityElement = NO;
     }
-    _fieldReview.accessibilityLabel = label;
-    _fieldReview.text = text;
-    _fieldReview.accessibilityValue = text;
+
+    BOOL textChanged = ![_field.text isEqualToString:text];
+    if (textChanged) {
+        _field.text = text;
+    }
+    NSInteger current = [_field offsetFromPosition:_field.beginningOfDocument
+                                        toPosition:_field.selectedTextRange.start ?: _field.endOfDocument];
+    if (opening || textChanged || current != (NSInteger)cursor) {
+        UITextPosition *position = [_field positionFromPosition:_field.beginningOfDocument
+                                                        offset:(NSInteger)cursor];
+        if (position) {
+            _field.selectedTextRange = [_field textRangeFromPosition:position toPosition:position];
+        }
+    }
+    _field.publishedText = text;
+    _field.publishedCursor = cursor;
+    if (opening) {
+        UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, _field);
+    }
+    return YES;
+}
+
+- (const char *)takeFieldEdit:(size_t *)len cursor:(size_t *)cursor {
+    FFTextField *field = _field;
+    if (!field || field.markedTextRange) {
+        return NULL;
+    }
+    NSString *text = field.text ?: @"";
+    NSUInteger offset = (NSUInteger)[field offsetFromPosition:field.beginningOfDocument
+                                                   toPosition:field.selectedTextRange.start ?: field.endOfDocument];
+    if ([text isEqualToString:field.publishedText] && offset == field.publishedCursor) {
+        return NULL;
+    }
+    field.publishedText = text;
+    field.publishedCursor = offset;
+    field.publishedBytes = [text dataUsingEncoding:NSUTF8StringEncoding];
+    *len = field.publishedBytes.length;
+    *cursor = offset;
+    return *len ? field.publishedBytes.bytes : "";
 }
 
 - (void)keyboardChanged:(NSNotification *)notification {
