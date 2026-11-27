@@ -12,9 +12,10 @@
 //! `<label>` is the project version ([`project_version`]), or `--tag`
 //! (used for developer snapshots).
 //!
-//! The pipeline is `cargo build --release -p freight-fate
-//! --no-default-features --features visuals` (no agent server in a player
-//! build, and the visual display named, since it is one of the defaults),
+//! The pipeline is one `cargo build --release` of the game
+//! (`--no-default-features --features freight-fate/visuals`: no agent
+//! server in a player build, and the visual display named, since it is one
+//! of the defaults) together with ff-core's `ff-bake` and `ff-pack-names`,
 //! then `ff-bake` to turn the JSON data tree into `world.ffdata`, then a
 //! `FreightFate/` folder with the executable renamed to `FreightFate`. On
 //! macOS it creates `FreightFate.app` with the executable under
@@ -350,20 +351,46 @@ fn cargo_build_command(target_dir: Option<&Path>, label: &str) -> Result<Command
     // No default features: the agent server is dev tooling, and a player has
     // no use for an agent at the wheel. The visual display is a default too,
     // so it is named back in.
+    //
+    // ff-bake and ff-pack-names come out of the same invocation. Built on
+    // their own (`cargo run -p ff-core`), Cargo resolves ff-core's
+    // dependencies with fewer features and without the update and seal
+    // variables above, and so compiled hearken-seal, ff-core and a dozen
+    // dependencies a second time. In one invocation the game's own units
+    // are unchanged (same features, same profile) and the two tools only add
+    // their own link.
     cmd.args([
         "build",
         "--release",
         "-p",
         RUST_PACKAGE,
+        "-p",
+        "ff-core",
         "--no-default-features",
         "--features",
-        "visuals",
+        "freight-fate/visuals",
+        "--bin",
+        RUST_BIN_STEM,
+        "--bin",
+        BAKE_BIN,
+        "--bin",
+        PACK_NAMES_BIN,
     ]);
     if let Some(dir) = target_dir {
         cmd.arg("--target-dir").arg(dir);
     }
     cmd.current_dir(util::repo_root());
     Ok(cmd)
+}
+
+/// ff-core's world baker, built beside the game by [`cargo_build_command`].
+const BAKE_BIN: &str = "ff-bake";
+/// ff-core's pack lister, built beside the game; see `packs::verify_sound_packs`.
+const PACK_NAMES_BIN: &str = "ff-pack-names";
+
+/// A program the release build left in `profile_dir`.
+fn release_tool(profile_dir: &Path, name: &str) -> PathBuf {
+    profile_dir.join(format!("{name}{}", std::env::consts::EXE_SUFFIX))
 }
 
 fn cargo_profile_dir(target_dir: Option<&Path>) -> PathBuf {
@@ -377,6 +404,21 @@ fn cargo_profile_dir(target_dir: Option<&Path>) -> PathBuf {
 /// staging, so a data tree that fails to load fails the build here rather
 /// than in front of a player.
 pub fn bake_world_data(target_dir: Option<&Path>, out: Option<&Path>) -> Result<PathBuf> {
+    let mut cmd = Command::new("cargo");
+    cmd.args(["run", "--release", "-p", "ff-core", "--bin", BAKE_BIN]);
+    if let Some(dir) = target_dir {
+        cmd.arg("--target-dir").arg(dir);
+    }
+    cmd.arg("--");
+    run_bake(cmd, out)
+}
+
+/// [`bake_world_data`] with an `ff-bake` that is already built.
+fn bake_world_data_with(baker: &Path, out: Option<&Path>) -> Result<PathBuf> {
+    run_bake(Command::new(baker), out)
+}
+
+fn run_bake(mut cmd: Command, out: Option<&Path>) -> Result<PathBuf> {
     let repo = util::repo_root();
     let source = repo.join("data");
     if !source.join("world_data").is_dir() {
@@ -391,13 +433,7 @@ pub fn bake_world_data(target_dir: Option<&Path>, out: Option<&Path>) -> Result<
     if let Some(parent) = destination.parent() {
         std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
     }
-    let mut cmd = Command::new("cargo");
-    cmd.args(["run", "--release", "-p", "ff-core", "--bin", "ff-bake"]);
-    if let Some(dir) = target_dir {
-        cmd.arg("--target-dir").arg(dir);
-    }
-    cmd.arg("--")
-        .arg("--data-dir")
+    cmd.arg("--data-dir")
         .arg(&source)
         .arg("--out")
         .arg(&destination)
@@ -711,7 +747,7 @@ pub fn verify_no_shipped_secrets(build: &Path) -> Result<()> {
 }
 
 /// Prove the staged folder holds what the binary loads.
-fn verify_rust_payload(build: &Path, platform: &str) -> Result<()> {
+fn verify_rust_payload(build: &Path, platform: &str, pack_lister: &Path) -> Result<()> {
     let executable_root = runtime_root(build);
     let root = if is_app(build) {
         build.join("Contents").join("Resources")
@@ -809,7 +845,7 @@ fn verify_rust_payload(build: &Path, platform: &str) -> Result<()> {
     }
     // macOS and Linux: SDL2, Prism and the audio engine are compiled into the
     // executable; staging refuses a dynamic SDL2 link.
-    packs::verify_sound_packs(build)?;
+    packs::verify_sound_packs(build, pack_lister)?;
     verify_no_shipped_secrets(build)?;
     if platform != "win32" && !is_executable(&exe) {
         return Err(format!(
@@ -896,7 +932,7 @@ fn build_rust(
     packs::ensure_channel3000_pack(None)?;
     util::run(&mut cargo_build_command(target_dir, label)?)?;
     let profile_dir = cargo_profile_dir(target_dir);
-    let baked = bake_world_data(target_dir, None)?;
+    let baked = bake_world_data_with(&release_tool(&profile_dir, BAKE_BIN), None)?;
     let build = stage_rust_build(&profile_dir, &staged_dir(), &baked, platform, label)?;
     let resource_root = if is_app(&build) {
         build.join("Contents").join("Resources")
@@ -905,7 +941,11 @@ fn build_rust(
     };
     stamp_build_info(&resource_root, label)?;
     stage_release_docs(&resource_root)?;
-    verify_rust_payload(&build, platform)?;
+    verify_rust_payload(
+        &build,
+        platform,
+        &release_tool(&profile_dir, PACK_NAMES_BIN),
+    )?;
     strip_user_data(&build);
     if run_smoke {
         smoke_check(&build, platform)?;
