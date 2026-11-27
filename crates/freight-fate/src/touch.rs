@@ -165,8 +165,7 @@ pub fn route(mode: TouchMode, gesture: Gesture) -> Route {
         G::Travel(_) => Route::Nothing,
         G::HoldEnded => Route::Lift,
         _ if mode == TouchMode::Menu => menu_route(gesture),
-        G::Increment if mode == TouchMode::Field => Route::Screen(Some(Key::Right)),
-        G::Decrement if mode == TouchMode::Field => Route::Screen(Some(Key::Left)),
+        G::Increment | G::Decrement if mode == TouchMode::Field => Route::Nothing,
         // A tap, a magic tap and the message flicks would type a comma, a
         // space or a period into the name.
         G::Tap | G::MagicTap | G::TwoFingerSwipeLeft | G::TwoFingerSwipeRight
