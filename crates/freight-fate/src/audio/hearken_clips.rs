@@ -25,7 +25,7 @@ const CAB_FRAME_BYTES: usize = 4;
 // cab recordings. Cropping there avoids the comb filtering that a long
 // head/tail crossfade added to the steady engine note. The frame count guards
 // against applying an old recording's edit points to a replacement.
-const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 12] = [
+const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 13] = [
     ("engine_stereo/idle", 141_773, 28_359, 108_091),
     ("engine_stereo/low", 23_516, 0, 23_516),
     ("engine_stereo/low", 115_761, 804, 84_393),
@@ -41,6 +41,7 @@ const CAB_LOOP_RANGES: [(&str, usize, usize, usize); 12] = [
     // neighbouring samples inside the file, so it loops whole.
     (STEREO_HIGH_PULL.0, 52_848, 0, 52_848),
     (STEREO_HIGH_COAST.0, 16_372, 0, 16_372),
+    (STEREO_HIGH_COAST.0, 52_848, 0, 52_848),
 ];
 
 /// The game's sound lookup as a Hearken [`ClipSource`]. Stateless, so it
