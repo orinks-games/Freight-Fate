@@ -25,7 +25,7 @@ inputs:
       until 2026-11-08 the nightly's release caches were being dropped
       within a day and the next build started cold.
     required: false
-    default: ${{ github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/feat/career-2.0' || github.ref == 'refs/heads/claude/project-thread-1szy8q') }}
+    default: ${{ github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/feat/career-2.0') }}
   sccache:
     description: >-
       Also wrap rustc in sccache. Only clippy turns this on: clippy writes
