@@ -359,7 +359,7 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   translation files, `cargo tools test-targets`, the Hearken leaf-type
   grep) that finishes in well under a minute, and `changelog.yml` is the
   changelog gate. The full suite (clippy, `cargo test-all`, the agent
-  server test) is `.github/workflows/tests.yml`, once a night on dev's head
+  server test) is `.github/workflows/tests.yml`, once a night on the heads of dev and feat/career-2.0,
   and on request for any branch; it publishes nothing and nothing waits on
   it. The Career 1.9 snapshot build (each push to `dev`, and once a night
   as a fallback) builds and packages only. So a session runs `cargo

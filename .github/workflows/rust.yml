@@ -2,7 +2,7 @@
 #
 # Windows clippy runs here so PR CI and direct pushes catch `cfg(windows)`
 # lints. The full suite, slow tests and clippy included, is the Tests
-# workflow (tests.yml): each night on dev and on request. The Career 1.9
+# workflow (tests.yml): each night on dev and feat/career-2.0, and on request. The Career 1.9
 # snapshot (build-career-1.9.yml) builds and packages only. Local and cloud
 # sessions run the full suite before a PR is ready.
 #
