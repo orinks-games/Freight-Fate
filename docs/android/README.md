@@ -115,7 +115,7 @@ of `crates/ff-tools/src/release/android.rs`. In short:
 - The activity, `FreightFateActivity`, subclasses SDL's activity. It unpacks
   the game files into the app's storage and answers the game's few questions
   about the phone (TalkBack, haptics, screen density, a keyboard).
-- The game compiles its own copies of two library files in place of the
+- The game compiles its own copies of three library files in place of the
   library's:
   - Prism's Android text to speech voice (`crates/freight-fate-android/prism/`),
     which centres rate and pitch on the voice's normal values, lists every
@@ -123,9 +123,13 @@ of `crates/ff-tools/src/release/android.rs`. In short:
     hands each line to `SpeechRoute` to play on its headphone channels;
   - SDL's HIDAPI device manager (`crates/freight-fate-android/sdl/`), which
     Android 14 otherwise refuses at startup, leaving PlayStation controllers
-    without rumble.
+    without rumble;
+  - SDL's controller manager (`crates/freight-fate-android/sdl/`), which
+    otherwise opens a Bluetooth keyboard as a controller, because Android
+    lists its arrow keys as a D-pad and a volume wheel or media keys as a
+    joystick.
 
-  The build stops if either library's own file changes, so a new SDL or Prism
+  The build stops if a library's own file changes, so a new SDL or Prism
   is checked against the copy before it ships.
 
 ## Platform notes
@@ -164,3 +168,5 @@ that does not name VoiceOver applies, with TalkBack suspended. Then:
   voice; each change is spoken in the new voice. Set pitch and rate to 50
   percent: the voice sounds normal.
 - Connect a controller: menus and a drive work with it, and rumble plays.
+- Connect a Bluetooth keyboard: no controller is announced, and the arrow
+  keys move through menus and steer as arrow keys.
