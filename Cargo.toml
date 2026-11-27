@@ -153,10 +153,7 @@ opt-level = 2
 [patch."https://github.com/orinks-games/hearken"]
 hearken-seal = { path = "vendor/hearken-seal" }
 
-# prism-sys 0.1.6 with Windows SAPI and OneCore speech opened on the default
-# output device by name; with no device named, Windows played them on another
-# device for a player with several connected. The changed lines are listed in
-# vendor/prism-sys/PATCHES.md. Remove this and the copy when a prism-sys
-# release names the device itself.
+# prism-sys 0.1.6 with Windows default-device routing and SAPI token lifetime
+# fixes. See vendor/prism-sys/PATCHES.md for the patches and removal criteria.
 [patch.crates-io]
 prism-sys = { path = "vendor/prism-sys" }

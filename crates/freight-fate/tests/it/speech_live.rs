@@ -12,6 +12,8 @@ use freight_fate::speech::{
     pick_backend, pick_event_backend, PrismRegistry, Speech, SpeechSink, VoiceRegistry,
     EVENT_BACKEND,
 };
+#[cfg(windows)]
+use hearken::speech::prismer::{BackendId, Prism};
 
 static LIVE_PRISM: Mutex<()> = Mutex::new(());
 
@@ -236,4 +238,35 @@ fn live_configure_clamps_nothing_and_sapi_lists_voices() {
     speech.configure(Some(0.5), Some(0.5), Some(1.0), None);
     assert!(speech.available());
     speech.shutdown();
+}
+
+#[cfg(windows)]
+#[test]
+fn live_sapi_quits_after_selecting_and_refreshing_a_voice() {
+    let _guard = LIVE_PRISM.lock().unwrap_or_else(|e| e.into_inner());
+    if !live_prism_allowed() {
+        return;
+    }
+    let context = Prism::new().expect("open Prism");
+    let sapi = context.create(BackendId::SAPI).expect("create SAPI");
+    if let Err(error) = sapi.initialize() {
+        eprintln!("skipping: SAPI could not be initialized: {error}");
+        return;
+    }
+    let count = sapi.voice_count().expect("count SAPI voices");
+    assert!(count > 0);
+    let selected = (sapi.voice().expect("get current SAPI voice") + 1) % count;
+    let name = sapi.voice_name(selected).expect("name the selected voice");
+    sapi.set_voice(selected).expect("select SAPI voice");
+    sapi.refresh_voices().expect("refresh SAPI voice catalog");
+    let current = sapi.voice().expect("get the voice after refresh");
+    assert_eq!(sapi.voice_name(current).unwrap(), name);
+    let mut rendered = false;
+    sapi.speak_to_memory("Freight Fate speech test.", |samples, _, _| {
+        rendered = !samples.is_empty();
+    })
+    .expect("synthesize with the selected voice");
+    assert!(rendered);
+    drop(sapi);
+    drop(context);
 }

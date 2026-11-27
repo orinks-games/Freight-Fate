@@ -302,7 +302,8 @@ private:
   std::size_t audio_bit_depth = 0;
 
   CComPtr<ISpVoice> voice;
-  std::vector<CComPtr<ISpObjectToken>> tokens;
+  // SAPI can fault when releasing long-lived catalog tokens on worker exit.
+  std::vector<std::wstring> token_ids;
   std::size_t active_voice = std::numeric_limits<std::size_t>::max();
   WAVEFORMATEX format = FALLBACK_FORMAT;
 
@@ -362,7 +363,7 @@ private:
   }
 
   BackendResult<> enumerate_voices() {
-    std::vector<CComPtr<ISpObjectToken>> found;
+    std::vector<std::wstring> found;
     std::vector<VoiceInfo> names;
     for (const auto &category_id : VOICE_CATEGORIES) {
       CComPtr<ISpObjectTokenCategory> category;
@@ -378,11 +379,13 @@ private:
       CComPtr<ISpObjectToken> token;
       while (tokens_enum->Next(1, &token, nullptr) == S_OK) {
         CComHeapPtr<WCHAR> name;
+        CComHeapPtr<WCHAR> id;
         if (SUCCEEDED(token->GetStringValue(nullptr, &name)) &&
-            name.m_pData != nullptr && name[0] != _T('\0')) {
+            name.m_pData != nullptr && name[0] != _T('\0') &&
+            SUCCEEDED(token->GetId(&id)) && id.m_pData != nullptr) {
           names.push_back(VoiceInfo{.name = narrow(name.m_pData),
                                     .language = token_language(*token)});
-          found.push_back(token);
+          found.emplace_back(id.m_pData);
         }
         token.Release();
       }
@@ -391,15 +394,18 @@ private:
       return std::unexpected(BackendError::NoVoices);
     std::size_t current = 0;
     CComPtr<ISpObjectToken> in_use;
-    if (SUCCEEDED(voice->GetVoice(&in_use)) && in_use != nullptr) {
+    CComHeapPtr<WCHAR> in_use_id;
+    if (SUCCEEDED(voice->GetVoice(&in_use)) && in_use != nullptr &&
+        SUCCEEDED(in_use->GetId(&in_use_id)) && in_use_id.m_pData != nullptr) {
       for (std::size_t i = 0; i < found.size(); ++i) {
-        if (found[i].IsEqualObject(in_use)) {
+        if (CompareStringOrdinal(found[i].c_str(), -1, in_use_id.m_pData, -1,
+                                 TRUE) == CSTR_EQUAL) {
           current = i;
           break;
         }
       }
     }
-    tokens = std::move(found);
+    token_ids = std::move(found);
     active_voice = current;
     {
       std::scoped_lock lock(state_mutex);
@@ -409,9 +415,12 @@ private:
   }
 
   BackendResult<> select_voice(std::size_t index) {
-    if (index >= tokens.size())
+    if (index >= token_ids.size())
       return std::unexpected(BackendError::RangeOutOfBounds);
-    if (FAILED(voice->SetVoice(tokens[index])))
+    CComPtr<ISpObjectToken> token;
+    if (FAILED(token.CoCreateInstance(CLSID_SpObjectToken)) ||
+        FAILED(token->SetId(nullptr, token_ids[index].c_str(), FALSE)) ||
+        FAILED(voice->SetVoice(token)))
       return std::unexpected(BackendError::VoiceNotFound);
     active_voice = index;
     format = FALLBACK_FORMAT;
@@ -574,7 +583,6 @@ private:
                  pending);
     }
     jobs.clear();
-    tokens.clear();
     voice.Release();
   }
 
