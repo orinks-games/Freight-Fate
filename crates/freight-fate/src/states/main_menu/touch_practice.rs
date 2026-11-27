@@ -108,7 +108,11 @@ impl GesturePractice {
                 return;
             }
         };
-        let value = steering_curve(degrees, ctx.settings.touch_tilt_full());
+        let value = steering_curve(
+            degrees,
+            ctx.settings.touch_tilt_full(),
+            ctx.settings.touch_tilt_dead(),
+        );
         let (push, side) = self.tilt_push.next(value);
         self.tilt_push = push;
         let whole = degrees.abs().round() as i64;

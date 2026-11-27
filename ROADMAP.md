@@ -1632,6 +1632,14 @@ Everything found before 2026-09-25 moved to
       are two `ff-core` machines (`sim::tilt_steering`, `sim::lane_push`),
       and the agent server's `tilt` tool stands in for the sensor. Driven
       by agent only; nothing was tried on a phone.
+- [x] Tilt dead zone and a steeper full tilt (2026-11-25, a player's
+      request): Touch gestures has a "Tilt dead zone" row under "Tilt for
+      full steering" (2 to 12 degrees in twos, 4 by default), and full
+      steering now goes to 60 degrees; the defaults stay 30 and 4. A
+      player who cannot hold the phone steady found that at 30 a slight
+      movement changed lanes. Driven on a Pixel 10 Pro: at 60 with a dead
+      zone of 12 the truck changed lanes only on purpose. The phone help's
+      Steering and curves page says which rows to raise.
 - [x] Settings, Online and the name field on a phone (2026-11-22, the
       whole-game iPhone pass, brief 5): Controls lists the keyboard rows
       only while a hardware keyboard is connected and the controller rows
