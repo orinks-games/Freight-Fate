@@ -137,6 +137,7 @@
 
 ### Fixed
 
+- **Relayed pickups now keep highway driving until the shipper's streets begin, then hand off to speed keeper and slow for corners.**
 - **Quitting on Windows no longer crashes when SAPI voices are loaded.**
 - **Canadian and Alaskan towns now use their 50 km/h and 25 mph statutory street limits,** and 80 km/h Canadian highway postings no longer carry into town.
 - **Call dispatch now includes a Back button,** and saving a radio station to favorites keeps you in the list you were browsing instead of jumping to Favorites.

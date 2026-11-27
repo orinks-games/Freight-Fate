@@ -702,7 +702,7 @@ impl Trip {
     /// The boundary of a further drop below the limit just entered, when its
     /// "drops to" pacenote is due now or was already spoken.
     fn further_drop_to_warn(&self) -> Option<f64> {
-        if self.is_facility_approach_route() {
+        if self.on_facility_approach(self.position_mi) {
             return None;
         }
         let (boundary_mi, limit) = self.next_limit_drop()?;
@@ -717,7 +717,7 @@ impl Trip {
 
     /// Warn before a big posted-limit drop, like a curve pacenote.
     pub fn check_limit_drop_ahead(&mut self) {
-        if self.entered_zone.is_some() || self.is_facility_approach_route() {
+        if self.entered_zone.is_some() || self.on_facility_approach(self.position_mi) {
             return;
         }
         let Some((boundary_mi, limit)) = self.next_limit_drop() else {
