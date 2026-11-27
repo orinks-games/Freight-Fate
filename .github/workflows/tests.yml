@@ -6,10 +6,14 @@ name: Tests
 # or a release no longer waits on it. It publishes nothing and nothing waits
 # on it; a red run is the signal.
 #
-# Once a night it tests dev's head, and skips the night when that is the
-# commit it tested last. A manual run tests any branch. GitHub offers
-# neither the schedule nor the Run workflow button until this file is on the
-# default branch (main).
+# Once a night it tests the head of dev and of feat/career-2.0 (the alpha
+# line), one job each, and a job skips the night when its branch's head is
+# the commit it tested last. A manual run tests one branch of your choosing.
+#
+# GitHub starts a scheduled run from the default branch's copy of this file
+# (main), whatever branch the jobs then check out, and offers neither the
+# schedule nor the Run workflow button until main has the file. So a change
+# here has to reach main to take effect at night.
 
 on:
   schedule:
@@ -25,14 +29,18 @@ permissions:
   contents: read
 
 concurrency:
-  group: tests-${{ inputs.branch || 'dev' }}
+  group: tests-${{ inputs.branch || 'nightly' }}
   cancel-in-progress: true
 
 jobs:
   test:
-    name: Test (Linux x86_64)
+    name: Test (${{ matrix.branch }})
     runs-on: ubuntu-24.04
     timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        branch: ${{ fromJSON(github.event_name == 'schedule' && '["dev", "feat/career-2.0"]' || format('["{0}"]', inputs.branch || 'dev')) }}
     env:
       FREIGHT_FATE_NO_SPEECH: "1"
       HEARKEN_TEST_NO_SPEECH: "1"
@@ -50,7 +58,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.branch || 'dev' }}
+          ref: ${{ matrix.branch }}
 
       # A tiny cache entry named after the commit marks a commit the nightly
       # has already tested; finding one ends the night here.
@@ -75,9 +83,13 @@ jobs:
 
       - name: Set up Rust and the build caches
         if: steps.tested.outputs.cache-hit != 'true'
+        # One saved cache, from the nightly dev job. The alpha job and manual
+        # runs restore the nearest entry and save nothing: the repository's
+        # 10 GB cache budget is already full of release builds.
         uses: ./.github/actions/rust-setup
         with:
           cache-key: test
+          save-cache: ${{ github.event_name == 'schedule' && matrix.branch == 'dev' }}
           linux-packages: mold
 
       - name: Lint Rust targets
