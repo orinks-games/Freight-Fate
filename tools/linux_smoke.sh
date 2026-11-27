@@ -79,7 +79,6 @@ case "${ID:-}" in
     ;;
 esac
 echo "glibc: $(ldd --version | head -1)"
-if [ "${ID:-}" = debian ] && [ "${VERSION_ID:-}" = 12 ]; then echo "THROWAWAY: forced failure" >&2; exit 3; fi
 
 export SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 export FREIGHT_FATE_DATA_DIR=/tmp/ff-data
