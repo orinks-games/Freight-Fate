@@ -36,8 +36,10 @@ untracked `[patch]` recipe in [CLAUDE.md](CLAUDE.md#rust-engineering-practices).
   `cargo test -p freight-fate` for anything the player can hear or do. That
   run skips the whole-map sweeps and other long tests (marked
   `#[cfg_attr(not(feature = "slow-tests"), ignore = ...)]`); `cargo test-all`
-  runs them too, and so does the nightly snapshot. Run it before pushing a
-  change to driving, traffic, the assists or world data.
+  runs them too, and so does the nightly Tests workflow. Run it before
+  pushing a change to driving, traffic, the assists or world data. The
+  snapshot and release builds run no tests, so run `cargo test-all` and
+  Clippy before a pull request is ready.
 - Changes to the build, release, translation or data tools: run
   `cargo test -p ff-tools`.
 - For user-facing changes, include how you checked the spoken text, keyboard
