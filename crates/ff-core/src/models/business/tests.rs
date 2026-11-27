@@ -40,11 +40,11 @@ fn charge(settlement: &BusinessSettlement, label: &str) -> f64 {
 }
 
 #[test]
-fn test_thirty_level_ladder_has_business_arc_titles() {
-    assert_eq!(CAREER_RANKS.len(), 30);
+fn test_forty_level_ladder_has_business_arc_titles() {
+    assert_eq!(CAREER_RANKS.len(), 40);
     assert_eq!(
         CAREER_RANKS.iter().map(|r| r.level).collect::<Vec<_>>(),
-        (1..=30).collect::<Vec<_>>()
+        (1..=40).collect::<Vec<_>>()
     );
     assert_eq!(CAREER_RANKS[0].title, "Yard Trainee");
     assert_eq!(CAREER_RANKS[4].title, "Regional Regular");
@@ -390,7 +390,10 @@ fn company_pay_uses_the_wage_floor_share_and_trust_bonus() {
     let floor = plan.stop_pay + 100.0 * plan.min_per_mile;
     let share = 1000.0 * plan.pay_share;
     let expected = round_py_n(floor.max(share) + 1000.0 * plan.on_time_bonus_share, 2);
-    assert_eq!(company_driver_pay(&job, 1000.0, true, None, None), expected);
+    assert_eq!(
+        company_driver_pay(&job, 1000.0, true, None, None, None),
+        expected
+    );
     assert_eq!(reputation_pay_bonus(1000.0, None), 0.0);
     assert_eq!(reputation_pay_bonus(1000.0, Some(50.0)), 0.0);
     assert_eq!(reputation_pay_bonus(1000.0, Some(100.0)), 60.0);
@@ -538,4 +541,120 @@ fn test_an_owner_operators_insurance_reserve_carries_the_record_surcharge_under_
         ),
         28.0
     );
+}
+
+#[test]
+fn experience_pay_steps_at_thirty_three_thirty_six_and_thirty_nine() {
+    assert_eq!(experience_pay_share(None), 0.0);
+    for (level, share) in [
+        (1, 0.0),
+        (32, 0.0),
+        (33, 0.01),
+        (35, 0.01),
+        (36, 0.02),
+        (38, 0.02),
+        (39, 0.03),
+        (40, 0.03),
+    ] {
+        assert_eq!(experience_pay_share(Some(level)), share, "level {level}");
+    }
+    let job = job("general", "Chicago yard", 1500.0, 4000.0, 40.0);
+    let base = company_driver_pay(&job, 4000.0, true, None, None, Some(32));
+    assert_eq!(
+        company_driver_pay(&job, 4000.0, true, None, None, None),
+        base
+    );
+    assert_eq!(
+        company_driver_pay(&job, 4000.0, true, None, None, Some(33)),
+        round_py_n(base + 40.0, 2)
+    );
+    assert_eq!(
+        company_driver_pay(&job, 4000.0, true, None, None, Some(39)),
+        round_py_n(base + 120.0, 2)
+    );
+    // It follows the driver: every carrier's plan pays the same share.
+    let summit = company_driver_pay(&job, 4000.0, true, Some("summit_value"), None, Some(36));
+    let summit_base = company_driver_pay(&job, 4000.0, true, Some("summit_value"), None, Some(1));
+    assert_eq!(summit, round_py_n(summit_base + 80.0, 2));
+    // Owner-operators never get it.
+    let leased = build_business_settlement(
+        LEASED_OWNER_OPERATOR,
+        &job,
+        4000.0,
+        true,
+        0.0,
+        &SettlementTerms {
+            level: Some(39),
+            ..Default::default()
+        },
+    );
+    let leased_low = build_business_settlement(
+        LEASED_OWNER_OPERATOR,
+        &job,
+        4000.0,
+        true,
+        0.0,
+        &SettlementTerms {
+            level: Some(32),
+            ..Default::default()
+        },
+    );
+    assert_eq!(leased.gross_pay, leased_low.gross_pay);
+}
+
+#[test]
+fn owner_operator_fees_drop_half_a_point_at_thirty_three_thirty_six_and_thirty_nine() {
+    for (level, settlement, factoring) in [
+        (None, 0.02, 0.035),
+        (Some(32), 0.02, 0.035),
+        (Some(33), 0.015, 0.03),
+        (Some(36), 0.01, 0.025),
+        (Some(39), 0.005, 0.02),
+        (Some(40), 0.005, 0.02),
+    ] {
+        assert!(
+            (owner_settlement_fee_share(level) - settlement).abs() < 1e-12,
+            "{level:?}"
+        );
+        assert!(
+            (authority_factoring_fee_share(level) - factoring).abs() < 1e-12,
+            "{level:?}"
+        );
+    }
+    // Below the first step the fee is the old one exactly, to the float.
+    assert_eq!(
+        owner_settlement_fee_share(Some(30)),
+        OWNER_SETTLEMENT_FEE_SHARE
+    );
+    assert_eq!(
+        authority_factoring_fee_share(Some(30)),
+        AUTHORITY_FACTORING_FEE_SHARE
+    );
+    let job = job("general", "Chicago yard", 1500.0, 4000.0, 40.0);
+    let at = |status: &str, level: i64, label: &str| {
+        let settlement = build_business_settlement(
+            status,
+            &job,
+            4000.0,
+            true,
+            0.0,
+            &SettlementTerms {
+                level: Some(level),
+                ..Default::default()
+            },
+        );
+        charge(&settlement, label)
+    };
+    // Leased-on gross is 4,000 times 1.12.
+    assert_eq!(
+        at(LEASED_OWNER_OPERATOR, 32, "settlement service fee"),
+        89.6
+    );
+    assert_eq!(
+        at(LEASED_OWNER_OPERATOR, 33, "settlement service fee"),
+        67.2
+    );
+    assert_eq!(at(INDEPENDENT_AUTHORITY, 32, "billing fee"), 140.0);
+    assert_eq!(at(INDEPENDENT_AUTHORITY, 33, "billing fee"), 120.0);
+    assert_eq!(at(INDEPENDENT_AUTHORITY, 39, "billing fee"), 80.0);
 }

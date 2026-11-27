@@ -14,7 +14,7 @@ use std::collections::BTreeSet;
 use serde::{Deserialize, Serialize};
 
 use crate::models::career_ladder::{
-    next_rank_for_level, rank_for_level, CareerRank, MAX_CAREER_LEVEL,
+    level_up_line, next_rank_for_level, rank_for_level, CareerRank, MAX_CAREER_LEVEL,
 };
 use crate::models::credentials::{credential, CREDENTIALS};
 use crate::models::enforcement::StandingProfile;
@@ -27,17 +27,24 @@ pub(crate) mod test_profile;
 #[cfg(test)]
 mod tests;
 
-/// XP needed for each level in the 30-level career ladder. The first 20
+/// XP needed for each level in the 40-level career ladder. The first 20
 /// thresholds stay fixed so existing saves keep their current level. Levels
 /// 21 through 30 are new on the 1.9 line and are paced so each late rank
 /// lands after a solid evening or two of freight instead of a lost weekend:
 /// the whole arc is a months-long career, but every level keeps paying out.
-pub const LEVEL_XP: [f64; 30] = [
+/// Levels 31 through 40 are new in 2.0, 25,000 apart; experience was never
+/// capped at 30, so a long-time career lands on the level it already earned.
+pub const LEVEL_XP: [f64; 40] = [
     0.0, 1000.0, 2500.0, 4500.0, 7000.0, 10_000.0, 14_000.0, 19_000.0, 25_000.0, 32_000.0,
     40_000.0, 50_000.0, 62_000.0, 76_000.0, 92_000.0, 110_000.0, 130_000.0, 152_000.0, 176_000.0,
     202_000.0, 216_000.0, 231_000.0, 247_000.0, 264_000.0, 282_000.0, 301_000.0, 321_000.0,
-    342_000.0, 364_000.0, 387_000.0,
+    342_000.0, 364_000.0, 387_000.0, 412_000.0, 437_000.0, 462_000.0, 487_000.0, 512_000.0,
+    537_000.0, 562_000.0, 587_000.0, 612_000.0, 637_000.0,
 ];
+
+/// The old top of the ladder. Experience past it before 2.0 is "banked":
+/// the career lands on the level it earned and hears one line about it.
+pub const BANKED_LEVELS_FROM: i64 = 30;
 
 /// The credential a carrier sponsors at a level, if any: the carrier pays
 /// for the training once dispatch trusts you with the freight.
@@ -247,6 +254,11 @@ pub struct Career {
     /// once declined a reefer load he was already cleared for. Each grant
     /// is repeated on the next terminal entry, then dropped.
     pub unacknowledged_grants: Vec<String>,
+    /// The one-time terminal line for experience earned past level 30
+    /// before the ladder went to 40 has been spoken, or is not owed: a
+    /// delivery that carries the career over level 30 sets it, since that
+    /// driver heard each new level as it came.
+    pub banked_levels_heard: bool,
 }
 
 impl Default for Career {
@@ -264,6 +276,7 @@ impl Default for Career {
             purchased_endorsements: Vec::new(),
             pending_credentials: Vec::new(),
             unacknowledged_grants: Vec::new(),
+            banked_levels_heard: false,
         }
     }
 }
@@ -359,6 +372,25 @@ impl Career {
             .collect()
     }
 
+    /// The one-time line for a career that already held experience past
+    /// level 30 when the ladder went to 40, or None when it is not owed.
+    ///
+    /// Experience was never capped at 30, so such a career loads straight
+    /// onto its new level with no level-up. `title` is the one the career
+    /// displays (company or owner-operator ladder), which only the profile
+    /// knows. Taking the line marks it heard: say it at the terminal, never
+    /// at the wheel, and save after.
+    pub fn take_banked_levels_line(&mut self, title: &str) -> Option<String> {
+        if self.banked_levels_heard || self.xp < LEVEL_XP[BANKED_LEVELS_FROM as usize] {
+            return None;
+        }
+        self.banked_levels_heard = true;
+        let level = self.level();
+        Some(format!(
+            "Your experience past level 30 now counts. You are level {level}: {title}."
+        ))
+    }
+
     /// Apply a finished delivery; returns announcements (level ups etc.).
     ///
     /// `cargo_class_mult` and `standing_rate` both default to 1.0 in Python.
@@ -416,6 +448,11 @@ impl Career {
 
         let mut messages: Vec<String> = Vec::new();
         let level = self.level();
+        if before_level <= BANKED_LEVELS_FROM && level > BANKED_LEVELS_FROM {
+            // This driver hears each new level past 30 as it comes, so the
+            // banked-experience line is never owed.
+            self.banked_levels_heard = true;
+        }
         if level > before_level {
             // A promotion clears the assigned-load refusals dispatch remembers.
             self.dispatch_declines_used = 0;
@@ -424,11 +461,7 @@ impl Career {
             // heard, not just the final rank's (single-level phrasing is
             // unchanged: the loop runs once and reads identically).
             for gained_level in (before_level + 1)..=level {
-                let rank = rank_for_level(gained_level);
-                messages.push(format!(
-                    "Level up! You are now level {gained_level}: {}. Unlock: {}",
-                    rank.title, rank.unlock
-                ));
+                messages.push(level_up_line(gained_level, rank_for_level(gained_level)));
             }
         }
         // `self.endorsements - before_endorsements`: a Python set difference,

@@ -66,12 +66,14 @@ fn test_company_carrier_pay_plans_have_distinct_benefits() {
         true,
         Some(DEFAULT_START_KEY),
         None,
+        None,
     );
     let training = company_driver_pay(
         &short_job,
         short_job.pay,
         true,
         Some("great_lakes_training"),
+        None,
         None,
     );
     assert!(training > northstar);
@@ -82,12 +84,14 @@ fn test_company_carrier_pay_plans_have_distinct_benefits() {
         true,
         Some(DEFAULT_START_KEY),
         None,
+        None,
     );
     let prairie = company_driver_pay(
         &long_floor_job,
         long_floor_job.pay,
         true,
         Some("prairie_link"),
+        None,
         None,
     );
     assert!(prairie > northstar_long);
@@ -98,12 +102,14 @@ fn test_company_carrier_pay_plans_have_distinct_benefits() {
         true,
         Some(DEFAULT_START_KEY),
         None,
+        None,
     );
     let summit = company_driver_pay(
         &high_gross_job,
         high_gross_job.pay,
         true,
         Some("summit_value"),
+        None,
         None,
     );
     assert!(summit > northstar_bonus);

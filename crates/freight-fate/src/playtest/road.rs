@@ -1318,6 +1318,12 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
         profile.driving_record = previous.driving_record.clone();
         profile.out_of_service_events = previous.out_of_service_events;
         profile.career.reputation = previous.career.reputation;
+        // And the career record itself (experience, deliveries, miles), so a
+        // staged level-up or mile mark lands on the delivery it is staged
+        // for. A level passed to start_at still wins.
+        if opts.level.is_none() {
+            profile.career = previous.career.clone();
+        }
         profile.hos = previous.hos.clone();
         profile.fatigue = previous.fatigue;
         // And the date a scenario put on the calendar: dated rules (spring

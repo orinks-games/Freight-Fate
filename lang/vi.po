@@ -614,6 +614,33 @@ msgstr ""
 msgid "Ronnie Milsap - Prisoner of the Highway"
 msgstr "Ronnie Milsap - Prisoner of the Highway"
 
+msgid "Endless Highway"
+msgstr "Xa lộ bất tận"
+
+msgid "Two hundred fifty thousand miles driven."
+msgstr "Hai trăm năm mươi nghìn dặm đường đã chạy."
+
+msgid "The Band - Endless Highway"
+msgstr "The Band - Endless Highway"
+
+msgid "Miles and Miles"
+msgstr "Dặm nối dặm"
+
+msgid "Half a million miles driven."
+msgstr "Nửa triệu dặm đường đã chạy."
+
+msgid "Asleep at the Wheel - Miles and Miles of Texas"
+msgstr "Asleep at the Wheel - Miles and Miles of Texas"
+
+msgid "A Million Miles Away"
+msgstr "Xa cả triệu dặm"
+
+msgid "A million miles driven."
+msgstr "Một triệu dặm đường đã chạy."
+
+msgid "The Plimsouls - A Million Miles Away"
+msgstr "The Plimsouls - A Million Miles Away"
+
 msgid "Money"
 msgstr "Tiền bạc"
 
@@ -1042,6 +1069,24 @@ msgstr "Hai trăm chuyến giao hàng."
 msgid "Emily Nenni - Long Game"
 msgstr "Emily Nenni - Long Game"
 
+msgid "Roll Truck Roll"
+msgstr "Lăn bánh đi xe ơi"
+
+msgid "Three hundred deliveries."
+msgstr "Ba trăm chuyến giao hàng."
+
+msgid "Red Simpson - Roll Truck Roll"
+msgstr "Red Simpson - Roll Truck Roll"
+
+msgid "The World Through a Windshield"
+msgstr "Thế giới qua kính chắn gió"
+
+msgid "Five hundred deliveries."
+msgstr "Năm trăm chuyến giao hàng."
+
+msgid "Del Reeves - Looking at the World Through a Windshield"
+msgstr "Del Reeves - Looking at the World Through a Windshield"
+
 msgid "Breaking the Bank"
 msgstr "Phá két ngân hàng"
 
@@ -1306,8 +1351,8 @@ msgstr "Alabama - Forty Hour Week (For a Livin')"
 msgid "Halfway There"
 msgstr "Đi được nửa chặng đường"
 
-msgid "Career level 15, halfway up the ladder."
-msgstr "Cấp bậc sự nghiệp 15, nửa chặng leo thang nghề nghiệp."
+msgid "Career level 15."
+msgstr "Cấp bậc sự nghiệp 15."
 
 msgid "Bon Jovi - Livin' on a Prayer"
 msgstr "Bon Jovi - Livin' on a Prayer"
@@ -1325,11 +1370,29 @@ msgstr "Waylon Jennings - Are You Sure Hank Done It This Way"
 msgid "King of the Road"
 msgstr "Ông vua đường trường"
 
-msgid "Career level 30, the top."
-msgstr "Cấp bậc sự nghiệp 30, đỉnh cao nhất."
+msgid "Career level 30."
+msgstr "Cấp bậc sự nghiệp 30."
 
 msgid "Roger Miller - King of the Road"
 msgstr "Roger Miller - King of the Road"
+
+msgid "Further On Up the Road"
+msgstr "Còn xa hơn nữa trên đường"
+
+msgid "Career level 35."
+msgstr "Cấp bậc sự nghiệp 35."
+
+msgid "Eric Clapton - Further On Up the Road"
+msgstr "Eric Clapton - Further On Up the Road"
+
+msgid "End of the Line"
+msgstr "Cuối con đường"
+
+msgid "Career level 40, the top."
+msgstr "Cấp bậc sự nghiệp 40, cấp cao nhất."
+
+msgid "Traveling Wilburys - End of the Line"
+msgstr "Traveling Wilburys - End of the Line"
 
 msgid "Newer Iron"
 msgstr "Chiến mã đời mới"
@@ -7992,15 +8055,6 @@ msgstr "Chưa mở bước chuẩn bị giấy phép vận tải riêng: {join}"
 msgid "You are at the top career rank."
 msgstr "Bạn đã đạt cấp bậc cao nhất trong sự nghiệp."
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-msgid "Next: level {level}, {title}."
-msgstr "Tiếp theo: cấp {level}, {title}."
-
-#. placeholders: {level}, {title}, {unlock}
-msgid "Next: level {level}, {title}. {unlock}"
-msgstr "Tiếp theo: cấp {level}, {title}. {unlock}"
-
 #. one sentence of a longer line
 msgid "Company driver by choice."
 msgstr "Tài xế hãng theo lựa chọn."
@@ -8026,6 +8080,14 @@ msgid ""
 msgstr ""
 "Bạn đã đạt cấp bậc cao nhất trong sự nghiệp. Bước mua xe chuyển sang tài xế "
 "chủ xe vẫn luôn mở trong mục Tình trạng kinh doanh nếu sau này bạn muốn."
+
+#. placeholders: {level}, {title}
+msgid "Next: level {level}, {title}."
+msgstr "Tiếp theo: cấp {level}, {title}."
+
+#. placeholders: {level}, {title}, {unlock}
+msgid "Next: level {level}, {title}. {unlock}"
+msgstr "Tiếp theo: cấp {level}, {title}. {unlock}"
 
 msgid "Weigh station transponder subscription is active. "
 msgstr "Gói thuê bao thiết bị qua trạm cân tự động đang bật. "
@@ -8274,19 +8336,21 @@ msgstr ""
 msgid "Reminder: you hold a new {gate_label}."
 msgstr "Nhắc lại: bạn vừa có thêm {gate_label}."
 
+#. placeholders: {level}, {title}
 #. one sentence of a longer line
-msgid "Level up!"
-msgstr "Lên cấp!"
+msgid "You are level {level}: {title}."
+msgstr "Bạn đang ở cấp {level}: {title}."
 
-#. placeholders: {gained_level}, {title}, {unlock}
+#. one sentence of a longer line
+msgid "Your experience past level 30 now counts."
+msgstr "Kinh nghiệm vượt quá cấp 30 của bạn giờ đã được tính."
+
+#. placeholders: {level}, {title}
 msgid ""
-"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
-msgstr "Lên cấp! Bạn đã lên cấp {gained_level}: {title}. Mở khóa: {unlock}"
-
-#. placeholders: {gained_level}, {title}
-#. one sentence of a longer line
-msgid "You are now level {gained_level}: {title}."
-msgstr "Bạn đã lên cấp {gained_level}: {title}."
+"Your experience past level 30 now counts. You are level {level}: {title}."
+msgstr ""
+"Kinh nghiệm vượt quá cấp 30 của bạn giờ đã được tính. Bạn đang ở cấp "
+"{level}: {title}."
 
 #. placeholders: {level}, {title}
 msgid " Next: level {level}, {title}."
@@ -8734,12 +8798,100 @@ msgstr ""
 msgid "Freight Fate Independent"
 msgstr "Chủ xe độc lập Freight Fate"
 
-msgid "Top career rank."
-msgstr "Cấp bậc cao nhất trong sự nghiệp."
-
 msgid "A complete company-driver to independent owner-operator career."
 msgstr ""
 "Một hành trình sự nghiệp trọn vẹn từ tài xế hãng đến tài xế chủ xe độc lập."
+
+msgid "Preferred Carrier"
+msgstr "Nhà vận tải ưu tiên"
+
+msgid "Long-service owner-operator"
+msgstr "Tài xế chủ xe thâm niên"
+
+msgid "The dispatch board grows to nine offers per visit."
+msgstr "Bảng đơn hàng tăng lên chín chuyến đề xuất mỗi lần xem."
+
+msgid "Brokers who have used you once call you first."
+msgstr "Những môi giới từng thuê bạn một lần sẽ gọi bạn trước tiên."
+
+msgid "Core Carrier"
+msgstr "Nhà vận tải chủ lực"
+
+msgid "On the short list shippers offer freight to first."
+msgstr "Có tên trong danh sách ngắn được chủ hàng giao hàng trước."
+
+msgid "Contract Carrier"
+msgstr "Nhà vận tải hợp đồng"
+
+msgid ""
+"Lower fees: the settlement service fee on leased-on loads drops to 1.5 "
+"percent, and the factoring fee under your own authority to 3 percent."
+msgstr ""
+"Giảm phí: phí dịch vụ quyết toán cho hàng chở theo hợp đồng với hãng giảm "
+"còn 1,5 phần trăm, và phí thanh toán hóa đơn khi chạy bằng giấy phép vận "
+"tải riêng giảm còn 3 phần trăm."
+
+msgid "Hauling for customers who come back for more than one load."
+msgstr "Chở hàng cho những khách quay lại thuê nhiều chuyến."
+
+msgid "Dedicated Carrier"
+msgstr "Nhà vận tải chuyên tuyến"
+
+msgid "A carrier customers plan their freight around."
+msgstr "Nhà vận tải mà khách hàng dựa vào để lên kế hoạch hàng hóa."
+
+msgid "Carrier of Choice"
+msgstr "Nhà vận tải được chọn mặt"
+
+msgid "The carrier a customer asks for by name."
+msgstr "Nhà vận tải mà khách hàng gọi đích danh."
+
+msgid "Senior Carrier Owner"
+msgstr "Chủ xe vận tải lâu năm"
+
+msgid ""
+"Lower fees: the settlement service fee drops to 1 percent, and the "
+"factoring fee to 2.5 percent."
+msgstr ""
+"Giảm phí: phí dịch vụ quyết toán giảm còn 1 phần trăm, và phí thanh toán "
+"hóa đơn giảm còn 2,5 phần trăm."
+
+msgid "Years of clean settlements behind one truck."
+msgstr "Nhiều năm quyết toán sòng phẳng với một chiếc xe."
+
+msgid "Owner-Operator Mentor"
+msgstr "Cố vấn tài xế chủ xe"
+
+msgid "Newer owner-operators ask how you did it."
+msgstr "Các tài xế chủ xe mới vào nghề hỏi bạn đã làm thế nào."
+
+msgid "Master Carrier Owner"
+msgstr "Chủ xe vận tải bậc thầy"
+
+msgid "Nothing in the business of one truck is new to you."
+msgstr "Chuyện làm ăn với một chiếc xe không còn gì mới với bạn."
+
+msgid "Veteran Carrier Owner"
+msgstr "Chủ xe vận tải kỳ cựu"
+
+msgid ""
+"Lower fees: the settlement service fee drops to 0.5 percent, and the "
+"factoring fee to 2 percent."
+msgstr ""
+"Giảm phí: phí dịch vụ quyết toán giảm còn 0,5 phần trăm, và phí thanh toán "
+"hóa đơn giảm còn 2 phần trăm."
+
+msgid "Among the longest-serving independents on the road."
+msgstr "Một trong những chủ xe độc lập chạy lâu năm nhất trên đường."
+
+msgid "Freight Fate Carrier Owner"
+msgstr "Chủ xe vận tải Freight Fate"
+
+msgid "Top career rank."
+msgstr "Cấp bậc cao nhất trong sự nghiệp."
+
+msgid "The top of the owner-operator ladder."
+msgstr "Nấc cao nhất của nhánh tài xế chủ xe."
 
 msgid "Dedicated Company Driver"
 msgstr "Tài xế hãng gắn bó"
@@ -8922,22 +9074,106 @@ msgstr "Tài xế hãng đã khẳng định bản lĩnh ở đỉnh cao nấc t
 msgid "Freight Fate Company Driver"
 msgstr "Tài xế hãng Freight Fate"
 
-msgid "Top company-driver career rank."
-msgstr "Cấp bậc cao nhất của nhánh tài xế hãng."
-
 msgid ""
 "A complete company-driver career without taking the owner-operator seat."
 msgstr ""
 "Một sự nghiệp tài xế hãng trọn vẹn mà không cần bước sang ghế tài xế chủ xe."
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-msgid "level {level}: {title}."
-msgstr "cấp {level}: {title}."
+msgid "Driver Trainer"
+msgstr "Huấn luyện viên tài xế"
 
-#. placeholders: {level}, {title}, {unlock}
-msgid "level {level}: {title}. Unlock: {unlock}"
-msgstr "cấp {level}: {title}. Mở khóa: {unlock}"
+msgid "Long-service company driver"
+msgstr "Tài xế hãng thâm niên"
+
+msgid "The carrier puts its new hires with you."
+msgstr "Hãng giao tài xế mới tuyển cho bạn kèm cặp."
+
+msgid "Lead Driver Trainer"
+msgstr "Trưởng nhóm huấn luyện tài xế"
+
+msgid "You train the drivers who train the new hires."
+msgstr "Bạn huấn luyện những người kèm cặp tài xế mới."
+
+msgid "Road Test Examiner"
+msgstr "Giám khảo sát hạch lái xe"
+
+msgid ""
+"Experience pay: your carrier adds 1 percent of the load to every settlement."
+msgstr ""
+"Phụ cấp thâm niên: hãng cộng thêm 1 phần trăm giá trị chuyến hàng vào mỗi "
+"lần quyết toán."
+
+msgid "The carrier trusts you to judge who is ready for a truck."
+msgstr "Hãng tin bạn đánh giá ai đã sẵn sàng cầm lái xe tải."
+
+msgid "Safety Committee Driver"
+msgstr "Tài xế trong ban an toàn"
+
+msgid "A driver's seat on the carrier's safety committee."
+msgstr "Một ghế dành cho tài xế trong ban an toàn của hãng."
+
+msgid "Driver Council Member"
+msgstr "Thành viên hội đồng tài xế"
+
+msgid "You speak for the drivers when the carrier sets its rules."
+msgstr "Bạn lên tiếng thay tài xế khi hãng đặt ra quy định."
+
+msgid "Driver Council Chair"
+msgstr "Chủ tịch hội đồng tài xế"
+
+msgid "Experience pay rises to 2 percent of the load."
+msgstr "Phụ cấp thâm niên tăng lên 2 phần trăm giá trị chuyến hàng."
+
+msgid "Leading the drivers' council."
+msgstr "Dẫn dắt hội đồng tài xế."
+
+msgid "Road Team Driver"
+msgstr "Tài xế đội đại diện"
+
+msgid "One of the drivers the carrier sends to speak for it."
+msgstr "Một trong những tài xế được hãng cử đi làm đại diện."
+
+msgid "Road Team Captain"
+msgstr "Đội trưởng đội đại diện"
+
+msgid "Leading the carrier's road team."
+msgstr "Dẫn dắt đội tài xế đại diện của hãng."
+
+msgid "Senior Road Team Captain"
+msgstr "Đội trưởng kỳ cựu đội đại diện"
+
+msgid "Experience pay rises to 3 percent of the load."
+msgstr "Phụ cấp thâm niên tăng lên 3 phần trăm giá trị chuyến hàng."
+
+msgid "The longest-serving captain on the road team."
+msgstr "Đội trưởng lâu năm nhất của đội đại diện."
+
+msgid "Freight Fate Road Captain"
+msgstr "Đội trưởng đường dài Freight Fate"
+
+msgid "Top company-driver career rank."
+msgstr "Cấp bậc cao nhất của nhánh tài xế hãng."
+
+msgid "The top of the company-driver ladder."
+msgstr "Nấc cao nhất của nhánh tài xế hãng."
+
+#. one sentence of a longer line
+msgid "Level up!"
+msgstr "Lên cấp!"
+
+#. placeholders: {gained_level}, {title}
+msgid "Level up! You are now level {gained_level}: {title}."
+msgstr "Lên cấp! Bạn đã lên cấp {gained_level}: {title}."
+
+#. placeholders: {gained_level}, {title}
+#. one sentence of a longer line
+msgid "You are now level {gained_level}: {title}."
+msgstr "Bạn đã lên cấp {gained_level}: {title}."
+
+#. placeholders: {gained_level}, {title}, {unlock}
+msgid ""
+"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
+msgstr "Lên cấp! Bạn đã lên cấp {gained_level}: {title}. Mở khóa: {unlock}"
 
 msgid "Run the business you built"
 msgstr "Điều hành cơ ngơi bạn đã gây dựng"
@@ -8981,11 +9217,11 @@ msgid "Top of the leased-on ladder"
 msgstr "Đỉnh cao nhánh chủ xe hợp đồng cho hãng"
 
 msgid ""
-"You reached level 30 as a leased-on owner-operator. Own authority is the "
+"You reached level 40 as a leased-on owner-operator. Own authority is the "
 "one step left."
 msgstr ""
-"Bạn đã đạt cấp 30 với tư cách chủ xe hợp đồng cho hãng. Chỉ còn một bước "
-"cuối là lên giấy phép vận tải riêng."
+"Bạn đã lên cấp 40 khi là chủ xe hợp đồng cho hãng. Chỉ còn một bước nữa là "
+"giấy phép vận tải riêng."
 
 msgid "proven owner-operator lane"
 msgstr "tuyến quen của tài xế chủ xe lâu năm"
@@ -9029,9 +9265,10 @@ msgstr "tuyến ưu tiên bậc cao của hãng"
 msgid "Career company driver, by choice"
 msgstr "Tài xế hãng chuyên nghiệp, theo lựa chọn"
 
-msgid "Level 30, the top rank. The buy-in stays open under Business status."
+msgid "Level 40, the top rank. The buy-in stays open under Business status."
 msgstr ""
-"Cấp 30, bậc cao nhất. Bước mua xe vẫn mở trong mục Tình trạng kinh doanh."
+"Cấp 40, cấp bậc cao nhất. Bước mua xe vẫn mở trong mục Tình trạng kinh "
+"doanh."
 
 msgid "Plan the next business step"
 msgstr "Tính toán bước chuyển kinh doanh tiếp theo"
@@ -32927,6 +33164,10 @@ msgstr "Thưởng giao hàng đúng giờ: {grouped} đô la."
 msgid "Early delivery bonus: {grouped} dollars."
 msgstr "Thưởng giao hàng sớm: {grouped} đô la."
 
+#. placeholders: {grouped}
+msgid "Experience pay: {grouped} dollars."
+msgstr "Phụ cấp thâm niên: {grouped} đô la."
+
 msgid "tire wear"
 msgstr "mòn lốp"
 
@@ -50083,6 +50324,29 @@ msgstr "{count} xen-ti-mét"
 
 msgid "{count} centimeter"
 msgstr "{count} xen-ti-mét"
+
+#~ msgid "Career level 15, halfway up the ladder."
+#~ msgstr "Cấp bậc sự nghiệp 15, nửa chặng leo thang nghề nghiệp."
+
+#~ msgid "Career level 30, the top."
+#~ msgstr "Cấp bậc sự nghiệp 30, đỉnh cao nhất."
+
+#~ msgid "level {level}: {title}."
+#~ msgstr "cấp {level}: {title}."
+
+#~ msgid "level {level}: {title}. Unlock: {unlock}"
+#~ msgstr "cấp {level}: {title}. Mở khóa: {unlock}"
+
+#~ msgid ""
+#~ "You reached level 30 as a leased-on owner-operator. Own authority is the "
+#~ "one step left."
+#~ msgstr ""
+#~ "Bạn đã đạt cấp 30 với tư cách chủ xe hợp đồng cho hãng. Chỉ còn một bước "
+#~ "cuối là lên giấy phép vận tải riêng."
+
+#~ msgid "Level 30, the top rank. The buy-in stays open under Business status."
+#~ msgstr ""
+#~ "Cấp 30, bậc cao nhất. Bước mua xe vẫn mở trong mục Tình trạng kinh doanh."
 
 #~ msgid "Station: {name}."
 #~ msgstr "Trạm: {name}."

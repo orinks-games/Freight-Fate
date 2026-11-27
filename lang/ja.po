@@ -585,6 +585,33 @@ msgstr "50,000マイル走りました。道はもうあなたを離しません
 msgid "Ronnie Milsap - Prisoner of the Highway"
 msgstr "Ronnie Milsap - Prisoner of the Highway"
 
+msgid "Endless Highway"
+msgstr "果てしないハイウェイ"
+
+msgid "Two hundred fifty thousand miles driven."
+msgstr "250,000マイル走りました。"
+
+msgid "The Band - Endless Highway"
+msgstr "The Band - Endless Highway"
+
+msgid "Miles and Miles"
+msgstr "何マイルも何マイルも"
+
+msgid "Half a million miles driven."
+msgstr "500,000マイル走りました。"
+
+msgid "Asleep at the Wheel - Miles and Miles of Texas"
+msgstr "Asleep at the Wheel - Miles and Miles of Texas"
+
+msgid "A Million Miles Away"
+msgstr "100万マイルの彼方"
+
+msgid "A million miles driven."
+msgstr "1,000,000マイル走りました。"
+
+msgid "The Plimsouls - A Million Miles Away"
+msgstr "The Plimsouls - A Million Miles Away"
+
 msgid "Money"
 msgstr "マネー"
 
@@ -980,6 +1007,24 @@ msgstr "配達200件。"
 msgid "Emily Nenni - Long Game"
 msgstr "Emily Nenni - Long Game"
 
+msgid "Roll Truck Roll"
+msgstr "走れトラック"
+
+msgid "Three hundred deliveries."
+msgstr "配達300件。"
+
+msgid "Red Simpson - Roll Truck Roll"
+msgstr "Red Simpson - Roll Truck Roll"
+
+msgid "The World Through a Windshield"
+msgstr "フロントガラス越しの世界"
+
+msgid "Five hundred deliveries."
+msgstr "配達500件。"
+
+msgid "Del Reeves - Looking at the World Through a Windshield"
+msgstr "Del Reeves - Looking at the World Through a Windshield"
+
 msgid "Breaking the Bank"
 msgstr "大当たり"
 
@@ -1237,8 +1282,8 @@ msgstr "Alabama - Forty Hour Week (For a Livin')"
 msgid "Halfway There"
 msgstr "半分まで"
 
-msgid "Career level 15, halfway up the ladder."
-msgstr "キャリアレベル15、はしごの半分です。"
+msgid "Career level 15."
+msgstr "キャリアレベル15。"
 
 msgid "Bon Jovi - Livin' on a Prayer"
 msgstr "Bon Jovi - Livin' on a Prayer"
@@ -1255,11 +1300,29 @@ msgstr "Waylon Jennings - Are You Sure Hank Done It This Way"
 msgid "King of the Road"
 msgstr "キング・オブ・ザ・ロード"
 
-msgid "Career level 30, the top."
-msgstr "キャリアレベル30、頂点です。"
+msgid "Career level 30."
+msgstr "キャリアレベル30。"
 
 msgid "Roger Miller - King of the Road"
 msgstr "Roger Miller - King of the Road"
+
+msgid "Further On Up the Road"
+msgstr "この道のずっと先へ"
+
+msgid "Career level 35."
+msgstr "キャリアレベル35。"
+
+msgid "Eric Clapton - Further On Up the Road"
+msgstr "Eric Clapton - Further On Up the Road"
+
+msgid "End of the Line"
+msgstr "終点"
+
+msgid "Career level 40, the top."
+msgstr "キャリアレベル40、最高レベルです。"
+
+msgid "Traveling Wilburys - End of the Line"
+msgstr "Traveling Wilburys - End of the Line"
 
 msgid "Newer Iron"
 msgstr "新しい鉄"
@@ -7021,15 +7084,6 @@ msgstr "運送許可の準備はまだ使えません：{join}"
 msgid "You are at the top career rank."
 msgstr "キャリアの最高ランクに到達しています。"
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-msgid "Next: level {level}, {title}."
-msgstr "次はレベル{level}、{title}です。"
-
-#. placeholders: {level}, {title}, {unlock}
-msgid "Next: level {level}, {title}. {unlock}"
-msgstr "次はレベル{level}、{title}です。{unlock}"
-
 #. one sentence of a longer line
 msgid "Company driver by choice."
 msgstr "自ら選んだ社員ドライバーです。"
@@ -7051,6 +7105,14 @@ msgid ""
 "You are at the top career rank. The owner-operator buy-in stays open under "
 "Business status if you ever want it."
 msgstr "キャリアの最高ランクに到達しています。オーナードライバーの買い取りは、望めばいつでも事業状況から選べます。"
+
+#. placeholders: {level}, {title}
+msgid "Next: level {level}, {title}."
+msgstr "次はレベル{level}、{title}です。"
+
+#. placeholders: {level}, {title}, {unlock}
+msgid "Next: level {level}, {title}. {unlock}"
+msgstr "次はレベル{level}、{title}です。{unlock}"
 
 msgid "Weigh station transponder subscription is active. "
 msgstr "計量所トランスポンダーの契約が有効です。 "
@@ -7272,19 +7334,19 @@ msgstr "タンク車両と危険物の免許付記を両方取得しました。
 msgid "Reminder: you hold a new {gate_label}."
 msgstr "お知らせ：新しい{gate_label}を取得しています。"
 
+#. placeholders: {level}, {title}
 #. one sentence of a longer line
-msgid "Level up!"
-msgstr "レベルアップ！"
+msgid "You are level {level}: {title}."
+msgstr "レベル{level}、{title}です。"
 
-#. placeholders: {gained_level}, {title}, {unlock}
+#. one sentence of a longer line
+msgid "Your experience past level 30 now counts."
+msgstr "レベル30を超えた経験値が反映されるようになりました。"
+
+#. placeholders: {level}, {title}
 msgid ""
-"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
-msgstr "レベルアップ！レベル{gained_level}、{title}になりました。解禁：{unlock}"
-
-#. placeholders: {gained_level}, {title}
-#. one sentence of a longer line
-msgid "You are now level {gained_level}: {title}."
-msgstr "レベル{gained_level}、{title}になりました。"
+"Your experience past level 30 now counts. You are level {level}: {title}."
+msgstr "レベル30を超えた経験値が反映されるようになりました。レベル{level}、{title}です。"
 
 #. placeholders: {level}, {title}
 msgid " Next: level {level}, {title}."
@@ -7668,11 +7730,93 @@ msgstr "保有車両の管理者ではなく、実績ある独立ドライバー
 msgid "Freight Fate Independent"
 msgstr "Freight Fate インディペンデント"
 
+msgid "A complete company-driver to independent owner-operator career."
+msgstr "社員ドライバーから独立オーナードライバーまで、キャリアを走りきりました。"
+
+msgid "Preferred Carrier"
+msgstr "優先運送会社"
+
+msgid "Long-service owner-operator"
+msgstr "長年のオーナードライバー"
+
+msgid "The dispatch board grows to nine offers per visit."
+msgstr "配車ボードの依頼が1回につき9件に増えます。"
+
+msgid "Brokers who have used you once call you first."
+msgstr "一度使ってくれた仲介業者が、真っ先に声をかけてくれます。"
+
+msgid "Core Carrier"
+msgstr "主力運送会社"
+
+msgid "On the short list shippers offer freight to first."
+msgstr "荷主が真っ先に積荷を任せる候補に入っています。"
+
+msgid "Contract Carrier"
+msgstr "契約運送会社"
+
+msgid ""
+"Lower fees: the settlement service fee on leased-on loads drops to 1.5 "
+"percent, and the factoring fee under your own authority to 3 percent."
+msgstr ""
+"手数料が下がります。業務委託の積荷の精算サービス手数料は1.5パーセントに、独自の運送許可でのファクタリング手数料は3パーセントになります。"
+
+msgid "Hauling for customers who come back for more than one load."
+msgstr "何度も依頼してくれる顧客の荷を運んでいます。"
+
+msgid "Dedicated Carrier"
+msgstr "専属運送会社"
+
+msgid "A carrier customers plan their freight around."
+msgstr "顧客が輸送計画の柱にする運送会社です。"
+
+msgid "Carrier of Choice"
+msgstr "指名される運送会社"
+
+msgid "The carrier a customer asks for by name."
+msgstr "顧客から名指しで頼まれる運送会社です。"
+
+msgid "Senior Carrier Owner"
+msgstr "上級運送事業主"
+
+msgid ""
+"Lower fees: the settlement service fee drops to 1 percent, and the "
+"factoring fee to 2.5 percent."
+msgstr "手数料が下がります。精算サービス手数料は1パーセントに、ファクタリング手数料は2.5パーセントになります。"
+
+msgid "Years of clean settlements behind one truck."
+msgstr "トラック1台で、長年きちんと精算を重ねてきました。"
+
+msgid "Owner-Operator Mentor"
+msgstr "オーナードライバーの指導役"
+
+msgid "Newer owner-operators ask how you did it."
+msgstr "新人のオーナードライバーが、やり方を聞きに来ます。"
+
+msgid "Master Carrier Owner"
+msgstr "熟練運送事業主"
+
+msgid "Nothing in the business of one truck is new to you."
+msgstr "トラック1台の商売で、知らないことはもうありません。"
+
+msgid "Veteran Carrier Owner"
+msgstr "ベテラン運送事業主"
+
+msgid ""
+"Lower fees: the settlement service fee drops to 0.5 percent, and the "
+"factoring fee to 2 percent."
+msgstr "手数料が下がります。精算サービス手数料は0.5パーセントに、ファクタリング手数料は2パーセントになります。"
+
+msgid "Among the longest-serving independents on the road."
+msgstr "現役の独立ドライバーの中でも指折りの古株です。"
+
+msgid "Freight Fate Carrier Owner"
+msgstr "Freight Fate 運送事業主"
+
 msgid "Top career rank."
 msgstr "キャリアの最高ランク。"
 
-msgid "A complete company-driver to independent owner-operator career."
-msgstr "社員ドライバーから独立オーナードライバーまで、キャリアを走りきりました。"
+msgid "The top of the owner-operator ladder."
+msgstr "オーナードライバーとしての最高ランクです。"
 
 msgid "Dedicated Company Driver"
 msgstr "生涯社員ドライバー志向"
@@ -7830,21 +7974,103 @@ msgstr "運送会社のはしごの頂点に立つ、実績ある社員ドライ
 msgid "Freight Fate Company Driver"
 msgstr "Freight Fate カンパニードライバー"
 
-msgid "Top company-driver career rank."
-msgstr "社員ドライバーキャリアの最高ランク。"
-
 msgid ""
 "A complete company-driver career without taking the owner-operator seat."
 msgstr "オーナードライバーの席に就かずに、社員ドライバーのキャリアを走りきりました。"
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-msgid "level {level}: {title}."
-msgstr "レベル{level}、{title}。"
+msgid "Driver Trainer"
+msgstr "ドライバー教官"
 
-#. placeholders: {level}, {title}, {unlock}
-msgid "level {level}: {title}. Unlock: {unlock}"
-msgstr "レベル{level}、{title}。解禁：{unlock}"
+msgid "Long-service company driver"
+msgstr "長年の社員ドライバー"
+
+msgid "The carrier puts its new hires with you."
+msgstr "運送会社が新人の指導を任せてくれます。"
+
+msgid "Lead Driver Trainer"
+msgstr "主任ドライバー教官"
+
+msgid "You train the drivers who train the new hires."
+msgstr "新人を教える教官を指導しています。"
+
+msgid "Road Test Examiner"
+msgstr "技能試験官"
+
+msgid ""
+"Experience pay: your carrier adds 1 percent of the load to every settlement."
+msgstr "勤続手当：運送会社が毎回の精算に積荷の運賃の1パーセントを上乗せします。"
+
+msgid "The carrier trusts you to judge who is ready for a truck."
+msgstr "トラックを任せられる人を見極める役を、運送会社から任されています。"
+
+msgid "Safety Committee Driver"
+msgstr "安全委員会ドライバー"
+
+msgid "A driver's seat on the carrier's safety committee."
+msgstr "運送会社の安全委員会で、ドライバー代表の席に就いています。"
+
+msgid "Driver Council Member"
+msgstr "ドライバー協議会委員"
+
+msgid "You speak for the drivers when the carrier sets its rules."
+msgstr "運送会社が規則を決めるとき、ドライバーの声を代弁します。"
+
+msgid "Driver Council Chair"
+msgstr "ドライバー協議会議長"
+
+msgid "Experience pay rises to 2 percent of the load."
+msgstr "勤続手当が積荷の運賃の2パーセントに上がります。"
+
+msgid "Leading the drivers' council."
+msgstr "ドライバー協議会を率いています。"
+
+msgid "Road Team Driver"
+msgstr "ロードチームドライバー"
+
+msgid "One of the drivers the carrier sends to speak for it."
+msgstr "運送会社の代表として送り出されるドライバーの一人です。"
+
+msgid "Road Team Captain"
+msgstr "ロードチームキャプテン"
+
+msgid "Leading the carrier's road team."
+msgstr "運送会社のロードチームを率いています。"
+
+msgid "Senior Road Team Captain"
+msgstr "上級ロードチームキャプテン"
+
+msgid "Experience pay rises to 3 percent of the load."
+msgstr "勤続手当が積荷の運賃の3パーセントに上がります。"
+
+msgid "The longest-serving captain on the road team."
+msgstr "ロードチームで最も長く務めるキャプテンです。"
+
+msgid "Freight Fate Road Captain"
+msgstr "Freight Fate ロードキャプテン"
+
+msgid "Top company-driver career rank."
+msgstr "社員ドライバーキャリアの最高ランク。"
+
+msgid "The top of the company-driver ladder."
+msgstr "社員ドライバーとしての最高ランクです。"
+
+#. one sentence of a longer line
+msgid "Level up!"
+msgstr "レベルアップ！"
+
+#. placeholders: {gained_level}, {title}
+msgid "Level up! You are now level {gained_level}: {title}."
+msgstr "レベルアップ！レベル{gained_level}、{title}になりました。"
+
+#. placeholders: {gained_level}, {title}
+#. one sentence of a longer line
+msgid "You are now level {gained_level}: {title}."
+msgstr "レベル{gained_level}、{title}になりました。"
+
+#. placeholders: {gained_level}, {title}, {unlock}
+msgid ""
+"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
+msgstr "レベルアップ！レベル{gained_level}、{title}になりました。解禁：{unlock}"
 
 msgid "Run the business you built"
 msgstr "築き上げた事業を動かす"
@@ -7882,9 +8108,9 @@ msgid "Top of the leased-on ladder"
 msgstr "業務委託のはしごの頂点"
 
 msgid ""
-"You reached level 30 as a leased-on owner-operator. Own authority is the "
+"You reached level 40 as a leased-on owner-operator. Own authority is the "
 "one step left."
-msgstr "運送会社と業務委託のオーナードライバーとしてレベル30に到達しました。残る一歩は独自の運送許可だけです。"
+msgstr "業務委託のオーナードライバーとしてレベル40に達しました。残る一歩は独自の運送許可です。"
 
 msgid "proven owner-operator lane"
 msgstr "実績あるオーナードライバーのルート"
@@ -7923,8 +8149,8 @@ msgstr "最古参の会社ルート"
 msgid "Career company driver, by choice"
 msgstr "自ら選んだキャリア社員ドライバー"
 
-msgid "Level 30, the top rank. The buy-in stays open under Business status."
-msgstr "レベル30、最高ランクです。買い取りは事業状況から今も選べます。"
+msgid "Level 40, the top rank. The buy-in stays open under Business status."
+msgstr "レベル40、最高ランクです。買い取りは事業状況からいつでも選べます。"
 
 msgid "Plan the next business step"
 msgstr "事業の次の一歩を計画する"
@@ -30137,6 +30363,10 @@ msgstr "期限内配達ボーナス：{grouped}ドル。"
 msgid "Early delivery bonus: {grouped} dollars."
 msgstr "早期配達ボーナス：{grouped}ドル。"
 
+#. placeholders: {grouped}
+msgid "Experience pay: {grouped} dollars."
+msgstr "勤続手当：{grouped}ドル。"
+
 msgid "tire wear"
 msgstr "タイヤの摩耗"
 
@@ -45486,6 +45716,26 @@ msgstr "{count}センチメートル"
 msgid "{count} centimeter"
 msgstr "{count}センチメートル"
 
+#~ msgid "Career level 15, halfway up the ladder."
+#~ msgstr "キャリアレベル15、はしごの半分です。"
+
+#~ msgid "Career level 30, the top."
+#~ msgstr "キャリアレベル30、頂点です。"
+
+#~ msgid "level {level}: {title}."
+#~ msgstr "レベル{level}、{title}。"
+
+#~ msgid "level {level}: {title}. Unlock: {unlock}"
+#~ msgstr "レベル{level}、{title}。解禁：{unlock}"
+
+#~ msgid ""
+#~ "You reached level 30 as a leased-on owner-operator. Own authority is the "
+#~ "one step left."
+#~ msgstr "運送会社と業務委託のオーナードライバーとしてレベル30に到達しました。残る一歩は独自の運送許可だけです。"
+
+#~ msgid "Level 30, the top rank. The buy-in stays open under Business status."
+#~ msgstr "レベル30、最高ランクです。買い取りは事業状況から今も選べます。"
+
 #~ msgid "Station: {name}."
 #~ msgstr "観測所：{name}。"
 
@@ -47471,9 +47721,6 @@ msgstr "{count}センチメートル"
 #~ "Through the rain, wipers keeping time and your following distance keeping "
 #~ "order."
 #~ msgstr "雨の中、ワイパーがリズムを刻み、車間がきちんと保たれていました。"
-
-#~ msgid "Del Reeves - Looking at the World Through a Windshield"
-#~ msgstr "Del Reeves - Looking at the World Through a Windshield"
 
 #~ msgid "A Mile Past the Last Marker"
 #~ msgstr "最後の道標の1マイル先"

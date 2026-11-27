@@ -1,11 +1,11 @@
 //! Ported from `tests/test_career_pacing.py`, with the pacing model it drives
 //! (`tools/career_pacing.py`) carried along as the test helper below.
 //!
-//! The 30-level arc is a months-long career with steady level-up pacing.
+//! The 40-level arc is a months-long career with steady level-up pacing.
 //! These tests drive the deterministic pacing model against the real
 //! `Career::record_delivery` math, the real level thresholds, and the real
-//! dispatch distance caps. They are the design contract for the 1.9 career
-//! arc:
+//! dispatch distance caps. They are the design contract for the career arc
+//! (levels 1 to 30 from the 1.9 line, 31 to 40 from 2.0):
 //!
 //! - early levels land within a session or two, so a new driver feels motion;
 //! - the whole ladder takes on the order of months of real evenings, not days;
@@ -61,7 +61,7 @@ fn delivery_real_hours(miles: f64) -> f64 {
 
 /// Level-by-level checkpoints for one simulated career.
 fn simulate_career(seed: i64) -> Vec<LevelCheckpoint> {
-    let target_level = 30;
+    let target_level = MAX_CAREER_LEVEL;
     let max_deliveries = 20_000;
     let mut rng = PyRandom::new_from_i64(seed);
     let mut career = Career::new();
@@ -126,9 +126,9 @@ fn by_level(timeline: &[LevelCheckpoint]) -> HashMap<i64, LevelCheckpoint> {
 #[test]
 fn test_simulation_reaches_the_top_of_the_ladder() {
     let timeline = timeline();
-    assert_eq!(timeline.last().unwrap().level, 30);
+    assert_eq!(timeline.last().unwrap().level, 40);
     let levels: Vec<i64> = timeline.iter().map(|c| c.level).collect();
-    assert_eq!(levels, (1..=30).collect::<Vec<i64>>());
+    assert_eq!(levels, (1..=40).collect::<Vec<i64>>());
     let hours: Vec<f64> = timeline.iter().map(|c| c.real_hours).collect();
     assert!(hours.windows(2).all(|w| w[0] <= w[1]));
 }
@@ -152,6 +152,8 @@ fn test_the_early_arc_moves_and_the_whole_arc_takes_months() {
     // Level 30 lands after months of real play (roughly five months at two
     // hours a night, eleven at one), but not so far out nobody sees it.
     assert!((220.0..=400.0).contains(&by_level[&30].real_hours));
+    // The top, level 40, is about nine months at two hours a night.
+    assert!((480.0..=620.0).contains(&by_level[&40].real_hours));
 }
 
 #[test]
@@ -194,11 +196,27 @@ fn test_no_late_level_becomes_a_wall() {
 }
 
 #[test]
+fn test_no_level_past_thirty_becomes_a_wall() {
+    for seed in [42, 1, 7, 99] {
+        let timeline = simulate_career(seed);
+        let by_level = by_level(&timeline);
+        for level in 31..=40 {
+            let gap = by_level[&level].real_hours - by_level[&(level - 1)].real_hours;
+            assert!(
+                (1.0..=30.0).contains(&gap),
+                "seed {seed}: level {level} took {gap:.1} hours"
+            );
+        }
+    }
+}
+
+#[test]
 fn test_pacing_holds_across_seeds() {
     for seed in [1, 7, 99] {
         let timeline = simulate_career(seed);
         let by_level = by_level(&timeline);
         assert!((220.0..=420.0).contains(&by_level[&30].real_hours));
+        assert!((460.0..=640.0).contains(&by_level[&40].real_hours));
         assert!(by_level[&18].real_hours >= 60.0);
     }
 }
@@ -226,7 +244,9 @@ fn test_pacing_model_matches_cpython_to_the_float() {
         ),
     ] {
         let timeline = simulate_career(seed);
-        let last = timeline.last().unwrap();
+        // Level 30, the top of the 1.9 ladder: the thresholds below it did
+        // not move, so neither does it.
+        let last = timeline.iter().find(|c| c.level == 30).unwrap();
         let l18 = timeline.iter().find(|c| c.level == 18).unwrap();
         assert_eq!(last.deliveries, deliveries, "seed {seed}");
         assert_eq!(last.real_hours, hours, "seed {seed}");
@@ -234,4 +254,17 @@ fn test_pacing_model_matches_cpython_to_the_float() {
         assert_eq!(l18.deliveries, l18_deliveries, "seed {seed}");
         assert_eq!(l18.real_hours, l18_hours, "seed {seed}");
     }
+}
+
+#[test]
+fn test_the_forty_level_arc_matches_the_director_model() {
+    // Re-run in CPython with the 2.0 thresholds (25,000 apart past 30):
+    // seed 42 reaches 35 at 141 deliveries and about 449 hours, 40 at 167
+    // and about 540.
+    let timeline = simulate_career(42);
+    let by_level = by_level(&timeline);
+    assert_eq!(by_level[&35].deliveries, 141);
+    assert!((by_level[&35].real_hours - 449.0).abs() < 1.0);
+    assert_eq!(by_level[&40].deliveries, 167);
+    assert!((by_level[&40].real_hours - 540.0).abs() < 1.0);
 }

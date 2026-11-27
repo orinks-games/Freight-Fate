@@ -1,4 +1,4 @@
-//! Save-compatible level-band guidance for the 30-level career ladder (port
+//! Save-compatible level-band guidance for the 40-level career ladder (port
 //! of `freight_fate/models/career_level_guidance.py`).
 
 use crate::models::business::OWNER_OPERATOR_LEVEL;
@@ -42,7 +42,7 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
     let status = profile.business_status();
 
     if status == INDEPENDENT_AUTHORITY {
-        if level >= 30 {
+        if level >= 40 {
             return CareerLevelGuidance::new(
                 "Run the business you built",
                 "The top of the ladder: your name, your authority, and the freight you choose to keep.",
@@ -65,10 +65,10 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
             "",
         );
     }
-    if is_owner_operator(status) && level >= 30 {
+    if is_owner_operator(status) && level >= 40 {
         return CareerLevelGuidance::new(
             "Top of the leased-on ladder",
-            "You reached level 30 as a leased-on owner-operator. Own authority is the one step left.",
+            "You reached level 40 as a leased-on owner-operator. Own authority is the one step left.",
             "proven owner-operator lane",
             "",
         );
@@ -98,10 +98,10 @@ pub fn career_level_guidance<P: CareerProfile + ?Sized>(profile: &P) -> CareerLe
             "",
         );
     }
-    if level >= 30 {
+    if level >= 40 {
         return CareerLevelGuidance::new(
             "Career company driver, by choice",
-            "Level 30, the top rank. The buy-in stays open under Business status.",
+            "Level 40, the top rank. The buy-in stays open under Business status.",
             "top-seniority company lane",
             "",
         );

@@ -33,11 +33,14 @@ fn test_level_thresholds() {
     assert_eq!(level_for_xp(2500.0), 3);
     assert_eq!(level_for_xp(202_000.0), 20);
     assert_eq!(rank_for_level(20).title, "Established Owner-Operator");
-    assert_eq!(level_for_xp(LEVEL_XP[29]), MAX_CAREER_LEVEL);
+    assert_eq!(level_for_xp(LEVEL_XP[29]), 30);
+    assert_eq!(level_for_xp(411_999.0), 30);
+    assert_eq!(level_for_xp(412_000.0), 31);
+    assert_eq!(level_for_xp(LEVEL_XP[39]), MAX_CAREER_LEVEL);
     assert_eq!(level_for_xp(999_999.0), MAX_CAREER_LEVEL);
     assert_eq!(
         rank_for_level(MAX_CAREER_LEVEL).title,
-        "Freight Fate Independent"
+        "Freight Fate Carrier Owner"
     );
 }
 
@@ -345,8 +348,12 @@ fn test_first_twenty_thresholds_stay_save_compatible() {
             176_000.0, 202_000.0,
         ]
     );
-    assert_eq!(LEVEL_XP.len(), 30);
+    assert_eq!(LEVEL_XP.len(), 40);
     assert!(LEVEL_XP.windows(2).all(|w| w[0] <= w[1]));
+    // Levels 31 to 40 (2.0) each cost 25,000 past level 30's 387,000.
+    for (i, xp) in LEVEL_XP[30..].iter().enumerate() {
+        assert_eq!(*xp, 387_000.0 + 25_000.0 * (i as f64 + 1.0));
+    }
 }
 
 #[test]
@@ -389,6 +396,7 @@ fn test_career_round_trips_through_asdict_json() {
             "purchased_endorsements",
             "pending_credentials",
             "unacknowledged_grants",
+            "banked_levels_heard",
         ]
     );
     let old = serde_json::json!({"xp": 1200.0, "reputation": 61.0, "deliveries": 3});
@@ -399,6 +407,44 @@ fn test_career_round_trips_through_asdict_json() {
     assert!(loaded.purchased_endorsements.is_empty());
     assert!(loaded.pending_credentials.is_empty());
     assert!(loaded.unacknowledged_grants.is_empty());
+    assert!(!loaded.banked_levels_heard);
+}
+
+#[test]
+fn experience_past_thirty_is_announced_once_with_the_displayed_title() {
+    // A career that kept earning at the old top loads onto its real level.
+    let mut banked = Career::with_xp(700_000.0);
+    assert_eq!(banked.level(), 40);
+    assert_eq!(
+        banked.take_banked_levels_line("Freight Fate Road Captain"),
+        Some(
+            "Your experience past level 30 now counts. You are level 40: Freight Fate Road \
+             Captain."
+                .to_string()
+        )
+    );
+    assert!(banked.banked_levels_heard);
+    assert_eq!(banked.take_banked_levels_line("x"), None);
+
+    // Short of level 31: nothing.
+    let mut short = Career::with_xp(LEVEL_XP[30] - 1.0);
+    assert_eq!(short.take_banked_levels_line("x"), None);
+    assert!(!short.banked_levels_heard);
+
+    // A driver who crosses 30 to 31 on a delivery heard the level-up, so
+    // the line is never owed to them.
+    let mut climbing = Career::with_xp(LEVEL_XP[30] - 10.0);
+    let lines = climbing.record_delivery(500.0, 1000.0, true, 0.0, 1.0, 1.0);
+    assert!(lines
+        .iter()
+        .any(|l| l.starts_with("Level up! You are now level 31")));
+    assert!(climbing.banked_levels_heard);
+    assert_eq!(climbing.take_banked_levels_line("x"), None);
+
+    // A banked career that delivers before it reaches a terminal still owes it.
+    let mut resumed = Career::with_xp(500_000.0);
+    resumed.record_delivery(500.0, 1000.0, true, 0.0, 1.0, 1.0);
+    assert!(resumed.take_banked_levels_line("x").is_some());
 }
 
 // --- test_career_progression.py ---------------------------------------------
@@ -429,7 +475,7 @@ fn test_the_summary_says_how_much_experience_the_next_level_needs() {
 
     // At the ceiling there is no next level to owe anything to, and the
     // summary must not promise one.
-    let top = Career::with_xp(LEVEL_XP[29] + 5000.0);
+    let top = Career::with_xp(LEVEL_XP[39] + 5000.0);
     assert_eq!(top.level(), MAX_CAREER_LEVEL);
     assert_eq!(xp_to_next_level(top.xp), None);
     assert!(!top.summary().contains("more to level"));

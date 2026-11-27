@@ -60,6 +60,61 @@ pub const AUTHORITY_INSURANCE_PER_MILE: f64 = 0.14;
 pub const AUTHORITY_COMPLIANCE_PER_MILE: f64 = 0.06;
 pub const AUTHORITY_FACTORING_FEE_SHARE: f64 = 0.035;
 
+/// Long-service fee steps: an owner-operator's settlement service fee and
+/// factoring fee each drop by [`OWNER_FEE_STEP_SHARE`] at every level listed
+/// here, the way a carrier or factor prices a customer with years of clean
+/// settlements behind them. Spoken as the unlocks of levels 33, 36 and 39.
+pub const OWNER_FEE_STEP_LEVELS: [i64; 3] = [33, 36, 39];
+pub const OWNER_FEE_STEP_SHARE: f64 = 0.005;
+
+/// The share of gross the fee steps take off, at a career level. The one
+/// place the owner-operator fee table lives; `None` (no level known) is the
+/// full fee.
+pub fn owner_fee_discount_share(level: Option<i64>) -> f64 {
+    let Some(level) = level else {
+        return 0.0;
+    };
+    let steps = OWNER_FEE_STEP_LEVELS
+        .iter()
+        .filter(|l| level >= **l)
+        .count();
+    OWNER_FEE_STEP_SHARE * steps as f64
+}
+
+/// The leased-on settlement service fee share at a career level.
+pub fn owner_settlement_fee_share(level: Option<i64>) -> f64 {
+    OWNER_SETTLEMENT_FEE_SHARE - owner_fee_discount_share(level)
+}
+
+/// The factoring (billing) fee share under own authority at a career level.
+pub fn authority_factoring_fee_share(level: Option<i64>) -> f64 {
+    AUTHORITY_FACTORING_FEE_SHARE - owner_fee_discount_share(level)
+}
+
+/// Experience pay, company drivers only: the share of gross load pay the
+/// carrier adds for long service, by career level. It goes with the driver
+/// to any carrier, as pay scales by years of experience do in real
+/// trucking. Spoken as the unlocks of levels 33, 36 and 39.
+pub const EXPERIENCE_PAY_LEVELS: [(i64, f64); 3] = [(33, 0.01), (36, 0.02), (39, 0.03)];
+
+/// The experience pay share at a career level (0 below the first step, or
+/// with no level known).
+pub fn experience_pay_share(level: Option<i64>) -> f64 {
+    let Some(level) = level else {
+        return 0.0;
+    };
+    EXPERIENCE_PAY_LEVELS
+        .iter()
+        .rev()
+        .find(|(min_level, _)| level >= *min_level)
+        .map_or(0.0, |(_, share)| *share)
+}
+
+/// Experience pay on one load, in dollars.
+pub fn experience_pay(gross_pay: f64, level: Option<i64>) -> f64 {
+    round_py_n(gross_pay * experience_pay_share(level), 2)
+}
+
 // A PrePass-style weigh-in-motion transponder: the fleet's own equipment, so
 // a company driver gets one issued once dispatch trusts them with it, the
 // same shape as an endorsement the carrier sponsors at a level. An
@@ -443,10 +498,7 @@ pub fn next_business_unlock<P: BusinessProfile + ?Sized>(profile: &P) -> String 
         }
         return match next_rank_for_level(level) {
             None => "You are at the top career rank.".to_string(),
-            Some(next_rank) => format!(
-                "Next: level {}, {}. {}",
-                next_rank.level, next_rank.title, next_rank.unlock
-            ),
+            Some(next_rank) => next_rank_text(next_rank),
         };
     }
 
@@ -465,10 +517,7 @@ pub fn next_business_unlock<P: BusinessProfile + ?Sized>(profile: &P) -> String 
     if level < OWNER_OPERATOR_PREP_CHECKLIST_LEVEL {
         return match next_rank_for_level(level) {
             None => "You are at the top career rank.".to_string(),
-            Some(next_rank) => format!(
-                "Next: level {}, {}. {}",
-                next_rank.level, next_rank.title, next_rank.unlock
-            ),
+            Some(next_rank) => next_rank_text(next_rank),
         };
     }
     format!("Owner-operator gate locked: {}", reasons.join(" "))
@@ -481,10 +530,19 @@ fn company_ladder_next(level: i64) -> String {
         None => "You are at the top career rank. The owner-operator buy-in stays open under \
                  Business status if you ever want it."
             .to_string(),
-        Some(next_rank) => format!(
+        Some(next_rank) => next_rank_text(next_rank),
+    }
+}
+
+/// "Next: level N, Title." plus what that rank opens, when it opens anything.
+fn next_rank_text(next_rank: &crate::models::career_ladder::CareerRank) -> String {
+    if next_rank.unlock.is_empty() {
+        format!("Next: level {}, {}.", next_rank.level, next_rank.title)
+    } else {
+        format!(
             "Next: level {}, {}. {}",
             next_rank.level, next_rank.title, next_rank.unlock
-        ),
+        )
     }
 }
 
@@ -611,6 +669,7 @@ pub fn company_driver_pay(
     on_time: bool,
     carrier_key_value: Option<&str>,
     reputation: Option<f64>,
+    level: Option<i64>,
 ) -> f64 {
     let plan = pay_plan_for_key(carrier_key_value);
     let wage_floor = plan.stop_pay + job.credited_mi() * plan.min_per_mile;
@@ -621,6 +680,7 @@ pub fn company_driver_pay(
         0.0
     };
     bonus += reputation_pay_bonus(gross_pay, reputation);
+    bonus += experience_pay(gross_pay, level);
     round_py_n(wage_floor.max(wage_share) + bonus, 2)
 }
 
@@ -637,6 +697,7 @@ pub fn owner_operator_charges(
     gross_pay: f64,
     transponder: bool,
     record_surcharge: f64,
+    level: Option<i64>,
 ) -> Vec<BusinessCharge> {
     let miles = job.credited_mi();
     let mut charges = vec![
@@ -655,7 +716,7 @@ pub fn owner_operator_charges(
         },
         BusinessCharge {
             label: "settlement service fee",
-            amount: round_py_n(gross_pay * OWNER_SETTLEMENT_FEE_SHARE, 2),
+            amount: round_py_n(gross_pay * owner_settlement_fee_share(level), 2),
         },
     ];
     if transponder {
@@ -668,7 +729,7 @@ pub fn owner_operator_charges(
 }
 
 pub fn independent_authority_charges(job: &Job, gross_pay: f64) -> Vec<BusinessCharge> {
-    independent_authority_charges_for_trailers::<&str>(job, gross_pay, &[], false, 1.0)
+    independent_authority_charges_for_trailers::<&str>(job, gross_pay, &[], false, 1.0, None)
 }
 
 pub fn independent_authority_charges_for_trailers<S: AsRef<str>>(
@@ -677,6 +738,7 @@ pub fn independent_authority_charges_for_trailers<S: AsRef<str>>(
     owned_trailers: &[S],
     transponder: bool,
     record_surcharge: f64,
+    level: Option<i64>,
 ) -> Vec<BusinessCharge> {
     let miles = job.credited_mi();
     let owned_trailer_charge = owned_trailer_charge_per_mile(job.cargo.key, owned_trailers);
@@ -707,7 +769,7 @@ pub fn independent_authority_charges_for_trailers<S: AsRef<str>>(
         },
         BusinessCharge {
             label: "billing fee",
-            amount: round_py_n(gross_pay * AUTHORITY_FACTORING_FEE_SHARE, 2),
+            amount: round_py_n(gross_pay * authority_factoring_fee_share(level), 2),
         },
     ];
     if transponder {
@@ -743,6 +805,9 @@ pub struct SettlementTerms<'a> {
     /// record (`enforcement::record_insurance_surcharge`); 1.0 is a clean
     /// window, and a company driver is always 1.0.
     pub record_surcharge: f64,
+    /// The career level the load was hauled at, for experience pay and the
+    /// owner-operator fee steps. `None` prices as below level 33.
+    pub level: Option<i64>,
 }
 
 impl Default for SettlementTerms<'_> {
@@ -753,6 +818,7 @@ impl Default for SettlementTerms<'_> {
             reputation: None,
             transponder: false,
             record_surcharge: 1.0,
+            level: None,
         }
     }
 }
@@ -792,6 +858,7 @@ pub fn build_business_settlement(
             terms.owned_trailers,
             terms.transponder,
             terms.record_surcharge,
+            terms.level,
         );
         let raw = gross_pay - driver_charges - charges.iter().map(|c| c.amount).sum::<f64>();
         return BusinessSettlement {
@@ -806,8 +873,13 @@ pub fn build_business_settlement(
     }
     if is_owner_operator(status) {
         let gross_pay = owner_operator_gross(gross_pay);
-        let charges =
-            owner_operator_charges(job, gross_pay, terms.transponder, terms.record_surcharge);
+        let charges = owner_operator_charges(
+            job,
+            gross_pay,
+            terms.transponder,
+            terms.record_surcharge,
+            terms.level,
+        );
         let raw = gross_pay - driver_charges - charges.iter().map(|c| c.amount).sum::<f64>();
         return BusinessSettlement {
             status: status.to_string(),
@@ -820,8 +892,14 @@ pub fn build_business_settlement(
         };
     }
 
-    let raw = company_driver_pay(job, gross_pay, on_time, terms.carrier_key, terms.reputation)
-        - driver_charges;
+    let raw = company_driver_pay(
+        job,
+        gross_pay,
+        on_time,
+        terms.carrier_key,
+        terms.reputation,
+        terms.level,
+    ) - driver_charges;
     BusinessSettlement {
         status: COMPANY_DRIVER.to_string(),
         status_label: status_label(COMPANY_DRIVER),

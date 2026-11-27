@@ -79,6 +79,10 @@ Closed sets (stable enums — an unknown value is an edit):
 - `career.pending_credentials` entries: `{key, ready_at_h}` records for a
   course paid but waiting on its background check; keys come from the
   same closed set.
+- `career.banked_levels_heard`: a boolean (2.0). True once the career has
+  heard the one terminal line for experience earned past level 30 before
+  the ladder went to 40, or crossed level 30 on a delivery. It says nothing
+  about XP, so the gate only checks its type.
 
 Version tolerance (deliberate): unknown truck, trailer, buff, upgrade, or
 achievement KEYS pass the client check — a save written by a newer build

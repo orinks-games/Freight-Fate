@@ -68,10 +68,10 @@ fn test_transponder_settlement_charge_only_when_subscribed() {
         12.0,
     );
 
-    let plain = owner_operator_charges(&job, 1000.0, false, 1.0);
+    let plain = owner_operator_charges(&job, 1000.0, false, 1.0, None);
     assert!(!plain.iter().any(|c| c.label.contains("transponder")));
 
-    let with_sub = owner_operator_charges(&job, 1000.0, true, 1.0);
+    let with_sub = owner_operator_charges(&job, 1000.0, true, 1.0, None);
     let charge = with_sub
         .iter()
         .find(|c| c.label.contains("transponder"))
@@ -84,12 +84,12 @@ fn test_transponder_settlement_charge_only_when_subscribed() {
     // Own-authority settlement carries the same reserve, threaded the same way.
     let owned: [&str; 0] = [];
     let authority_plain =
-        independent_authority_charges_for_trailers(&job, 1000.0, &owned, false, 1.0);
+        independent_authority_charges_for_trailers(&job, 1000.0, &owned, false, 1.0, None);
     assert!(!authority_plain
         .iter()
         .any(|c| c.label.contains("transponder")));
     let authority_with_sub =
-        independent_authority_charges_for_trailers(&job, 1000.0, &owned, true, 1.0);
+        independent_authority_charges_for_trailers(&job, 1000.0, &owned, true, 1.0, None);
     assert!(authority_with_sub
         .iter()
         .any(|c| c.label.contains("transponder")));

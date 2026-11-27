@@ -2,7 +2,7 @@
 //! (`CityMenuState`).
 
 use ff_core::ambient_bed::BedClaim;
-use ff_core::models::business::{is_owner_operator, COMPANY_DRIVER};
+use ff_core::models::business::{display_rank_for, is_owner_operator, COMPANY_DRIVER};
 use ff_core::models::career_objectives::career_objective;
 use ff_core::models::career_training::{
     is_company_training_profile, training_guidance, TrainingStage,
@@ -548,6 +548,21 @@ impl CityMenuState {
         }
     }
 
+    /// The one-time line for experience earned past level 30 before the
+    /// ladder went to 40. Said here and never at the wheel, saved at once so
+    /// it is never said twice, and left owed by a quit before a terminal.
+    fn check_banked_levels(&mut self, ctx: &mut GameContext) {
+        let line = {
+            let p = profile_mut(ctx);
+            let title = display_rank_for(&*p).title;
+            p.career.take_banked_levels_line(title)
+        };
+        if let Some(line) = line {
+            ctx.save_profile();
+            ctx.say_with(line, Say::queued());
+        }
+    }
+
     /// Speak a trust-band change, once, when it changes -- never on a timer.
     ///
     /// The band now answers to the license and to what the driver owes as
@@ -913,6 +928,7 @@ impl Menu for CityMenuState {
         ctx.say_with(current, Say::queued().review(false));
         self.check_standing(ctx);
         self.check_credentials(ctx);
+        self.check_banked_levels(ctx);
         // After a let-go line, or on a career that was let go and taken on
         // before the badge existed.
         ctx.award_rehire_badge();

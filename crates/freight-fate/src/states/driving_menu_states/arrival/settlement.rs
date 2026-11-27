@@ -254,6 +254,9 @@ impl ArrivalState {
         let transponder = has_weigh_station_transponder(profile_of(ctx));
         let record_surcharge = enforcement::record_insurance_surcharge(profile_of(ctx));
         let business_status = profile_of(ctx).business_status.clone();
+        // The level the load was hauled at: experience pay and the fee steps
+        // follow it, so the load that crosses into level 33 is paid at 32.
+        let hauled_at_level = profile_of(ctx).career.level();
         // A company driver loses their own pay for the load, never the
         // load's revenue: the revenue is the carrier's, and charging it
         // left a refused load owing hundreds past the pay it cost. The
@@ -266,6 +269,7 @@ impl ArrivalState {
                 pay_on_time,
                 Some(carrier_key.as_str()),
                 Some(reputation_before),
+                Some(hauled_at_level),
             );
             cargo.pay_loss = round_py_n(wage * pay_loss_share(&cargo.outcome), 2);
         }
@@ -276,6 +280,7 @@ impl ArrivalState {
             reputation: Some(reputation_before),
             transponder,
             record_surcharge,
+            level: Some(hauled_at_level),
         };
         let business = ff_core::models::business::build_business_settlement(
             &business_status,
@@ -298,12 +303,18 @@ impl ArrivalState {
         } else {
             reputation_pay_bonus(business.gross_pay, Some(reputation_before))
         };
+        let experience_bonus = if is_owner_operator(&business_status) {
+            0.0
+        } else {
+            experience_pay(business.gross_pay, Some(hauled_at_level))
+        };
         let deadline_terms = SettlementTerms {
             carrier_key: Some(carrier_key.as_str()),
             owned_trailers: &owned_refs,
             reputation: None,
             transponder,
             record_surcharge,
+            level: Some(hauled_at_level),
         };
         let deadline_business = ff_core::models::business::build_business_settlement(
             &business_status,
@@ -585,6 +596,7 @@ impl ArrivalState {
                 enforcement::reputation_text(reputation_before, ctx.settings.score_display)
             ));
         }
+
         let (game_hours, market_day) = {
             let p = profile_mut_of(ctx);
             p.game_hours += elapsed_hours;
@@ -728,6 +740,13 @@ impl ArrivalState {
                 fmt_grouped(early_bonus, 0)
             ));
         }
+        let experience_line = (experience_bonus >= 1.0 && !refused).then(|| {
+            format!(
+                "Experience pay: {} dollars.",
+                fmt_grouped(experience_bonus, 0)
+            )
+        });
+        self.summary_parts.extend(experience_line.clone());
         if let Some(damage_line) = damage_summary_line(&ctx.settings, &d.trip.truck, trip_damage) {
             self.summary_parts.push(damage_line);
         }
@@ -795,6 +814,9 @@ impl ArrivalState {
         if bonus_lines.is_empty() && !refused {
             bonus_lines.push("No delivery bonus on this run.".to_string());
         }
+        // Long-service pay is not a delivery bonus: it rides beside them,
+        // and a run with none still says it earned no delivery bonus.
+        bonus_lines.extend(experience_line);
         // Condition rows carry information only when something happened: a
         // run that added no damage, a near-full tank, and an undamaged truck
         // are the unremarkable default, and the review keys still reach the

@@ -17,7 +17,7 @@ use super::{Achievement, AchievementCategory};
 /// sha256 over every category and achievement field, as the generator
 /// computed it from the Python catalog (see `catalog_digest` in the
 /// tests for the exact framing).
-pub const CATALOG_DIGEST: &str = "8cbc79f6d5f1e9024a9e944698415901abddbbffe18c1d2b8a86039f3b8952e4";
+pub const CATALOG_DIGEST: &str = "43645ccf1a410134883052dadf5a43bd3449dadb4eea013d838cb5e6332dc3f2";
 
 /// What a locked, hidden achievement speaks in place of its real name and
 /// description. Keeps a hidden badge's surprise -- the joke, the calendar
@@ -70,7 +70,7 @@ pub const CATEGORIES: [AchievementCategory; 7] = [
 
 /// Every badge, in the Python catalog's order (the achievements menu and
 /// the cloud validator's allow-list both walk it in this order).
-pub static ACHIEVEMENTS: [Achievement; 210] = [
+pub static ACHIEVEMENTS: [Achievement; 217] = [
     Achievement {
         id: "first_dispatch",
         name: "Breaker, Breaker",
@@ -496,6 +496,30 @@ pub static ACHIEVEMENTS: [Achievement; 210] = [
         hidden: false,
     },
     Achievement {
+        id: "quarter_million_miles",
+        name: "Endless Highway",
+        description: "Two hundred fifty thousand miles driven.",
+        category: "career",
+        inspiration: "The Band - Endless Highway",
+        hidden: false,
+    },
+    Achievement {
+        id: "half_million_miles",
+        name: "Miles and Miles",
+        description: "Half a million miles driven.",
+        category: "career",
+        inspiration: "Asleep at the Wheel - Miles and Miles of Texas",
+        hidden: false,
+    },
+    Achievement {
+        id: "million_miles",
+        name: "A Million Miles Away",
+        description: "A million miles driven.",
+        category: "career",
+        inspiration: "The Plimsouls - A Million Miles Away",
+        hidden: false,
+    },
+    Achievement {
         id: "hundred_grand",
         name: "Money",
         description: "100,000 dollars banked.",
@@ -832,6 +856,22 @@ pub static ACHIEVEMENTS: [Achievement; 210] = [
         hidden: false,
     },
     Achievement {
+        id: "three_hundred_deliveries",
+        name: "Roll Truck Roll",
+        description: "Three hundred deliveries.",
+        category: "career",
+        inspiration: "Red Simpson - Roll Truck Roll",
+        hidden: false,
+    },
+    Achievement {
+        id: "five_hundred_deliveries",
+        name: "The World Through a Windshield",
+        description: "Five hundred deliveries.",
+        category: "career",
+        inspiration: "Del Reeves - Looking at the World Through a Windshield",
+        hidden: false,
+    },
+    Achievement {
         id: "quarter_million_bank",
         name: "Breaking the Bank",
         description: "250,000 dollars banked.",
@@ -1058,7 +1098,7 @@ pub static ACHIEVEMENTS: [Achievement; 210] = [
     Achievement {
         id: "level_fifteen",
         name: "Halfway There",
-        description: "Career level 15, halfway up the ladder.",
+        description: "Career level 15.",
         category: "career",
         inspiration: "Bon Jovi - Livin' on a Prayer",
         hidden: false,
@@ -1074,9 +1114,25 @@ pub static ACHIEVEMENTS: [Achievement; 210] = [
     Achievement {
         id: "level_thirty",
         name: "King of the Road",
-        description: "Career level 30, the top.",
+        description: "Career level 30.",
         category: "career",
         inspiration: "Roger Miller - King of the Road",
+        hidden: false,
+    },
+    Achievement {
+        id: "level_thirty_five",
+        name: "Further On Up the Road",
+        description: "Career level 35.",
+        category: "career",
+        inspiration: "Eric Clapton - Further On Up the Road",
+        hidden: false,
+    },
+    Achievement {
+        id: "level_forty",
+        name: "End of the Line",
+        description: "Career level 40, the top.",
+        category: "career",
+        inspiration: "Traveling Wilburys - End of the Line",
         hidden: false,
     },
     Achievement {

@@ -595,6 +595,33 @@ msgstr "Elli bin mil sürüldü. Yol artık seni bırakmayacak."
 msgid "Ronnie Milsap - Prisoner of the Highway"
 msgstr "Ronnie Milsap - Prisoner of the Highway"
 
+msgid "Endless Highway"
+msgstr "Sonsuz otoyol"
+
+msgid "Two hundred fifty thousand miles driven."
+msgstr "İki yüz elli bin mil sürüldü."
+
+msgid "The Band - Endless Highway"
+msgstr "The Band - Endless Highway"
+
+msgid "Miles and Miles"
+msgstr "Millerce mil"
+
+msgid "Half a million miles driven."
+msgstr "Yarım milyon mil sürüldü."
+
+msgid "Asleep at the Wheel - Miles and Miles of Texas"
+msgstr "Asleep at the Wheel - Miles and Miles of Texas"
+
+msgid "A Million Miles Away"
+msgstr "Bir milyon mil uzakta"
+
+msgid "A million miles driven."
+msgstr "Bir milyon mil sürüldü."
+
+msgid "The Plimsouls - A Million Miles Away"
+msgstr "The Plimsouls - A Million Miles Away"
+
 msgid "Money"
 msgstr "Para"
 
@@ -1008,6 +1035,24 @@ msgstr "İki yüz teslimat."
 msgid "Emily Nenni - Long Game"
 msgstr "Emily Nenni - Long Game"
 
+msgid "Roll Truck Roll"
+msgstr "Yuvarlan tır, yuvarlan"
+
+msgid "Three hundred deliveries."
+msgstr "Üç yüz teslimat."
+
+msgid "Red Simpson - Roll Truck Roll"
+msgstr "Red Simpson - Roll Truck Roll"
+
+msgid "The World Through a Windshield"
+msgstr "Ön camdan dünya"
+
+msgid "Five hundred deliveries."
+msgstr "Beş yüz teslimat."
+
+msgid "Del Reeves - Looking at the World Through a Windshield"
+msgstr "Del Reeves - Looking at the World Through a Windshield"
+
 msgid "Breaking the Bank"
 msgstr "Kasayı patlatmak"
 
@@ -1265,8 +1310,8 @@ msgstr "Alabama - Forty Hour Week (For a Livin')"
 msgid "Halfway There"
 msgstr "Yarı yol"
 
-msgid "Career level 15, halfway up the ladder."
-msgstr "Kariyer seviyesi 15, merdivenin ortası."
+msgid "Career level 15."
+msgstr "Kariyer seviyesi 15."
 
 msgid "Bon Jovi - Livin' on a Prayer"
 msgstr "Bon Jovi - Livin' on a Prayer"
@@ -1283,11 +1328,29 @@ msgstr "Waylon Jennings - Are You Sure Hank Done It This Way"
 msgid "King of the Road"
 msgstr "Yolların kralı"
 
-msgid "Career level 30, the top."
-msgstr "Kariyer seviyesi 30, zirve."
+msgid "Career level 30."
+msgstr "Kariyer seviyesi 30."
 
 msgid "Roger Miller - King of the Road"
 msgstr "Roger Miller - King of the Road"
+
+msgid "Further On Up the Road"
+msgstr "Yolun ilerisinde"
+
+msgid "Career level 35."
+msgstr "Kariyer seviyesi 35."
+
+msgid "Eric Clapton - Further On Up the Road"
+msgstr "Eric Clapton - Further On Up the Road"
+
+msgid "End of the Line"
+msgstr "Yolun sonu"
+
+msgid "Career level 40, the top."
+msgstr "Kariyer seviyesi 40, en üst seviye."
+
+msgid "Traveling Wilburys - End of the Line"
+msgstr "Traveling Wilburys - End of the Line"
 
 msgid "Newer Iron"
 msgstr "Daha yeni demir"
@@ -7642,15 +7705,6 @@ msgstr "Yetki belgesi hazırlığı kilitli: {join}"
 msgid "You are at the top career rank."
 msgstr "En üst kariyer rütbesindesiniz."
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-msgid "Next: level {level}, {title}."
-msgstr "Sıradaki: seviye {level}, {title}."
-
-#. placeholders: {level}, {title}, {unlock}
-msgid "Next: level {level}, {title}. {unlock}"
-msgstr "Sıradaki: seviye {level}, {title}. {unlock}"
-
 #. one sentence of a longer line
 msgid "Company driver by choice."
 msgstr "Kendi tercihinizle firma şoförü."
@@ -7676,6 +7730,14 @@ msgid ""
 msgstr ""
 "En üst kariyer rütbesindesiniz. İsterseniz kendi tırının sahibi şoför "
 "geçişi İşletme durumu menüsünde açık kalır."
+
+#. placeholders: {level}, {title}
+msgid "Next: level {level}, {title}."
+msgstr "Sıradaki: seviye {level}, {title}."
+
+#. placeholders: {level}, {title}, {unlock}
+msgid "Next: level {level}, {title}. {unlock}"
+msgstr "Sıradaki: seviye {level}, {title}. {unlock}"
 
 msgid "Weigh station transponder subscription is active. "
 msgstr "Kantar istasyonu geçiş cihazı aboneliği etkin. "
@@ -7924,20 +7986,21 @@ msgstr ""
 msgid "Reminder: you hold a new {gate_label}."
 msgstr "Hatırlatma: yeni bir {gate_label} sahibisiniz."
 
+#. placeholders: {level}, {title}
 #. one sentence of a longer line
-msgid "Level up!"
-msgstr "Seviye atladınız!"
+msgid "You are level {level}: {title}."
+msgstr "Seviyeniz {level}: {title}."
 
-#. placeholders: {gained_level}, {title}, {unlock}
+#. one sentence of a longer line
+msgid "Your experience past level 30 now counts."
+msgstr "30. seviyenin ötesindeki deneyiminiz artık sayılıyor."
+
+#. placeholders: {level}, {title}
 msgid ""
-"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
+"Your experience past level 30 now counts. You are level {level}: {title}."
 msgstr ""
-"Seviye atladınız! Artık seviye {gained_level}: {title}. Açılan: {unlock}"
-
-#. placeholders: {gained_level}, {title}
-#. one sentence of a longer line
-msgid "You are now level {gained_level}: {title}."
-msgstr "Artık seviye {gained_level}: {title}."
+"30. seviyenin ötesindeki deneyiminiz artık sayılıyor. Seviyeniz {level}: "
+"{title}."
 
 #. placeholders: {level}, {title}
 msgid " Next: level {level}, {title}."
@@ -8365,13 +8428,101 @@ msgstr "Kendini kanıtlamış bağımsız bir şoför, filo yöneticisi değil."
 msgid "Freight Fate Independent"
 msgstr "Freight Fate Bağımsızı"
 
-msgid "Top career rank."
-msgstr "En üst kariyer rütbesi."
-
 msgid "A complete company-driver to independent owner-operator career."
 msgstr ""
 "Firma şoförlüğünden bağımsız, kendi tırının sahibi şoförlüğe tam bir "
 "kariyer."
+
+msgid "Preferred Carrier"
+msgstr "Tercih Edilen Taşıyıcı"
+
+msgid "Long-service owner-operator"
+msgstr "Kıdemli kendi tırının sahibi şoför"
+
+msgid "The dispatch board grows to nine offers per visit."
+msgstr "İş panosu her ziyarette dokuz teklife çıkıyor."
+
+msgid "Brokers who have used you once call you first."
+msgstr "Sizinle bir kez çalışmış aracılar önce sizi arıyor."
+
+msgid "Core Carrier"
+msgstr "Ana Taşıyıcı"
+
+msgid "On the short list shippers offer freight to first."
+msgstr "Göndericilerin yükü önce teklif ettiği kısa listedesiniz."
+
+msgid "Contract Carrier"
+msgstr "Sözleşmeli Taşıyıcı"
+
+msgid ""
+"Lower fees: the settlement service fee on leased-on loads drops to 1.5 "
+"percent, and the factoring fee under your own authority to 3 percent."
+msgstr ""
+"Daha düşük ücretler: taşıyıcıya bağlı yüklerde hesap kesimi hizmet ücreti "
+"yüzde 1,5'e, kendi yetki belgenizle faktoring ücreti yüzde 3'e düşüyor."
+
+msgid "Hauling for customers who come back for more than one load."
+msgstr "Birden fazla yük için geri gelen müşterilere taşıyorsunuz."
+
+msgid "Dedicated Carrier"
+msgstr "Daimi Taşıyıcı"
+
+msgid "A carrier customers plan their freight around."
+msgstr "Müşterilerin yük planını ona göre yaptığı bir taşıyıcı."
+
+msgid "Carrier of Choice"
+msgstr "İlk Tercih Taşıyıcı"
+
+msgid "The carrier a customer asks for by name."
+msgstr "Müşterinin adıyla istediği taşıyıcı."
+
+msgid "Senior Carrier Owner"
+msgstr "Kıdemli Taşıyıcı Sahibi"
+
+msgid ""
+"Lower fees: the settlement service fee drops to 1 percent, and the "
+"factoring fee to 2.5 percent."
+msgstr ""
+"Daha düşük ücretler: hesap kesimi hizmet ücreti yüzde 1'e, faktoring ücreti "
+"yüzde 2,5'e düşüyor."
+
+msgid "Years of clean settlements behind one truck."
+msgstr "Tek tırla yıllarca temiz hesap kesimleri."
+
+msgid "Owner-Operator Mentor"
+msgstr "Bağımsız Şoförlerin Mentoru"
+
+msgid "Newer owner-operators ask how you did it."
+msgstr ""
+"Yeni kendi tırının sahibi şoförler bunu nasıl başardığınızı soruyor."
+
+msgid "Master Carrier Owner"
+msgstr "Usta Taşıyıcı Sahibi"
+
+msgid "Nothing in the business of one truck is new to you."
+msgstr "Tek tırlık işte sizin için yeni hiçbir şey yok."
+
+msgid "Veteran Carrier Owner"
+msgstr "Emektar Taşıyıcı Sahibi"
+
+msgid ""
+"Lower fees: the settlement service fee drops to 0.5 percent, and the "
+"factoring fee to 2 percent."
+msgstr ""
+"Daha düşük ücretler: hesap kesimi hizmet ücreti yüzde 0,5'e, faktoring "
+"ücreti yüzde 2'ye düşüyor."
+
+msgid "Among the longest-serving independents on the road."
+msgstr "Yollardaki en kıdemli bağımsız şoförlerden biri."
+
+msgid "Freight Fate Carrier Owner"
+msgstr "Freight Fate Taşıyıcı Sahibi"
+
+msgid "Top career rank."
+msgstr "En üst kariyer rütbesi."
+
+msgid "The top of the owner-operator ladder."
+msgstr "Kendi tırının sahibi şoför kariyerinin zirvesi."
 
 msgid "Dedicated Company Driver"
 msgstr "Sadık Firma Şoförü"
@@ -8543,23 +8694,108 @@ msgstr ""
 msgid "Freight Fate Company Driver"
 msgstr "Freight Fate Firma Şoförü"
 
-msgid "Top company-driver career rank."
-msgstr "En üst firma şoförü kariyer rütbesi."
-
 msgid ""
 "A complete company-driver career without taking the owner-operator seat."
 msgstr ""
 "Kendi tırının sahibi şoför koltuğuna geçmeden tamamlanmış bir firma şoförü "
 "kariyeri."
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-msgid "level {level}: {title}."
-msgstr "seviye {level}: {title}."
+msgid "Driver Trainer"
+msgstr "Şoför Eğitmeni"
 
-#. placeholders: {level}, {title}, {unlock}
-msgid "level {level}: {title}. Unlock: {unlock}"
-msgstr "seviye {level}: {title}. Açılan: {unlock}"
+msgid "Long-service company driver"
+msgstr "Kıdemli firma şoförü"
+
+msgid "The carrier puts its new hires with you."
+msgstr "Taşıyıcı, yeni şoförlerini size emanet ediyor."
+
+msgid "Lead Driver Trainer"
+msgstr "Baş Şoför Eğitmeni"
+
+msgid "You train the drivers who train the new hires."
+msgstr "Yeni şoförleri eğitenleri siz eğitiyorsunuz."
+
+msgid "Road Test Examiner"
+msgstr "Direksiyon Sınavı Görevlisi"
+
+msgid ""
+"Experience pay: your carrier adds 1 percent of the load to every settlement."
+msgstr ""
+"Kıdem primi: taşıyıcınız her hesap kesimine yük bedelinin yüzde 1'ini "
+"ekliyor."
+
+msgid "The carrier trusts you to judge who is ready for a truck."
+msgstr "Taşıyıcı, kimin tıra hazır olduğuna karar vermede size güveniyor."
+
+msgid "Safety Committee Driver"
+msgstr "Güvenlik Komitesi Şoförü"
+
+msgid "A driver's seat on the carrier's safety committee."
+msgstr "Taşıyıcının güvenlik komitesinde bir şoför koltuğu."
+
+msgid "Driver Council Member"
+msgstr "Şoför Konseyi Üyesi"
+
+msgid "You speak for the drivers when the carrier sets its rules."
+msgstr "Taşıyıcı kurallarını belirlerken şoförler adına siz konuşuyorsunuz."
+
+msgid "Driver Council Chair"
+msgstr "Şoför Konseyi Başkanı"
+
+msgid "Experience pay rises to 2 percent of the load."
+msgstr "Kıdem primi yük bedelinin yüzde 2'sine çıkıyor."
+
+msgid "Leading the drivers' council."
+msgstr "Şoför konseyine başkanlık ediyorsunuz."
+
+msgid "Road Team Driver"
+msgstr "Yol Ekibi Şoförü"
+
+msgid "One of the drivers the carrier sends to speak for it."
+msgstr "Taşıyıcının kendi adına konuşmaya gönderdiği şoförlerden biri."
+
+msgid "Road Team Captain"
+msgstr "Yol Ekibi Kaptanı"
+
+msgid "Leading the carrier's road team."
+msgstr "Taşıyıcının yol ekibine liderlik ediyorsunuz."
+
+msgid "Senior Road Team Captain"
+msgstr "Kıdemli Yol Ekibi Kaptanı"
+
+msgid "Experience pay rises to 3 percent of the load."
+msgstr "Kıdem primi yük bedelinin yüzde 3'üne çıkıyor."
+
+msgid "The longest-serving captain on the road team."
+msgstr "Yol ekibinin en kıdemli kaptanı."
+
+msgid "Freight Fate Road Captain"
+msgstr "Freight Fate Yol Kaptanı"
+
+msgid "Top company-driver career rank."
+msgstr "En üst firma şoförü kariyer rütbesi."
+
+msgid "The top of the company-driver ladder."
+msgstr "Firma şoförü kariyerinin zirvesi."
+
+#. one sentence of a longer line
+msgid "Level up!"
+msgstr "Seviye atladınız!"
+
+#. placeholders: {gained_level}, {title}
+msgid "Level up! You are now level {gained_level}: {title}."
+msgstr "Seviye atladınız! Artık seviye {gained_level}: {title}."
+
+#. placeholders: {gained_level}, {title}
+#. one sentence of a longer line
+msgid "You are now level {gained_level}: {title}."
+msgstr "Artık seviye {gained_level}: {title}."
+
+#. placeholders: {gained_level}, {title}, {unlock}
+msgid ""
+"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
+msgstr ""
+"Seviye atladınız! Artık seviye {gained_level}: {title}. Açılan: {unlock}"
 
 msgid "Run the business you built"
 msgstr "Kurduğunuz işi yönetin"
@@ -8601,10 +8837,10 @@ msgid "Top of the leased-on ladder"
 msgstr "Taşıyıcıya bağlı merdivenin tepesi"
 
 msgid ""
-"You reached level 30 as a leased-on owner-operator. Own authority is the "
+"You reached level 40 as a leased-on owner-operator. Own authority is the "
 "one step left."
 msgstr ""
-"Bir taşıyıcıya bağlı, kendi tırının sahibi şoför olarak seviye 30'a "
+"Bir taşıyıcıya bağlı, kendi tırının sahibi şoför olarak seviye 40'a "
 "ulaştınız. Geriye tek adım kaldı: kendi yetki belgesi."
 
 msgid "proven owner-operator lane"
@@ -8648,9 +8884,10 @@ msgstr "en kıdemli firma güzergâhı"
 msgid "Career company driver, by choice"
 msgstr "Kendi tercihinizle kariyerlik firma şoförü"
 
-msgid "Level 30, the top rank. The buy-in stays open under Business status."
+msgid "Level 40, the top rank. The buy-in stays open under Business status."
 msgstr ""
-"Seviye 30, en üst rütbe. Tır satın alma İşletme durumu menüsünde açık kalır."
+"Seviye 40, en üst rütbe. Tır satın alma İşletme durumu menüsünde açık "
+"kalıyor."
 
 msgid "Plan the next business step"
 msgstr "Sonraki işletme adımını planlayın"
@@ -32341,6 +32578,10 @@ msgstr "Zamanında teslimat bonusu: {grouped} dolar."
 msgid "Early delivery bonus: {grouped} dollars."
 msgstr "Erken teslimat bonusu: {grouped} dolar."
 
+#. placeholders: {grouped}
+msgid "Experience pay: {grouped} dollars."
+msgstr "Kıdem primi: {grouped} dolar."
+
 msgid "tire wear"
 msgstr "lastik aşınması"
 
@@ -49364,6 +49605,29 @@ msgstr "{count} santimetre"
 msgid "{count} centimeter"
 msgstr "{count} santimetre"
 
+#~ msgid "Career level 15, halfway up the ladder."
+#~ msgstr "Kariyer seviyesi 15, merdivenin ortası."
+
+#~ msgid "Career level 30, the top."
+#~ msgstr "Kariyer seviyesi 30, zirve."
+
+#~ msgid "level {level}: {title}."
+#~ msgstr "seviye {level}: {title}."
+
+#~ msgid "level {level}: {title}. Unlock: {unlock}"
+#~ msgstr "seviye {level}: {title}. Açılan: {unlock}"
+
+#~ msgid ""
+#~ "You reached level 30 as a leased-on owner-operator. Own authority is the "
+#~ "one step left."
+#~ msgstr ""
+#~ "Bir taşıyıcıya bağlı, kendi tırının sahibi şoför olarak seviye 30'a "
+#~ "ulaştınız. Geriye tek adım kaldı: kendi yetki belgesi."
+
+#~ msgid "Level 30, the top rank. The buy-in stays open under Business status."
+#~ msgstr ""
+#~ "Seviye 30, en üst rütbe. Tır satın alma İşletme durumu menüsünde açık kalır."
+
 #~ msgid "Station: {name}."
 #~ msgstr "İstasyon: {name}."
 
@@ -51660,9 +51924,6 @@ msgstr "{count} santimetre"
 #~ "Through the rain, wipers keeping time and your following distance keeping "
 #~ "order."
 #~ msgstr "Yağmurda, silecekler tempo tuttu, takip mesafeniz de düzeni."
-
-#~ msgid "Del Reeves - Looking at the World Through a Windshield"
-#~ msgstr "Del Reeves - Looking at the World Through a Windshield"
 
 #~ msgid "A Mile Past the Last Marker"
 #~ msgstr "Son Tabeladan Bir Mil Öte"

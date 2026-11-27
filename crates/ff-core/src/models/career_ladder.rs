@@ -1,10 +1,10 @@
-//! Structured 30-level career ladders: the owner-operator arc and the
+//! Structured 40-level career ladders: the owner-operator arc and the
 //! parallel company/fleet arc (port of `freight_fate/models/career_ladder.py`).
 
 use serde::Serialize;
 
 pub const STARTER_CARRIER_NAME: &str = "Northstar Freight Lines";
-pub const MAX_CAREER_LEVEL: i64 = 30;
+pub const MAX_CAREER_LEVEL: i64 = 40;
 
 /// One rung of the ladder. A static catalogue entry, so it serialises but is
 /// never read back from a save.
@@ -33,7 +33,7 @@ const fn rank(
     }
 }
 
-pub const CAREER_RANKS: [CareerRank; 30] = [
+pub const CAREER_RANKS: [CareerRank; 40] = [
     rank(
         1,
         "Yard Trainee",
@@ -253,15 +253,85 @@ pub const CAREER_RANKS: [CareerRank; 30] = [
         30,
         "Freight Fate Independent",
         "Established owner-operator",
-        "Top career rank.",
+        "",
         "A complete company-driver to independent owner-operator career.",
+    ),
+    rank(
+        31,
+        "Preferred Carrier",
+        "Long-service owner-operator",
+        "The dispatch board grows to nine offers per visit.",
+        "Brokers who have used you once call you first.",
+    ),
+    rank(
+        32,
+        "Core Carrier",
+        "Long-service owner-operator",
+        "",
+        "On the short list shippers offer freight to first.",
+    ),
+    rank(
+        33,
+        "Contract Carrier",
+        "Long-service owner-operator",
+        "Lower fees: the settlement service fee on leased-on loads drops to 1.5 percent, and the factoring fee under your own authority to 3 percent.",
+        "Hauling for customers who come back for more than one load.",
+    ),
+    rank(
+        34,
+        "Dedicated Carrier",
+        "Long-service owner-operator",
+        "",
+        "A carrier customers plan their freight around.",
+    ),
+    rank(
+        35,
+        "Carrier of Choice",
+        "Long-service owner-operator",
+        "",
+        "The carrier a customer asks for by name.",
+    ),
+    rank(
+        36,
+        "Senior Carrier Owner",
+        "Long-service owner-operator",
+        "Lower fees: the settlement service fee drops to 1 percent, and the factoring fee to 2.5 percent.",
+        "Years of clean settlements behind one truck.",
+    ),
+    rank(
+        37,
+        "Owner-Operator Mentor",
+        "Long-service owner-operator",
+        "",
+        "Newer owner-operators ask how you did it.",
+    ),
+    rank(
+        38,
+        "Master Carrier Owner",
+        "Long-service owner-operator",
+        "",
+        "Nothing in the business of one truck is new to you.",
+    ),
+    rank(
+        39,
+        "Veteran Carrier Owner",
+        "Long-service owner-operator",
+        "Lower fees: the settlement service fee drops to 0.5 percent, and the factoring fee to 2 percent.",
+        "Among the longest-serving independents on the road.",
+    ),
+    rank(
+        40,
+        "Freight Fate Carrier Owner",
+        "Long-service owner-operator",
+        "Top career rank.",
+        "The top of the owner-operator ladder.",
     ),
 ];
 
 /// Parallel ladder for drivers who stay on (or return to) company payroll.
 /// Levels 1-14 match [`CAREER_RANKS`]; from 15 on the titles and goals are
 /// senior company / fleet ranks instead of the owner-operator arc.
-pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
+pub const COMPANY_CAREER_RANKS: [CareerRank; 40] = [
     rank(
         1,
         "Yard Trainee",
@@ -477,8 +547,78 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 30] = [
         30,
         "Freight Fate Company Driver",
         "Lifetime company driver",
-        "Top company-driver career rank.",
+        "",
         "A complete company-driver career without taking the owner-operator seat.",
+    ),
+    rank(
+        31,
+        "Driver Trainer",
+        "Long-service company driver",
+        "The dispatch board grows to nine offers per visit.",
+        "The carrier puts its new hires with you.",
+    ),
+    rank(
+        32,
+        "Lead Driver Trainer",
+        "Long-service company driver",
+        "",
+        "You train the drivers who train the new hires.",
+    ),
+    rank(
+        33,
+        "Road Test Examiner",
+        "Long-service company driver",
+        "Experience pay: your carrier adds 1 percent of the load to every settlement.",
+        "The carrier trusts you to judge who is ready for a truck.",
+    ),
+    rank(
+        34,
+        "Safety Committee Driver",
+        "Long-service company driver",
+        "",
+        "A driver's seat on the carrier's safety committee.",
+    ),
+    rank(
+        35,
+        "Driver Council Member",
+        "Long-service company driver",
+        "",
+        "You speak for the drivers when the carrier sets its rules.",
+    ),
+    rank(
+        36,
+        "Driver Council Chair",
+        "Long-service company driver",
+        "Experience pay rises to 2 percent of the load.",
+        "Leading the drivers' council.",
+    ),
+    rank(
+        37,
+        "Road Team Driver",
+        "Long-service company driver",
+        "",
+        "One of the drivers the carrier sends to speak for it.",
+    ),
+    rank(
+        38,
+        "Road Team Captain",
+        "Long-service company driver",
+        "",
+        "Leading the carrier's road team.",
+    ),
+    rank(
+        39,
+        "Senior Road Team Captain",
+        "Long-service company driver",
+        "Experience pay rises to 3 percent of the load.",
+        "The longest-serving captain on the road team.",
+    ),
+    rank(
+        40,
+        "Freight Fate Road Captain",
+        "Long-service company driver",
+        "Top company-driver career rank.",
+        "The top of the company-driver ladder.",
     ),
 ];
 
@@ -542,6 +682,22 @@ pub fn display_rank_for_level(
     }
 }
 
+/// The spoken level-up line for one rank. A rank that opens nothing says its
+/// level and title and stops: the game does not invent an unlock sentence.
+pub fn level_up_line(gained_level: i64, rank: &CareerRank) -> String {
+    if rank.unlock.is_empty() {
+        format!(
+            "Level up! You are now level {gained_level}: {}.",
+            rank.title
+        )
+    } else {
+        format!(
+            "Level up! You are now level {gained_level}: {}. Unlock: {}",
+            rank.title, rank.unlock
+        )
+    }
+}
+
 /// Rewrite level-up lines so a company-path driver hears company titles.
 pub fn relabel_level_up_announcements(
     messages: &mut [String],
@@ -558,14 +714,11 @@ pub fn relabel_level_up_announcements(
         if oo.title == company.title && oo.unlock == company.unlock {
             continue;
         }
-        let from = format!("level {level}: {}. Unlock: {}", oo.title, oo.unlock);
-        let to = format!(
-            "level {level}: {}. Unlock: {}",
-            company.title, company.unlock
-        );
+        let from = level_up_line(level, oo);
+        let to = level_up_line(level, company);
         for message in messages.iter_mut() {
-            if message.starts_with("Level up!") {
-                *message = message.replace(&from, &to);
+            if let Some(rest) = message.strip_prefix(&from) {
+                *message = format!("{to}{rest}");
             }
         }
     }
@@ -582,9 +735,14 @@ mod tests {
     fn test_every_rank_describes_a_real_unlock() {
         assert_eq!(CAREER_RANKS.len() as i64, MAX_CAREER_LEVEL);
         assert_eq!(COMPANY_CAREER_RANKS.len() as i64, MAX_CAREER_LEVEL);
-        assert_eq!(MAX_CAREER_LEVEL, 30);
+        assert_eq!(MAX_CAREER_LEVEL, 40);
+        // Levels 1 to 29 each open something; from 30 on a rank may open
+        // nothing, and then its unlock is empty rather than invented.
         for rank in CAREER_RANKS.iter().chain(COMPANY_CAREER_RANKS.iter()) {
-            assert!(!rank.unlock.trim().is_empty());
+            if rank.level < 30 || rank.level == MAX_CAREER_LEVEL {
+                assert!(!rank.unlock.trim().is_empty(), "level {}", rank.level);
+            }
+            assert_eq!(rank.unlock, rank.unlock.trim());
             assert!(!rank.status.trim().is_empty());
         }
     }
@@ -602,16 +760,22 @@ mod tests {
     }
 
     #[test]
-    fn test_thirty_level_ladder_has_business_arc_titles() {
-        assert_eq!(CAREER_RANKS.len(), 30);
+    fn test_forty_level_ladder_has_business_arc_titles() {
+        assert_eq!(CAREER_RANKS.len(), 40);
         let levels: Vec<i64> = CAREER_RANKS.iter().map(|r| r.level).collect();
-        assert_eq!(levels, (1..=30).collect::<Vec<i64>>());
+        assert_eq!(levels, (1..=40).collect::<Vec<i64>>());
+        let company: Vec<i64> = COMPANY_CAREER_RANKS.iter().map(|r| r.level).collect();
+        assert_eq!(company, levels);
         assert_eq!(CAREER_RANKS[0].title, "Yard Trainee");
         assert_eq!(CAREER_RANKS[4].title, "Regional Regular");
         assert_eq!(CAREER_RANKS[14].title, "Owner-Operator Candidate");
         assert_eq!(CAREER_RANKS[17].title, "Leased-On Owner-Operator");
         assert_eq!(CAREER_RANKS[24].title, "Independent Authority Operator");
         assert_eq!(CAREER_RANKS[29].title, "Freight Fate Independent");
+        assert_eq!(CAREER_RANKS[30].title, "Preferred Carrier");
+        assert_eq!(CAREER_RANKS[39].title, "Freight Fate Carrier Owner");
+        assert!(CAREER_RANKS[29].unlock.is_empty());
+        assert!(COMPANY_CAREER_RANKS[29].unlock.is_empty());
     }
 
     #[test]
@@ -621,7 +785,7 @@ mod tests {
         assert_eq!(rank_for_level(20).title, "Established Owner-Operator");
         assert_eq!(
             rank_for_level(MAX_CAREER_LEVEL).title,
-            "Freight Fate Independent"
+            "Freight Fate Carrier Owner"
         );
     }
 
@@ -629,11 +793,12 @@ mod tests {
     fn rank_lookup_clamps_and_next_rank_stops_at_the_top() {
         assert_eq!(rank_for_level(0).level, 1);
         assert_eq!(rank_for_level(-5).level, 1);
-        assert_eq!(rank_for_level(99).level, 30);
+        assert_eq!(rank_for_level(99).level, 40);
         assert_eq!(next_rank_for_level(1).unwrap().level, 2);
-        assert_eq!(next_rank_for_level(29).unwrap().level, 30);
-        assert!(next_rank_for_level(30).is_none());
-        assert!(next_rank_for_level(31).is_none());
+        assert_eq!(next_rank_for_level(39).unwrap().level, 40);
+        assert!(next_rank_for_level(40).is_none());
+        assert!(next_rank_for_level(41).is_none());
+        assert!(next_company_rank_for_level(40).is_none());
         assert_eq!(STARTER_CARRIER_NAME, "Northstar Freight Lines");
     }
 
@@ -658,7 +823,7 @@ mod tests {
 
     #[test]
     fn company_ladder_diverges_from_owner_operator_titles_past_prep() {
-        assert_eq!(COMPANY_CAREER_RANKS.len(), 30);
+        assert_eq!(COMPANY_CAREER_RANKS.len(), 40);
         assert_eq!(COMPANY_RANK_FORK_LEVEL, 18);
         for level in 1..=14 {
             assert_eq!(
@@ -676,6 +841,18 @@ mod tests {
         );
         assert_ne!(company_rank_for_level(18).title, rank_for_level(18).title);
         assert_ne!(company_rank_for_level(30).title, rank_for_level(30).title);
+        assert_eq!(company_rank_for_level(31).title, "Driver Trainer");
+        assert_eq!(
+            company_rank_for_level(40).title,
+            "Freight Fate Road Captain"
+        );
+        for level in 31..=40 {
+            assert_eq!(rank_for_level(level).stage, "Long-service owner-operator");
+            assert_eq!(
+                company_rank_for_level(level).stage,
+                "Long-service company driver"
+            );
+        }
         assert!(COMPANY_CAREER_RANKS[16]
             .unlock
             .to_lowercase()
@@ -730,6 +907,41 @@ mod tests {
             !messages[0].contains("Leased-On Owner-Operator"),
             "{}",
             messages[0]
+        );
+    }
+
+    #[test]
+    fn a_rank_that_opens_nothing_says_its_level_and_title_and_stops() {
+        assert_eq!(
+            level_up_line(32, rank_for_level(32)),
+            "Level up! You are now level 32: Core Carrier."
+        );
+        assert_eq!(
+            level_up_line(31, rank_for_level(31)),
+            "Level up! You are now level 31: Preferred Carrier. Unlock: The dispatch board \
+             grows to nine offers per visit."
+        );
+        assert_eq!(
+            level_up_line(30, rank_for_level(30)),
+            "Level up! You are now level 30: Freight Fate Independent."
+        );
+    }
+
+    #[test]
+    fn relabel_swaps_an_unlock_free_line_for_the_company_title() {
+        let mut messages = vec![
+            level_up_line(32, rank_for_level(32)),
+            level_up_line(33, rank_for_level(33)),
+        ];
+        relabel_level_up_announcements(&mut messages, 31, 33, true);
+        assert_eq!(
+            messages[0],
+            "Level up! You are now level 32: Lead Driver Trainer."
+        );
+        assert_eq!(
+            messages[1],
+            "Level up! You are now level 33: Road Test Examiner. Unlock: Experience pay: \
+             your carrier adds 1 percent of the load to every settlement."
         );
     }
 }

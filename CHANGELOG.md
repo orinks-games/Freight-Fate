@@ -82,6 +82,11 @@
 - **Simulated high winds now vary and ease off over a few hours.** Live weather reads the wind at the bridge itself.
 - **You can call dispatch while stopped about the trip.** Report a delay, your hours, road conditions, truck trouble or load trouble.
 - **Twenty-six new achievements,** earned in Alaska and Canada, at customs, with cattle, with one carrier, on a restart and at the Laredo yards.
+- **The career ladder goes to level 40,** with new titles for company drivers and owner-operators. The dispatch board shows nine offers from level 31.
+- **Experience earned past level 30 now counts.** A long-time career lands on its new level and hears it once at the terminal.
+- **Company drivers earn experience pay from level 33,** 1 percent of each load, rising to 3 percent at level 39.
+- **Owner-operator settlement service and billing fees drop at levels 33, 36 and 39,** half a point each time.
+- **Seven new career achievements,** for levels 35 and 40, 300 and 500 deliveries, and a quarter, half and full million miles.
 - **Billboards follow each state's and province's sign law,** with attraction boards across Canada and plain lines in Alaska and wherever else boards are banned.
 - **Billboards notice what you haul.** Cattle, a reefer load or doubles get their own signs, and now and then a board names your carrier.
 - **Canadian roads keep Canada's holidays.** Canada Day and October's Thanksgiving get their own boards.

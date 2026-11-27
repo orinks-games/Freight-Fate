@@ -768,6 +768,42 @@ msgid "Ronnie Milsap - Prisoner of the Highway"
 msgstr ""
 
 #: crates/ff-core/src/achievements/catalog.rs
+msgid "Endless Highway"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Two hundred fifty thousand miles driven."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "The Band - Endless Highway"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Miles and Miles"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Half a million miles driven."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Asleep at the Wheel - Miles and Miles of Texas"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "A Million Miles Away"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "A million miles driven."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "The Plimsouls - A Million Miles Away"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
 msgid "Money"
 msgstr ""
 
@@ -1289,6 +1325,30 @@ msgid "Emily Nenni - Long Game"
 msgstr ""
 
 #: crates/ff-core/src/achievements/catalog.rs
+msgid "Roll Truck Roll"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Three hundred deliveries."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Red Simpson - Roll Truck Roll"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "The World Through a Windshield"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Five hundred deliveries."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Del Reeves - Looking at the World Through a Windshield"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
 msgid "Breaking the Bank"
 msgstr ""
 
@@ -1631,7 +1691,7 @@ msgid "Halfway There"
 msgstr ""
 
 #: crates/ff-core/src/achievements/catalog.rs
-msgid "Career level 15, halfway up the ladder."
+msgid "Career level 15."
 msgstr ""
 
 #: crates/ff-core/src/achievements/catalog.rs
@@ -1655,11 +1715,35 @@ msgid "King of the Road"
 msgstr ""
 
 #: crates/ff-core/src/achievements/catalog.rs
-msgid "Career level 30, the top."
+msgid "Career level 30."
 msgstr ""
 
 #: crates/ff-core/src/achievements/catalog.rs
 msgid "Roger Miller - King of the Road"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Further On Up the Road"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Career level 35."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Eric Clapton - Further On Up the Road"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "End of the Line"
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Career level 40, the top."
+msgstr ""
+
+#: crates/ff-core/src/achievements/catalog.rs
+msgid "Traveling Wilburys - End of the Line"
 msgstr ""
 
 #: crates/ff-core/src/achievements/catalog.rs
@@ -8802,17 +8886,6 @@ msgstr ""
 msgid "You are at the top career rank."
 msgstr ""
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-#: crates/ff-core/src/models/business.rs
-msgid "Next: level {level}, {title}."
-msgstr ""
-
-#. placeholders: {level}, {title}, {unlock}
-#: crates/ff-core/src/models/business.rs
-msgid "Next: level {level}, {title}. {unlock}"
-msgstr ""
-
 #. one sentence of a longer line
 #: crates/ff-core/src/models/business.rs
 msgid "Company driver by choice."
@@ -8838,6 +8911,16 @@ msgstr ""
 msgid ""
 "You are at the top career rank. The owner-operator buy-in stays open under "
 "Business status if you ever want it."
+msgstr ""
+
+#. placeholders: {level}, {title}
+#: crates/ff-core/src/models/business.rs
+msgid "Next: level {level}, {title}."
+msgstr ""
+
+#. placeholders: {level}, {title}, {unlock}
+#: crates/ff-core/src/models/business.rs
+msgid "Next: level {level}, {title}. {unlock}"
 msgstr ""
 
 #: crates/ff-core/src/models/business.rs
@@ -9093,21 +9176,21 @@ msgstr ""
 msgid "Reminder: you hold a new {gate_label}."
 msgstr ""
 
+#. placeholders: {level}, {title}
 #. one sentence of a longer line
 #: crates/ff-core/src/models/career.rs
-msgid "Level up!"
+msgid "You are level {level}: {title}."
 msgstr ""
 
-#. placeholders: {gained_level}, {title}, {unlock}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/career.rs
+msgid "Your experience past level 30 now counts."
+msgstr ""
+
+#. placeholders: {level}, {title}
 #: crates/ff-core/src/models/career.rs
 msgid ""
-"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
-msgstr ""
-
-#. placeholders: {gained_level}, {title}
-#. one sentence of a longer line
-#: crates/ff-core/src/models/career.rs
-msgid "You are now level {gained_level}: {title}."
+"Your experience past level 30 now counts. You are level {level}: {title}."
 msgstr ""
 
 #. placeholders: {level}, {title}
@@ -9593,11 +9676,117 @@ msgid "Freight Fate Independent"
 msgstr ""
 
 #: crates/ff-core/src/models/career_ladder.rs
+msgid "A complete company-driver to independent owner-operator career."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Preferred Carrier"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Long-service owner-operator"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "The dispatch board grows to nine offers per visit."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Brokers who have used you once call you first."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Core Carrier"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "On the short list shippers offer freight to first."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Contract Carrier"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid ""
+"Lower fees: the settlement service fee on leased-on loads drops to 1.5 "
+"percent, and the factoring fee under your own authority to 3 percent."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Hauling for customers who come back for more than one load."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Dedicated Carrier"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "A carrier customers plan their freight around."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Carrier of Choice"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "The carrier a customer asks for by name."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Senior Carrier Owner"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid ""
+"Lower fees: the settlement service fee drops to 1 percent, and the "
+"factoring fee to 2.5 percent."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Years of clean settlements behind one truck."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Owner-Operator Mentor"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Newer owner-operators ask how you did it."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Master Carrier Owner"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Nothing in the business of one truck is new to you."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Veteran Carrier Owner"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid ""
+"Lower fees: the settlement service fee drops to 0.5 percent, and the "
+"factoring fee to 2 percent."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Among the longest-serving independents on the road."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Freight Fate Carrier Owner"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
 msgid "Top career rank."
 msgstr ""
 
 #: crates/ff-core/src/models/career_ladder.rs
-msgid "A complete company-driver to independent owner-operator career."
+msgid "The top of the owner-operator ladder."
 msgstr ""
 
 #: crates/ff-core/src/models/career_ladder.rs
@@ -9806,23 +9995,131 @@ msgid "Freight Fate Company Driver"
 msgstr ""
 
 #: crates/ff-core/src/models/career_ladder.rs
-msgid "Top company-driver career rank."
-msgstr ""
-
-#: crates/ff-core/src/models/career_ladder.rs
 msgid ""
 "A complete company-driver career without taking the owner-operator seat."
 msgstr ""
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
 #: crates/ff-core/src/models/career_ladder.rs
-msgid "level {level}: {title}."
+msgid "Driver Trainer"
 msgstr ""
 
-#. placeholders: {level}, {title}, {unlock}
 #: crates/ff-core/src/models/career_ladder.rs
-msgid "level {level}: {title}. Unlock: {unlock}"
+msgid "Long-service company driver"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "The carrier puts its new hires with you."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Lead Driver Trainer"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "You train the drivers who train the new hires."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Road Test Examiner"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid ""
+"Experience pay: your carrier adds 1 percent of the load to every settlement."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "The carrier trusts you to judge who is ready for a truck."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Safety Committee Driver"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "A driver's seat on the carrier's safety committee."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Driver Council Member"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "You speak for the drivers when the carrier sets its rules."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Driver Council Chair"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Experience pay rises to 2 percent of the load."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Leading the drivers' council."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Road Team Driver"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "One of the drivers the carrier sends to speak for it."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Road Team Captain"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Leading the carrier's road team."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Senior Road Team Captain"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Experience pay rises to 3 percent of the load."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "The longest-serving captain on the road team."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Freight Fate Road Captain"
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Top company-driver career rank."
+msgstr ""
+
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "The top of the company-driver ladder."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Level up!"
+msgstr ""
+
+#. placeholders: {gained_level}, {title}
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "Level up! You are now level {gained_level}: {title}."
+msgstr ""
+
+#. placeholders: {gained_level}, {title}
+#. one sentence of a longer line
+#: crates/ff-core/src/models/career_ladder.rs
+msgid "You are now level {gained_level}: {title}."
+msgstr ""
+
+#. placeholders: {gained_level}, {title}, {unlock}
+#: crates/ff-core/src/models/career_ladder.rs
+msgid ""
+"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
 msgstr ""
 
 #: crates/ff-core/src/models/career_level_guidance.rs
@@ -9872,7 +10169,7 @@ msgstr ""
 
 #: crates/ff-core/src/models/career_level_guidance.rs
 msgid ""
-"You reached level 30 as a leased-on owner-operator. Own authority is the "
+"You reached level 40 as a leased-on owner-operator. Own authority is the "
 "one step left."
 msgstr ""
 
@@ -9925,7 +10222,7 @@ msgid "Career company driver, by choice"
 msgstr ""
 
 #: crates/ff-core/src/models/career_level_guidance.rs
-msgid "Level 30, the top rank. The buy-in stays open under Business status."
+msgid "Level 40, the top rank. The buy-in stays open under Business status."
 msgstr ""
 
 #: crates/ff-core/src/models/career_level_guidance.rs
@@ -37189,6 +37486,11 @@ msgstr ""
 #. placeholders: {grouped}
 #: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
 msgid "Early delivery bonus: {grouped} dollars."
+msgstr ""
+
+#. placeholders: {grouped}
+#: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs
+msgid "Experience pay: {grouped} dollars."
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_menu_states/arrival/settlement.rs

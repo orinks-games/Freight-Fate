@@ -60,7 +60,7 @@ fn catalog_digest() -> String {
 #[test]
 fn the_generated_catalog_matches_the_python_source_digest() {
     assert_eq!(catalog_digest(), CATALOG_DIGEST);
-    assert_eq!(ACHIEVEMENTS.len(), 210);
+    assert_eq!(ACHIEVEMENTS.len(), 217);
     assert_eq!(CATEGORIES.len(), 7);
 }
 
