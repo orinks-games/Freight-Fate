@@ -252,10 +252,8 @@ fn cargo_build(
     } else {
         cmd.env_remove("HEARKEN_SEAL_KEY");
     }
-    let toolchain_file = root
-        .join(CRATE_DIR)
-        .join("cmake")
-        .join("sdl2-android-toolchain.cmake");
+    let cmake_dir = root.join(CRATE_DIR).join("cmake");
+    let toolchain_file = cmake_dir.join("sdl2-android-toolchain.cmake");
     // CMake's own Android support (Prism) reads ANDROID_NDK; the NDK's
     // toolchain file (SDL2, through SDL2_TOOLCHAIN) reads the rest.
     cmd.current_dir(&root)
@@ -272,10 +270,65 @@ fn cargo_build(
     if std::env::var_os("CMAKE_GENERATOR").is_none() {
         cmd.env("CMAKE_GENERATOR", "Ninja");
     }
+    let triple = triple(abi)?;
+    let profile_dir = target_dir()
+        .join(triple)
+        .join(if release { "release" } else { "debug" });
+    let sdl_settings = sdl_settings_hash(&cmake_dir)?;
+    let stamp = profile_dir.join(SDL_SETTINGS_STAMP);
+    if std::fs::read_to_string(&stamp).ok().as_deref() != Some(sdl_settings.as_str()) {
+        clean_sdl(triple, release, cargo_config)?;
+    }
     util::run(&mut cmd)?;
-    Ok(target_dir()
-        .join(triple(abi)?)
-        .join(if release { "release" } else { "debug" }))
+    std::fs::write(&stamp, &sdl_settings).map_err(|e| format!("{}: {e}", stamp.display()))?;
+    Ok(profile_dir)
+}
+
+/// Beside each Android build: the hash of the `cmake/` files its SDL2 was
+/// built with.
+const SDL_SETTINGS_STAMP: &str = "sdl2-settings.sha256";
+
+/// One hash over the files in `cmake/`, which shape the SDL2 that sdl2-sys
+/// builds. Its build script names nothing to rerun on, so Cargo would keep
+/// an SDL built with older ones; [`cargo_build`] cleans sdl2-sys when this
+/// changes.
+fn sdl_settings_hash(cmake_dir: &Path) -> Result<String> {
+    use sha2::{Digest, Sha256};
+    let mut files: Vec<PathBuf> = std::fs::read_dir(cmake_dir)
+        .map_err(|e| format!("{}: {e}", cmake_dir.display()))?
+        .filter_map(|entry| entry.ok().map(|e| e.path()))
+        .filter(|path| path.is_file())
+        .collect();
+    files.sort();
+    let mut hasher = Sha256::new();
+    for file in &files {
+        hasher.update(
+            file.file_name()
+                .unwrap_or_default()
+                .to_string_lossy()
+                .as_bytes(),
+        );
+        hasher.update([0]);
+        hasher.update(util::file_sha256(file)?.as_bytes());
+        hasher.update([0]);
+    }
+    Ok(hex::encode(hasher.finalize()))
+}
+
+/// Make the next build compile SDL2 again.
+fn clean_sdl(triple: &str, release: bool, cargo_config: Option<&str>) -> Result<()> {
+    println!("SDL2's build settings changed; rebuilding SDL2");
+    let mut cmd = Command::new("cargo");
+    cmd.arg("clean");
+    if let Some(config) = cargo_config {
+        cmd.args(["--config", config]);
+    }
+    cmd.args(["-p", "sdl2-sys", "--target", triple]);
+    if release {
+        cmd.arg("--release");
+    }
+    cmd.current_dir(util::repo_root());
+    util::run(&mut cmd)
 }
 
 /// The native libraries the APK carries, by file name.

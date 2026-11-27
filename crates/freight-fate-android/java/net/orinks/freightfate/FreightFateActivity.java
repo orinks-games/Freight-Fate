@@ -8,6 +8,7 @@
 
 package net.orinks.freightfate;
 
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
@@ -195,6 +196,28 @@ public class FreightFateActivity extends SDLActivity {
                 break;
         }
         vibrator.vibrate(VibrationEffect.createPredefined(effect));
+    }
+
+    /** The orientation request a lock replaced, put back when it ends. */
+    private Integer orientationBeforeLock;
+
+    /**
+     * Hold the screen in the orientation it has, for tilt steering at the
+     * wheel, or put back the request it replaced (the one SDL made when the
+     * window was made). Runs on the UI thread.
+     */
+    public void lockOrientation(boolean lock) {
+        runOnUiThread(() -> {
+            if (lock) {
+                if (orientationBeforeLock == null) {
+                    orientationBeforeLock = getRequestedOrientation();
+                }
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+            } else if (orientationBeforeLock != null) {
+                setRequestedOrientation(orientationBeforeLock);
+                orientationBeforeLock = null;
+            }
+        });
     }
 
     private PadRumble padRumble;

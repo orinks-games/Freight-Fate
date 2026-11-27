@@ -1662,10 +1662,13 @@ Everything found before 2026-09-25 moved to
       the wheel and turns again in menus (the lock goes through SDL's
       orientation hint and `ios/ff_orientation.m`), and tilt with VoiceOver
       on.
-- [ ] (Found along the way) Tilt steering on Android: the sensor path is
-      shared and compiles, but it was never run on a phone, and the screen
-      does not lock there (SDL reads its orientation hint only when the
-      window is made).
+- [x] Tilt steering on Android (2026-11-24): SDL's sensor module is built
+      again (a stand-in header replaces the `ALooper_pollAll` that NDK r27
+      and later refuse), and the activity holds the screen's orientation
+      while tilt is at the wheel, putting back SDL's request when it ends
+      (SDL reads its orientation hint only when the window is made). Driven
+      on a Pixel 10 Pro: it steers the right way and the screen stays put
+      during the drive.
 - [x] Second layer bumper (2026-11-18, a player's request): Settings,
       Gameplay, Controls swaps the bumpers, so the left bumper holds the
       second layer and the right bumper is the clutch. The pad's presses

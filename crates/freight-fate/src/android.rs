@@ -169,6 +169,27 @@ pub fn haptic(kind: i32) {
     }
 }
 
+/// Hold the screen in the orientation it has, or let it turn again: tilt
+/// steering at the wheel. SDL reads its orientation hint only when the
+/// window is made, so the activity asks Android itself.
+pub fn lock_orientation(lock: bool) {
+    let (Some(vm), Some(activity)) = (VM.get(), ACTIVITY.get()) else {
+        return;
+    };
+    let result = vm.attach_current_thread(|env| -> jni::errors::Result<()> {
+        env.call_method(
+            activity.as_obj(),
+            jni_str!("lockOrientation"),
+            jni_sig!((lock: boolean) -> void),
+            &[jni::JValue::Bool(lock.into())],
+        )?;
+        Ok(())
+    });
+    if let Err(err) = result {
+        log::warn!("Orientation lock failed: {err}");
+    }
+}
+
 /// Rumble a controller through Android, for one SDL cannot rumble (a
 /// controller on Bluetooth): both motors 0 to 65535 for `duration_ms`, as
 /// SDL takes them; 0 and 0 stops them. The activity plays it on its own
