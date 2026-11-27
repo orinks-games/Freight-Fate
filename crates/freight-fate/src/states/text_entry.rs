@@ -173,6 +173,21 @@ mod tests {
         entry.apply_ios_edit("a\nb", 2);
         assert_eq!((entry.text().as_str(), entry.cursor), ("abc", 1));
     }
+
+    #[test]
+    fn native_field_truncates_paste_at_the_cursor_and_keeps_the_suffix() {
+        let mut entry = TextEntryCore::new("Heading", "Field");
+        entry.max_len = 5;
+        entry.set_text("Abc");
+        entry.apply_ios_edit("A🚚xybc", 5);
+        assert_eq!((entry.text().as_str(), entry.cursor), ("A🚚xbc", 3));
+        entry.apply_ios_edit("A🚚xxyzbc", 7);
+        assert_eq!((entry.text().as_str(), entry.cursor), ("A🚚xbc", 3));
+
+        entry.set_text("Abccd");
+        entry.apply_ios_edit("AbZZZZcd", 6);
+        assert_eq!((entry.text().as_str(), entry.cursor), ("AbZcd", 3));
+    }
 }
 
 /// The field itself: what the Python class kept on `self`.
@@ -220,7 +235,7 @@ impl TextEntryCore {
         let mut offset = 0;
         let mut cursor = 0;
         for ch in text.chars() {
-            if !is_printable(ch) || name.len() == self.max_len {
+            if !is_printable(ch) {
                 return;
             }
             offset += ch.len_utf16();
@@ -228,6 +243,20 @@ impl TextEntryCore {
             if offset <= cursor_utf16 {
                 cursor += 1;
             }
+        }
+        if name.len() > self.max_len {
+            let suffix_len = name[cursor..]
+                .iter()
+                .rev()
+                .zip(self.name.iter().rev())
+                .take_while(|(new, old)| new == old)
+                .count();
+            let Some(keep_before_suffix) = self.max_len.checked_sub(suffix_len) else {
+                return;
+            };
+            let suffix_start = name.len() - suffix_len;
+            name.drain(keep_before_suffix..suffix_start);
+            cursor = cursor.min(keep_before_suffix);
         }
         self.name = name;
         self.cursor = cursor;
