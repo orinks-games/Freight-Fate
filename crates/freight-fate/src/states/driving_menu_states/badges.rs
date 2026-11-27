@@ -480,7 +480,7 @@ pub(crate) fn award_arrival_achievements(
     }
     for (count, badge) in [
         (200, "two_hundred_deliveries"),
-        (250, "two_fifty_deliveries"),
+        (300, "three_hundred_deliveries"),
         (500, "five_hundred_deliveries"),
     ] {
         if deliveries >= count {

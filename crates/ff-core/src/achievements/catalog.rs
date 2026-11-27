@@ -17,7 +17,7 @@ use super::{Achievement, AchievementCategory};
 /// sha256 over every category and achievement field, as the generator
 /// computed it from the Python catalog (see `catalog_digest` in the
 /// tests for the exact framing).
-pub const CATALOG_DIGEST: &str = "e6f4ece6873768a4809fc76666fce61db96161d43aaf43d659277abeacea65f4";
+pub const CATALOG_DIGEST: &str = "43645ccf1a410134883052dadf5a43bd3449dadb4eea013d838cb5e6332dc3f2";
 
 /// What a locked, hidden achievement speaks in place of its real name and
 /// description. Keeps a hidden badge's surprise -- the joke, the calendar
@@ -856,9 +856,9 @@ pub static ACHIEVEMENTS: [Achievement; 217] = [
         hidden: false,
     },
     Achievement {
-        id: "two_fifty_deliveries",
+        id: "three_hundred_deliveries",
         name: "Roll Truck Roll",
-        description: "Two hundred fifty deliveries.",
+        description: "Three hundred deliveries.",
         category: "career",
         inspiration: "Red Simpson - Roll Truck Roll",
         hidden: false,

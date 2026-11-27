@@ -53,8 +53,8 @@ fn two_hundred_deliveries_lands_on_the_two_hundredth() {
 }
 
 #[test]
-fn two_fifty_deliveries_lands_on_the_two_hundred_fiftieth() {
-    nth_delivery_earns("two_fifty_deliveries", 250);
+fn three_hundred_deliveries_lands_on_the_three_hundredth() {
+    nth_delivery_earns("three_hundred_deliveries", 300);
 }
 
 #[test]
