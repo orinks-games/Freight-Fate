@@ -772,3 +772,57 @@ fn test_a_forecast_only_page_is_no_reading_without_stations() {
     let fetcher = EcccFetcher::new(table).with_wall_clock(fixed(NOW));
     assert!(fetcher.default_fetch(53.30, -120.17).is_err());
 }
+
+#[test]
+fn test_visibility_comes_from_the_code_station_when_the_primary_has_none() {
+    // The station in town is fresh, with no code and no visibility sensor.
+    let table = toronto_stations(|url| {
+        url.contains("msc_id-value=6158355").then(|| {
+            swob(json!({"date_tm-value": stamp(300.0), "air_temp": 6.0,
+                        "avg_wnd_spd_10m_pst10mts": 9.0}))
+        })
+    });
+    let fetcher = EcccFetcher::new(table).with_wall_clock(fixed(NOW));
+    let reading = fetcher.default_fetch(43.65, -79.38).expect("read");
+    assert_eq!(reading.text, "Light Rain");
+    // Temperature and wind stay with the primary station in town.
+    assert_eq!(reading.temperature_c, Some(6.0));
+    assert_eq!(reading.wind_kmh, 9.0);
+    assert_eq!(reading.details.station.as_deref(), Some("Toronto City"));
+    assert_eq!(reading.details.gust_kmh, None);
+    // Visibility is the airport's, the station that gave the code.
+    let pearson_mi = 4.0 / 1.609_344;
+    assert!(reading
+        .visibility_mi
+        .is_some_and(|mi| (mi - pearson_mi).abs() < 1e-9));
+    assert!(reading
+        .details
+        .visibility_mi
+        .is_some_and(|mi| (mi - pearson_mi).abs() < 1e-9));
+    assert_eq!(
+        reading.details.basis.as_deref(),
+        Some("code, station 6158731")
+    );
+}
+
+#[test]
+fn test_no_visibility_when_neither_station_measures_it() {
+    let table = toronto_stations(|url| {
+        if url.contains("msc_id-value=6158355") {
+            Some(swob(
+                json!({"date_tm-value": stamp(300.0), "air_temp": 6.0}),
+            ))
+        } else if url.contains("msc_id-value=6158731") {
+            Some(swob(
+                json!({"date_tm-value": stamp(600.0), "air_temp": 3.9, "prsnt_wx_1": 65}),
+            ))
+        } else {
+            None
+        }
+    });
+    let fetcher = EcccFetcher::new(table).with_wall_clock(fixed(NOW));
+    let reading = fetcher.default_fetch(43.65, -79.38).expect("read");
+    assert_eq!(reading.text, "Light Rain");
+    assert_eq!(reading.visibility_mi, None);
+    assert_eq!(reading.details.visibility_mi, None);
+}

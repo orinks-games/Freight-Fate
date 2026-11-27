@@ -7562,6 +7562,8 @@ design, each with the director's pick.
       rain at 7.6 mm an hour, read from the AMS Glossary, MANOBS not
       checked), then cloud amount, then the hourly forecast. A gauge below
       freezing gives freezing rain only when Environment Canada says so.
+      Measurements come from the nearest fresh station; visibility, when
+      it measures none, from the station that gave the code.
       The Weather app names the station and its distance, and gives wind
       direction, gusts, visibility, snow on the ground and, in Canada, the
       forecast ahead; the US report gets the same lines from fields the
@@ -7579,6 +7581,10 @@ design, each with the director's pick.
       forecast; the Weather Service's hourly forecast would give it one.
 - [ ] (Found along the way) Environment Canada's daily text forecast
       ("Tonight: snow, 5 cm") is unread; only the hourly conditions are.
+- [ ] (Found along the way) Simulated weather's conditions line speaks
+      metric visibility unrounded ("visibility 2.41402 kilometers"), a
+      figure pinned from the Python port; round it like the Weather app's
+      Visibility line.
 - [ ] (Found along the way) Cloud layer codes 35 to 39 appear at Toronto
       Pearson and are not in the SWOB guide's table 6.5.15; they are
       ignored, so that station's cloud amount never decides the sky.

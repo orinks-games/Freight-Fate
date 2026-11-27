@@ -7,7 +7,8 @@
 //! nearest first and at most [`STATION_WALK_LIMIT`] of them: the first
 //! with a fresh observation is the primary station, whose measurements the
 //! report carries, and the first fresh one that reports a present weather
-//! code gives the code. The sky is decided in [`sky::decide`]; the city
+//! code gives the code, and its visibility when the primary measures none
+//! (usually an airport near an automatic station). The sky is decided in [`sky::decide`]; the city
 //! page the caller already read gives the condition text, the forecast and
 //! whether Environment Canada says freezing rain.
 //!
@@ -145,7 +146,12 @@ impl EcccFetcher {
         }
         let (station, miles, reading) =
             primary.ok_or("no station near enough has a fresh observation")?;
-        let visibility_mi = reading.visibility_km.map(|km| km / KM_PER_MILE);
+        // Visibility from the station that gave the code when the primary
+        // measures none: the code and the figure then share an observer.
+        let visibility_mi = reading
+            .visibility_km
+            .or_else(|| coded.as_ref().and_then(|(_, r)| r.visibility_km))
+            .map(|km| km / KM_PER_MILE);
         // A site that measured nothing lends its forecast, not numbers.
         let page_observation = page
             .filter(|walk| walk.basis != FORECAST_ONLY)
