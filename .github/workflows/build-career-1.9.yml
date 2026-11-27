@@ -322,6 +322,7 @@ jobs:
     runs-on: windows-2025
     timeout-minutes: 60
     env:
+      CARGO_PROFILE_RELEASE_LTO: "off"
       FREIGHT_FATE_NO_SPEECH: "1"
       SDL_VIDEODRIVER: dummy
       SDL_AUDIODRIVER: dummy
@@ -393,6 +394,7 @@ jobs:
     # in Apple's own verdict and log, not a GitHub timeout (v1.9.3 hit 60).
     timeout-minutes: 75
     env:
+      CARGO_PROFILE_RELEASE_LTO: "off"
       FREIGHT_FATE_NO_SPEECH: "1"
       SDL_VIDEODRIVER: dummy
       SDL_AUDIODRIVER: dummy
@@ -553,6 +555,7 @@ jobs:
             runner: ubuntu-22.04-arm
             tarball: linux-arm64
     env:
+      CARGO_PROFILE_RELEASE_LTO: "off"
       FREIGHT_FATE_NO_SPEECH: "1"
       SDL_VIDEODRIVER: dummy
       SDL_AUDIODRIVER: dummy
