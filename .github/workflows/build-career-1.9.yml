@@ -5,21 +5,22 @@ name: Freight Fate builds
 #
 # A push to dev is the snapshot's main start (2026-11-09): the run uses dev's
 # own copy of this file and publishes the day's `1.9-tester-YYYYMMDD` once
-# the tests and every platform's package pass, about an hour and a quarter
-# after the merge. Another push while it runs cancels it and starts over on
-# the newer commit; the snapshot a tester sees is always the newest dev that
-# passed. A push whose commits add no curated changelog entry and carry no
-# `nightly: build` marker stops in Prepare, so a docs-only merge costs a few
-# minutes of one Linux runner and nothing more. So does one whose every
-# commit since the newest snapshot says `[skip desktop]` (an iPhone-only
-# change); see .github/scripts/skip-tag.sh.
+# every platform's package passes. Another push while it runs cancels it and
+# starts over on the newer commit; the snapshot a tester sees is always the
+# newest dev that built. A push whose commits add no curated changelog entry
+# and carry no `nightly: build` marker stops in Prepare, so a docs-only merge
+# costs a minute of one Linux runner and nothing more. So does one whose
+# every commit since the newest snapshot says `[skip desktop]` (an
+# iPhone-only change); see .github/scripts/skip-tag.sh.
 #
 # The schedule is the fallback. A scheduled run executes the copy of this
 # file on the DEFAULT branch (main), whatever the checked-out code is, so
 # after changing it here push the same file to main or the fallback quietly
 # keeps the old job list. The Prepare job fails a scheduled run whose file
 # differs from CAREER_BRANCH's, and a scheduled run skips the night when the
-# newest snapshot already sits on dev's head.
+# newest snapshot already sits on dev's head. A build that fails (a network
+# or Apple hiccup) is rebuilt by that fallback, or by hand; nothing here
+# retries it.
 #
 # Stable releases: push a `v*.*.*` tag. That trigger drops `--prerelease`,
 # takes the version from the tag, and writes notes via
@@ -29,13 +30,13 @@ name: Freight Fate builds
 # repository is public, so they cost nothing; Linux packages on 22.04 (x86_64
 # and ARM64) for the glibc floor.
 #
-# Shape: the tests and the packaging run side by side. Each platform's
-# `Test` leg lints and runs the suite while its `Build` job compiles the
-# release profile and packages; they share nothing a job could hand the
-# other (a test build and a release build are different compiles), so
-# running them one after the other only added the two. Release waits on
-# both. The whole-map sweeps run once, on the Linux x86_64 leg, the fastest
-# runner; the other legs run the quick set.
+# Shape (2026-11-27): six jobs. Prepare, one Build per platform, Release.
+# This workflow builds and packages; it runs no tests. The full suite, the
+# whole-map sweeps included, is the Tests workflow (tests.yml), each night
+# and on request, and a session runs `cargo test-all`, clippy and the
+# adversarial battery before a PR is ready and before a stable release. The
+# Linux builds boot their own tarball and AppImage on seven distributions
+# before uploading them.
 #
 # The game is built on the Hearken engine, a public git dependency; every
 # job that compiles goes through .github/actions/rust-setup.
@@ -55,8 +56,7 @@ on:
   # cron time (the 02:37 start has been landing between 09:00 and 10:30 UTC
   # through October and November 2026) and sometimes drops one outright
   # (2026-10-12). With the push start carrying the snapshot, this one has
-  # work only when a push build failed and its retry (the Retry job at the
-  # end of this file) failed too, or when dev changed without a push event;
+  # work only when a push build failed or dev changed without a push event;
   # it skips the night otherwise.
   schedule:
     - cron: "37 2 * * *"
@@ -83,7 +83,9 @@ permissions:
   contents: write
 
 concurrency:
-  group: career-snapshot-${{ inputs.channel || 'beta' }}
+  # A dry run has a group of its own, so testing this file on a branch never
+  # cancels a build that publishes, and a publishing build never cancels it.
+  group: career-snapshot-${{ inputs.channel || 'beta' }}${{ inputs.dry_run && '-dry-run' || '' }}
   # A push or a dispatch cancels the build in flight: the newer commit is
   # the one testers should get, and publishing replaces the day's release
   # wholesale, so a cancelled run leaves the last published snapshot
@@ -92,33 +94,11 @@ concurrency:
   cancel-in-progress: ${{ github.event_name != 'schedule' }}
 
 jobs:
-  source:
-    name: Resolve source branch
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    outputs:
-      ref: ${{ github.event_name == 'push' && github.ref || format('refs/heads/{0}', steps.branch.outputs.branch) }}
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: ${{ github.workflow_sha }}
-      # A push already names its ref (dev, or the stable tag); the channel
-      # map is for the schedule and for dispatches.
-      - uses: ./.github/actions/update-source
-        id: branch
-        if: github.event_name != 'push'
-        with:
-          channel: ${{ inputs.channel || 'beta' }}
-          channel-branches: '{"beta":"dev","alpha":"feat/career-2.0"}'
-          branch: ${{ inputs.branch }}
-
   prepare:
-    needs: source
     name: Prepare
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     env:
-      CAREER_BRANCH: ${{ needs.source.outputs.ref }}
       # The same build environment as rust.yml's checks job, so the two
       # share one `tools-light` cache entry (rust-cache keys on these).
       CARGO_TERM_COLOR: always
@@ -132,6 +112,31 @@ jobs:
       channel: ${{ steps.check.outputs.channel }}
       version: ${{ steps.check.outputs.version }}
     steps:
+      # The update-source action comes from the commit this workflow file
+      # came from, not from the branch it is about to build, so a branch
+      # cannot change how its own channel is resolved. Only the action is
+      # checked out; the career checkout below replaces it.
+      - uses: actions/checkout@v6
+        if: github.event_name != 'push'
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: workflow-copy
+          sparse-checkout: .github/actions/update-source
+      # A push already names its ref (dev, or the stable tag); the channel
+      # map is for the schedule and for dispatches.
+      - uses: ./workflow-copy/.github/actions/update-source
+        id: branch
+        if: github.event_name != 'push'
+        with:
+          channel: ${{ inputs.channel || 'beta' }}
+          channel-branches: '{"beta":"dev","alpha":"feat/career-2.0"}'
+          branch: ${{ inputs.branch }}
+
+      - name: Name the career branch
+        env:
+          SOURCE_REF: ${{ github.event_name == 'push' && github.ref || format('refs/heads/{0}', steps.branch.outputs.branch) }}
+        run: echo "CAREER_BRANCH=$SOURCE_REF" >> "$GITHUB_ENV"
+
       # Full history for the release notes, but blobless and sparse: the
       # tags and commits come down, file contents only for what the tooling
       # builds from and reads. Cloning every past world-data file took over
@@ -202,7 +207,7 @@ jobs:
         if: steps.early.outputs.skip != 'true'
         with:
           shared-key: tools-light
-          save-if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' }}
+          save-if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/feat/career-2.0' }}
 
       - name: Build the release tooling
         if: steps.early.outputs.skip != 'true'
@@ -310,158 +315,6 @@ jobs:
           path: target/debug/ff-tools
           retention-days: 7
 
-  format:
-    # Formatting is the same on every platform, so it is checked once, on
-    # the cheap Linux runner, instead of on each packaging runner. Release
-    # still needs it.
-    name: Format
-    needs: prepare
-    if: needs.prepare.outputs.should_build == 'true'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    steps:
-      # cargo fmt reads the sources and manifests only, not the world data.
-      - uses: actions/checkout@v6
-        with:
-          ref: ${{ needs.prepare.outputs.commit_sha }}
-          sparse-checkout-cone-mode: false
-          sparse-checkout: |
-            /*
-            !/*/
-            /.cargo/
-            /crates/
-            /vendor/
-
-      - name: Install the pinned Rust toolchain
-        run: rustup show
-
-      - name: Check Rust formatting
-        run: cargo fmt --all --check
-
-  test:
-    # The FULL suite: `slow-tests` turns on the whole-map sweeps and other
-    # long tests that a plain `cargo test` skips. They run here, and only
-    # here. They are headless driving logic, so one platform proves them.
-    # This is the one test job Release waits on.
-    name: Test (${{ matrix.name }})
-    needs: prepare
-    if: needs.prepare.outputs.should_build == 'true'
-    strategy:
-      matrix:
-        include:
-          - name: Linux x86_64
-            os: ubuntu-24.04
-            features: --features freight-fate/slow-tests
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
-    env:
-      FREIGHT_FATE_NO_SPEECH: "1"
-      HEARKEN_TEST_NO_SPEECH: "1"
-      SDL_VIDEODRIVER: dummy
-      SDL_AUDIODRIVER: dummy
-      CARGO_TERM_COLOR: always
-      RUST_BACKTRACE: "1"
-      HOMEBREW_NO_AUTO_UPDATE: "1"
-      CMAKE_POLICY_VERSION_MINIMUM: "3.5"
-      # Prism's static library is built with gcc link-time optimisation and
-      # ships fat objects (LTO bytecode beside the machine code), so every
-      # test program's link re-optimised all of Prism, seconds per binary.
-      # -fno-lto links the machine code that is already there, and mold
-      # links faster than ld. Test builds only: the Build jobs keep LTO.
-      # These apply only when building for Linux.
-      CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
-      CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: ${{ needs.prepare.outputs.commit_sha }}
-
-      - name: Set up Rust and the build caches
-        # The one test cache the nightly keeps (Linux x86_64), night to night.
-        uses: ./.github/actions/rust-setup
-        with:
-          cache-key: test
-          linux-packages: mold
-
-      - name: Lint Rust targets
-        run: cargo clippy --all-targets --locked -- -D warnings
-
-      - name: Test Rust workspace
-        run: cargo test -p ff-core -p freight-fate ${{ matrix.features }} --locked
-
-      - name: Test the agent server
-        run: cargo test -p freight-fate --test agent_server --locked
-
-  test_platforms:
-    # Lint and test the other platforms, side by side with their packaging
-    # jobs. These run for the log only: Release does not wait on them, so a
-    # snapshot whose builds are done is not held up by a slow Windows or
-    # macOS runner. clippy runs on macOS and Linux here, so the
-    # `cfg(target_os)` code still gets linted; rust.yml owns Windows clippy
-    # on pull requests and on pushes to the branches it watches, so it is
-    # skipped here.
-    name: Test (${{ matrix.name }})
-    needs: prepare
-    if: needs.prepare.outputs.should_build == 'true'
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - name: Windows
-            os: windows-2025
-            features: ""
-          - name: macOS
-            os: macos-26
-            features: ""
-          - name: Linux aarch64
-            os: ubuntu-24.04-arm
-            features: ""
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
-    env:
-      FREIGHT_FATE_NO_SPEECH: "1"
-      HEARKEN_TEST_NO_SPEECH: "1"
-      SDL_VIDEODRIVER: dummy
-      SDL_AUDIODRIVER: dummy
-      CARGO_TERM_COLOR: always
-      RUST_BACKTRACE: "1"
-      HOMEBREW_NO_AUTO_UPDATE: "1"
-      CMAKE_POLICY_VERSION_MINIMUM: "3.5"
-      # Prism's static library is built with gcc link-time optimisation and
-      # ships fat objects (LTO bytecode beside the machine code), so every
-      # test program's link re-optimised all of Prism, seconds per binary.
-      # -fno-lto links the machine code that is already there, and mold
-      # links faster than ld. Test builds only: the Build jobs keep LTO.
-      # These apply only when building for Linux.
-      CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
-      CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: ${{ needs.prepare.outputs.commit_sha }}
-
-      - name: Set up Rust and the build caches
-        # These legs build without a cache of their own. Their three test
-        # caches (3.4 GB) pushed the repository past GitHub's 10 GB cache
-        # budget, and GitHub then dropped the release caches the snapshot
-        # waits on. Release does not wait on these legs, so they are the
-        # ones to build cold.
-        uses: ./.github/actions/rust-setup
-        with:
-          cache-key: test
-          save-cache: "false"
-          linux-packages: mold
-
-      - name: Lint Rust targets
-        if: runner.os != 'Windows'
-        run: cargo clippy --all-targets --locked -- -D warnings
-
-      - name: Test Rust workspace
-        run: cargo test -p ff-core -p freight-fate ${{ matrix.features }} --locked
-
-      - name: Test the agent server
-        run: cargo test -p freight-fate --test agent_server --locked
-
   build_windows:
     name: Build (Windows)
     needs: prepare
@@ -486,6 +339,16 @@ jobs:
         with:
           cache-key: release
 
+      - name: Build the release tooling
+        # The light build: no ff-core, so it compiles in seconds. The game
+        # build below compiles ff-core once, with the baker and the pack
+        # lister the tooling runs. Its own step, outside the seal key's
+        # step, so every later call finds it built and does not rebuild it.
+        shell: bash
+        run: |
+          cargo build -p ff-tools --no-default-features --locked
+          echo "FF_TOOLS=$PWD/target/debug/ff-tools" >> "$GITHUB_ENV"
+
       - name: Ship the accepted community stations
         uses: actions/download-artifact@v7
         with:
@@ -493,9 +356,12 @@ jobs:
           path: data
 
       - name: Build the portable release
+        # What build-release.ps1 runs once its prerequisite checks pass;
+        # the runner image has every prerequisite.
+        shell: bash
         env:
           HEARKEN_SEAL_KEY: ${{ secrets.HEARKEN_SEAL_KEY }}
-        run: ./build-release.ps1 --tag "${{ needs.prepare.outputs.tag }}"
+        run: '"$FF_TOOLS" build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"'
 
       - name: Check Prism registered its backends
         # Every job here runs muted, so a Prism linked without its backends
@@ -508,11 +374,14 @@ jobs:
           ./target/release/freightfate.exe --list-speech-backends --names-only | tee speech-backends.txt
           grep -q "^SAPI " speech-backends.txt
 
+      # The archives are compressed already; zipping them again for the
+      # upload only spends time.
       - uses: actions/upload-artifact@v7
         with:
-          name: Windows
+          name: release-Windows
           path: dist/FreightFate-*-windows-portable.zip
           if-no-files-found: error
+          compression-level: 0
 
   build_macos:
     name: Build (macOS Apple Silicon)
@@ -603,6 +472,16 @@ jobs:
             echo "MACOS_NOTARY_ISSUER_ID=$ASC_ISSUER_ID"
           } >> "$GITHUB_ENV"
 
+      - name: Build the release tooling
+        # The light build: no ff-core, so it compiles in seconds. The game
+        # build below compiles ff-core once, with the baker and the pack
+        # lister the tooling runs. Its own step, outside the seal key's
+        # step, so every later call finds it built and does not rebuild it.
+        shell: bash
+        run: |
+          cargo build -p ff-tools --no-default-features --locked
+          echo "FF_TOOLS=$PWD/target/debug/ff-tools" >> "$GITHUB_ENV"
+
       - name: Ship the accepted community stations
         uses: actions/download-artifact@v7
         with:
@@ -618,7 +497,7 @@ jobs:
         # inside the builder, which dumps the game log on failure.
         env:
           HEARKEN_SEAL_KEY: ${{ secrets.HEARKEN_SEAL_KEY }}
-        run: cargo tools build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"
+        run: '"$FF_TOOLS" build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"'
 
       - name: Check Prism registered its backends
         # Every job here runs muted, so a Prism linked without its backends
@@ -640,9 +519,10 @@ jobs:
 
       - uses: actions/upload-artifact@v7
         with:
-          name: macOS-arm64
+          name: release-macOS-arm64
           path: dist/FreightFate-*-macos-arm64.zip
           if-no-files-found: error
+          compression-level: 0
 
   build_linux:
     name: Build (Linux ${{ matrix.arch }})
@@ -702,6 +582,16 @@ jobs:
           cache-key: release
           linux-packages: file desktop-file-utils
 
+      - name: Build the release tooling
+        # The light build: no ff-core, so it compiles in seconds. The game
+        # build below compiles ff-core once, with the baker and the pack
+        # lister the tooling runs. Its own step, outside the seal key's
+        # step, so every later call finds it built and does not rebuild it.
+        shell: bash
+        run: |
+          cargo build -p ff-tools --no-default-features --locked
+          echo "FF_TOOLS=$PWD/target/debug/ff-tools" >> "$GITHUB_ENV"
+
       - name: Ship the accepted community stations
         uses: actions/download-artifact@v7
         with:
@@ -714,7 +604,7 @@ jobs:
         # executable that links SDL2 dynamically.
         env:
           HEARKEN_SEAL_KEY: ${{ secrets.HEARKEN_SEAL_KEY }}
-        run: cargo tools build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"
+        run: '"$FF_TOOLS" build-release --smoke --tag "${{ needs.prepare.outputs.tag }}"'
 
       - name: Check Prism registered its backends
         # Every job here runs muted, so a Prism linked without its backends
@@ -727,68 +617,80 @@ jobs:
 
       - name: Package the AppImage
         timeout-minutes: 15
-        run: cargo tools build-appimage --tag "${{ needs.prepare.outputs.tag }}"
+        run: '"$FF_TOOLS" build-appimage --tag "${{ needs.prepare.outputs.tag }}"'
+
+      - name: Boot the tarball and the AppImage on other distributions
+        # The build host proves one distribution. Players run the others, and
+        # what differs between them -- glibc, the dynamic loader, which
+        # libraries a desktop install carries -- is exactly what a build on
+        # Ubuntu cannot see. So both downloads are booted, untouched, on each
+        # of the popular families, in a bare container that has less than any
+        # desktop does (tools/linux_smoke.sh says what each is given).
+        #
+        # All containers run at once, each under its own time limit (a
+        # Fedora ARM boot once hung until the job timed out, 2026-10-02),
+        # and each writes its own log, printed here when all are done. The
+        # ARM64 job leaves out Arch: Docker Hub's archlinux image is amd64
+        # only. Its Debian containers are the nearest stand-in for the BT
+        # Speak and BT Braille, which are Debian on a Raspberry Pi Compute
+        # Module.
+        timeout-minutes: 15
+        env:
+          ARCH: ${{ matrix.arch }}
+        run: |
+          images=(ubuntu:22.04 ubuntu:24.04 debian:12 debian:13 fedora:latest opensuse/tumbleweed:latest)
+          if [ "$ARCH" = "x86_64" ]; then
+            images+=(archlinux:latest)
+          fi
+          logs="$RUNNER_TEMP/smoke"
+          mkdir -p "$logs"
+          for image in "${images[@]}"; do
+            slug="${image//[:\/]/-}"
+            (
+              status=0
+              timeout 600 docker run --rm --init --name "smoke-$slug" \
+                -v "$PWD/dist:/work/dist:ro" -v "$PWD/tools:/work/tools:ro" \
+                "$image" bash /work/tools/linux_smoke.sh > "$logs/$slug.log" 2>&1 || status=$?
+              if [ "$status" -eq 124 ]; then
+                echo "Timed out after 10 minutes." >> "$logs/$slug.log"
+                docker rm -f "smoke-$slug" > /dev/null 2>&1 || true
+              fi
+              echo "$status" > "$logs/$slug.status"
+            ) &
+          done
+          wait
+          failed=()
+          for image in "${images[@]}"; do
+            slug="${image//[:\/]/-}"
+            status=$(cat "$logs/$slug.status")
+            echo "::group::$image ($ARCH): exit $status"
+            cat "$logs/$slug.log"
+            echo "::endgroup::"
+            if [ "$status" -ne 0 ]; then
+              failed+=("$image")
+            fi
+          done
+          if [ "${#failed[@]}" -ne 0 ]; then
+            echo "::error::The Linux $ARCH build did not boot on: ${failed[*]}"
+            exit 1
+          fi
+          echo "Booted on all ${#images[@]} distributions."
 
       - uses: actions/upload-artifact@v7
         with:
-          name: Linux-${{ matrix.arch }}
+          name: release-Linux-${{ matrix.arch }}
           path: |
             dist/FreightFate-*-${{ matrix.tarball }}.tar.gz
             dist/FreightFate-*-linux-${{ matrix.arch }}.AppImage
           if-no-files-found: error
-
-  smoke_linux:
-    name: Smoke (${{ matrix.image }}, ${{ matrix.arch }})
-    needs: [prepare, build_linux]
-    # The build host proves one distribution. Players run the others, and
-    # what differs between them -- glibc, the dynamic loader, which
-    # libraries a desktop install carries -- is exactly what a build on
-    # Ubuntu cannot see. So the tarball and the AppImage are both booted,
-    # untouched, on each of the popular families, in a bare container that
-    # has less than any desktop does.
-    #
-    # The same matrix runs again on an ARM64 runner against the aarch64
-    # downloads, minus Arch: Docker Hub's archlinux image is amd64 only
-    # (Arch Linux ARM is a separate project with no official image). The
-    # Debian containers there are the nearest stand-in for the BT Speak and
-    # BT Braille, which are Debian on a Raspberry Pi Compute Module.
-    runs-on: ${{ matrix.arch == 'aarch64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
-    timeout-minutes: 20
-    strategy:
-      fail-fast: false
-      matrix:
-        arch: [x86_64, aarch64]
-        image:
-          - ubuntu:22.04
-          - ubuntu:24.04
-          - debian:12
-          - debian:13
-          - fedora:latest
-          - archlinux:latest
-          - opensuse/tumbleweed:latest
-        exclude:
-          - arch: aarch64
-            image: archlinux:latest
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          ref: ${{ needs.prepare.outputs.commit_sha }}
-          sparse-checkout: tools/linux_smoke.sh
-          sparse-checkout-cone-mode: false
-
-      - uses: actions/download-artifact@v7
-        with:
-          name: Linux-${{ matrix.arch }}
-          path: dist
-
-      - name: Boot the tarball and the AppImage
-        run: docker run --rm -v "$PWD:/work" "${{ matrix.image }}" bash /work/tools/linux_smoke.sh
+          compression-level: 0
 
   release:
     name: Release
-    needs: [prepare, format, test, build_windows, build_macos, build_linux, smoke_linux]
-    if: always() && needs.prepare.outputs.should_build == 'true' && needs.format.result == 'success' && needs.test.result == 'success' && needs.build_windows.result == 'success' && needs.build_macos.result == 'success' && needs.build_linux.result == 'success' && needs.smoke_linux.result == 'success'
+    needs: [prepare, build_windows, build_macos, build_linux]
+    if: needs.prepare.outputs.should_build == 'true'
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       # History for the release notes, plus what the notes, the translation
       # kit and the version read; blobless and sparse, as in Prepare.
@@ -818,24 +720,11 @@ jobs:
           chmod +x "$RUNNER_TEMP/ff-tools/ff-tools"
           echo "FF_TOOLS=$RUNNER_TEMP/ff-tools/ff-tools" >> "$GITHUB_ENV"
 
+      # The four platforms' archives in one step, side by side.
       - uses: actions/download-artifact@v7
         with:
-          name: Windows
-          path: release-assets
-
-      - uses: actions/download-artifact@v7
-        with:
-          name: macOS-arm64
-          path: release-assets
-
-      - uses: actions/download-artifact@v7
-        with:
-          name: Linux-x86_64
-          path: release-assets
-
-      - uses: actions/download-artifact@v7
-        with:
-          name: Linux-aarch64
+          pattern: release-*
+          merge-multiple: true
           path: release-assets
 
       - name: Verify release archives
@@ -1040,77 +929,3 @@ jobs:
           gh release create "$TAG" "${assets[@]}" --notes-file notes.md \
             --title "Freight Fate $VERSION" \
             --latest --target "$COMMIT_SHA"
-
-  retry:
-    # One retry after a failure, inside the run that failed. This used to
-    # be its own workflow (retry-failed-nightly.yml, on workflow_run), which
-    # GitHub started after EVERY completed build, so the Actions page showed
-    # a "Retry failed nightly" row for each push build, skipped or not, and a
-    # burst of merges on 2026-11-11 left nine of them sleeping 45 minutes
-    # each for builds a newer push had already cancelled. As a job, it exists
-    # only when something in this run failed: a run cancelled by a newer
-    # push cancels it too, and a green run has no row to show.
-    #
-    # Only push builds of dev and the scheduled fallback retry; the retry is
-    # a dispatch, so it is never retried itself. A job that hits its timeout
-    # ends as `cancelled`, not `failure` (2026-10-02: a hung Fedora ARM
-    # boot), so both count.
-    name: Retry once after delay
-    needs: [prepare, format, test, build_windows, build_macos, build_linux, smoke_linux, release]
-    if: >-
-      always() &&
-      needs.prepare.outputs.should_build == 'true' &&
-      ((github.event_name == 'push' && github.ref == 'refs/heads/dev') || github.event_name == 'schedule') &&
-      github.run_attempt == 1 &&
-      (contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled'))
-    runs-on: ubuntu-24.04
-    timeout-minutes: 55
-    permissions:
-      actions: write
-      contents: read
-    steps:
-      - name: Dispatch one recovery build if still needed
-        env:
-          GH_TOKEN: ${{ github.token }}
-          TAG: ${{ needs.prepare.outputs.tag }}
-          RUN_SHA: ${{ needs.prepare.outputs.commit_sha }}
-        run: |
-          superseded() {
-            # A push build whose commit is no longer dev's head has been
-            # overtaken; that push's own build takes over.
-            [ "$GITHUB_EVENT_NAME" = "push" ] || return 1
-            DEV_SHA=$(gh api "repos/$GITHUB_REPOSITORY/branches/dev" --jq .commit.sha)
-            if [ "$DEV_SHA" != "$RUN_SHA" ]; then
-              echo "dev has moved on to $DEV_SHA since $RUN_SHA; that push's own build takes over."
-              return 0
-            fi
-            return 1
-          }
-          superseded && exit 0
-
-          echo "Waiting 45 minutes for a transient failure to clear."
-          sleep 2700
-
-          superseded && exit 0
-
-          # Today's snapshot may already be up: for a push that counts only
-          # when it is of this commit; for the nightly fallback any snapshot
-          # of the day will do.
-          if TARGET=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json targetCommitish -q .targetCommitish 2>/dev/null); then
-            if [ "$GITHUB_EVENT_NAME" != "push" ] || [ "$TARGET" = "$RUN_SHA" ]; then
-              echo "$TAG already exists; nothing to retry."
-              exit 0
-            fi
-          fi
-
-          ACTIVE=$(gh run list --repo "$GITHUB_REPOSITORY" \
-            --workflow "$GITHUB_WORKFLOW" --limit 20 \
-            --json databaseId,status --jq "[.[] | select((.status == \"queued\" or .status == \"in_progress\") and .databaseId != $GITHUB_RUN_ID)] | length")
-          if [ "$ACTIVE" -gt 0 ]; then
-            echo "Another build is already queued or running; not dispatching a duplicate."
-            exit 0
-          fi
-
-          echo "The snapshot is still missing; dispatching one retry from dev."
-          gh workflow run "$GITHUB_WORKFLOW" --repo "$GITHUB_REPOSITORY" \
-            --ref dev -f dry_run=false
