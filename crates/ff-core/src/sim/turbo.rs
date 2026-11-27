@@ -20,8 +20,10 @@ const BLOWOFF_MIN_BOOST: f64 = 0.42;
 const BLOWOFF_COOLDOWN_S: f64 = 1.2;
 /// Throttle threshold below which a lift-off releases boost.
 const LIFT_THROTTLE: f64 = 0.12;
-/// Boost threshold below which the spool loop fades out.
-const AUDIBLE_BOOST: f64 = 0.04;
+/// Boost threshold below which the spool loop fades completely out.
+/// Set above flat-ground highway cruise load so steady cruising does not
+/// leave a faint lingering turbo whistle.
+const AUDIBLE_BOOST: f64 = 0.40;
 /// Peak loop level at full boost and `turbo_level = 1.0`.
 const MAX_SPOOL_LEVEL: f64 = 0.34;
 /// Peak one-shot level for the release cue at full boost and `turbo_level = 1.0`.
@@ -146,7 +148,7 @@ impl TurboState {
 
         self.phase = if blowoff_volume.is_some() {
             TurboPhase::Release
-        } else if self.boost < AUDIBLE_BOOST {
+        } else if self.boost <= AUDIBLE_BOOST {
             TurboPhase::Idle
         } else if target > self.boost + 0.05 {
             TurboPhase::Spooling
@@ -154,10 +156,11 @@ impl TurboState {
             TurboPhase::Boosted
         };
 
-        let spool_level = if self.boost < AUDIBLE_BOOST {
+        let spool_level = if self.boost <= AUDIBLE_BOOST {
             0.0
         } else {
-            (self.boost * self.boost.sqrt() * level * MAX_SPOOL_LEVEL).clamp(0.0, MAX_SPOOL_LEVEL)
+            let audible = (self.boost - AUDIBLE_BOOST) / (1.0 - AUDIBLE_BOOST);
+            (audible * audible.sqrt() * level * MAX_SPOOL_LEVEL).clamp(0.0, MAX_SPOOL_LEVEL)
         };
         let spool_rate = 0.72 + 0.50 * self.boost;
 
@@ -265,5 +268,35 @@ mod tests {
         assert!(low.spool_rate < 0.80, "low rate {}", low.spool_rate);
         assert!(high.spool_rate > 1.10, "high rate {}", high.spool_rate);
         assert!(high.spool_level > low.spool_level);
+    }
+
+    #[test]
+    fn steady_highway_cruise_fades_spool_to_silence() {
+        let mut s = TurboState::default();
+        // Accelerate hard to build boost.
+        for _ in 0..25 {
+            s.step(TurboInput {
+                rpm: 1_850.0,
+                throttle: 1.0,
+                ..base_input()
+            });
+        }
+        assert!(s.boost > 0.6);
+
+        // Settle into steady flat-ground highway cruise (e.g. 75 mph).
+        let mut last = TurboOutput {
+            spool_level: 1.0,
+            spool_rate: 1.0,
+            blowoff_volume: None,
+        };
+        for _ in 0..30 {
+            last = s.step(TurboInput {
+                rpm: 1_550.0,
+                throttle: 0.45,
+                ..base_input()
+            });
+        }
+        assert_eq!(s.phase, TurboPhase::Idle);
+        assert_eq!(last.spool_level, 0.0);
     }
 }
