@@ -39,6 +39,7 @@ use ff_core::sim::real_traffic::RealTrafficProvider;
 use ff_core::sim::real_weather::RealWeatherProvider;
 use ff_core::sim::real_weather_alerts::WeatherAlertsProvider;
 use ff_core::sim::truck_parking::TruckParkingProvider;
+use ff_core::sim::weather_service::WeatherService;
 use ff_core::speech_text::achievement_announced;
 
 use crate::account_achievements::AccountAchievements;
@@ -408,9 +409,7 @@ impl GameContext {
             return None;
         }
         if self.real_weather.is_none() {
-            self.real_weather = Some(Arc::new(RealWeatherProvider::with_nws(Arc::new(
-                UreqTransport,
-            ))));
+            self.real_weather = Some(Arc::new(RealWeatherProvider::live(Arc::new(UreqTransport))));
         }
         self.real_weather.as_deref()
     }
@@ -439,12 +438,13 @@ impl GameContext {
             return;
         };
         let (lat, lon) = (city.lat, city.lon);
+        let service = WeatherService::for_country(&city.country);
         let Some(provider) = self.real_weather_provider() else {
             return;
         };
-        // The Weather Service answers for the United States only.
-        if (lat != 0.0 || lon != 0.0) && city.country.eq_ignore_ascii_case("US") {
-            provider.request(&format!("city:{key}"), lat, lon);
+        // The city's country picks the service.
+        if let (true, Some(service)) = (lat != 0.0 || lon != 0.0, service) {
+            provider.request_from(service, &format!("city:{key}"), lat, lon);
         }
     }
 

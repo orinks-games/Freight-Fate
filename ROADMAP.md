@@ -153,7 +153,9 @@ bookmarks usable.
 - [x] Live road reports are local (owner, 2026-11-05): a drive past Gary heard thirteen reports in ninety seconds, nearly all for ramps on other roads, because the game read every incident within 50 miles. A report is now spoken only when it is on the truck's road (the feed's road name must match the leg's highway, or a report with no road name must sit within a quarter mile of the road line), not signed for the other direction (Indiana's titles now give theirs), and within 10 miles ahead, nearest first, with its distance. A CARS title drops its road and mile-point range on the truck's own road. Replayed against Indiana's live feed for Chicago to Cleveland on 2026-11-05: three of the dozen reports along I-80 and I-94 near Gary were spoken.
 - [x] Tester snapshots build on each push to dev (owner, 2026-11-09, after the scheduled start kept landing seven hours late and the way msfs-blind-assist rebuilds its preview on every merge). A merge with a changelog entry publishes the day's snapshot about an hour and a quarter later; a second merge the same day replaces it, and the schedule stays as a once-a-night fallback that skips when the newest snapshot is already dev's head. The failed-run retry now rebuilds from dev's copy of the workflow.
 - [x] Snapshot notes are the change list alone (owner, 2026-11-09): the Summary of each entry's lead sentence, added 2026-10-25, read every change twice once a busy day put twelve entries in one snapshot. Stable releases keep their hand-written Highlights.
-- [x] The snapshot retry is a job inside the build run (owner, 2026-11-12: "why is the retry nightly run skipping every hour?"). As its own workflow it started after every completed build, so each push build left a skipped Retry row, and a burst of nine merges on the night of 2026-11-11 left nine retries sleeping 45 minutes for builds a newer push had already cancelled. Now it exists only when a job in the run failed or timed out; the separate workflow is deleted.
+- [x] The snapshot retry is a job inside the build run (owner, 2026-11-12: "why is the retry nightly run skipping every hour?"). As its own workflow it started after every completed build, so each push build left a skipped Retry row, and a burst of nine merges on the night of 2026-11-11 left nine retries sleeping 45 minutes for builds a newer push had already cancelled. Now it exists only when a job in the run failed or timed out; the separate workflow is deleted. Removed 2026-11-27 with the six-job builds: a failed build is rebuilt by the nightly fallback or by hand.
+- [x] The builds workflow is six jobs (owner, 2026-11-27: "why does the Freight Fate builds workflow have so many jobs?"): Prepare, one Build per platform, Release, down from 26. The tests left the release path for a nightly and on-request Tests workflow that nothing waits on; the seven-distribution boot checks run inside each Linux build; each build compiles ff-core once; the alpha branch keeps build caches.
+- [ ] (Found along the way) `main` needs the six-job `build-career-1.9.yml` and the new `tests.yml`: until it has them, the scheduled fallback fails its stale-copy check, and the Tests workflow can be neither scheduled nor run by hand (GitHub lists a workflow only once the default branch has it).
 - [x] (Found along the way) The scheduled snapshot of 2026-11-09 failed on a dispatch test ("one of the small towns relays a load off an empty board"); the retry an hour later passed on the same commit. Pinned 2026-11-14: a new career's freight market is seeded at random, and about one seed in two thousand (3 of 6,000 scanned) leaves none of the five towns a relay that fits a rookie's deadhead rule. The tests now run on a fixed market from Sherman.
 - [ ] (Found along the way) Live road reports for the whole route in route planning, so a closure 80 miles out can be weighed before the load is taken.
 - [ ] (Found along the way) Live road reports place a report on the leg's route points, about 25 miles apart, so a named report can be matched up to 2 miles off the line and its distance is off by about as much. Loading the fine road line (`world_data/us/geometry`, about 200 points a leg, today read only by the map tools) would tighten both, and let a report that names no road be matched.
@@ -4847,8 +4849,9 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
 
 ## 2.0 in progress (`feat/career-2.0`) -- the working week and home
 
-- [x] Driving assistance improvements (`ff_core::sim::predictive_cruise`, `lane_change_assist`, `lane_keep_status`, `keeper_follow`, `settings::assists`, `driving_core::assist_cues`): explicit `PredictiveCruiseState` with jake-first crest/downgrade anticipation for cruise and speed keeper plus smooth resume out of work zones and green lights; explicit `AssistedLaneChange` with directional blind-spot chirps on Balanced/All and signal-wait-glide lane changes on All wired to PR #789 courtesy yielding; independent Steering assist and Speed assist settings rows with preset sync and clean save migration; and non-verbal assist handoff earcons for keeper lock-on, curve servo engagement, and snow/ice lane-keep dropout (`LaneKeepAvailability`), all exposed in `DrivingObservation`, Agent MCP `status`, and `scenario`.
-- [x] Player truck behavior improvements (`ff_core::sim::vehicle::traction`, `shifting`, `mirror_glance`, `driving_lane_gap`, `driving_updates`): explicit `AbsState` braking modulation and `DriveTractionState` wheelspin on snow/ice with edge-triggered safety alerts; single-trailer `TrailerSwayState` for crosswind sway and tight-ramp off-tracking (leaving doubles to `trailer_set`); sustained-descent automatic gear-hold protection against shift hunting; and configurable `Action::MirrorLeft` / `Action::MirrorRight` (`Alt+Left` / `Alt+Right`) mirror glances that temporarily bias positional traffic audio to the checked side and speak terse lane/blind-spot status.
+- [x] Driving assistance improvements (`ff_core::sim::predictive_cruise`, `lane_change_assist`, `lane_keep_status`, `keeper_follow`, `settings::assists`, `driving_core::assist_cues`): explicit `PredictiveCruiseState` with jake-first crest/downgrade anticipation for cruise and speed keeper plus smooth resume out of work zones and green lights; explicit `AssistedLaneChange` with directional blind-spot chirps on Balanced/All and signal-wait-glide lane changes on All wired to PR #789 courtesy yielding; independent Steering assist and Speed assist settings rows with preset sync and clean save migration; and non-verbal assist handoff earcons for keeper lock-on and curve servo engagement, all exposed in `DrivingObservation`, Agent MCP `status`, and `scenario`. Lane keeping, full or partial, keeps steering in snow and freezing rain (2.0 alpha report and Orinks's ruling, 2026-11-27): the snow/ice dropout handed the wheel back with only a tone, and under All assists (drift cues off) the truck left the road within seconds. Nothing raises `LaneKeepAvailability::DroppedOut` in play today; the machine, its `dropped_out_snow` scenario tag and status key, and the `assist/lane_keep_dropout` tone stay, and a staged dropout still runs as lane keeping off. Fixed pedals an assist writes (cruise's snub and closing trim, the speed keeper's snub ceiling, curve assistance, descent control, the exit gore brake) are carried to the road's grip by `TruckState::assist_brake_pedal` (capped at 0.90, under the ABS threshold), and cruise and the keeper cap their throttle under the drive-wheel traction limit (`assist_throttle_cap`).
+- [ ] (Found along the way) Lane keeping handback: Orinks wants a spoken handoff the day something raises `LaneKeepAvailability::DroppedOut` again (tone plus one short line at standard speech). A candidate trigger is the winter cab work, where a frosted or blocked windshield could blind the lane camera; where it belongs is not ruled yet.
+- [x] Player truck behavior improvements (`ff_core::sim::vehicle::traction`, `shifting`, `mirror_glance`, `driving_lane_gap`, `driving_updates`): explicit `AbsState` braking modulation and `DriveTractionState` wheelspin on snow/ice with edge-triggered safety alerts (since 2026-11-27 ABS modulates only on a real full application, the pedal compared against a full application on the same road rather than an unscaled demand against the grip, and the two lines speak only while the driver's own foot is on that pedal); single-trailer `TrailerSwayState` for crosswind sway and tight-ramp off-tracking (leaving doubles to `trailer_set`); sustained-descent automatic gear-hold protection against shift hunting; and configurable `Action::MirrorLeft` / `Action::MirrorRight` (`Alt+Left` / `Alt+Right`) mirror glances that temporarily bias positional traffic audio to the checked side and speak terse lane/blind-spot status.
 - [x] Traffic behavior improvements (`ff_core::sim::traffic_manager`, `cross_traffic`, `driving_traffic_sounds`): continuous `visual_lane` slewing (~2.5s per lane) so lane-changing vehicles glide laterally in stereo; deterministic oncoming traffic on undivided two-lane highways (`oncoming.rs`) moving opposite the player with combined closing-speed Doppler; signal-aware courtesy yielding and merge-lane opening when the player signals (`player_signal_lane`); and staggered startup wave + class-based acceleration for queued cross traffic releasing from red lights.
 - [x] Stereo truck engine. Five cab loops use their measured RPMs, with shorter pitch slides through shifts and two in-cab shift cues. Automatic shifts start with a quieter clunk so the rev drop and engagement come through. The cab starter hands off to idle in the mixer, and the sound rises to fast idle while the tanks fill. The licensed overlay supplies the cab start and air-ready purge for the sound pack.
 - [x] No more low bridge and weight limit calls (owner, 2026-11-22: they spammed the player about bridges a truck never meets). Routing already avoids anything a legal truck cannot pass, so every call ended "Your route clears it"; Joplin to Tulsa spoke up to 122 of them, and Detroit to Windsor six in the eight miles before customs. The `corridor.restrictions` layer, its parser and the bake stay for a route that weighs the truck's own height and weight. The dispatch board help no longer promises restrictions in Route planning, which never listed them.
@@ -7476,6 +7479,65 @@ a carrier slice (owner, 2026-10-26).
       a spot on a built-in station; today it says the station sends no song
       information.
 
+### Canadian radio stations (November 27)
+
+- [x] Canada is on the radio directory. `data/radio_imported_canada.json`
+      holds 574 Canadian stations, built by `cargo tools
+      import-canada-stations` from a Radio Browser snapshot (stream
+      addresses only, never fetched by the game) joined to ISED's
+      Broadcasting Database (export of 2026-11-24). A station is matched by
+      the call sign in its name or CBC stream mount (692 directory rows), or
+      by the one dial position in its name plus its province when exactly
+      one operating main transmitter there matches (10 rows; a name that
+      writes a call sign ISED does not list must also name the
+      transmitter's community). An AM record whose first site is zero
+      (CJAD, CHIN, CFTR) is read at its second site. Rows that
+      contradict ISED on province (6) or frequency (8) are left out.
+      Position, frequency and community are read from ISED; range is
+      derived from licensed ERP through the US tier's table, AM a flat 25
+      miles. One row per station, at its main transmitter. 117 of the
+      map's 150 Canadian cities have a Canadian station in range
+      (`tests/it/radio_canada.rs` holds a floor of 114).
+- [x] Suggest a station asks for the state or province; the site takes
+      the ten provinces and three territories and Newfoundland's VO call
+      signs, and places a Canadian suggestion from a checked-in ISED table
+      written by `import-canada-stations --transmitters`.
+- [ ] (Found along the way) Rebroadcasters are not placed. A station is
+      heard only around its main transmitter, so CBC and the regional
+      networks are missing along most of the highway between cities.
+      Placing them needs a dial rule for one stream at several sites
+      (the multi-site identity the US tier uses for KZYX and WNPN).
+- [ ] (Found along the way) 33 Canadian map cities have no Canadian
+      station in range: Ashern, Cache Creek, Carmacks, Dawson Creek, Dease
+      Lake, Fort Nelson, Fort Providence, Fort St. John, Golden, Grand
+      Rapids, Haines Junction, Hay River, Hearst, High Level, Hope, Ignace,
+      Jasper, Kitimat, Longlac, Marathon, McBride, Meziadin Junction,
+      Osoyoos, Prince Rupert, Princeton, Revelstoke, Smithers, Stewart,
+      Thompson, Valemount, Vanderhoof, Wandering River and Watson Lake.
+      Several have a local station whose directory name carries no call
+      sign, and rebroadcasters would cover others.
+- [ ] (Found along the way) Streams that refuse listeners outside Canada
+      stay off the dial: Corus (`leanstream.co`, HTTP 404 or 500 from the
+      US) and Cogeco (StreamTheWorld, HTTP 426), 33 stations,
+      Toronto's Q107 and The Edge, Vancouver's CFOX and Rock 101, Calgary's
+      Country 105 and Montréal's CKOI among them.
+- [x] (Found along the way) Canadian directory names reached the dial in
+      the editor's shape ("CHBM "Boom 97.3" Toronto, ON", the province
+      code read as the word "on", every rebroadcaster). A station is now
+      named by its quoted brand, with the dial position added when the
+      brand has none, or else by what is left once the call sign, editor's
+      notes, province and rebroadcasters come off ("News Talk 1010
+      Toronto"). Sixty-five names the rule cannot derive are set by hand
+      in `data/radio_imported_canada_overrides.json`;
+      `import-canada-stations --names FILE` writes the review table.
+- [x] (Found along the way) 85 Canadian stations whose streams are on a
+      port other than 80 or 443 could not be checked from a cloud session
+      (its proxy refuses those ports). Swept from a Windows desktop on
+      November 27 instead: all 570 Canadian streams answered (439 audio,
+      131 playlists). `check-radio-streams` now passes its OpenSSL cipher
+      string only to an OpenSSL curl, since Windows' Schannel curl refused
+      it and failed every HTTPS probe.
+
 ### Winter cab, wipers and ice roads (designed November 22)
 
 The owner asked for heat and air that do something (frost with the heat
@@ -7542,15 +7604,59 @@ design, each with the director's pick.
 - [ ] Step 6: more winter roads, one at a time: an oil field ice road
       from Deadhorse, the Mackenzie Valley winter road and the Dempster
       ice crossings, Manitoba, northern Ontario.
-- [ ] Live weather for Canada, so Canadian temperatures can be real
-      readings as Alaska's are. Source: Environment and Climate Change
-      Canada's free public weather service (the Meteorological Service of
-      Canada's API, api.weather.gc.ca), the owner's pick on 2026-11-22
-      over Open-Meteo, whose free tier is for non-commercial use only. The
-      National Weather Service stays the source for the United States and
-      Alaska. Confirm the endpoints and terms of use before building. With
-      live weather on, the real reading decides the temperature and so
-      when frost forms; the climate table is for simulated weather.
+- [x] Live weather for Canada (2026-11-27). Canadian road miles and
+      cities read current conditions and weather alerts from Environment
+      and Climate Change Canada's MSC GeoMet service (api.weather.gc.ca,
+      free, no key; `sim/real_weather_canada.rs` and
+      `sim/real_weather_alerts_canada.rs`). The state the road is in picks
+      the service (`WeatherService`, `Trip::live_weather_service`); the
+      National Weather Service path is unchanged for the United States and
+      Alaska. A site with no present-weather sensor is walked past for the
+      next one within 60 miles (assumed); with none, the nearest site's
+      hourly forecast for the hour stands in, logged as derived. Crossing
+      the border changes service without dropping to simulated weather.
+- [x] Canadian live weather reads the real weather stations
+      (2026-11-27). The station list (`swob-stations`, 938 stations) is read
+      once a session; a point reads its nearest stations' newest
+      observations (`swob-realtime`), at most three within 60 miles, else
+      the single nearest. The sky comes from a present weather code
+      (decoded from section 6.5.7 of the SWOB-ML guide, read), then the city
+      page text, then the gauge (adds precipitation, never removes it; heavy
+      rain at 7.6 mm an hour, read from the AMS Glossary, MANOBS not
+      checked), then cloud amount, then the hourly forecast. A gauge below
+      freezing gives freezing rain only when Environment Canada says so.
+      Measurements come from the nearest fresh station; visibility, when
+      it measures none, from the station that gave the code.
+      The Weather app names the station and its distance, and gives wind
+      direction, gusts, visibility, snow on the ground and, in Canada, the
+      forecast ahead; the US report gets the same lines from fields the
+      Weather Service already sent. The agent server's status reports the
+      station and how the sky was decided.
+- [x] (Found along the way) The Canadian city page carried no measured
+      visibility on 2026-11-27, so Canadian fog was judged from the
+      condition words alone. The real stations now supply visibility where
+      they measure it (airports mostly); elsewhere the words still decide.
+- [ ] (Found along the way) Measured visibility and gusts only feed the
+      Weather app; the sky condition alone still sets the drive's
+      visibility and wind strength, in both countries. Let the readings
+      change the drive.
+- [ ] (Found along the way) The United States live report has no
+      forecast; the Weather Service's hourly forecast would give it one.
+- [ ] (Found along the way) Environment Canada's daily text forecast
+      ("Tonight: snow, 5 cm") is unread; only the hourly conditions are.
+- [ ] (Found along the way) Simulated weather's conditions line speaks
+      metric visibility unrounded ("visibility 2.41402 kilometers"), a
+      figure pinned from the Python port; round it like the Weather app's
+      Visibility line.
+- [ ] (Found along the way) Cloud layer codes 35 to 39 appear at Toronto
+      Pearson and are not in the SWOB guide's table 6.5.15; they are
+      ignored, so that station's cloud amount never decides the sky.
+- [ ] (Found along the way) Environment Canada's French condition and
+      alert text is unused; the game reads the English and translates at
+      the speech boundary like any other line.
+- [ ] (Found along the way) A Canadian alert is spoken by its English
+      product name in title case; its own short name
+      (`alert_short_name_en`) is unused.
 - [ ] Headlights as a control, on the same clarity model (July notes).
 
 ### Personal conveyance and duty-purpose correction

@@ -26,7 +26,7 @@ use crate::states::driving_core::*;
 const ALERT_ANSWER_MI: f64 = 2.0;
 
 impl DrivingState {
-    /// Read the Weather Service warnings for where the truck is, every
+    /// Read the weather warnings for where the truck is, every
     /// [`ALERT_POLL_MI`] of road, and say a new one once: "Weather alert:
     /// High Wind Warning, gusts to 60 miles per hour." The trip keeps the
     /// current set so the chain law can follow a winter warning. Off with
@@ -57,22 +57,22 @@ impl DrivingState {
                 // A synthetic route with no geometry has nowhere to ask about.
                 return;
             }
-            if !self.trip.live_weather_covers(position) {
-                // The Weather Service answers nothing north of the border;
-                // no alert is said there, and nothing is asked.
+            let Some(service) = self.trip.live_weather_service(position) else {
+                // No service answers here; no alert is said, and nothing
+                // is asked.
                 if !self.trip.live_alerts.is_empty() {
                     self.trip.live_alerts.clear();
                     self.trip.refresh_chain_control();
                 }
                 return;
-            }
-            provider.request(lat, lon);
-            self.alerts_pending = Some((lat, lon, position));
+            };
+            provider.request_from(service, lat, lon);
+            self.alerts_pending = Some((service, lat, lon, position));
         }
-        let Some((lat, lon, asked_at)) = self.alerts_pending else {
+        let Some((service, lat, lon, asked_at)) = self.alerts_pending else {
             return;
         };
-        let Some(alerts) = provider.get(lat, lon) else {
+        let Some(alerts) = provider.get_from(service, lat, lon) else {
             if position - asked_at > ALERT_ANSWER_MI {
                 // The feed did not answer for this point in time; the next
                 // point is asked a mile on rather than eight.
@@ -115,7 +115,7 @@ impl DrivingState {
         self.trip.refresh_chain_control();
     }
 
-    /// Re-read the Weather Service warnings where the truck stands, for a
+    /// Re-read the weather warnings where the truck stands, for a
     /// truck that is not moving (a wait at a chain checkpoint):
     /// `sync_weather_alerts` only asks again after `ALERT_POLL_MI` of road,
     /// so a parked truck would keep a warning that has since expired. Asks
@@ -131,11 +131,14 @@ impl DrivingState {
             return;
         };
         let (lat, lon) = self.trip.latlon_at(None);
-        if lat == 0.0 && lon == 0.0 || !self.trip.live_weather_covers(self.trip.position_mi) {
+        if lat == 0.0 && lon == 0.0 {
             return;
         }
-        provider.request(lat, lon);
-        let Some(alerts) = provider.get(lat, lon) else {
+        let Some(service) = self.trip.live_weather_service(self.trip.position_mi) else {
+            return;
+        };
+        provider.request_from(service, lat, lon);
+        let Some(alerts) = provider.get_from(service, lat, lon) else {
             return;
         };
         let winter_fits = self.trip.weather.winter_fits_calendar();
@@ -157,10 +160,8 @@ impl DrivingState {
         self.weather_source_real = real;
         self.live_weather_controls_calendar = controls_calendar;
         self.trip.weather.provider = if real {
-            Some(
-                Box::new(RealWeatherProvider::with_nws(Arc::new(UreqTransport)))
-                    as Box<dyn WeatherProvider>,
-            )
+            Some(Box::new(RealWeatherProvider::live(Arc::new(UreqTransport)))
+                as Box<dyn WeatherProvider>)
         } else {
             None
         };

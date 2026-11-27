@@ -658,10 +658,10 @@ against this list on 2026-11-22.
   for the province, from Statistics Canada table 18-10-0001-01 (the city
   average the table names, labelled read or derived). The pump then says
   the Canadian dollars a liter on its own.
-- **Weather.** Nothing to add. North of the border the trip runs simulated
-  weather, reported as simulated, and never asks the US Weather Service
-  for weather or alerts; the terminal's weather line says "Simulated
-  weather". Crossing back, live weather is fetched again.
+- **Weather.** Nothing to add. A Canadian city's country sends its live
+  weather and alerts to Environment Canada, never to the US Weather
+  Service, and Environment Canada's city page sites cover the country;
+  the nearest site is found by search at run time.
 - **Services, garage and parking.** The city's `travel_center` or
   `truck_parking` pin with its spaces in the source note, as for the
   Alaska Highway towns; `data/city_services.json` only if the city has a

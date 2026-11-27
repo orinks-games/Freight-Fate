@@ -1,0 +1,500 @@
+{
+ "type": "Feature",
+ "properties": {
+  "lastUpdated": "2026-11-27T15:01:20Z",
+  "identifier": "on-143",
+  "name": {
+   "en": "Toronto",
+   "fr": "Toronto"
+  },
+  "region": {
+   "en": "City of Toronto",
+   "fr": "ville de Toronto"
+  },
+  "url": {
+   "en": "https://weather.gc.ca/en/location/index.html?coords=43.65,-79.38",
+   "fr": "https://meteo.gc.ca/fr/location/index.html?coords=43.65,-79.38"
+  },
+  "currentConditions": {
+   "iconCode": {
+    "format": "gif",
+    "value": 12,
+    "url": "https://weather.gc.ca/weathericons/12.gif"
+   },
+   "timestamp": {
+    "en": "2026-11-27T15:00:00Z",
+    "fr": "2026-11-27T15:00:00Z"
+   },
+   "relativeHumidity": {
+    "units": {
+     "en": "%",
+     "fr": "%"
+    },
+    "qaValue": {
+     "en": 100,
+     "fr": 100
+    },
+    "value": {
+     "en": 95,
+     "fr": 95
+    }
+   },
+   "wind": {
+    "speed": {
+     "unitType": {
+      "en": "metric",
+      "fr": "metric"
+     },
+     "units": {
+      "en": "km/h",
+      "fr": "km/h"
+     },
+     "qaValue": {
+      "en": 100,
+      "fr": 100
+     },
+     "value": {
+      "en": 16,
+      "fr": 16
+     }
+    },
+    "direction": {
+     "qaValue": {
+      "en": 100,
+      "fr": 100
+     },
+     "value": {
+      "en": "NNE",
+      "fr": "NNE"
+     }
+    },
+    "bearing": {
+     "units": {
+      "en": "degrees",
+      "fr": "degrees"
+     },
+     "qaValue": {
+      "en": 100,
+      "fr": 100
+     },
+     "value": {
+      "en": 15.0,
+      "fr": 15.0
+     }
+    },
+    "gust": {
+     "unitType": {
+      "en": "metric",
+      "fr": "metric"
+     },
+     "units": {
+      "en": "km/h",
+      "fr": "km/h"
+     },
+     "value": {
+      "en": 35,
+      "fr": 35
+     },
+     "qaValue": {
+      "en": 100,
+      "fr": 100
+     }
+    }
+   },
+   "pressure": {
+    "unitType": {
+     "en": "metric",
+     "fr": "metric"
+    },
+    "units": {
+     "en": "kPa",
+     "fr": "kPa"
+    },
+    "change": {
+     "en": 0.15,
+     "fr": 0.15
+    },
+    "tendency": {
+     "en": "falling",
+     "fr": "à la baisse"
+    },
+    "qaValue": {
+     "en": 100,
+     "fr": 100
+    },
+    "value": {
+     "en": 99.5,
+     "fr": 99.5
+    }
+   },
+   "temperature": {
+    "unitType": {
+     "en": "metric",
+     "fr": "metric"
+    },
+    "units": {
+     "en": "C",
+     "fr": "C"
+    },
+    "qaValue": {
+     "en": 100,
+     "fr": 100
+    },
+    "value": {
+     "en": 3.7,
+     "fr": 3.7
+    }
+   },
+   "dewpoint": {
+    "unitType": {
+     "en": "metric",
+     "fr": "metric"
+    },
+    "units": {
+     "en": "C",
+     "fr": "C"
+    },
+    "qaValue": {
+     "en": 100,
+     "fr": 100
+    },
+    "value": {
+     "en": 2.9,
+     "fr": 2.9
+    }
+   },
+   "station": {
+    "code": {
+     "en": "yyz",
+     "fr": "yyz"
+    },
+    "lat": {
+     "en": "43.68N",
+     "fr": "43.68N"
+    },
+    "lon": {
+     "en": "79.63W",
+     "fr": "79.63O"
+    },
+    "value": {
+     "en": "Toronto Pearson Int'l Airport",
+     "fr": "Aéroport int. Pearson de Toronto"
+    }
+   },
+   "condition": {
+    "en": "Light Rain",
+    "fr": "Pluie faible"
+   },
+   "windChill": {
+    "unitType": {
+     "en": "metric",
+     "fr": "metric"
+    },
+    "value": {
+     "en": -5,
+     "fr": -5
+    },
+    "qaValue": {
+     "en": 100,
+     "fr": 100
+    }
+   }
+  },
+  "hourlyForecastGroup": {
+   "timestamp": {
+    "en": "2026-11-27T11:24:00Z",
+    "fr": "2026-11-27T11:24:00Z"
+   },
+   "hourlyForecasts": [
+    {
+     "uv": {
+      "index": {
+       "value": {
+        "en": 1,
+        "fr": 1
+       }
+      }
+     },
+     "condition": {
+      "en": "Periods of rain",
+      "fr": "Pluie intermittente"
+     },
+     "temperature": {
+      "unitType": {
+       "en": "metric",
+       "fr": "metric"
+      },
+      "units": {
+       "en": "C",
+       "fr": "C"
+      },
+      "value": {
+       "en": 4,
+       "fr": 4
+      }
+     },
+     "iconCode": {
+      "format": "png",
+      "value": 12,
+      "url": "https://weather.gc.ca/weathericons/12.gif"
+     },
+     "lop": {
+      "units": {
+       "en": "%",
+       "fr": "%"
+      },
+      "category": {
+       "en": "High",
+       "fr": "Élevée"
+      },
+      "value": {
+       "en": 80,
+       "fr": 80
+      }
+     },
+     "timestamp": "2026-11-27T16:00:00Z",
+     "wind": {
+      "speed": {
+       "unitType": {
+        "en": "metric",
+        "fr": "metric"
+       },
+       "units": {
+        "en": "km/h",
+        "fr": "km/h"
+       },
+       "value": {
+        "en": 5,
+        "fr": 5
+       }
+      },
+      "direction": {
+       "windDirFull": {
+        "en": "Variable direction",
+        "fr": "Direction variable"
+       },
+       "value": {
+        "en": "VR",
+        "fr": "VR"
+       }
+      }
+     }
+    },
+    {
+     "uv": {
+      "index": {
+       "value": {
+        "en": 1,
+        "fr": 1
+       }
+      }
+     },
+     "condition": {
+      "en": "Periods of rain",
+      "fr": "Pluie intermittente"
+     },
+     "temperature": {
+      "unitType": {
+       "en": "metric",
+       "fr": "metric"
+      },
+      "units": {
+       "en": "C",
+       "fr": "C"
+      },
+      "value": {
+       "en": 4,
+       "fr": 4
+      }
+     },
+     "iconCode": {
+      "format": "png",
+      "value": 12,
+      "url": "https://weather.gc.ca/weathericons/12.gif"
+     },
+     "lop": {
+      "units": {
+       "en": "%",
+       "fr": "%"
+      },
+      "category": {
+       "en": "High",
+       "fr": "Élevée"
+      },
+      "value": {
+       "en": 80,
+       "fr": 80
+      }
+     },
+     "timestamp": "2026-11-27T17:00:00Z",
+     "wind": {
+      "speed": {
+       "unitType": {
+        "en": "metric",
+        "fr": "metric"
+       },
+       "units": {
+        "en": "km/h",
+        "fr": "km/h"
+       },
+       "value": {
+        "en": 5,
+        "fr": 5
+       }
+      },
+      "direction": {
+       "windDirFull": {
+        "en": "Variable direction",
+        "fr": "Direction variable"
+       },
+       "value": {
+        "en": "VR",
+        "fr": "VR"
+       }
+      }
+     }
+    },
+    {
+     "condition": {
+      "en": "Periods of rain",
+      "fr": "Pluie intermittente"
+     },
+     "temperature": {
+      "unitType": {
+       "en": "metric",
+       "fr": "metric"
+      },
+      "units": {
+       "en": "C",
+       "fr": "C"
+      },
+      "value": {
+       "en": 4,
+       "fr": 4
+      }
+     },
+     "iconCode": {
+      "format": "png",
+      "value": 12,
+      "url": "https://weather.gc.ca/weathericons/12.gif"
+     },
+     "lop": {
+      "units": {
+       "en": "%",
+       "fr": "%"
+      },
+      "category": {
+       "en": "High",
+       "fr": "Élevée"
+      },
+      "value": {
+       "en": 80,
+       "fr": 80
+      }
+     },
+     "timestamp": "2026-11-27T18:00:00Z",
+     "wind": {
+      "speed": {
+       "unitType": {
+        "en": "metric",
+        "fr": "metric"
+       },
+       "units": {
+        "en": "km/h",
+        "fr": "km/h"
+       },
+       "value": {
+        "en": 5,
+        "fr": 5
+       }
+      },
+      "direction": {
+       "windDirFull": {
+        "en": "Variable direction",
+        "fr": "Direction variable"
+       },
+       "value": {
+        "en": "VR",
+        "fr": "VR"
+       }
+      }
+     }
+    },
+    {
+     "condition": {
+      "en": "Periods of rain",
+      "fr": "Pluie intermittente"
+     },
+     "temperature": {
+      "unitType": {
+       "en": "metric",
+       "fr": "metric"
+      },
+      "units": {
+       "en": "C",
+       "fr": "C"
+      },
+      "value": {
+       "en": 4,
+       "fr": 4
+      }
+     },
+     "iconCode": {
+      "format": "png",
+      "value": 12,
+      "url": "https://weather.gc.ca/weathericons/12.gif"
+     },
+     "lop": {
+      "units": {
+       "en": "%",
+       "fr": "%"
+      },
+      "category": {
+       "en": "High",
+       "fr": "Élevée"
+      },
+      "value": {
+       "en": 80,
+       "fr": 80
+      }
+     },
+     "timestamp": "2026-11-27T19:00:00Z",
+     "wind": {
+      "speed": {
+       "unitType": {
+        "en": "metric",
+        "fr": "metric"
+       },
+       "units": {
+        "en": "km/h",
+        "fr": "km/h"
+       },
+       "value": {
+        "en": 5,
+        "fr": 5
+       }
+      },
+      "direction": {
+       "windDirFull": {
+        "en": "Variable direction",
+        "fr": "Direction variable"
+       },
+       "value": {
+        "en": "VR",
+        "fr": "VR"
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "geometry": {
+  "type": "Point",
+  "coordinates": [
+   -79.38,
+   43.65
+  ]
+ },
+ "id": "on-143"
+}

@@ -1,0 +1,267 @@
+{
+ "dropped": [],
+ "notes": "Hand corrections to radio_imported_canada.json, applied by cargo tools import-canada-stations on top of the build. overrides sets fields on a built station by id (with a why saying read, derived or hand); dropped leaves a station out. An entry whose station is no longer built fails the run.",
+ "overrides": {
+  "rb-ised-09429fd2-e1c0-4f38-ad9a-c4935e466e0f": {
+   "name": "Radio CINA 102.3",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-0ca9eecd-dfbb-4e91-ac0e-72691b222071": {
+   "name": "Algonquin College 107.9",
+   "why": "the directory name is out of date; ISED has the station on this frequency"
+  },
+  "rb-ised-1a310409-363b-4ef6-aa3f-178d53c9a05a": {
+   "name": "Flow 98.7",
+   "why": "call sign or stream note left inside the name"
+  },
+  "rb-ised-1e01c7d1-9ce7-468c-810f-8e63416e2b93": {
+   "name": "The Light 700",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-1f80e86a-e676-40e2-a87a-92904b61413f": {
+   "name": "Viva Rimouski 102.9",
+   "why": "call sign or stream note left inside the name"
+  },
+  "rb-ised-2155dc5e-df10-4c1d-99d7-070b26f0f5e4": {
+   "name": "94.7 Sheet Harbour",
+   "why": "the directory name had no usable words"
+  },
+  "rb-ised-26eece3b-b84a-4cd0-b44c-5a24265dd702": {
+   "name": "101.7 Nanaimo",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-278df5f8-6b73-4254-a8df-07c62e07da8b": {
+   "name": "CBC Music, Toronto",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-281573ae-410a-480c-9963-b9e0e25efc6b": {
+   "name": "CBC Radio One, Ottawa",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-3d7dab1e-a89d-468b-ac17-6d275403552b": {
+   "name": "CBC Radio One, Happy Valley-Goose Bay",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-3e47d405-02bf-4e57-8846-985b7d39041c": {
+   "name": "CHIN Radio 100.7",
+   "why": "hand: the director's review; the rule took the network or station's own name apart."
+  },
+  "rb-ised-4fec3b06-5b3f-4af2-80cd-9d4494aab024": {
+   "name": "Plaisir 105.3",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-53291f37-699a-11e9-af37-52543be04c81": {
+   "name": "CKUA Radio Network",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-56d2e7c0-fca6-472e-974c-07b2ad3e2928": {
+   "name": "The X 92.5",
+   "why": "call sign or stream note left inside the name"
+  },
+  "rb-ised-578192b2-6656-41c7-802a-19f1dfa472e0": {
+   "name": "Memorial University of Newfoundland",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-58ee34ba-7378-414a-8de2-903e663e0bbf": {
+   "name": "The Goat 106.1",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-5efd0c45-ed2e-4c01-93d6-d663446cc88b": {
+   "name": "The Wave 94.9",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-62c46328-fdc3-4c91-95ab-a80cdf63edd5": {
+   "name": "Giant FM 91.7",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-64054158-c2db-431e-8e17-38fc2b1a7a78": {
+   "name": "92 CITI FM",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-6509a08d-1b3c-4725-8449-85024b5a64bd": {
+   "name": "Sher E Punjab 600",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-6ea70c53-82a2-4629-8a37-c5f09584dadc": {
+   "name": "The Wave 100.9",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-71b3689f-f96b-44b9-adee-b9f602d250b0": {
+   "name": "The Coast 89.7",
+   "why": "call sign or stream note left inside the name"
+  },
+  "rb-ised-7292db18-f96a-436c-846d-053b375aa920": {
+   "name": "Rebel Rock 101.7",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-77054160-5a03-48c0-923e-e1b64ef02496": {
+   "name": "Hit Country 95.7",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-7b8956ce-5bae-4326-8484-968639655a72": {
+   "name": "107.3 Moncton",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-7c75ac34-cf40-4bb7-9892-7a5e67cee487": {
+   "name": "Lighthouse",
+   "why": "call sign or stream note left inside the name"
+  },
+  "rb-ised-82625a71-739f-450f-a149-72cc5454ce77": {
+   "name": "K 97.5",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-847c668d-5506-44e0-8970-12e711cbef72": {
+   "name": "102.3 Now Radio",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-879d474c-d57c-4052-8524-81c515ed9600": {
+   "name": "Mix 98.5",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-88ed0da5-9aff-47e3-9ab7-57be58782609": {
+   "name": "Real Country 95.5",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-89fab36f-403c-4616-92c5-ce2fc35736d6": {
+   "name": "Giant FM 101.3",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-8aee2cc0-ad62-4f54-82c0-608fb6133cad": {
+   "name": "99.1 Ottawa",
+   "why": "the directory name had no usable words"
+  },
+  "rb-ised-8c4cddec-ee0c-4f9f-b82e-b43cc3a5e039": {
+   "name": "The Hawk 101.5",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-961b9db8-0601-11e8-ae97-52543be04c81": {
+   "name": "89.3 Université de Montréal",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-962009be-0601-11e8-ae97-52543be04c81": {
+   "name": "92.5 Drumheller",
+   "why": "the directory name is out of date; ISED has the station on this frequency"
+  },
+  "rb-ised-9620fbd6-0601-11e8-ae97-52543be04c81": {
+   "name": "Boom 101.1",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-96211a65-0601-11e8-ae97-52543be04c81": {
+   "name": "Windsor's Country 92.7",
+   "why": "the directory name is out of date; ISED has the station on this frequency"
+  },
+  "rb-ised-96215613-0601-11e8-ae97-52543be04c81": {
+   "name": "Big Land 97.9",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-963fc0e9-0601-11e8-ae97-52543be04c81": {
+   "name": "100.7 Campbellton",
+   "why": "the directory name is out of date; ISED has the station on this frequency"
+  },
+  "rb-ised-986c7fff-1509-43ab-a941-1fc62c741b08": {
+   "name": "Plaisir 101.9",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-99e7a69c-72f7-4c9d-b976-50b9325f7fef": {
+   "name": "Hit Country 105.5",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-a452c587-6154-4cdd-b81a-1dfc15783ae8": {
+   "name": "88.7 Saint-Raymond",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-a5d0c625-9a1f-4a45-8fc0-3777f08c4366": {
+   "name": "Moose FM 97.7",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-a63f8e08-d862-4636-997a-0778dccf4269": {
+   "name": "CIVL Radio",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-a8cc3cb4-89de-4a7d-9b88-833b9b511808": {
+   "name": "La Superstation",
+   "why": "call sign or stream note left inside the name"
+  },
+  "rb-ised-af01f4ff-290b-4802-a9ad-9bf9e8b5bc17": {
+   "name": "98.9 XFM",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-b0e67a3b-0c1b-4f6c-ac98-ea5dadcdcdda": {
+   "name": "Energie 94.5",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-ba146534-4e6a-4cc1-a128-5375e4c6b3f0": {
+   "name": "AccessNow Radio 91.3",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-bb26c777-f445-4155-b3d2-313f98ca7a8c": {
+   "name": "Live 88.5",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-c67ced28-65c3-4cbe-8959-65901b72689c": {
+   "name": "Kiss FM 105.3",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-c915523e-20e0-4aa5-827c-d65feb6a5924": {
+   "name": "CBC Radio One, London",
+   "why": "hand: the director's review; the rule took the network or station's own name apart."
+  },
+  "rb-ised-d1297fd9-ac1e-45d6-8b90-d8538065115b": {
+   "name": "Valley Heritage Radio 98.7",
+   "why": "call sign or stream note left inside the name"
+  },
+  "rb-ised-d6b10bc8-1197-4a7e-a801-1e8cc9e190e8": {
+   "name": "The Lounge 99.9",
+   "why": "call sign or stream note left inside the name"
+  },
+  "rb-ised-dbd6796f-d381-4b9e-aaa8-496b9629d50a": {
+   "name": "La Voix du Témiscamingue",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-e032cab0-e438-4cb5-9ac8-91a228413c49": {
+   "name": "Fairchild Radio 1430",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-e2e09812-25ef-4812-8106-46b3b36d44df": {
+   "name": "AM 1320 Vancouver",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-e32196f9-e788-4468-9d84-3d46ee9e0a7c": {
+   "name": "The Goat 99.3",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-e330ee1c-9a29-4cc7-a998-000cd12e1cd4": {
+   "name": "CBC Radio One, Nord Quebec",
+   "why": "the rule lost part of the name"
+  },
+  "rb-ised-e7a545b4-efcb-455f-9d0e-6246f9bb49b9": {
+   "name": "Shine FM 105.9",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-e9e2c2ac-1916-4f2e-a7ba-a3669bea3bcd": {
+   "name": "CBC Radio One, Edmonton",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-f1e32545-f010-478e-9970-8760701b8b90": {
+   "name": "CBC Music, Winnipeg",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-f64b8373-07d8-4c4a-8920-b49a90697658": {
+   "name": "Kiss 99.3",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-f9d07e11-204f-419a-88fe-a02db9e0de4b": {
+   "name": "The Light 930",
+   "why": "shorter, and the same shape as the station's sister stations"
+  },
+  "rb-ised-fa350693-74db-4606-8260-9c490af99747": {
+   "name": "FAITH 99.9",
+   "why": "call sign or stream note left inside the name"
+  },
+  "rb-ised-fa76f5a4-0937-4158-a2bd-18ae303af1cb": {
+   "name": "CBC Radio One, Windsor",
+   "why": "the directory name had no usable words"
+  }
+ },
+ "schema": 1
+}

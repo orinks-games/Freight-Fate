@@ -5362,7 +5362,7 @@ msgid "the District of Columbia"
 msgstr "District of Columbia"
 
 msgid "northeast"
-msgstr "northeast"
+msgstr "северо-восточный"
 
 msgid "appalachia"
 msgstr "appalachia"
@@ -15158,13 +15158,6 @@ msgstr "солнце"
 msgid "sunny"
 msgstr "солнечно"
 
-#. placeholders: {raw}
-msgid "could not convert {raw} to float"
-msgstr "не удалось преобразовать {raw} в число"
-
-msgid "observation has no properties"
-msgstr "у наблюдения нет свойств"
-
 #. placeholders: {message}
 msgid "points lookup: {message}"
 msgstr "поиск точки: {message}"
@@ -15187,6 +15180,13 @@ msgstr "ни одна станция не ответила"
 msgid "every station failed: {join}"
 msgstr "все станции не ответили: {join}"
 
+#. placeholders: {raw}
+msgid "could not convert {raw} to float"
+msgstr "не удалось преобразовать {raw} в число"
+
+msgid "observation has no properties"
+msgstr "у наблюдения нет свойств"
+
 msgid "Clear"
 msgstr "Ясно"
 
@@ -15205,9 +15205,20 @@ msgstr "NWS API не принимает POST"
 msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 msgstr "(?i)gusts?\\\\s+(?:up\\\\s+to|to|of|as high as)\\\\s+(\\\\d{2,3})\\\\s*mph"
 
+msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*km/h"
+msgstr ""
+
 #. placeholders: {event}, {gust}
 msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}, порывы до {gust} {gust:мили|миль|миль} в час"
+
+#. placeholders: {event}, {gust}
+msgid "{event}, gusts to {gust} kilometers per hour"
+msgstr ""
+"{event}, порывы до {gust} {gust:километра|километров|километров} в час"
+
+msgid "flash freeze"
+msgstr ""
 
 msgid "marine"
 msgstr "морское"
@@ -15266,6 +15277,9 @@ msgstr "экстремальный ветер"
 msgid "typhoon"
 msgstr "тайфун"
 
+msgid "freezing drizzle"
+msgstr ""
+
 msgid "freezing fog"
 msgstr "ледяной туман"
 
@@ -15287,11 +15301,14 @@ msgstr "зимний шторм"
 msgid "flash flood warning"
 msgstr "предупреждение о внезапном паводке"
 
+msgid "flood warning"
+msgstr "предупреждение о наводнении"
+
 msgid "flood advisory"
 msgstr "сводка о подтоплениях"
 
-msgid "flood warning"
-msgstr "предупреждение о наводнении"
+msgid "rainfall warning"
+msgstr ""
 
 msgid "high wind"
 msgstr "сильный ветер"
@@ -15302,17 +15319,20 @@ msgstr "сводка о ветре"
 msgid "wind warning"
 msgstr "предупреждение о ветре"
 
-msgid "blowing dust"
-msgstr "пыльная позёмка"
-
 msgid "dense fog"
 msgstr "густой туман"
 
-msgid "dense smoke"
-msgstr "густой дым"
+msgid "fog advisory"
+msgstr ""
 
 msgid "dust storm"
 msgstr "пыльная буря"
+
+msgid "blowing dust"
+msgstr "пыльная позёмка"
+
+msgid "dense smoke"
+msgstr "густой дым"
 
 msgid "thunderstorm"
 msgstr "гроза"
@@ -15335,6 +15355,12 @@ msgstr "ветро-холодовой индекс"
 msgid "extreme cold"
 msgstr "сильный мороз"
 
+msgid "arctic outflow"
+msgstr ""
+
+msgid "weather advisory"
+msgstr ""
+
 msgid "severity"
 msgstr "severity"
 
@@ -15343,6 +15369,9 @@ msgstr "headline"
 
 msgid "description"
 msgstr "description"
+
+msgid "Environment Canada"
+msgstr ""
 
 #. placeholders: {event}, {near_city}
 msgid "{event} near {near_city}"
@@ -15364,6 +15393,149 @@ msgstr "Погодные предупреждения по пути: {join}."
 #. placeholders: {join}
 msgid "Weather: {join}."
 msgstr "Погода: {join}."
+
+msgid "Extreme"
+msgstr ""
+
+msgid "red"
+msgstr "красный"
+
+msgid "Severe"
+msgstr ""
+
+msgid "orange"
+msgstr ""
+
+msgid "Moderate"
+msgstr ""
+
+msgid "yellow"
+msgstr "жёлтый"
+
+msgid "Minor"
+msgstr ""
+
+msgid "ended"
+msgstr ""
+
+#. placeholders: {event}, {area}
+msgid "{event} for {area}"
+msgstr ""
+
+msgid "ice fog"
+msgstr ""
+
+msgid "ice crystals"
+msgstr ""
+
+msgid "Fog"
+msgstr ""
+
+msgid "heavy precipitation"
+msgstr ""
+
+msgid "light precipitation"
+msgstr ""
+
+msgid "funnel cloud"
+msgstr ""
+
+msgid "Cloudy"
+msgstr ""
+
+msgid "site has no properties"
+msgstr ""
+
+msgid "site has no current conditions"
+msgstr ""
+
+msgid "site reports no observation"
+msgstr ""
+
+#. placeholders: {e}
+msgid "site search: {e}"
+msgstr ""
+
+#. placeholders: {lat}, {lon}
+msgid "no Environment Canada site near {lat},{lon}"
+msgstr ""
+
+#. placeholders: {site}
+msgid "site {site} has only a forecast"
+msgstr ""
+
+#. placeholders: {basis}, {site}
+msgid "city page {basis}, site {site}"
+msgstr ""
+
+msgid "and no measurement"
+msgstr ""
+
+msgid "derived"
+msgstr ""
+
+msgid "with its measured temperature and wind"
+msgstr ""
+
+msgid "read, stale"
+msgstr ""
+
+msgid "no site reported a condition"
+msgstr ""
+
+#. placeholders: {join}
+msgid "every site failed: {join}"
+msgstr ""
+
+msgid "forecast only"
+msgstr ""
+
+msgid "no station near enough has a fresh observation"
+msgstr ""
+
+msgid "nothing decides the sky"
+msgstr ""
+
+#. placeholders: {id}
+msgid "station {id}"
+msgstr ""
+
+#. placeholders: {site}
+msgid "site {site}"
+msgstr ""
+
+msgid "no observation"
+msgstr ""
+
+msgid "vis"
+msgstr ""
+
+msgid "code"
+msgstr ""
+
+msgid "text"
+msgstr "text"
+
+msgid "gauge"
+msgstr ""
+
+msgid "cloud amount"
+msgstr ""
+
+msgid "forecast"
+msgstr ""
+
+msgid "Freezing Rain"
+msgstr ""
+
+msgid "Snow"
+msgstr ""
+
+msgid "Heavy Rain"
+msgstr ""
+
+msgid "Rain"
+msgstr ""
 
 msgid "jointed"
 msgstr "со швами"
@@ -17423,6 +17595,104 @@ msgstr "сухо"
 msgid "wet"
 msgstr "мокро"
 
+msgid "north"
+msgstr "северный"
+
+msgid "east"
+msgstr "восточный"
+
+msgid "southeast"
+msgstr "юго-восточный"
+
+msgid "south"
+msgstr "южный"
+
+msgid "southwest"
+msgstr "юго-западный"
+
+msgid "west"
+msgstr "западный"
+
+msgid "northwest"
+msgstr "северо-западный"
+
+#. placeholders: {station}
+msgid "Station: {station}."
+msgstr "Станция: {station}."
+
+#. placeholders: {station}
+msgid "Station: {station}, nearby."
+msgstr "Станция: {station}, рядом."
+
+#. placeholders: {station}, {distance}
+msgid "Station: {station}, {distance} away."
+msgstr "Станция: {station}, расстояние: {distance}."
+
+msgid "Wind: calm."
+msgstr "Ветер: штиль."
+
+#. placeholders: {counted}
+msgid "{counted} per hour"
+msgstr ""
+
+#. placeholders: {from}, {sustained}, {gust}
+msgid "Wind: {from} at {sustained}, gusting to {gust}."
+msgstr "Ветер: {from}, {sustained}, порывы до {gust}."
+
+#. placeholders: {from}, {sustained}
+msgid "Wind: {from} at {sustained}."
+msgstr "Ветер: {from}, {sustained}."
+
+#. placeholders: {sustained}, {gust}
+msgid "Wind: {sustained}, gusting to {gust}."
+msgstr "Ветер: {sustained}, порывы до {gust}."
+
+#. placeholders: {sustained}
+msgid "Wind: {sustained}."
+msgstr "Ветер: {sustained}."
+
+#. placeholders: {distance}
+msgid "Visibility: {distance}."
+msgstr "Видимость: {distance}."
+
+msgid "1 inch"
+msgstr "1 дюйм"
+
+#. placeholders: {inches}
+msgid "{inches} inches"
+msgstr ""
+
+msgid "centimeter"
+msgstr ""
+
+#. placeholders: {depth}
+msgid "Snow on the ground: {depth}."
+msgstr "Высота снега: {depth}."
+
+#. placeholders: {value}
+msgid "Forecast ahead: {value}."
+msgstr "Прогноз впереди: {value}."
+
+#. placeholders: {join}
+msgid "Forecast ahead: {join}."
+msgstr "Прогноз впереди: {join}."
+
+#. placeholders: {mi}
+msgid "{mi} mi"
+msgstr ""
+
+msgid "Airport"
+msgstr ""
+
+msgid "Municipal"
+msgstr ""
+
+msgid "nws"
+msgstr ""
+
+msgid "eccc"
+msgstr ""
+
 msgid "Lane and steering"
 msgstr "Полоса и руление"
 
@@ -19168,9 +19438,6 @@ msgstr "artist"
 
 msgid "no desc"
 msgstr "no desc"
-
-msgid "text"
-msgstr "text"
 
 msgid "ogg"
 msgstr "ogg"
@@ -31437,12 +31704,6 @@ msgstr "{lead} Свободно. Трогайтесь {whither}."
 msgid "{lead} Pull ahead {whither}."
 msgstr "{lead} Трогайтесь {whither}."
 
-msgid "red"
-msgstr "красный"
-
-msgid "yellow"
-msgstr "жёлтый"
-
 msgid "Light green."
 msgstr "Зелёный свет."
 
@@ -32624,10 +32885,6 @@ msgstr "Условия: {source_conditions}."
 #. placeholders: {speed_text}
 msgid "Safe speed guidance: about {speed_text}."
 msgstr "Рекомендуемая безопасная скорость: около {speed_text}."
-
-#. placeholders: {join}
-msgid "Forecast ahead: {join}."
-msgstr "Прогноз впереди: {join}."
 
 msgid "Forecast ahead: unavailable."
 msgstr "Прогноз впереди: недоступен."
@@ -34761,8 +35018,9 @@ msgstr "В AM или FM и в интернете"
 msgid "terrestrial"
 msgstr "terrestrial"
 
-msgid "A broadcast station. You'll be asked its call sign and state."
-msgstr "Эфирная станция. Вас спросят её позывной и штат."
+msgid ""
+"A broadcast station. You'll be asked its call sign and state or province."
+msgstr "Эфирная станция. Вас спросят её позывной и штат или провинцию."
 
 msgid "Online only"
 msgstr "Только в интернете"
@@ -34783,8 +35041,8 @@ msgstr "Адрес потока"
 msgid "Call sign"
 msgstr "Позывной"
 
-msgid "State"
-msgstr "Штат"
+msgid "State or province"
+msgstr "Штат или провинция"
 
 msgid "City"
 msgstr "Город"
@@ -34805,8 +35063,8 @@ msgstr ""
 msgid "Like W X Y Z, or K A B C dash F M."
 msgstr "Например, W X Y Z или K A B C дефис F M."
 
-msgid "The state it broadcasts from."
-msgstr "Штат, из которого она вещает."
+msgid "The state or province it broadcasts from."
+msgstr "Штат или провинция, откуда она вещает."
 
 msgid "Optional. Enter skips."
 msgstr "Необязательно. Enter пропускает."
@@ -41656,13 +41914,13 @@ msgid "real world"
 msgstr "реальный мир"
 
 msgid ""
-"Real world uses live city conditions when available. It also uses the "
-"Weather Service's active warnings along your route. Dispatch plans around a "
-"blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
-"as you drive into it."
+"Real world uses live city conditions when available. It also uses active "
+"weather warnings along your route. Dispatch plans around a blizzard, ice "
+"storm, hurricane or tornado warning, and you hear a warning as you drive "
+"into it."
 msgstr ""
 "«Реальный мир» использует текущие условия в городах, когда они доступны. "
-"Также он использует действующие предупреждения Погодной службы вдоль вашего "
+"Также он использует действующие погодные предупреждения вдоль вашего "
 "маршрута. Диспетчер планирует в обход предупреждения о метели, ледяном "
 "шторме, урагане или торнадо, а вы слышите предупреждение, когда въезжаете в "
 "его зону."
@@ -45249,12 +45507,14 @@ msgstr ""
 
 msgid ""
 "Suggest a station in the Radio app asks for its type, name, and stream "
-"address. AM and FM suggestions also need a call sign and state. City and "
-"frequency are optional. Connect an account and enable Online services first."
+"address. AM and FM suggestions also need a call sign and state or province. "
+"City and frequency are optional. Connect an account and enable Online "
+"services first."
 msgstr ""
 "«Предложить станцию» в приложении «Радио» спрашивает её тип, название и "
-"адрес потока. Для предложений AM и FM нужны также позывной и штат. Город и "
-"частота необязательны. Сначала подключите аккаунт и включите онлайн-службы."
+"адрес потока. Для предложений AM и FM нужны также позывной и штат или "
+"провинция. Город и частота необязательны. Сначала подключите аккаунт и "
+"включите онлайн-службы."
 
 msgid ""
 "Suggestions are checked for playback and duplicates before review. Accepted "
@@ -50524,6 +50784,22 @@ msgstr ""
 "двигателем, {pad_fuel} называет топливо, а {pad_speed_limit} ограничение "
 "скорости."
 
+#. The Weather app's station lines: a wind speed, and snow on the ground.
+msgid "{count} mile per hour"
+msgstr "{count} {count:миля|мили|миль} в час"
+
+msgid "{count} kilometer per hour"
+msgstr "{count} {count:километр|километра|километров} в час"
+
+msgid "{count} inches"
+msgstr "{count} {count:дюйм|дюйма|дюймов}"
+
+msgid "{count} centimeters"
+msgstr "{count} {count:сантиметр|сантиметра|сантиметров}"
+
+msgid "{count} centimeter"
+msgstr "{count} {count:сантиметр|сантиметра|сантиметров}"
+
 #~ msgid "Career level 15, halfway up the ladder."
 #~ msgstr "Уровень карьеры 15, середина лестницы."
 
@@ -50547,6 +50823,45 @@ msgstr ""
 #~ msgstr ""
 #~ "Уровень 30, высший ранг. Выкуп грузовика остаётся доступен в разделе "
 #~ "«Состояние бизнеса»."
+
+#~ msgid "Station: {name}."
+#~ msgstr "Станция: {name}."
+
+#~ msgid "Station: {name}, nearby."
+#~ msgstr "Станция: {name}, рядом."
+
+#~ msgid "Station: {name}, {distance} away."
+#~ msgstr "Станция: {name}, расстояние: {distance}."
+
+#~ msgid ""
+#~ "Real world uses live city conditions when available. It also uses the "
+#~ "Weather Service's active warnings along your route. Dispatch plans around a "
+#~ "blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
+#~ "as you drive into it."
+#~ msgstr ""
+#~ "«Реальный мир» использует текущие условия в городах, когда они доступны. "
+#~ "Также он использует действующие предупреждения Погодной службы вдоль вашего "
+#~ "маршрута. Диспетчер планирует в обход предупреждения о метели, ледяном "
+#~ "шторме, урагане или торнадо, а вы слышите предупреждение, когда въезжаете в "
+#~ "его зону."
+
+#~ msgid "A broadcast station. You'll be asked its call sign and state."
+#~ msgstr "Эфирная станция. Вас спросят её позывной и штат."
+
+#~ msgid "State"
+#~ msgstr "Штат"
+
+#~ msgid "The state it broadcasts from."
+#~ msgstr "Штат, из которого она вещает."
+
+#~ msgid ""
+#~ "Suggest a station in the Radio app asks for its type, name, and stream "
+#~ "address. AM and FM suggestions also need a call sign and state. City and "
+#~ "frequency are optional. Connect an account and enable Online services first."
+#~ msgstr ""
+#~ "«Предложить станцию» в приложении «Радио» спрашивает её тип, название и "
+#~ "адрес потока. Для предложений AM и FM нужны также позывной и штат. Город и "
+#~ "частота необязательны. Сначала подключите аккаунт и включите онлайн-службы."
 
 #~ msgid ""
 #~ "Driving and duty clocks reset, but you are still "

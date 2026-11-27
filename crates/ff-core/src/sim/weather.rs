@@ -18,7 +18,9 @@ use super::season::{
 };
 use crate::pyfmt::fmt_f;
 use crate::pyrandom::PyRandom;
+use crate::sim::weather_service::WeatherService;
 
+mod live_report;
 mod tables;
 /// The least wind the simulated sky carries with each condition. A high
 /// wind or a thunderstorm also starts a [`WindBlow`] that peaks above this
@@ -155,6 +157,12 @@ pub trait WeatherProvider {
     /// Start (or refresh) a fetch for `city` at the given coordinates.
     fn request(&mut self, city: &str, lat: f64, lon: f64);
 
+    /// [`Self::request`] from the service the game's data picked for the
+    /// place; a provider with one source ignores the service.
+    fn request_from(&mut self, _service: WeatherService, city: &str, lat: f64, lon: f64) {
+        self.request(city, lat, lon);
+    }
+
     /// The current condition for `city`, or None while nothing is known.
     fn get(&mut self, city: &str) -> Option<WeatherKind>;
 
@@ -165,6 +173,14 @@ pub trait WeatherProvider {
 
     /// The station's sustained wind in km/h, when the provider has one.
     fn get_wind_kmh(&mut self, _city: &str) -> Option<f64> {
+        None
+    }
+
+    /// What else the station measured, when the provider has a report.
+    fn get_details(
+        &mut self,
+        _city: &str,
+    ) -> Option<crate::sim::weather_report::ObservationDetails> {
         None
     }
 
@@ -230,14 +246,16 @@ pub struct WeatherSystem {
     pub live_raw: Option<WeatherKind>,
     pub live_city: Option<String>,
     pub live_kind: Option<WeatherKind>,
+    /// What else the live report measured, as of the last poll.
+    live_report: Option<crate::sim::weather_report::ObservationDetails>,
     last_observed_kind: Option<WeatherKind>,
     last_observed_temperature: Option<f64>,
     carried_last_known: bool,
     fallback_active: bool,
-    /// False while the tracked point is outside the live provider's country
-    /// (the US Weather Service answers nothing north of the border): the
-    /// sky runs simulated and nothing is fetched (`set_live_coverage`).
-    live_coverage: bool,
+    /// The live service for the tracked point, picked by the game's data
+    /// (`set_live_service`); None where no service answers, and the sky
+    /// runs simulated with nothing fetched.
+    live_service: Option<WeatherService>,
     /// Dev/testing override, usually None.
     pub forced: Option<WeatherKind>,
     pub current: WeatherKind,
@@ -304,11 +322,12 @@ impl WeatherSystem {
             live_raw: None,
             live_city: None,
             live_kind: None,
+            live_report: None,
             last_observed_kind: None,
             last_observed_temperature: None,
             carried_last_known: false,
             fallback_active: false,
-            live_coverage: true,
+            live_service: Some(WeatherService::UnitedStates),
             forced: forced_weather(),
             current: WeatherKind::Clear,
             minutes_until_change: 0.0,
@@ -519,7 +538,7 @@ impl WeatherSystem {
             return None;
         }
 
-        if !self.live_coverage {
+        if self.live_service.is_none() {
             return self.simulated_tick(sitting_minutes);
         }
 
@@ -578,15 +597,19 @@ impl WeatherSystem {
         None
     }
 
-    /// Whether the live provider can answer for the tracked point. Crossing
-    /// out of its country, the sky stays as it was and runs simulated from
-    /// there, reported as simulated, never as a last-known reading carried
-    /// a thousand miles; crossing back, live weather is fetched afresh.
-    pub fn set_live_coverage(&mut self, covered: bool) {
-        if covered == self.live_coverage {
+    /// Which service answers for the tracked point. Moving from one service
+    /// to the other is an ordinary change of place (the route cell's key
+    /// changes with the state). Moving to a place no service covers, the
+    /// sky stays as it was and runs simulated from there, reported as
+    /// simulated, never as a last-known reading carried a thousand miles;
+    /// coming back, live weather is fetched afresh.
+    pub fn set_live_service(&mut self, service: Option<WeatherService>) {
+        let covered = service.is_some();
+        let was_covered = self.live_service.is_some();
+        self.live_service = service;
+        if covered == was_covered {
             return;
         }
-        self.live_coverage = covered;
         self.live = false;
         self.live_raw = None;
         self.live_city = None;
@@ -596,9 +619,14 @@ impl WeatherSystem {
         self.fallback_active = false;
     }
 
-    /// See [`Self::set_live_coverage`].
+    /// Whether a live service answers for the tracked point.
     pub fn live_coverage(&self) -> bool {
-        self.live_coverage
+        self.live_service.is_some()
+    }
+
+    /// See [`Self::set_live_service`].
+    pub fn live_service(&self) -> Option<WeatherService> {
+        self.live_service
     }
 
     /// Whether the provider has no usable data and a fetch has failed.
@@ -618,12 +646,12 @@ impl WeatherSystem {
 
     /// Whether live weather is selected but no observation is ready yet.
     pub fn live_weather_loading(&mut self) -> bool {
-        self.provider.is_some() && self.live_coverage && !self.live && !self.provider_offline()
+        self.provider.is_some() && self.live_coverage() && !self.live && !self.provider_offline()
     }
 
     /// Canonical source state for speech, menus, and event labels.
     pub fn source_status(&mut self) -> &'static str {
-        if self.provider.is_none() || !self.live_coverage {
+        if self.provider.is_none() || !self.live_coverage() {
             return "simulated";
         }
         if self.live {
@@ -824,11 +852,13 @@ impl WeatherSystem {
     fn poll_provider(&mut self) -> Option<WeatherKind> {
         let city = self.city.clone()?;
         let (lat, lon) = self.city_coords;
-        let kind = {
+        let service = self.live_service?;
+        let (kind, report) = {
             let provider = self.provider.as_deref_mut()?;
-            provider.request(&city, lat, lon);
-            provider.get(&city)
+            provider.request_from(service, &city, lat, lon);
+            (provider.get(&city), provider.get_details(&city))
         };
+        self.live_report = report.filter(|_| kind.is_some());
         let Some(kind) = kind else {
             self.carried_last_known = self.carried_last_known || self.live;
             self.live = false;
@@ -894,12 +924,14 @@ impl WeatherSystem {
     }
 
     /// [`Self::wind_mph`], read while live at the station nearest `near`
-    /// (station key, lat, lon), such as a bridge. Until that station has
-    /// answered, the truck's own station stands in.
-    pub fn wind_mph_near(&mut self, near: Option<(&str, f64, f64)>) -> f64 {
+    /// (its service, station key, lat, lon), such as a bridge. Until that
+    /// station has answered, the truck's own station stands in.
+    pub fn wind_mph_near(&mut self, near: Option<(WeatherService, &str, f64, f64)>) -> f64 {
         if self.live {
-            if let (Some((key, lat, lon)), Some(provider)) = (near, self.provider.as_deref_mut()) {
-                provider.request(key, lat, lon);
+            if let (Some((service, key, lat, lon)), Some(provider)) =
+                (near, self.provider.as_deref_mut())
+            {
+                provider.request_from(service, key, lat, lon);
                 if let Some(kmh) = provider.get_wind_kmh(key) {
                     return kmh / 1.609_344;
                 }

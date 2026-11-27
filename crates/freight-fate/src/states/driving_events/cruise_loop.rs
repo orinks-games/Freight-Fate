@@ -503,12 +503,10 @@ impl DrivingState {
                 self.cruise_snubbing = false;
             }
             if self.cruise_snubbing {
-                let weather_brake: f64 = if self.trip.weather.effects().grip < 0.7 {
-                    0.45
-                } else {
-                    0.65
-                };
-                let snub = weather_brake.min(CRUISE_SNUB_BRAKE);
+                // Sized on dry pavement and carried to the grip under the
+                // wheels, so a snub on ice is still a snub
+                // (`TruckState::assist_brake_pedal`).
+                let snub = self.trip.truck.assist_brake_pedal(CRUISE_SNUB_BRAKE);
                 self.trip.truck.brake = self.trip.truck.brake.max(snub);
             }
             return;
@@ -1005,15 +1003,19 @@ impl DrivingState {
         // Only take the new trim when it can still move the pedal -- and the RPM
         // ceiling holding the pedal down counts as pinned just as much as the
         // floor or the roof does.
+        // The drive wheels' limit is a roof like full throttle: on ice cruise
+        // never demands more than the tires can put down, or it spins them
+        // and the driver is told to ease off a pedal they are not on.
+        let traction_cap = self.trip.truck.assist_throttle_cap();
         let saturated = servo_braking
             || retarding_grade
             || (demand <= 0.0 && error < 0.0)
-            || (demand >= 1.0 && error > 0.0)
+            || (demand >= traction_cap.min(1.0) && error > 0.0)
             || (ceiling_factor < 1.0 && error > 0.0);
         if !saturated {
             self.cruise_trim = trim;
         }
-        self.cruise_throttle = demand.clamp(0.0, 1.0);
+        self.cruise_throttle = demand.clamp(0.0, traction_cap);
         // Ramp the applied throttle up to the held integrator value rather than
         // snapping, so cruise eases back in after a clutch release; drops (traffic
         // or a lower limit) still apply immediately. On a steady frame the applied
@@ -1128,11 +1130,6 @@ impl DrivingState {
         self.cruise_jake_cooldown_s = 0.0f64.max(self.cruise_jake_cooldown_s - dt);
         if closing {
             if over > CRUISE_CLOSE_FEATHER_FROM_MPH {
-                let weather_brake: f64 = if self.trip.weather.effects().grip < 0.7 {
-                    0.45
-                } else {
-                    0.65
-                };
                 // Net of whatever the retarder is already doing. On a downgrade
                 // the stage below is kept up on purpose -- dropping it would
                 // hand the whole grade to the drums -- but it is already buying
@@ -1153,7 +1150,13 @@ impl DrivingState {
                 // new application costs air, and the tanks lost the race to
                 // the compressor on the mainline (agent drive D, 2026-09-24).
                 let feather = (over - CRUISE_CLOSE_FEATHER_FROM_MPH).min(1.0);
-                let wanted = feather * weather_brake.min(over / 30.0) - jake_fraction;
+                // The trim is a dry-road pedal, carried to this road's grip;
+                // the retarder's share is already priced against it
+                // (`assist_full_decel_mps2` is this road's full stop). A
+                // second, lower ceiling on slick roads used to stack on top
+                // of the grip itself and leave ice cruise a third of a stop.
+                let dry_trim = CRUISE_CLOSE_MAX_BRAKE.min(over / 30.0);
+                let wanted = feather * self.trip.truck.assist_brake_pedal(dry_trim) - jake_fraction;
                 if wanted > 0.0 {
                     self.trip.truck.brake = self.trip.truck.brake.max(wanted);
                 }
@@ -1361,16 +1364,8 @@ impl DrivingState {
             self.cruise_snubbing = true;
         }
         if self.cruise_snubbing {
-            let weather_brake: f64 = if self.trip.weather.effects().grip < 0.7 {
-                0.45
-            } else {
-                0.65
-            };
-            self.trip.truck.brake = self
-                .trip
-                .truck
-                .brake
-                .max(weather_brake.min(CRUISE_SNUB_BRAKE));
+            let snub = self.trip.truck.assist_brake_pedal(CRUISE_SNUB_BRAKE);
+            self.trip.truck.brake = self.trip.truck.brake.max(snub);
         }
     }
 }

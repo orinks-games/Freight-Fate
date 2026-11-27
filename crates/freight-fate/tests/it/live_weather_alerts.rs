@@ -126,7 +126,7 @@ fn test_the_cab_reads_a_warning_once_as_the_truck_drives_into_it() {
     // yet, as a live fetch would; the cab keeps reading that same point on
     // the frames that follow instead of asking about a new one each time.
     frame(&mut harness, 0.1);
-    let (lat, lon, _) = harness
+    let (_, lat, lon, _) = harness
         .read_drive(|d| d.alerts_pending)
         .expect("a point asked about and not yet answered");
     assert!(lat != 0.0 || lon != 0.0, "the delivery route has geometry");

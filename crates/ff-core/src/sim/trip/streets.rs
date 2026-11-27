@@ -100,15 +100,15 @@ impl Trip {
         out
     }
 
-    /// Whether this route is a facility chain that carries the street detail
+    /// Whether this route has a facility chain that carries the street detail
     /// (a posted limit per street, or a driveway).
     pub fn has_street_detail(&self) -> bool {
-        self.is_facility_approach_route()
-            && self
-                .route
-                .legs
-                .iter()
-                .any(|leg| leg.local_limit.is_some() || leg.local_yard)
+        let Some(start) = self.facility_approach_start_leg() else {
+            return false;
+        };
+        self.route.legs[start..]
+            .iter()
+            .any(|leg| leg.local_limit.is_some() || leg.local_yard)
     }
 
     /// The route mile the yard begins at, inbound: where the chain leaves the
@@ -137,11 +137,15 @@ impl Trip {
     /// stop is at the end of the yard. A chain that ends on the public street
     /// has its gate there and no yard.
     pub fn street_zones(&self) -> Vec<Zone> {
+        let start_leg = self.facility_approach_start_leg().unwrap_or(0);
         let fallback = self
             .statutory_street_mph()
             .unwrap_or(FACILITY_ACCESS_LIMIT_MPH);
         let mut zones: Vec<Zone> = Vec::new();
-        for (leg, start) in self.route.legs.iter().zip(&self.leg_starts) {
+        for (leg, start) in self.route.legs[start_leg..]
+            .iter()
+            .zip(&self.leg_starts[start_leg..])
+        {
             let end = start + leg.miles;
             if end <= *start {
                 continue;

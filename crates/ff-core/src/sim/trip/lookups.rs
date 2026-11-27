@@ -17,6 +17,7 @@ use crate::sim::traffic_manager::{
 };
 use crate::sim::trip_models::*;
 use crate::sim::trip_route_helpers::{fallback_grade, stop_offset_for_direction};
+use crate::sim::weather_service::WeatherService;
 use crate::units::{distance_unit, spoken_distance, to_distance};
 
 /// How far from a leg's start a departure reads through town postings for
@@ -247,19 +248,38 @@ impl Trip {
         lowest
     }
 
-    /// The state the truck is in, or empty where the bake is silent.
-    /// Whether the live weather and alert feeds (the US Weather Service)
-    /// answer at this trip milepost: true in the United States and wherever
-    /// the state is unknown, false in Canada.
-    pub fn live_weather_covers(&self, mile: f64) -> bool {
-        if self.route.legs.is_empty() {
-            return true;
+    /// The live weather and alert service at this trip milepost, picked by
+    /// the country of the state the road is in (or, where the bake names no
+    /// state, of the city the leg leaves): the Weather Service in the United
+    /// States and wherever neither says, Environment Canada in a province
+    /// or territory, None in a country neither serves.
+    pub fn live_weather_service(&self, mile: f64) -> Option<WeatherService> {
+        let mut country = if self.route.legs.is_empty() {
+            String::new()
+        } else {
+            self.country_at(mile)
+        };
+        // A road the bake gives no state, such as a facility's own access
+        // road, is in the country of the city it serves.
+        if country.is_empty() {
+            let (leg_i, _) = if self.route.legs.is_empty() {
+                (0, 0.0)
+            } else {
+                self.leg_at_mile(mile)
+            };
+            if let Some(city) = self
+                .route
+                .cities
+                .get(leg_i)
+                .and_then(|id| self.world.cities.get(id))
+            {
+                country = city.country.clone();
+            }
         }
-        let state = self.state_at(Some(mile));
-        self.country_for_state(&state)
-            .is_none_or(|country| country.eq_ignore_ascii_case("US"))
+        WeatherService::for_country(&country)
     }
 
+    /// The state the truck is in, or empty where the bake is silent.
     pub fn state_at(&self, mile: Option<f64>) -> String {
         let sample_mile = mile.unwrap_or(self.position_mi);
         let (leg_i, leg_start) = self.leg_at_mile(sample_mile);
@@ -1041,6 +1061,59 @@ impl Trip {
             .all(|leg| leg.route_points().len() < 2)
     }
 
+    /// The first leg index of the route's facility approach, when the route
+    /// either IS a facility approach (`Some(0)`) or is a highway corridor
+    /// joined onto a shipper's facility approach tail (`corridor.then(&approach)`).
+    pub fn facility_approach_start_leg(&self) -> Option<usize> {
+        if self.is_facility_approach_route() {
+            return Some(0);
+        }
+        let legs = &self.route.legs;
+        let cities = &self.route.cities;
+        if legs.len() < 2 || cities.len() != legs.len() + 1 {
+            return None;
+        }
+        let mut start = legs.len();
+        while start > 1 {
+            let i = start - 1;
+            let leg = &legs[i];
+            if leg.a == leg.b && cities[i] == cities[i + 1] {
+                start = i;
+            } else {
+                break;
+            }
+        }
+        if start == legs.len() {
+            return None;
+        }
+        let tail = &legs[start..];
+        if tail
+            .iter()
+            .any(|leg| leg.local_speed_mph > 0.0 || !leg.local_cue.is_empty())
+            || tail.iter().all(|leg| leg.route_points().len() < 2)
+        {
+            Some(start)
+        } else {
+            None
+        }
+    }
+
+    /// Route mile where the facility approach begins: `Some(0.0)` for a pure
+    /// facility approach, `Some(join_mi)` for a relayed pickup's appended
+    /// street chain, or `None` for a plain highway corridor.
+    pub fn facility_approach_start_mi(&self) -> Option<f64> {
+        self.facility_approach_start_leg()
+            .and_then(|i| self.leg_starts.get(i).copied())
+    }
+
+    /// Whether `route_mile` is on the route's facility approach (the whole
+    /// route on a same-city approach, or at/past the join mile on a relayed
+    /// pickup).
+    pub fn on_facility_approach(&self, route_mile: f64) -> bool {
+        self.facility_approach_start_mi()
+            .is_some_and(|start| route_mile >= start)
+    }
+
     /// This run's statutory street limit, or None where nothing covers it.
     pub fn statutory_street_mph(&self) -> Option<f64> {
         let mut state = self.local_state.clone();
@@ -1050,7 +1123,8 @@ impl Trip {
             if self.route.legs.is_empty() {
                 return None;
             }
-            state = self.state_at(Some(0.0));
+            let sample_mi = self.facility_approach_start_mi().unwrap_or(0.0);
+            state = self.state_at(Some(sample_mi));
         }
         if state.is_empty() {
             return None;

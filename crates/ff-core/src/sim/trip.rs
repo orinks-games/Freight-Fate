@@ -661,22 +661,22 @@ impl Trip {
         // Start the first route cell's live-weather fetch now rather than on
         // the first update tick. Opportunistic only: a route whose cities are
         // not in the world cannot resolve a location yet.
-        let covered = trip.live_weather_covers(0.0);
-        trip.weather.set_live_coverage(covered);
+        let service = trip.live_weather_service(0.0);
+        trip.weather.set_live_service(service);
         if let Some((weather_key, lat, lon)) = trip.weather_location() {
             trip.weather.set_city(&weather_key, lat, lon);
-            if covered {
+            if let Some(service) = service {
                 if let Some(provider) = trip.weather.provider_mut() {
-                    provider.request(&weather_key, lat, lon);
+                    provider.request_from(service, &weather_key, lat, lon);
                 }
             }
         }
         // Each wind-rule bridge is read at its own station, so fetch those
         // now too, well before the truck reaches the gate.
         for leg_index in 0..trip.route.legs.len() {
-            if let Some((key, lat, lon)) = trip.crossing_station(leg_index) {
+            if let Some((service, key, lat, lon)) = trip.crossing_station_from(leg_index) {
                 if let Some(provider) = trip.weather.provider_mut() {
-                    provider.request(&key, lat, lon);
+                    provider.request_from(service, &key, lat, lon);
                 }
             }
         }

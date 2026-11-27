@@ -248,6 +248,9 @@ pub fn sign_distribution(app: &Path) -> Result<()> {
     )
 }
 
+const NOTARY_SUBMIT_ATTEMPTS: u32 = 3;
+const NOTARY_RETRY_PAUSE: std::time::Duration = std::time::Duration::from_secs(30);
+
 /// Notarize and staple a Developer ID signed app, when credentials are set.
 pub fn notarize_distribution(app: &Path) -> Result<()> {
     let values: Vec<String> = NOTARY_ENV.iter().map(|n| env_trimmed(n)).collect();
@@ -280,15 +283,37 @@ pub fn notarize_distribution(app: &Path) -> Result<()> {
             .arg(app)
             .arg(&upload),
     )?;
-    let result = Command::new("xcrun")
-        .args(["notarytool", "submit"])
-        .arg(&upload)
-        .args(["--key", key_path, "--key-id", key_id, "--issuer", issuer])
-        .args(["--wait", "--timeout", "45m", "--output-format", "json"])
-        .output()
-        .map_err(|e| format!("could not run xcrun notarytool: {e}"))?;
-    let submission =
-        pyjson::loads(&String::from_utf8_lossy(&result.stdout)).unwrap_or(pyjson::Value::Null);
+    // A submission that never reached Apple (the upload or the connection
+    // failed, so there is no verdict to read) is tried again; a verdict,
+    // Invalid included, is final.
+    let mut attempt = 1;
+    let (result, submission) = loop {
+        let result = Command::new("xcrun")
+            .args(["notarytool", "submit"])
+            .arg(&upload)
+            .args(["--key", key_path, "--key-id", key_id, "--issuer", issuer])
+            .args(["--wait", "--timeout", "45m", "--output-format", "json"])
+            .output()
+            .map_err(|e| format!("could not run xcrun notarytool: {e}"))?;
+        let submission =
+            pyjson::loads(&String::from_utf8_lossy(&result.stdout)).unwrap_or(pyjson::Value::Null);
+        let has_verdict = submission
+            .get("status")
+            .and_then(|v| v.as_str())
+            .is_some_and(|s| !s.is_empty());
+        if has_verdict || attempt >= NOTARY_SUBMIT_ATTEMPTS {
+            break (result, submission);
+        }
+        eprintln!(
+            "notarytool submit gave no verdict (exit {}): {}. Trying again in {} seconds \
+             (attempt {attempt} of {NOTARY_SUBMIT_ATTEMPTS}).",
+            result.status.code().unwrap_or(-1),
+            String::from_utf8_lossy(&result.stderr).trim(),
+            NOTARY_RETRY_PAUSE.as_secs()
+        );
+        std::thread::sleep(NOTARY_RETRY_PAUSE);
+        attempt += 1;
+    };
     let field = |k: &str| {
         submission
             .get(k)

@@ -1024,6 +1024,49 @@ fn test_a_landmark_keeps_its_place_in_the_queue() {
 }
 
 #[test]
+fn test_bridge_and_river_calls_do_not_wait_in_the_scenery_queue() {
+    let mut app = TestApp::new();
+    let mut d = a_real_drive(&mut app);
+    app.ctx.settings.chatter_rivers = true;
+    d.ambient_event_cooldown_s = 5.0;
+    app.clear_speech();
+
+    for (category, name) in [("bridge", "Test Bridge"), ("river", "Test River")] {
+        d.handle_trip_event(
+            &mut app.ctx,
+            &an_event(
+                TripEventKind::Landmark,
+                &format!("Crossing the {name}."),
+                TripEventData {
+                    category: Some(category.to_string()),
+                    ..Default::default()
+                },
+            ),
+        );
+    }
+    let spoken = app.event_lines().join(" ");
+    assert!(spoken.contains("Test Bridge."), "{spoken}");
+    assert!(spoken.contains("Test River."), "{spoken}");
+    assert!(d.pending_ambient_events.is_empty());
+
+    app.ctx.settings.chatter_rivers = false;
+    app.clear_speech();
+    d.handle_trip_event(
+        &mut app.ctx,
+        &an_event(
+            TripEventKind::Landmark,
+            "Crossing the Muted Bridge.",
+            TripEventData {
+                category: Some("bridge".to_string()),
+                ..Default::default()
+            },
+        ),
+    );
+    assert!(app.event_lines().is_empty());
+    assert!(d.pending_ambient_events.is_empty());
+}
+
+#[test]
 fn test_a_planned_stop_never_rides_the_ambient_channel() {
     // Tester Darren, 2026-08-11: the stop the player PLANNED is the drive,
     // not a notice.

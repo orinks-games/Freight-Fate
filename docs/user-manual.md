@@ -467,7 +467,7 @@ The map uses Eastern, Central, Mountain, Pacific and Alaska Time, plus Atlantic 
 
 ### Weather in the north
 
-Simulated weather in Alaska and Canada gets as cold as the real winters there: a January morning in Fairbanks reads below zero Fahrenheit, and Whitehorse well below freezing. Live weather comes from the US weather service, which has no Canadian data, so north of the border the weather is simulated and weather alerts stay quiet; live weather comes back at the US line.
+Simulated weather in Alaska and Canada gets as cold as the real winters there: a January morning in Fairbanks reads below zero Fahrenheit, and Whitehorse well below freezing. With live weather on, conditions and weather alerts in Canada come from Environment and Climate Change Canada. In the United States, Alaska included, they come from the National Weather Service.
 
 ### Billboards
 
@@ -934,7 +934,7 @@ Navigation reads your next guidance, route progress, and next listed exit. Open 
 
 ### Weather app
 
-Weather tells you where the report comes from, how old it is, what conditions are like, and the suggested safe speed. With live weather on, it also lists any active weather alerts, so you can hear a warning again after it was announced. Simulated weather also gives you a forecast of what's coming next. A live report may have no forecast. If a live check is still updating or has failed, the app tells you; check how old the last report is before relying on it.
+Weather tells you where the report comes from, how old it is, what conditions are like, and the suggested safe speed. A live report names the weather station and how far away it is, and gives the wind, gusts, visibility and snow on the ground when the station measures them. With live weather on, it also lists any active weather alerts, so you can hear a warning again after it was announced. Simulated weather also gives you a forecast of what's coming next. In Canada a live report carries Environment Canada's forecast; in the United States a live report has no forecast. If a live check is still updating or has failed, the app tells you; check how old the last report is before relying on it.
 
 Use the weather's safe-speed guidance alongside the curve, grade, traffic, and truck conditions. V gives a quicker weather readout when you don't need the full report.
 
@@ -1218,7 +1218,7 @@ A playlist can also hold YouTube links, livestreams included. Freight Fate doesn
 
 ### Suggesting a station
 
-If a station is missing, open Suggest a station in the Radio app. Enter its type, name, and stream address; Control V lets you paste. For AM or FM, include the call sign and state. City and frequency are optional. You'll need account setup and Online services enabled.
+If a station is missing, open Suggest a station in the Radio app. Enter its type, name, and stream address; Control V lets you paste. For AM or FM, include the call sign and state or province. City and frequency are optional. You'll need account setup and Online services enabled.
 
 The service checks whether the stream plays and whether the station is already listed before sending your suggestion for review. If it's accepted, it can appear when you launch the game later, without a game update. A station with a matched transmitter location is available within reception range. If its license can't be matched to a location, it's listed as web radio instead. You can also use the [station suggestion page](https://orinks.net/freight-fate/suggest-a-station). The [streamurl.link site](https://streamurl.link) can help you find a stream address.
 

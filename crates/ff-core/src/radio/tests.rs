@@ -7,7 +7,7 @@
 //! crate's; `test_radio_streaming.py` is entirely the BASS backend and has
 //! no pure half.
 
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 use std::path::{Path, PathBuf};
 
 use super::playlists::py_path_string;
@@ -1438,6 +1438,67 @@ fn test_directory_stations_sit_at_their_licensed_transmitter() {
     // And the real data spreads across the bands rather than piling on one.
     let ranges: HashSet<u64> = fcc_placed.iter().map(|s| s.range_miles.to_bits()).collect();
     assert!(ranges.len() >= 4);
+}
+
+/// The November 27 build placed 574 Canadian stations.
+const CANADIAN_STATION_FLOOR: usize = 565;
+
+/// The Canadian half of the imported tier (`radio_imported_canada.json`).
+fn canadian() -> Vec<RadioStation> {
+    imported()
+        .into_iter()
+        .filter(|s| s.id.starts_with("rb-ised-"))
+        .collect()
+}
+
+#[test]
+fn test_canadian_stations_sit_at_their_licensed_transmitter() {
+    // A floor a little under the November 27 build, so a rebuild that
+    // quietly loses most of the country fails here.
+    let canadian = canadian();
+    assert!(
+        canadian.len() >= CANADIAN_STATION_FLOOR,
+        "{}",
+        canadian.len()
+    );
+    for s in &canadian {
+        let (lat, lon) = (s.lat.unwrap(), s.lon.unwrap());
+        assert!((41.6..=70.0).contains(&lat), "{} at {lat}", s.id);
+        assert!((-141.1..=-52.5).contains(&lon), "{} at {lon}", s.id);
+        assert_eq!(s.country, "CA", "{}", s.id);
+        assert!(
+            s.call_sign.starts_with('C') || s.call_sign.starts_with("VO"),
+            "{} is {}",
+            s.id,
+            s.call_sign
+        );
+        assert!(s.range_miles > 0.0, "{}", s.id);
+        assert_eq!(
+            s.source,
+            "community radio directory, Canadian transmitter site"
+        );
+        assert!(s.real_stream && !s.safe_for_streaming);
+    }
+}
+
+#[test]
+fn test_canadian_streams_are_on_the_dial_once() {
+    // No stream shared with any other row of the whole catalog: a Canadian
+    // row whose stream is already a curated, US or web station would put
+    // one broadcast on the dial twice.
+    let catalog = default_radio_catalog();
+    let mut seen: HashMap<String, &str> = HashMap::new();
+    for s in catalog.iter().filter(|s| !s.stream_url.is_empty()) {
+        seen.entry(normalize_stream_url(&s.stream_url))
+            .and_modify(|other| {
+                assert!(
+                    !(s.id.starts_with("rb-ised-") || other.starts_with("rb-ised-")),
+                    "{} and {other} share a stream",
+                    s.id
+                )
+            })
+            .or_insert(s.id.as_str());
+    }
 }
 
 #[test]

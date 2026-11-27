@@ -8,6 +8,7 @@ use ff_core::sim::trip::{Trip, TripOptions};
 use ff_core::sim::trip_models::{rig_must_chain, ChainCorridorAhead, CHAIN_LAW_LEAD_MI};
 use ff_core::sim::vehicle::TruckState;
 use ff_core::sim::weather::{effects, WeatherSystem};
+use ff_core::sim::weather_service::WeatherService;
 
 use crate::app::GameContext;
 use crate::states::city::profile;
@@ -83,14 +84,14 @@ fn posted_chain_law_on_route(ctx: &mut GameContext, trip: &Trip) -> Option<Chain
             .and_then(|a| a.get(city.lat, city.lon))
             .is_some_and(|found| alerts_raise_chain_law(&found));
         let (lat, lon) = (city.lat, city.lon);
-        // The Weather Service answers for the United States only.
-        let covered = city.country.eq_ignore_ascii_case("US");
+        // The city's country picks the live service.
+        let service = WeatherService::for_country(&city.country);
         let observed = ctx
             .real_weather_provider()
-            .filter(|_| covered)
-            .and_then(|provider| {
+            .zip(service)
+            .and_then(|(provider, service)| {
                 // Keyed as the pickup's route weather is (`city_pickup`).
-                provider.request(key, lat, lon);
+                provider.request_from(service, key, lat, lon);
                 provider.get(key)
             });
         // The law follows the road: only observed snow or ice posts one,

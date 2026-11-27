@@ -63,6 +63,10 @@ pub fn search_page_count(total: usize, page_size: usize) -> usize {
     total.saturating_sub(1) / page_size.max(1) + 1
 }
 pub const RADIO_IMPORTED_RESOURCE: &str = "radio_imported.json";
+/// The Canadian half of the imported tier: Radio Browser streams placed at
+/// their ISED-licensed transmitter, built by `cargo tools
+/// import-canada-stations`. Same schema as [`RADIO_IMPORTED_RESOURCE`].
+pub const RADIO_IMPORTED_CANADA_RESOURCE: &str = "radio_imported_canada.json";
 pub const EARTH_RADIUS_MI: f64 = 3958.8;
 
 /// One station on the dial.
@@ -615,7 +619,8 @@ pub(crate) fn identity_siblings(catalog: &[RadioStation]) -> HashMap<String, Vec
         .collect()
 }
 
-/// The automated tier under the curated catalog, if this build carries one.
+/// The automated tier under the curated catalog, if this build carries one:
+/// the US file and the Canadian file, either of which may be absent.
 ///
 /// tools/import_radio_catalog.py drops call-sign collisions when the file is
 /// built; the filter here repeats that against the curated catalog actually
@@ -630,9 +635,12 @@ pub fn load_imported_stations(
     data_root: &Path,
     curated: &[RadioStation],
 ) -> Result<Vec<RadioStation>, CatalogError> {
-    let Some(imported) = read_stations(&data_root.join(RADIO_IMPORTED_RESOURCE))? else {
-        return Ok(Vec::new());
-    };
+    let mut imported = Vec::new();
+    for resource in [RADIO_IMPORTED_RESOURCE, RADIO_IMPORTED_CANADA_RESOURCE] {
+        if let Some(stations) = read_stations(&data_root.join(resource))? {
+            imported.extend(stations);
+        }
+    }
     let reserved: std::collections::HashSet<String> = curated
         .iter()
         .map(|s| call_sign_base(&s.call_sign))

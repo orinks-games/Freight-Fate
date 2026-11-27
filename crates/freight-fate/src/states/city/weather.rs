@@ -10,6 +10,8 @@ use ff_core::sim::season::{
 };
 use ff_core::sim::timezones::{city_zone, to_local};
 use ff_core::sim::weather::{WeatherKind, WeatherSystem};
+use ff_core::sim::weather_report::{self, ObservationDetails};
+use ff_core::sim::weather_service::WeatherService;
 
 use crate::app::GameContext;
 use crate::states::city::{game_hours_int, profile};
@@ -22,15 +24,16 @@ struct LiveReading {
     refreshing: bool,
     loading: bool,
     observed_temperature: Option<f64>,
+    details: Option<ObservationDetails>,
 }
 
 pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
     let world = ctx.world;
-    let (city_key, city_name, region, climate, lat, lon, covered, game_hours, calendar_hours, day) = {
+    let (city_key, city_name, region, climate, lat, lon, service, game_hours, calendar_hours, day) = {
         let p = profile(ctx);
         let city = world.city(&p.current_city);
-        let (key, name, region, climate, lat, lon, covered) = match city {
-            // The Weather Service answers for the United States only.
+        let (key, name, region, climate, lat, lon, service) = match city {
+            // The city's country picks the live service.
             Ok(c) => (
                 c.key.clone(),
                 c.name.clone(),
@@ -38,7 +41,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
                 c.climate().to_string(),
                 c.lat,
                 c.lon,
-                c.country.eq_ignore_ascii_case("US"),
+                WeatherService::for_country(&c.country),
             ),
             Err(_) => (
                 p.current_city.clone(),
@@ -47,7 +50,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
                 String::new(),
                 0.0,
                 0.0,
-                true,
+                Some(WeatherService::UnitedStates),
             ),
         };
         (
@@ -57,7 +60,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
             climate,
             lat,
             lon,
-            covered,
+            service,
             p.game_hours,
             p.calendar_game_hours(),
             p.market_day() + 1,
@@ -73,11 +76,11 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
     let live_selected = ctx.real_weather_provider().is_some();
     let reading: Option<LiveReading> =
         ctx.real_weather_provider()
-            .filter(|_| covered)
-            .map(|provider| {
+            .zip(service)
+            .map(|(provider, service)| {
                 // Keyed by the city key, not the spoken name: two cities can share
                 // a spoken name but they are different places with different skies.
-                provider.request(&city_key, lat, lon);
+                provider.request_from(service, &city_key, lat, lon);
                 let kind = provider.get(&city_key);
                 match kind {
                     Some(kind) => LiveReading {
@@ -87,6 +90,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
                         refreshing: provider.refreshing(&city_key),
                         loading: false,
                         observed_temperature: provider.get_temperature(&city_key),
+                        details: provider.get_details(&city_key),
                     },
                     None => LiveReading {
                         kind: None,
@@ -95,6 +99,7 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
                         refreshing: false,
                         loading: !provider.unavailable(&city_key),
                         observed_temperature: None,
+                        details: None,
                     },
                 }
             });
@@ -202,6 +207,14 @@ pub(crate) fn time_and_weather_lines(ctx: &mut GameContext) -> Vec<String> {
     let freshness = freshness.trim();
     if !freshness.is_empty() {
         lines.push(freshness.to_string());
+    }
+    // The station a live report came from; nothing else it measured.
+    if live && !last_known {
+        let station = reading
+            .as_ref()
+            .and_then(|r| r.details.as_ref())
+            .and_then(|details| weather_report::station_line(details, imperial));
+        lines.extend(station);
     }
     lines
 }

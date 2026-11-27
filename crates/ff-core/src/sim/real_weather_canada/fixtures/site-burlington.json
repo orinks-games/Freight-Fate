@@ -1,0 +1,482 @@
+{
+ "type": "Feature",
+ "properties": {
+  "lastUpdated": "2026-11-27T15:00:42Z",
+  "identifier": "on-95",
+  "name": {
+   "en": "Burlington",
+   "fr": "Burlington"
+  },
+  "region": {
+   "en": "Burlington - Oakville",
+   "fr": "Burlington - Oakville"
+  },
+  "url": {
+   "en": "https://weather.gc.ca/en/location/index.html?coords=43.37,-79.81",
+   "fr": "https://meteo.gc.ca/fr/location/index.html?coords=43.37,-79.81"
+  },
+  "currentConditions": {
+   "iconCode": {
+    "format": "gif"
+   },
+   "timestamp": {
+    "en": "2026-11-27T15:00:00Z",
+    "fr": "2026-11-27T15:00:00Z"
+   },
+   "relativeHumidity": {
+    "units": {
+     "en": "%",
+     "fr": "%"
+    },
+    "qaValue": {
+     "en": 100,
+     "fr": 100
+    },
+    "value": {
+     "en": 93,
+     "fr": 93
+    }
+   },
+   "wind": {
+    "speed": {
+     "unitType": {
+      "en": "metric",
+      "fr": "metric"
+     },
+     "units": {
+      "en": "km/h",
+      "fr": "km/h"
+     },
+     "qaValue": {
+      "en": 100,
+      "fr": 100
+     },
+     "value": {
+      "en": 28,
+      "fr": 28
+     }
+    },
+    "direction": {
+     "qaValue": {
+      "en": 100,
+      "fr": 100
+     },
+     "value": {
+      "en": "N",
+      "fr": "N"
+     }
+    },
+    "bearing": {
+     "units": {
+      "en": "degrees",
+      "fr": "degrees"
+     },
+     "qaValue": {
+      "en": 100,
+      "fr": 100
+     },
+     "value": {
+      "en": 9.0,
+      "fr": 9.0
+     }
+    },
+    "gust": {
+     "unitType": {
+      "en": "metric",
+      "fr": "metric"
+     },
+     "units": {
+      "en": "km/h",
+      "fr": "km/h"
+     },
+     "value": {
+      "en": 50,
+      "fr": 50
+     },
+     "qaValue": {
+      "en": 100,
+      "fr": 100
+     }
+    }
+   },
+   "pressure": {
+    "unitType": {
+     "en": "metric",
+     "fr": "metric"
+    },
+    "units": {
+     "en": "kPa",
+     "fr": "kPa"
+    },
+    "change": {
+     "en": 0.16,
+     "fr": 0.16
+    },
+    "tendency": {
+     "en": "falling",
+     "fr": "à la baisse"
+    },
+    "value": {
+     "en": 99.5,
+     "fr": 99.5
+    }
+   },
+   "temperature": {
+    "unitType": {
+     "en": "metric",
+     "fr": "metric"
+    },
+    "units": {
+     "en": "C",
+     "fr": "C"
+    },
+    "qaValue": {
+     "en": 100,
+     "fr": 100
+    },
+    "value": {
+     "en": 4.5,
+     "fr": 4.5
+    }
+   },
+   "dewpoint": {
+    "unitType": {
+     "en": "metric",
+     "fr": "metric"
+    },
+    "units": {
+     "en": "C",
+     "fr": "C"
+    },
+    "value": {
+     "en": 3.5,
+     "fr": 3.5
+    }
+   },
+   "station": {
+    "code": {
+     "en": "wwb",
+     "fr": "wwb"
+    },
+    "lat": {
+     "en": "43.30N",
+     "fr": "43.30N"
+    },
+    "lon": {
+     "en": "79.79W",
+     "fr": "79.79O"
+    },
+    "value": {
+     "en": "Burlington Lift Bridge",
+     "fr": "Pont levant de Burlington"
+    }
+   },
+   "windChill": {
+    "unitType": {
+     "en": "metric",
+     "fr": "metric"
+    },
+    "value": {
+     "en": -5,
+     "fr": -5
+    },
+    "qaValue": {
+     "en": 100,
+     "fr": 100
+    }
+   }
+  },
+  "hourlyForecastGroup": {
+   "timestamp": {
+    "en": "2026-11-27T11:24:00Z",
+    "fr": "2026-11-27T11:24:00Z"
+   },
+   "hourlyForecasts": [
+    {
+     "uv": {
+      "index": {
+       "value": {
+        "en": 1,
+        "fr": 1
+       }
+      }
+     },
+     "condition": {
+      "en": "Periods of rain",
+      "fr": "Pluie intermittente"
+     },
+     "temperature": {
+      "unitType": {
+       "en": "metric",
+       "fr": "metric"
+      },
+      "units": {
+       "en": "C",
+       "fr": "C"
+      },
+      "value": {
+       "en": 4,
+       "fr": 4
+      }
+     },
+     "iconCode": {
+      "format": "png",
+      "value": 12,
+      "url": "https://weather.gc.ca/weathericons/12.gif"
+     },
+     "lop": {
+      "units": {
+       "en": "%",
+       "fr": "%"
+      },
+      "category": {
+       "en": "High",
+       "fr": "Élevée"
+      },
+      "value": {
+       "en": 80,
+       "fr": 80
+      }
+     },
+     "timestamp": "2026-11-27T16:00:00Z",
+     "wind": {
+      "speed": {
+       "unitType": {
+        "en": "metric",
+        "fr": "metric"
+       },
+       "units": {
+        "en": "km/h",
+        "fr": "km/h"
+       },
+       "value": {
+        "en": 15,
+        "fr": 15
+       }
+      },
+      "direction": {
+       "windDirFull": {
+        "en": "Northwest"
+       },
+       "value": {
+        "en": "NW",
+        "fr": "NO"
+       }
+      }
+     }
+    },
+    {
+     "uv": {
+      "index": {
+       "value": {
+        "en": 1,
+        "fr": 1
+       }
+      }
+     },
+     "condition": {
+      "en": "Periods of rain",
+      "fr": "Pluie intermittente"
+     },
+     "temperature": {
+      "unitType": {
+       "en": "metric",
+       "fr": "metric"
+      },
+      "units": {
+       "en": "C",
+       "fr": "C"
+      },
+      "value": {
+       "en": 4,
+       "fr": 4
+      }
+     },
+     "iconCode": {
+      "format": "png",
+      "value": 12,
+      "url": "https://weather.gc.ca/weathericons/12.gif"
+     },
+     "lop": {
+      "units": {
+       "en": "%",
+       "fr": "%"
+      },
+      "category": {
+       "en": "High",
+       "fr": "Élevée"
+      },
+      "value": {
+       "en": 80,
+       "fr": 80
+      }
+     },
+     "timestamp": "2026-11-27T17:00:00Z",
+     "wind": {
+      "speed": {
+       "unitType": {
+        "en": "metric",
+        "fr": "metric"
+       },
+       "units": {
+        "en": "km/h",
+        "fr": "km/h"
+       },
+       "value": {
+        "en": 15,
+        "fr": 15
+       }
+      },
+      "direction": {
+       "windDirFull": {
+        "en": "Northwest"
+       },
+       "value": {
+        "en": "NW",
+        "fr": "NO"
+       }
+      }
+     }
+    },
+    {
+     "condition": {
+      "en": "Periods of rain",
+      "fr": "Pluie intermittente"
+     },
+     "temperature": {
+      "unitType": {
+       "en": "metric",
+       "fr": "metric"
+      },
+      "units": {
+       "en": "C",
+       "fr": "C"
+      },
+      "value": {
+       "en": 4,
+       "fr": 4
+      }
+     },
+     "iconCode": {
+      "format": "png",
+      "value": 12,
+      "url": "https://weather.gc.ca/weathericons/12.gif"
+     },
+     "lop": {
+      "units": {
+       "en": "%",
+       "fr": "%"
+      },
+      "category": {
+       "en": "High",
+       "fr": "Élevée"
+      },
+      "value": {
+       "en": 80,
+       "fr": 80
+      }
+     },
+     "timestamp": "2026-11-27T18:00:00Z",
+     "wind": {
+      "speed": {
+       "unitType": {
+        "en": "metric",
+        "fr": "metric"
+       },
+       "units": {
+        "en": "km/h",
+        "fr": "km/h"
+       },
+       "value": {
+        "en": 10,
+        "fr": 10
+       }
+      },
+      "direction": {
+       "windDirFull": {
+        "en": "West"
+       },
+       "value": {
+        "en": "W",
+        "fr": "O"
+       }
+      }
+     }
+    },
+    {
+     "condition": {
+      "en": "Periods of rain",
+      "fr": "Pluie intermittente"
+     },
+     "temperature": {
+      "unitType": {
+       "en": "metric",
+       "fr": "metric"
+      },
+      "units": {
+       "en": "C",
+       "fr": "C"
+      },
+      "value": {
+       "en": 4,
+       "fr": 4
+      }
+     },
+     "iconCode": {
+      "format": "png",
+      "value": 12,
+      "url": "https://weather.gc.ca/weathericons/12.gif"
+     },
+     "lop": {
+      "units": {
+       "en": "%",
+       "fr": "%"
+      },
+      "category": {
+       "en": "High",
+       "fr": "Élevée"
+      },
+      "value": {
+       "en": 80,
+       "fr": 80
+      }
+     },
+     "timestamp": "2026-11-27T19:00:00Z",
+     "wind": {
+      "speed": {
+       "unitType": {
+        "en": "metric",
+        "fr": "metric"
+       },
+       "units": {
+        "en": "km/h",
+        "fr": "km/h"
+       },
+       "value": {
+        "en": 10,
+        "fr": 10
+       }
+      },
+      "direction": {
+       "windDirFull": {
+        "en": "West"
+       },
+       "value": {
+        "en": "W",
+        "fr": "O"
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "geometry": {
+  "type": "Point",
+  "coordinates": [
+   -79.81,
+   43.37
+  ]
+ },
+ "id": "on-95"
+}

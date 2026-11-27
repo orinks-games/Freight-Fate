@@ -646,7 +646,7 @@ impl SettingsCategoryState {
                     }),
                     adjust(|s, ctx, d| s.toggle_real_weather(ctx, d)),
                     "Real world uses live city conditions when available. It also \
-                     uses the Weather Service's active warnings along your route. \
+                     uses active weather warnings along your route. \
                      Dispatch plans around a blizzard, ice storm, hurricane or \
                      tornado warning, and you hear a warning as you drive into it.",
                 ),

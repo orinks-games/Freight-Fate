@@ -4830,7 +4830,7 @@ msgid "the District of Columbia"
 msgstr "District of Columbia"
 
 msgid "northeast"
-msgstr "northeast"
+msgstr "北東"
 
 msgid "appalachia"
 msgstr "appalachia"
@@ -13813,13 +13813,6 @@ msgstr "日差し"
 msgid "sunny"
 msgstr "晴天"
 
-#. placeholders: {raw}
-msgid "could not convert {raw} to float"
-msgstr "{raw} を浮動小数点数に変換できませんでした"
-
-msgid "observation has no properties"
-msgstr "観測データにプロパティがありません"
-
 #. placeholders: {message}
 msgid "points lookup: {message}"
 msgstr "地点の検索：{message}"
@@ -13842,6 +13835,13 @@ msgstr "どの観測所も応答しませんでした"
 msgid "every station failed: {join}"
 msgstr "すべての観測所で失敗しました：{join}"
 
+#. placeholders: {raw}
+msgid "could not convert {raw} to float"
+msgstr "{raw} を浮動小数点数に変換できませんでした"
+
+msgid "observation has no properties"
+msgstr "観測データにプロパティがありません"
+
 msgid "Clear"
 msgstr "晴れ"
 
@@ -13859,9 +13859,19 @@ msgstr "NWS APIにはPOSTがありません"
 msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 msgstr "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 
+msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*km/h"
+msgstr ""
+
 #. placeholders: {event}, {gust}
 msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}、最大瞬間風速は時速{gust}マイル"
+
+#. placeholders: {event}, {gust}
+msgid "{event}, gusts to {gust} kilometers per hour"
+msgstr "{event}、最大瞬間風速は時速{gust}キロメートル"
+
+msgid "flash freeze"
+msgstr ""
 
 msgid "marine"
 msgstr "海上"
@@ -13920,6 +13930,9 @@ msgstr "猛烈な風"
 msgid "typhoon"
 msgstr "台風"
 
+msgid "freezing drizzle"
+msgstr ""
+
 msgid "freezing fog"
 msgstr "着氷性の霧"
 
@@ -13941,11 +13954,14 @@ msgstr "冬の嵐"
 msgid "flash flood warning"
 msgstr "鉄砲水警報"
 
+msgid "flood warning"
+msgstr "洪水警報"
+
 msgid "flood advisory"
 msgstr "洪水注意報"
 
-msgid "flood warning"
-msgstr "洪水警報"
+msgid "rainfall warning"
+msgstr ""
 
 msgid "high wind"
 msgstr "強風"
@@ -13956,17 +13972,20 @@ msgstr "強風注意報"
 msgid "wind warning"
 msgstr "強風警報"
 
-msgid "blowing dust"
-msgstr "砂ぼこりの舞い上がり"
-
 msgid "dense fog"
 msgstr "濃霧"
 
-msgid "dense smoke"
-msgstr "濃い煙"
+msgid "fog advisory"
+msgstr ""
 
 msgid "dust storm"
 msgstr "砂嵐"
+
+msgid "blowing dust"
+msgstr "砂ぼこりの舞い上がり"
+
+msgid "dense smoke"
+msgstr "濃い煙"
 
 msgid "thunderstorm"
 msgstr "雷雨"
@@ -13989,6 +14008,12 @@ msgstr "風による体感温度の低下"
 msgid "extreme cold"
 msgstr "厳しい寒さ"
 
+msgid "arctic outflow"
+msgstr ""
+
+msgid "weather advisory"
+msgstr ""
+
 msgid "severity"
 msgstr "severity"
 
@@ -13997,6 +14022,9 @@ msgstr "headline"
 
 msgid "description"
 msgstr "description"
+
+msgid "Environment Canada"
+msgstr ""
 
 #. placeholders: {event}, {near_city}
 msgid "{event} near {near_city}"
@@ -14018,6 +14046,149 @@ msgstr "この先の気象警報：{join}。"
 #. placeholders: {join}
 msgid "Weather: {join}."
 msgstr "天気：{join}。"
+
+msgid "Extreme"
+msgstr ""
+
+msgid "red"
+msgstr "赤"
+
+msgid "Severe"
+msgstr ""
+
+msgid "orange"
+msgstr ""
+
+msgid "Moderate"
+msgstr ""
+
+msgid "yellow"
+msgstr "黄色"
+
+msgid "Minor"
+msgstr ""
+
+msgid "ended"
+msgstr ""
+
+#. placeholders: {event}, {area}
+msgid "{event} for {area}"
+msgstr ""
+
+msgid "ice fog"
+msgstr ""
+
+msgid "ice crystals"
+msgstr ""
+
+msgid "Fog"
+msgstr ""
+
+msgid "heavy precipitation"
+msgstr ""
+
+msgid "light precipitation"
+msgstr ""
+
+msgid "funnel cloud"
+msgstr ""
+
+msgid "Cloudy"
+msgstr ""
+
+msgid "site has no properties"
+msgstr ""
+
+msgid "site has no current conditions"
+msgstr ""
+
+msgid "site reports no observation"
+msgstr ""
+
+#. placeholders: {e}
+msgid "site search: {e}"
+msgstr ""
+
+#. placeholders: {lat}, {lon}
+msgid "no Environment Canada site near {lat},{lon}"
+msgstr ""
+
+#. placeholders: {site}
+msgid "site {site} has only a forecast"
+msgstr ""
+
+#. placeholders: {basis}, {site}
+msgid "city page {basis}, site {site}"
+msgstr ""
+
+msgid "and no measurement"
+msgstr ""
+
+msgid "derived"
+msgstr ""
+
+msgid "with its measured temperature and wind"
+msgstr ""
+
+msgid "read, stale"
+msgstr ""
+
+msgid "no site reported a condition"
+msgstr ""
+
+#. placeholders: {join}
+msgid "every site failed: {join}"
+msgstr ""
+
+msgid "forecast only"
+msgstr ""
+
+msgid "no station near enough has a fresh observation"
+msgstr ""
+
+msgid "nothing decides the sky"
+msgstr ""
+
+#. placeholders: {id}
+msgid "station {id}"
+msgstr ""
+
+#. placeholders: {site}
+msgid "site {site}"
+msgstr ""
+
+msgid "no observation"
+msgstr ""
+
+msgid "vis"
+msgstr ""
+
+msgid "code"
+msgstr ""
+
+msgid "text"
+msgstr "text"
+
+msgid "gauge"
+msgstr ""
+
+msgid "cloud amount"
+msgstr ""
+
+msgid "forecast"
+msgstr ""
+
+msgid "Freezing Rain"
+msgstr ""
+
+msgid "Snow"
+msgstr ""
+
+msgid "Heavy Rain"
+msgstr ""
+
+msgid "Rain"
+msgstr ""
 
 msgid "jointed"
 msgstr "継ぎ目あり"
@@ -16020,6 +16191,104 @@ msgstr "乾燥"
 msgid "wet"
 msgstr "濡れた路面"
 
+msgid "north"
+msgstr "北"
+
+msgid "east"
+msgstr "東"
+
+msgid "southeast"
+msgstr "南東"
+
+msgid "south"
+msgstr "南"
+
+msgid "southwest"
+msgstr "南西"
+
+msgid "west"
+msgstr "西"
+
+msgid "northwest"
+msgstr "北西"
+
+#. placeholders: {station}
+msgid "Station: {station}."
+msgstr "観測所：{station}。"
+
+#. placeholders: {station}
+msgid "Station: {station}, nearby."
+msgstr "観測所：{station}、すぐ近く。"
+
+#. placeholders: {station}, {distance}
+msgid "Station: {station}, {distance} away."
+msgstr "観測所：{station}、{distance}先。"
+
+msgid "Wind: calm."
+msgstr "風：静穏。"
+
+#. placeholders: {counted}
+msgid "{counted} per hour"
+msgstr ""
+
+#. placeholders: {from}, {sustained}, {gust}
+msgid "Wind: {from} at {sustained}, gusting to {gust}."
+msgstr "風：{from}の風、{sustained}、最大瞬間{gust}。"
+
+#. placeholders: {from}, {sustained}
+msgid "Wind: {from} at {sustained}."
+msgstr "風：{from}の風、{sustained}。"
+
+#. placeholders: {sustained}, {gust}
+msgid "Wind: {sustained}, gusting to {gust}."
+msgstr "風：{sustained}、最大瞬間{gust}。"
+
+#. placeholders: {sustained}
+msgid "Wind: {sustained}."
+msgstr "風：{sustained}。"
+
+#. placeholders: {distance}
+msgid "Visibility: {distance}."
+msgstr "視程：{distance}。"
+
+msgid "1 inch"
+msgstr "1インチ"
+
+#. placeholders: {inches}
+msgid "{inches} inches"
+msgstr ""
+
+msgid "centimeter"
+msgstr ""
+
+#. placeholders: {depth}
+msgid "Snow on the ground: {depth}."
+msgstr "積雪：{depth}。"
+
+#. placeholders: {value}
+msgid "Forecast ahead: {value}."
+msgstr "この先の予報：{value}。"
+
+#. placeholders: {join}
+msgid "Forecast ahead: {join}."
+msgstr "この先の予報：{join}。"
+
+#. placeholders: {mi}
+msgid "{mi} mi"
+msgstr ""
+
+msgid "Airport"
+msgstr ""
+
+msgid "Municipal"
+msgstr ""
+
+msgid "nws"
+msgstr ""
+
+msgid "eccc"
+msgstr ""
+
 msgid "Lane and steering"
 msgstr "車線と操舵"
 
@@ -17584,9 +17853,6 @@ msgstr "artist"
 
 msgid "no desc"
 msgstr "no desc"
-
-msgid "text"
-msgstr "text"
 
 msgid "ogg"
 msgstr "ogg"
@@ -28525,12 +28791,6 @@ msgstr "{lead}安全です。{whither}進んでください。"
 msgid "{lead} Pull ahead {whither}."
 msgstr "{lead}{whither}進んでください。"
 
-msgid "red"
-msgstr "赤"
-
-msgid "yellow"
-msgstr "黄色"
-
 msgid "Light green."
 msgstr "信号は青です。"
 
@@ -29653,10 +29913,6 @@ msgstr "天候：{source_conditions}。"
 #. placeholders: {speed_text}
 msgid "Safe speed guidance: about {speed_text}."
 msgstr "安全速度の目安：約{speed_text}。"
-
-#. placeholders: {join}
-msgid "Forecast ahead: {join}."
-msgstr "この先の予報：{join}。"
 
 msgid "Forecast ahead: unavailable."
 msgstr "この先の予報：取得できません。"
@@ -31561,8 +31817,9 @@ msgstr "AM か FM、それとオンライン"
 msgid "terrestrial"
 msgstr "terrestrial"
 
-msgid "A broadcast station. You'll be asked its call sign and state."
-msgstr "放送局です。コールサインと州を聞かれます。"
+msgid ""
+"A broadcast station. You'll be asked its call sign and state or province."
+msgstr "放送局です。コールサインと州または準州を聞かれます。"
 
 msgid "Online only"
 msgstr "オンラインのみ"
@@ -31582,8 +31839,8 @@ msgstr "ストリームのアドレス"
 msgid "Call sign"
 msgstr "コールサイン"
 
-msgid "State"
-msgstr "州"
+msgid "State or province"
+msgstr "州または準州"
 
 msgid "City"
 msgstr "都市"
@@ -31603,8 +31860,8 @@ msgstr ""
 msgid "Like W X Y Z, or K A B C dash F M."
 msgstr "W X Y Z や、K A B C ダッシュ F M のような形です。"
 
-msgid "The state it broadcasts from."
-msgstr "放送している州です。"
+msgid "The state or province it broadcasts from."
+msgstr "放送している州または準州です。"
 
 msgid "Optional. Enter skips."
 msgstr "任意です。Enter で飛ばします。"
@@ -37717,13 +37974,13 @@ msgid "real world"
 msgstr "実際の天気"
 
 msgid ""
-"Real world uses live city conditions when available. It also uses the "
-"Weather Service's active warnings along your route. Dispatch plans around a "
-"blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
-"as you drive into it."
+"Real world uses live city conditions when available. It also uses active "
+"weather warnings along your route. Dispatch plans around a blizzard, ice "
+"storm, hurricane or tornado warning, and you hear a warning as you drive "
+"into it."
 msgstr ""
-"実際の天気は、利用できるときに各都市の現在の状況を使います。ルート沿いで出ている気象局の警報も使います。配車係は、吹雪、着氷性の嵐、ハリケーン、竜巻の警"
-"報を避けて計画し、警報の区域に入ると警報が聞こえます。"
+"実際の天気は、利用できるときに各都市の現在の状況を使います。ルート沿いで出ている気象警報も使います。配車係は、吹雪、着氷性の嵐、ハリケーン、竜巻の警報を"
+"避けて計画し、警報の区域に入ると警報が聞こえます。"
 
 #. placeholders: {else}
 msgid "Traffic source: {else}"
@@ -40748,11 +41005,12 @@ msgstr ""
 
 msgid ""
 "Suggest a station in the Radio app asks for its type, name, and stream "
-"address. AM and FM suggestions also need a call sign and state. City and "
-"frequency are optional. Connect an account and enable Online services first."
+"address. AM and FM suggestions also need a call sign and state or province. "
+"City and frequency are optional. Connect an account and enable Online "
+"services first."
 msgstr ""
-"ラジオのアプリの局を提案では、種類、名前、ストリームのアドレスを聞きます。AMとFMの提案には、コールサインと州も必要です。都市と周波数は任意です。先に"
-"アカウントをつなぎ、オンラインサービスを有効にしてください。"
+"ラジオのアプリの局を提案では、種類、名前、ストリームのアドレスを聞きます。AMとFMの提案には、コールサインと州または準州も必要です。都市と周波数は任意"
+"です。先にアカウントをつなぎ、オンラインサービスを有効にしてください。"
 
 msgid ""
 "Suggestions are checked for playback and duplicates before review. Accepted "
@@ -45442,6 +45700,22 @@ msgstr ""
 "左バンパーを押したままにすると、ボタンの2段目を使えます。{pad_engine}でエンジンを操作し、{pad_fuel}で燃料を、{pad_speed"
 "_limit}で制限速度を読み上げます。"
 
+#. The Weather app's station lines: a wind speed, and snow on the ground.
+msgid "{count} mile per hour"
+msgstr "時速{count}マイル"
+
+msgid "{count} kilometer per hour"
+msgstr "時速{count}キロメートル"
+
+msgid "{count} inches"
+msgstr "{count}インチ"
+
+msgid "{count} centimeters"
+msgstr "{count}センチメートル"
+
+msgid "{count} centimeter"
+msgstr "{count}センチメートル"
+
 #~ msgid "Career level 15, halfway up the ladder."
 #~ msgstr "キャリアレベル15、はしごの半分です。"
 
@@ -45461,6 +45735,41 @@ msgstr ""
 
 #~ msgid "Level 30, the top rank. The buy-in stays open under Business status."
 #~ msgstr "レベル30、最高ランクです。買い取りは事業状況から今も選べます。"
+
+#~ msgid "Station: {name}."
+#~ msgstr "観測所：{name}。"
+
+#~ msgid "Station: {name}, nearby."
+#~ msgstr "観測所：{name}、すぐ近く。"
+
+#~ msgid "Station: {name}, {distance} away."
+#~ msgstr "観測所：{name}、{distance}先。"
+
+#~ msgid ""
+#~ "Real world uses live city conditions when available. It also uses the "
+#~ "Weather Service's active warnings along your route. Dispatch plans around a "
+#~ "blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
+#~ "as you drive into it."
+#~ msgstr ""
+#~ "実際の天気は、利用できるときに各都市の現在の状況を使います。ルート沿いで出ている気象局の警報も使います。配車係は、吹雪、着氷性の嵐、ハリケーン、竜巻の警"
+#~ "報を避けて計画し、警報の区域に入ると警報が聞こえます。"
+
+#~ msgid "A broadcast station. You'll be asked its call sign and state."
+#~ msgstr "放送局です。コールサインと州を聞かれます。"
+
+#~ msgid "State"
+#~ msgstr "州"
+
+#~ msgid "The state it broadcasts from."
+#~ msgstr "放送している州です。"
+
+#~ msgid ""
+#~ "Suggest a station in the Radio app asks for its type, name, and stream "
+#~ "address. AM and FM suggestions also need a call sign and state. City and "
+#~ "frequency are optional. Connect an account and enable Online services first."
+#~ msgstr ""
+#~ "ラジオのアプリの局を提案では、種類、名前、ストリームのアドレスを聞きます。AMとFMの提案には、コールサインと州も必要です。都市と周波数は任意です。先に"
+#~ "アカウントをつなぎ、オンラインサービスを有効にしてください。"
 
 #~ msgid ""
 #~ "Driving and duty clocks reset, but you are still "

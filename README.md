@@ -44,11 +44,14 @@ everything the game says, for sighted players and helpers.
   Settings, Gameplay, World and traffic, and each city uses its current
   conditions from the free
   [National Weather Service](https://www.weather.gov/documentation/services-web-api)
-  API, including active warnings along your route. If it is raining in
-  Chicago right now, it is raining in your game. No API key is needed, and
-  the game falls back to simulated weather offline. Turn off Live weather
-  controls calendar to keep the career's own dates and seasons with live
-  conditions.
+  API, including active warnings along your route. In Canada they come from
+  Environment and Climate Change Canada's free
+  [MSC GeoMet](https://eccc-msc.github.io/open-data/msc-geomet/readme_en/)
+  service. If it is raining in Chicago right now, it is raining in your
+  game. No API key is needed, and the game falls back to simulated weather
+  offline. Turn off Live weather controls calendar to keep the career's own
+  dates and seasons with live conditions. Data Source: Environment and
+  Climate Change Canada.
 - **Route planning.** Owner-operators compare route options for each job:
   distance, highways, states, grades, tolls, stops and weather forecasts.
 - **Sound.** The engine note follows the RPM. Every sound and music track is

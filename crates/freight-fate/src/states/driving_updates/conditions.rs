@@ -159,7 +159,7 @@ impl DrivingState {
         let remaining_mi = if on_facility_ramp {
             self.ramp_mi
         } else if !self.trip.finished
-            && self.trip.is_facility_approach_route()
+            && self.trip.on_facility_approach(self.trip.position_mi)
             && !self.trip.outbound
         {
             Some(self.trip.remaining_miles())
@@ -607,7 +607,12 @@ impl DrivingState {
         if let Some(abs) = ctx.playtest_abs {
             self.trip.truck.abs_state = abs;
         }
-        let abs = self.trip.truck.abs_active();
+        // The two pedal lines tell the driver what to do with their foot, so
+        // they speak only while it is the driver's own foot on that pedal:
+        // an assist braking or accelerating has nothing for the driver to
+        // ease. The edge is the state AND the foot, so each press that meets
+        // the ABS speaks once. `status` still reports both machines.
+        let abs = self.trip.truck.abs_active() && self.driver_brake_down;
         if abs && !self.abs_active {
             ctx.say_event_with(
                 "ABS pulsing. Hold steady on the brake.",
@@ -618,7 +623,7 @@ impl DrivingState {
         if let Some(traction) = ctx.playtest_drive_traction {
             self.trip.truck.drive_traction_state = traction;
         }
-        let spinning = self.trip.truck.drive_wheels_spinning();
+        let spinning = self.trip.truck.drive_wheels_spinning() && self.driver_throttle_down;
         if spinning && !self.wheelspin_active {
             ctx.say_event_with(
                 "Drive wheels spinning. Ease off the throttle.",
