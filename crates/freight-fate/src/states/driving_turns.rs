@@ -141,18 +141,22 @@ impl DrivingState {
     /// the whole run: city blocks are shorter than one corner's own tail, so
     /// the next corner is regularly already in front of the truck while this
     /// one is still being taken.
+    /// On a joined relayed pickup (`corridor.then(&approach)`), keep street
+    /// corners quiet while the truck is still out on the highway corridor,
+    /// unless a corner right past the join already needs its brake point
+    /// before the street boundary is crossed.
+    fn cue_visible_on_approach(&self, cue: &NavigationCue, position: f64) -> bool {
+        let Some(start) = self.trip.facility_approach_start_mi() else {
+            return true;
+        };
+        position >= start || cue.at_mi - position <= self.turn_brake_point_mi(cue)
+    }
+
     pub fn turn_cues_in_play(&mut self) -> Vec<NavigationCue> {
         if self.turn_trip_id != self.trip_generation {
             self.reset_turn_state_for_trip();
         }
         let position = self.trip.position_mi;
-        if self
-            .trip
-            .facility_approach_start_mi()
-            .is_some_and(|start| position < start)
-        {
-            return Vec::new();
-        }
         let mut cues: Vec<NavigationCue> = self
             .trip
             .navigation_cues
@@ -161,6 +165,7 @@ impl DrivingState {
                 is_judged_turn(cue)
                     && !self.turn_resolved.contains(&cue.key)
                     && cue.at_mi - position >= -TURN_COMMIT_TAIL_MI
+                    && self.cue_visible_on_approach(cue, position)
             })
             .cloned()
             .collect();
@@ -202,13 +207,6 @@ impl DrivingState {
 
     pub(crate) fn turn_cue_in_play_read(&self) -> Option<NavigationCue> {
         let position = self.trip.position_mi;
-        if self
-            .trip
-            .facility_approach_start_mi()
-            .is_some_and(|start| position < start)
-        {
-            return None;
-        }
         self.trip
             .navigation_cues
             .iter()
@@ -216,6 +214,7 @@ impl DrivingState {
                 is_judged_turn(cue)
                     && !self.turn_resolved.contains(&cue.key)
                     && cue.at_mi - position >= -TURN_COMMIT_TAIL_MI
+                    && self.cue_visible_on_approach(cue, position)
             })
             .min_by(|a, b| a.at_mi.total_cmp(&b.at_mi))
             .cloned()
