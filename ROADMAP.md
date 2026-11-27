@@ -7541,15 +7541,27 @@ design, each with the director's pick.
 - [ ] Step 6: more winter roads, one at a time: an oil field ice road
       from Deadhorse, the Mackenzie Valley winter road and the Dempster
       ice crossings, Manitoba, northern Ontario.
-- [ ] Live weather for Canada, so Canadian temperatures can be real
-      readings as Alaska's are. Source: Environment and Climate Change
-      Canada's free public weather service (the Meteorological Service of
-      Canada's API, api.weather.gc.ca), the owner's pick on 2026-11-22
-      over Open-Meteo, whose free tier is for non-commercial use only. The
-      National Weather Service stays the source for the United States and
-      Alaska. Confirm the endpoints and terms of use before building. With
-      live weather on, the real reading decides the temperature and so
-      when frost forms; the climate table is for simulated weather.
+- [x] Live weather for Canada (2026-11-27). Canadian road miles and
+      cities read current conditions and weather alerts from Environment
+      and Climate Change Canada's MSC GeoMet service (api.weather.gc.ca,
+      free, no key; `sim/real_weather_canada.rs` and
+      `sim/real_weather_alerts_canada.rs`). The state the road is in picks
+      the service (`WeatherService`, `Trip::live_weather_service`); the
+      National Weather Service path is unchanged for the United States and
+      Alaska. A site with no present-weather sensor is walked past for the
+      next one within 60 miles (assumed); with none, the nearest site's
+      hourly forecast for the hour stands in, logged as derived. Crossing
+      the border changes service without dropping to simulated weather.
+- [ ] (Found along the way) The Canadian feed carried no measured
+      visibility on 2026-11-27, so Canadian fog is judged from the
+      condition words alone ("Fog" and "Ice Fog" are fog; mist and haze
+      are cloudy). Parse `visibility` once it appears and re-check.
+- [ ] (Found along the way) Environment Canada's French condition and
+      alert text is unused; the game reads the English and translates at
+      the speech boundary like any other line.
+- [ ] (Found along the way) A Canadian alert is spoken by its English
+      product name in title case; its own short name
+      (`alert_short_name_en`) is unused.
 - [ ] Headlights as a control, on the same clarity model (July notes).
 
 ### Personal conveyance and duty-purpose correction

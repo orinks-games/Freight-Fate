@@ -121,7 +121,7 @@ belongs to the truck you own in this game, not to the driver.
 | The held siren and its signature | `SirenLoop` | `states/driving_siren.py` |
 | The safety record | -- | `models/safety_record.py` |
 | Time zone | `TimeZone` | `sim/timezones.py` |
-| Live weather | `RealWeatherProvider` | `sim/real_weather.py` |
+| Live weather | `RealWeatherProvider` | `sim/real_weather.rs` (United States), `sim/real_weather_canada.rs` (Canada) |
 
 Two kinds of traffic exist and they are not the same concept. `TrafficManager`
 simulates the vehicles around the truck right now -- the ones a player hears
@@ -484,7 +484,7 @@ from the words, and synonyms cost them a re-read.
 | The truck striking a hazard it did not clear (the failure half of the dodge outcome pair), and big debris taken above 30 ("Collision with the ladder. Damage 5 percent.") | Collision | crash, impact, hit | `vehicle/collision` |
 | Small debris going under the wheels: the whole outcome when nothing broke, followed by the collision line when the roll cost damage | Debris thump (the road seam sound, louder) | bump, run over | `vehicle/road_joint` in `debris_outcome` |
 | Roadwork ahead: the posted limit drops and a lane may close | Construction zone | work zone, roadwork cue | `events/construction_zone` |
-| A National Weather Service warning active on the road, spoken with the Service's own product name after it ("Weather alert: High Wind Warning, gusts to 60 miles per hour") | Weather alert | weather warning (as the noun), advisory, watch, bulletin, NWS alert | `sim/real_weather_alerts.rs`, `DrivingState::sync_weather_alerts`, on with the `real_weather` setting |
+| A National Weather Service or Environment Canada warning active on the road, spoken with the service's own product name after it ("Weather alert: High Wind Warning, gusts to 60 miles per hour"; "Weather alert: Wind Warning, gusts to 90 kilometers per hour") | Weather alert | weather warning (as the noun), advisory, watch, bulletin, NWS alert | `sim/real_weather_alerts.rs`, `sim/real_weather_alerts_canada.rs`, `DrivingState::sync_weather_alerts`, on with the `real_weather` setting |
 | The traffic ahead coming down in speed | Traffic slowing | slowdown cue, brake lights ahead | `events/traffic_slowing` |
 | A street maneuver coming up on a local drive | Turn ahead | maneuver cue, upcoming turn | `events/turn_ahead` |
 | The next maneuver is a left | Turn left | left-turn cue, left maneuver | `events/turn_left` |

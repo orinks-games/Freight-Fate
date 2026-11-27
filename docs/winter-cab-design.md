@@ -69,13 +69,12 @@ next to the freight region.
   in January with Facility streets off.
 - The table is for simulated weather (owner, 2026-11-22). With live
   weather on, the real reading decides the temperature, and so frost; the
-  table is used when live weather is off, when a reading cannot be
-  fetched, and in Canada until it has live weather.
-- Later, not this step: live weather for Canada, from Environment and
-  Climate Change Canada's free public weather service (api.weather.gc.ca),
-  the owner's pick over Open-Meteo, whose free tier is non-commercial
-  only. The National Weather Service stays for the United States and
-  Alaska.
+  table is used when live weather is off and when a reading cannot be
+  fetched.
+- Live weather for Canada (built 2026-11-27): Environment and Climate
+  Change Canada's free public weather service (api.weather.gc.ca), the
+  owner's pick over Open-Meteo, whose free tier is non-commercial only.
+  The National Weather Service stays for the United States and Alaska.
 
 ## Step 2: the windshield and wipers
 

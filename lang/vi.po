@@ -15138,13 +15138,6 @@ msgstr "nắng"
 msgid "sunny"
 msgstr "có nắng"
 
-#. placeholders: {raw}
-msgid "could not convert {raw} to float"
-msgstr "không thể chuyển {raw} sang số thực"
-
-msgid "observation has no properties"
-msgstr "dữ liệu quan trắc không có properties"
-
 #. placeholders: {message}
 msgid "points lookup: {message}"
 msgstr "tra cứu điểm: {message}"
@@ -15167,6 +15160,13 @@ msgstr "không trạm nào trả lời"
 msgid "every station failed: {join}"
 msgstr "mọi trạm đều lỗi: {join}"
 
+#. placeholders: {raw}
+msgid "could not convert {raw} to float"
+msgstr "không thể chuyển {raw} sang số thực"
+
+msgid "observation has no properties"
+msgstr "dữ liệu quan trắc không có properties"
+
 msgid "Clear"
 msgstr "Quang đãng"
 
@@ -15184,9 +15184,19 @@ msgstr "API của NWS không hỗ trợ POST"
 msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 msgstr "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 
+msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*km/h"
+msgstr ""
+
 #. placeholders: {event}, {gust}
 msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}, gió giật tới {gust} dặm/giờ"
+
+#. placeholders: {event}, {gust}
+msgid "{event}, gusts to {gust} kilometers per hour"
+msgstr "{event}, gió giật tới {gust} km/h"
+
+msgid "flash freeze"
+msgstr ""
 
 msgid "marine"
 msgstr "thời tiết biển"
@@ -15245,6 +15255,9 @@ msgstr "gió cực mạnh"
 msgid "typhoon"
 msgstr "bão nhiệt đới"
 
+msgid "freezing drizzle"
+msgstr ""
+
 msgid "freezing fog"
 msgstr "sương mù đóng băng"
 
@@ -15266,11 +15279,14 @@ msgstr "bão mùa đông"
 msgid "flash flood warning"
 msgstr "cảnh báo lũ quét"
 
+msgid "flood warning"
+msgstr "cảnh báo ngập lụt"
+
 msgid "flood advisory"
 msgstr "thông báo lũ lụt"
 
-msgid "flood warning"
-msgstr "cảnh báo ngập lụt"
+msgid "rainfall warning"
+msgstr ""
 
 msgid "high wind"
 msgstr "gió giật mạnh"
@@ -15281,17 +15297,20 @@ msgstr "thông báo gió mạnh"
 msgid "wind warning"
 msgstr "cảnh báo gió bão"
 
-msgid "blowing dust"
-msgstr "bụi cuốn mù mịt"
-
 msgid "dense fog"
 msgstr "sương mù dày đặc"
 
-msgid "dense smoke"
-msgstr "khói dày đặc"
+msgid "fog advisory"
+msgstr ""
 
 msgid "dust storm"
 msgstr "bão bụi"
+
+msgid "blowing dust"
+msgstr "bụi cuốn mù mịt"
+
+msgid "dense smoke"
+msgstr "khói dày đặc"
 
 msgid "thunderstorm"
 msgstr "giông bão"
@@ -15314,6 +15333,12 @@ msgstr "gió buốt giá"
 msgid "extreme cold"
 msgstr "rét đậm cực đoan"
 
+msgid "arctic outflow"
+msgstr ""
+
+msgid "weather advisory"
+msgstr ""
+
 msgid "severity"
 msgstr "severity"
 
@@ -15322,6 +15347,9 @@ msgstr "headline"
 
 msgid "description"
 msgstr "description"
+
+msgid "Environment Canada"
+msgstr ""
 
 #. placeholders: {event}, {near_city}
 msgid "{event} near {near_city}"
@@ -15343,6 +15371,79 @@ msgstr "Cảnh báo thời tiết trên tuyến: {join}."
 #. placeholders: {join}
 msgid "Weather: {join}."
 msgstr "Thời tiết: {join}."
+
+msgid "Extreme"
+msgstr ""
+
+msgid "red"
+msgstr "đỏ"
+
+msgid "Severe"
+msgstr ""
+
+msgid "orange"
+msgstr ""
+
+msgid "Moderate"
+msgstr ""
+
+msgid "yellow"
+msgstr "vàng"
+
+msgid "Minor"
+msgstr ""
+
+msgid "ended"
+msgstr ""
+
+#. placeholders: {event}, {area}
+msgid "{event} for {area}"
+msgstr ""
+
+msgid "ice fog"
+msgstr ""
+
+msgid "ice crystals"
+msgstr ""
+
+msgid "Fog"
+msgstr ""
+
+msgid "heavy precipitation"
+msgstr ""
+
+msgid "light precipitation"
+msgstr ""
+
+msgid "funnel cloud"
+msgstr ""
+
+msgid "Cloudy"
+msgstr ""
+
+msgid "site has no properties"
+msgstr ""
+
+msgid "site has no current conditions"
+msgstr ""
+
+msgid "site reports no observation"
+msgstr ""
+
+#. placeholders: {e}
+msgid "site search: {e}"
+msgstr ""
+
+#. placeholders: {lat}, {lon}
+msgid "no Environment Canada site near {lat},{lon}"
+msgstr ""
+
+msgid "no site reported a condition"
+msgstr ""
+
+#. placeholders: {join}
+msgid "every site failed: {join}"
+msgstr ""
 
 msgid "jointed"
 msgstr "có khe nối"
@@ -17391,6 +17492,12 @@ msgstr "khô ráo"
 
 msgid "wet"
 msgstr "ướt"
+
+msgid "nws"
+msgstr ""
+
+msgid "eccc"
+msgstr ""
 
 msgid "Lane and steering"
 msgstr "Làn đường và đánh lái"
@@ -30999,12 +31106,6 @@ msgstr "{lead} Đường thoáng. Cho xe chạy {whither}."
 #. placeholders: {lead}, {whither}
 msgid "{lead} Pull ahead {whither}."
 msgstr "{lead} Cho xe chạy {whither}."
-
-msgid "red"
-msgstr "đỏ"
-
-msgid "yellow"
-msgstr "vàng"
 
 msgid "Light green."
 msgstr "Đèn xanh."

@@ -467,7 +467,7 @@ The map uses Eastern, Central, Mountain, Pacific and Alaska Time, plus Atlantic 
 
 ### Weather in the north
 
-Simulated weather in Alaska and Canada gets as cold as the real winters there: a January morning in Fairbanks reads below zero Fahrenheit, and Whitehorse well below freezing. Live weather comes from the US weather service, which has no Canadian data, so north of the border the weather is simulated and weather alerts stay quiet; live weather comes back at the US line.
+Simulated weather in Alaska and Canada gets as cold as the real winters there: a January morning in Fairbanks reads below zero Fahrenheit, and Whitehorse well below freezing. With live weather on, conditions and weather alerts in Canada come from Environment and Climate Change Canada. In the United States, Alaska included, they come from the National Weather Service.
 
 ### Billboards
 

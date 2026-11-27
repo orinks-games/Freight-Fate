@@ -70,8 +70,7 @@ that is refused, or a 1.9 backup that changed.
 - **Weather source** and **Live weather controls calendar** (Settings,
   Gameplay, World and traffic) decide the date and the weather. With live
   weather on, the date is today's, so it is winter now in the north.
-  Live weather covers the United States only; in Canada the weather is
-  simulated.
+  Live weather covers the United States and Canada.
 - **Speak billboards** (Settings, Speech) turns billboards on or off.
 
 ### 0.5 What isn't in this alpha
@@ -579,8 +578,7 @@ is no US port.
 
 ### 8.1 Northern cold
 
-Setup: simulated weather (or live weather in Canada),
-January.
+Setup: simulated weather, January.
 
 Listen for: Fairbanks below zero Fahrenheit on a January morning,
 Whitehorse well below freezing, Seattle unchanged.
@@ -592,8 +590,9 @@ Fairbanks is mild.
 
 Setup: Weather source live.
 
-Pass when: past the line the weather is simulated, alerts stay quiet,
-and live weather returns at the US line.
+Pass when: past the line the Weather app still reports live weather, an
+active Canadian alert is spoken by its Canadian name (for example "Freezing
+Rain Warning"), and live weather carries on back across the US line.
 
 ### 8.3 Billboards and sign law
 

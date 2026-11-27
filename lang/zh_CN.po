@@ -13426,13 +13426,6 @@ msgstr "阳光"
 msgid "sunny"
 msgstr "晴天"
 
-#. placeholders: {raw}
-msgid "could not convert {raw} to float"
-msgstr "无法把{raw}转换为浮点数"
-
-msgid "observation has no properties"
-msgstr "观测数据没有properties"
-
 #. placeholders: {message}
 msgid "points lookup: {message}"
 msgstr "地点查询：{message}"
@@ -13455,6 +13448,13 @@ msgstr "没有观测站回应"
 msgid "every station failed: {join}"
 msgstr "所有气象站均失败：{join}"
 
+#. placeholders: {raw}
+msgid "could not convert {raw} to float"
+msgstr "无法把{raw}转换为浮点数"
+
+msgid "observation has no properties"
+msgstr "观测数据没有properties"
+
 msgid "Clear"
 msgstr "晴朗"
 
@@ -13472,9 +13472,19 @@ msgstr "NWS API不支持POST"
 msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 msgstr "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 
+msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*km/h"
+msgstr ""
+
 #. placeholders: {event}, {gust}
 msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}，阵风达每小时{gust}英里"
+
+#. placeholders: {event}, {gust}
+msgid "{event}, gusts to {gust} kilometers per hour"
+msgstr "{event}，阵风达每小时{gust}公里"
+
+msgid "flash freeze"
+msgstr ""
 
 msgid "marine"
 msgstr "海上"
@@ -13533,6 +13543,9 @@ msgstr "极端大风"
 msgid "typhoon"
 msgstr "台风"
 
+msgid "freezing drizzle"
+msgstr ""
+
 msgid "freezing fog"
 msgstr "冻雾"
 
@@ -13554,11 +13567,14 @@ msgstr "冬季风暴"
 msgid "flash flood warning"
 msgstr "山洪警告"
 
+msgid "flood warning"
+msgstr "洪水警告"
+
 msgid "flood advisory"
 msgstr "洪水提示"
 
-msgid "flood warning"
-msgstr "洪水警告"
+msgid "rainfall warning"
+msgstr ""
 
 msgid "high wind"
 msgstr "强风"
@@ -13569,17 +13585,20 @@ msgstr "大风提示"
 msgid "wind warning"
 msgstr "大风警告"
 
-msgid "blowing dust"
-msgstr "扬沙"
-
 msgid "dense fog"
 msgstr "浓雾"
 
-msgid "dense smoke"
-msgstr "浓烟"
+msgid "fog advisory"
+msgstr ""
 
 msgid "dust storm"
 msgstr "沙尘暴"
+
+msgid "blowing dust"
+msgstr "扬沙"
+
+msgid "dense smoke"
+msgstr "浓烟"
 
 msgid "thunderstorm"
 msgstr "雷暴"
@@ -13602,6 +13621,12 @@ msgstr "风寒"
 msgid "extreme cold"
 msgstr "极寒"
 
+msgid "arctic outflow"
+msgstr ""
+
+msgid "weather advisory"
+msgstr ""
+
 msgid "severity"
 msgstr "severity"
 
@@ -13610,6 +13635,9 @@ msgstr "headline"
 
 msgid "description"
 msgstr "description"
+
+msgid "Environment Canada"
+msgstr ""
 
 #. placeholders: {event}, {near_city}
 msgid "{event} near {near_city}"
@@ -13631,6 +13659,79 @@ msgstr "沿途有天气警报：{join}。"
 #. placeholders: {join}
 msgid "Weather: {join}."
 msgstr "天气：{join}。"
+
+msgid "Extreme"
+msgstr ""
+
+msgid "red"
+msgstr "红"
+
+msgid "Severe"
+msgstr ""
+
+msgid "orange"
+msgstr ""
+
+msgid "Moderate"
+msgstr ""
+
+msgid "yellow"
+msgstr "黄"
+
+msgid "Minor"
+msgstr ""
+
+msgid "ended"
+msgstr ""
+
+#. placeholders: {event}, {area}
+msgid "{event} for {area}"
+msgstr ""
+
+msgid "ice fog"
+msgstr ""
+
+msgid "ice crystals"
+msgstr ""
+
+msgid "Fog"
+msgstr ""
+
+msgid "heavy precipitation"
+msgstr ""
+
+msgid "light precipitation"
+msgstr ""
+
+msgid "funnel cloud"
+msgstr ""
+
+msgid "Cloudy"
+msgstr ""
+
+msgid "site has no properties"
+msgstr ""
+
+msgid "site has no current conditions"
+msgstr ""
+
+msgid "site reports no observation"
+msgstr ""
+
+#. placeholders: {e}
+msgid "site search: {e}"
+msgstr ""
+
+#. placeholders: {lat}, {lon}
+msgid "no Environment Canada site near {lat},{lon}"
+msgstr ""
+
+msgid "no site reported a condition"
+msgstr ""
+
+#. placeholders: {join}
+msgid "every site failed: {join}"
+msgstr ""
 
 msgid "jointed"
 msgstr "有接缝"
@@ -15630,6 +15731,12 @@ msgstr "干燥"
 
 msgid "wet"
 msgstr "潮湿"
+
+msgid "nws"
+msgstr ""
+
+msgid "eccc"
+msgstr ""
 
 msgid "Lane and steering"
 msgstr "车道与转向"
@@ -27953,12 +28060,6 @@ msgstr "{lead}畅通。往前{whither}。"
 #. placeholders: {lead}, {whither}
 msgid "{lead} Pull ahead {whither}."
 msgstr "{lead}往前{whither}。"
-
-msgid "red"
-msgstr "红"
-
-msgid "yellow"
-msgstr "黄"
 
 msgid "Light green."
 msgstr "绿灯。"

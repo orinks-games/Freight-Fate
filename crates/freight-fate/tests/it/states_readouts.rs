@@ -339,3 +339,43 @@ fn test_live_data_providers_ignore_the_online_services_master_switch() {
     assert!(app.ctx.real_weather_provider().is_none());
     assert!(app.ctx.real_traffic_provider().is_none());
 }
+
+/// A provider that records which service each fetch went to: the Weather
+/// Service fails, Environment Canada reports light rain at 4 C.
+fn two_service_provider(log: &Arc<Mutex<Vec<&'static str>>>) -> RealWeatherProvider {
+    let nws = Arc::clone(log);
+    let eccc = Arc::clone(log);
+    RealWeatherProvider::new(Arc::new(move |_lat, _lon| {
+        nws.lock().unwrap().push("nws");
+        Err("offline bench".to_string())
+    }))
+    .with_canada_fetch(Arc::new(move |_lat, _lon| {
+        eccc.lock().unwrap().push("eccc");
+        Ok(Observation::new("Light Rain", 5.0, Some(4.0), None).observed_at(WALL_NOW))
+    }))
+    .with_wall_clock(Arc::new(|| WALL_NOW))
+    .with_threaded(false)
+}
+
+#[test]
+fn test_a_canadian_terminal_reads_live_weather_from_environment_canada() {
+    let mut app = TestApp::new();
+    career(&mut app, "Toronto Weather Driver", "Toronto");
+    app.ctx.settings.real_weather = true;
+    let log = Arc::new(Mutex::new(Vec::new()));
+    app.ctx
+        .set_real_weather_provider(Arc::new(two_service_provider(&log)));
+    // The terminal warms its own city, then the screen reads it.
+    let rows = weather_rows(&mut app);
+    assert!(
+        rows[3].starts_with("Live weather in Toronto: rain"),
+        "{rows:?}"
+    );
+    let asked = log.lock().unwrap().clone();
+    assert!(!asked.is_empty());
+    assert!(asked.iter().all(|s| *s == "eccc"), "{asked:?}");
+    // Warming a Canadian city by key asks Environment Canada as well.
+    log.lock().unwrap().clear();
+    app.ctx.warm_real_weather("kingston_on_ca");
+    assert_eq!(log.lock().unwrap().as_slice(), ["eccc"]);
+}

@@ -8,6 +8,7 @@ use crate::sim::hos::HosClock;
 use crate::sim::trip::{compute_leg_starts, Trip};
 use crate::sim::trip_models::{TripEventData, TripEventKind};
 use crate::sim::vehicle::KG_PER_LB;
+use crate::sim::weather_service::WeatherService;
 use crate::speech_text::SpokenMessage;
 
 /// Queueing for a bridge escort, in wind or for a load the bridge always
@@ -297,6 +298,25 @@ impl Trip {
     /// toll point named for the crossing, as (station key, lat, lon). None
     /// when the leg names no such point; the truck's own station is used.
     pub fn crossing_station(&self, leg_index: usize) -> Option<(String, f64, f64)> {
+        let (key, mile) = self.crossing_station_mile(leg_index)?;
+        let (lat, lon) = self.latlon_at(Some(mile));
+        Some((key, lat, lon))
+    }
+
+    /// [`Self::crossing_station`] with the service that answers there,
+    /// picked by the state at the toll point; None where no service does.
+    pub fn crossing_station_from(
+        &self,
+        leg_index: usize,
+    ) -> Option<(WeatherService, String, f64, f64)> {
+        let (key, mile) = self.crossing_station_mile(leg_index)?;
+        let service = self.live_weather_service(mile)?;
+        let (lat, lon) = self.latlon_at(Some(mile));
+        Some((service, key, lat, lon))
+    }
+
+    /// The station key of a wind-rule crossing and its trip mile.
+    fn crossing_station_mile(&self, leg_index: usize) -> Option<(String, f64)> {
         let leg = self.route.legs.get(leg_index)?;
         let crossing = leg.crossings.iter().find(|c| c.wind.is_some())?;
         let toll = leg
@@ -310,18 +330,20 @@ impl Trip {
             leg.miles - toll.at_mi
         };
         let start = *self.leg_starts.get(leg_index)?;
-        let (lat, lon) = self.latlon_at(Some(start + offset.clamp(0.0, leg.miles)));
-        Some((format!("crossing:{}", crossing.name), lat, lon))
+        Some((
+            format!("crossing:{}", crossing.name),
+            start + offset.clamp(0.0, leg.miles),
+        ))
     }
 
     /// The wind call at a crossing on this leg, if it has one, judged at
     /// the sky's current sustained wind: (refused, spoken rule).
     fn wind_call(&mut self, leg_index: usize, load: &CrossingLoad) -> Option<(bool, String)> {
-        let station = self.crossing_station(leg_index);
+        let station = self.crossing_station_from(leg_index);
         let wind_mph = self.weather.wind_mph_near(
             station
                 .as_ref()
-                .map(|(key, lat, lon)| (key.as_str(), *lat, *lon)),
+                .map(|(service, key, lat, lon)| (*service, key.as_str(), *lat, *lon)),
         );
         self.route
             .legs

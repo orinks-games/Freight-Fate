@@ -1,5 +1,7 @@
 //! Active National Weather Service warnings along a route, read keyless from
-//! the same api.weather.gov the real weather already comes from.
+//! the same api.weather.gov the real weather already comes from, and their
+//! Environment Canada counterparts for Canadian places
+//! (`real_weather_alerts_canada`), the place's country picking the feed.
 //!
 //! The observations feed says what the sky is doing over a station right
 //! now. The alerts feed says what the Weather Service has WARNED about for a
@@ -29,9 +31,11 @@ use serde_json::Value;
 
 use crate::data::world::World;
 use crate::data::world_models::Route;
-use crate::sim::real_traffic::{lock_unpoisoned, Clock, HttpTransport, NoTransport};
+use crate::sim::real_traffic::{lock_unpoisoned, wall_clock, Clock, HttpTransport, NoTransport};
 use crate::sim::real_weather::{monotonic_clock, API_ROOT, FETCH_TIMEOUT_S, USER_AGENT};
+use crate::sim::real_weather_alerts_canada::{canada_alerts_url, parse_canada_alerts};
 use crate::sim::weather::{effects, WeatherKind};
+use crate::sim::weather_service::WeatherService;
 
 /// Alerts change on the hour, not by the minute.
 pub const ALERTS_CACHE_TTL_S: f64 = 10.0 * 60.0;
@@ -68,13 +72,27 @@ impl WeatherAlert {
             .and_then(|caps| caps[1].parse().ok())
     }
 
-    /// The cab's line: the product name, plus the gust when the text has one.
+    /// Peak gust an Environment Canada description names, in km/h as
+    /// written ("gusts up to 90 km/h").
+    pub fn gusts_kmh(&self) -> Option<i64> {
+        let re = Regex::new(r"(?i)gusts?\s+(?:up\s+to|to|of|as high as)\s+(\d{2,3})\s*km/h")
+            .expect("static");
+        re.captures(&self.description)
+            .and_then(|caps| caps[1].parse().ok())
+    }
+
+    /// The cab's line: the product name, plus the gust when the text has
+    /// one, in the unit the text gave it.
     pub fn spoken(&self) -> String {
-        match self.gusts_mph() {
-            Some(gust) if self.event.to_lowercase().contains("wind") => {
-                format!("{}, gusts to {gust} miles per hour", self.event)
-            }
-            _ => self.event.clone(),
+        if !self.event.to_lowercase().contains("wind") {
+            return self.event.clone();
+        }
+        if let Some(gust) = self.gusts_mph() {
+            return format!("{}, gusts to {gust} miles per hour", self.event);
+        }
+        match self.gusts_kmh() {
+            Some(gust) => format!("{}, gusts to {gust} kilometers per hour", self.event),
+            None => self.event.clone(),
         }
     }
 }
@@ -96,6 +114,11 @@ pub enum AlertEffect {
 pub fn alert_effect(event: &str) -> Option<AlertEffect> {
     let e = event.to_lowercase();
     let has = |needle: &str| e.contains(needle);
+    // Environment Canada's flash freeze is ice on the road, not the frost
+    // and freeze products below.
+    if has("flash freeze") {
+        return Some(AlertEffect::Slow(WeatherKind::Ice));
+    }
     // Not a road product.
     if has("marine")
         || has("small craft")
@@ -125,7 +148,7 @@ pub fn alert_effect(event: &str) -> Option<AlertEffect> {
     {
         return Some(AlertEffect::Avoid);
     }
-    if has("freezing rain") || has("freezing fog") {
+    if has("freezing rain") || has("freezing fog") || has("freezing drizzle") {
         return Some(AlertEffect::Slow(WeatherKind::Ice));
     }
     if has("winter storm warning")
@@ -136,13 +159,22 @@ pub fn alert_effect(event: &str) -> Option<AlertEffect> {
     {
         return Some(AlertEffect::Slow(WeatherKind::Snow));
     }
-    if has("flash flood warning") || has("flood warning") || has("flood advisory") {
+    if has("flash flood warning")
+        || has("flood warning")
+        || has("flood advisory")
+        || has("rainfall warning")
+    {
         return Some(AlertEffect::Slow(WeatherKind::HeavyRain));
     }
     if has("high wind") || has("wind advisory") || has("wind warning") {
         return Some(AlertEffect::Slow(WeatherKind::Wind));
     }
-    if has("dense fog") || has("dust storm") || has("blowing dust") || has("dense smoke") {
+    if has("dense fog")
+        || has("fog advisory")
+        || has("dust storm")
+        || has("blowing dust")
+        || has("dense smoke")
+    {
         return Some(AlertEffect::Slow(WeatherKind::Fog));
     }
     if has("thunderstorm")
@@ -152,6 +184,8 @@ pub fn alert_effect(event: &str) -> Option<AlertEffect> {
         || has("special weather")
         || has("wind chill")
         || has("extreme cold")
+        || has("arctic outflow")
+        || has("weather advisory")
     {
         return Some(AlertEffect::Brief);
     }
@@ -257,6 +291,8 @@ struct Shared {
     inner: Arc<Mutex<Inner>>,
     transport: Arc<dyn HttpTransport>,
     clock: Clock,
+    /// Unix seconds, for the end times Environment Canada alerts carry.
+    wall_clock: Clock,
 }
 
 /// Cached, non-blocking source of active NWS alerts by point.
@@ -278,6 +314,7 @@ impl WeatherAlertsProvider {
                 inner: Arc::new(Mutex::new(Inner::default())),
                 transport,
                 clock: monotonic_clock(),
+                wall_clock: wall_clock(),
             },
             threaded: true,
             workers: Mutex::new(Vec::new()),
@@ -299,9 +336,23 @@ impl WeatherAlertsProvider {
         self
     }
 
+    pub fn with_wall_clock(mut self, clock: Clock) -> Self {
+        self.shared.wall_clock = clock;
+        self
+    }
+
     /// The cache key for a point.
     pub fn point_key(lat: f64, lon: f64) -> String {
         format!("{lat:.2},{lon:.2}")
+    }
+
+    /// The cache key for a point and the service that answers there; the
+    /// Weather Service keeps the bare key.
+    pub fn service_key(service: WeatherService, lat: f64, lon: f64) -> String {
+        match service {
+            WeatherService::UnitedStates => Self::point_key(lat, lon),
+            WeatherService::Canada => format!("ca:{}", Self::point_key(lat, lon)),
+        }
     }
 
     /// The feed URL for a point.
@@ -311,9 +362,20 @@ impl WeatherAlertsProvider {
 
     /// Put alerts in the cache for a point, as a fresh fetch would (tests).
     pub fn seed(&self, lat: f64, lon: f64, alerts: Vec<WeatherAlert>) {
+        self.seed_from(WeatherService::UnitedStates, lat, lon, alerts);
+    }
+
+    /// [`Self::seed`] for a service.
+    pub fn seed_from(
+        &self,
+        service: WeatherService,
+        lat: f64,
+        lon: f64,
+        alerts: Vec<WeatherAlert>,
+    ) {
         let now = (self.shared.clock)();
         lock_unpoisoned(&self.shared.inner).cache.insert(
-            Self::point_key(lat, lon),
+            Self::service_key(service, lat, lon),
             CachedAlerts {
                 fetched_at: now,
                 alerts,
@@ -324,16 +386,31 @@ impl WeatherAlertsProvider {
     /// The truck-relevant alerts cached for a point, or None when the point
     /// has not answered yet.
     pub fn get(&self, lat: f64, lon: f64) -> Option<Vec<WeatherAlert>> {
+        self.get_from(WeatherService::UnitedStates, lat, lon)
+    }
+
+    /// [`Self::get`] for a service.
+    pub fn get_from(
+        &self,
+        service: WeatherService,
+        lat: f64,
+        lon: f64,
+    ) -> Option<Vec<WeatherAlert>> {
         let inner = lock_unpoisoned(&self.shared.inner);
         inner
             .cache
-            .get(&Self::point_key(lat, lon))
+            .get(&Self::service_key(service, lat, lon))
             .map(|entry| entry.alerts.clone())
     }
 
     /// Make sure a point's alerts are cached or on their way. Never blocks.
     pub fn request(&self, lat: f64, lon: f64) {
-        let key = Self::point_key(lat, lon);
+        self.request_from(WeatherService::UnitedStates, lat, lon);
+    }
+
+    /// [`Self::request`] from the service the game's data picked.
+    pub fn request_from(&self, service: WeatherService, lat: f64, lon: f64) {
+        let key = Self::service_key(service, lat, lon);
         let now = (self.shared.clock)();
         {
             let mut inner = lock_unpoisoned(&self.shared.inner);
@@ -354,7 +431,7 @@ impl WeatherAlertsProvider {
         }
         let shared = self.shared.clone();
         let name = format!("alerts-{key}");
-        let job = move || fetch_point(&shared, &key, lat, lon);
+        let job = move || fetch_point(&shared, service, &key, lat, lon);
         if self.threaded {
             let handle = std::thread::Builder::new()
                 .name(name)
@@ -375,8 +452,11 @@ impl WeatherAlertsProvider {
     }
 }
 
-fn fetch_point(shared: &Shared, key: &str, lat: f64, lon: f64) {
-    let url = WeatherAlertsProvider::point_url(lat, lon);
+fn fetch_point(shared: &Shared, service: WeatherService, key: &str, lat: f64, lon: f64) {
+    let (url, label) = match service {
+        WeatherService::UnitedStates => (WeatherAlertsProvider::point_url(lat, lon), "NWS"),
+        WeatherService::Canada => (canada_alerts_url(lat, lon), "Environment Canada"),
+    };
     let result = shared.transport.get_json(
         &url,
         &[
@@ -390,8 +470,14 @@ fn fetch_point(shared: &Shared, key: &str, lat: f64, lon: f64) {
     inner.inflight.remove(key);
     match result {
         Ok(data) => {
-            let alerts = parse_alerts(&data);
-            log::debug!("NWS alerts at {key}: {} that concern a truck", alerts.len());
+            let alerts = match service {
+                WeatherService::UnitedStates => parse_alerts(&data),
+                WeatherService::Canada => parse_canada_alerts(&data, (shared.wall_clock)()),
+            };
+            log::debug!(
+                "{label} alerts at {key}: {} that concern a truck",
+                alerts.len()
+            );
             inner.failed_at.remove(key);
             inner.cache.insert(
                 key.to_string(),
@@ -402,7 +488,7 @@ fn fetch_point(shared: &Shared, key: &str, lat: f64, lon: f64) {
             );
         }
         Err(err) => {
-            log::debug!("NWS alerts at {key} failed: {err}");
+            log::debug!("{label} alerts at {key} failed: {err}");
             inner.failed_at.insert(key.to_string(), now);
         }
     }
@@ -459,7 +545,9 @@ impl RouteWeather {
 pub fn warm_route_alerts(route: &Route, provider: &WeatherAlertsProvider, world: &World) {
     for key in &route.cities {
         if let Some(city) = world.cities.get(key) {
-            provider.request(city.lat, city.lon);
+            if let Some(service) = WeatherService::for_country(&city.country) {
+                provider.request_from(service, city.lat, city.lon);
+            }
         }
     }
 }
@@ -479,8 +567,11 @@ pub fn scan_route_weather(
         let Some(city) = world.cities.get(key) else {
             continue;
         };
-        provider.request(city.lat, city.lon);
-        let Some(alerts) = provider.get(city.lat, city.lon) else {
+        let Some(service) = WeatherService::for_country(&city.country) else {
+            continue;
+        };
+        provider.request_from(service, city.lat, city.lon);
+        let Some(alerts) = provider.get_from(service, city.lat, city.lon) else {
             continue;
         };
         // The road this city's alert is taken to cover: up to the reach on

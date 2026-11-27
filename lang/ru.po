@@ -14920,13 +14920,6 @@ msgstr "солнце"
 msgid "sunny"
 msgstr "солнечно"
 
-#. placeholders: {raw}
-msgid "could not convert {raw} to float"
-msgstr "не удалось преобразовать {raw} в число"
-
-msgid "observation has no properties"
-msgstr "у наблюдения нет свойств"
-
 #. placeholders: {message}
 msgid "points lookup: {message}"
 msgstr "поиск точки: {message}"
@@ -14949,6 +14942,13 @@ msgstr "ни одна станция не ответила"
 msgid "every station failed: {join}"
 msgstr "все станции не ответили: {join}"
 
+#. placeholders: {raw}
+msgid "could not convert {raw} to float"
+msgstr "не удалось преобразовать {raw} в число"
+
+msgid "observation has no properties"
+msgstr "у наблюдения нет свойств"
+
 msgid "Clear"
 msgstr "Ясно"
 
@@ -14967,9 +14967,20 @@ msgstr "NWS API не принимает POST"
 msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 msgstr "(?i)gusts?\\\\s+(?:up\\\\s+to|to|of|as high as)\\\\s+(\\\\d{2,3})\\\\s*mph"
 
+msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*km/h"
+msgstr ""
+
 #. placeholders: {event}, {gust}
 msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}, порывы до {gust} {gust:мили|миль|миль} в час"
+
+#. placeholders: {event}, {gust}
+msgid "{event}, gusts to {gust} kilometers per hour"
+msgstr ""
+"{event}, порывы до {gust} {gust:километра|километров|километров} в час"
+
+msgid "flash freeze"
+msgstr ""
 
 msgid "marine"
 msgstr "морское"
@@ -15028,6 +15039,9 @@ msgstr "экстремальный ветер"
 msgid "typhoon"
 msgstr "тайфун"
 
+msgid "freezing drizzle"
+msgstr ""
+
 msgid "freezing fog"
 msgstr "ледяной туман"
 
@@ -15049,11 +15063,14 @@ msgstr "зимний шторм"
 msgid "flash flood warning"
 msgstr "предупреждение о внезапном паводке"
 
+msgid "flood warning"
+msgstr "предупреждение о наводнении"
+
 msgid "flood advisory"
 msgstr "сводка о подтоплениях"
 
-msgid "flood warning"
-msgstr "предупреждение о наводнении"
+msgid "rainfall warning"
+msgstr ""
 
 msgid "high wind"
 msgstr "сильный ветер"
@@ -15064,17 +15081,20 @@ msgstr "сводка о ветре"
 msgid "wind warning"
 msgstr "предупреждение о ветре"
 
-msgid "blowing dust"
-msgstr "пыльная позёмка"
-
 msgid "dense fog"
 msgstr "густой туман"
 
-msgid "dense smoke"
-msgstr "густой дым"
+msgid "fog advisory"
+msgstr ""
 
 msgid "dust storm"
 msgstr "пыльная буря"
+
+msgid "blowing dust"
+msgstr "пыльная позёмка"
+
+msgid "dense smoke"
+msgstr "густой дым"
 
 msgid "thunderstorm"
 msgstr "гроза"
@@ -15097,6 +15117,12 @@ msgstr "ветро-холодовой индекс"
 msgid "extreme cold"
 msgstr "сильный мороз"
 
+msgid "arctic outflow"
+msgstr ""
+
+msgid "weather advisory"
+msgstr ""
+
 msgid "severity"
 msgstr "severity"
 
@@ -15105,6 +15131,9 @@ msgstr "headline"
 
 msgid "description"
 msgstr "description"
+
+msgid "Environment Canada"
+msgstr ""
 
 #. placeholders: {event}, {near_city}
 msgid "{event} near {near_city}"
@@ -15126,6 +15155,79 @@ msgstr "Погодные предупреждения по пути: {join}."
 #. placeholders: {join}
 msgid "Weather: {join}."
 msgstr "Погода: {join}."
+
+msgid "Extreme"
+msgstr ""
+
+msgid "red"
+msgstr "красный"
+
+msgid "Severe"
+msgstr ""
+
+msgid "orange"
+msgstr ""
+
+msgid "Moderate"
+msgstr ""
+
+msgid "yellow"
+msgstr "жёлтый"
+
+msgid "Minor"
+msgstr ""
+
+msgid "ended"
+msgstr ""
+
+#. placeholders: {event}, {area}
+msgid "{event} for {area}"
+msgstr ""
+
+msgid "ice fog"
+msgstr ""
+
+msgid "ice crystals"
+msgstr ""
+
+msgid "Fog"
+msgstr ""
+
+msgid "heavy precipitation"
+msgstr ""
+
+msgid "light precipitation"
+msgstr ""
+
+msgid "funnel cloud"
+msgstr ""
+
+msgid "Cloudy"
+msgstr ""
+
+msgid "site has no properties"
+msgstr ""
+
+msgid "site has no current conditions"
+msgstr ""
+
+msgid "site reports no observation"
+msgstr ""
+
+#. placeholders: {e}
+msgid "site search: {e}"
+msgstr ""
+
+#. placeholders: {lat}, {lon}
+msgid "no Environment Canada site near {lat},{lon}"
+msgstr ""
+
+msgid "no site reported a condition"
+msgstr ""
+
+#. placeholders: {join}
+msgid "every site failed: {join}"
+msgstr ""
 
 msgid "jointed"
 msgstr "со швами"
@@ -17184,6 +17286,12 @@ msgstr "сухо"
 
 msgid "wet"
 msgstr "мокро"
+
+msgid "nws"
+msgstr ""
+
+msgid "eccc"
+msgstr ""
 
 msgid "Lane and steering"
 msgstr "Полоса и руление"
@@ -31198,12 +31306,6 @@ msgstr "{lead} Свободно. Трогайтесь {whither}."
 #. placeholders: {lead}, {whither}
 msgid "{lead} Pull ahead {whither}."
 msgstr "{lead} Трогайтесь {whither}."
-
-msgid "red"
-msgstr "красный"
-
-msgid "yellow"
-msgstr "жёлтый"
 
 msgid "Light green."
 msgstr "Зелёный свет."

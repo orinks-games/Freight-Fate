@@ -17,6 +17,7 @@ use crate::sim::traffic_manager::{
 };
 use crate::sim::trip_models::*;
 use crate::sim::trip_route_helpers::{fallback_grade, stop_offset_for_direction};
+use crate::sim::weather_service::WeatherService;
 use crate::units::{distance_unit, spoken_distance, to_distance};
 
 /// How far from a leg's start a departure reads through town postings for
@@ -247,19 +248,38 @@ impl Trip {
         lowest
     }
 
-    /// The state the truck is in, or empty where the bake is silent.
-    /// Whether the live weather and alert feeds (the US Weather Service)
-    /// answer at this trip milepost: true in the United States and wherever
-    /// the state is unknown, false in Canada.
-    pub fn live_weather_covers(&self, mile: f64) -> bool {
-        if self.route.legs.is_empty() {
-            return true;
+    /// The live weather and alert service at this trip milepost, picked by
+    /// the country of the state the road is in (or, where the bake names no
+    /// state, of the city the leg leaves): the Weather Service in the United
+    /// States and wherever neither says, Environment Canada in a province
+    /// or territory, None in a country neither serves.
+    pub fn live_weather_service(&self, mile: f64) -> Option<WeatherService> {
+        let mut country = if self.route.legs.is_empty() {
+            String::new()
+        } else {
+            self.country_at(mile)
+        };
+        // A road the bake gives no state, such as a facility's own access
+        // road, is in the country of the city it serves.
+        if country.is_empty() {
+            let (leg_i, _) = if self.route.legs.is_empty() {
+                (0, 0.0)
+            } else {
+                self.leg_at_mile(mile)
+            };
+            if let Some(city) = self
+                .route
+                .cities
+                .get(leg_i)
+                .and_then(|id| self.world.cities.get(id))
+            {
+                country = city.country.clone();
+            }
         }
-        let state = self.state_at(Some(mile));
-        self.country_for_state(&state)
-            .is_none_or(|country| country.eq_ignore_ascii_case("US"))
+        WeatherService::for_country(&country)
     }
 
+    /// The state the truck is in, or empty where the bake is silent.
     pub fn state_at(&self, mile: Option<f64>) -> String {
         let sample_mile = mile.unwrap_or(self.position_mi);
         let (leg_i, leg_start) = self.leg_at_mile(sample_mile);
