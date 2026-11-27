@@ -21,9 +21,10 @@ const BLOWOFF_COOLDOWN_S: f64 = 1.2;
 /// Throttle threshold below which a lift-off releases boost.
 const LIFT_THROTTLE: f64 = 0.12;
 /// Boost threshold below which the spool loop fades completely out.
-/// Set above flat-ground highway cruise load so steady cruising does not
-/// leave a faint lingering turbo whistle.
-const AUDIBLE_BOOST: f64 = 0.40;
+/// Set above flat-ground 75 mph cruise load even in a fully loaded standard
+/// rig (~0.70 throttle at ~1,550 RPM) so steady cruising never leaves a
+/// faint lingering turbo whistle, while acceleration and grades still spool.
+const AUDIBLE_BOOST: f64 = 0.50;
 /// Peak loop level at full boost and `turbo_level = 1.0`.
 const MAX_SPOOL_LEVEL: f64 = 0.34;
 /// Peak one-shot level for the release cue at full boost and `turbo_level = 1.0`.
@@ -283,7 +284,8 @@ mod tests {
         }
         assert!(s.boost > 0.6);
 
-        // Settle into steady flat-ground highway cruise (e.g. 75 mph).
+        // Settle into steady flat-ground 75 mph cruise (including a fully
+        // loaded standard rig holding ~0.72 throttle at ~1,550 RPM).
         let mut last = TurboOutput {
             spool_level: 1.0,
             spool_rate: 1.0,
@@ -292,7 +294,7 @@ mod tests {
         for _ in 0..30 {
             last = s.step(TurboInput {
                 rpm: 1_550.0,
-                throttle: 0.45,
+                throttle: 0.72,
                 ..base_input()
             });
         }
