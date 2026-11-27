@@ -18,8 +18,8 @@ use super::{
     STEREO_HIGH_PULL,
 };
 
-const STEREO_RATE_MIN: f64 = 0.82;
-const STEREO_RATE_MAX: f64 = 1.22;
+const STEREO_RATE_MIN: f64 = 0.75;
+const STEREO_RATE_MAX: f64 = 1.30;
 const STEREO_RATE_SLIDE_MS: u32 = 45;
 const STEREO_RATE_SNAP_MS: u32 = 20;
 const STEREO_RATE_SNAP_RPM: f64 = 150.0;
@@ -555,6 +555,49 @@ mod tests {
         assert_eq!(pull.native, STEREO_HIGH_PULL.1);
         assert!(pull.last_volume > 0.0);
 
+        for (key, _) in STEREO_ENGINE_BANDS
+            .into_iter()
+            .chain([STEREO_HIGH_PULL, STEREO_HIGH_COAST])
+        {
+            unregister_generated_sound(key);
+        }
+        unregister_generated_sound(STEREO_ENGINE_START_KEY);
+    }
+
+    #[test]
+    fn overlapping_cab_bands_track_matching_rpm_without_clamp_mismatch() {
+        let _fixtures = ENGINE_FIXTURES.lock().unwrap();
+        let source = pcm16_wav(&[512, -256, -512, 256].repeat(6_000), 2, 48_000);
+        for (key, _) in STEREO_ENGINE_BANDS
+            .into_iter()
+            .chain([STEREO_HIGH_PULL, STEREO_HIGH_COAST])
+        {
+            register_generated_sound(key, source.clone(), "wav");
+        }
+        register_generated_sound(STEREO_ENGINE_START_KEY, source, "wav");
+        let (backend, _recording) = RecordingBackend::new();
+        let mut engine = HearkenBackend::with_backend(Box::new(backend));
+        engine.engine_start(false);
+        engine.engine_intro_gain.set(1.0);
+
+        for rpm_i in (650..=2200).step_by(10) {
+            let rpm = rpm_i as f64;
+            engine.set_engine_rpm(rpm, 1.0);
+            for band in &engine.engine_bands {
+                if band.last_volume > 0.0 {
+                    let effective_rpm = band.last_rate * band.native;
+                    assert!(
+                        (effective_rpm - rpm).abs() < 1e-6,
+                        "band native {} clamped to {:.1} RPM while engine is at {:.1} RPM",
+                        band.native,
+                        effective_rpm,
+                        rpm
+                    );
+                }
+            }
+        }
+
+        engine.engine_stop(false);
         for (key, _) in STEREO_ENGINE_BANDS
             .into_iter()
             .chain([STEREO_HIGH_PULL, STEREO_HIGH_COAST])

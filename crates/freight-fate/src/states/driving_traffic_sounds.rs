@@ -63,9 +63,9 @@ pub const RAMP_DIVERGENCE: f64 = 0.35;
 /// The crossroad is this far past a ramp's stop bar.
 pub const CROSS_SETBACK_FT: f64 = 30.0;
 const SPEED_OF_SOUND_MPH: f64 = 767.0;
-/// Doppler is felt, not measured: kept to a few percent so a fast closing
-/// speed never turns a car into a siren.
-const DOPPLER_LIMIT: f64 = 0.05;
+/// Doppler is felt, not exaggerated: kept to ten percent so fast and
+/// oncoming passes sweep naturally without turning a car into a siren.
+const DOPPLER_LIMIT: f64 = 0.10;
 /// How quickly the bed follows the road, in seconds to close most of a gap.
 const BED_SMOOTH_S: f64 = 2.0;
 /// The bed's level at the busiest road the model has.

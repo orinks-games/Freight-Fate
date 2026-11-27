@@ -137,6 +137,7 @@
 
 ### Fixed
 
+- **Fixed train-like road clunks, idle-sounding passing traffic, throttle-release engine fade, and abrupt trooper pass-bys.** Acceleration now stays smooth inside the cab.
 - **Partial lane keeping now eases your steering with a set of doubles.** Lane changes no longer whip the rear trailer.
 - **Braking to a stop no longer rattles through automatic downshifts, and shutting off the engine no longer plays an extra shift clunk.**
 - **A fuel row that gives the Canadian price a liter now gives the fuel in liters too,** with Units set to Imperial.

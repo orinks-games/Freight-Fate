@@ -362,7 +362,7 @@ fn quoted_field<'a>(raw: &'a str, key: &str) -> Option<&'a str> {
 /// Both recordings track the same RPM while they overlap, so the transition
 /// changes timbre without making the engine note step between fixed pitches.
 pub fn engine_band_weights(rpm: f64, natives: &[f64]) -> Vec<f64> {
-    const XFADE_LOG_FRAC: f64 = 0.08;
+    const XFADE_LOG_FRAC: f64 = 0.30;
 
     let mut weights = vec![0.0; natives.len()];
     if natives.is_empty() {
@@ -410,17 +410,14 @@ pub fn facility_ambient_key(facility_type: &str) -> &'static str {
     }
 }
 
-/// Audible engine effort: present off-throttle, fuller under power.
+/// Audible engine effort: solid and present off-throttle, fuller under power.
 ///
 /// The load carries real feedback -- a truck holding speed uphill sits on
 /// more throttle and sounds fuller, and an automatic shift briefly unloads
-/// the engine. Both stay audible here. The floor sits at 0.68 (not 0.55) so
-/// coasting is not too quiet, while the 0.32 span keeps the load contour
-/// clearly perceptible. Pumping from accelerator release and adaptive-cruise
-/// corrections is handled upstream by smoothing the throttle before it
-/// reaches this envelope, not by flattening the range.
+/// the engine. Keeping the floor at 0.82 prevents the engine from fading out
+/// when lifting off the throttle while preserving a clear load contour.
 pub fn engine_load_gain(throttle: f64) -> f64 {
-    0.68 + 0.32 * throttle.clamp(0.0, 1.0)
+    0.82 + 0.18 * throttle.clamp(0.0, 1.0)
 }
 
 /// The `AudioEngine` facade surface: what the rest of the game calls.
