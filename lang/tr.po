@@ -14689,13 +14689,6 @@ msgstr "güneş"
 msgid "sunny"
 msgstr "güneşli"
 
-#. placeholders: {raw}
-msgid "could not convert {raw} to float"
-msgstr "{raw} ondalıklı sayıya dönüştürülemedi"
-
-msgid "observation has no properties"
-msgstr "gözlemin özellikleri yok"
-
 #. placeholders: {message}
 msgid "points lookup: {message}"
 msgstr "nokta sorgusu: {message}"
@@ -14718,6 +14711,13 @@ msgstr "hiçbir istasyon yanıt vermedi"
 msgid "every station failed: {join}"
 msgstr "hiçbir istasyon yanıt vermedi: {join}"
 
+#. placeholders: {raw}
+msgid "could not convert {raw} to float"
+msgstr "{raw} ondalıklı sayıya dönüştürülemedi"
+
+msgid "observation has no properties"
+msgstr "gözlemin özellikleri yok"
+
 msgid "Clear"
 msgstr "Açık"
 
@@ -14736,9 +14736,19 @@ msgstr "NWS API'sinde POST kullanılamaz"
 msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 msgstr "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 
+msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*km/h"
+msgstr ""
+
 #. placeholders: {event}, {gust}
 msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}, saatte {gust} mile varan rüzgar"
+
+#. placeholders: {event}, {gust}
+msgid "{event}, gusts to {gust} kilometers per hour"
+msgstr "{event}, saatte {gust} kilometreye varan rüzgar"
+
+msgid "flash freeze"
+msgstr ""
 
 msgid "marine"
 msgstr "deniz"
@@ -14797,6 +14807,9 @@ msgstr "aşırı rüzgâr"
 msgid "typhoon"
 msgstr "tayfun"
 
+msgid "freezing drizzle"
+msgstr ""
+
 msgid "freezing fog"
 msgstr "dondurucu sis"
 
@@ -14818,11 +14831,14 @@ msgstr "kış fırtınası"
 msgid "flash flood warning"
 msgstr "ani sel uyarısı"
 
+msgid "flood warning"
+msgstr "sel uyarısı"
+
 msgid "flood advisory"
 msgstr "sel bildirimi"
 
-msgid "flood warning"
-msgstr "sel uyarısı"
+msgid "rainfall warning"
+msgstr ""
 
 msgid "high wind"
 msgstr "şiddetli rüzgâr"
@@ -14833,17 +14849,20 @@ msgstr "rüzgâr bildirimi"
 msgid "wind warning"
 msgstr "rüzgâr uyarısı"
 
-msgid "blowing dust"
-msgstr "uçuşan toz"
-
 msgid "dense fog"
 msgstr "yoğun sis"
 
-msgid "dense smoke"
-msgstr "yoğun duman"
+msgid "fog advisory"
+msgstr ""
 
 msgid "dust storm"
 msgstr "toz fırtınası"
+
+msgid "blowing dust"
+msgstr "uçuşan toz"
+
+msgid "dense smoke"
+msgstr "yoğun duman"
 
 msgid "thunderstorm"
 msgstr "gök gürültülü fırtına"
@@ -14866,6 +14885,12 @@ msgstr "rüzgârla hissedilen soğuk"
 msgid "extreme cold"
 msgstr "aşırı soğuk"
 
+msgid "arctic outflow"
+msgstr ""
+
+msgid "weather advisory"
+msgstr ""
+
 msgid "severity"
 msgstr "şiddet"
 
@@ -14874,6 +14899,9 @@ msgstr "başlık"
 
 msgid "description"
 msgstr "açıklama"
+
+msgid "Environment Canada"
+msgstr ""
 
 #. placeholders: {event}, {near_city}
 msgid "{event} near {near_city}"
@@ -14895,6 +14923,79 @@ msgstr "Yoldaki hava uyarıları: {join}."
 #. placeholders: {join}
 msgid "Weather: {join}."
 msgstr "Hava: {join}."
+
+msgid "Extreme"
+msgstr ""
+
+msgid "red"
+msgstr "kırmızı"
+
+msgid "Severe"
+msgstr ""
+
+msgid "orange"
+msgstr ""
+
+msgid "Moderate"
+msgstr ""
+
+msgid "yellow"
+msgstr "sarı"
+
+msgid "Minor"
+msgstr ""
+
+msgid "ended"
+msgstr ""
+
+#. placeholders: {event}, {area}
+msgid "{event} for {area}"
+msgstr ""
+
+msgid "ice fog"
+msgstr ""
+
+msgid "ice crystals"
+msgstr ""
+
+msgid "Fog"
+msgstr ""
+
+msgid "heavy precipitation"
+msgstr ""
+
+msgid "light precipitation"
+msgstr ""
+
+msgid "funnel cloud"
+msgstr ""
+
+msgid "Cloudy"
+msgstr ""
+
+msgid "site has no properties"
+msgstr ""
+
+msgid "site has no current conditions"
+msgstr ""
+
+msgid "site reports no observation"
+msgstr ""
+
+#. placeholders: {e}
+msgid "site search: {e}"
+msgstr ""
+
+#. placeholders: {lat}, {lon}
+msgid "no Environment Canada site near {lat},{lon}"
+msgstr ""
+
+msgid "no site reported a condition"
+msgstr ""
+
+#. placeholders: {join}
+msgid "every site failed: {join}"
+msgstr ""
 
 msgid "jointed"
 msgstr "derzli"
@@ -16934,6 +17035,12 @@ msgstr "kuru"
 
 msgid "wet"
 msgstr "ıslak"
+
+msgid "nws"
+msgstr ""
+
+msgid "eccc"
+msgstr ""
 
 msgid "Lane and steering"
 msgstr "Şerit ve direksiyon"
@@ -30427,12 +30534,6 @@ msgstr "{lead} Yol açık. {whither} doğru ilerleyin."
 #. placeholders: {lead}, {whither}
 msgid "{lead} Pull ahead {whither}."
 msgstr "{lead} {whither} doğru ilerleyin."
-
-msgid "red"
-msgstr "kırmızı"
-
-msgid "yellow"
-msgstr "sarı"
 
 msgid "Light green."
 msgstr "Işık yeşil."

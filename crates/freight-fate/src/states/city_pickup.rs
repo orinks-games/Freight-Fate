@@ -44,6 +44,7 @@ use ff_core::sim::surge::{liquid_load_for, LiquidCargo};
 use ff_core::sim::trip_traffic::TrafficProvider;
 use ff_core::sim::vehicle::{TrailerSet, TruckState, KG_PER_TON};
 use ff_core::sim::weather::WeatherSystem;
+use ff_core::sim::weather_service::WeatherService;
 
 use crate::app::GameContext;
 use crate::audio::facility_ambient_key;
@@ -1481,13 +1482,12 @@ impl RouteSelectState {
         if let Some(provider) = ctx.real_weather_provider() {
             for route in &routes {
                 for name in &route.cities {
-                    // The Weather Service answers for the United States only.
-                    if let Some(city) = world
-                        .cities
-                        .get(name)
-                        .filter(|c| c.country.eq_ignore_ascii_case("US"))
-                    {
-                        provider.request(&city.key, city.lat, city.lon);
+                    // The city's country picks the live service.
+                    let Some(city) = world.cities.get(name) else {
+                        continue;
+                    };
+                    if let Some(service) = WeatherService::for_country(&city.country) {
+                        provider.request_from(service, &city.key, city.lat, city.lon);
                     }
                 }
             }

@@ -199,8 +199,8 @@ impl Trip {
         self.game_minutes += game_min;
         let region = self.region_at(self.position_mi);
         self.weather.set_region(&region);
-        let covered = self.live_weather_covers(self.position_mi);
-        self.weather.set_live_coverage(covered);
+        let service = self.live_weather_service(self.position_mi);
+        self.weather.set_live_service(service);
         let climate = self.climate_at(self.position_mi);
         self.weather.set_climate(&climate);
         if let Some((weather_key, lat, lon)) = self.weather_location() {

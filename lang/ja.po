@@ -13587,13 +13587,6 @@ msgstr "日差し"
 msgid "sunny"
 msgstr "晴天"
 
-#. placeholders: {raw}
-msgid "could not convert {raw} to float"
-msgstr "{raw} を浮動小数点数に変換できませんでした"
-
-msgid "observation has no properties"
-msgstr "観測データにプロパティがありません"
-
 #. placeholders: {message}
 msgid "points lookup: {message}"
 msgstr "地点の検索：{message}"
@@ -13616,6 +13609,13 @@ msgstr "どの観測所も応答しませんでした"
 msgid "every station failed: {join}"
 msgstr "すべての観測所で失敗しました：{join}"
 
+#. placeholders: {raw}
+msgid "could not convert {raw} to float"
+msgstr "{raw} を浮動小数点数に変換できませんでした"
+
+msgid "observation has no properties"
+msgstr "観測データにプロパティがありません"
+
 msgid "Clear"
 msgstr "晴れ"
 
@@ -13633,9 +13633,19 @@ msgstr "NWS APIにはPOSTがありません"
 msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 msgstr "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 
+msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*km/h"
+msgstr ""
+
 #. placeholders: {event}, {gust}
 msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}、最大瞬間風速は時速{gust}マイル"
+
+#. placeholders: {event}, {gust}
+msgid "{event}, gusts to {gust} kilometers per hour"
+msgstr "{event}、最大瞬間風速は時速{gust}キロメートル"
+
+msgid "flash freeze"
+msgstr ""
 
 msgid "marine"
 msgstr "海上"
@@ -13694,6 +13704,9 @@ msgstr "猛烈な風"
 msgid "typhoon"
 msgstr "台風"
 
+msgid "freezing drizzle"
+msgstr ""
+
 msgid "freezing fog"
 msgstr "着氷性の霧"
 
@@ -13715,11 +13728,14 @@ msgstr "冬の嵐"
 msgid "flash flood warning"
 msgstr "鉄砲水警報"
 
+msgid "flood warning"
+msgstr "洪水警報"
+
 msgid "flood advisory"
 msgstr "洪水注意報"
 
-msgid "flood warning"
-msgstr "洪水警報"
+msgid "rainfall warning"
+msgstr ""
 
 msgid "high wind"
 msgstr "強風"
@@ -13730,17 +13746,20 @@ msgstr "強風注意報"
 msgid "wind warning"
 msgstr "強風警報"
 
-msgid "blowing dust"
-msgstr "砂ぼこりの舞い上がり"
-
 msgid "dense fog"
 msgstr "濃霧"
 
-msgid "dense smoke"
-msgstr "濃い煙"
+msgid "fog advisory"
+msgstr ""
 
 msgid "dust storm"
 msgstr "砂嵐"
+
+msgid "blowing dust"
+msgstr "砂ぼこりの舞い上がり"
+
+msgid "dense smoke"
+msgstr "濃い煙"
 
 msgid "thunderstorm"
 msgstr "雷雨"
@@ -13763,6 +13782,12 @@ msgstr "風による体感温度の低下"
 msgid "extreme cold"
 msgstr "厳しい寒さ"
 
+msgid "arctic outflow"
+msgstr ""
+
+msgid "weather advisory"
+msgstr ""
+
 msgid "severity"
 msgstr "severity"
 
@@ -13771,6 +13796,9 @@ msgstr "headline"
 
 msgid "description"
 msgstr "description"
+
+msgid "Environment Canada"
+msgstr ""
 
 #. placeholders: {event}, {near_city}
 msgid "{event} near {near_city}"
@@ -13792,6 +13820,79 @@ msgstr "この先の気象警報：{join}。"
 #. placeholders: {join}
 msgid "Weather: {join}."
 msgstr "天気：{join}。"
+
+msgid "Extreme"
+msgstr ""
+
+msgid "red"
+msgstr "赤"
+
+msgid "Severe"
+msgstr ""
+
+msgid "orange"
+msgstr ""
+
+msgid "Moderate"
+msgstr ""
+
+msgid "yellow"
+msgstr "黄色"
+
+msgid "Minor"
+msgstr ""
+
+msgid "ended"
+msgstr ""
+
+#. placeholders: {event}, {area}
+msgid "{event} for {area}"
+msgstr ""
+
+msgid "ice fog"
+msgstr ""
+
+msgid "ice crystals"
+msgstr ""
+
+msgid "Fog"
+msgstr ""
+
+msgid "heavy precipitation"
+msgstr ""
+
+msgid "light precipitation"
+msgstr ""
+
+msgid "funnel cloud"
+msgstr ""
+
+msgid "Cloudy"
+msgstr ""
+
+msgid "site has no properties"
+msgstr ""
+
+msgid "site has no current conditions"
+msgstr ""
+
+msgid "site reports no observation"
+msgstr ""
+
+#. placeholders: {e}
+msgid "site search: {e}"
+msgstr ""
+
+#. placeholders: {lat}, {lon}
+msgid "no Environment Canada site near {lat},{lon}"
+msgstr ""
+
+msgid "no site reported a condition"
+msgstr ""
+
+#. placeholders: {join}
+msgid "every site failed: {join}"
+msgstr ""
 
 msgid "jointed"
 msgstr "継ぎ目あり"
@@ -15793,6 +15894,12 @@ msgstr "乾燥"
 
 msgid "wet"
 msgstr "濡れた路面"
+
+msgid "nws"
+msgstr ""
+
+msgid "eccc"
+msgstr ""
 
 msgid "Lane and steering"
 msgstr "車線と操舵"
@@ -28298,12 +28405,6 @@ msgstr "{lead}安全です。{whither}進んでください。"
 #. placeholders: {lead}, {whither}
 msgid "{lead} Pull ahead {whither}."
 msgstr "{lead}{whither}進んでください。"
-
-msgid "red"
-msgstr "赤"
-
-msgid "yellow"
-msgstr "黄色"
 
 msgid "Light green."
 msgstr "信号は青です。"

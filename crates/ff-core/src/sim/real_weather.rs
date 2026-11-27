@@ -8,8 +8,9 @@
 //! When a fetch fails or hasn't landed yet, callers get `None` and the simulated
 //! weather carries on -- the game works identically offline.
 //!
-//! The NWS only covers the United States and its territories, which is exactly the
-//! game's map. Each observation's free-text condition (e.g. "Mostly Cloudy",
+//! The NWS only covers the United States and its territories; Canadian places
+//! go to Environment Canada instead (`real_weather_canada`), and the game's
+//! data picks which (`WeatherService`, `request_from`). Each observation's free-text condition (e.g. "Mostly Cloudy",
 //! "Light Rain", "Fog") is mapped onto the game's [`WeatherKind`] conditions.
 //! Because the NWS reports "Fog/Mist" or "Haze" for anything under about 7 miles
 //! of visibility -- ordinary muggy summer air -- the fog mapping is gated on the
@@ -26,14 +27,16 @@ use std::sync::{Arc, Condvar, Mutex};
 use std::thread::JoinHandle;
 use std::time::Instant;
 
-use chrono::{DateTime, Local, NaiveDateTime, TimeZone};
 use serde_json::Value;
 
 use super::real_traffic::{lock_unpoisoned, wall_clock, Clock, HttpTransport, TransportError};
-use super::real_traffic_parsers::pyval::{chain_str, py_str, to_f64, truthy};
+use super::real_traffic_parsers::pyval::py_str;
 use crate::pyfmt::{py_str_float, round_py_n};
 
 pub use super::weather::{WeatherKind, WeatherProvider};
+pub use super::weather_service::WeatherService;
+
+use super::real_weather_canada::{map_condition_canada, EcccFetcher};
 
 pub const API_ROOT: &str = "https://api.weather.gov";
 /// NWS asks every client to identify itself; a contact URL is recommended.
@@ -132,7 +135,8 @@ pub fn map_condition(text: &str, wind_kmh: f64, visibility_mi: Option<f64>) -> W
 /// What a fetch hands back: the Python `(text, wind_kmh, temp_c,
 /// visibility_mi[, observed_at])` tuple. `observed_at` is `None` when the
 /// fetch carried no timestamp (the worker then treats it as now).
-#[derive(Debug, Clone, PartialEq)]
+/// `Default` lets a reader that measures more fill only what it has.
+#[derive(Debug, Clone, Default, PartialEq)]
 pub struct Observation {
     pub text: String,
     pub wind_kmh: f64,
@@ -169,118 +173,6 @@ impl Observation {
 /// Python fetch raised (network failure, a bad document).
 pub type FetchFn = Arc<dyn Fn(f64, f64) -> Result<Observation, String> + Send + Sync>;
 
-/// `float(measurement["value"])` for an NWS `{value, unitCode}` object, or
-/// `None` for a null/missing value. A value that will not convert is the
-/// Python `ValueError`.
-fn measurement(value: Option<&Value>) -> Result<Option<(f64, String)>, String> {
-    let Some(obj) = value.filter(|v| truthy(v)).and_then(Value::as_object) else {
-        return Ok(None);
-    };
-    let Some(raw) = obj.get("value").filter(|v| !v.is_null()) else {
-        return Ok(None);
-    };
-    let number = to_f64(raw).ok_or_else(|| format!("could not convert {raw} to float"))?;
-    Ok(Some((number, chain_str(obj, &["unitCode"], ""))))
-}
-
-/// Convert an NWS windSpeed measurement to km/h, tolerating null values.
-pub fn wind_to_kmh(wind: Option<&Value>) -> Result<f64, String> {
-    let Some((value, unit)) = measurement(wind)? else {
-        return Ok(0.0);
-    };
-    if unit.contains("m_s") || unit.contains("m/s") {
-        // metres per second
-        return Ok(value * 3.6);
-    }
-    if unit.contains("mi_h") || unit.contains("mph") {
-        // miles per hour
-        return Ok(value * 1.609344);
-    }
-    Ok(value) // already km/h (wmoUnit:km_h-1)
-}
-
-/// Convert an NWS temperature measurement to Celsius, or None when absent.
-///
-/// NWS observations report Celsius (`wmoUnit:degC`); Fahrenheit is handled
-/// defensively in case a station ever reports it. A null value (the station
-/// has no current reading) yields None so callers fall back to the model.
-pub fn temp_to_c(temp: Option<&Value>) -> Result<Option<f64>, String> {
-    let Some((value, unit)) = measurement(temp)? else {
-        return Ok(None);
-    };
-    if unit.contains("degF") {
-        return Ok(Some((value - 32.0) * 5.0 / 9.0));
-    }
-    Ok(Some(value)) // degC (the NWS default)
-}
-
-/// Convert an NWS visibility measurement to statute miles, or None when
-/// absent -- the fog gate then falls back to trusting the condition text.
-pub fn visibility_to_mi(vis: Option<&Value>) -> Result<Option<f64>, String> {
-    let Some((value, unit)) = measurement(vis)? else {
-        return Ok(None);
-    };
-    if unit.contains("km") {
-        return Ok(Some(value / 1.609344));
-    }
-    Ok(Some(value / 1609.344)) // metres (wmoUnit:m, the NWS default)
-}
-
-/// `datetime.fromisoformat(text.replace("Z", "+00:00")).timestamp()`: an
-/// aware ISO stamp to Unix seconds; a naive one is read in local time, as
-/// Python does.
-fn iso_timestamp(text: &str) -> Option<f64> {
-    let text = text.replace('Z', "+00:00");
-    if let Ok(stamp) = DateTime::parse_from_rfc3339(&text) {
-        return Some(stamp.timestamp() as f64 + f64::from(stamp.timestamp_subsec_nanos()) * 1e-9);
-    }
-    for layout in [
-        "%Y-%m-%dT%H:%M:%S%.f",
-        "%Y-%m-%d %H:%M:%S%.f",
-        "%Y-%m-%dT%H:%M",
-        "%Y-%m-%d",
-    ] {
-        if let Ok(naive) = NaiveDateTime::parse_from_str(&text, layout) {
-            let local = Local.from_local_datetime(&naive).single()?;
-            return Some(local.timestamp() as f64);
-        }
-    }
-    None
-}
-
-/// Pull the fields the worker needs out of one `/observations/latest` document.
-pub fn parse_observation(data: &Value) -> Result<Observation, String> {
-    let props = data
-        .get("properties")
-        .and_then(Value::as_object)
-        .ok_or("observation has no properties")?;
-    let text = props
-        .get("textDescription")
-        .filter(|v| truthy(v))
-        .map(py_str)
-        .unwrap_or_default();
-    let wind_kmh = wind_to_kmh(props.get("windSpeed"))?;
-    let temp_c = temp_to_c(props.get("temperature"))?;
-    let visibility_mi = visibility_to_mi(props.get("visibility"))?;
-    let mut observed_at = None;
-    if let Some(timestamp) = props.get("timestamp").filter(|v| truthy(v)) {
-        observed_at = iso_timestamp(&py_str(timestamp));
-        if observed_at.is_none() {
-            log::warn!(
-                "NWS observation carried an invalid timestamp: {:?}",
-                py_str(timestamp)
-            );
-        }
-    }
-    Ok(Observation {
-        text,
-        wind_kmh,
-        temperature_c: temp_c,
-        visibility_mi,
-        observed_at,
-    })
-}
-
 /// Resolving a city's nearby observation stations is stable, so cache the list
 /// across refreshes (keyed by coarse coordinates) to avoid repeating the two
 /// lookups. The pick records which of them last answered with a FRESH
@@ -301,10 +193,10 @@ static FETCH_SLOTS: (Mutex<usize>, Condvar) = (Mutex::new(0), Condvar::new());
 
 /// One of the [`MAX_CONCURRENT_FETCHES`] slots, held for a whole fetch and
 /// handed back on drop.
-struct FetchSlot;
+pub(crate) struct FetchSlot;
 
 impl FetchSlot {
-    fn acquire() -> Self {
+    pub(crate) fn acquire() -> Self {
         let (count, freed) = &FETCH_SLOTS;
         let mut busy = lock_unpoisoned(count);
         while *busy >= MAX_CONCURRENT_FETCHES {
@@ -560,6 +452,9 @@ pub enum WorkerOutcome {
 struct WorkerContext {
     inner: Arc<Mutex<Inner>>,
     fetch: FetchFn,
+    /// The Environment Canada fetch; tests that set none use `fetch` for
+    /// both services.
+    canada_fetch: Option<FetchFn>,
     clock: Clock,
     wall_clock: Clock,
 }
@@ -590,6 +485,7 @@ impl RealWeatherProvider {
             ctx: WorkerContext {
                 inner: Arc::new(Mutex::new(Inner::default())),
                 fetch,
+                canada_fetch: None,
                 clock: monotonic_clock(),
                 wall_clock: wall_clock(),
             },
@@ -598,9 +494,22 @@ impl RealWeatherProvider {
         }
     }
 
-    /// The game's provider: the NWS fetch over the given transport.
+    /// The NWS fetch over the given transport, for the United States only.
     pub fn with_nws(transport: Arc<dyn HttpTransport>) -> Self {
         Self::new(Arc::new(NwsFetcher::new(transport)).fetch_fn())
+    }
+
+    /// The game's provider: the NWS fetch for the United States and the
+    /// Environment Canada fetch for Canada, over one transport.
+    pub fn live(transport: Arc<dyn HttpTransport>) -> Self {
+        Self::with_nws(Arc::clone(&transport))
+            .with_canada_fetch(Arc::new(EcccFetcher::new(transport)).fetch_fn())
+    }
+
+    /// Replace the Environment Canada fetch.
+    pub fn with_canada_fetch(mut self, fetch: FetchFn) -> Self {
+        self.ctx.canada_fetch = Some(fetch);
+        self
     }
 
     /// Replace the refresh-cadence clock (`time.monotonic()`).
@@ -636,6 +545,16 @@ impl RealWeatherProvider {
             py_str_float(round_py_n(lat, 2)),
             py_str_float(round_py_n(lon, 2))
         )
+    }
+
+    /// The cache identity of a place for a service: the NWS keeps the bare
+    /// rounded coordinates it always had; Environment Canada's are prefixed,
+    /// so a reading is never served under the other service.
+    pub fn service_identity(service: WeatherService, lat: f64, lon: f64) -> String {
+        match service {
+            WeatherService::UnitedStates => Self::station_identity(lat, lon),
+            WeatherService::Canada => format!("ca:{}", Self::station_identity(lat, lon)),
+        }
     }
 
     fn usable(ctx: &WorkerContext, entry: &CachedObservation) -> bool {
@@ -738,10 +657,17 @@ impl RealWeatherProvider {
         inner.failed_at.contains_key(city)
     }
 
-    /// Ensure fresh data for `city` is available or being fetched.
+    /// Ensure fresh data for `city` is available or being fetched, from the
+    /// National Weather Service.
     pub fn request(&self, city: &str, lat: f64, lon: f64) {
+        self.request_from(WeatherService::UnitedStates, city, lat, lon);
+    }
+
+    /// Ensure fresh data for `city` is available or being fetched, from the
+    /// service the game's data picked for the place.
+    pub fn request_from(&self, service: WeatherService, city: &str, lat: f64, lon: f64) {
         let now = (self.ctx.clock)();
-        let station = Self::station_identity(lat, lon);
+        let station = Self::service_identity(service, lat, lon);
         {
             let mut inner = lock_unpoisoned(&self.ctx.inner);
             if inner.inflight.contains(city) {
@@ -770,18 +696,29 @@ impl RealWeatherProvider {
             let handle = std::thread::Builder::new()
                 .name(format!("weather-{city}"))
                 .spawn(move || {
-                    run_worker(&ctx, &city, lat, lon);
+                    run_worker(&ctx, service, &city, lat, lon);
                 })
                 .expect("spawn weather worker");
             lock_unpoisoned(&self.workers).push(handle);
         } else {
-            run_worker(&ctx, &city, lat, lon);
+            run_worker(&ctx, service, &city, lat, lon);
         }
     }
 
     /// The worker body, runnable synchronously (the Python `_worker`).
     pub fn worker(&self, city: &str, lat: f64, lon: f64) -> WorkerOutcome {
-        run_worker(&self.ctx, city, lat, lon)
+        run_worker(&self.ctx, WeatherService::UnitedStates, city, lat, lon)
+    }
+
+    /// [`Self::worker`] for a service.
+    pub fn worker_from(
+        &self,
+        service: WeatherService,
+        city: &str,
+        lat: f64,
+        lon: f64,
+    ) -> WorkerOutcome {
+        run_worker(&self.ctx, service, city, lat, lon)
     }
 }
 
@@ -789,6 +726,10 @@ impl RealWeatherProvider {
 impl WeatherProvider for RealWeatherProvider {
     fn request(&mut self, city: &str, lat: f64, lon: f64) {
         RealWeatherProvider::request(self, city, lat, lon)
+    }
+
+    fn request_from(&mut self, service: WeatherService, city: &str, lat: f64, lon: f64) {
+        RealWeatherProvider::request_from(self, service, city, lat, lon)
     }
 
     fn get(&mut self, city: &str) -> Option<WeatherKind> {
@@ -824,9 +765,19 @@ impl WeatherProvider for RealWeatherProvider {
     }
 }
 
-fn run_worker(ctx: &WorkerContext, city: &str, lat: f64, lon: f64) -> WorkerOutcome {
-    let station = RealWeatherProvider::station_identity(lat, lon);
-    let outcome = match (ctx.fetch)(lat, lon) {
+fn run_worker(
+    ctx: &WorkerContext,
+    service: WeatherService,
+    city: &str,
+    lat: f64,
+    lon: f64,
+) -> WorkerOutcome {
+    let station = RealWeatherProvider::service_identity(service, lat, lon);
+    let (fetch, label) = match service {
+        WeatherService::UnitedStates => (&ctx.fetch, "NWS"),
+        WeatherService::Canada => (ctx.canada_fetch.as_ref().unwrap_or(&ctx.fetch), "ECCC"),
+    };
+    let outcome = match fetch(lat, lon) {
         Ok(fetched) => {
             let observed_at = fetched.observed_at.unwrap_or_else(|| (ctx.wall_clock)());
             let age_s = (ctx.wall_clock)() - observed_at;
@@ -866,7 +817,17 @@ fn run_worker(ctx: &WorkerContext, city: &str, lat: f64, lon: f64) -> WorkerOutc
                 // Past OBSERVATION_MAX_AGE_S (and within the outage hold):
                 // served as last-known, noted once per stretch.
                 let held = age_s > OBSERVATION_MAX_AGE_S;
-                let kind = map_condition(&fetched.text, fetched.wind_kmh, fetched.visibility_mi);
+                let kind = match service {
+                    WeatherService::UnitedStates => {
+                        map_condition(&fetched.text, fetched.wind_kmh, fetched.visibility_mi)
+                    }
+                    WeatherService::Canada => map_condition_canada(
+                        &fetched.text,
+                        fetched.wind_kmh,
+                        fetched.visibility_mi,
+                        fetched.temperature_c,
+                    ),
+                };
                 let already_noted = {
                     let mut inner = lock_unpoisoned(&ctx.inner);
                     // A held reading never replaces a newer one already
@@ -901,14 +862,14 @@ fn run_worker(ctx: &WorkerContext, city: &str, lat: f64, lon: f64) -> WorkerOutc
                         let age_min = age_s / 60.0;
                         log::info!(
                             "Real weather for {city}: newest station observation is {age_min:.0} \
-                             min old -- serving it as last-known live weather (NWS {:?})",
+                             min old -- serving it as last-known live weather ({label} {:?})",
                             fetched.text
                         );
                     }
                     return finish(ctx, city, WorkerOutcome::Held);
                 }
                 log::info!(
-                    "Real weather for {city}: {} (NWS {:?}, wind {:.0} km/h, temp {}, vis {})",
+                    "Real weather for {city}: {} ({label} {:?}, wind {:.0} km/h, temp {}, vis {})",
                     kind.value(),
                     fetched.text,
                     fetched.wind_kmh,
@@ -948,6 +909,10 @@ fn finish(ctx: &WorkerContext, city: &str, outcome: WorkerOutcome) -> WorkerOutc
     lock_unpoisoned(&ctx.inner).inflight.remove(city);
     outcome
 }
+
+mod parse;
+pub(crate) use parse::iso_timestamp;
+pub use parse::{parse_observation, temp_to_c, visibility_to_mi, wind_to_kmh};
 
 #[cfg(test)]
 mod tests;

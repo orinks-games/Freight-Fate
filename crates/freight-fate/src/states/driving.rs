@@ -139,7 +139,7 @@ pub struct DrivingState {
     pub alerts_next_poll_mi: f64,
     /// The point asked about and not yet answered: latitude, longitude, and
     /// the route mile it was asked at.
-    pub alerts_pending: Option<(f64, f64, f64)>,
+    pub alerts_pending: Option<(ff_core::sim::weather_service::WeatherService, f64, f64, f64)>,
     /// Warning ids already read out this drive, so each is said once.
     pub alerts_said: std::collections::HashSet<String>,
     pub live_weather_controls_calendar: bool,

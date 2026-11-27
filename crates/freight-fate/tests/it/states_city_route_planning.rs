@@ -227,3 +227,46 @@ fn test_route_planning_reads_dispatch_construction_notes_on_each_option() {
     assert!(said.contains("route option"), "{said}");
     assert!(said.contains(dispatch_note), "{said}");
 }
+
+#[test]
+fn test_route_planning_asks_environment_canada_for_canadian_cities() {
+    let mut app = TestApp::new();
+    app.ctx.profile = Some(Profile::named_in("Canada Route Weather", "Toronto"));
+    let world = get_world();
+    let job = a_job_with_vias(&app, 2);
+    let route = world
+        .supported_route_options("toronto_on_ca", "kingston_on_ca", 1)
+        .expect("the world routes")
+        .into_iter()
+        .next()
+        .expect("a route");
+    let log = Arc::new(std::sync::Mutex::new(Vec::new()));
+    let (nws, eccc) = (Arc::clone(&log), Arc::clone(&log));
+    app.ctx.settings.real_weather = true;
+    app.ctx.set_real_weather_provider(Arc::new(
+        RealWeatherProvider::new(Arc::new(move |_lat, _lon| {
+            nws.lock().unwrap().push("nws");
+            Err("offline bench".to_string())
+        }))
+        .with_canada_fetch(Arc::new(move |_lat, _lon| {
+            eccc.lock().unwrap().push("eccc");
+            Ok(Observation::new("Mostly Cloudy", 5.0, Some(2.0), None))
+        }))
+        .with_threaded(false),
+    ));
+    let cities = route.cities.len();
+    let mut state = RouteSelectState::new(
+        &mut app.ctx,
+        job,
+        vec![route],
+        RouteSelectOptions::default(),
+    );
+    let asked = log.lock().unwrap().clone();
+    assert_eq!(asked.len(), cities, "{asked:?}");
+    assert!(asked.iter().all(|s| *s == "eccc"), "{asked:?}");
+    app.clear_speech();
+    State::handle_event(&mut state, &mut app.ctx, &key_event(Key::W, None));
+    let said = app.main_lines().last().cloned().unwrap_or_default();
+    assert!(said.contains(": cloudy"), "{said}");
+    assert!(!said.contains("no live weather"), "{said}");
+}

@@ -936,9 +936,7 @@ fn live_weather_provider(ctx: &GameContext) -> Option<Box<dyn WeatherProvider>> 
     if !ctx.settings.real_weather {
         return None;
     }
-    Some(Box::new(RealWeatherProvider::with_nws(Arc::new(
-        UreqTransport,
-    ))))
+    Some(Box::new(RealWeatherProvider::live(Arc::new(UreqTransport))))
 }
 
 fn live_traffic_provider(ctx: &GameContext) -> Option<Arc<dyn TrafficProvider>> {

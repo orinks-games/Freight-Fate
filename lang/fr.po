@@ -15285,13 +15285,6 @@ msgstr "soleil"
 msgid "sunny"
 msgstr "ensoleillé"
 
-#. placeholders: {raw}
-msgid "could not convert {raw} to float"
-msgstr "impossible de convertir {raw} en nombre décimal"
-
-msgid "observation has no properties"
-msgstr "l'observation n'a pas de propriétés"
-
 #. placeholders: {message}
 msgid "points lookup: {message}"
 msgstr "recherche du point : {message}"
@@ -15314,6 +15307,13 @@ msgstr "aucune station n'a répondu"
 msgid "every station failed: {join}"
 msgstr "toutes les stations ont échoué : {join}"
 
+#. placeholders: {raw}
+msgid "could not convert {raw} to float"
+msgstr "impossible de convertir {raw} en nombre décimal"
+
+msgid "observation has no properties"
+msgstr "l'observation n'a pas de propriétés"
+
 msgid "Clear"
 msgstr "Dégagé"
 
@@ -15333,9 +15333,19 @@ msgstr "pas de POST sur l'API du NWS"
 msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 msgstr "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 
+msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*km/h"
+msgstr ""
+
 #. placeholders: {event}, {gust}
 msgid "{event}, gusts to {gust} miles per hour"
 msgstr "{event}, rafales jusqu'à {gust} miles à l'heure"
+
+#. placeholders: {event}, {gust}
+msgid "{event}, gusts to {gust} kilometers per hour"
+msgstr "{event}, rafales jusqu'à {gust} kilomètres à l'heure"
+
+msgid "flash freeze"
+msgstr ""
 
 msgid "marine"
 msgstr "météo marine"
@@ -15394,6 +15404,9 @@ msgstr "vent extrême"
 msgid "typhoon"
 msgstr "typhon"
 
+msgid "freezing drizzle"
+msgstr ""
+
 msgid "freezing fog"
 msgstr "brouillard givrant"
 
@@ -15415,11 +15428,14 @@ msgstr "tempête hivernale"
 msgid "flash flood warning"
 msgstr "alerte crue soudaine"
 
+msgid "flood warning"
+msgstr "alerte inondation"
+
 msgid "flood advisory"
 msgstr "avis d'inondation"
 
-msgid "flood warning"
-msgstr "alerte inondation"
+msgid "rainfall warning"
+msgstr ""
 
 msgid "high wind"
 msgstr "vent fort"
@@ -15430,17 +15446,20 @@ msgstr "avis de vent"
 msgid "wind warning"
 msgstr "alerte vent"
 
-msgid "blowing dust"
-msgstr "poussière soulevée"
-
 msgid "dense fog"
 msgstr "brouillard dense"
 
-msgid "dense smoke"
-msgstr "fumée dense"
+msgid "fog advisory"
+msgstr ""
 
 msgid "dust storm"
 msgstr "tempête de poussière"
+
+msgid "blowing dust"
+msgstr "poussière soulevée"
+
+msgid "dense smoke"
+msgstr "fumée dense"
 
 msgid "thunderstorm"
 msgstr "orage"
@@ -15463,6 +15482,12 @@ msgstr "refroidissement éolien"
 msgid "extreme cold"
 msgstr "froid extrême"
 
+msgid "arctic outflow"
+msgstr ""
+
+msgid "weather advisory"
+msgstr ""
+
 msgid "severity"
 msgstr "severity"
 
@@ -15471,6 +15496,9 @@ msgstr "headline"
 
 msgid "description"
 msgstr "description"
+
+msgid "Environment Canada"
+msgstr ""
 
 #. placeholders: {event}, {near_city}
 msgid "{event} near {near_city}"
@@ -15492,6 +15520,79 @@ msgstr "Alertes météo sur le trajet : {join}."
 #. placeholders: {join}
 msgid "Weather: {join}."
 msgstr "Météo : {join}."
+
+msgid "Extreme"
+msgstr ""
+
+msgid "red"
+msgstr "rouge"
+
+msgid "Severe"
+msgstr ""
+
+msgid "orange"
+msgstr ""
+
+msgid "Moderate"
+msgstr ""
+
+msgid "yellow"
+msgstr "orange"
+
+msgid "Minor"
+msgstr ""
+
+msgid "ended"
+msgstr ""
+
+#. placeholders: {event}, {area}
+msgid "{event} for {area}"
+msgstr ""
+
+msgid "ice fog"
+msgstr ""
+
+msgid "ice crystals"
+msgstr ""
+
+msgid "Fog"
+msgstr ""
+
+msgid "heavy precipitation"
+msgstr ""
+
+msgid "light precipitation"
+msgstr ""
+
+msgid "funnel cloud"
+msgstr ""
+
+msgid "Cloudy"
+msgstr ""
+
+msgid "site has no properties"
+msgstr ""
+
+msgid "site has no current conditions"
+msgstr ""
+
+msgid "site reports no observation"
+msgstr ""
+
+#. placeholders: {e}
+msgid "site search: {e}"
+msgstr ""
+
+#. placeholders: {lat}, {lon}
+msgid "no Environment Canada site near {lat},{lon}"
+msgstr ""
+
+msgid "no site reported a condition"
+msgstr ""
+
+#. placeholders: {join}
+msgid "every site failed: {join}"
+msgstr ""
 
 msgid "jointed"
 msgstr "à joints"
@@ -17558,6 +17659,12 @@ msgstr "sec"
 
 msgid "wet"
 msgstr "mouillé"
+
+msgid "nws"
+msgstr ""
+
+msgid "eccc"
+msgstr ""
 
 msgid "Lane and steering"
 msgstr "Voie et direction"
@@ -31510,12 +31617,6 @@ msgstr "{lead} Dégagé. Avancez {whither}."
 #. placeholders: {lead}, {whither}
 msgid "{lead} Pull ahead {whither}."
 msgstr "{lead} Avancez {whither}."
-
-msgid "red"
-msgstr "rouge"
-
-msgid "yellow"
-msgstr "orange"
 
 msgid "Light green."
 msgstr "Feu vert."

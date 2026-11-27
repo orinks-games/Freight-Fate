@@ -17,6 +17,7 @@
 
 ### Added
 
+- **Live weather now covers Canada.** Canadian roads get current conditions and weather alerts from Environment and Climate Change Canada.
 - **Predictive cruise now prepares the jake brake before crests and downgrades.** It also resumes smoothly out of work zones and green lights.
 - **Steering toward an occupied lane now plays a directional blind-spot chirp.** On All assists, a tap signals, waits for a gap, and glides over.
 - **Driving assistance settings now let you set Steering assist and Speed assist independently.** Existing presets still work, and saved settings carry over.

@@ -16790,11 +16790,11 @@ msgstr ""
 msgid "diesel-price"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_fuel_price.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/truck_parking.rs
+#: crates/ff-core/src/sim/real_fuel_price.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/real_weather_canada.rs
 msgid "Accept"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_fuel_price.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/truck_parking.rs
+#: crates/ff-core/src/sim/real_fuel_price.rs crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/real_weather_canada.rs
 msgid "User-Agent"
 msgstr ""
 
@@ -16874,7 +16874,7 @@ msgstr ""
 msgid "dust"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/weather/tables.rs
+#: crates/ff-core/src/sim/real_weather.rs crates/ff-core/src/sim/real_weather_canada.rs crates/ff-core/src/sim/weather/tables.rs
 msgid "fog"
 msgstr ""
 
@@ -16930,15 +16930,6 @@ msgstr ""
 msgid "sunny"
 msgstr ""
 
-#. placeholders: {raw}
-#: crates/ff-core/src/sim/real_weather.rs
-msgid "could not convert {raw} to float"
-msgstr ""
-
-#: crates/ff-core/src/sim/real_weather.rs
-msgid "observation has no properties"
-msgstr ""
-
 #. placeholders: {message}
 #: crates/ff-core/src/sim/real_weather.rs
 msgid "points lookup: {message}"
@@ -16967,7 +16958,16 @@ msgstr ""
 msgid "every station failed: {join}"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather/tests_diagnostics.rs
+#. placeholders: {raw}
+#: crates/ff-core/src/sim/real_weather/parse.rs
+msgid "could not convert {raw} to float"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather/parse.rs
+msgid "observation has no properties"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather/tests_diagnostics.rs crates/ff-core/src/sim/real_weather_canada.rs
 msgid "Clear"
 msgstr ""
 
@@ -16989,9 +16989,22 @@ msgstr ""
 msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*mph"
 msgstr ""
 
+#: crates/ff-core/src/sim/real_weather_alerts.rs
+msgid "(?i)gusts?\\s+(?:up\\s+to|to|of|as high as)\\s+(\\d{2,3})\\s*km/h"
+msgstr ""
+
 #. placeholders: {event}, {gust}
 #: crates/ff-core/src/sim/real_weather_alerts.rs
 msgid "{event}, gusts to {gust} miles per hour"
+msgstr ""
+
+#. placeholders: {event}, {gust}
+#: crates/ff-core/src/sim/real_weather_alerts.rs
+msgid "{event}, gusts to {gust} kilometers per hour"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts.rs
+msgid "flash freeze"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs
@@ -17071,6 +17084,10 @@ msgid "typhoon"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs
+msgid "freezing drizzle"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts.rs
 msgid "freezing fog"
 msgstr ""
 
@@ -17099,11 +17116,15 @@ msgid "flash flood warning"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs
+msgid "flood warning"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts.rs
 msgid "flood advisory"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs
-msgid "flood warning"
+msgid "rainfall warning"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs
@@ -17119,19 +17140,23 @@ msgid "wind warning"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs
-msgid "blowing dust"
-msgstr ""
-
-#: crates/ff-core/src/sim/real_weather_alerts.rs
 msgid "dense fog"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs
-msgid "dense smoke"
+msgid "fog advisory"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs
 msgid "dust storm"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts.rs
+msgid "blowing dust"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts.rs
+msgid "dense smoke"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/weather/tables.rs
@@ -17163,6 +17188,14 @@ msgid "extreme cold"
 msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs
+msgid "arctic outflow"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts.rs
+msgid "weather advisory"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts.rs
 msgid "severity"
 msgstr ""
 
@@ -17172,6 +17205,10 @@ msgstr ""
 
 #: crates/ff-core/src/sim/real_weather_alerts.rs crates/ff-core/src/sim/truck_parking.rs crates/freight-fate/src/states/online_states/profile.rs
 msgid "description"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts.rs
+msgid "Environment Canada"
 msgstr ""
 
 #. placeholders: {event}, {near_city}
@@ -17198,6 +17235,102 @@ msgstr ""
 #. placeholders: {join}
 #: crates/ff-core/src/sim/real_weather_alerts.rs
 msgid "Weather: {join}."
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts_canada.rs
+msgid "Extreme"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts_canada.rs crates/freight-fate/src/states/driving_events/ramp_terminal.rs crates/freight-fate/src/states/driving_updates/enforcement.rs
+msgid "red"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts_canada.rs
+msgid "Severe"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts_canada.rs
+msgid "orange"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts_canada.rs
+msgid "Moderate"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts_canada.rs crates/freight-fate/src/states/driving_events/ramp_terminal.rs
+msgid "yellow"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts_canada.rs
+msgid "Minor"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_alerts_canada.rs
+msgid "ended"
+msgstr ""
+
+#. placeholders: {event}, {area}
+#: crates/ff-core/src/sim/real_weather_alerts_canada.rs
+msgid "{event} for {area}"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "ice fog"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "ice crystals"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "Fog"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "heavy precipitation"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "light precipitation"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "funnel cloud"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "Cloudy"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "site has no properties"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "site has no current conditions"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "site reports no observation"
+msgstr ""
+
+#. placeholders: {e}
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "site search: {e}"
+msgstr ""
+
+#. placeholders: {lat}, {lon}
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "no Environment Canada site near {lat},{lon}"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "no site reported a condition"
+msgstr ""
+
+#. placeholders: {join}
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "every site failed: {join}"
 msgstr ""
 
 #: crates/ff-core/src/sim/road_texture.rs
@@ -19758,6 +19891,14 @@ msgstr ""
 
 #: crates/ff-core/src/sim/weather/tables.rs
 msgid "wet"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_service.rs
+msgid "nws"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_service.rs
+msgid "eccc"
 msgstr ""
 
 #: crates/ff-core/src/sound_catalog.rs
@@ -34896,14 +35037,6 @@ msgstr ""
 #. placeholders: {lead}, {whither}
 #: crates/freight-fate/src/states/driving_events/ramp_crossing.rs
 msgid "{lead} Pull ahead {whither}."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_events/ramp_terminal.rs crates/freight-fate/src/states/driving_updates/enforcement.rs
-msgid "red"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_events/ramp_terminal.rs
-msgid "yellow"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_events/ramp_terminal.rs

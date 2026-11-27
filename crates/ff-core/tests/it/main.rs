@@ -99,6 +99,7 @@ mod sim_trip_properties;
 mod sim_trip_resume;
 mod sim_troopers;
 mod sim_vehicle_access;
+mod sim_weather_service;
 mod sim_weigh_station_transponder;
 mod sim_work_zone_exits_stay_open;
 mod sim_work_zone_merge;
