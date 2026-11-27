@@ -161,6 +161,7 @@ impl Trip {
     /// Advance the trip by real seconds; returns events for the UI layer.
     pub fn update(&mut self, dt: f64) -> Vec<TripEvent> {
         self.events = Vec::new();
+        self.last_frame_game_min = 0.0;
         if self.finished {
             return self.events.clone();
         }
