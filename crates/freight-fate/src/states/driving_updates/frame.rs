@@ -681,7 +681,7 @@ impl DrivingState {
         let frame_start_hour = self.absolute_game_hour(ctx, None);
         let mut events = self.trip.update(dt);
         let frame_end_hour = self.absolute_game_hour(ctx, None);
-        let frame_elapsed_min = ((frame_end_hour - frame_start_hour) * 60.0).max(0.0);
+        let frame_elapsed_min = self.trip.last_frame_game_min;
         record_driving_frame(self, ctx, frame_start_hour, frame_end_hour);
         // A chain law posted or lifted by the sky changing is said before
         // the weather line of the same frame: with the weather first, the

@@ -402,6 +402,10 @@ pub struct Trip {
     /// deceleration lane running beside it. Honoured only while `on_ramp`.
     pub ramp_grade: Option<f64>,
     pub last_moved_mi: f64,
+    /// Exact normal-frame game minutes charged by the most recent `Trip::update`
+    /// (excluding discrete crossing-wait jumps that `handle_trip_event` logs
+    /// separately).
+    pub last_frame_game_min: f64,
     pub announced_cities: HashSet<usize>,
     pub announced_navigation: HashSet<String>,
     pub charged_tolls: HashSet<String>,
@@ -589,6 +593,7 @@ impl Trip {
             on_ramp: false,
             ramp_grade: None,
             last_moved_mi: 0.0,
+            last_frame_game_min: 0.0,
             announced_cities: HashSet::new(),
             announced_navigation: HashSet::new(),
             charged_tolls: HashSet::new(),

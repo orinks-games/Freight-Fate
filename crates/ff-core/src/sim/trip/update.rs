@@ -194,6 +194,7 @@ impl Trip {
         self.sitting_s += dt;
         let scale = self.effective_time_scale();
         let game_min = dt * scale / 60.0;
+        self.last_frame_game_min = game_min;
         self.game_minutes += game_min;
         let region = self.region_at(self.position_mi);
         self.weather.set_region(&region);
