@@ -262,8 +262,12 @@ fn the_rest_call_is_offered_drowsy_on_a_load_and_not_rested() {
     set_fatigue(&mut app, &drive, 50.0);
     assert!(!call_rows(&mut app, &drive).iter().any(|r| r == REST_ROW));
     set_fatigue(&mut app, &drive, 65.0);
+    let drowsy_rows = call_rows(&mut app, &drive);
+    assert_eq!(drowsy_rows.last().map(String::as_str), Some("Back"));
     assert_eq!(
-        call_rows(&mut app, &drive).last().map(String::as_str),
+        drowsy_rows
+            .get(drowsy_rows.len().saturating_sub(2))
+            .map(String::as_str),
         Some(REST_ROW)
     );
     set_fatigue(&mut app, &drive, 90.0);
