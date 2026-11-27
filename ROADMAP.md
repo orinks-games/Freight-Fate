@@ -7478,13 +7478,16 @@ a carrier slice (owner, 2026-10-26).
 ### Canadian radio stations (November 27)
 
 - [x] Canada is on the radio directory. `data/radio_imported_canada.json`
-      holds 570 Canadian stations, built by `cargo tools
+      holds 574 Canadian stations, built by `cargo tools
       import-canada-stations` from a Radio Browser snapshot (stream
       addresses only, never fetched by the game) joined to ISED's
       Broadcasting Database (export of 2026-11-24). A station is matched by
-      the call sign in its name or CBC stream mount (690 directory rows), or
+      the call sign in its name or CBC stream mount (692 directory rows), or
       by the one dial position in its name plus its province when exactly
-      one operating ISED transmitter there matches (7 rows). Rows that
+      one operating main transmitter there matches (10 rows; a name that
+      writes a call sign ISED does not list must also name the
+      transmitter's community). An AM record whose first site is zero
+      (CJAD, CHIN, CFTR) is read at its second site. Rows that
       contradict ISED on province (6) or frequency (8) are left out.
       Position, frequency and community are read from ISED; range is
       derived from licensed ERP through the US tier's table, AM a flat 25
@@ -7514,11 +7517,15 @@ a carrier slice (owner, 2026-10-26).
       US) and Cogeco (StreamTheWorld, HTTP 426), 33 stations,
       Toronto's Q107 and The Edge, Vancouver's CFOX and Rock 101, Calgary's
       Country 105 and Montréal's CKOI among them.
-- [ ] (Found along the way) Some Canadian directory names reach the
-      dial untidy: "CHKF "FM 94.7" Calgary, AB (correction)", "Flow 98 7
-      CKFG-FM - Toronto", "CIRV- 88.9 (Portuguese ) Toronto, ON". The name
-      cleaner needs rules for an editor's note, a split frequency and a
-      stray space before a bracket.
+- [x] (Found along the way) Canadian directory names reached the dial in
+      the editor's shape ("CHBM "Boom 97.3" Toronto, ON", the province
+      code read as the word "on", every rebroadcaster). A station is now
+      named by its quoted brand, with the dial position added when the
+      brand has none, or else by what is left once the call sign, editor's
+      notes, province and rebroadcasters come off ("News Talk 1010
+      Toronto"). Sixty-three names the rule cannot derive are set by hand
+      in `data/radio_imported_canada_overrides.json`;
+      `import-canada-stations --names FILE` writes the review table.
 - [x] (Found along the way) 85 Canadian stations whose streams are on a
       port other than 80 or 443 could not be checked from a cloud session
       (its proxy refuses those ports). Swept from a Windows desktop on

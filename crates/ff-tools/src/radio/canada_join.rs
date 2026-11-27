@@ -117,8 +117,14 @@ fn transmitter(row: &dbf::Row, band: Band) -> Option<Transmitter> {
         Band::Am => &*AM_CALL,
     };
     let caps = pattern.captures(&call_sign)?;
-    let lat = dms(row.get("LATITUDE")?, false)?;
-    let lon = dms(row.get("LONGITUDE")?, true)?;
+    // An AM record states its day site in LATITUDE/LONGITUDE and a second
+    // site in LATITUDE2/LONGITUDE2. CJAD, CHIN and CFTR state only the
+    // second (their first is zero); read it rather than lose the station.
+    let site = |lat: &str, lon: &str| Some((dms(row.get(lat)?, false)?, dms(row.get(lon)?, true)?));
+    let (lat, lon) = site("LATITUDE", "LONGITUDE").or_else(|| match band {
+        Band::Am => site("LATITUDE2", "LONGITUDE2"),
+        Band::Fm => None,
+    })?;
     let erp_w = ["ERPVPK", "ERPHPK", "ERPVAV", "ERPHAV"]
         .iter()
         .map(|k| number(row, k))
@@ -492,7 +498,7 @@ pub fn band_word(name: &str) -> Option<Band> {
     }
 }
 
-fn fold_accents(text: &str) -> String {
+pub fn fold_accents(text: &str) -> String {
     text.chars()
         .map(|c| match c {
             'é' | 'è' | 'ê' | 'ë' | 'É' | 'È' => 'e',
@@ -671,6 +677,30 @@ mod tests {
         }
         assert_eq!(dial_text(Band::Fm, 105.5), "105.5");
         assert_eq!(dial_text(Band::Am, 1240.0), "1240");
+    }
+
+    #[test]
+    fn an_am_record_with_no_first_site_is_read_at_its_second() {
+        let row: dbf::Row = [
+            ("BANNER", "O"),
+            ("PROVINCE", "ON"),
+            ("CALL_SIGN", "CHIN"),
+            ("FREQUENCY", "1540.00"),
+            ("CITY", "Toronto"),
+            ("LATITUDE", "0"),
+            ("LONGITUDE", "0"),
+            ("LATITUDE2", "433526"),
+            ("LONGITUDE2", "795321"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+        let chin = transmitter(&row, Band::Am).expect("CHIN is placed");
+        assert_eq!(
+            (chin.lat, chin.lon),
+            (dms("433526", false).unwrap(), dms("795321", true).unwrap())
+        );
+        assert_eq!(chin.frequency, 1540.0);
     }
 
     #[test]

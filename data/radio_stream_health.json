@@ -7669,6 +7669,13 @@
    "name": "美国之音",
    "stream_url": "https://lhttp-hw.qtfm.cn/live/20500021/64k.mp3",
    "tier": "imported"
+  },
+  {
+   "detail": "HTTP 404",
+   "id": "rb-ised-9621af82-0601-11e8-ae97-52543be04c81",
+   "name": "CJGV \"Peggy @ 99.1\" Winnipeg, MB",
+   "stream_url": "http://live.leanstream.co/CJGVFM-MP3",
+   "tier": "imported"
   }
  ],
  "notes": "Stream reachability, written by `cargo tools check-radio-streams`. The imported catalog's build drops the imported ids listed here; curated casualties are marked supported: false by hand with a note. Re-probe with --recheck-dead before deleting anything: a station can come back.",

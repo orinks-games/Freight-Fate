@@ -58,9 +58,9 @@ use ff_core::radio::{call_sign_base, canonical_stream_url, normalize_stream_url}
 use regex::Regex;
 
 use super::canada_join::{
-    band_word, call_signs_in, cbc_mount, clean_terrestrial_name, dial_text, frequency_in,
-    load_ised, main_transmitter, province_named, range_for, spoken_name, Band, Stations,
-    Transmitter,
+    band_word, call_signs_in, cbc_mount, clean_terrestrial_name, dial_text, fold_accents,
+    frequency_in, load_ised, main_transmitter, province_named, range_for, spoken_name, Band,
+    Stations, Transmitter,
 };
 use super::{catalog_rows, data_path, text};
 use crate::cli::{Args, Spec};
@@ -143,6 +143,11 @@ fn by_call_sign<'a>(
         .into_iter()
         .find(|(base, _)| !sites_in(stations, base).is_empty())?;
     let bands = sites_in(stations, &base);
+    // A call sign licensed on one band only is that station, whatever band
+    // or dial position the name still gives: "CKYL 610" moved to FM 94.9,
+    // and ISED no longer lists the AM licence the directory remembers. The
+    // dial-position screen in `resolve` checks only a name that names the
+    // placed band, so these rows come through on their current licence.
     if let [only] = bands.as_slice() {
         return Some(Ok(*only));
     }
@@ -165,13 +170,28 @@ fn by_frequency<'a>(
     let (Some((band, freq)), Some(province)) = (frequency_in(name), province) else {
         return Err(LeftOut::NoMatch);
     };
+    // A name that writes a call sign ISED does not list ("CJPB-FM 90.7 ...
+    // Saint-Laurent") may be a renamed station or a different one on the
+    // same dial position elsewhere in the province, so it is matched only
+    // where the transmitter's own community is in the name too ("CJGV ...
+    // 99.1 Winnipeg" is CFPG-FM, Winnipeg). "CBC" reads as a call sign
+    // here as well, which settles a network's several transmitters on one
+    // frequency by the city its name gives ("CBC Radio 1 Toronto 99.1 FM").
+    let unlicensed_call = !call_signs_in(name).is_empty();
+    let folded = fold_accents(name);
     let matches: Vec<&(String, Band)> = stations
         .iter()
         .filter(|((_, b), sites)| {
+            // Main transmitters only: a name that gives a rebroadcaster's
+            // dial position ("CIVH 95.9 Vanderhoof", CIRX-FM-1) must not be
+            // placed at its parent's tower under a frequency it does not use.
             *b == band
-                && sites
-                    .iter()
-                    .any(|t| t.province == province && (t.frequency - freq).abs() < 0.05)
+                && sites.iter().any(|t| {
+                    t.main
+                        && t.province == province
+                        && (t.frequency - freq).abs() < 0.05
+                        && (!unlicensed_call || folded.contains(&fold_accents(&t.community)))
+                })
         })
         .map(|(key, _)| key)
         .collect();
@@ -408,6 +428,14 @@ fn build(directory: &[Object], stations: &Stations, ised_date: &str) -> Result<V
     for row in directory {
         match resolve(stations, row) {
             Ok(c) => {
+                if c.by == MatchedBy::Frequency {
+                    println!(
+                        "  by frequency: {:?} -> {} {}",
+                        text(row, "name"),
+                        c.site.call_sign,
+                        dial_text(c.site.band, c.site.frequency)
+                    );
+                }
                 *counts
                     .entry(match c.by {
                         MatchedBy::CallSign => "matched_by_call_sign",
@@ -722,4 +750,58 @@ pub fn main(argv: &[String]) -> Result<i32> {
     util::write_text(&output, &text_out)?;
     println!("Wrote {}", output.display());
     Ok(0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn site(
+        call_sign: &str,
+        base: &str,
+        frequency: f64,
+        community: &str,
+        main: bool,
+    ) -> Transmitter {
+        Transmitter {
+            call_sign: call_sign.into(),
+            base: base.into(),
+            band: Band::Fm,
+            frequency,
+            province: "BC",
+            community: community.into(),
+            lat: 53.9,
+            lon: -122.7,
+            erp_kw: Some(10.0),
+            main,
+        }
+    }
+
+    #[test]
+    fn a_frequency_match_lands_on_a_main_transmitter_only() {
+        let mut stations = Stations::new();
+        stations.insert(
+            ("CIRX".into(), Band::Fm),
+            vec![
+                site("CIRX-FM", "CIRX", 94.3, "Prince George", true),
+                site("CIRX-FM-1", "CIRX", 95.9, "Vanderhoof", false),
+            ],
+        );
+        stations.insert(
+            ("CKHD".into(), Band::Fm),
+            vec![site("CKHD-FM", "CKHD", 98.1, "Assiniboia", true)],
+        );
+        // A rebroadcaster's dial position is no match.
+        assert!(matches!(
+            by_frequency(&stations, "95.9 FM The Goat", Some("BC")),
+            Err(LeftOut::NoMatch)
+        ));
+        // A call sign ISED does not list needs the transmitter's community.
+        assert!(by_frequency(&stations, "CIAT-FM 98.1 Assiniboia", Some("BC")).is_ok());
+        assert!(matches!(
+            by_frequency(&stations, "CJPB-FM 98.1 Saint-Laurent", Some("BC")),
+            Err(LeftOut::NoMatch)
+        ));
+        assert!(by_frequency(&stations, "Cat Country 98.1", Some("BC")).is_ok());
+    }
 }
