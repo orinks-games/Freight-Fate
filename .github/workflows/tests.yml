@@ -1,0 +1,104 @@
+name: Tests
+
+# The full suite: clippy with warnings denied, the game and ff-core with the
+# whole-map sweeps and the other long tests (`slow-tests`), and the agent
+# server. It moved here from the builds workflow (2026-11-27) so a snapshot
+# or a release no longer waits on it. It publishes nothing and nothing waits
+# on it; a red run is the signal.
+#
+# Once a night it tests dev's head, and skips the night when that is the
+# commit it tested last. A manual run tests any branch. GitHub offers
+# neither the schedule nor the Run workflow button until this file is on the
+# default branch (main).
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to test"
+        type: string
+        default: dev
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ inputs.branch || 'dev' }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (Linux x86_64)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      FREIGHT_FATE_NO_SPEECH: "1"
+      HEARKEN_TEST_NO_SPEECH: "1"
+      SDL_VIDEODRIVER: dummy
+      SDL_AUDIODRIVER: dummy
+      CARGO_TERM_COLOR: always
+      RUST_BACKTRACE: "1"
+      CMAKE_POLICY_VERSION_MINIMUM: "3.5"
+      # Prism's static library is built with gcc link-time optimisation and
+      # ships fat objects (LTO bytecode beside the machine code), so every
+      # test program's link re-optimised all of Prism, seconds per binary.
+      # -fno-lto links the machine code that is already there, and mold
+      # links faster than ld. Test builds only: release builds keep LTO.
+      CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_RUSTFLAGS: "-C link-arg=-fno-lto -C link-arg=-fuse-ld=mold"
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.branch || 'dev' }}
+
+      # A tiny cache entry named after the commit marks a commit the nightly
+      # has already tested; finding one ends the night here.
+      - name: Note the commit under test
+        id: head
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git rev-parse HEAD > .tests-head
+
+      - name: Look for a nightly run of this commit
+        id: tested
+        if: github.event_name == 'schedule'
+        uses: actions/cache/restore@v4
+        with:
+          path: .tests-head
+          key: tests-nightly-${{ steps.head.outputs.sha }}
+          lookup-only: true
+
+      - name: Skip a night with no new commits
+        if: steps.tested.outputs.cache-hit == 'true'
+        run: echo "The nightly already tested ${{ steps.head.outputs.sha }}; nothing new."
+
+      - name: Set up Rust and the build caches
+        if: steps.tested.outputs.cache-hit != 'true'
+        uses: ./.github/actions/rust-setup
+        with:
+          cache-key: test
+          linux-packages: mold
+
+      - name: Lint Rust targets
+        id: clippy
+        if: steps.tested.outputs.cache-hit != 'true'
+        run: cargo clippy --all-targets --locked -- -D warnings
+
+      - name: Test Rust workspace
+        if: steps.tested.outputs.cache-hit != 'true'
+        run: cargo test -p ff-core -p freight-fate --features freight-fate/slow-tests --locked
+
+      - name: Test the agent server
+        if: steps.tested.outputs.cache-hit != 'true'
+        run: cargo test -p freight-fate --test agent_server --locked
+
+      # Saved whether clippy and the suite passed or failed (a clippy
+      # failure skips the suite), so a failing commit is reported once, not
+      # again every night until dev moves. A cancelled run marks nothing.
+      - name: Mark this commit tested
+        if: ${{ !cancelled() && github.event_name == 'schedule' && steps.tested.outputs.cache-hit != 'true' && (steps.clippy.outcome == 'success' || steps.clippy.outcome == 'failure') }}
+        uses: actions/cache/save@v4
+        with:
+          path: .tests-head
+          key: tests-nightly-${{ steps.head.outputs.sha }}

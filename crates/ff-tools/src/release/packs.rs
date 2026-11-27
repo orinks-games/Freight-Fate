@@ -87,6 +87,37 @@ fn ensure_pinned_pack(path: &Path, url: &str, expected: &str, label: &str) -> Re
         .unwrap_or_default()
         .to_string_lossy()
         .into_owned();
+    // A dropped connection or a host's bad minute should not fail a whole
+    // release build, so the download gets a few tries before it gives up.
+    let mut attempt = 1;
+    loop {
+        match download_pinned_pack(parent, &name, path, url, expected, label) {
+            Ok(()) => return Ok(()),
+            Err(err) if attempt < PACK_DOWNLOAD_ATTEMPTS => {
+                eprintln!(
+                    "{err} Trying again in {} seconds (attempt {attempt} of {PACK_DOWNLOAD_ATTEMPTS}).",
+                    PACK_RETRY_PAUSE.as_secs()
+                );
+                std::thread::sleep(PACK_RETRY_PAUSE);
+                attempt += 1;
+            }
+            Err(err) => return Err(err),
+        }
+    }
+}
+
+const PACK_DOWNLOAD_ATTEMPTS: u32 = 3;
+const PACK_RETRY_PAUSE: std::time::Duration = std::time::Duration::from_secs(15);
+
+/// One try at [`ensure_pinned_pack`]'s download.
+fn download_pinned_pack(
+    parent: &Path,
+    name: &str,
+    path: &Path,
+    url: &str,
+    expected: &str,
+    label: &str,
+) -> Result<()> {
     let mut temp = tempfile::Builder::new()
         .prefix(&format!("{name}."))
         .suffix(".download")
@@ -141,27 +172,24 @@ pub fn ensure_channel3000_pack(path: Option<&Path>) -> Result<()> {
     ensure_pinned_pack(&path, &url, &sha, "Channel 3000 pack")
 }
 
-#[cfg(feature = "world")]
-fn pack_names(path: &Path) -> Result<Vec<String>> {
-    ff_core::assets_pack::SoundPack::open(path)
-        .map(|p| p.names())
-        .map_err(|e| format!("{}: {e}", path.display()))
-}
-
-#[cfg(not(feature = "world"))]
-fn pack_names(_path: &Path) -> Result<Vec<String>> {
-    Err("this build of ff-tools has no `world` feature, so it cannot read sound packs".into())
+/// The names a pack holds, read by `lister`: the `ff-pack-names` program the
+/// release build compiled beside the game. Asking it rather than linking
+/// ff-core keeps the builder a light build, so a build job compiles ff-core
+/// once, in the release profile, instead of a second time for the tooling.
+fn pack_names(lister: &Path, path: &Path) -> Result<Vec<String>> {
+    let text = util::output(std::process::Command::new(lister).arg(path))?;
+    Ok(text.lines().map(str::to_string).collect())
 }
 
 /// Open the staged packs and prove they carry what the game reads.
-pub fn verify_sound_packs(build: &Path) -> Result<()> {
+pub fn verify_sound_packs(build: &Path, lister: &Path) -> Result<()> {
     let root = if build.extension().is_some_and(|e| e == "app") {
         build.join("Contents").join("Resources")
     } else {
         build.to_path_buf()
     };
     let package = root.join("freight_fate");
-    let names = pack_names(&package.join("sounds.pak"))?;
+    let names = pack_names(lister, &package.join("sounds.pak"))?;
     if !names
         .iter()
         .any(|n| n.ends_with(".ogg") || n.ends_with(".wav"))
@@ -176,13 +204,13 @@ pub fn verify_sound_packs(build: &Path) -> Result<()> {
                 .into(),
         );
     }
-    if !pack_names(&package.join("music.pak"))?
+    if !pack_names(lister, &package.join("music.pak"))?
         .iter()
         .any(|n| n.starts_with("music/"))
     {
         return Err("Packaged music pack contains no music files".into());
     }
-    if !pack_names(&package.join("channel3000.pak"))?
+    if !pack_names(lister, &package.join("channel3000.pak"))?
         .iter()
         .any(|n| n.starts_with("c3k/"))
     {
