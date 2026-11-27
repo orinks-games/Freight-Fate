@@ -93,7 +93,9 @@ fn move_closure_left(zone: &mut Zone) {
 impl Trip {
     pub fn place_zones(&mut self) -> Vec<Zone> {
         let mut zones: Vec<Zone> = Vec::new();
-        let total = self.route.miles();
+        let total = self
+            .facility_approach_start_mi()
+            .unwrap_or_else(|| self.route.miles());
         let n = 0.max((total / 150.0) as i64);
         // Congestion is worked out FIRST and its footprint claimed before any
         // work zone is drawn, so the draw moves somewhere else instead of
@@ -224,7 +226,9 @@ impl Trip {
     /// Stretches where peak-hour demand approaches capacity. The zones are
     /// fixed in space; whether each is *active* follows the clock.
     pub fn place_congestion_zones(&mut self) -> Vec<Zone> {
-        let total = self.route.miles();
+        let total = self
+            .facility_approach_start_mi()
+            .unwrap_or_else(|| self.route.miles());
         if self.is_facility_approach_route() || total < 10.0 {
             return Vec::new();
         }
@@ -281,20 +285,25 @@ impl Trip {
         // report, 2026-08-17; root cause found 2026-08-18).
         let gate_start =
             (total - FACILITY_GATE_ZONE_MI.min(total * FACILITY_GATE_MAX_SHARE)).max(0.0);
-        if self.is_facility_approach_route() {
+        if let Some(approach_start_leg) = self.facility_approach_start_leg() {
             if self.has_street_detail() {
                 // Every street at its own posted limit, and the yard past the
                 // driveway (`street_zones`).
                 return self.street_zones();
             }
+            let approach_start_mi = self
+                .leg_starts
+                .get(approach_start_leg)
+                .copied()
+                .unwrap_or(0.0);
+            let approach_legs = &self.route.legs[approach_start_leg..];
             // A chain baked before the street detail: ONE posted limit for
             // the whole chain, and the gate at the end (owner playtest,
             // 2026-08-21): the access road takes the state's own statutory
             // business-district limit, else the highest limit the legs offer.
-            if self.route.legs.iter().any(|leg| leg.local_speed_mph > 0.0) {
+            if approach_legs.iter().any(|leg| leg.local_speed_mph > 0.0) {
                 let chain_limit = self.statutory_street_mph().unwrap_or_else(|| {
-                    self.route
-                        .legs
+                    approach_legs
                         .iter()
                         .filter(|leg| leg.local_speed_mph > 0.0)
                         .map(|leg| leg.local_speed_mph)
@@ -306,7 +315,7 @@ impl Trip {
                     chain_limit
                 };
                 let last_leg_start = self.leg_starts.last().copied().unwrap_or(gate_start);
-                let gate_zone = if self.outbound {
+                let gate_zone = if self.outbound && approach_start_leg == 0 {
                     // Leaving the yard: the gate is behind you within the
                     // first street, and the chain ENDS at the on-ramp
                     // (Brandon, 2026-08-21).
@@ -330,20 +339,25 @@ impl Trip {
                     )
                 };
                 return vec![
-                    Zone::new(0.0, total, chain_limit, "facility access road"),
+                    Zone::new(
+                        approach_start_mi,
+                        total,
+                        chain_limit,
+                        "facility access road",
+                    ),
                     gate_zone,
                 ];
             }
             // Graduated fallback (owner design, 2026-07-24): a long synthetic
             // approach is an arterial before it is an access road.
             let mut zones = Vec::new();
-            let access_start = (total - FACILITY_ACCESS_TAIL_MI).max(0.0);
+            let access_start = (total - FACILITY_ACCESS_TAIL_MI).max(approach_start_mi);
             let access_mph = self
                 .statutory_street_mph()
                 .unwrap_or(FACILITY_ACCESS_LIMIT_MPH);
-            if access_start > 0.5 {
+            if access_start - approach_start_mi > 0.5 {
                 zones.push(Zone::new(
-                    0.0,
+                    approach_start_mi,
                     access_start,
                     FACILITY_ARTERIAL_LIMIT_MPH,
                     "facility approach",
@@ -355,9 +369,14 @@ impl Trip {
                     "facility access road",
                 ));
             } else {
-                zones.push(Zone::new(0.0, total, access_mph, "facility access road"));
+                zones.push(Zone::new(
+                    approach_start_mi,
+                    total,
+                    access_mph,
+                    "facility access road",
+                ));
             }
-            if self.outbound {
+            if self.outbound && approach_start_leg == 0 {
                 zones.push(Zone::new(
                     0.0,
                     total.min(FACILITY_GATE_ZONE_MI),
@@ -366,7 +385,7 @@ impl Trip {
                 ));
             } else {
                 zones.push(Zone::new(
-                    gate_start,
+                    gate_start.max(approach_start_mi),
                     total,
                     FACILITY_GATE_LIMIT_MPH,
                     "facility gate",

@@ -181,3 +181,64 @@ fn test_a_relayed_pickup_turns_through_the_shippers_streets() {
         trip.events
     );
 }
+
+#[test]
+fn test_a_relayed_pickup_posts_street_zones_only_on_the_shippers_streets() {
+    // Player report (2026-11-26): Point Comfort -> Victoria Dry Warehouse
+    // relayed pickup on US-87. The corridor stays on its highway limit up to
+    // the join, and the appended shipper street chain carries its own street
+    // and yard zones from the join onward so cruise hands off to the speed
+    // keeper and slows for corners.
+    let world = world();
+    let corridor = world
+        .supported_route("point_comfort_tx_us", "victoria_tx_us", None)
+        .unwrap()
+        .expect("Point Comfort to Victoria is on the network");
+    let approach = world
+        .facility_approach_route("victoria_tx_us", "Victoria Dry Warehouse")
+        .unwrap();
+    let route = corridor.then(&approach);
+    let join = corridor.legs.len();
+    let mut trip = Trip::new(
+        route,
+        TruckState::default(),
+        WeatherSystem::new("gulf_coast", Some(1), None, None, true),
+        TripOptions {
+            seed: Some(2),
+            world: Some(world),
+            local_state: "TX".to_string(),
+            ..Default::default()
+        },
+    );
+    let join_mi = trip.leg_starts[join];
+    assert_eq!(trip.facility_approach_start_leg(), Some(join));
+    assert_eq!(trip.facility_approach_start_mi(), Some(join_mi));
+    assert!(!trip.on_facility_approach(join_mi - 0.5));
+    assert!(trip.on_facility_approach(join_mi));
+
+    // Still on US-87: highway limit, no street or destination-approach zone.
+    let (hwy_limit, hwy_reason) = trip.speed_limit_at(join_mi - 1.0);
+    assert!(
+        hwy_limit >= 50.0,
+        "expected highway limit before join, got {hwy_limit} ({hwy_reason:?})"
+    );
+    assert!(
+        hwy_reason.is_none(),
+        "unexpected zone before join: {hwy_reason:?}"
+    );
+
+    // On the shipper's streets: street zones start at the join and end at the yard.
+    let (street_limit, street_reason) = trip.speed_limit_at(join_mi + 0.05);
+    assert_eq!(street_reason.as_deref(), Some("facility access road"));
+    assert!(
+        street_limit <= 45.0,
+        "expected city street limit on approach, got {street_limit}"
+    );
+    assert!(
+        trip.zones
+            .iter()
+            .all(|z| z.reason != "destination approach"),
+        "street-detail relayed pickup must not fall back to destination approach: {:?}",
+        trip.zones
+    );
+}

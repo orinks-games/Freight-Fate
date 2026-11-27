@@ -9,6 +9,7 @@
 
 use crate::playtest::breaker::{force_grade, outcome, outcome_of, Outcome, Rig, RigOptions, DT};
 use crate::states::base::Key;
+use crate::states::driving_core::CRUISE_EASE_SPOKEN_OVER_MPH;
 use crate::states::driving_pause_states::{AbandonJobConfirmationState, PauseMenuState};
 
 use ff_core::sim::traffic_manager::BRAKING_CAUSE_LINES;
@@ -323,7 +324,7 @@ pub fn weather_cap_releases_when_the_sky_does() -> Outcome {
     // The easing line speaks only when the cap really slows the truck. A rig
     // that climbs out of town under the storm's number is never over it, and
     // silence there is the rule, not a missing line.
-    if rig.said("easing to") == 0 && storm_top.max(top) > safe + 2.0 {
+    if rig.said("easing to") == 0 && storm_top.max(top) > safe + CRUISE_EASE_SPOKEN_OVER_MPH {
         findings.push("the storm cap was applied with nothing said about it".to_string());
     }
 

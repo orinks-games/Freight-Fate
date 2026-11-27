@@ -1041,6 +1041,59 @@ impl Trip {
             .all(|leg| leg.route_points().len() < 2)
     }
 
+    /// The first leg index of the route's facility approach, when the route
+    /// either IS a facility approach (`Some(0)`) or is a highway corridor
+    /// joined onto a shipper's facility approach tail (`corridor.then(&approach)`).
+    pub fn facility_approach_start_leg(&self) -> Option<usize> {
+        if self.is_facility_approach_route() {
+            return Some(0);
+        }
+        let legs = &self.route.legs;
+        let cities = &self.route.cities;
+        if legs.len() < 2 || cities.len() != legs.len() + 1 {
+            return None;
+        }
+        let mut start = legs.len();
+        while start > 1 {
+            let i = start - 1;
+            let leg = &legs[i];
+            if leg.a == leg.b && cities[i] == cities[i + 1] {
+                start = i;
+            } else {
+                break;
+            }
+        }
+        if start == legs.len() {
+            return None;
+        }
+        let tail = &legs[start..];
+        if tail
+            .iter()
+            .any(|leg| leg.local_speed_mph > 0.0 || !leg.local_cue.is_empty())
+            || tail.iter().all(|leg| leg.route_points().len() < 2)
+        {
+            Some(start)
+        } else {
+            None
+        }
+    }
+
+    /// Route mile where the facility approach begins: `Some(0.0)` for a pure
+    /// facility approach, `Some(join_mi)` for a relayed pickup's appended
+    /// street chain, or `None` for a plain highway corridor.
+    pub fn facility_approach_start_mi(&self) -> Option<f64> {
+        self.facility_approach_start_leg()
+            .and_then(|i| self.leg_starts.get(i).copied())
+    }
+
+    /// Whether `route_mile` is on the route's facility approach (the whole
+    /// route on a same-city approach, or at/past the join mile on a relayed
+    /// pickup).
+    pub fn on_facility_approach(&self, route_mile: f64) -> bool {
+        self.facility_approach_start_mi()
+            .is_some_and(|start| route_mile >= start)
+    }
+
     /// This run's statutory street limit, or None where nothing covers it.
     pub fn statutory_street_mph(&self) -> Option<f64> {
         let mut state = self.local_state.clone();
@@ -1050,7 +1103,8 @@ impl Trip {
             if self.route.legs.is_empty() {
                 return None;
             }
-            state = self.state_at(Some(0.0));
+            let sample_mi = self.facility_approach_start_mi().unwrap_or(0.0);
+            state = self.state_at(Some(sample_mi));
         }
         if state.is_empty() {
             return None;

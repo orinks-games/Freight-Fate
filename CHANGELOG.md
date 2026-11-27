@@ -140,6 +140,8 @@
 - **Lane keeping keeps steering in snow and freezing rain.** It used to switch off with a tone and let the truck leave the road.
 - **Cruise brakes harder on ice and snow.** It reaches the weather's safe speed sooner and holds it on downgrades it used to lose.
 - **ABS and wheelspin warnings wait for your own foot.** They stay quiet while cruise works the pedals, and ABS no longer pulses on a light brake.
+- **Named river and bridge announcements no longer get crowded out by roadside chatter.**
+- **Relayed pickups now keep highway driving until the shipper's streets begin, then hand off to speed keeper and slow for corners.**
 - **Quitting on Windows no longer crashes when SAPI voices are loaded.**
 - **Canadian and Alaskan towns now use their 50 km/h and 25 mph statutory street limits,** and 80 km/h Canadian highway postings no longer carry into town.
 - **Call dispatch now includes a Back button,** and saving a radio station to favorites keeps you in the list you were browsing instead of jumping to Favorites.

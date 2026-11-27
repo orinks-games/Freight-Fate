@@ -140,7 +140,7 @@ impl DrivingState {
         // The pickup drive is a local approach from end to end -- there is no
         // highway leg under it to frame, and its route starts and ends in the
         // one city, so "toward" it says nothing.
-        if self.trip.is_facility_approach_route() {
+        if self.trip.on_facility_approach(self.trip.position_mi) {
             let target = format!("the gate at {}", self.approach_facility_text(ctx));
             self.say_local_status(ctx, &target, None, None);
             return;
@@ -224,7 +224,9 @@ impl DrivingState {
     /// 552).
     pub fn local_route_city(&self) -> String {
         let cities = &self.trip.route.cities;
-        let city = if self.destination_exit_taken {
+        let city = if self.destination_exit_taken
+            || self.trip.on_facility_approach(self.trip.position_mi)
+        {
             cities.last()
         } else {
             cities.first()
@@ -239,7 +241,7 @@ impl DrivingState {
             || self.departure_chain
             || self.stop_chain.is_some()
             || self.destination_exit_taken
-            || self.trip.is_facility_approach_route()
+            || self.trip.on_facility_approach(self.trip.position_mi)
     }
 
     /// `_highway_frame()`: the leg under the wheels and where the truck sits
@@ -603,7 +605,7 @@ impl DrivingState {
             }
             return Some(left.unwrap_or_else(|| self.trip.remaining_miles()));
         }
-        if !self.departure_chain && self.trip.is_facility_approach_route() {
+        if !self.departure_chain && self.trip.on_facility_approach(self.trip.position_mi) {
             return Some(self.trip.remaining_miles());
         }
         None

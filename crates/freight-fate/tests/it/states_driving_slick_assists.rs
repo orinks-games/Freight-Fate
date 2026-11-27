@@ -4,6 +4,7 @@
 //! ABS and wheelspin lines speak only for the driver's own foot.
 
 use ff_core::sim::lane_keep_status::LaneKeepAvailability;
+use ff_core::sim::vehicle::DriveTractionState;
 use ff_core::sim::weather::WeatherKind;
 use freight_fate::playtest::harness::{PlaytestHarness, RouteSetup};
 use freight_fate::states::base::Key;
@@ -174,4 +175,42 @@ fn all_assists_hands_off_stays_on_the_road_in_freezing_rain() {
 #[test]
 fn all_assists_hands_off_stays_on_the_road_in_snow() {
     hands_off_all_assists("Slick Hands Off Snow", WeatherKind::Snow);
+}
+
+#[test]
+fn backing_on_ice_by_the_drivers_own_key_speaks_the_wheelspin_line_once() {
+    // Backing in the automatic, the held brake key is the throttle, so wheels
+    // spinning under it are the driver's to ease off.
+    let mut harness = bench_drive("Slick Backing Ice", 65.0, 0.0);
+    release_keys(&mut harness);
+    press(&mut harness, Key::E, None);
+    harness.with_drive(|d, _| {
+        d.truck_mut().transmission.automatic = true;
+        d.truck_mut().velocity_mps = 0.0;
+    });
+    force(&mut harness, WeatherKind::Ice);
+    harness.app.ctx.playtest_drive_traction = Some(DriveTractionState::Spinning);
+    hold(&mut harness, &[Key::Down]);
+    frames(&mut harness, 60 * 5, DT);
+    let backing = harness.read_drive(|d| d.truck().transmission.in_reverse());
+    assert!(backing, "the held brake key put the automatic in reverse");
+    assert_eq!(
+        count(&harness, SPIN_LINE),
+        1,
+        "{}",
+        spoken(&harness).join("\n")
+    );
+}
+
+#[test]
+fn cruise_with_the_drive_wheels_spinning_says_nothing() {
+    let mut harness = cruising_bench("Slick Cruise Spin", 0.0);
+    force(&mut harness, WeatherKind::Ice);
+    harness.app.ctx.playtest_drive_traction = Some(DriveTractionState::Spinning);
+    frames(&mut harness, 60 * 5, DT);
+    assert!(
+        harness.read_drive(|d| d.cruise_mph).is_some(),
+        "cruise still set"
+    );
+    assert_eq!(count(&harness, SPIN_LINE), 0, "{:?}", spoken(&harness));
 }

@@ -159,7 +159,7 @@ impl DrivingState {
         let remaining_mi = if on_facility_ramp {
             self.ramp_mi
         } else if !self.trip.finished
-            && self.trip.is_facility_approach_route()
+            && self.trip.on_facility_approach(self.trip.position_mi)
             && !self.trip.outbound
         {
             Some(self.trip.remaining_miles())
