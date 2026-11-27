@@ -1,6 +1,10 @@
 //! `TruckState` forces: drive, resistance, service and jake braking, the
 //! liquid surge terms, and the stopping-distance estimate built on them.
 
+use super::traction::{
+    ASSIST_BRAKE_PEDAL_CAP, ASSIST_TRACTION_MARGIN, ASSIST_TRACTION_RECOVER_MARGIN,
+    WHEELSPIN_GRIP_CEILING,
+};
 use super::{
     BrakeApplication, TruckState, AIR_DENSITY, DRIVE_AXLE_LOAD_FRACTION, EMERGENCY_BRAKE_MULT, G,
     JAKE_LOCK_MARGIN, JAKE_RPM_FLOOR, JAKE_STAGES, LAUNCH_TRACTION_FULL_GRADE,
@@ -32,8 +36,15 @@ impl TruckState {
             // gravity can still carry the truck past the cap on a downgrade.
             return 0.0;
         }
-        let mut torque = self.torque_at(self.rpm) * self.throttle * self.health_factor();
-        torque *= self.engine_wear_factor();
+        self.full_throttle_drive_force() * self.throttle
+    }
+
+    /// Tractive force full throttle would demand at the drive wheels in this
+    /// gear and at these revs, before tire grip. `drive_force_demand` is this
+    /// times the throttle, with the governor and open-driveline cases zeroed.
+    fn full_throttle_drive_force(&self) -> f64 {
+        let ratio = self.transmission.drive_ratio();
+        let torque = self.torque_at(self.rpm) * self.health_factor() * self.engine_wear_factor();
         torque * ratio.abs() * self.specs.driveline_efficiency / self.specs.wheel_radius_m
     }
 
@@ -135,6 +146,16 @@ impl TruckState {
     }
 
     /// Magnitude of the foundation-brake force for a chosen application.
+    ///
+    /// The pedal asks for a SHARE of what the tires can hold on this road:
+    /// weather grip is a gain on the application, not a ceiling over it. A
+    /// full application is the whole of the road's grip (the ice bench anchor,
+    /// about 880 feet from 40 mph), and half the pedal on ice is half of that
+    /// small number, not the dry half-pedal clipped. The bench anchors, the
+    /// stop budgets and every assist servo (`assist_servo_brake`,
+    /// `arrival_servo_brake`, `assist_full_decel_mps2`) are built on this, so
+    /// an assist that writes a fixed pedal converts it through
+    /// [`Self::assist_brake_pedal`] rather than this model changing.
     pub fn foundation_brake_force(&self, application: BrakeApplication) -> f64 {
         let (application, boost) = match application {
             BrakeApplication::Service(pedal) => (pedal.clamp(0.0, 1.0), 1.0),
@@ -157,33 +178,84 @@ impl TruckState {
         friction.min(capacity)
     }
 
-    /// Magnitude of the foundation-brake force biting the drums right now.
+    /// The service brakes' delivered force against what a full application of
+    /// the same kind would deliver on this road right now, for ABS.
     ///
-    /// This is the force that heats and wears the shoes; the jake is kept
-    /// separate because its energy goes out the exhaust, not into the drums.
-    /// Foundation-brake demand vs. road-grip ceiling for ABS slip detection.
+    /// Both numbers come from [`Self::foundation_brake_force`], so grip, fade,
+    /// wear and the foundation ceiling cancel and the ratio is the application
+    /// itself. ABS therefore modulates only on a real full application (the
+    /// pedal at `ABS_SLIP_RATIO` or more, the emergency brake, or the air
+    /// brakes holding). Comparing an unscaled demand against a grip-scaled
+    /// limit read a 14 percent pedal on ice as a locked wheel.
     pub(super) fn service_brake_demand_and_grip_limit(&self) -> (f64, f64) {
         if self.velocity_mps.abs() <= 0.01 {
             return (0.0, 0.0);
         }
-        let holding = self.air_brakes_holding();
-        let (application, boost) = if self.emergency_brake || holding {
-            (1.0, EMERGENCY_BRAKE_MULT)
+        let (application, full) = if self.emergency_brake || self.air_brakes_holding() {
+            (BrakeApplication::Emergency, BrakeApplication::Emergency)
         } else {
-            (self.brake.clamp(0.0, 1.0), 1.0)
+            let pedal = self.brake.clamp(0.0, 1.0);
+            if pedal <= 0.0 {
+                return (0.0, 0.0);
+            }
+            (
+                BrakeApplication::Service(pedal),
+                BrakeApplication::Service(1.0),
+            )
         };
-        if application <= 0.0 {
-            return (0.0, 0.0);
-        }
-        let s = &self.specs;
-        let max_decel = G * s.max_brake_decel_g;
-        let effort =
-            max_decel * application * boost * self.brake_fade_factor() * self.brake_wear_factor();
-        let brake_demand = (self.gross_mass_kg() * effort).min(s.mass_kg * effort);
-        let road_grip_limit = self.gross_mass_kg() * max_decel * self.effective_grip();
-        (brake_demand, road_grip_limit)
+        (
+            self.foundation_brake_force(application),
+            self.foundation_brake_force(full),
+        )
     }
 
+    /// The pedal an assist should hold for the deceleration `dry_pedal` gives
+    /// on a dry road, on the road under the truck now.
+    ///
+    /// Because the pedal is a share of the road's grip, a fixed assist pedal
+    /// sized on dry pavement delivers a seventh of its stop on ice. This
+    /// divides the grip back out, capped at `ASSIST_BRAKE_PEDAL_CAP` so an
+    /// assist never rides the ABS threshold. Unchanged at full grip or better.
+    pub fn assist_brake_pedal(&self, dry_pedal: f64) -> f64 {
+        let dry_pedal = dry_pedal.clamp(0.0, 1.0);
+        let grip = self.effective_grip();
+        if grip >= 1.0 {
+            return dry_pedal;
+        }
+        // `dry_pedal / grip`, except where an overweight rig is already on the
+        // foundation brakes' own ceiling, which grip does not move.
+        let gross = self.gross_mass_kg();
+        let ceiling = self.specs.mass_kg;
+        let dry_share = gross.min(ceiling);
+        let road_share = (gross * grip).min(ceiling).max(1e-3);
+        (dry_pedal * dry_share / road_share).min(ASSIST_BRAKE_PEDAL_CAP)
+    }
+
+    /// The most throttle an assist may hold without breaking the drive wheels
+    /// loose: the share of the pedal that keeps `drive_force_demand` at
+    /// `ASSIST_TRACTION_MARGIN` of the traction limit, or the lower
+    /// `ASSIST_TRACTION_RECOVER_MARGIN` while spinning so wheels a driver
+    /// spun hook back up. 1.0 where the road gives no wheelspin.
+    pub fn assist_throttle_cap(&self) -> f64 {
+        if self.effective_grip() >= WHEELSPIN_GRIP_CEILING {
+            return 1.0;
+        }
+        let full = self.full_throttle_drive_force();
+        if full <= 0.0 {
+            return 1.0;
+        }
+        let margin = if self.drive_wheels_spinning() {
+            ASSIST_TRACTION_RECOVER_MARGIN
+        } else {
+            ASSIST_TRACTION_MARGIN
+        };
+        (self.drive_traction_limit() * margin / full).clamp(0.0, 1.0)
+    }
+
+    /// Magnitude of the foundation-brake force biting the drums right now.
+    ///
+    /// This is the force that heats and wears the shoes; the jake is kept
+    /// separate because its energy goes out the exhaust, not into the drums.
     pub fn service_brake_force(&self) -> f64 {
         if self.velocity_mps.abs() <= 0.01 {
             return 0.0;

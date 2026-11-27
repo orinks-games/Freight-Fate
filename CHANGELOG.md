@@ -21,7 +21,7 @@
 - **Predictive cruise now prepares the jake brake before crests and downgrades.** It also resumes smoothly out of work zones and green lights.
 - **Steering toward an occupied lane now plays a directional blind-spot chirp.** On All assists, a tap signals, waits for a gap, and glides over.
 - **Driving assistance settings now let you set Steering assist and Speed assist independently.** Existing presets still work, and saved settings carry over.
-- **Assist handoffs now play short tones** when speed keeper locks onto traffic, curve assistance brakes, or lane keeping drops out on snow.
+- **Assist handoffs now play short tones** when speed keeper locks onto traffic or curve assistance brakes.
 - **The map now reaches Alaska,** from Tok and Fairbanks to Deadhorse, Anchorage, the Kenai Peninsula and Valdez, with real freight sites and highways.
 - **Skagway and Haines cross into the Yukon,** and Whittier is reached through the Anton Anderson Memorial Tunnel, with its one-lane gate and toll.
 - **Alaska's spring weight limits now apply.** From April to mid-June, offers on thawing highways carry lighter loads and name the road.
@@ -138,6 +138,9 @@
 
 ### Fixed
 
+- **Lane keeping keeps steering in snow and freezing rain.** It used to switch off with a tone and let the truck leave the road.
+- **Cruise brakes harder on ice and snow.** It reaches the weather's safe speed sooner and holds it on downgrades it used to lose.
+- **ABS and wheelspin warnings wait for your own foot.** They stay quiet while cruise works the pedals, and ABS no longer pulses on a light brake.
 - **Named river and bridge announcements no longer get crowded out by roadside chatter.**
 - **Relayed pickups now keep highway driving until the shipper's streets begin, then hand off to speed keeper and slow for corners.**
 - **Quitting on Windows no longer crashes when SAPI voices are loaded.**

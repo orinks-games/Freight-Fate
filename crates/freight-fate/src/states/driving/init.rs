@@ -512,6 +512,8 @@ impl DrivingState {
             jake_slip_active: false,
             abs_active: false,
             wheelspin_active: false,
+            driver_brake_down: false,
+            driver_throttle_down: false,
             trailer_sway_state: ff_core::sim::vehicle::TrailerSwayState::Steady,
             mirror_glance,
             jake_selected_stage: JAKE_STAGES,

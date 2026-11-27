@@ -714,6 +714,9 @@ impl DrivingState {
                 applied = 0.0;
             }
         }
+        // Never more than the drive wheels can put down: on ice a keeper at
+        // full throttle spun them (`TruckState::assist_throttle_cap`).
+        let applied = applied.min(self.trip.truck.assist_throttle_cap());
         self.trip.truck.throttle = applied;
         self.say_keeper_out_of_truck(ctx, dt, error, applied);
         // Grade-aware jake anticipation for speed keeper: stage the retarder
@@ -974,7 +977,11 @@ impl DrivingState {
         // when it started, holds that pedal onto a steepening hill and simply
         // accelerates against it.
         let gravity_mps2 = 0.0f64.max(-self.trip.truck.grade) * G;
-        let wanted = KEEPER_SNUB_MAX_BRAKE.min(KEEPER_SNUB_MIN_BRAKE.max(
+        // The ceiling is a dry-road pedal; on ice the same ceiling is a
+        // seventh of the stop, so it is carried to the grip under the wheels.
+        // The sizing below already divides by this road's full stop.
+        let max_brake = self.trip.truck.assist_brake_pedal(KEEPER_SNUB_MAX_BRAKE);
+        let wanted = max_brake.min(KEEPER_SNUB_MIN_BRAKE.max(
             (KEEPER_SNUB_DECEL_MPS2 + gravity_mps2) / assist_full_decel_mps2(&self.trip.truck),
         ));
         if self.keeper_corner_braking {
@@ -1007,7 +1014,7 @@ impl DrivingState {
         // Pressing everything it has and still riding well over the number:
         // say so. An assist that quietly holds the wrong speed is the one
         // thing a driver who cannot see the speedometer cannot catch.
-        let maxed = self.keeper_snub >= KEEPER_SNUB_MAX_BRAKE - 1e-6;
+        let maxed = self.keeper_snub >= max_brake - 1e-6;
         if maxed && over > KEEPER_OVERRUN_MPH {
             self.keeper_overrun_s += dt;
         } else {
