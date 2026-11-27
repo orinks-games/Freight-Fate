@@ -7475,6 +7475,65 @@ a carrier slice (owner, 2026-10-26).
       a spot on a built-in station; today it says the station sends no song
       information.
 
+### Canadian radio stations (November 27)
+
+- [x] Canada is on the radio directory. `data/radio_imported_canada.json`
+      holds 574 Canadian stations, built by `cargo tools
+      import-canada-stations` from a Radio Browser snapshot (stream
+      addresses only, never fetched by the game) joined to ISED's
+      Broadcasting Database (export of 2026-11-24). A station is matched by
+      the call sign in its name or CBC stream mount (692 directory rows), or
+      by the one dial position in its name plus its province when exactly
+      one operating main transmitter there matches (10 rows; a name that
+      writes a call sign ISED does not list must also name the
+      transmitter's community). An AM record whose first site is zero
+      (CJAD, CHIN, CFTR) is read at its second site. Rows that
+      contradict ISED on province (6) or frequency (8) are left out.
+      Position, frequency and community are read from ISED; range is
+      derived from licensed ERP through the US tier's table, AM a flat 25
+      miles. One row per station, at its main transmitter. 117 of the
+      map's 150 Canadian cities have a Canadian station in range
+      (`tests/it/radio_canada.rs` holds a floor of 114).
+- [x] Suggest a station asks for the state or province; the site takes
+      the ten provinces and three territories and Newfoundland's VO call
+      signs, and places a Canadian suggestion from a checked-in ISED table
+      written by `import-canada-stations --transmitters`.
+- [ ] (Found along the way) Rebroadcasters are not placed. A station is
+      heard only around its main transmitter, so CBC and the regional
+      networks are missing along most of the highway between cities.
+      Placing them needs a dial rule for one stream at several sites
+      (the multi-site identity the US tier uses for KZYX and WNPN).
+- [ ] (Found along the way) 33 Canadian map cities have no Canadian
+      station in range: Ashern, Cache Creek, Carmacks, Dawson Creek, Dease
+      Lake, Fort Nelson, Fort Providence, Fort St. John, Golden, Grand
+      Rapids, Haines Junction, Hay River, Hearst, High Level, Hope, Ignace,
+      Jasper, Kitimat, Longlac, Marathon, McBride, Meziadin Junction,
+      Osoyoos, Prince Rupert, Princeton, Revelstoke, Smithers, Stewart,
+      Thompson, Valemount, Vanderhoof, Wandering River and Watson Lake.
+      Several have a local station whose directory name carries no call
+      sign, and rebroadcasters would cover others.
+- [ ] (Found along the way) Streams that refuse listeners outside Canada
+      stay off the dial: Corus (`leanstream.co`, HTTP 404 or 500 from the
+      US) and Cogeco (StreamTheWorld, HTTP 426), 33 stations,
+      Toronto's Q107 and The Edge, Vancouver's CFOX and Rock 101, Calgary's
+      Country 105 and Montréal's CKOI among them.
+- [x] (Found along the way) Canadian directory names reached the dial in
+      the editor's shape ("CHBM "Boom 97.3" Toronto, ON", the province
+      code read as the word "on", every rebroadcaster). A station is now
+      named by its quoted brand, with the dial position added when the
+      brand has none, or else by what is left once the call sign, editor's
+      notes, province and rebroadcasters come off ("News Talk 1010
+      Toronto"). Sixty-five names the rule cannot derive are set by hand
+      in `data/radio_imported_canada_overrides.json`;
+      `import-canada-stations --names FILE` writes the review table.
+- [x] (Found along the way) 85 Canadian stations whose streams are on a
+      port other than 80 or 443 could not be checked from a cloud session
+      (its proxy refuses those ports). Swept from a Windows desktop on
+      November 27 instead: all 570 Canadian streams answered (439 audio,
+      131 playlists). `check-radio-streams` now passes its OpenSSL cipher
+      string only to an OpenSSL curl, since Windows' Schannel curl refused
+      it and failed every HTTPS probe.
+
 ### Winter cab, wipers and ice roads (designed November 22)
 
 The owner asked for heat and air that do something (frost with the heat

@@ -85,6 +85,7 @@ const RUST_BAKED_SOURCE_FILES: &[&str] = &[
     "radio_catalog.json",
     "radio_community.json",
     "radio_imported.json",
+    "radio_imported_canada.json",
     "street_limits.json",
     "world_data/index.json",
     "world_data/geo.json",

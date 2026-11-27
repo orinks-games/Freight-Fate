@@ -15,6 +15,7 @@
 //! cargo tools check-radio-streams
 //! cargo tools check-radio-streams --only curated --workers 8
 //! cargo tools check-radio-streams --recheck-dead
+//! cargo tools check-radio-streams --only canada
 //! ```
 //!
 //! A probe asks curl for the first couple of kilobytes and hangs up.
@@ -24,7 +25,8 @@
 //! timeout; retried once, and re-asked at the Shoutcast `/;` mount, before
 //! it counts).
 //!
-//! Certificates are not verified and old cipher suites are allowed: a long
+//! Certificates are not verified and, where curl is built on OpenSSL, old
+//! cipher suites are allowed: a long
 //! tail of directory hosts stream fine behind self-signed or expired
 //! certificates and older suites, and a strict client measures its own TLS
 //! policy instead of the dial (the first sweep called KBOO, WBAI, KPFK and
@@ -106,11 +108,29 @@ fn split_dump(out: &[u8]) -> (String, &[u8]) {
     )
 }
 
+/// Whether this machine's curl is built on OpenSSL. `--ciphers
+/// DEFAULT@SECLEVEL=1` is an OpenSSL cipher string: Schannel (the curl that
+/// ships with Windows and Git for Windows) and Secure Transport reject it
+/// and fail every HTTPS probe, so it is passed only where it is understood.
+fn curl_is_openssl() -> bool {
+    static OPENSSL: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+    *OPENSSL.get_or_init(|| {
+        Command::new("curl")
+            .arg("-V")
+            .output()
+            .map(|o| String::from_utf8_lossy(&o.stdout).contains("OpenSSL"))
+            .unwrap_or(false)
+    })
+}
+
 /// What one probe of `url` heard.
 fn probe(url: &str, timeout: f64) -> Verdict {
-    let child = Command::new("curl")
-        .args(["-s", "-S", "-k", "-L", "--max-redirs", "8"])
-        .args(["--ciphers", "DEFAULT@SECLEVEL=1"])
+    let mut curl = Command::new("curl");
+    curl.args(["-s", "-S", "-k", "-L", "--max-redirs", "8"]);
+    if curl_is_openssl() {
+        curl.args(["--ciphers", "DEFAULT@SECLEVEL=1"]);
+    }
+    let child = curl
         .args(["-m", &format!("{timeout}")])
         .args(["-A", USER_AGENT, "-H", "Icy-MetaData: 1"])
         .args(["-H", &format!("Range: bytes=0-{}", PROBE_BYTES - 1)])
@@ -240,6 +260,13 @@ fn rows_to_check(only: &str) -> Result<Vec<Object>> {
     if (only == "all" || only == "imported") && super::data_path("radio_imported.json").exists() {
         rows.extend(catalog_rows("radio_imported.json", "imported")?);
     }
+    // The Canadian rows are the same imported tier, in their own file;
+    // `--only canada` sweeps them alone after a rebuild.
+    if (only == "all" || only == "imported" || only == "canada")
+        && super::data_path("radio_imported_canada.json").exists()
+    {
+        rows.extend(catalog_rows("radio_imported_canada.json", "imported")?);
+    }
     Ok(rows
         .into_iter()
         .filter(|r| web_stream(r).is_some())
@@ -254,7 +281,8 @@ fn pick(row: &Object, keys: &[&str]) -> Value {
     Value::Object(out)
 }
 
-const USAGE: &str = "usage: check-radio-streams [--only all|curated|imported] [--workers N] \
+const USAGE: &str =
+    "usage: check-radio-streams [--only all|curated|imported|canada] [--workers N] \
 [--timeout S] [--limit N] [--output FILE] [--recheck-dead]";
 
 pub fn main(argv: &[String]) -> Result<i32> {
@@ -267,7 +295,7 @@ pub fn main(argv: &[String]) -> Result<i32> {
     )
     .map_err(|e| format!("{e}\n{USAGE}"))?;
     let only = args
-        .choice("only", &["all", "curated", "imported"], "all")
+        .choice("only", &["all", "curated", "imported", "canada"], "all")
         .map_err(|e| e.0)?;
     let workers: usize = args.number("workers", 12).map_err(|e| e.0)?;
     let timeout: f64 = args.number("timeout", 12.0).map_err(|e| e.0)?;

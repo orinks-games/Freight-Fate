@@ -714,10 +714,16 @@ impl DrivingState {
         let mut radio = std::mem::replace(&mut self.radio, RadioState::new(Vec::new()));
         let position = radio.position;
         let elevation_ft = radio.elevation_ft;
+        let tuned = radio.station_id.clone();
         let result = {
             let mut backend = DrivingRadioBackend::new(self, ctx, position, elevation_ft);
             call(&mut radio, &mut backend)
         };
+        if radio.station_id != tuned {
+            // The last song heard belongs to the station just left: a new
+            // station that sends no title must not be read as playing it.
+            self.radio_now_playing = None;
+        }
         self.radio = radio;
         result
     }

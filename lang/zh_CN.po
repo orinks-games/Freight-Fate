@@ -31228,8 +31228,9 @@ msgstr "AM或FM，同时也在网上"
 msgid "terrestrial"
 msgstr "terrestrial"
 
-msgid "A broadcast station. You'll be asked its call sign and state."
-msgstr "广播电台。会问你它的呼号和所在州。"
+msgid ""
+"A broadcast station. You'll be asked its call sign and state or province."
+msgstr "广播电台。会问你它的呼号和所在的州或省。"
 
 msgid "Online only"
 msgstr "仅限网络"
@@ -31249,8 +31250,8 @@ msgstr "流地址"
 msgid "Call sign"
 msgstr "呼号"
 
-msgid "State"
-msgstr "州"
+msgid "State or province"
+msgstr "州或省"
 
 msgid "City"
 msgstr "城市"
@@ -31269,8 +31270,8 @@ msgstr "音频流的直接链接，不是电台的网页。streamurl.link可以�
 msgid "Like W X Y Z, or K A B C dash F M."
 msgstr "比如W X Y Z，或者K A B C dash F M。"
 
-msgid "The state it broadcasts from."
-msgstr "它播出所在的州。"
+msgid "The state or province it broadcasts from."
+msgstr "它播出所在的州或省。"
 
 msgid "Optional. Enter skips."
 msgstr "可选。Enter跳过。"
@@ -40146,10 +40147,11 @@ msgstr ""
 
 msgid ""
 "Suggest a station in the Radio app asks for its type, name, and stream "
-"address. AM and FM suggestions also need a call sign and state. City and "
-"frequency are optional. Connect an account and enable Online services first."
+"address. AM and FM suggestions also need a call sign and state or province. "
+"City and frequency are optional. Connect an account and enable Online "
+"services first."
 msgstr ""
-"“电台”应用里的“推荐电台”会询问电台的类型、名称和流地址。AM和FM电台的推荐还需要呼号和州。城市和频率可选。请先连接账户并打开在线服务。"
+"“电台”应用里的“推荐电台”会询问电台的类型、名称和流地址。AM和FM电台的推荐还需要呼号和州或省。城市和频率可选。请先连接账户并打开在线服务。"
 
 msgid ""
 "Suggestions are checked for playback and duplicates before review. Accepted "
@@ -44681,6 +44683,22 @@ msgstr "{count}厘米"
 #~ msgstr ""
 #~ "真实世界在可用时使用各城市的实时天气。它还使用气象局在你路线沿线发布的有效警报。调度会避开暴风雪、冰暴、飓风或龙卷风警报来规划，你驶入警报区域时会听到警"
 #~ "报。"
+
+#~ msgid "A broadcast station. You'll be asked its call sign and state."
+#~ msgstr "广播电台。会问你它的呼号和所在州。"
+
+#~ msgid "State"
+#~ msgstr "州"
+
+#~ msgid "The state it broadcasts from."
+#~ msgstr "它播出所在的州。"
+
+#~ msgid ""
+#~ "Suggest a station in the Radio app asks for its type, name, and stream "
+#~ "address. AM and FM suggestions also need a call sign and state. City and "
+#~ "frequency are optional. Connect an account and enable Online services first."
+#~ msgstr ""
+#~ "“电台”应用里的“推荐电台”会询问电台的类型、名称和流地址。AM和FM电台的推荐还需要呼号和州。城市和频率可选。请先连接账户并打开在线服务。"
 
 #~ msgid ""
 #~ "Driving and duty clocks reset, but you are still "

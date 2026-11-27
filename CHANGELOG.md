@@ -17,6 +17,7 @@
 
 ### Added
 
+- **Canadian radio stations are on the dial.** Stations come in near their real transmitters across Canada, and Suggest a station takes a province.
 - **Live weather now covers Canada.** Canadian roads get current conditions and weather alerts from Environment and Climate Change Canada.
 - **Canadian live weather reads the real weather stations.** The Weather app names the station and adds wind, gusts, visibility and a forecast.
 - **Predictive cruise now prepares the jake brake before crests and downgrades.** It also resumes smoothly out of work zones and green lights.
@@ -140,6 +141,7 @@
 
 ### Fixed
 
+- **A newly tuned station no longer reads out the last station's song.** Now playing waits for the new station's own title.
 - **Lane keeping keeps steering in snow and freezing rain.** It used to switch off with a tone and let the truck leave the road.
 - **Cruise brakes harder on ice and snow.** It reaches the weather's safe speed sooner and holds it on downgrades it used to lose.
 - **ABS and wheelspin warnings wait for your own foot.** They stay quiet while cruise works the pedals, and ABS no longer pulses on a light brake.

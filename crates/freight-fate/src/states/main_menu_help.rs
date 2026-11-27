@@ -239,7 +239,7 @@ pub static HELP_PAGES: &[(&str, &[&str])] = &[
             "Personal playlists normally play in order and resume where you left them. Shuffle plays every track once in a random order, then chooses a new order. Unreadable entries are skipped.",
             "Original uses the licensed menu and Roadhouse tracks. Synthesized plays music the game composes plus the three original tracks, and takes Freight Fate's regional stations and voiced breaks off the dial. Real streams and personal playlists remain unless streamer-safe mode hides them.",
             "Streamer-safe mode keeps built-in safe stations. With Synthesized music, only the synthesized Roadhouse remains. Radio power, volume, and now playing still work; other station controls do nothing.",
-            "Suggest a station in the Radio app asks for its type, name, and stream address. AM and FM suggestions also need a call sign and state. City and frequency are optional. Connect an account and enable Online services first.",
+            "Suggest a station in the Radio app asks for its type, name, and stream address. AM and FM suggestions also need a call sign and state or province. City and frequency are optional. Connect an account and enable Online services first.",
             "Suggestions are checked for playback and duplicates before review. Accepted stations can appear at a later launch without a game update.",
         ],
     ),

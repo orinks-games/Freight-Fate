@@ -172,6 +172,7 @@ pub const TEXT_FILES: &[&str] = &[
     "channel3000.json",
     "radio_catalog.json",
     "radio_imported.json",
+    "radio_imported_canada.json",
     "radio_community.json",
 ];
 

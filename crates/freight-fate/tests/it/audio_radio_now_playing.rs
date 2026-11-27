@@ -168,6 +168,36 @@ fn test_the_hearken_backend_reads_the_title_off_the_stream() {
 }
 
 #[test]
+fn test_a_new_station_does_not_carry_the_last_ones_title() {
+    // Tuning away from a station that sends titles: until the new one
+    // plays, the old one is only fading out, so neither it nor its song is
+    // what the radio is playing.
+    let mut r = hearken_rig();
+    let first = IcyServer::start(sine_wav(8.0, 1), Some("98.1 CHFI Toronto"));
+    r.engine.play_radio_stream_with(&first.url, 100).unwrap();
+    r.hearken_mut().settle_radio(Duration::from_secs(10));
+    let engine = &r.engine;
+    assert!(
+        wait_for(Duration::from_secs(5), || engine
+            .radio_now_playing()
+            .is_some()),
+        "no title arrived"
+    );
+    let second = IcyServer::start(sine_wav(8.0, 1), None);
+    r.engine.play_radio_stream_with(&second.url, 100).unwrap();
+    assert!(
+        !r.engine.music_playing(),
+        "the new station is still connecting"
+    );
+    assert_eq!(r.engine.radio_now_playing(), None);
+    r.hearken_mut().settle_radio(Duration::from_secs(10));
+    assert_eq!(r.hearken().music_track(), Some(second.url.as_str()));
+    assert!(r.engine.music_playing());
+    assert_eq!(r.engine.radio_now_playing(), None);
+    r.engine.stop_music_with(0);
+}
+
+#[test]
 fn test_an_encoders_ad_fields_are_stripped_off_a_live_title() {
     // The same parser over the block as the station sent it, not Hearken's
     // own tidied reading of it: the song, never the fields around it.

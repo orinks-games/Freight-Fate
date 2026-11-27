@@ -135,6 +135,12 @@ const COMMANDS: &[(&str, &str, Command)] = &[
         "copy the accepted community radio stations into data/radio_community.json",
         radio::fold_community::main,
     ),
+    #[cfg(feature = "world")]
+    (
+        "import-canada-stations",
+        "build data/radio_imported_canada.json from Radio Browser and ISED (--fetch, --check)",
+        radio::import_canada::main,
+    ),
     (
         "check-radio-streams",
         "probe every real stream on the dial and write the health report",
