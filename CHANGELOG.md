@@ -4,6 +4,8 @@
 
 ### Added
 
+- **On iPhone and iPad, VoiceOver can read the current text in an open field without submitting it.**
+
 - **Tilt steering has a Tilt dead zone setting, and Tilt for full steering now reaches 60 degrees.** Raising either keeps small phone movements from steering.
 - **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
 - **Page Up and Page Down now move ten options at a time in every menu.**

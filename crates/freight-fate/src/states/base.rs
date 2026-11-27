@@ -312,6 +312,11 @@ pub trait State: AsAny {
         false
     }
 
+    #[cfg(any(target_os = "ios", test))]
+    fn ios_field_text(&self) -> Option<&[char]> {
+        None
+    }
+
     /// `wants_controller_repeat`: whether held D-pad left/right auto-repeat
     /// events are forwarded to `handle_controller` (menus say yes).
     fn wants_controller_repeat(&self) -> bool {

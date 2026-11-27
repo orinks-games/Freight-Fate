@@ -52,7 +52,8 @@ fn voice_over_field_help(
     hardware_keyboard: bool,
 ) -> &'static str {
     if direct_interaction_suspended {
-        return "Type with the on-screen keyboard. To review letters, select Freight Fate above the \
+        return "Type with the on-screen keyboard. Select Typed text to hear what you typed. \
+                To review letters, select Freight Fate above the \
                 keyboard and flick down for the previous letter or up for the next. Use Return on \
                 the keyboard to confirm, or a two-finger scrub to cancel.";
     }
@@ -100,7 +101,7 @@ impl VoiceOverFieldPrompt {
 
 #[cfg(test)]
 mod tests {
-    use super::{voice_over_field_help, Instant, VoiceOverFieldPrompt};
+    use super::{voice_over_field_help, Instant, State, TextEntryState, VoiceOverFieldPrompt};
 
     #[test]
     fn voice_over_waits_for_the_keyboard_then_announces_once() {
@@ -134,12 +135,27 @@ mod tests {
     fn voice_over_help_follows_the_actual_direct_interaction_mode() {
         assert!(voice_over_field_help(false, true).contains("left and right arrow keys"));
         assert!(voice_over_field_help(true, true).contains("flick down for the previous letter"));
+        assert!(voice_over_field_help(true, true).contains("Select Typed text"));
         assert_eq!(
             voice_over_field_help(true, false),
             voice_over_field_help(true, true)
         );
         assert!(voice_over_field_help(false, false).contains("If the on-screen keyboard opens"));
         assert!(voice_over_field_help(false, false).contains("scrub on Freight Fate to cancel"));
+    }
+
+    #[test]
+    fn field_review_exposes_current_text_without_the_cursor() {
+        let mut field = TextEntryState::new("Heading", "Field", |_, _| {});
+        assert_eq!((&field as &dyn State).ios_field_text(), Some([].as_slice()));
+        field.entry.set_text("Zoë 🚚");
+        field.entry.cursor = 1;
+        assert_eq!(
+            (&field as &dyn State).ios_field_text(),
+            Some(['Z', 'o', 'ë', ' ', '🚚'].as_slice())
+        );
+        field.entry.set_text("");
+        assert_eq!((&field as &dyn State).ios_field_text(), Some([].as_slice()));
     }
 }
 
@@ -481,6 +497,10 @@ macro_rules! impl_state_for_text_entry {
             }
             fn captures_text_input(&self) -> bool {
                 <Self as $crate::states::text_entry::TextEntry>::captures_text_input(self)
+            }
+            #[cfg(any(target_os = "ios", test))]
+            fn ios_field_text(&self) -> Option<&[char]> {
+                Some(&<Self as $crate::states::text_entry::TextEntry>::entry(self).name)
             }
             fn touch_mode(&self) -> $crate::touch::TouchMode {
                 $crate::touch::TouchMode::Field

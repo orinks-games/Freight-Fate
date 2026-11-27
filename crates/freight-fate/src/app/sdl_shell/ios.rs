@@ -16,6 +16,7 @@ extern "C" {
     fn ff_touch_voice_over_running() -> i32;
     fn ff_touch_direct_interaction_suspended() -> i32;
     fn ff_touch_software_keyboard_shown() -> i32;
+    fn ff_touch_set_field_review(label: *const u8, label_len: usize, text: *const u8, len: usize);
     fn ff_refresh_orientations(window: *mut std::ffi::c_void);
     #[cfg(feature = "visuals")]
     fn ff_phone_safe_top_fraction(window: *mut std::ffi::c_void) -> f64;
@@ -54,6 +55,19 @@ pub(crate) fn direct_interaction_suspended() -> bool {
 pub(crate) fn software_keyboard_shown() -> bool {
     // SAFETY: reads keyboard notification state on the app thread.
     unsafe { ff_touch_software_keyboard_shown() != 0 }
+}
+
+pub(super) fn set_field_review(text: Option<&str>, label: impl FnOnce() -> String) {
+    // SAFETY: UIKit is called on the app thread and copies the UTF-8 bytes
+    // within the call. A null text pointer removes the element.
+    unsafe {
+        if let Some(text) = text {
+            let label = label();
+            ff_touch_set_field_review(label.as_ptr(), label.len(), text.as_ptr(), text.len());
+        } else {
+            ff_touch_set_field_review(std::ptr::null(), 0, std::ptr::null(), 0);
+        }
+    }
 }
 
 pub(crate) fn set_touch_haptics(enabled: bool) {

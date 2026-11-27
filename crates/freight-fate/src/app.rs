@@ -1679,12 +1679,21 @@ impl App {
         let Some(shell) = self.shell.as_mut() else {
             return;
         };
-        let open = self.ctx.state().is_some_and(|state| {
-            state
-                .try_borrow()
-                .is_ok_and(|state| state.captures_text_input())
-        });
+        let state = self.ctx.state();
+        let state = state.as_ref().and_then(|state| state.try_borrow().ok());
+        let open = state
+            .as_ref()
+            .is_some_and(|state| state.captures_text_input());
         shell.set_text_field(open);
+        #[cfg(target_os = "ios")]
+        {
+            let text = if sdl_shell::voice_over_running() {
+                state.as_ref().and_then(|state| state.ios_field_text())
+            } else {
+                None
+            };
+            shell.set_field_review(text, || self.ctx.tr("Typed text"));
+        }
         let practice = self.touch_mode() == crate::touch::TouchMode::Practice;
         let shared = self.ctx.settings.touch_shared_recogniser;
         if let Some(shell) = self.shell.as_mut() {
