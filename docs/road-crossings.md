@@ -168,7 +168,9 @@ start against the sky's sustained wind.
 | Closed to all traffic | 60 mph | 65 mph |
 
 - **Where the wind comes from.** With live weather on, it is the
-  sustained wind at the NWS station nearest the crossing, located at the
+  sustained wind at the station nearest the crossing (the NWS station in
+  the United States, the nearest Environment Canada weather station in
+  Canada; no Canadian crossing has a wind rule yet), located at the
   leg's toll point for it (St. Ignace for the Mackinac Bridge, the
   bridge-tunnel's plaza for the CBBT); until that station answers, the
   truck's own station stands in. A station far from the crossing is read

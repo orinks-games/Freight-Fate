@@ -3,6 +3,7 @@
 
 use ff_core::sim::hos;
 use ff_core::sim::trip_models::RoadStop;
+use ff_core::sim::weather_report;
 
 use crate::app::{GameContext, Say};
 use crate::bindings::Action;
@@ -194,17 +195,29 @@ impl DriverAppScreenState {
                 let mut lines = vec![
                     format!("Weather source: {source}."),
                     format!("Report age: {}.", d.trip.weather.observation_age_value()),
-                    format!(
-                        "Conditions: {}.",
-                        d.trip.weather.source_conditions(imperial)
-                    ),
-                    format!(
-                        "Safe speed guidance: about {}.",
-                        ctx.settings
-                            .speed_text(d.trip.weather.effects().safe_speed_mph)
-                    ),
                 ];
-                if d.trip.weather.has_simulated_forecast() {
+                // What the station measured, live weather only.
+                let details = d.trip.weather.live_details();
+                if let Some(details) = &details {
+                    let wind_kmh = d.trip.weather.live_wind_kmh().unwrap_or(0.0);
+                    lines.extend(weather_report::station_lines(details, wind_kmh, imperial));
+                }
+                lines.push(format!(
+                    "Conditions: {}.",
+                    d.trip.weather.source_conditions(imperial)
+                ));
+                lines.push(format!(
+                    "Safe speed guidance: about {}.",
+                    ctx.settings
+                        .speed_text(d.trip.weather.effects().safe_speed_mph)
+                ));
+                let live_forecast = details.as_ref().and_then(|details| {
+                    let current = d.trip.weather.live_observed_kind()?;
+                    weather_report::forecast_line(details, current)
+                });
+                if let Some(line) = live_forecast {
+                    lines.push(line);
+                } else if d.trip.weather.has_simulated_forecast() {
                     let forecast: Vec<String> = d
                         .trip
                         .weather

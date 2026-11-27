@@ -5346,7 +5346,7 @@ msgid "the District of Columbia"
 msgstr "District of Columbia"
 
 msgid "northeast"
-msgstr "northeast"
+msgstr "północno-wschodni"
 
 msgid "appalachia"
 msgstr "appalachia"
@@ -15277,11 +15277,81 @@ msgstr ""
 msgid "no Environment Canada site near {lat},{lon}"
 msgstr ""
 
+#. placeholders: {site}
+msgid "site {site} has only a forecast"
+msgstr ""
+
+#. placeholders: {basis}, {site}
+msgid "city page {basis}, site {site}"
+msgstr ""
+
+msgid "and no measurement"
+msgstr ""
+
+msgid "derived"
+msgstr ""
+
+msgid "with its measured temperature and wind"
+msgstr ""
+
+msgid "read, stale"
+msgstr ""
+
 msgid "no site reported a condition"
 msgstr ""
 
 #. placeholders: {join}
 msgid "every site failed: {join}"
+msgstr ""
+
+msgid "forecast only"
+msgstr ""
+
+msgid "no station near enough has a fresh observation"
+msgstr ""
+
+msgid "nothing decides the sky"
+msgstr ""
+
+#. placeholders: {id}
+msgid "station {id}"
+msgstr ""
+
+#. placeholders: {site}
+msgid "site {site}"
+msgstr ""
+
+msgid "no observation"
+msgstr ""
+
+msgid "vis"
+msgstr ""
+
+msgid "code"
+msgstr ""
+
+msgid "text"
+msgstr "text"
+
+msgid "gauge"
+msgstr ""
+
+msgid "cloud amount"
+msgstr ""
+
+msgid "forecast"
+msgstr ""
+
+msgid "Freezing Rain"
+msgstr ""
+
+msgid "Snow"
+msgstr ""
+
+msgid "Heavy Rain"
+msgstr ""
+
+msgid "Rain"
 msgstr ""
 
 msgid "jointed"
@@ -17335,6 +17405,98 @@ msgstr "sucho"
 msgid "wet"
 msgstr "mokro"
 
+msgid "north"
+msgstr "północny"
+
+msgid "east"
+msgstr "wschodni"
+
+msgid "southeast"
+msgstr "południowo-wschodni"
+
+msgid "south"
+msgstr "południowy"
+
+msgid "southwest"
+msgstr "południowo-zachodni"
+
+msgid "west"
+msgstr "zachodni"
+
+msgid "northwest"
+msgstr "północno-zachodni"
+
+#. placeholders: {station}
+msgid "Station: {station}."
+msgstr "Stacja: {station}."
+
+#. placeholders: {station}
+msgid "Station: {station}, nearby."
+msgstr "Stacja: {station}, w pobliżu."
+
+#. placeholders: {station}, {distance}
+msgid "Station: {station}, {distance} away."
+msgstr "Stacja: {station}, odległość: {distance}."
+
+msgid "Wind: calm."
+msgstr "Wiatr: cisza."
+
+#. placeholders: {counted}
+msgid "{counted} per hour"
+msgstr ""
+
+#. placeholders: {from}, {sustained}, {gust}
+msgid "Wind: {from} at {sustained}, gusting to {gust}."
+msgstr "Wiatr: {from}, {sustained}, porywy do {gust}."
+
+#. placeholders: {from}, {sustained}
+msgid "Wind: {from} at {sustained}."
+msgstr "Wiatr: {from}, {sustained}."
+
+#. placeholders: {sustained}, {gust}
+msgid "Wind: {sustained}, gusting to {gust}."
+msgstr "Wiatr: {sustained}, porywy do {gust}."
+
+#. placeholders: {sustained}
+msgid "Wind: {sustained}."
+msgstr "Wiatr: {sustained}."
+
+#. placeholders: {distance}
+msgid "Visibility: {distance}."
+msgstr "Widoczność: {distance}."
+
+msgid "1 inch"
+msgstr "1 cal"
+
+#. placeholders: {inches}
+msgid "{inches} inches"
+msgstr ""
+
+msgid "centimeter"
+msgstr ""
+
+#. placeholders: {depth}
+msgid "Snow on the ground: {depth}."
+msgstr "Pokrywa śnieżna: {depth}."
+
+#. placeholders: {value}
+msgid "Forecast ahead: {value}."
+msgstr "Prognoza na trasie: {value}."
+
+#. placeholders: {join}
+msgid "Forecast ahead: {join}."
+msgstr "Prognoza na trasie: {join}."
+
+#. placeholders: {mi}
+msgid "{mi} mi"
+msgstr ""
+
+msgid "Airport"
+msgstr ""
+
+msgid "Municipal"
+msgstr ""
+
 msgid "nws"
 msgstr ""
 
@@ -19076,9 +19238,6 @@ msgstr "artist"
 
 msgid "no desc"
 msgstr "brak opisu"
-
-msgid "text"
-msgstr "text"
 
 msgid "ogg"
 msgstr "ogg"
@@ -32389,10 +32548,6 @@ msgstr "Warunki: {source_conditions}."
 msgid "Safe speed guidance: about {speed_text}."
 msgstr "Bezpieczna prędkość: około {speed_text}."
 
-#. placeholders: {join}
-msgid "Forecast ahead: {join}."
-msgstr "Prognoza na trasie: {join}."
-
 msgid "Forecast ahead: unavailable."
 msgstr "Prognoza na trasie: niedostępna."
 
@@ -41396,16 +41551,15 @@ msgid "real world"
 msgstr "prawdziwy świat"
 
 msgid ""
-"Real world uses live city conditions when available. It also uses the "
-"Weather Service's active warnings along your route. Dispatch plans around a "
-"blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
-"as you drive into it."
+"Real world uses live city conditions when available. It also uses active "
+"weather warnings along your route. Dispatch plans around a blizzard, ice "
+"storm, hurricane or tornado warning, and you hear a warning as you drive "
+"into it."
 msgstr ""
 "Prawdziwy świat używa aktualnych warunków w miastach, gdy są dostępne. "
-"Używa też aktywnych ostrzeżeń Weather Service wzdłuż twojej trasy. "
-"Dyspozytor planuje z ominięciem ostrzeżenia przed zamiecią, burzą lodową, "
-"huraganem albo tornadem, a ostrzeżenie słyszysz, gdy wjeżdżasz w jego "
-"obszar."
+"Używa też aktywnych ostrzeżeń pogodowych wzdłuż twojej trasy. Dyspozytor "
+"planuje z ominięciem ostrzeżenia przed zamiecią, burzą lodową, huraganem "
+"albo tornadem, a ostrzeżenie słyszysz, gdy wjeżdżasz w jego obszar."
 
 #. placeholders: {else}
 msgid "Traffic source: {else}"
@@ -50248,6 +50402,43 @@ msgstr ""
 "Przytrzymaj left bumper, aby użyć drugiej warstwy przycisków. {pad_engine} "
 "steruje silnikiem, {pad_fuel} podaje paliwo, a {pad_speed_limit} "
 "ograniczenie prędkości."
+
+#. The Weather app's station lines: a wind speed, and snow on the ground.
+msgid "{count} mile per hour"
+msgstr "{count} {count:mila|mile|mil} na godzinę"
+
+msgid "{count} kilometer per hour"
+msgstr "{count} {count:kilometr|kilometry|kilometrów} na godzinę"
+
+msgid "{count} inches"
+msgstr "{count} {count:cal|cale|cali}"
+
+msgid "{count} centimeters"
+msgstr "{count} {count:centymetr|centymetry|centymetrów}"
+
+msgid "{count} centimeter"
+msgstr "{count} {count:centymetr|centymetry|centymetrów}"
+
+#~ msgid "Station: {name}."
+#~ msgstr "Stacja: {name}."
+
+#~ msgid "Station: {name}, nearby."
+#~ msgstr "Stacja: {name}, w pobliżu."
+
+#~ msgid "Station: {name}, {distance} away."
+#~ msgstr "Stacja: {name}, odległość: {distance}."
+
+#~ msgid ""
+#~ "Real world uses live city conditions when available. It also uses the "
+#~ "Weather Service's active warnings along your route. Dispatch plans around a "
+#~ "blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
+#~ "as you drive into it."
+#~ msgstr ""
+#~ "Prawdziwy świat używa aktualnych warunków w miastach, gdy są dostępne. "
+#~ "Używa też aktywnych ostrzeżeń Weather Service wzdłuż twojej trasy. "
+#~ "Dyspozytor planuje z ominięciem ostrzeżenia przed zamiecią, burzą lodową, "
+#~ "huraganem albo tornadem, a ostrzeżenie słyszysz, gdy wjeżdżasz w jego "
+#~ "obszar."
 
 #~ msgid ""
 #~ "Driving and duty clocks reset, but you are still "

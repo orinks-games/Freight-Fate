@@ -29,11 +29,14 @@ use std::time::Instant;
 
 use serde_json::Value;
 
-use super::real_traffic::{lock_unpoisoned, wall_clock, Clock, HttpTransport, TransportError};
+use super::real_traffic::{
+    haversine_distance, lock_unpoisoned, wall_clock, Clock, HttpTransport, TransportError,
+};
 use super::real_traffic_parsers::pyval::py_str;
 use crate::pyfmt::{py_str_float, round_py_n};
 
 pub use super::weather::{WeatherKind, WeatherProvider};
+pub use super::weather_report::ObservationDetails;
 pub use super::weather_service::WeatherService;
 
 use super::real_weather_canada::{map_condition_canada, EcccFetcher};
@@ -143,6 +146,8 @@ pub struct Observation {
     pub temperature_c: Option<f64>,
     pub visibility_mi: Option<f64>,
     pub observed_at: Option<f64>,
+    /// What else the station measured, for the Weather app.
+    pub details: ObservationDetails,
 }
 
 impl Observation {
@@ -159,6 +164,7 @@ impl Observation {
             temperature_c,
             visibility_mi,
             observed_at: None,
+            details: ObservationDetails::default(),
         }
     }
 
@@ -358,7 +364,12 @@ impl NwsFetcher {
                 continue;
             };
             let fetched = self.get_json(url).map_err(|e| e.message);
-            let parsed = match fetched.and_then(|doc| parse_observation(&doc)) {
+            let parsed = match fetched.and_then(|doc| {
+                let mut parsed = parse_observation(&doc)?;
+                parsed.details.station_distance_mi = parse::station_position(&doc)
+                    .map(|(s_lat, s_lon)| haversine_distance(lat, lon, s_lat, s_lon));
+                Ok(parsed)
+            }) {
                 Ok(parsed) => parsed,
                 Err(error) => {
                     errors.push(format!("{}: {error}", station_name(url)));
@@ -402,6 +413,7 @@ struct CachedObservation {
     wind_kmh: f64,
     fetched_at: f64,
     observed_at: f64,
+    details: ObservationDetails,
 }
 
 #[derive(Default)]
@@ -503,7 +515,13 @@ impl RealWeatherProvider {
     /// Environment Canada fetch for Canada, over one transport.
     pub fn live(transport: Arc<dyn HttpTransport>) -> Self {
         Self::with_nws(Arc::clone(&transport))
-            .with_canada_fetch(Arc::new(EcccFetcher::new(transport)).fetch_fn())
+            .with_canada_fetch(
+                Arc::new(
+                    EcccFetcher::new(transport)
+                        .with_station_list(super::real_weather_canada::stations::session_station_list()),
+                )
+                .fetch_fn(),
+            )
     }
 
     /// Replace the Environment Canada fetch.
@@ -595,6 +613,13 @@ impl RealWeatherProvider {
         let inner = lock_unpoisoned(&self.ctx.inner);
         let entry = Self::entry_for(&inner, city)?;
         Self::usable(&self.ctx, entry).then_some(entry.wind_kmh)
+    }
+
+    /// What else the cached station measured.
+    pub fn get_details(&self, city: &str) -> Option<ObservationDetails> {
+        let inner = lock_unpoisoned(&self.ctx.inner);
+        let entry = Self::entry_for(&inner, city)?;
+        Self::usable(&self.ctx, entry).then(|| entry.details.clone())
     }
 
     /// Whether usable cached data reads as last-known: due for a network
@@ -744,6 +769,10 @@ impl WeatherProvider for RealWeatherProvider {
         RealWeatherProvider::get_wind_kmh(self, city)
     }
 
+    fn get_details(&mut self, city: &str) -> Option<ObservationDetails> {
+        RealWeatherProvider::get_details(self, city)
+    }
+
     fn unavailable(&mut self, city: &str) -> bool {
         RealWeatherProvider::unavailable(self, city)
     }
@@ -844,6 +873,13 @@ fn run_worker(
                                 wind_kmh: fetched.wind_kmh,
                                 fetched_at: (ctx.clock)(),
                                 observed_at,
+                                details: ObservationDetails {
+                                    visibility_mi: fetched
+                                        .details
+                                        .visibility_mi
+                                        .or(fetched.visibility_mi),
+                                    ..fetched.details.clone()
+                                },
                             },
                         );
                     }

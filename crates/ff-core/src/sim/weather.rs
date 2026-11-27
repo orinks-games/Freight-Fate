@@ -20,6 +20,7 @@ use crate::pyfmt::fmt_f;
 use crate::pyrandom::PyRandom;
 use crate::sim::weather_service::WeatherService;
 
+mod live_report;
 mod tables;
 /// The least wind the simulated sky carries with each condition. A high
 /// wind or a thunderstorm also starts a [`WindBlow`] that peaks above this
@@ -175,6 +176,14 @@ pub trait WeatherProvider {
         None
     }
 
+    /// What else the station measured, when the provider has a report.
+    fn get_details(
+        &mut self,
+        _city: &str,
+    ) -> Option<crate::sim::weather_report::ObservationDetails> {
+        None
+    }
+
     /// Whether the provider has no usable data and a fetch has failed.
     fn unavailable(&mut self, _city: &str) -> bool {
         false
@@ -237,6 +246,8 @@ pub struct WeatherSystem {
     pub live_raw: Option<WeatherKind>,
     pub live_city: Option<String>,
     pub live_kind: Option<WeatherKind>,
+    /// What else the live report measured, as of the last poll.
+    live_report: Option<crate::sim::weather_report::ObservationDetails>,
     last_observed_kind: Option<WeatherKind>,
     last_observed_temperature: Option<f64>,
     carried_last_known: bool,
@@ -311,6 +322,7 @@ impl WeatherSystem {
             live_raw: None,
             live_city: None,
             live_kind: None,
+            live_report: None,
             last_observed_kind: None,
             last_observed_temperature: None,
             carried_last_known: false,
@@ -841,11 +853,12 @@ impl WeatherSystem {
         let city = self.city.clone()?;
         let (lat, lon) = self.city_coords;
         let service = self.live_service?;
-        let kind = {
+        let (kind, report) = {
             let provider = self.provider.as_deref_mut()?;
             provider.request_from(service, &city, lat, lon);
-            provider.get(&city)
+            (provider.get(&city), provider.get_details(&city))
         };
+        self.live_report = report.filter(|_| kind.is_some());
         let Some(kind) = kind else {
             self.carried_last_known = self.carried_last_known || self.live;
             self.live = false;
