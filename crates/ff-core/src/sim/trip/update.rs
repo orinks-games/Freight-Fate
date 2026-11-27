@@ -161,6 +161,7 @@ impl Trip {
     /// Advance the trip by real seconds; returns events for the UI layer.
     pub fn update(&mut self, dt: f64) -> Vec<TripEvent> {
         self.events = Vec::new();
+        self.last_frame_game_min = 0.0;
         if self.finished {
             return self.events.clone();
         }
@@ -194,6 +195,7 @@ impl Trip {
         self.sitting_s += dt;
         let scale = self.effective_time_scale();
         let game_min = dt * scale / 60.0;
+        self.last_frame_game_min = game_min;
         self.game_minutes += game_min;
         let region = self.region_at(self.position_mi);
         self.weather.set_region(&region);

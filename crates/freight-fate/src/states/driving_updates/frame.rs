@@ -681,6 +681,7 @@ impl DrivingState {
         let frame_start_hour = self.absolute_game_hour(ctx, None);
         let mut events = self.trip.update(dt);
         let frame_end_hour = self.absolute_game_hour(ctx, None);
+        let frame_elapsed_min = self.trip.last_frame_game_min;
         record_driving_frame(self, ctx, frame_start_hour, frame_end_hour);
         // A chain law posted or lifted by the sky changing is said before
         // the weather line of the same frame: with the weather first, the
@@ -770,7 +771,7 @@ impl DrivingState {
         // moved out of is only open once the bubble has been stepped.
         self.update_lane_gap(ctx, dt);
 
-        self.update_hours_and_fatigue(ctx, dt);
+        self.update_hours_and_fatigue_with_minutes(ctx, frame_elapsed_min);
         // After the hours, which can queue a line for after the crossing call.
         self.update_after_crossing(ctx, dt);
         self.update_audio(ctx, dt);

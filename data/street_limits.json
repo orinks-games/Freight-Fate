@@ -25,6 +25,56 @@
       "url": "https://codes.findlaw.com/al/title-32-motor-vehicles-and-traffic/al-code-sect-32-5a-171/",
       "verified": true
     },
+    "Alaska": {
+      "business_mph": 20,
+      "residence_mph": 25,
+      "urban_mph": 25,
+      "citation": "13 AAC 02.275(b)(2)",
+      "title": "Basic rule and maximum limits",
+      "url": "https://www.akleg.gov/basis/aac.asp#13.02.275",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "20 mph in a business district and 25 mph in a residential district under 13 AAC 02.275(b)(1)-(2).",
+      "rural": {
+        "citation": "13 AAC 02.275(b)(3)",
+        "highway_mph": 55,
+        "local_mph": 55,
+        "no_rural_default": false,
+        "notes": "55 mph on any other roadway unless posted otherwise.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://www.akleg.gov/basis/aac.asp#13.02.275",
+        "verified": true
+      }
+    },
+    "Alberta": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Traffic Safety Act, RSA 2000, c T-6, s 106(2)(b)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://kings-printer.alberta.ca/documents/Acts/T06.pdf",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Traffic Safety Act, RSA 2000, c T-6, s 106(2)(b)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://kings-printer.alberta.ca/documents/Acts/T06.pdf",
+        "verified": true
+      }
+    },
     "Arizona": {
       "business_mph": 25,
       "citation": "Ariz. Rev. Stat. Sec. 28-701(B)(2)",
@@ -74,6 +124,31 @@
       "urban_mph": 30,
       "url": "https://www.arkleg.state.ar.us/Home/FTPDocument?path=%2FACTS%2F2019R%2FPublic%2FACT784.pdf",
       "verified": true
+    },
+    "British Columbia": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Motor Vehicle Act, RSBC 1996, c 318, s 146(1)(a)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96318_05",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Motor Vehicle Act, RSBC 1996, c 318, s 146(1)(a)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/96318_05",
+        "verified": true
+      }
     },
     "California": {
       "business_mph": 25,
@@ -452,6 +527,31 @@
       "url": "https://legislature.maine.gov/statutes/29-A/title29-Asec2074.html",
       "verified": true
     },
+    "Manitoba": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Highway Traffic Act, CCSM c H60, s 95(1)(a)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://web2.gov.mb.ca/laws/statutes/ccsm/h060.php",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Highway Traffic Act, CCSM c H60, s 95(1)(a)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://web2.gov.mb.ca/laws/statutes/ccsm/h060.php",
+        "verified": true
+      }
+    },
     "Maryland": {
       "business_mph": 30,
       "citation": "Md. Code Ann., Transp. Sec. 21-801.1(b)",
@@ -680,6 +780,31 @@
       "url": "https://www.leg.state.nv.us/NRS/NRS-484B.html",
       "verified": true
     },
+    "New Brunswick": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Motor Vehicle Act, RSNB 1973, c M-17, s 140(1)(b)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://laws.gnb.ca/en/document/cs/M-17",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Motor Vehicle Act, RSNB 1973, c M-17, s 140(1)(b)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://laws.gnb.ca/en/document/cs/M-17",
+        "verified": true
+      }
+    },
     "New Hampshire": {
       "business_mph": 30,
       "citation": "N.H. Rev. Stat. Ann. Sec. 265:60, II(b)",
@@ -781,6 +906,31 @@
       "url": "https://www.nysenate.gov/legislation/laws/VAT/1180",
       "verified": true
     },
+    "Newfoundland and Labrador": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Highway Traffic Act, RSNL 1990, c H-3, s 110(3)(a)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://www.assembly.nl.ca/legislation/sr/statutes/h03.htm",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Highway Traffic Act, RSNL 1990, c H-3, s 110(3)(a)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://www.assembly.nl.ca/legislation/sr/statutes/h03.htm",
+        "verified": true
+      }
+    },
     "North Carolina": {
       "business_mph": null,
       "citation": "N.C. Gen. Stat. Sec. 20-141(b)(1)",
@@ -830,6 +980,56 @@
       "urban_mph": null,
       "url": "https://www.ndlegis.gov/cencode/t39c09.pdf",
       "verified": true
+    },
+    "Northwest Territories": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Motor Vehicles Act, RSNWT 1988, c M-16, s 136(2)(a)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://www.justice.gov.nt.ca/en/files/legislation/motor-vehicles/motor-vehicles.a.pdf",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Motor Vehicles Act, RSNWT 1988, c M-16, s 136(2)(a)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://www.justice.gov.nt.ca/en/files/legislation/motor-vehicles/motor-vehicles.a.pdf",
+        "verified": true
+      }
+    },
+    "Nova Scotia": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Motor Vehicle Act, RSNS 1989, c 293, s 102(1)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://nslegislature.ca/sites/default/files/legc/statutes/motor%20vehicle.pdf",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Motor Vehicle Act, RSNS 1989, c 293, s 102(1)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://nslegislature.ca/sites/default/files/legc/statutes/motor%20vehicle.pdf",
+        "verified": true
+      }
     },
     "Ohio": {
       "business_mph": 25,
@@ -882,6 +1082,31 @@
       "url": "https://www.oscn.net/applications/oscn/DeliverDocument.asp?CiteID=436892",
       "verified": true
     },
+    "Ontario": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Highway Traffic Act, RSO 1990, c H.8, s 128(1)(a)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://www.ontario.ca/laws/statute/90h08",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Highway Traffic Act, RSO 1990, c H.8, s 128(1)(a)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://www.ontario.ca/laws/statute/90h08",
+        "verified": true
+      }
+    },
     "Oregon": {
       "business_mph": 20,
       "citation": "Or. Rev. Stat. Sec. 811.111(1)(d)",
@@ -932,6 +1157,56 @@
       "url": "https://www.palegis.us/statutes/consolidated/view-statute?txtType=HTM&ttl=75&div=0&chapter=33&section=62",
       "verified": true
     },
+    "Prince Edward Island": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Highway Traffic Act, RSPEI 1988, c H-5, s 176(1)(a)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://www.princeedwardisland.ca/sites/default/files/legislation/h-05-highway_traffic_act.pdf",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Highway Traffic Act, RSPEI 1988, c H-5, s 176(1)(a)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://www.princeedwardisland.ca/sites/default/files/legislation/h-05-highway_traffic_act.pdf",
+        "verified": true
+      }
+    },
+    "Quebec": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Highway Safety Code, CQLR c C-24.2, s 328(1)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://www.legisquebec.gouv.qc.ca/en/document/cs/C-24.2",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Highway Safety Code, CQLR c C-24.2, s 328(1)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://www.legisquebec.gouv.qc.ca/en/document/cs/C-24.2",
+        "verified": true
+      }
+    },
     "Rhode Island": {
       "business_mph": 25,
       "citation": "R.I. Gen. Laws Sec. 31-14-2(a)(1)",
@@ -956,6 +1231,31 @@
       "urban_mph": null,
       "url": "https://webserver.rilegislature.gov/Statutes/TITLE31/31-14/31-14-2.htm",
       "verified": true
+    },
+    "Saskatchewan": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Traffic Safety Act, SS 2004, c T-18.1, s 199(1)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://publications.saskatchewan.ca/api/v1/products/11919/formats/17777/download",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Traffic Safety Act, SS 2004, c T-18.1, s 199(1)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://publications.saskatchewan.ca/api/v1/products/11919/formats/17777/download",
+        "verified": true
+      }
     },
     "South Carolina": {
       "business_mph": null,
@@ -1233,14 +1533,39 @@
       "urban_mph": 30,
       "url": "https://wyoleg.gov/statutes/compress/title31.pdf",
       "verified": true
+    },
+    "Yukon": {
+      "business_mph": null,
+      "residence_mph": null,
+      "urban_mph": 31.07,
+      "citation": "Motor Vehicles Act, RSY 2002, c 153, s 158(2)(a)",
+      "title": "Maximum speed in a built-up or urban area",
+      "url": "https://legislation.yukon.ca/acts/move_c.pdf",
+      "rule_type": "absolute",
+      "signs_required": false,
+      "town_basis": "urban_area",
+      "truck_note": "",
+      "verified": true,
+      "notes": "50 km/h (31.07 mph) statutory urban/built-up area default when unposted.",
+      "rural": {
+        "citation": "Motor Vehicles Act, RSY 2002, c 153, s 158(2)(a)",
+        "highway_mph": 49.71,
+        "local_mph": 49.71,
+        "no_rural_default": false,
+        "notes": "80 km/h (49.71 mph) default rural highway limit when unposted.",
+        "rule_type": "absolute",
+        "signs_required": false,
+        "url": "https://legislation.yukon.ca/acts/move_c.pdf",
+        "verified": true
+      }
     }
   },
   "meta": {
     "rural_source": "state vehicle codes; see tools/statutory_rural.py",
-    "rural_verified": 49,
+    "rural_verified": 62,
     "source": "state vehicle codes; see tools/statutory_limits.py for citations",
-    "states": 49,
+    "states": 62,
     "unverified": 0,
-    "verified": 49
+    "verified": 62
   }
 }

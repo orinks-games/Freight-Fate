@@ -1162,6 +1162,12 @@ impl RadioState {
         if station.fallback {
             return "The safety fallback is always on the dial.".to_string();
         }
+        // Hold the current dial order around this station before its group
+        // changes to Favorites, so stepping to the next station continues in
+        // the list the driver was browsing rather than jumping into Favorites.
+        // Using `sweep_receptions()` ensures an expired sweep is rebuilt for
+        // the truck's current position instead of pinning a stale local order.
+        let _ = self.sweep_receptions();
         let ids = self.identity_ids(&station);
         if ids.iter().any(|id| self.favorite_ids.contains(id)) {
             for id in &ids {

@@ -47,6 +47,7 @@ fn test_dispatch_call_menu_covers_the_supported_request_categories() {
             "Ask about the road ahead",
             "Report truck trouble",
             "Report load trouble",
+            "Back",
         ]
     );
 }

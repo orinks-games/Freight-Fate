@@ -137,9 +137,11 @@
 
 ### Fixed
 
-- **Softened concrete pavement seam hits and smoothed the highway engine loop cycle.** Jointed highway stretches now sound like muffled tire thuds instead of repeating clunks.
-- **The turbocharger whistle now fades out completely once the truck settles at steady cruise speed.**
-- **Fixed train-like road clunks, idle-sounding passing traffic, throttle-release engine fade, and abrupt trooper pass-bys.** Acceleration now stays smooth inside the cab.
+- **Canadian and Alaskan towns now use their 50 km/h and 25 mph statutory street limits,** and 80 km/h Canadian highway postings no longer carry into town.
+- **Call dispatch now includes a Back button,** and saving a radio station to favorites keeps you in the list you were browsing instead of jumping to Favorites.
+- **Hours of service now uses the same elapsed frame time as the trip clock when turn pacing slows the clock.**
+- **Night insects through a closed cab window are now quieter at highway speed.**
+- **Reworked driving audio to remove train-like road clunks, dryer-like seam clicks, idle-sounding passing traffic, throttle-release engine fade, abrupt trooper pass-bys, and lingering cruise turbo whistle.**
 - **Partial lane keeping now eases your steering with a set of doubles.** Lane changes no longer whip the rear trailer.
 - **Braking to a stop no longer rattles through automatic downshifts, and shutting off the engine no longer plays an extra shift clunk.**
 - **A fuel row that gives the Canadian price a liter now gives the fuel in liters too,** with Units set to Imperial.
@@ -147,9 +149,7 @@
 - **Cruise no longer slows on the highway for a town limit past your exit,** then speeds up again before the exit. It eases to its exit speed by the exit.
 - **The ramp curve warning comes before the exit when the truck needs more room than the exit lane to slow.**
 - **The GPS no longer calls a speed limit drop that lies past the exit you are taking.**
-- **Automatic upshifts under power now clunk once, as the next gear takes hold.**
-- **Removed repeating beeps from highway ambience, smoothed automatic shifts, and quieted bridges.** Crossing a ramp light on yellow no longer chimes green.
-- **The main engine no longer has metallic pitch stretching or phasing between recordings.**
+- **Automatic upshifts under power now clunk once, with a softer cue so the rev drop stays clear, and highway ambience no longer has repeating beeps.** Crossing a ramp light on yellow no longer chimes green.
 - **The Golden Gate Bridge is now named on northbound trips.**
 - **Alligator Alley now charges one toll per trip.** It was charging for both plazas.
 - **The Ohio Turnpike toll between Cleveland and Toledo is now the 2026 five-axle fare.** It drops from $28.00 to $17.50.
