@@ -137,6 +137,7 @@
 
 ### Fixed
 
+- **Quitting on Windows no longer crashes when SAPI voices are loaded.**
 - **Canadian and Alaskan towns now use their 50 km/h and 25 mph statutory street limits,** and 80 km/h Canadian highway postings no longer carry into town.
 - **Call dispatch now includes a Back button,** and saving a radio station to favorites keeps you in the list you were browsing instead of jumping to Favorites.
 - **Hours of service now uses the same elapsed frame time as the trip clock when turn pacing slows the clock.**

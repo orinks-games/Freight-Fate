@@ -3,7 +3,7 @@
 The crates.io `prism-sys` 0.1.6 package (sha256
 `fb7205352adf3f71f6873ea93d0e5d315cf8118c534a4db6343d32a3847d7cfe`), which
 carries Prism at `291db9fe04ea9f5642266cbebfeb909db4f38553`. Everything here
-is the package as published except the two files below. MIT licence, as
+is the package as published except the files below. MIT licence, as
 upstream (`prism/LICENSES`).
 
 ## Why
@@ -18,7 +18,7 @@ console default after it (2026-11-20). The patch names the console default devic
 falls back to the unpatched call, with one warning in the log, if the device
 cannot be named.
 
-Both changed files are wrapped whole in `#ifdef _WIN32`, so Linux, macOS,
+All changed sources are wrapped whole in `#ifdef _WIN32`, so Linux, macOS,
 iOS and Android compile the same Prism sources as the crates.io package.
 
 ## Changes against 0.1.6
@@ -46,6 +46,13 @@ iOS and Android compile the same Prism sources as the crates.io package.
 - `build_graph_locked()`: tries `create_graph()` on the named default device,
   then without a device if that fails, logging a warning.
 
+`prism/source/backends/sapi.cpp` (SAPI voice catalog lifetime):
+
+- `enumerate_voices()` caches names, languages and token IDs rather than COM
+  tokens. `select_voice()` opens the requested token by ID on the SAPI worker.
+  This avoids the bulk release of long-lived catalog tokens at quit that
+  crashed inside `sapi.dll`, without bypassing shutdown of the voice or COM.
+
 ## When the device goes away
 
 A named device no longer follows default changes by itself. SAPI: unplugging
@@ -61,5 +68,5 @@ lost is cut, as it was before.
 ## Removing it
 
 Drop `vendor/prism-sys`, its `exclude` entry and the `[patch.crates-io]`
-block in the root `Cargo.toml` once a prism-sys release names the device
-itself (or lets the program choose one).
+block in the root `Cargo.toml` once a prism-sys release handles default device
+selection and no longer retains its SAPI catalog tokens until shutdown.
