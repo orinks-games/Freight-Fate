@@ -18,13 +18,14 @@ use crate::audio::{BANK_JITTER, CH_BRIDGE_DECK, CH_ROAD_SONG};
 use crate::states::driving::DrivingState;
 
 /// A seam under the steer axle on good jointed concrete at 30 m/s and
-/// above. Orinks's ear sets it; it starts where the demo he heard sat,
-/// about 10 dB over the road loop's peaks at 65 mph.
-pub const SEAM_LEVEL: f64 = 0.5;
+/// above. Sits under the engine and road bed so slab joints read as tire
+/// texture through air-ride suspension rather than train-track clunks.
+pub const SEAM_LEVEL: f64 = 0.24;
 /// The drive tandem lands a little harder than the steer axle.
 pub const DRIVE_AXLE_GAIN: f64 = 1.25;
-/// A bridge end joint, every axle. Orinks's ear sets it.
-pub const BRIDGE_JOINT_LEVEL: f64 = 0.58;
+/// A bridge end joint, every axle: clearly heavier than a slab seam without
+/// banging over the cab.
+pub const BRIDGE_JOINT_LEVEL: f64 = 0.42;
 /// The small jolt a bridge joint gives the wheel, under the steer axle.
 const BRIDGE_JOINT_IMPACT: f64 = 0.2;
 /// No hit asks for more than this, so the bank's own level variation never

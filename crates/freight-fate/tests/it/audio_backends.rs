@@ -116,12 +116,11 @@ fn test_engine_band_weights_keep_native_points_pure_and_blend_midpoints() {
 
 #[test]
 fn test_engine_load_gain_keeps_audible_load_contour() {
-    // Floor raised off the old 0.55 so coasting is not too quiet, but the
-    // span stays wide enough to hear effort changes and the
-    // automatic-shift unload.
-    assert!((engine_load_gain(-1.0) - 0.68).abs() < 1e-9);
-    assert!((engine_load_gain(0.0) - 0.68).abs() < 1e-9);
-    assert!((engine_load_gain(0.45) - 0.824).abs() < 1e-9);
+    // Floor sits high enough that releasing the throttle keeps the engine
+    // solid instead of fading out, while preserving a clear effort contour.
+    assert!((engine_load_gain(-1.0) - 0.82).abs() < 1e-9);
+    assert!((engine_load_gain(0.0) - 0.82).abs() < 1e-9);
+    assert!((engine_load_gain(0.45) - 0.901).abs() < 1e-9);
     assert!(engine_load_gain(0.08) < engine_load_gain(0.7));
     assert_eq!(engine_load_gain(1.0), 1.0);
     assert_eq!(engine_load_gain(2.0), 1.0);
