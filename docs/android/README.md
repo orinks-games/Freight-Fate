@@ -36,9 +36,13 @@ starts or ends, a heavy click for the deep swipe, and a double click for the
 engine key. Touch gestures in Settings turns them off.
 
 [Tilt steering](../ios/README.md#tilt-steering) reads the accelerometer
-through the same SDL path as on iPhone, but it has not been tried on an
-Android phone, and the screen keeps turning with the phone at the wheel:
-SDL reads Android's orientation setting only when the window is made.
+through the same SDL path as on iPhone. SDL 2.26's Android sensor code calls
+`ALooper_pollAll`, which NDK r27 and later refuse to compile, so the SDL
+toolchain file forces in a header that stands in for it with
+`ALooper_pollOnce` (`crates/freight-fate-android/cmake`). SDL reads
+Android's orientation setting only when the window is made, so while tilt
+steering is at the wheel the activity holds the screen in the orientation
+it has, and puts SDL's own request back when tilt stops.
 
 ## Voices
 
@@ -115,7 +119,7 @@ of `crates/ff-tools/src/release/android.rs`. In short:
 - The activity, `FreightFateActivity`, subclasses SDL's activity. It unpacks
   the game files into the app's storage and answers the game's few questions
   about the phone (TalkBack, haptics, screen density, a keyboard).
-- The game compiles its own copies of two library files in place of the
+- The game compiles its own copies of three library files in place of the
   library's:
   - Prism's Android text to speech voice (`crates/freight-fate-android/prism/`),
     which centres rate and pitch on the voice's normal values, lists every
@@ -123,9 +127,13 @@ of `crates/ff-tools/src/release/android.rs`. In short:
     hands each line to `SpeechRoute` to play on its headphone channels;
   - SDL's HIDAPI device manager (`crates/freight-fate-android/sdl/`), which
     Android 14 otherwise refuses at startup, leaving PlayStation controllers
-    without rumble.
+    without rumble;
+  - SDL's controller manager (`crates/freight-fate-android/sdl/`), which
+    otherwise opens a Bluetooth keyboard as a controller, because Android
+    lists its arrow keys as a D-pad and a volume wheel or media keys as a
+    joystick.
 
-  The build stops if either library's own file changes, so a new SDL or Prism
+  The build stops if a library's own file changes, so a new SDL or Prism
   is checked against the copy before it ships.
 
 ## Platform notes
@@ -164,3 +172,5 @@ that does not name VoiceOver applies, with TalkBack suspended. Then:
   voice; each change is spoken in the new voice. Set pitch and rate to 50
   percent: the voice sounds normal.
 - Connect a controller: menus and a drive work with it, and rumble plays.
+- Connect a Bluetooth keyboard: no controller is announced, and the arrow
+  keys move through menus and steer as arrow keys.

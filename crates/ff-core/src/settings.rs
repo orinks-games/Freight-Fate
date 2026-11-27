@@ -775,9 +775,11 @@ settings_fields! {
     /// row "Second layer bumper").
     left_bumper_layer: bool = false => bool_strict,
     /// Tilting the phone steers too (Touch gestures, Tilt steering), and
-    /// how many degrees from level steer fully, 15 to 45.
+    /// how many degrees from level steer fully, 15 to 60, and how many
+    /// steer nothing at all, 2 to 12.
     touch_tilt_steering: bool = false => bool_strict,
     touch_tilt_full_degrees: f64 = 30.0 => float_plain,
+    touch_tilt_dead_degrees: f64 = 4.0 => float_plain,
     /// iPhone and iPad read gestures with the recognizer Android uses
     /// (`ff_core::touch::recognizer`) instead of UIKit's (Touch gestures,
     /// New gesture reading). Kept until the native one is retired.

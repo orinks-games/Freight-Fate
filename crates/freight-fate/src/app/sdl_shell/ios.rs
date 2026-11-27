@@ -13,6 +13,9 @@ use crate::touch::{fingers, FingerEvent, FingerKind, Gesture, TouchInput};
 extern "C" {
     fn ff_use_hardware_vertical_arrows(window: *mut std::ffi::c_void);
     fn ff_touch_install(window: *mut std::ffi::c_void) -> i32;
+    fn ff_touch_voice_over_running() -> i32;
+    fn ff_touch_direct_interaction_suspended() -> i32;
+    fn ff_touch_software_keyboard_shown() -> i32;
     fn ff_refresh_orientations(window: *mut std::ffi::c_void);
     #[cfg(feature = "visuals")]
     fn ff_phone_safe_top_fraction(window: *mut std::ffi::c_void) -> f64;
@@ -36,6 +39,21 @@ extern "C" {
         still_ms: f64,
         rotate_degrees: f64,
     );
+}
+
+pub(crate) fn voice_over_running() -> bool {
+    // SAFETY: a UIKit status query on the app thread, with no arguments.
+    unsafe { ff_touch_voice_over_running() != 0 }
+}
+
+pub(crate) fn direct_interaction_suspended() -> bool {
+    // SAFETY: reads the UIKit touch surface on the app thread.
+    unsafe { ff_touch_direct_interaction_suspended() != 0 }
+}
+
+pub(crate) fn software_keyboard_shown() -> bool {
+    // SAFETY: reads keyboard notification state on the app thread.
+    unsafe { ff_touch_software_keyboard_shown() != 0 }
 }
 
 pub(crate) fn set_touch_haptics(enabled: bool) {

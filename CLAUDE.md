@@ -289,9 +289,10 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   few other multi-second drives -- is skipped by a plain run, local or CI.
   They cost several times the rest of the suite together. `cargo test-all`
   (an alias for `cargo test -p ff-core -p freight-fate --features
-  freight-fate/slow-tests`) and the nightly Career 1.9 snapshot run them,
-  so a sweep failure surfaces within a day. Run `cargo test-all` before pushing a change to driving, traffic,
-  the assists or world data. A new test that drives more than a second or
+  freight-fate/slow-tests`) and the nightly Tests workflow run them, so a
+  sweep failure surfaces within a day. Run `cargo test-all` before pushing a
+  change to driving, traffic, the assists or world data, and before a PR is
+  called ready or a stable release is tagged. A new test that drives more than a second or
   two of the map should carry that attribute; one that pins a single
   behaviour should not.
 - Adversarial battery: `cargo run -p freight-fate --bin freightfate --
@@ -354,20 +355,24 @@ cleanup](https://doc.rust-lang.org/book/ch21-03-graceful-shutdown-and-cleanup.ht
   is one no-build checks job on GitHub's hosted runners (fmt, the
   translation files, `cargo tools test-targets`, the Hearken leaf-type
   grep) that finishes in well under a minute, and `changelog.yml` is the
-  changelog gate. The Career 1.9 snapshot build (each push to `dev`, and
-  once a night as a fallback) is where CI lints and tests.
+  changelog gate. The full suite (clippy, `cargo test-all`, the agent
+  server test) is `.github/workflows/tests.yml`, once a night on the heads of dev and feat/career-2.0,
+  and on request for any branch; it publishes nothing and nothing waits on
+  it. The Career 1.9 snapshot build (each push to `dev`, and once a night
+  as a fallback) builds and packages only. So a session runs `cargo
+  test-all`, clippy and the adversarial battery itself before a PR is ready
+  and before a stable release.
   Every compiling job goes through `.github/actions/rust-setup` (the
   platform's build dependencies, the pinned toolchain, sccache and rust-cache). SDL2 is
   vendored for `windows-x86_64` alone. macOS and Linux build from
   source (Hearken comes through Cargo, Prism is compiled from source, and SDL2 is compiled
   in statically via the crate's `bundled` + `static-link` features -- NEVER
   Homebrew's sdl2, which is sdl2-compat and loads SDL3 at runtime, dying on
-  player Macs; on Linux a system libSDL2 differs per distro). The nightly
-  Career 1.9 snapshot workflow tests and packages all three side by side
-  (a `Test` leg per platform next to each `Build` job; the whole-map sweeps
-  on the Linux x86_64 leg), and
-  also boots the Linux tarball and AppImage on seven distributions
-  through `tools/linux_smoke.sh`. The Linux release build runs on `ubuntu-22.04`
+  player Macs; on Linux a system libSDL2 differs per distro). The Career
+  1.9 snapshot workflow packages all three platforms in six jobs (Prepare,
+  one Build per platform, Release), and each Linux build boots its own
+  tarball and AppImage on seven distributions through
+  `tools/linux_smoke.sh` before uploading them. The Linux release build runs on `ubuntu-22.04`
   on purpose: the executable's glibc floor is its build host's. Locally,
   build Linux under WSL (`sudo apt install` the SDL2 and ALSA -dev set the
   workflow lists, then the same commands); a run there with `~/.asoundrc` routing

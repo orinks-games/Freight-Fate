@@ -251,10 +251,15 @@ the swipes and flicks keep working.
   the Truck group of the driving command list, takes level again and says
   "Level set."; it has no gesture until one is put on it in Touch gestures,
   and it is listed only while tilt steering is on.
-- Within 4 degrees of level nothing steers. "Tilt for full steering" (15 to
-  45 degrees in steps of 5, 30 by default, listed only while tilt steering
-  is on) is where steering is full; between the two it rises in a straight
-  line.
+- Within "Tilt dead zone" of level nothing steers (2 to 12 degrees in steps
+  of 2, 4 by default). "Tilt for full steering" (15 to 60 degrees in steps
+  of 5, 30 by default) is where steering is full; between the two it rises
+  in a straight line. Both rows are listed only while tilt steering is on.
+- Tuning them: if the truck steers or changes lanes when you only meant to
+  hold the phone still, raise the dead zone first, so more drift near level
+  is ignored, then raise full steering, so the same steering takes a
+  steeper tilt. If steering feels slow to answer, lower them. A setting of
+  60 and 12 suits a player whose hands do not hold the phone steady.
 - The tilt goes where a controller's left stick goes. With lane keeping on
   full, a tilt past half way changes one lane, and the phone has to come back
   near level before the next. With lane keeping off or partial it steers in

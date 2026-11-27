@@ -48,6 +48,7 @@ bookmarks usable.
 
 - [x] Manual cloud backup checks the current cloud revision before saying copies match; a stale local copy leaves the newer cloud career untouched and explains how to restore it.
 - [x] (Found along the way) Closing the game from Android's recent apps screen read the menu aloud and offered a problem report at the next start (Pixel 10 Pro, 2026-11-24). Android ends a swiped-away app by waking it to quit: SDL queues the quit and `APP_TERMINATING`, then the four foreground events of the wake, which the lifecycle took as a return (the screen read again, the report session tracked again after the quit ended it). `ff_core::app_lifecycle` has an `Ending` place now, entered on `WillTerminate` from anywhere and left by nothing. Android also gives a swiped-away app about a second to finish, so the quit is cut short partway through speech's shutdown; the settings and the background save are written before then. Fixed 2026-11-25.
+- [x] (Found along the way) A Bluetooth keyboard on Android was opened as a game controller (Pixel 10 Pro, 2026-11-25: "Controller connected: MX MCHNCL Keyboard", and the arrow keys steered as D-pad buttons). SDL 2.26's `isDeviceSDLJoystick` takes any device reporting `SOURCE_DPAD` or a joystick axis, and Android lists a full keyboard's arrows as a D-pad and the MX Mechanical's volume wheel as a joystick axis (`GENERIC_1`). The game's copy of `SDLControllerManager.java` (`JAVA_OVERRIDES`) leaves out a device with an alphabetic keyboard and no stick, hat or trigger axis. Fixed 2026-11-25; the first fix checked the keyboard after the joystick test and missed this keyboard (2026-11-26).
 - [x] (Found along the way) A verified cloud restore could leave the old newer-copy warning in the parent Cloud backup menu; fixed 2026-11-22.
 - [x] (Found along the way) The Logbook kept the shipper as current after delivery and omitted driving and the 30-minute off-duty break (native report, 2026-11-23). Driving, receiver unloading and the explicit break now have separate chronological rows and accurate daily totals. Fixed 2026-11-23.
 - [x] (Found along the way) Chain work follows the wheel (owner report, 2026-11-22: the chains wore out on dry road under the co-driver, who woke the player for the damage; the report's build predated the bare-road cue, and on dev the remaining gap was the co-driver's own descent brake cancelling their chain stop). Whoever holds the wheel does the chain work: the driver, Facility stopping assistance, or a co-driver, who chains up before the control, takes the chains off on bare road, tightens and repairs on their own logbook and leaves one note per job; only the player's own pedal cancels a stop. A chain control and the patrol cite only a truck that rolled into the area under a posted law; one already on the grade when the snow began is not cited there, nor is one that rolled in legally at a lower level when the law is raised on the grade (a Colorado tandem-drive truck at Level 1, say). The chain law calls lost "ahead". `ff_core::sim::chain_work` (`ChainWorker`, `ChainAreaEntry`); the agent server's `status` reports `chain_worker` and `chain_stop`, and `scenario` stages chains, their wear and spare links. Fixed 2026-11-22.
@@ -142,7 +143,9 @@ bookmarks usable.
 - [x] Live road reports are local (owner, 2026-11-05): a drive past Gary heard thirteen reports in ninety seconds, nearly all for ramps on other roads, because the game read every incident within 50 miles. A report is now spoken only when it is on the truck's road (the feed's road name must match the leg's highway, or a report with no road name must sit within a quarter mile of the road line), not signed for the other direction (Indiana's titles now give theirs), and within 10 miles ahead, nearest first, with its distance. A CARS title drops its road and mile-point range on the truck's own road. Replayed against Indiana's live feed for Chicago to Cleveland on 2026-11-05: three of the dozen reports along I-80 and I-94 near Gary were spoken.
 - [x] Tester snapshots build on each push to dev (owner, 2026-11-09, after the scheduled start kept landing seven hours late and the way msfs-blind-assist rebuilds its preview on every merge). A merge with a changelog entry publishes the day's snapshot about an hour and a quarter later; a second merge the same day replaces it, and the schedule stays as a once-a-night fallback that skips when the newest snapshot is already dev's head. The failed-run retry now rebuilds from dev's copy of the workflow.
 - [x] Snapshot notes are the change list alone (owner, 2026-11-09): the Summary of each entry's lead sentence, added 2026-10-25, read every change twice once a busy day put twelve entries in one snapshot. Stable releases keep their hand-written Highlights.
-- [x] The snapshot retry is a job inside the build run (owner, 2026-11-12: "why is the retry nightly run skipping every hour?"). As its own workflow it started after every completed build, so each push build left a skipped Retry row, and a burst of nine merges on the night of 2026-11-11 left nine retries sleeping 45 minutes for builds a newer push had already cancelled. Now it exists only when a job in the run failed or timed out; the separate workflow is deleted.
+- [x] The snapshot retry is a job inside the build run (owner, 2026-11-12: "why is the retry nightly run skipping every hour?"). As its own workflow it started after every completed build, so each push build left a skipped Retry row, and a burst of nine merges on the night of 2026-11-11 left nine retries sleeping 45 minutes for builds a newer push had already cancelled. Now it exists only when a job in the run failed or timed out; the separate workflow is deleted. Removed 2026-11-27 with the six-job builds: a failed build is rebuilt by the nightly fallback or by hand.
+- [x] The builds workflow is six jobs (owner, 2026-11-27: "why does the Freight Fate builds workflow have so many jobs?"): Prepare, one Build per platform, Release, down from 26. The tests left the release path for a nightly and on-request Tests workflow that nothing waits on; the seven-distribution boot checks run inside each Linux build; each build compiles ff-core once; the alpha branch keeps build caches.
+- [ ] (Found along the way) `main` needs the six-job `build-career-1.9.yml` and the new `tests.yml`: until it has them, the scheduled fallback fails its stale-copy check, and the Tests workflow can be neither scheduled nor run by hand (GitHub lists a workflow only once the default branch has it).
 - [x] (Found along the way) The scheduled snapshot of 2026-11-09 failed on a dispatch test ("one of the small towns relays a load off an empty board"); the retry an hour later passed on the same commit. Pinned 2026-11-14: a new career's freight market is seeded at random, and about one seed in two thousand (3 of 6,000 scanned) leaves none of the five towns a relay that fits a rookie's deadhead rule. The tests now run on a fixed market from Sherman.
 - [ ] (Found along the way) Live road reports for the whole route in route planning, so a closure 80 miles out can be weighed before the load is taken.
 - [ ] (Found along the way) Live road reports place a report on the leg's route points, about 25 miles apart, so a named report can be matched up to 2 miles off the line and its distance is off by about as much. Loading the fine road line (`world_data/us/geometry`, about 200 points a leg, today read only by the map tools) would tighten both, and let a report that names no road be matched.
@@ -1631,6 +1634,14 @@ Everything found before 2026-09-25 moved to
       are two `ff-core` machines (`sim::tilt_steering`, `sim::lane_push`),
       and the agent server's `tilt` tool stands in for the sensor. Driven
       by agent only; nothing was tried on a phone.
+- [x] Tilt dead zone and a steeper full tilt (2026-11-25, a player's
+      request): Touch gestures has a "Tilt dead zone" row under "Tilt for
+      full steering" (2 to 12 degrees in twos, 4 by default), and full
+      steering now goes to 60 degrees; the defaults stay 30 and 4. A
+      player who cannot hold the phone steady found that at 30 a slight
+      movement changed lanes. Driven on a Pixel 10 Pro: at 60 with a dead
+      zone of 12 the truck changed lanes only on purpose. The phone help's
+      Steering and curves page says which rows to raise.
 - [x] Settings, Online and the name field on a phone (2026-11-22, the
       whole-game iPhone pass, brief 5): Controls lists the keyboard rows
       only while a hardware keyboard is connected and the controller rows
@@ -1652,10 +1663,13 @@ Everything found before 2026-09-25 moved to
       the wheel and turns again in menus (the lock goes through SDL's
       orientation hint and `ios/ff_orientation.m`), and tilt with VoiceOver
       on.
-- [ ] (Found along the way) Tilt steering on Android: the sensor path is
-      shared and compiles, but it was never run on a phone, and the screen
-      does not lock there (SDL reads its orientation hint only when the
-      window is made).
+- [x] Tilt steering on Android (2026-11-24): SDL's sensor module is built
+      again (a stand-in header replaces the `ALooper_pollAll` that NDK r27
+      and later refuse), and the activity holds the screen's orientation
+      while tilt is at the wheel, putting back SDL's request when it ends
+      (SDL reads its orientation hint only when the window is made). Driven
+      on a Pixel 10 Pro: it steers the right way and the screen stays put
+      during the drive.
 - [x] Second layer bumper (2026-11-18, a player's request): Settings,
       Gameplay, Controls swaps the bumpers, so the left bumper holds the
       second layer and the right bumper is the clutch. The pad's presses

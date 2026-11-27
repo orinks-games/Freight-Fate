@@ -41,9 +41,12 @@ mod display;
 mod ios;
 mod tilt_sensor;
 #[cfg(target_os = "ios")]
-use ios::{install_touch_surface, next_gesture};
+pub(crate) use ios::{
+    direct_interaction_suspended, set_touch_haptics, set_touch_tuning, software_keyboard_shown,
+    voice_over_running,
+};
 #[cfg(target_os = "ios")]
-pub(crate) use ios::{set_touch_haptics, set_touch_tuning};
+use ios::{install_touch_surface, next_gesture};
 
 /// Keep drawing while the window is covered (macOS stops otherwise), for
 /// capture software that records the window from behind other windows.
@@ -456,14 +459,16 @@ impl SdlShell {
     }
 
     /// Hold the screen's orientation while tilt steering is at the wheel.
-    /// Only iPhone and iPad can change it once the window is up.
+    /// Only a phone or tablet changes it.
     pub fn lock_orientation(&mut self, lock: bool) {
-        if !cfg!(target_os = "ios") {
+        if !cfg!(touch_screen) {
             return;
         }
         if self.tilt.lock(lock).is_some() {
             #[cfg(target_os = "ios")]
             ios::refresh_orientations(self.canvas.window());
+            #[cfg(target_os = "android")]
+            crate::android::lock_orientation(lock);
         }
     }
 

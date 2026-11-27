@@ -42595,6 +42595,27 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid ""
+"How far the phone tilts from level before it steers at all. A bigger number "
+"lets the phone shake or drift more without steering. Flick up or down to "
+"change it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far the phone tilts from level before it steers at all. A bigger number "
+"lets the phone shake or drift more without steering. D-pad Right or Left "
+"changes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
+"How far the phone tilts from level before it steers at all. A bigger number "
+"lets the phone shake or drift more without steering. Right or Left arrow "
+"changes it."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid ""
 "How far the phone tilts for full steering. A smaller number steers harder. "
 "Flick up or down to change it."
 msgstr ""
@@ -42634,6 +42655,11 @@ msgstr ""
 #. placeholders: {touch_tilt_full}
 #: crates/freight-fate/src/states/main_menu/touch_gestures.rs
 msgid "Tilt for full steering: {touch_tilt_full} degrees"
+msgstr ""
+
+#. placeholders: {touch_tilt_dead}
+#: crates/freight-fate/src/states/main_menu/touch_gestures.rs
+msgid "Tilt dead zone: {touch_tilt_dead} degrees"
 msgstr ""
 
 #. placeholders: {touch_deep_swipe_points}
@@ -45700,6 +45726,12 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu_help_phone.rs
 msgid ""
+"If small movements of the phone steer, raise Tilt dead zone or Tilt for "
+"full steering under Touch gestures, so the phone has to tilt further."
+msgstr ""
+
+#: crates/freight-fate/src/states/main_menu_help_phone.rs
+msgid ""
 "With lane keeping off and curve assistance off, swipe and hold toward a "
 "called bend to follow the road. Lifting straightens the truck with the road."
 msgstr ""
@@ -47713,6 +47745,27 @@ msgid ""
 "Type with the on-screen keyboard, then double tap. Flick left or right to "
 "review the letters, flick up or down with three fingers to jump to the "
 "start or end, and flick down with two fingers to cancel."
+msgstr ""
+
+#: crates/freight-fate/src/states/text_entry.rs
+msgid ""
+"Type with the on-screen keyboard. To review letters, select Freight Fate "
+"above the keyboard and flick down for the previous letter or up for the "
+"next. Use Return on the keyboard to confirm, or a two-finger scrub to "
+"cancel."
+msgstr ""
+
+#: crates/freight-fate/src/states/text_entry.rs
+msgid ""
+"Type with your keyboard. Use the left and right arrow keys to review "
+"letters, Return to confirm, or Escape to cancel."
+msgstr ""
+
+#: crates/freight-fate/src/states/text_entry.rs
+msgid ""
+"Type your text. If the on-screen keyboard opens, select Freight Fate above "
+"it and flick down for the previous letter or up for the next. Use Return to "
+"confirm, or a two-finger scrub on Freight Fate to cancel."
 msgstr ""
 
 #: crates/freight-fate/src/states/text_entry.rs

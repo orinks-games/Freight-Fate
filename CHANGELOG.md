@@ -4,6 +4,7 @@
 
 ### Added
 
+- **Tilt steering has a Tilt dead zone setting, and Tilt for full steering now reaches 60 degrees.** Raising either keeps small phone movements from steering.
 - **Settings, Audio now has Outside sounds volume and Road surface volume.** Birds, insects, rivers, seams and bridge joints no longer share a volume with weather or gameplay cues.
 - **Page Up and Page Down now move ten options at a time in every menu.**
 - **Tires hum on steel grate bridge decks.** The pitch rises and falls with your speed.
@@ -15,10 +16,13 @@
 
 ### Fixed
 
+- **VoiceOver announces the driver-name prompt after the on-screen keyboard opens on iPhone and iPad.**
+- **VoiceOver reads keyboard keys during iPhone and iPad name entry.** Review letters with the Freight Fate control or a hardware keyboard’s arrow keys.
 - **Cruise no longer slows on the highway for a town limit past your exit,** then speeds up again before the exit. It eases to its exit speed by the exit.
 - **The ramp curve warning comes before the exit when the truck needs more room than the exit lane to slow.**
 - **The GPS no longer calls a speed limit drop that lies past the exit you are taking.**
 - **Closing the game from Android's recent apps screen no longer offers a problem report at the next start.** It also no longer reads the menu as it closes.
+- **On Android, a Bluetooth keyboard is no longer taken for a controller.** Its arrow keys work as arrow keys while driving and in menus.
 - **The engine cab sound no longer has a short, phasey echo.**
 - **The Logbook now includes driving, unloading and 30-minute breaks in its entries and daily totals.**
 - **Weather reports and alerts now use the selected language.** Players hear over a thousand fewer English lines.

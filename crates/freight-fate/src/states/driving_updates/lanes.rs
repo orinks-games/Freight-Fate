@@ -40,7 +40,10 @@ impl DrivingState {
         let stick = if pad != 0.0 || self.co_driver_driving() {
             pad
         } else {
-            ctx.tilt.steering(ctx.settings.touch_tilt_full())
+            ctx.tilt.steering(
+                ctx.settings.touch_tilt_full(),
+                ctx.settings.touch_tilt_dead(),
+            )
         };
         self.lane.steer_input(key_dir, stick);
         if ctx.settings.lane_is_automated() {

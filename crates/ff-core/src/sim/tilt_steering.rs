@@ -19,8 +19,13 @@
 //! lock ([`TiltSteering::locks_screen`]) and the steering value
 //! ([`TiltSteering::steering`]) are read off the state.
 
-/// Tilt inside this many degrees of level steers nothing.
-pub const DEAD_ZONE_DEGREES: f64 = 4.0;
+/// The "Tilt dead zone" row: tilt inside this many degrees of level steers
+/// nothing. Its default, range and step; the widest stays well inside the
+/// smallest full steering, so the curve always has room to rise.
+pub const DEAD_DEFAULT_DEGREES: f64 = 4.0;
+pub const DEAD_MIN_DEGREES: f64 = 2.0;
+pub const DEAD_MAX_DEGREES: f64 = 12.0;
+pub const DEAD_STEP_DEGREES: f64 = 2.0;
 /// How long a run of steady samples takes level, in seconds.
 pub const SETTLE_SECONDS: f64 = 0.25;
 /// How far the samples of one settle may spread and still be steady.
@@ -30,7 +35,7 @@ pub const LOST_AFTER_SECONDS: f64 = 1.0;
 /// The "Tilt for full steering" row: its default, range and step.
 pub const FULL_DEFAULT_DEGREES: f64 = 30.0;
 pub const FULL_MIN_DEGREES: f64 = 15.0;
-pub const FULL_MAX_DEGREES: f64 = 45.0;
+pub const FULL_MAX_DEGREES: f64 = 60.0;
 pub const FULL_STEP_DEGREES: f64 = 5.0;
 
 /// What a settle says when it takes level.
@@ -236,9 +241,11 @@ impl TiltSteering {
     /// How far this tilt steers, from -1 (full left) to 1 (full right):
     /// nothing unless live, nothing inside the dead zone, then a straight
     /// line to full at `full_degrees` from level.
-    pub fn steering(self, degrees: f64, full_degrees: f64) -> f64 {
+    pub fn steering(self, degrees: f64, full_degrees: f64, dead_degrees: f64) -> f64 {
         match self {
-            TiltSteering::Live { level, .. } => steering_curve(degrees - level, full_degrees),
+            TiltSteering::Live { level, .. } => {
+                steering_curve(degrees - level, full_degrees, dead_degrees)
+            }
             _ => 0.0,
         }
     }
@@ -279,21 +286,23 @@ impl TiltSteering {
 }
 
 /// The steering curve on an angle already measured from level.
-pub fn steering_curve(from_level: f64, full_degrees: f64) -> f64 {
+pub fn steering_curve(from_level: f64, full_degrees: f64, dead_degrees: f64) -> f64 {
     let full = full_degrees.clamp(FULL_MIN_DEGREES, FULL_MAX_DEGREES);
+    let dead = dead_degrees.clamp(DEAD_MIN_DEGREES, DEAD_MAX_DEGREES);
     let size = from_level.abs();
-    if !size.is_finite() || size <= DEAD_ZONE_DEGREES {
+    if !size.is_finite() || size <= dead {
         return 0.0;
     }
-    let value = ((size - DEAD_ZONE_DEGREES) / (full - DEAD_ZONE_DEGREES)).min(1.0);
+    let value = ((size - dead) / (full - dead)).min(1.0);
     value.copysign(from_level)
 }
 
 /// The angle from level where the steering reaches `value` (0 to 1): what
 /// Practice gestures and the help mean by half of full.
-pub fn degrees_for(value: f64, full_degrees: f64) -> f64 {
+pub fn degrees_for(value: f64, full_degrees: f64, dead_degrees: f64) -> f64 {
     let full = full_degrees.clamp(FULL_MIN_DEGREES, FULL_MAX_DEGREES);
-    DEAD_ZONE_DEGREES + value.clamp(0.0, 1.0) * (full - DEAD_ZONE_DEGREES)
+    let dead = dead_degrees.clamp(DEAD_MIN_DEGREES, DEAD_MAX_DEGREES);
+    dead + value.clamp(0.0, 1.0) * (full - dead)
 }
 
 #[cfg(test)]
@@ -517,21 +526,30 @@ mod tests {
             (-90.0, -1.0),
         ];
         for &(degrees, value) in table {
-            let got = steering_curve(degrees, 30.0);
+            let got = steering_curve(degrees, 30.0, 4.0);
             assert!((got - value).abs() < 1e-9, "{degrees}: {got}");
         }
-        assert!((steering_curve(15.0, 15.0) - 1.0).abs() < 1e-9);
-        assert!((steering_curve(24.5, 45.0) - 0.5).abs() < 1e-9);
-        assert_eq!(steering_curve(f64::NAN, 30.0), 0.0);
-        assert!((degrees_for(0.5, 30.0) - 17.0).abs() < 1e-9);
+        assert!((steering_curve(15.0, 15.0, 4.0) - 1.0).abs() < 1e-9);
+        assert!((steering_curve(24.5, 45.0, 4.0) - 0.5).abs() < 1e-9);
+        assert!((steering_curve(32.0, 60.0, 4.0) - 0.5).abs() < 1e-9);
+        assert_eq!(steering_curve(f64::NAN, 30.0, 4.0), 0.0);
+        assert!((degrees_for(0.5, 30.0, 4.0) - 17.0).abs() < 1e-9);
+        // A wider dead zone: 10 degrees steers nothing, and half of full
+        // moves out to match.
+        assert_eq!(steering_curve(10.0, 30.0, 10.0), 0.0);
+        assert!((steering_curve(20.0, 30.0, 10.0) - 0.5).abs() < 1e-9);
+        assert!((degrees_for(0.5, 30.0, 10.0) - 20.0).abs() < 1e-9);
+        // Out of range is held to the row's range.
+        assert_eq!(steering_curve(12.0, 30.0, 40.0), 0.0);
+        assert!((steering_curve(16.0, 30.0, 0.0) - 0.5).abs() < 1e-9);
     }
 
     #[test]
     fn only_a_live_state_steers_and_it_steers_from_its_level() {
-        assert_eq!(S::Waiting.steering(40.0, 30.0), 0.0);
-        assert_eq!(S::Lost { level: Some(0.0) }.steering(40.0, 30.0), 0.0);
-        assert!((live().steering(22.0, 30.0) - 0.5).abs() < 1e-9);
-        assert_eq!(live().steering(8.0, 30.0), 0.0);
+        assert_eq!(S::Waiting.steering(40.0, 30.0, 4.0), 0.0);
+        assert_eq!(S::Lost { level: Some(0.0) }.steering(40.0, 30.0, 4.0), 0.0);
+        assert!((live().steering(22.0, 30.0, 4.0) - 0.5).abs() < 1e-9);
+        assert_eq!(live().steering(8.0, 30.0, 4.0), 0.0);
     }
 
     #[test]

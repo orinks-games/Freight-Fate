@@ -216,6 +216,7 @@ pub(super) static TOUCH_PAGES: &[(&str, &str, &[&str])] = &[
             "Partial follows bends with gentle drift. Off leaves steering to you unless curve assistance is enabled. Swipe left or right and hold to steer.",
             "With partial or off, hold the swipe across the lane line to change lanes. A flick changes one lane with any lane keeping.",
             "With Tilt steering on under Touch gestures, tilting the phone steers too. With lane keeping on full, a tilt changes one lane.",
+            "If small movements of the phone steer, raise Tilt dead zone or Tilt for full steering under Touch gestures, so the phone has to tilt further.",
             "With the default steering guide, steer toward the side the engine sound moves to. Road noise tells you position: sound to the right means the truck sits right of center.",
             "With lane keeping off and curve assistance off, swipe and hold toward a called bend to follow the road. Lifting straightens the truck with the road.",
             "Hold one finger still for half a second to straighten the wheel. Your position within the lane remains yours to correct.",

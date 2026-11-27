@@ -76,6 +76,27 @@ fn tilt_help(ctx: &GameContext) -> &'static str {
     }
 }
 
+/// The tilt dead zone row's help, in each input's own words.
+fn tilt_dead_help(ctx: &GameContext) -> &'static str {
+    match ctx.controller.device() {
+        ff_core::input_hints::TOUCH => {
+            "How far the phone tilts from level before it steers at all. A bigger number \
+             lets the phone shake or drift more without steering. Flick up or down to \
+             change it."
+        }
+        ff_core::input_hints::CONTROLLER => {
+            "How far the phone tilts from level before it steers at all. A bigger number \
+             lets the phone shake or drift more without steering. D-pad Right or Left \
+             changes it."
+        }
+        _ => {
+            "How far the phone tilts from level before it steers at all. A bigger number \
+             lets the phone shake or drift more without steering. Right or Left arrow \
+             changes it."
+        }
+    }
+}
+
 /// The tilt for full steering row's help, in each input's own words.
 fn tilt_full_help(ctx: &GameContext) -> &'static str {
     match ctx.controller.device() {
@@ -104,9 +125,10 @@ pub struct TouchGesturesState {
     menu: MenuCore<Self>,
     /// Where the deep swipe row sits, one of the rows Left and Right change.
     deep_swipe_row: usize,
-    /// Where the two tilt steering rows sit; the second only while it is on.
+    /// Where the tilt steering rows sit; the angle rows only while it is on.
     tilt_row: usize,
     tilt_full_row: usize,
+    tilt_dead_row: usize,
 }
 
 impl TouchGesturesState {
@@ -118,6 +140,7 @@ impl TouchGesturesState {
             deep_swipe_row: usize::MAX,
             tilt_row: usize::MAX,
             tilt_full_row: usize::MAX,
+            tilt_dead_row: usize::MAX,
         }
     }
 
@@ -146,6 +169,14 @@ impl TouchGesturesState {
         self.speak_current(ctx);
     }
 
+    /// Move the tilt dead zone one step, save, and read the row.
+    fn step_tilt_dead(&mut self, ctx: &mut GameContext, direction: i64) {
+        ctx.settings.step_touch_tilt_dead(direction.signum());
+        save_settings(&ctx.settings);
+        ctx.audio.play("ui/menu_select");
+        self.speak_current(ctx);
+    }
+
     /// Left and Right, or a flick up and down, on a row that changes.
     fn step_row(&mut self, ctx: &mut GameContext, direction: i64) -> bool {
         let index = self.menu.index;
@@ -155,6 +186,8 @@ impl TouchGesturesState {
             self.toggle_tilt(ctx);
         } else if index == self.tilt_full_row {
             self.step_tilt_full(ctx, direction);
+        } else if index == self.tilt_dead_row {
+            self.step_tilt_dead(ctx, direction);
         } else {
             return false;
         }
@@ -211,7 +244,7 @@ impl Menu for TouchGesturesState {
         // The switch can go off without a press: a phone with no motion
         // sensor, found once it was on. The angle row goes with it.
         if (self.tilt_full_row != usize::MAX) != tilt_on(ctx) {
-            if self.menu.index == self.tilt_full_row {
+            if self.menu.index == self.tilt_full_row || self.menu.index == self.tilt_dead_row {
                 self.menu.index = self.tilt_row;
             }
             self.refresh(ctx, true);
@@ -243,6 +276,7 @@ impl Menu for TouchGesturesState {
             .help(Label::dynamic(|_s: &Self, ctx| tilt_help(ctx).to_string())),
         );
         self.tilt_full_row = usize::MAX;
+        self.tilt_dead_row = usize::MAX;
         if tilt_on(ctx) {
             self.tilt_full_row = items.len();
             items.push(
@@ -257,6 +291,18 @@ impl Menu for TouchGesturesState {
                 )
                 .help(Label::dynamic(|_s: &Self, ctx| {
                     tilt_full_help(ctx).to_string()
+                })),
+            );
+            self.tilt_dead_row = items.len();
+            items.push(
+                MenuItem::new(
+                    Label::dynamic(|_s: &Self, ctx| {
+                        format!("Tilt dead zone: {} degrees", ctx.settings.touch_tilt_dead())
+                    }),
+                    |s: &mut Self, ctx| s.step_tilt_dead(ctx, 1),
+                )
+                .help(Label::dynamic(|_s: &Self, ctx| {
+                    tilt_dead_help(ctx).to_string()
                 })),
             );
         }

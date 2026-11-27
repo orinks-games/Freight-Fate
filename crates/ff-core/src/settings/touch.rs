@@ -62,6 +62,28 @@ impl Settings {
             .clamp(FULL_MIN_DEGREES, FULL_MAX_DEGREES);
         self.touch_tilt_full()
     }
+
+    /// How many degrees from level steer nothing, as tilt steering applies
+    /// it: the row's range, on a whole step.
+    pub fn touch_tilt_dead(&self) -> f64 {
+        use crate::sim::tilt_steering::{DEAD_MAX_DEGREES, DEAD_MIN_DEGREES, DEAD_STEP_DEGREES};
+        let degrees = if self.touch_tilt_dead_degrees.is_finite() {
+            self.touch_tilt_dead_degrees
+        } else {
+            crate::sim::tilt_steering::DEAD_DEFAULT_DEGREES
+        };
+        ((degrees / DEAD_STEP_DEGREES).round() * DEAD_STEP_DEGREES)
+            .clamp(DEAD_MIN_DEGREES, DEAD_MAX_DEGREES)
+    }
+
+    /// Move "Tilt dead zone" `steps` steps, within its range, and return
+    /// where it now is.
+    pub fn step_touch_tilt_dead(&mut self, steps: i64) -> f64 {
+        use crate::sim::tilt_steering::{DEAD_MAX_DEGREES, DEAD_MIN_DEGREES, DEAD_STEP_DEGREES};
+        self.touch_tilt_dead_degrees = (self.touch_tilt_dead() + steps as f64 * DEAD_STEP_DEGREES)
+            .clamp(DEAD_MIN_DEGREES, DEAD_MAX_DEGREES);
+        self.touch_tilt_dead()
+    }
 }
 
 #[cfg(test)]
@@ -69,18 +91,33 @@ mod tests {
     use super::*;
 
     #[test]
-    fn tilt_for_full_steering_steps_in_fives_between_fifteen_and_forty_five() {
+    fn tilt_for_full_steering_steps_in_fives_between_fifteen_and_sixty() {
         let mut s = Settings::default();
         assert_eq!(s.touch_tilt_full(), 30.0);
         assert_eq!(s.step_touch_tilt_full(1), 35.0);
-        assert_eq!(s.step_touch_tilt_full(5), 45.0);
+        assert_eq!(s.step_touch_tilt_full(10), 60.0);
         assert_eq!(s.step_touch_tilt_full(-10), 15.0);
         s.touch_tilt_full_degrees = 27.0;
         assert_eq!(s.touch_tilt_full(), 25.0);
         s.touch_tilt_full_degrees = f64::NAN;
         assert_eq!(s.touch_tilt_full(), 30.0);
         s.touch_tilt_full_degrees = 90.0;
-        assert_eq!(s.touch_tilt_full(), 45.0);
+        assert_eq!(s.touch_tilt_full(), 60.0);
+    }
+
+    #[test]
+    fn the_tilt_dead_zone_steps_in_twos_between_two_and_twelve() {
+        let mut s = Settings::default();
+        assert_eq!(s.touch_tilt_dead(), 4.0);
+        assert_eq!(s.step_touch_tilt_dead(1), 6.0);
+        assert_eq!(s.step_touch_tilt_dead(10), 12.0);
+        assert_eq!(s.step_touch_tilt_dead(-10), 2.0);
+        s.touch_tilt_dead_degrees = 7.1;
+        assert_eq!(s.touch_tilt_dead(), 8.0);
+        s.touch_tilt_dead_degrees = f64::NAN;
+        assert_eq!(s.touch_tilt_dead(), 4.0);
+        s.touch_tilt_dead_degrees = 40.0;
+        assert_eq!(s.touch_tilt_dead(), 12.0);
     }
 
     #[test]
