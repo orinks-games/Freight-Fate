@@ -3,12 +3,12 @@
 //! approach are one pickup drive, the offer says the deadhead comes first,
 //! and a save on the way rebuilds the same road.
 
-use ff_core::models::jobs::{route_drive_hours, Job};
+use ff_core::models::jobs::{route_drive_hours, Job, CARGO_CATALOG};
 use ff_core::models::market::Market;
 use ff_core::sim::timezones::{appointment_text, city_zone, EASTERN};
 
 use freight_fate::app::testing::TestApp;
-use freight_fate::states::base::Key;
+use freight_fate::states::base::{Key, State};
 use freight_fate::states::city::{
     describe_job, dispatch_cache_key, relay_load_for_board, JobBoardState, JobDetailState,
     DRIVE_PHASE_PICKUP,
@@ -122,4 +122,99 @@ fn test_a_relayed_loads_appointment_counts_from_the_loaded_departure() {
         "{deadline}"
     );
     assert_ne!(due, appointment_text(now, job.deadline_game_h, zone));
+}
+
+#[test]
+fn test_relayed_pickup_waits_for_streets_then_hands_off_cruise_to_keeper_for_corners() {
+    // Player report (2026-11-26): Point Comfort -> Victoria Dry Warehouse
+    // relayed pickup on US-87. While still on US-87, street turns must stay
+    // quiet and out of street-corner pacing; once on the shipper's streets,
+    // adaptive cruise must hand off to the speed keeper and slow for the
+    // first corner without missing it.
+    let mut app = TestApp::new();
+    career(&mut app, "Relay Corner Driver", "Point Comfort");
+    let world = app.ctx.world;
+    let corridor = world
+        .supported_route("point_comfort_tx_us", "victoria_tx_us", None)
+        .unwrap()
+        .expect("Point Comfort to Victoria is on the network");
+    let approach = world
+        .facility_approach_route("victoria_tx_us", "Victoria Dry Warehouse")
+        .unwrap();
+    let route = corridor.then(&approach);
+    let join = corridor.legs.len();
+
+    let cargo = CARGO_CATALOG.values().next().expect("cargo catalog");
+    let mut job = Job::new(
+        cargo,
+        15.0,
+        "victoria_tx_us",
+        "Victoria Dry Warehouse",
+        "houston_tx_us",
+        120.0,
+        500.0,
+        12.0,
+    );
+    job.destination_location = "Houston Dry Warehouse".to_string();
+    job.bobtail = true;
+
+    let mut drive = DrivingState::new(&mut app.ctx, job, route, Some(2), DRIVE_PHASE_PICKUP, None);
+    let join_mi = drive.trip.leg_starts[join];
+
+    // 1.5 miles before the join, still on US-87 at 60 mph on cruise:
+    // not on local streets, no street turns in play, no street-corner clock override.
+    app.ctx.settings.speed_keeper = true;
+    drive.trip.truck.engine_on = true;
+    drive.trip.truck.parking_brake = false;
+    drive.trip.position_mi = join_mi - 1.5;
+    drive.trip.truck.velocity_mps = 60.0 * 0.44704;
+    drive.toggle_cruise(&mut app.ctx);
+    assert!(drive.cruise_mph.is_some(), "cruise engaged on US-87");
+    drive.update_turn_commitment(&mut app.ctx, 0.05);
+    assert!(!drive.on_local_streets());
+    assert!(drive.turn_cues_in_play().is_empty());
+    assert!(!drive.trip.controlled_turn);
+
+    // Step across the join onto the shipper's streets and through the first
+    // judged corner. Cruise must hand off to the speed keeper and slow down
+    // cleanly without missing the turn.
+    let first_turn_mi = drive
+        .trip
+        .navigation_cues
+        .iter()
+        .find(|cue| cue.kind == "local_turn" && cue.key.starts_with("local:turn:"))
+        .expect("Victoria Dry Warehouse has street turns")
+        .at_mi;
+    app.clear_speech();
+    let dt = 0.05;
+    let mut handed_off = false;
+    for _ in 0..4000 {
+        drive.update(&mut app.ctx, dt);
+        if drive.trip.position_mi >= join_mi && drive.keeper_mph.is_some() {
+            handed_off = true;
+            assert!(
+                drive.cruise_mph.is_none(),
+                "cruise should cancel once keeper takes over on shipper streets"
+            );
+        }
+        if drive.trip.position_mi > first_turn_mi + 0.06 {
+            break;
+        }
+    }
+    let spoken = app.event_lines().join(" ");
+    assert!(
+        handed_off,
+        "expected cruise to hand off to speed keeper on shipper streets (pos={:.2}, join={join_mi:.2}, cruise={:?}, keeper={:?})",
+        drive.trip.position_mi,
+        drive.cruise_mph,
+        drive.keeper_mph
+    );
+    assert!(
+        drive.on_local_streets(),
+        "expected on_local_streets() past join"
+    );
+    assert!(
+        !spoken.contains("Missed the turn"),
+        "truck should slow for the first street corner instead of missing it: {spoken}"
+    );
 }

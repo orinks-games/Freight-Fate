@@ -146,6 +146,13 @@ impl DrivingState {
             self.reset_turn_state_for_trip();
         }
         let position = self.trip.position_mi;
+        if self
+            .trip
+            .facility_approach_start_mi()
+            .is_some_and(|start| position < start)
+        {
+            return Vec::new();
+        }
         let mut cues: Vec<NavigationCue> = self
             .trip
             .navigation_cues
@@ -195,6 +202,13 @@ impl DrivingState {
 
     pub(crate) fn turn_cue_in_play_read(&self) -> Option<NavigationCue> {
         let position = self.trip.position_mi;
+        if self
+            .trip
+            .facility_approach_start_mi()
+            .is_some_and(|start| position < start)
+        {
+            return None;
+        }
         self.trip
             .navigation_cues
             .iter()
