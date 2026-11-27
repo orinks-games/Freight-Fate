@@ -81,11 +81,11 @@ jobs:
           linux-packages: mold
 
       - name: Lint Rust targets
+        id: clippy
         if: steps.tested.outputs.cache-hit != 'true'
         run: cargo clippy --all-targets --locked -- -D warnings
 
       - name: Test Rust workspace
-        id: suite
         if: steps.tested.outputs.cache-hit != 'true'
         run: cargo test -p ff-core -p freight-fate --features freight-fate/slow-tests --locked
 
@@ -93,10 +93,11 @@ jobs:
         if: steps.tested.outputs.cache-hit != 'true'
         run: cargo test -p freight-fate --test agent_server --locked
 
-      # Saved whether the suite passed or failed, so a failing commit is
-      # reported once, not again every night until dev moves.
+      # Saved whether clippy and the suite passed or failed (a clippy
+      # failure skips the suite), so a failing commit is reported once, not
+      # again every night until dev moves. A cancelled run marks nothing.
       - name: Mark this commit tested
-        if: always() && github.event_name == 'schedule' && steps.tested.outputs.cache-hit != 'true' && (steps.suite.outcome == 'success' || steps.suite.outcome == 'failure')
+        if: ${{ !cancelled() && github.event_name == 'schedule' && steps.tested.outputs.cache-hit != 'true' && (steps.clippy.outcome == 'success' || steps.clippy.outcome == 'failure') }}
         uses: actions/cache/save@v4
         with:
           path: .tests-head
