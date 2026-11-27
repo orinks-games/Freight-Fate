@@ -683,8 +683,25 @@ static FFDirection ff_direction(CGFloat dx, CGFloat dy) {
 
 @end
 
+@interface FFFieldReviewView : UITextView
+@end
+
+@implementation FFFieldReviewView
+
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    return NO;
+}
+
+- (BOOL)accessibilityPerformEscape {
+    ff_emit(FF_ESCAPE);
+    return YES;
+}
+
+@end
+
 @interface FFTouchView : UIView <UIGestureRecognizerDelegate>
 @property(nonatomic) BOOL softwareKeyboardShown;
+- (void)setFieldReviewLabel:(NSString *)label text:(NSString *)text;
 @end
 
 static __weak FFTouchView *ff_touch_surface;
@@ -702,9 +719,20 @@ int32_t ff_touch_software_keyboard_shown(void) {
     return ff_touch_surface.softwareKeyboardShown;
 }
 
+void ff_touch_set_field_review(const uint8_t *label, size_t labelLen, const uint8_t *text, size_t len) {
+    if (!text) {
+        [ff_touch_surface setFieldReviewLabel:nil text:nil];
+        return;
+    }
+    NSString *name = [[NSString alloc] initWithBytes:label length:labelLen encoding:NSUTF8StringEncoding];
+    NSString *value = [[NSString alloc] initWithBytes:text length:len encoding:NSUTF8StringEncoding];
+    [ff_touch_surface setFieldReviewLabel:name text:value];
+}
+
 @implementation FFTouchView {
     UILongPressGestureRecognizer *_twoHold;
     UIRotationGestureRecognizer *_rotation;
+    FFFieldReviewView *_fieldReview;
     BOOL _rotationFired;
     BOOL _hornCancelled;
 }
@@ -893,6 +921,36 @@ int32_t ff_touch_software_keyboard_shown(void) {
     if (UIAccessibilityIsVoiceOverRunning()) {
         UIAccessibilityPostNotification(UIAccessibilityLayoutChangedNotification, self);
     }
+}
+
+- (void)setFieldReviewLabel:(NSString *)label text:(NSString *)text {
+    if (!text) {
+        [_fieldReview removeFromSuperview];
+        _fieldReview = nil;
+        return;
+    }
+    UIView *host = self.superview;
+    if (!_fieldReview && host) {
+        _fieldReview = [[FFFieldReviewView alloc] initWithFrame:CGRectZero];
+        _fieldReview.editable = NO;
+        _fieldReview.selectable = YES;
+        _fieldReview.scrollEnabled = NO;
+        _fieldReview.isAccessibilityElement = YES;
+        _fieldReview.backgroundColor = UIColor.clearColor;
+        _fieldReview.textColor = UIColor.clearColor;
+        _fieldReview.translatesAutoresizingMaskIntoConstraints = NO;
+        [host addSubview:_fieldReview];
+        UILayoutGuide *safe = host.safeAreaLayoutGuide;
+        [NSLayoutConstraint activateConstraints:@[
+            [_fieldReview.topAnchor constraintEqualToAnchor:safe.topAnchor],
+            [_fieldReview.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
+            [_fieldReview.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
+            [_fieldReview.heightAnchor constraintEqualToConstant:44],
+        ]];
+    }
+    _fieldReview.accessibilityLabel = label;
+    _fieldReview.text = text;
+    _fieldReview.accessibilityValue = text;
 }
 
 - (void)keyboardChanged:(NSNotification *)notification {

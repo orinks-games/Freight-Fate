@@ -126,6 +126,8 @@ pub struct SdlShell {
     keyboard_shown: bool,
     #[cfg(touch_screen)]
     text_field_open: bool,
+    #[cfg(target_os = "ios")]
+    field_review: Option<Vec<char>>,
     #[cfg(touch_screen)]
     report_travel: bool,
 }
@@ -295,6 +297,8 @@ impl SdlShell {
             keyboard_shown: false,
             #[cfg(touch_screen)]
             text_field_open: false,
+            #[cfg(target_os = "ios")]
+            field_review: None,
             #[cfg(touch_screen)]
             report_travel: false,
         })
@@ -423,6 +427,19 @@ impl SdlShell {
     /// Text input always runs off a phone; there is no keyboard to raise.
     #[cfg(not(touch_screen))]
     pub fn set_text_field(&mut self, _open: bool) {}
+
+    #[cfg(target_os = "ios")]
+    pub(super) fn set_field_review(
+        &mut self,
+        text: Option<&[char]>,
+        label: impl FnOnce() -> String,
+    ) {
+        if self.field_review.as_deref() != text {
+            let value = text.map(|chars| chars.iter().collect::<String>());
+            ios::set_field_review(value.as_deref(), label);
+            self.field_review = text.map(<[char]>::to_vec);
+        }
+    }
 
     /// Follow the active screen: Practice gestures hears how far each hold
     /// travelled, and no other screen gets the lengths.
