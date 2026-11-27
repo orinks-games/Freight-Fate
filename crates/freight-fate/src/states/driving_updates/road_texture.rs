@@ -20,7 +20,7 @@ use crate::states::driving::DrivingState;
 /// A seam under the steer axle on good jointed concrete at 30 m/s and
 /// above. Sits under the engine and road bed so slab joints read as tire
 /// texture through air-ride suspension rather than train-track clunks.
-pub const SEAM_LEVEL: f64 = 0.24;
+pub const SEAM_LEVEL: f64 = 0.16;
 /// The drive tandem lands a little harder than the steer axle.
 pub const DRIVE_AXLE_GAIN: f64 = 1.25;
 /// A bridge end joint, every axle: clearly heavier than a slab seam without
