@@ -1,10 +1,10 @@
 # Rust checks: the quick ones, on every push and PR that can affect them.
 #
 # Windows clippy runs here so PR CI and direct pushes catch `cfg(windows)`
-# lints without waiting on the nightly snapshot. Full tests and clippy on
-# the other platforms stay on the Career 1.9 snapshot
-# (build-career-1.9.yml), slow tests included on Linux x86_64, before it
-# packages anything. Local and cloud sessions can still run the full suite.
+# lints. The full suite, slow tests and clippy included, is the Tests
+# workflow (tests.yml): each night on dev and feat/career-2.0, and on request. The Career 1.9
+# snapshot (build-career-1.9.yml) builds and packages only. Local and cloud
+# sessions run the full suite before a PR is ready.
 #
 # The changelog gate has its own workflow (changelog.yml) because it must
 # report on every change, and this one is path filtered: a required check
@@ -16,8 +16,7 @@
 #                  well under a minute, on GitHub's hosted runners (free for this
 #                  public repository).
 #   clippy_windows cargo clippy on windows-2025 via rust-setup (cache-key
-#                  clippy, with sccache). The snapshot workflow skips
-#                  Windows clippy so Release stays fast.
+#                  clippy, with sccache).
 
 name: Rust
 
