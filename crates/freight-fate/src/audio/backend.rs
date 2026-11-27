@@ -370,6 +370,14 @@ pub trait AudioBackend {
     fn play_music_at(&mut self, track: &str, fade_ms: u32, _start_s: f64) {
         self.play_music(track, fade_ms);
     }
+    /// Start a track with explicit incoming/outgoing crossfade and gain trim.
+    fn play_music_transition(
+        &mut self,
+        track: &str,
+        transition: ff_core::music_playback::MusicTransition,
+    ) {
+        self.play_music_at(track, transition.fade_in_ms, transition.start_s);
+    }
     fn play_radio_stream(&mut self, _url: &str, _fade_ms: u32) -> Result<(), AudioError> {
         Err(AudioError::new("radio stream unavailable"))
     }

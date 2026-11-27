@@ -726,6 +726,15 @@ impl Audio for AudioEngine {
         self.backend.play_music_at(track, fade_ms, start_s);
     }
 
+    /// Stream a music track with explicit crossfade, seek, and loudness trim.
+    fn play_music_transition(
+        &mut self,
+        track: &str,
+        transition: ff_core::music_playback::MusicTransition,
+    ) {
+        self.backend.play_music_transition(track, transition);
+    }
+
     /// Stream a live radio URL when the active backend supports it.
     fn play_radio_stream_with(&mut self, url: &str, fade_ms: u32) -> Result<(), AudioError> {
         self.backend.play_radio_stream(url, fade_ms)

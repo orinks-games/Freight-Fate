@@ -30,6 +30,8 @@ pub mod l10n;
 pub mod lane_guide_tone;
 pub mod message_log;
 pub mod music;
+pub mod music_cues;
+pub mod music_playback;
 pub mod music_synth;
 pub mod newspaper;
 pub mod playtest_levers;

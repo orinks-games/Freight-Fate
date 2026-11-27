@@ -12,6 +12,10 @@
 - **Tires hum on steel grate bridge decks.** The pitch rises and falls with your speed.
 - **Driver apps and the Online menu have a Newspaper, the weekly driver paper from orinks.net.** Each section reads as a list of lines: driver news, records, carrier standings and the back page.
 
+### Improved
+
+- **Menu music and internal radio stations now crossfade smoothly between tracks.** Dead silence between songs is gone, and DJ breaks, jingles, and ads enter cleanly.
+
 ### Removed
 
 - **Tires no longer whine on grooved concrete.**

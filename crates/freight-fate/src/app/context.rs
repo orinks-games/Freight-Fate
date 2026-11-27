@@ -1044,16 +1044,23 @@ impl GameContext {
                 self.request_synth(next);
             }
         }
+        let previous_track = self.music_rotation_track.clone();
         self.music_rotation_pool = Some((
             pool_name.to_string(),
             sequence.iter().map(|s| s.to_string()).collect(),
         ));
         self.music_rotation_synth = synth;
         self.music_rotation_track = Some(track.clone());
-        self.music_rotation_elapsed_s = 0.0;
-        self.audio.play_music_with(&track, fade_ms);
+        let transition = match previous_track.as_deref() {
+            Some(prev) if advance => ff_core::music_playback::plan_menu_segue(prev, &track),
+            _ => ff_core::music_playback::plan_menu_start(&track, fade_ms),
+        };
+        self.music_rotation_elapsed_s = transition.start_s;
+        self.audio.play_music_transition(&track, transition);
         // Once per track: a synth length is a full composition, too dear per frame.
-        self.music_rotation_duration_s = self.track_duration_s(&track);
+        let full_duration_s = self.track_duration_s(&track);
+        self.music_rotation_duration_s =
+            ff_core::music_playback::menu_segue_trigger_s(&track, full_duration_s);
         track
     }
 
