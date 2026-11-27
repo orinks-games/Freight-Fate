@@ -206,6 +206,51 @@ fn a_placed_attraction_sign_is_read_even_right_after_a_joke_board() {
 }
 
 #[test]
+fn kerrville_rivers_survive_nearby_towns_and_a_spent_chatter_budget() {
+    let world = world();
+    let mut trip = make_trip_with(world, "Kerrville", "Uvalde", TripOptions::default());
+    let crossings: Vec<_> = trip
+        .landmarks
+        .iter()
+        .filter(|c| c.category == "river")
+        .map(|c| (c.at_mi, c.place.clone()))
+        .collect();
+    for name in ["Medina River", "Frio River", "Dry Frio River"] {
+        let (at_mi, _) = crossings
+            .iter()
+            .find(|(_, place)| place == name)
+            .unwrap_or_else(|| panic!("missing {name} from the route: {crossings:?}"));
+        trip.position_mi = *at_mi;
+        trip.note_chatter_spoke();
+        trip.check_roadside_callouts();
+        assert!(
+            std::mem::take(&mut trip.events).iter().any(|e| {
+                e.kind == TripEventKind::Landmark
+                    && e.data.category.as_deref() == Some("river")
+                    && e.text() == format!("Crossing the {name}.")
+            }),
+            "{name} was not emitted with a spent chatter budget"
+        );
+        trip.check_roadside_callouts();
+        assert!(trip.events.is_empty(), "{name} was emitted again");
+    }
+}
+
+#[test]
+fn a_river_does_not_take_the_next_attractions_spacing_slot() {
+    let river = RoadsideCallout::new("r", 12.0, "river", "Crossing the Muskoka River.");
+    let attraction = RoadsideCallout::new(
+        "a",
+        13.0,
+        "highway_marker",
+        "Passing Bethune Memorial House.",
+    );
+    let placed = Trip::space_landmarks(Vec::new(), vec![river, attraction]);
+    let keys: Vec<_> = placed.iter().map(|c| c.key.as_str()).collect();
+    assert_eq!(keys, ["r", "a"]);
+}
+
+#[test]
 fn a_landmark_line_that_names_a_town_takes_the_town_slot() {
     fn at(key: &str, mi: f64, category: &str, place: &str, spoken: &str) -> RoadsideCallout {
         let mut c = RoadsideCallout::new(key, mi, category, spoken);
@@ -238,7 +283,7 @@ fn a_landmark_line_that_names_a_town_takes_the_town_slot() {
             "Grimshaw",
             "Entering Grimshaw, mile zero of the Mackenzie Highway.",
         ),
-        // A river a mile on is still spaced away behind the town.
+        // A crossing a mile on still gets its own line.
         at(
             "r",
             110.9,
@@ -269,6 +314,7 @@ fn a_landmark_line_that_names_a_town_takes_the_town_slot() {
                 "highway_marker",
                 false
             ),
+            ("Crossing the Muskoka River.", "river", false),
             (
                 "Entering Grimshaw, mile zero of the Mackenzie Highway.",
                 "village",

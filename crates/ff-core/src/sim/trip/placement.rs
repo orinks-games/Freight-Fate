@@ -640,10 +640,11 @@ impl Trip {
                 }
                 continue;
             }
-            if callout.category != "billboard_sign"
-                && spaced
-                    .iter()
-                    .any(|kept| (callout.at_mi - kept.at_mi).abs() < LANDMARK_MIN_SPACING_MI)
+            if !matches!(callout.category.as_str(), "river" | "billboard_sign")
+                && spaced.iter().any(|kept| {
+                    kept.category != "river"
+                        && (callout.at_mi - kept.at_mi).abs() < LANDMARK_MIN_SPACING_MI
+                })
             {
                 continue;
             }
@@ -1236,10 +1237,9 @@ impl Trip {
                 announced.insert(callout.key.clone());
                 continue;
             }
-            // Flavor (billboards, rivers, the rest of the scenery) spends a
-            // sitting budget like CB_CALLS_PER_RUN: skip extras rather than
-            // let 20x multiply pokes. Villages and limit-explaining names
-            // are places -- once per milepost, no budget.
+            // Skip optional scenery rather than let 20x multiply pokes.
+            // Town names, named crossings and placed signs are due at their
+            // mileposts even when the chatter budget is already spent.
             if callout.waits_for_chatter_budget() && !self.chatter_ready() {
                 announced.insert(callout.key.clone());
                 continue;
