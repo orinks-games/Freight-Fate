@@ -149,8 +149,14 @@ pub struct HearkenEngineBand {
 /// The music request to play again when the sound device opens: a track or
 /// a file started on the silent stand-in was a one-shot the swap let go.
 pub(super) enum MusicReplay {
-    Track { track: String, fade_ms: u32 },
-    File { path: String, fade_ms: u32 },
+    Track {
+        track: String,
+        transition: ff_core::music_playback::MusicTransition,
+    },
+    File {
+        path: String,
+        fade_ms: u32,
+    },
 }
 
 /// Whether this run asked for no sound (`SDL_AUDIODRIVER=dummy`: headless
@@ -186,6 +192,11 @@ pub struct HearkenBackend {
     pub(super) exclusive_cues: HashMap<String, Sound>,
     pub(super) music_track: Option<String>,
     pub(super) music_sound: Option<Sound>,
+    /// The previous music sound still fading out during a crossfade, so
+    /// `stop_music` and overlapping segues clean it up.
+    pub(super) music_outgoing: Option<Sound>,
+    /// Per-track linear loudness trim applied on top of `buses.music_level()`.
+    pub(super) music_gain: f32,
     /// The playing track's length, read when it started.
     pub(super) music_length: Option<f64>,
     /// The track or file on the music channel, to play again if the sound
@@ -295,6 +306,8 @@ impl HearkenBackend {
             exclusive_cues: HashMap::new(),
             music_track: None,
             music_sound: None,
+            music_outgoing: None,
+            music_gain: 1.0,
             music_length: None,
             music_request: None,
             radio: None,
@@ -678,7 +691,7 @@ impl HearkenBackend {
         // load contour.
         self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
         if let Some(sound) = self.music_sound {
-            let level = self.buses.music_level() as f32;
+            let level = (self.buses.music_level() as f32 * self.music_gain).clamp(0.0, 1.0);
             self.audio.set_volume_over(sound, level, 0);
         }
     }

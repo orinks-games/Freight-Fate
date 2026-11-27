@@ -47,6 +47,7 @@ bookmarks usable.
 
 ## 1.9 in flight (ships from `dev` and `main`)
 
+- [x] (Found along the way) Seamless menu music crossfading and realistic internal radio broadcast transitions (2026-11-27). Measured acoustic cue points (`lead_in_s`, `outro_start_s`, `content_end_s`, `intro_ramp_s`, and per-track loudness normalization) across all 426 `music.pak` tracks and 3 classic tracks in `ff_core::music_cues`, added a pure broadcast transition planner in `ff_core::music_playback`, and added dual-deck crossfade support in `HearkenBackend`. Menu music now crossfades continuously across natural track endings, and internal radio stations use role-aware segues (overlapping song-to-song crossfades, crisp DJ voice and jingle entries without muffled first syllables, tight ad-to-ad transitions, and balanced loudness).
 - [x] Manual cloud backup checks the current cloud revision before saying copies match; a stale local copy leaves the newer cloud career untouched and explains how to restore it.
 - [x] (Found along the way) A verified cloud restore could leave the old newer-copy warning in the parent Cloud backup menu; fixed 2026-11-22.
 - [x] (Found along the way) The Logbook kept the shipper as current after delivery and omitted driving and the 30-minute off-duty break (native report, 2026-11-23). Driving, receiver unloading and the explicit break now have separate chronological rows and accurate daily totals. Fixed 2026-11-23.

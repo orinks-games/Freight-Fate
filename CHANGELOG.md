@@ -140,6 +140,10 @@
 - **Simulated weather in Alaska and Canada now gets as cold as the real winters there.** A January morning in Fairbanks reads below zero Fahrenheit.
 - **Museums by the road are now said as you pass them.** "Gwinnett History Museum ahead" is now "Passing Gwinnett History Museum."
 
+### Improved
+
+- **Menu music and internal radio stations now crossfade smoothly between tracks.** Dead silence between songs is gone, and DJ breaks, jingles, and ads enter cleanly.
+
 ### Removed
 
 - **Tires no longer whine on grooved concrete.**

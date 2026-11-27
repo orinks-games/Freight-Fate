@@ -158,6 +158,14 @@ impl AudioBackend for HearkenBackend {
         HearkenBackend::play_music_at(self, track, fade_ms, start_s);
     }
 
+    fn play_music_transition(
+        &mut self,
+        track: &str,
+        transition: ff_core::music_playback::MusicTransition,
+    ) {
+        HearkenBackend::play_music_transition(self, track, transition);
+    }
+
     fn play_music_file(&mut self, path: &str, fade_ms: u32) -> Result<(), AudioError> {
         HearkenBackend::play_music_file(self, path, fade_ms)
     }
