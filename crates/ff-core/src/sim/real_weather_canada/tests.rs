@@ -1,6 +1,6 @@
 use super::*;
 use crate::sim::real_traffic::TransportError;
-use crate::sim::real_weather::RealWeatherProvider;
+use crate::sim::real_weather::{RealWeatherProvider, RETRY_AFTER_S};
 use crate::sim::weather_service::WeatherService;
 use serde_json::json;
 use std::sync::Mutex as StdMutex;
@@ -61,6 +61,23 @@ impl HttpTransport for Table {
     ) -> Result<Vec<u8>, TransportError> {
         Err(TransportError::new("no POST"))
     }
+}
+
+/// A clock the test moves, and the setter that moves it.
+fn settable(start: f64) -> (Clock, impl Fn(f64)) {
+    let now = Arc::new(StdMutex::new(start));
+    let read = Arc::clone(&now);
+    let clock: Clock = Arc::new(move || *read.lock().unwrap());
+    (clock, move |t| *now.lock().unwrap() = t)
+}
+
+/// The city page documents asked for, in order.
+fn page_calls(table: &Table) -> Vec<String> {
+    table
+        .calls()
+        .into_iter()
+        .filter(|c| c.contains("/citypageweather-realtime/items/"))
+        .collect()
 }
 
 fn site_list(sites: &[(&str, f64, f64)]) -> Value {
@@ -407,14 +424,19 @@ fn test_the_walk_passes_a_site_with_no_condition_for_one_with_one() {
             fixture("toronto")
         }
     });
-    let fetcher = EcccFetcher::new(table.clone()).with_wall_clock(fixed(NOW));
+    let (clock, set_clock) = settable(NOW);
+    let fetcher = EcccFetcher::new(table.clone()).with_wall_clock(clock);
     let reading = fetcher.default_fetch(43.37, -79.81).expect("read");
     assert_eq!(reading.text, "Light Rain");
     assert_eq!(reading.temperature_c, Some(3.7));
-    // The site that answered is asked first next time.
-    let before = table.calls().len();
+    // Within ten minutes the pages read are not asked for again.
+    let before = page_calls(&table).len();
+    fetcher.default_fetch(43.37, -79.81).expect("cached");
+    assert_eq!(page_calls(&table).len(), before);
+    // After that, the site that answered is asked first.
+    set_clock(NOW + PAGE_CACHE_S + 1.0);
     fetcher.default_fetch(43.37, -79.81).expect("again");
-    let calls = table.calls();
+    let calls = page_calls(&table);
     assert_eq!(calls.len(), before + 1, "{calls:?}");
     assert!(calls.last().unwrap().contains("/on-143?"));
 }
@@ -498,4 +520,255 @@ fn test_the_provider_maps_canadian_terms_its_own_way() {
         Some(WeatherKind::Ice),
         "the NWS table is unchanged"
     );
+}
+
+// -- the real stations -------------------------------------------------------
+
+/// An ISO time `ago` seconds before [`NOW`].
+fn stamp(ago: f64) -> String {
+    let at = (NOW - ago) as i64;
+    let (h, m) = ((at % 86_400) / 3_600, (at % 3_600) / 60);
+    format!("2026-11-27T{h:02}:{m:02}:00.000Z")
+}
+
+fn station_doc(stations: &[(&str, &str, f64, f64)]) -> Value {
+    let features: Vec<Value> = stations
+        .iter()
+        .map(|(id, name, lat, lon)| {
+            json!({"id": id, "geometry": {"coordinates": [lon, lat]},
+                   "properties": {"msc_id": id, "name": name}})
+        })
+        .collect();
+    json!({"features": features})
+}
+
+fn swob(props: Value) -> Value {
+    json!({"features": [{"properties": props}]})
+}
+
+/// Downtown Toronto's city page, and three stations: a stale one in town,
+/// the airport with a fresh code, and a fresh one with no code beyond it.
+fn toronto_stations(answer: impl Fn(&str) -> Option<Value> + Send + Sync + 'static) -> Arc<Table> {
+    Table::new(move |url| {
+        if let Some(doc) = answer(url) {
+            return doc;
+        }
+        if url.contains("bbox=") {
+            site_list(&[("on-143", 43.65, -79.38)])
+        } else if url.contains("/on-143?") {
+            fixture("toronto")
+        } else if url.contains("swob-stations") {
+            station_doc(&[
+                ("6158355", "TORONTO CITY", 43.665, -79.395),
+                (
+                    "6158731",
+                    "Toronto/Pearson International",
+                    43.6767,
+                    -79.6306,
+                ),
+                ("6158443", "OSHAWA", 43.92, -78.88),
+            ])
+        } else if url.contains("msc_id-value=6158355") {
+            swob(json!({"date_tm-value": stamp(4.0 * 3600.0), "air_temp": 9.0, "prsnt_wx_1": 80}))
+        } else if url.contains("msc_id-value=6158731") {
+            swob(json!({"date_tm-value": stamp(600.0), "air_temp": 3.9,
+                        "avg_wnd_spd_10m_pst2mts": 22.0, "avg_wnd_dir_10m_pst2mts": 270,
+                        "max_wnd_gst_spd_10m_pst10mts": 41.0, "vis": 4.0, "prsnt_wx_1": 65}))
+        } else if url.contains("msc_id-value=6158443") {
+            swob(json!({"date_tm-value": stamp(600.0), "air_temp": 3.0}))
+        } else {
+            Value::Null
+        }
+    })
+}
+
+#[test]
+fn test_a_stale_station_is_walked_past_for_a_fresh_one_with_a_code() {
+    let table = toronto_stations(|_| None);
+    let fetcher = EcccFetcher::new(table.clone()).with_wall_clock(fixed(NOW));
+    let reading = fetcher.default_fetch(43.65, -79.38).expect("read");
+    assert_eq!(reading.text, "Light Rain");
+    assert_eq!(reading.temperature_c, Some(3.9));
+    assert_eq!(reading.wind_kmh, 22.0);
+    let d = &reading.details;
+    assert_eq!(d.station.as_deref(), Some("Toronto Pearson International"));
+    assert!(d
+        .station_distance_mi
+        .is_some_and(|mi| mi > 10.0 && mi < 15.0));
+    assert_eq!(d.wind_direction_deg, Some(270.0));
+    assert_eq!(d.gust_kmh, Some(41.0));
+    assert!(d
+        .visibility_mi
+        .is_some_and(|mi| (mi - 4.0 / 1.609_344).abs() < 1e-9));
+    assert_eq!(d.basis.as_deref(), Some("code, station 6158731"));
+    assert!(d.has_forecast());
+    // The airport gave a code, so the walk stopped there.
+    assert!(!table.calls().iter().any(|c| c.contains("6158443")));
+}
+
+#[test]
+fn test_the_station_list_is_read_once_a_session() {
+    let table = toronto_stations(|_| None);
+    let fetcher = EcccFetcher::new(table.clone()).with_wall_clock(fixed(NOW));
+    fetcher.default_fetch(43.65, -79.38).expect("first");
+    fetcher.default_fetch(43.65, -79.38).expect("second");
+    let lists = table
+        .calls()
+        .iter()
+        .filter(|c| c.contains("swob-stations"))
+        .count();
+    assert_eq!(lists, 1);
+}
+
+#[test]
+fn test_without_the_station_list_the_city_page_answers_and_the_list_is_retried() {
+    let (clock, set_clock) = settable(NOW);
+    let table = toronto_stations(|url| url.contains("swob-stations").then_some(Value::Null));
+    let fetcher = EcccFetcher::new(table.clone()).with_wall_clock(clock);
+    let reading = fetcher.default_fetch(43.65, -79.38).expect("city page");
+    assert_eq!(reading.text, "Light Rain");
+    assert_eq!(reading.details.station, None);
+    assert_eq!(
+        reading.details.basis.as_deref(),
+        Some("city page read, site on-143")
+    );
+    let lists = |table: &Table| {
+        table
+            .calls()
+            .iter()
+            .filter(|c| c.contains("swob-stations"))
+            .count()
+    };
+    fetcher.default_fetch(43.65, -79.38).expect("again");
+    assert_eq!(lists(&table), 1, "not retried inside a minute");
+    set_clock(NOW + RETRY_AFTER_S + 1.0);
+    fetcher.default_fetch(43.65, -79.38).expect("later");
+    assert_eq!(lists(&table), 2);
+}
+
+#[test]
+fn test_with_no_fresh_station_the_city_page_answers() {
+    let table = toronto_stations(|url| url.contains("msc_id-value=").then_some(Value::Null));
+    let fetcher = EcccFetcher::new(table).with_wall_clock(fixed(NOW));
+    let reading = fetcher.default_fetch(43.65, -79.38).expect("city page");
+    assert_eq!(reading.text, "Light Rain");
+    assert_eq!(
+        reading.details.basis.as_deref(),
+        Some("city page read, site on-143")
+    );
+}
+
+#[test]
+fn test_a_gauge_below_freezing_is_freezing_rain_only_with_an_alert() {
+    let cold_gauge = |url: &str| {
+        if url.contains("msc_id-value=6158731") {
+            Some(swob(
+                json!({"date_tm-value": stamp(600.0), "air_temp": -1.5,
+                             "pcpn_amt_pst10mts": 0.2, "tot_cld_amt": 100}),
+            ))
+        } else if url.contains("msc_id-value=") {
+            Some(Value::Null)
+        } else if url.contains("/on-143?") {
+            Some(json!({"properties": {"currentConditions": {
+                "timestamp": {"en": stamp(600.0)},
+                "temperature": {"value": {"en": -1.5}},
+                "wind": {"speed": {"value": {"en": 10}}}}}}))
+        } else {
+            None
+        }
+    };
+    let quiet = toronto_stations(move |url| {
+        cold_gauge(url).or_else(|| url.contains("alerts").then(|| json!({"features": []})))
+    });
+    let fetcher = EcccFetcher::new(quiet).with_wall_clock(fixed(NOW));
+    let reading = fetcher.default_fetch(43.65, -79.38).expect("snow");
+    assert_eq!(reading.text, "Snow");
+    assert_eq!(
+        reading.details.basis.as_deref(),
+        Some("gauge, station 6158731")
+    );
+    let warned = toronto_stations(move |url| {
+        cold_gauge(url).or_else(|| {
+            url.contains("weather-alerts").then(|| {
+                json!({"features": [{"id": "1_fea1", "properties": {
+                    "alert_name_en": "freezing rain warning", "status_en": "active",
+                    "event_end_datetime": stamp(-3600.0)}}]})
+            })
+        })
+    });
+    let fetcher = EcccFetcher::new(warned).with_wall_clock(fixed(NOW));
+    let reading = fetcher.default_fetch(43.65, -79.38).expect("freezing rain");
+    assert_eq!(reading.text, "Freezing Rain");
+}
+
+/// Valemount's page on 2026-11-27: no current conditions, only a forecast.
+fn forecast_only_page(text: &str) -> Value {
+    json!({"properties": {"currentConditions": {}, "hourlyForecastGroup": {"hourlyForecasts": [
+        {"timestamp": stamp(-600.0), "condition": {"en": text}},
+        {"timestamp": stamp(-4200.0), "condition": {"en": "Snow"}},
+    ]}}})
+}
+
+#[test]
+fn test_a_site_that_measured_nothing_is_kept_for_its_forecast() {
+    let reading = parse_site(&forecast_only_page("Showers")).expect("kept");
+    assert!(reading.forecast_only);
+    assert_eq!(reading.temperature_c, None);
+    assert_eq!(reading.hourly.len(), 2);
+    let bare = json!({"properties": {"currentConditions": {}}});
+    assert!(parse_site(&bare).is_err());
+}
+
+#[test]
+fn test_a_far_station_with_a_forecast_only_page_reads_the_forecast() {
+    // McBride: its nearest station measures temperature and wind only, and
+    // the nearby pages carry a forecast and no reading.
+    let table = Table::new(|url| {
+        if url.contains("bbox=") && url.contains("citypageweather") {
+            site_list(&[("bc-13", 52.83, -119.26)])
+        } else if url.contains("/bc-13?") {
+            forecast_only_page("Showers")
+        } else if url.contains("swob-stations") {
+            station_doc(&[("1096468", "MCBRIDE UPPER FRASER (", 54.2, -121.5)])
+        } else if url.contains("msc_id-value=1096468") {
+            swob(
+                json!({"date_tm-value": stamp(600.0), "stn_nam-value": "MCBRIDE UPPER FRASER",
+                        "air_temp": 2.5, "avg_wnd_spd_10m_pst10mts": 12.0}),
+            )
+        } else {
+            Value::Null
+        }
+    });
+    let fetcher = EcccFetcher::new(table).with_wall_clock(fixed(NOW));
+    let reading = fetcher.default_fetch(53.30, -120.17).expect("forecast");
+    assert_eq!(reading.text, "Showers");
+    assert_eq!(reading.temperature_c, Some(2.5));
+    assert_eq!(reading.wind_kmh, 12.0);
+    assert_eq!(
+        reading.details.station.as_deref(),
+        Some("Mcbride Upper Fraser")
+    );
+    assert!(reading
+        .details
+        .station_distance_mi
+        .is_some_and(|mi| mi > SITE_REACH_MI));
+    assert_eq!(
+        reading.details.basis.as_deref(),
+        Some("forecast, site bc-13")
+    );
+}
+
+#[test]
+fn test_a_forecast_only_page_is_no_reading_without_stations() {
+    let table = Table::new(|url| {
+        if url.contains("bbox=") {
+            site_list(&[("bc-13", 52.83, -119.26)])
+        } else if url.contains("/bc-13?") {
+            forecast_only_page("Showers")
+        } else {
+            Value::Null
+        }
+    });
+    let fetcher = EcccFetcher::new(table).with_wall_clock(fixed(NOW));
+    assert!(fetcher.default_fetch(53.30, -120.17).is_err());
 }

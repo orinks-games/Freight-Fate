@@ -6829,7 +6829,7 @@ msgstr ""
 msgid "assumed"
 msgstr ""
 
-#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_local_data.rs crates/freight-fate/src/states/driving_menu_states/drive_ref.rs
+#: crates/ff-core/src/data/world_constants.rs crates/ff-core/src/data/world_local_data.rs crates/ff-core/src/sim/real_weather_canada.rs crates/freight-fate/src/states/driving_menu_states/drive_ref.rs
 msgid "read"
 msgstr ""
 
@@ -14481,7 +14481,7 @@ msgstr ""
 msgid "First Run"
 msgstr ""
 
-#: crates/ff-core/src/music_synth/style.rs
+#: crates/ff-core/src/music_synth/style.rs crates/ff-core/src/sim/weather_report.rs
 msgid "Regional"
 msgstr ""
 
@@ -14686,7 +14686,7 @@ msgstr ""
 msgid "Satellite"
 msgstr ""
 
-#: crates/ff-core/src/radio.rs
+#: crates/ff-core/src/radio.rs crates/ff-core/src/sim/weather_report.rs
 msgid "International"
 msgstr ""
 
@@ -16963,11 +16963,11 @@ msgstr ""
 msgid "could not convert {raw} to float"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather/parse.rs
+#: crates/ff-core/src/sim/real_weather/parse.rs crates/ff-core/src/sim/real_weather_stations.rs
 msgid "observation has no properties"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather/tests_diagnostics.rs crates/ff-core/src/sim/real_weather_canada.rs
+#: crates/ff-core/src/sim/real_weather/tests_diagnostics.rs crates/ff-core/src/sim/real_weather_canada.rs crates/ff-core/src/sim/real_weather_stations/sky.rs
 msgid "Clear"
 msgstr ""
 
@@ -17298,7 +17298,7 @@ msgstr ""
 msgid "funnel cloud"
 msgstr ""
 
-#: crates/ff-core/src/sim/real_weather_canada.rs
+#: crates/ff-core/src/sim/real_weather_canada.rs crates/ff-core/src/sim/real_weather_stations/sky.rs
 msgid "Cloudy"
 msgstr ""
 
@@ -17324,6 +17324,32 @@ msgstr ""
 msgid "no Environment Canada site near {lat},{lon}"
 msgstr ""
 
+#. placeholders: {site}
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "site {site} has only a forecast"
+msgstr ""
+
+#. placeholders: {basis}, {site}
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "city page {basis}, site {site}"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "and no measurement"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "derived"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "with its measured temperature and wind"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "read, stale"
+msgstr ""
+
 #: crates/ff-core/src/sim/real_weather_canada.rs
 msgid "no site reported a condition"
 msgstr ""
@@ -17331,6 +17357,72 @@ msgstr ""
 #. placeholders: {join}
 #: crates/ff-core/src/sim/real_weather_canada.rs
 msgid "every site failed: {join}"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada.rs
+msgid "forecast only"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada/stations.rs
+msgid "no station near enough has a fresh observation"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_canada/stations.rs
+msgid "nothing decides the sky"
+msgstr ""
+
+#. placeholders: {id}
+#: crates/ff-core/src/sim/real_weather_canada/stations.rs
+msgid "station {id}"
+msgstr ""
+
+#. placeholders: {site}
+#: crates/ff-core/src/sim/real_weather_canada/stations.rs
+msgid "site {site}"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations.rs
+msgid "no observation"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations.rs
+msgid "vis"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations/sky.rs
+msgid "code"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations/sky.rs crates/freight-fate/src/audio.rs
+msgid "text"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations/sky.rs
+msgid "gauge"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations/sky.rs
+msgid "cloud amount"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations/sky.rs
+msgid "forecast"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations/sky.rs
+msgid "Freezing Rain"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations/sky.rs
+msgid "Snow"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations/sky.rs
+msgid "Heavy Rain"
+msgstr ""
+
+#: crates/ff-core/src/sim/real_weather_stations/sky.rs
+msgid "Rain"
 msgstr ""
 
 #: crates/ff-core/src/sim/road_texture.rs
@@ -19893,6 +19985,124 @@ msgstr ""
 msgid "wet"
 msgstr ""
 
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "north"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "east"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "southeast"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "south"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "southwest"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "west"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "northwest"
+msgstr ""
+
+#. placeholders: {station}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Station: {station}."
+msgstr ""
+
+#. placeholders: {station}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Station: {station}, nearby."
+msgstr ""
+
+#. placeholders: {station}, {distance}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Station: {station}, {distance} away."
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Wind: calm."
+msgstr ""
+
+#. placeholders: {counted}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "{counted} per hour"
+msgstr ""
+
+#. placeholders: {from}, {sustained}, {gust}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Wind: {from} at {sustained}, gusting to {gust}."
+msgstr ""
+
+#. placeholders: {from}, {sustained}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Wind: {from} at {sustained}."
+msgstr ""
+
+#. placeholders: {sustained}, {gust}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Wind: {sustained}, gusting to {gust}."
+msgstr ""
+
+#. placeholders: {sustained}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Wind: {sustained}."
+msgstr ""
+
+#. placeholders: {distance}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Visibility: {distance}."
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "1 inch"
+msgstr ""
+
+#. placeholders: {inches}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "{inches} inches"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "centimeter"
+msgstr ""
+
+#. placeholders: {depth}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Snow on the ground: {depth}."
+msgstr ""
+
+#. placeholders: {value}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Forecast ahead: {value}."
+msgstr ""
+
+#. placeholders: {join}
+#: crates/ff-core/src/sim/weather_report.rs crates/freight-fate/src/states/driving_menu_states/apps.rs
+msgid "Forecast ahead: {join}."
+msgstr ""
+
+#. placeholders: {mi}
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "{mi} mi"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Airport"
+msgstr ""
+
+#: crates/ff-core/src/sim/weather_report.rs
+msgid "Municipal"
+msgstr ""
+
 #: crates/ff-core/src/sim/weather_service.rs
 msgid "nws"
 msgstr ""
@@ -21737,10 +21947,6 @@ msgstr ""
 
 #: crates/freight-fate/src/audio.rs
 msgid "no desc"
-msgstr ""
-
-#: crates/freight-fate/src/audio.rs
-msgid "text"
 msgstr ""
 
 #: crates/freight-fate/src/audio/assets.rs crates/freight-fate/src/audio/classic_music.rs
@@ -36458,11 +36664,6 @@ msgstr ""
 msgid "Safe speed guidance: about {speed_text}."
 msgstr ""
 
-#. placeholders: {join}
-#: crates/freight-fate/src/states/driving_menu_states/apps.rs
-msgid "Forecast ahead: {join}."
-msgstr ""
-
 #: crates/freight-fate/src/states/driving_menu_states/apps.rs
 msgid "Forecast ahead: unavailable."
 msgstr ""
@@ -46109,10 +46310,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/main_menu/settings_items.rs
 msgid ""
-"Real world uses live city conditions when available. It also uses the "
-"Weather Service's active warnings along your route. Dispatch plans around a "
-"blizzard, ice storm, hurricane or tornado warning, and you hear a warning "
-"as you drive into it."
+"Real world uses live city conditions when available. It also uses active "
+"weather warnings along your route. Dispatch plans around a blizzard, ice "
+"storm, hurricane or tornado warning, and you hear a warning as you drive "
+"into it."
 msgstr ""
 
 #. placeholders: {else}
@@ -54842,4 +55043,25 @@ msgstr ""
 msgid ""
 "Hold the left bumper for a second layer of buttons. {pad_engine} controls "
 "the engine, {pad_fuel} reads fuel, and {pad_speed_limit} reads the limit."
+msgstr ""
+
+#. The Weather app's station lines: a wind speed, and snow on the ground.
+#: lang/extra.pot
+msgid "{count} mile per hour"
+msgstr ""
+
+#: lang/extra.pot
+msgid "{count} kilometer per hour"
+msgstr ""
+
+#: lang/extra.pot
+msgid "{count} inches"
+msgstr ""
+
+#: lang/extra.pot
+msgid "{count} centimeters"
+msgstr ""
+
+#: lang/extra.pot
+msgid "{count} centimeter"
 msgstr ""

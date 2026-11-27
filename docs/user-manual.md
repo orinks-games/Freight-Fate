@@ -934,7 +934,7 @@ Navigation reads your next guidance, route progress, and next listed exit. Open 
 
 ### Weather app
 
-Weather tells you where the report comes from, how old it is, what conditions are like, and the suggested safe speed. With live weather on, it also lists any active weather alerts, so you can hear a warning again after it was announced. Simulated weather also gives you a forecast of what's coming next. A live report may have no forecast. If a live check is still updating or has failed, the app tells you; check how old the last report is before relying on it.
+Weather tells you where the report comes from, how old it is, what conditions are like, and the suggested safe speed. A live report names the weather station and how far away it is, and gives the wind, gusts, visibility and snow on the ground when the station measures them. With live weather on, it also lists any active weather alerts, so you can hear a warning again after it was announced. Simulated weather also gives you a forecast of what's coming next. In Canada a live report carries Environment Canada's forecast; in the United States a live report has no forecast. If a live check is still updating or has failed, the app tells you; check how old the last report is before relying on it.
 
 Use the weather's safe-speed guidance alongside the curve, grade, traffic, and truck conditions. V gives a quicker weather readout when you don't need the full report.
 

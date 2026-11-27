@@ -6,6 +6,7 @@ use serde_json::Value;
 
 use super::Observation;
 use crate::sim::real_traffic_parsers::pyval::{chain_str, py_str, to_f64, truthy};
+use crate::sim::weather_report::{clean_station_name, ObservationDetails};
 
 /// `float(measurement["value"])` for an NWS `{value, unitCode}` object, or
 /// `None` for a null/missing value. A value that will not convert is the
@@ -110,11 +111,35 @@ pub fn parse_observation(data: &Value) -> Result<Observation, String> {
             );
         }
     }
+    let station = props
+        .get("stationName")
+        .and_then(Value::as_str)
+        .map(clean_station_name)
+        .filter(|name| !name.is_empty());
+    let wind_direction_deg = measurement(props.get("windDirection"))?.map(|(deg, _)| deg);
+    let gust_kmh = match measurement(props.get("windGust"))? {
+        Some(_) => Some(wind_to_kmh(props.get("windGust"))?),
+        None => None,
+    };
     Ok(Observation {
         text,
         wind_kmh,
         temperature_c: temp_c,
         visibility_mi,
         observed_at,
+        details: ObservationDetails {
+            station,
+            wind_direction_deg,
+            gust_kmh,
+            visibility_mi,
+            ..Default::default()
+        },
     })
+}
+
+/// Where the station of an `/observations/latest` document stands, as
+/// (lat, lon), from the feature's point geometry.
+pub fn station_position(data: &Value) -> Option<(f64, f64)> {
+    let coords = data.pointer("/geometry/coordinates")?.as_array()?;
+    Some((coords.get(1)?.as_f64()?, coords.first()?.as_f64()?))
 }

@@ -7552,10 +7552,36 @@ design, each with the director's pick.
       next one within 60 miles (assumed); with none, the nearest site's
       hourly forecast for the hour stands in, logged as derived. Crossing
       the border changes service without dropping to simulated weather.
-- [ ] (Found along the way) The Canadian feed carried no measured
-      visibility on 2026-11-27, so Canadian fog is judged from the
-      condition words alone ("Fog" and "Ice Fog" are fog; mist and haze
-      are cloudy). Parse `visibility` once it appears and re-check.
+- [x] Canadian live weather reads the real weather stations
+      (2026-11-27). The station list (`swob-stations`, 938 stations) is read
+      once a session; a point reads its nearest stations' newest
+      observations (`swob-realtime`), at most three within 60 miles, else
+      the single nearest. The sky comes from a present weather code
+      (decoded from section 6.5.7 of the SWOB-ML guide, read), then the city
+      page text, then the gauge (adds precipitation, never removes it; heavy
+      rain at 7.6 mm an hour, read from the AMS Glossary, MANOBS not
+      checked), then cloud amount, then the hourly forecast. A gauge below
+      freezing gives freezing rain only when Environment Canada says so.
+      The Weather app names the station and its distance, and gives wind
+      direction, gusts, visibility, snow on the ground and, in Canada, the
+      forecast ahead; the US report gets the same lines from fields the
+      Weather Service already sent. The agent server's status reports the
+      station and how the sky was decided.
+- [x] (Found along the way) The Canadian city page carried no measured
+      visibility on 2026-11-27, so Canadian fog was judged from the
+      condition words alone. The real stations now supply visibility where
+      they measure it (airports mostly); elsewhere the words still decide.
+- [ ] (Found along the way) Measured visibility and gusts only feed the
+      Weather app; the sky condition alone still sets the drive's
+      visibility and wind strength, in both countries. Let the readings
+      change the drive.
+- [ ] (Found along the way) The United States live report has no
+      forecast; the Weather Service's hourly forecast would give it one.
+- [ ] (Found along the way) Environment Canada's daily text forecast
+      ("Tonight: snow, 5 cm") is unread; only the hourly conditions are.
+- [ ] (Found along the way) Cloud layer codes 35 to 39 appear at Toronto
+      Pearson and are not in the SWOB guide's table 6.5.15; they are
+      ignored, so that station's cloud amount never decides the sky.
 - [ ] (Found along the way) Environment Canada's French condition and
       alert text is unused; the game reads the English and translates at
       the speech boundary like any other line.

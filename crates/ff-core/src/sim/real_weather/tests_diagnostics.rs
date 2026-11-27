@@ -224,3 +224,41 @@ fn a_fresh_reading_after_an_outage_is_live_again() {
     assert_eq!(p.worker("city:x", 33.0, -80.0), WorkerOutcome::Cached);
     assert!(!p.stale("city:x"));
 }
+
+#[test]
+fn parse_observation_carries_the_station_lines_the_weather_service_sends() {
+    let doc = serde_json::json!({
+        "geometry": {"type": "Point", "coordinates": [-78.73, 42.94]},
+        "properties": {
+            "stationName": "Buffalo Niagara International Airport",
+            "textDescription": "Light Snow",
+            "temperature": {"unitCode": "wmoUnit:degC", "value": -1.0},
+            "windSpeed": {"unitCode": "wmoUnit:km_h-1", "value": 24.1},
+            "windDirection": {"unitCode": "wmoUnit:degree_(angle)", "value": 250},
+            "windGust": {"unitCode": "wmoUnit:km_h-1", "value": 40.7},
+            "visibility": {"unitCode": "wmoUnit:m", "value": 3220},
+            "timestamp": "2026-11-27T17:54:00+00:00"
+        }
+    });
+    let parsed = parse_observation(&doc).unwrap();
+    let d = &parsed.details;
+    assert_eq!(
+        d.station.as_deref(),
+        Some("Buffalo Niagara International Airport")
+    );
+    assert_eq!(d.wind_direction_deg, Some(250.0));
+    assert!(d.gust_kmh.is_some_and(|g| (g - 40.7).abs() < 0.01));
+    assert!(d.visibility_mi.is_some_and(|mi| (mi - 2.0).abs() < 0.01));
+    assert_eq!(parse::station_position(&doc), Some((42.94, -78.73)));
+    // A station that sends no gust or direction leaves those lines out.
+    let calm = serde_json::json!({"properties": {
+        "textDescription": "Clear",
+        "windSpeed": {"unitCode": "wmoUnit:km_h-1", "value": 0},
+        "windDirection": {"unitCode": "wmoUnit:degree_(angle)", "value": null},
+        "windGust": {"unitCode": "wmoUnit:km_h-1", "value": null}
+    }});
+    let parsed = parse_observation(&calm).unwrap();
+    assert_eq!(parsed.details.wind_direction_deg, None);
+    assert_eq!(parsed.details.gust_kmh, None);
+    assert_eq!(parsed.details.station, None);
+}

@@ -33,6 +33,7 @@ use super::real_weather::{
     OBSERVATION_MAX_AGE_S, STATION_WALK_LIMIT, USER_AGENT,
 };
 use super::weather::WeatherKind;
+use super::weather_report::forecast_changes;
 
 pub const CANADA_API_ROOT: &str = "https://api.weather.gc.ca";
 /// How far a city page site may be from the point and still stand for it.
@@ -46,6 +47,10 @@ pub const SITE_REACH_MI: f64 = 60.0;
 pub const SITE_SEARCH_BOXES_DEG: [f64; 3] = [0.75, 2.0, 5.0];
 /// An hourly forecast entry stands in for the hour only this close to now.
 pub const FORECAST_REACH_S: f64 = 90.0 * 60.0;
+/// A city page changes on the hour; one read serves this long.
+pub const PAGE_CACHE_S: f64 = 10.0 * 60.0;
+/// "Forecast ahead" looks this far into a city page's hourly forecast.
+pub const FORECAST_AHEAD_S: f64 = 24.0 * 60.0 * 60.0;
 
 /// Fog-family terms Environment Canada reports as fog proper. Without a
 /// measured visibility the rest of the family (mist, haze, smoke, fog
@@ -133,6 +138,9 @@ pub struct SiteReading {
     pub observed_at: Option<f64>,
     /// The hourly forecast: (Unix seconds, condition), soonest first.
     pub hourly: Vec<(f64, String)>,
+    /// The site measured nothing (an empty `currentConditions`) and is
+    /// kept only for its forecast, which the real stations can use.
+    pub forecast_only: bool,
 }
 
 impl SiteReading {
@@ -153,6 +161,7 @@ impl SiteReading {
             temperature_c: self.temperature_c,
             visibility_mi: self.visibility_mi,
             observed_at: self.observed_at,
+            details: Default::default(),
         }
     }
 }
@@ -195,18 +204,33 @@ pub fn parse_site_list(doc: &Value) -> Vec<Site> {
         .collect()
 }
 
-/// Read one site's document. Errs when the site has no station reading at
-/// all (an empty `currentConditions`).
+/// Read one site's document. A site with no station reading at all (an
+/// empty `currentConditions`) is kept for its hourly forecast, marked
+/// [`SiteReading::forecast_only`]; with no forecast either it errs.
 pub fn parse_site(doc: &Value) -> Result<SiteReading, String> {
     let props = doc
         .get("properties")
         .and_then(Value::as_object)
         .ok_or("site has no properties")?;
-    let current = props
+    let hourly = parse_hourly(props);
+    let Some(current) = props
         .get("currentConditions")
         .and_then(Value::as_object)
         .filter(|c| !c.is_empty())
-        .ok_or("site has no current conditions")?;
+    else {
+        if hourly.is_empty() {
+            return Err("site has no current conditions".to_string());
+        }
+        return Ok(SiteReading {
+            condition: None,
+            temperature_c: None,
+            wind_kmh: 0.0,
+            visibility_mi: None,
+            observed_at: None,
+            hourly,
+            forecast_only: true,
+        });
+    };
     let condition = english(current.get("condition"))
         .and_then(Value::as_str)
         .map(str::trim)
@@ -227,7 +251,20 @@ pub fn parse_site(doc: &Value) -> Result<SiteReading, String> {
     if temperature_c.is_none() && condition.is_none() && observed_at.is_none() {
         return Err("site reports no observation".to_string());
     }
-    let hourly = props
+    Ok(SiteReading {
+        condition,
+        temperature_c,
+        wind_kmh,
+        visibility_mi,
+        observed_at,
+        hourly,
+        forecast_only: false,
+    })
+}
+
+/// A site document's hourly forecast: (Unix seconds, condition).
+fn parse_hourly(props: &serde_json::Map<String, Value>) -> Vec<(f64, String)> {
+    props
         .get("hourlyForecastGroup")
         .and_then(|g| g.get("hourlyForecasts"))
         .and_then(Value::as_array)
@@ -243,15 +280,7 @@ pub fn parse_site(doc: &Value) -> Result<SiteReading, String> {
                 })
                 .collect()
         })
-        .unwrap_or_default();
-    Ok(SiteReading {
-        condition,
-        temperature_c,
-        wind_kmh,
-        visibility_mi,
-        observed_at,
-        hourly,
-    })
+        .unwrap_or_default()
 }
 
 /// The sites that stand for a point, nearest first: up to
@@ -287,6 +316,12 @@ pub struct EcccFetcher {
     wall_clock: Clock,
     site_cache: Mutex<HashMap<String, Vec<Site>>>,
     site_pick: Mutex<HashMap<String, usize>>,
+    /// City page documents read in the last [`PAGE_CACHE_S`]: (read at,
+    /// reading), by site id.
+    page_cache: Mutex<HashMap<String, (f64, SiteReading)>>,
+    /// The station list, once read this session; the game's fetchers
+    /// share one ([`stations::session_station_list`]).
+    station_list: stations::SharedStationList,
 }
 
 impl EcccFetcher {
@@ -296,11 +331,19 @@ impl EcccFetcher {
             wall_clock: wall_clock(),
             site_cache: Mutex::new(HashMap::new()),
             site_pick: Mutex::new(HashMap::new()),
+            page_cache: Mutex::new(HashMap::new()),
+            station_list: Arc::new(Mutex::new(stations::StationList::default())),
         }
     }
 
     pub fn with_wall_clock(mut self, clock: Clock) -> Self {
         self.wall_clock = clock;
+        self
+    }
+
+    /// Read the station list through `list`, shared with other fetchers.
+    pub fn with_station_list(mut self, list: stations::SharedStationList) -> Self {
+        self.station_list = list;
         self
     }
 
@@ -360,15 +403,61 @@ impl EcccFetcher {
         Err(format!("no Environment Canada site near {lat:.4},{lon:.4}"))
     }
 
-    /// The reading for a point: the first fresh site with an observed
-    /// condition, the one that last answered tried first. With none, the
-    /// nearest site that answered, its condition taken from its hourly
-    /// forecast for this hour and its temperature and wind measured. With
-    /// no forecast near enough either, the freshest stale site that has a
-    /// condition, for the caller's last-known rules. Errs only when no site
-    /// gave anything usable.
+    /// One site's document, from the [`PAGE_CACHE_S`] cache when it is
+    /// that recent.
+    fn site_reading(&self, id: &str, now: f64) -> Result<SiteReading, String> {
+        if let Some((read_at, reading)) = lock_unpoisoned(&self.page_cache).get(id) {
+            if now - read_at < PAGE_CACHE_S {
+                return Ok(reading.clone());
+            }
+        }
+        let reading = self
+            .get_json(&Self::site_url(id))
+            .and_then(|doc| parse_site(&doc))?;
+        lock_unpoisoned(&self.page_cache).insert(id.to_string(), (now, reading.clone()));
+        Ok(reading)
+    }
+
+    /// The reading for a point: from the real stations when their list is
+    /// on hand (see [`stations`]), with the city page for the condition
+    /// text and the forecast; from the city page alone until then, or when
+    /// no station near enough has a fresh observation.
     pub fn default_fetch(&self, lat: f64, lon: f64) -> Result<Observation, String> {
         let _slot = FetchSlot::acquire();
+        let page = self.page_walk(lat, lon);
+        if let Some(list) = self.station_list() {
+            match self.from_stations(&list, lat, lon, page.as_ref().ok()) {
+                Ok(observation) => return Ok(observation),
+                Err(error) => log::info!(
+                    "Environment Canada stations at {lat:.2},{lon:.2}: {error}; the city page answers"
+                ),
+            }
+        }
+        let page = page.and_then(|walk| {
+            if walk.basis == FORECAST_ONLY {
+                Err(format!("site {} has only a forecast", walk.site))
+            } else {
+                Ok(walk)
+            }
+        });
+        page.map(|walk| {
+            let now = (self.wall_clock)();
+            let mut observation = walk.observation;
+            observation.details.forecast = Some(forecast_ahead(&walk.hourly, now, &observation));
+            observation.details.basis =
+                Some(format!("city page {}, site {}", walk.basis, walk.site));
+            observation
+        })
+    }
+
+    /// The city page answer for a point (PR 1's walk): the first fresh site
+    /// with an observed condition, the one that last answered tried first.
+    /// With none, the nearest site that answered, its condition taken from
+    /// its hourly forecast for this hour and its temperature and wind
+    /// measured. With no forecast near enough either, the freshest stale
+    /// site that has a condition, for the caller's last-known rules. Errs
+    /// only when no site gave anything usable.
+    pub fn page_walk(&self, lat: f64, lon: f64) -> Result<PageWalk, String> {
         let key = Self::place_key(lat, lon);
         let sites = self.resolve_sites(lat, lon)?;
         let preferred = lock_unpoisoned(&self.site_pick)
@@ -384,10 +473,7 @@ impl EcccFetcher {
             let Some(site) = sites.get(i) else {
                 continue;
             };
-            let reading = match self
-                .get_json(&Self::site_url(&site.id))
-                .and_then(|doc| parse_site(&doc))
-            {
+            let reading = match self.site_reading(&site.id, now) {
                 Ok(reading) => reading,
                 Err(error) => {
                     errors.push(format!("{}: {error}", site.id));
@@ -400,14 +486,23 @@ impl EcccFetcher {
             if let (true, Some(text)) = (fresh, reading.condition.as_deref()) {
                 lock_unpoisoned(&self.site_pick).insert(key, i);
                 log::info!(
-                    "Environment Canada weather at {lat:.2},{lon:.2}: read, site {} condition {text:?}",
+                    "Environment Canada city page at {lat:.2},{lon:.2}: read, site {} condition {text:?}",
                     site.id
                 );
-                return Ok(reading.observation(text));
+                return Ok(PageWalk {
+                    observation: reading.observation(text),
+                    observed_condition: Some(text.to_string()),
+                    forecast_now: reading.forecast_condition(now).map(str::to_string),
+                    hourly: reading.hourly.clone(),
+                    site: site.id.clone(),
+                    basis: "read",
+                });
             }
             answered.push((i, reading));
         }
-        answered.sort_by_key(|(i, _)| *i);
+        // A site that measured something before one kept for its
+        // forecast alone, each nearest first.
+        answered.sort_by_key(|(i, reading)| (reading.forecast_only, *i));
         if let Some((i, reading, text)) = answered.iter().find_map(|(i, reading)| {
             reading
                 .forecast_condition(now)
@@ -415,11 +510,23 @@ impl EcccFetcher {
         }) {
             let id = &sites[i].id;
             let phrase = forecast_phrase(text);
+            let (basis, with) = if reading.forecast_only {
+                (FORECAST_ONLY, "and no measurement")
+            } else {
+                ("derived", "with its measured temperature and wind")
+            };
             log::info!(
-                "Environment Canada weather at {lat:.2},{lon:.2}: derived, site {id} hourly \
-                 forecast {text:?} (read as {phrase:?}) with its measured temperature and wind"
+                "Environment Canada city page at {lat:.2},{lon:.2}: {basis}, site {id} hourly \
+                 forecast {text:?} (read as {phrase:?}) {with}"
             );
-            return Ok(reading.observation(&phrase));
+            return Ok(PageWalk {
+                observation: reading.observation(&phrase),
+                observed_condition: None,
+                forecast_now: Some(text.to_string()),
+                hourly: reading.hourly.clone(),
+                site: id.clone(),
+                basis,
+            });
         }
         let stale = answered
             .iter()
@@ -430,11 +537,18 @@ impl EcccFetcher {
             .max_by(|a, b| a.3.total_cmp(&b.3));
         if let Some((i, reading, text, _)) = stale {
             log::info!(
-                "Environment Canada weather at {lat:.2},{lon:.2}: read, site {} condition {text:?} \
+                "Environment Canada city page at {lat:.2},{lon:.2}: read, site {} condition {text:?} \
                  (no fresher site)",
                 sites[i].id
             );
-            return Ok(reading.observation(text));
+            return Ok(PageWalk {
+                observation: reading.observation(text),
+                observed_condition: None,
+                forecast_now: reading.forecast_condition(now).map(str::to_string),
+                hourly: reading.hourly.clone(),
+                site: sites[i].id.clone(),
+                basis: "read, stale",
+            });
         }
         Err(if errors.is_empty() {
             "no site reported a condition".to_string()
@@ -443,6 +557,47 @@ impl EcccFetcher {
         })
     }
 }
+
+/// The walk's basis when its only answer is a site that measured nothing:
+/// its forecast serves the real stations, but it is no reading on its own.
+pub const FORECAST_ONLY: &str = "forecast only";
+
+/// What a city page walk found for a point.
+#[derive(Debug, Clone)]
+pub struct PageWalk {
+    /// The city page answer on its own.
+    pub observation: Observation,
+    /// The fresh observed condition it read, if it read one.
+    pub observed_condition: Option<String>,
+    /// The hourly forecast condition for now, as the page words it.
+    pub forecast_now: Option<String>,
+    /// The answering site's hourly forecast.
+    pub hourly: Vec<(f64, String)>,
+    pub site: String,
+    /// "read", "derived", "read, stale" or [`FORECAST_ONLY`], for the log.
+    pub basis: &'static str,
+}
+
+/// The changes of condition in the next [`FORECAST_AHEAD_S`] of an hourly
+/// forecast, from the condition `observation` reads as now.
+pub fn forecast_ahead(
+    hourly: &[(f64, String)],
+    now: f64,
+    observation: &Observation,
+) -> Vec<WeatherKind> {
+    let kind = |text: &str| {
+        map_condition_canada(text, observation.wind_kmh, None, observation.temperature_c)
+    };
+    let current = kind(&observation.text);
+    let hours: Vec<WeatherKind> = hourly
+        .iter()
+        .filter(|(at, _)| *at > now && *at - now <= FORECAST_AHEAD_S)
+        .map(|(_, text)| kind(&forecast_phrase(text)))
+        .collect();
+    forecast_changes(current, &hours)
+}
+
+pub mod stations;
 
 #[cfg(test)]
 mod tests;
