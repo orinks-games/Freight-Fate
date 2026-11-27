@@ -25,7 +25,8 @@
 //! timeout; retried once, and re-asked at the Shoutcast `/;` mount, before
 //! it counts).
 //!
-//! Certificates are not verified and old cipher suites are allowed: a long
+//! Certificates are not verified and, where curl is built on OpenSSL, old
+//! cipher suites are allowed: a long
 //! tail of directory hosts stream fine behind self-signed or expired
 //! certificates and older suites, and a strict client measures its own TLS
 //! policy instead of the dial (the first sweep called KBOO, WBAI, KPFK and
@@ -107,11 +108,29 @@ fn split_dump(out: &[u8]) -> (String, &[u8]) {
     )
 }
 
+/// Whether this machine's curl is built on OpenSSL. `--ciphers
+/// DEFAULT@SECLEVEL=1` is an OpenSSL cipher string: Schannel (the curl that
+/// ships with Windows and Git for Windows) and Secure Transport reject it
+/// and fail every HTTPS probe, so it is passed only where it is understood.
+fn curl_is_openssl() -> bool {
+    static OPENSSL: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+    *OPENSSL.get_or_init(|| {
+        Command::new("curl")
+            .arg("-V")
+            .output()
+            .map(|o| String::from_utf8_lossy(&o.stdout).contains("OpenSSL"))
+            .unwrap_or(false)
+    })
+}
+
 /// What one probe of `url` heard.
 fn probe(url: &str, timeout: f64) -> Verdict {
-    let child = Command::new("curl")
-        .args(["-s", "-S", "-k", "-L", "--max-redirs", "8"])
-        .args(["--ciphers", "DEFAULT@SECLEVEL=1"])
+    let mut curl = Command::new("curl");
+    curl.args(["-s", "-S", "-k", "-L", "--max-redirs", "8"]);
+    if curl_is_openssl() {
+        curl.args(["--ciphers", "DEFAULT@SECLEVEL=1"]);
+    }
+    let child = curl
         .args(["-m", &format!("{timeout}")])
         .args(["-A", USER_AGENT, "-H", "Icy-MetaData: 1"])
         .args(["-H", &format!("Range: bytes=0-{}", PROBE_BYTES - 1)])
