@@ -641,9 +641,10 @@ impl Trip {
                 continue;
             }
             if !matches!(callout.category.as_str(), "river" | "billboard_sign")
-                && spaced
-                    .iter()
-                    .any(|kept| (callout.at_mi - kept.at_mi).abs() < LANDMARK_MIN_SPACING_MI)
+                && spaced.iter().any(|kept| {
+                    kept.category != "river"
+                        && (callout.at_mi - kept.at_mi).abs() < LANDMARK_MIN_SPACING_MI
+                })
             {
                 continue;
             }

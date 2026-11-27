@@ -237,6 +237,20 @@ fn kerrville_rivers_survive_nearby_towns_and_a_spent_chatter_budget() {
 }
 
 #[test]
+fn a_river_does_not_take_the_next_attractions_spacing_slot() {
+    let river = RoadsideCallout::new("r", 12.0, "river", "Crossing the Muskoka River.");
+    let attraction = RoadsideCallout::new(
+        "a",
+        13.0,
+        "highway_marker",
+        "Passing Bethune Memorial House.",
+    );
+    let placed = Trip::space_landmarks(Vec::new(), vec![river, attraction]);
+    let keys: Vec<_> = placed.iter().map(|c| c.key.as_str()).collect();
+    assert_eq!(keys, ["r", "a"]);
+}
+
+#[test]
 fn a_landmark_line_that_names_a_town_takes_the_town_slot() {
     fn at(key: &str, mi: f64, category: &str, place: &str, spoken: &str) -> RoadsideCallout {
         let mut c = RoadsideCallout::new(key, mi, category, spoken);
