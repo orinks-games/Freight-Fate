@@ -15,7 +15,9 @@ inputs:
   save-cache:
     description: >-
       Whether this run saves the rust-cache entry. The default saves only
-      from main and dev, never from pull requests, tags or other branches.
+      from main, dev and feat/career-2.0 (the alpha line, whose builds were
+      otherwise cold every time), never from pull requests, tags or other
+      branches.
       A cache is visible to its own branch, to PRs into it and (for main) to
       everyone, so an entry saved anywhere else helps no later run and only
       pushes main's and dev's entries out of the repository's 10 GB cache
@@ -23,7 +25,7 @@ inputs:
       until 2026-11-08 the nightly's release caches were being dropped
       within a day and the next build started cold.
     required: false
-    default: ${{ github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev') }}
+    default: ${{ github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev' || github.ref == 'refs/heads/feat/career-2.0' || github.ref == 'refs/heads/claude/project-thread-1szy8q') }}
   sccache:
     description: >-
       Also wrap rustc in sccache. Only clippy turns this on: clippy writes
