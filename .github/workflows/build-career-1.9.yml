@@ -334,10 +334,15 @@ jobs:
 
       - name: Set up Rust and the build caches
         # CMake and ATL for Prism, the pinned toolchain and rust-cache: the
-        # same setup rust.yml's jobs use.
+        # same setup rust.yml's jobs use. The key is `release-2` in all the
+        # build jobs because the `release` entries were saved by the old
+        # builder, and the single cargo build reuses nothing in them.
+        # rust-cache never saves again over an exact key match, so an old
+        # entry would stay until Cargo.lock changed. Rename the key again
+        # when the builder's cargo command changes.
         uses: ./.github/actions/rust-setup
         with:
-          cache-key: release
+          cache-key: release-2
 
       - name: Build the release tooling
         # The light build: no ff-core, so it compiles in seconds. The game
@@ -411,7 +416,7 @@ jobs:
       - name: Set up Rust and the build caches
         uses: ./.github/actions/rust-setup
         with:
-          cache-key: release
+          cache-key: release-2
 
       # No brewed SDL: Homebrew's sdl2 is sdl2-compat, which loads SDL3 at
       # runtime and dies on player Macs without Homebrew. SDL2 is compiled
@@ -579,7 +584,7 @@ jobs:
         # the AppImage's launcher entry.
         uses: ./.github/actions/rust-setup
         with:
-          cache-key: release
+          cache-key: release-2
           linux-packages: file desktop-file-utils
 
       - name: Build the release tooling

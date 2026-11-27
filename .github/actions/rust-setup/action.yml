@@ -3,7 +3,7 @@ description: The platform's build dependencies, the pinned toolchain and the com
 inputs:
   cache-key:
     description: >-
-      The build cache this job shares: `clippy`, `test` or `release`. Jobs
+      The build cache this job shares: `clippy`, `test` or `release-2`. Jobs
       that build the same way share one entry across workflows, and jobs
       that build differently keep apart, since one entry holds one kind of
       build. rust-cache adds the OS, Cargo.lock and RUSTFLAGS to the key.
