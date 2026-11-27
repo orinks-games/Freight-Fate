@@ -1644,6 +1644,9 @@ fn make_reposition_job_pays_assigned_empty_miles_only() {
     assert!(make_reposition_job(world(), "Denver", "atlantis", false, None).is_none());
     assert_eq!(board_offer_count(1), 5);
     assert_eq!(board_offer_count(12), 8);
+    assert_eq!(board_offer_count(30), 8);
+    assert_eq!(board_offer_count(31), 9);
+    assert_eq!(board_offer_count(40), 9);
     assert_eq!(lane_key(world(), &bobtail), "denver_co_us:cheyenne_wy_us");
 }
 

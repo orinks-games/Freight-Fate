@@ -306,6 +306,10 @@
       "category": "career",
       "description": "Five deliveries. You already can't wait for the next one."
     },
+    "five_hundred_deliveries": {
+      "category": "career",
+      "description": "Five hundred deliveries."
+    },
     "five_hundred_mile_run": {
       "category": "road",
       "description": "One dispatch over a thousand miles."
@@ -357,6 +361,10 @@
     "half_million_earned": {
       "category": "career",
       "description": "Half a million dollars earned over your career."
+    },
+    "half_million_miles": {
+      "category": "career",
+      "description": "Half a million miles driven."
     },
     "hazard_avoided": {
       "category": "working_day",
@@ -448,11 +456,15 @@
     },
     "level_fifteen": {
       "category": "career",
-      "description": "Career level 15, halfway up the ladder."
+      "description": "Career level 15."
     },
     "level_five": {
       "category": "career",
       "description": "Career level 5. Dispatch has stopped double-checking you."
+    },
+    "level_forty": {
+      "category": "career",
+      "description": "Career level 40, the top."
     },
     "level_ten": {
       "category": "career",
@@ -460,7 +472,11 @@
     },
     "level_thirty": {
       "category": "career",
-      "description": "Career level 30, the top."
+      "description": "Career level 30."
+    },
+    "level_thirty_five": {
+      "category": "career",
+      "description": "Career level 35."
     },
     "level_three": {
       "category": "career",
@@ -509,6 +525,10 @@
     "midnight_delivery": {
       "category": "road",
       "description": "A load delivered between midnight and 4 in the morning."
+    },
+    "million_miles": {
+      "category": "career",
+      "description": "A million miles driven."
     },
     "montana_delivery": {
       "category": "places",
@@ -601,6 +621,10 @@
     "quarter_million_bank": {
       "category": "career",
       "description": "250,000 dollars banked."
+    },
+    "quarter_million_miles": {
+      "category": "career",
+      "description": "Two hundred fifty thousand miles driven."
     },
     "quebec_winter": {
       "category": "weather_seasons",
@@ -822,6 +846,10 @@
       "category": "career",
       "description": "25,000 dollars banked, one load at a time."
     },
+    "two_fifty_deliveries": {
+      "category": "career",
+      "description": "Two hundred fifty deliveries."
+    },
     "two_hundred_deliveries": {
       "category": "career",
       "description": "Two hundred deliveries."
@@ -941,6 +969,7 @@
     "first_ticket",
     "first_upgrade",
     "five_deliveries",
+    "five_hundred_deliveries",
     "five_hundred_mile_run",
     "five_tractors",
     "fleet_flagship",
@@ -954,6 +983,7 @@
     "grueling_clean",
     "gulf_coast_by_two",
     "half_million_earned",
+    "half_million_miles",
     "hazard_avoided",
     "hazmat_load",
     "heavy_haul_load",
@@ -978,8 +1008,10 @@
     "lcv_load",
     "level_fifteen",
     "level_five",
+    "level_forty",
     "level_ten",
     "level_thirty",
+    "level_thirty_five",
     "level_three",
     "level_twenty_five",
     "long_day_run",
@@ -992,6 +1024,7 @@
     "memphis_arrival",
     "meridian_classmate",
     "midnight_delivery",
+    "million_miles",
     "montana_delivery",
     "month_on_road",
     "mountain_clean",
@@ -1015,6 +1048,7 @@
     "port_load",
     "predictive_crest",
     "quarter_million_bank",
+    "quarter_million_miles",
     "quebec_winter",
     "radio_dial_wanderer",
     "radio_faded_out",
@@ -1070,6 +1104,7 @@
     "twenty_five_cities",
     "twenty_five_deliveries",
     "twenty_five_grand",
+    "two_fifty_deliveries",
     "two_hundred_deliveries",
     "vegas_arrival",
     "virginia_line",
@@ -1153,6 +1188,7 @@
     "first_ticket": "Yeah, Officer, That Was Me",
     "first_upgrade": "Souped Up",
     "five_deliveries": "On the Road Again",
+    "five_hundred_deliveries": "The World Through a Windshield",
     "five_hundred_mile_run": "And Five Hundred More",
     "five_tractors": "Whatever the Yard Has Free",
     "fleet_flagship": "First Pick of the Yard",
@@ -1166,6 +1202,7 @@
     "grueling_clean": "No Easy Run",
     "gulf_coast_by_two": "Gulf Coast by Two",
     "half_million_earned": "Money, Money, Money",
+    "half_million_miles": "Miles and Miles",
     "hazard_avoided": "Diesel Smoke, Dangerous Road",
     "hazmat_load": "Handle with Care",
     "heavy_haul_load": "Big John",
@@ -1190,8 +1227,10 @@
     "lcv_load": "Long Train Running",
     "level_fifteen": "Halfway There",
     "level_five": "Son of a Gun",
+    "level_forty": "End of the Line",
     "level_ten": "Forty Hour Week",
     "level_thirty": "King of the Road",
+    "level_thirty_five": "Further On Up the Road",
     "level_three": "Turn the Page",
     "level_twenty_five": "Your Own Numbers",
     "long_day_run": "A Hard Day's Night",
@@ -1204,6 +1243,7 @@
     "memphis_arrival": "Memphis, Tennessee",
     "meridian_classmate": "Back in the Saddle",
     "midnight_delivery": "After Midnight",
+    "million_miles": "A Million Miles Away",
     "montana_delivery": "Wild Montana Skies",
     "month_on_road": "Thirty Days",
     "mountain_clean": "Wolf Creek Pass",
@@ -1227,6 +1267,7 @@
     "port_load": "Harbor Lights",
     "predictive_crest": "No Mountain High Enough",
     "quarter_million_bank": "Breaking the Bank",
+    "quarter_million_miles": "Endless Highway",
     "quebec_winter": "Mon Pays",
     "radio_dial_wanderer": "Worked the Whole Dial",
     "radio_faded_out": "Somewhere in the Static",
@@ -1282,6 +1323,7 @@
     "twenty_five_cities": "Travelin' Man",
     "twenty_five_deliveries": "A Little Farther Down the Line",
     "twenty_five_grand": "One Load at a Time",
+    "two_fifty_deliveries": "Roll Truck Roll",
     "two_hundred_deliveries": "The Long Game",
     "vegas_arrival": "Viva Las Vegas",
     "virginia_line": "Russell County Line",
@@ -1296,6 +1338,7 @@
     "wyoming_delivery": "Land of the Buffalo"
   },
   "careerFields": [
+    "banked_levels_heard",
     "deliveries",
     "dispatch_declines_used",
     "on_time_deliveries",
@@ -1339,7 +1382,17 @@
     "Specialized Trailer Operator",
     "Premium Lane Operator",
     "Veteran Independent Operator",
-    "Freight Fate Independent"
+    "Freight Fate Independent",
+    "Preferred Carrier",
+    "Core Carrier",
+    "Contract Carrier",
+    "Dedicated Carrier",
+    "Carrier of Choice",
+    "Senior Carrier Owner",
+    "Owner-Operator Mentor",
+    "Master Carrier Owner",
+    "Veteran Carrier Owner",
+    "Freight Fate Carrier Owner"
   ],
   "cargoLabels": {
     "automotive": "automotive parts",
@@ -3217,7 +3270,17 @@
     "Elite Specialized Company Driver",
     "Top-Seniority Company Driver",
     "Company Career Veteran",
-    "Freight Fate Company Driver"
+    "Freight Fate Company Driver",
+    "Driver Trainer",
+    "Lead Driver Trainer",
+    "Road Test Examiner",
+    "Safety Committee Driver",
+    "Driver Council Member",
+    "Driver Council Chair",
+    "Road Team Driver",
+    "Road Team Captain",
+    "Senior Road Team Captain",
+    "Freight Fate Road Captain"
   ],
   "companyPay": {
     "assignedRepositionPayFraction": 0.6,
@@ -3328,7 +3391,17 @@
     321000,
     342000,
     364000,
-    387000
+    387000,
+    412000,
+    437000,
+    462000,
+    487000,
+    512000,
+    537000,
+    562000,
+    587000,
+    612000,
+    637000
   ],
   "marketCargoKeys": [
     "automotive",

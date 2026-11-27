@@ -585,6 +585,33 @@ msgstr "已行驶五万英里。道路不会放你走了。"
 msgid "Ronnie Milsap - Prisoner of the Highway"
 msgstr "Ronnie Milsap - 公路的囚徒"
 
+msgid "Endless Highway"
+msgstr "无尽的公路"
+
+msgid "Two hundred fifty thousand miles driven."
+msgstr "已行驶二十五万英里。"
+
+msgid "The Band - Endless Highway"
+msgstr "The Band - Endless Highway"
+
+msgid "Miles and Miles"
+msgstr "一英里又一英里"
+
+msgid "Half a million miles driven."
+msgstr "已行驶五十万英里。"
+
+msgid "Asleep at the Wheel - Miles and Miles of Texas"
+msgstr "Asleep at the Wheel - Miles and Miles of Texas"
+
+msgid "A Million Miles Away"
+msgstr "百万英里之外"
+
+msgid "A million miles driven."
+msgstr "已行驶一百万英里。"
+
+msgid "The Plimsouls - A Million Miles Away"
+msgstr "The Plimsouls - A Million Miles Away"
+
 msgid "Money"
 msgstr "钱"
 
@@ -980,6 +1007,24 @@ msgstr "两百次交货。"
 msgid "Emily Nenni - Long Game"
 msgstr "Emily Nenni - Long Game"
 
+msgid "Roll Truck Roll"
+msgstr "卡车向前滚"
+
+msgid "Two hundred fifty deliveries."
+msgstr "两百五十次交货。"
+
+msgid "Red Simpson - Roll Truck Roll"
+msgstr "Red Simpson - Roll Truck Roll"
+
+msgid "The World Through a Windshield"
+msgstr "挡风玻璃外的世界"
+
+msgid "Five hundred deliveries."
+msgstr "五百次交货。"
+
+msgid "Del Reeves - Looking at the World Through a Windshield"
+msgstr "Del Reeves - Looking at the World Through a Windshield"
+
 msgid "Breaking the Bank"
 msgstr "赢爆庄家"
 
@@ -1237,8 +1282,8 @@ msgstr "Alabama - Forty Hour Week (For a Livin')"
 msgid "Halfway There"
 msgstr "走到一半"
 
-msgid "Career level 15, halfway up the ladder."
-msgstr "职业等级15，梯子的一半。"
+msgid "Career level 15."
+msgstr "职业等级15。"
 
 msgid "Bon Jovi - Livin' on a Prayer"
 msgstr "Bon Jovi - 靠祈祷度日"
@@ -1255,11 +1300,29 @@ msgstr "Waylon Jennings - Are You Sure Hank Done It This Way"
 msgid "King of the Road"
 msgstr "公路之王"
 
-msgid "Career level 30, the top."
-msgstr "职业等级30，顶峰。"
+msgid "Career level 30."
+msgstr "职业等级30。"
 
 msgid "Roger Miller - King of the Road"
 msgstr "Roger Miller - King of the Road"
+
+msgid "Further On Up the Road"
+msgstr "沿着这条路再往前"
+
+msgid "Career level 35."
+msgstr "职业等级35。"
+
+msgid "Eric Clapton - Further On Up the Road"
+msgstr "Eric Clapton - Further On Up the Road"
+
+msgid "End of the Line"
+msgstr "终点站"
+
+msgid "Career level 40, the top."
+msgstr "职业等级40，最高级。"
+
+msgid "Traveling Wilburys - End of the Line"
+msgstr "Traveling Wilburys - End of the Line"
 
 msgid "Newer Iron"
 msgstr "更新的铁家伙"
@@ -6957,15 +7020,6 @@ msgstr "资质准备尚未解锁：{join}"
 msgid "You are at the top career rank."
 msgstr "你已经达到最高职级。"
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-msgid "Next: level {level}, {title}."
-msgstr "下一步：{level}级，{title}。"
-
-#. placeholders: {level}, {title}, {unlock}
-msgid "Next: level {level}, {title}. {unlock}"
-msgstr "下一步：{level}级，{title}。{unlock}"
-
 #. one sentence of a longer line
 msgid "Company driver by choice."
 msgstr "自愿当公司司机。"
@@ -6987,6 +7041,14 @@ msgid ""
 "You are at the top career rank. The owner-operator buy-in stays open under "
 "Business status if you ever want it."
 msgstr "你已经达到最高职级。如果哪天想要，车主司机买断一直在经营状况里开放。"
+
+#. placeholders: {level}, {title}
+msgid "Next: level {level}, {title}."
+msgstr "下一步：{level}级，{title}。"
+
+#. placeholders: {level}, {title}, {unlock}
+msgid "Next: level {level}, {title}. {unlock}"
+msgstr "下一步：{level}级，{title}。{unlock}"
 
 msgid "Weigh station transponder subscription is active. "
 msgstr "称重站电子标签订阅已生效。 "
@@ -7204,19 +7266,19 @@ msgstr "你现在同时持有罐式车辆和危险品驾照签注，也就是真
 msgid "Reminder: you hold a new {gate_label}."
 msgstr "提醒：你获得了新的{gate_label}。"
 
+#. placeholders: {level}, {title}
 #. one sentence of a longer line
-msgid "Level up!"
-msgstr "升级了！"
+msgid "You are level {level}: {title}."
+msgstr "你现在是{level}级：{title}。"
 
-#. placeholders: {gained_level}, {title}, {unlock}
+#. one sentence of a longer line
+msgid "Your experience past level 30 now counts."
+msgstr "你30级之后的经验现在开始计入。"
+
+#. placeholders: {level}, {title}
 msgid ""
-"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
-msgstr "升级了！你现在是{gained_level}级：{title}。解锁：{unlock}"
-
-#. placeholders: {gained_level}, {title}
-#. one sentence of a longer line
-msgid "You are now level {gained_level}: {title}."
-msgstr "你现在是{gained_level}级：{title}。"
+"Your experience past level 30 now counts. You are level {level}: {title}."
+msgstr "你30级之后的经验现在开始计入。你现在是{level}级：{title}。"
 
 #. placeholders: {level}, {title}
 msgid " Next: level {level}, {title}."
@@ -7596,11 +7658,92 @@ msgstr "久经考验的独立司机，而不是车队经理。"
 msgid "Freight Fate Independent"
 msgstr "Freight Fate独立司机"
 
+msgid "A complete company-driver to independent owner-operator career."
+msgstr "从公司司机到独立车主司机的完整职业生涯。"
+
+msgid "Preferred Carrier"
+msgstr "优选承运商"
+
+msgid "Long-service owner-operator"
+msgstr "资深车主司机"
+
+msgid "The dispatch board grows to nine offers per visit."
+msgstr "调度板每次增加到九个报价。"
+
+msgid "Brokers who have used you once call you first."
+msgstr "用过你一次的货代会第一个找你。"
+
+msgid "Core Carrier"
+msgstr "核心承运商"
+
+msgid "On the short list shippers offer freight to first."
+msgstr "进了货主优先派货的名单。"
+
+msgid "Contract Carrier"
+msgstr "合同承运商"
+
+msgid ""
+"Lower fees: the settlement service fee on leased-on loads drops to 1.5 "
+"percent, and the factoring fee under your own authority to 3 percent."
+msgstr "费用降低：挂靠货物的结算服务费降到1.5%，自有运营资质下的保理费降到3%。"
+
+msgid "Hauling for customers who come back for more than one load."
+msgstr "为回头客拉一单又一单。"
+
+msgid "Dedicated Carrier"
+msgstr "专属承运商"
+
+msgid "A carrier customers plan their freight around."
+msgstr "客户围绕它安排货运的承运商。"
+
+msgid "Carrier of Choice"
+msgstr "首选承运商"
+
+msgid "The carrier a customer asks for by name."
+msgstr "客户点名要的承运商。"
+
+msgid "Senior Carrier Owner"
+msgstr "资深承运车主"
+
+msgid ""
+"Lower fees: the settlement service fee drops to 1 percent, and the "
+"factoring fee to 2.5 percent."
+msgstr "费用降低：结算服务费降到1%，保理费降到2.5%。"
+
+msgid "Years of clean settlements behind one truck."
+msgstr "一辆卡车，多年干净的结算记录。"
+
+msgid "Owner-Operator Mentor"
+msgstr "车主司机导师"
+
+msgid "Newer owner-operators ask how you did it."
+msgstr "新来的车主司机向你请教经验。"
+
+msgid "Master Carrier Owner"
+msgstr "大师级承运车主"
+
+msgid "Nothing in the business of one truck is new to you."
+msgstr "单车经营的事，没有什么对你是新鲜的。"
+
+msgid "Veteran Carrier Owner"
+msgstr "老牌承运车主"
+
+msgid ""
+"Lower fees: the settlement service fee drops to 0.5 percent, and the "
+"factoring fee to 2 percent."
+msgstr "费用降低：结算服务费降到0.5%，保理费降到2%。"
+
+msgid "Among the longest-serving independents on the road."
+msgstr "路上资历最老的独立司机之一。"
+
+msgid "Freight Fate Carrier Owner"
+msgstr "Freight Fate承运车主"
+
 msgid "Top career rank."
 msgstr "最高职级。"
 
-msgid "A complete company-driver to independent owner-operator career."
-msgstr "从公司司机到独立车主司机的完整职业生涯。"
+msgid "The top of the owner-operator ladder."
+msgstr "车主司机路线的最高一级。"
 
 msgid "Dedicated Company Driver"
 msgstr "专职公司司机"
@@ -7758,21 +7901,103 @@ msgstr "站在承运商阶梯顶端、久经考验的公司司机。"
 msgid "Freight Fate Company Driver"
 msgstr "Freight Fate公司司机"
 
-msgid "Top company-driver career rank."
-msgstr "公司司机最高职级。"
-
 msgid ""
 "A complete company-driver career without taking the owner-operator seat."
 msgstr "不坐车主司机位置的完整公司司机职业生涯。"
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-msgid "level {level}: {title}."
-msgstr "{level}级：{title}。"
+msgid "Driver Trainer"
+msgstr "司机教练"
 
-#. placeholders: {level}, {title}, {unlock}
-msgid "level {level}: {title}. Unlock: {unlock}"
-msgstr "{level}级：{title}。解锁：{unlock}"
+msgid "Long-service company driver"
+msgstr "资深公司司机"
+
+msgid "The carrier puts its new hires with you."
+msgstr "承运商把新员工交给你带。"
+
+msgid "Lead Driver Trainer"
+msgstr "首席司机教练"
+
+msgid "You train the drivers who train the new hires."
+msgstr "你培训那些带新员工的教练。"
+
+msgid "Road Test Examiner"
+msgstr "路考考官"
+
+msgid ""
+"Experience pay: your carrier adds 1 percent of the load to every settlement."
+msgstr "工龄津贴：承运商在每次结算时加上货物运费的1%。"
+
+msgid "The carrier trusts you to judge who is ready for a truck."
+msgstr "承运商信任你来判断谁能开卡车了。"
+
+msgid "Safety Committee Driver"
+msgstr "安全委员会司机"
+
+msgid "A driver's seat on the carrier's safety committee."
+msgstr "在承运商安全委员会里占一个司机席位。"
+
+msgid "Driver Council Member"
+msgstr "司机委员会委员"
+
+msgid "You speak for the drivers when the carrier sets its rules."
+msgstr "承运商定规矩时，你替司机说话。"
+
+msgid "Driver Council Chair"
+msgstr "司机委员会主席"
+
+msgid "Experience pay rises to 2 percent of the load."
+msgstr "工龄津贴提高到货物运费的2%。"
+
+msgid "Leading the drivers' council."
+msgstr "领导司机委员会。"
+
+msgid "Road Team Driver"
+msgstr "路演团队司机"
+
+msgid "One of the drivers the carrier sends to speak for it."
+msgstr "承运商派出去代表公司的司机之一。"
+
+msgid "Road Team Captain"
+msgstr "路演团队队长"
+
+msgid "Leading the carrier's road team."
+msgstr "带领承运商的路演团队。"
+
+msgid "Senior Road Team Captain"
+msgstr "资深路演团队队长"
+
+msgid "Experience pay rises to 3 percent of the load."
+msgstr "工龄津贴提高到货物运费的3%。"
+
+msgid "The longest-serving captain on the road team."
+msgstr "路演团队里任职最久的队长。"
+
+msgid "Freight Fate Road Captain"
+msgstr "Freight Fate公路队长"
+
+msgid "Top company-driver career rank."
+msgstr "公司司机最高职级。"
+
+msgid "The top of the company-driver ladder."
+msgstr "公司司机路线的最高一级。"
+
+#. one sentence of a longer line
+msgid "Level up!"
+msgstr "升级了！"
+
+#. placeholders: {gained_level}, {title}
+msgid "Level up! You are now level {gained_level}: {title}."
+msgstr "升级了！你现在是{gained_level}级：{title}。"
+
+#. placeholders: {gained_level}, {title}
+#. one sentence of a longer line
+msgid "You are now level {gained_level}: {title}."
+msgstr "你现在是{gained_level}级：{title}。"
+
+#. placeholders: {gained_level}, {title}, {unlock}
+msgid ""
+"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
+msgstr "升级了！你现在是{gained_level}级：{title}。解锁：{unlock}"
 
 msgid "Run the business you built"
 msgstr "经营你一手打造的生意"
@@ -7810,9 +8035,9 @@ msgid "Top of the leased-on ladder"
 msgstr "挂靠阶梯的顶端"
 
 msgid ""
-"You reached level 30 as a leased-on owner-operator. Own authority is the "
+"You reached level 40 as a leased-on owner-operator. Own authority is the "
 "one step left."
-msgstr "你以挂靠承运商的车主司机身份达到了30级。只剩自有运营资质这最后一步。"
+msgstr "你作为挂靠车主司机达到了40级。只差最后一步：自有运营资质。"
 
 msgid "proven owner-operator lane"
 msgstr "久经考验的车主司机线路"
@@ -7851,8 +8076,8 @@ msgstr "最高资历公司线路"
 msgid "Career company driver, by choice"
 msgstr "职业公司司机，自愿之选"
 
-msgid "Level 30, the top rank. The buy-in stays open under Business status."
-msgstr "职级30，最高职级。可在“经营状态”中继续办理购车入股。"
+msgid "Level 40, the top rank. The buy-in stays open under Business status."
+msgstr "40级，最高职级。买断仍然可以在经营状况里进行。"
 
 msgid "Plan the next business step"
 msgstr "规划下一步经营"
@@ -29528,6 +29753,10 @@ msgstr "准时送达奖金：{grouped}美元。"
 msgid "Early delivery bonus: {grouped} dollars."
 msgstr "提前送达奖金：{grouped}美元。"
 
+#. placeholders: {grouped}
+msgid "Experience pay: {grouped} dollars."
+msgstr "工龄津贴：{grouped}美元。"
+
 msgid "tire wear"
 msgstr "轮胎磨损"
 
@@ -44393,6 +44622,26 @@ msgid ""
 msgstr ""
 "按住左肩键使用第二层按键。{pad_engine}控制发动机，{pad_fuel}读出燃油，{pad_speed_limit}读出限速。"
 
+#~ msgid "Career level 15, halfway up the ladder."
+#~ msgstr "职业等级15，梯子的一半。"
+
+#~ msgid "Career level 30, the top."
+#~ msgstr "职业等级30，顶峰。"
+
+#~ msgid "level {level}: {title}."
+#~ msgstr "{level}级：{title}。"
+
+#~ msgid "level {level}: {title}. Unlock: {unlock}"
+#~ msgstr "{level}级：{title}。解锁：{unlock}"
+
+#~ msgid ""
+#~ "You reached level 30 as a leased-on owner-operator. Own authority is the "
+#~ "one step left."
+#~ msgstr "你以挂靠承运商的车主司机身份达到了30级。只剩自有运营资质这最后一步。"
+
+#~ msgid "Level 30, the top rank. The buy-in stays open under Business status."
+#~ msgstr "职级30，最高职级。可在“经营状态”中继续办理购车入股。"
+
 #~ msgid ""
 #~ "Driving and duty clocks reset, but you are still "
 #~ "tired.{wake_air_instruction}"
@@ -46307,9 +46556,6 @@ msgstr ""
 #~ "Through the rain, wipers keeping time and your following distance keeping "
 #~ "order."
 #~ msgstr "穿过雨幕，雨刷规律摆动，你也始终保持着安全跟车间隔。"
-
-#~ msgid "Del Reeves - Looking at the World Through a Windshield"
-#~ msgstr "Del Reeves - Looking at the World Through a Windshield"
 
 #~ msgid "A Mile Past the Last Marker"
 #~ msgstr "比最后一块路碑多一英里"

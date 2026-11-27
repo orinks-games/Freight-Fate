@@ -129,6 +129,9 @@ fn scenario_properties() -> Value {
     properties["first_delivery_city"] = json!({"type": "string", "description": "the city the first delivery loaded in, as a 1.9 save records it; empty string clears the record"});
     properties["copied_from_1_9"] = json!({"type": "boolean", "description": "true runs the 1.9 copy's carry-over on the career as staged (home fix and carryover state), after carrier, home_city and first_delivery_city"});
     properties["carryover"] = json!({"type": "string", "enum": ["native", "settled", "carrier_choice_due"], "description": "the carry-over state, set directly, last"});
+    properties["xp"] =
+        json!({"type": "number", "description": "exact career experience; wins over level"});
+    properties["banked_levels_heard"] = json!({"type": "boolean", "description": "false leaves the one-time terminal line for experience past level 30 owed"});
     properties["chains"] = json!({"type": "boolean"});
     properties["chain_wear_pct"] = json!({"type": "number"});
     properties["chain_repair_links"] = json!({"type": "integer"});
@@ -478,7 +481,9 @@ fn tools_list() -> Value {
             "scenario",
             "Put the sandbox career in any situation and reopen the terminal on it. \
              Every field is optional: city (any world city, the career moves there \
-             with no miles driven), level (1 to 30), deliveries, money, reputation, \
+             with no miles driven), level (1 to 40), xp (exact experience, wins over \
+             level), total_miles (lifetime miles on the record), banked_levels_heard (false leaves the one-time line for experience \
+             past level 30 owed; staging a level or xp marks it heard otherwise), deliveries, money, reputation, \
              business (company, leased or independent) or business_stage \
              (company_driver, company_by_choice, leased_on, leased_on_prepared or \
              own_authority; wins over business), carrier (a carriers.json key), home_city \

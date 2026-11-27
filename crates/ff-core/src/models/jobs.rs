@@ -869,7 +869,7 @@ pub const MIN_JOB_DISTANCE_MI: f64 = 25.0;
 // The dispatch board itself grows with seniority: proven drivers get shown
 // more freight per visit. These are career-ladder unlocks, spoken at the
 // matching level-up.
-pub const BOARD_OFFER_LEVELS: &[(i64, usize)] = &[(6, 6), (10, 7), (12, 8)];
+pub const BOARD_OFFER_LEVELS: &[(i64, usize)] = &[(6, 6), (10, 7), (12, 8), (31, 9)];
 pub const BASE_BOARD_OFFERS: usize = 5;
 
 // Specialized company drivers (level 11+) see endorsement freight weighted

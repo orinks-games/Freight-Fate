@@ -401,6 +401,7 @@ from the words, and synonyms cost them a re-read.
 | How far dispatch will work with you right now | dispatch trust | standing, rep level, tier | `enforcement.standing_band` |
 | Calling dispatch while drowsy or severe on a load to move the appointment for a night's sleep, once per load, at the price of the on-time bonus | rest call (the dispatch call's row reads "Too tired to drive safely") | sleep call, fatigue call, tired call, extension | `sim::fatigue_costs::RestCall` |
 | What a load pays with no on-time bonus, after a rest call | base rate | flat rate, reduced pay, no-bonus rate | `sim::fatigue_costs::RestCall::Used` |
+| The share of a load's pay a carrier adds for a company driver's long service, from level 33 (1 percent), 36 (2) and 39 (3), at any carrier | experience pay ("Experience pay: N dollars." in the settlement) | seniority pay, longevity bonus, veteran bonus, raise | `business::experience_pay`, `EXPERIENCE_PAY_LEVELS` |
 | Everything the driver is behind by, cash and balance together | debt; "what you owe" in a sentence | negative balance, in the red, in the hole, arrears | `solvency.debt_owed` |
 | Charges a settlement could not cover, carried to the next one | balance owed | tab, IOU, outstanding fines, arrears | `Profile.fines_owed` |
 | The figure debt is not allowed to pass | ceiling | limit, cap, threshold, max | `solvency.debt_ceiling` |

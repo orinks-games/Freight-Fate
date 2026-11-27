@@ -283,13 +283,20 @@ pub(crate) fn award_arrival_achievements(
     if total_miles >= 10_000.0 {
         push(&mut ids, "ten_thousand_miles");
     }
-    if total_miles >= 50_000.0 {
-        push(&mut ids, "fifty_thousand_miles");
+    for (miles, badge) in [
+        (50_000.0, "fifty_thousand_miles"),
+        (250_000.0, "quarter_million_miles"),
+        (500_000.0, "half_million_miles"),
+        (1_000_000.0, "million_miles"),
+    ] {
+        if total_miles >= miles {
+            push(&mut ids, badge);
+        }
     }
     if money >= 100_000.0 {
         push(&mut ids, "hundred_grand");
     }
-    // Ladder milestones for the 30-level arc. "max_level" is the level-20
+    // Ladder milestones for the 40-level arc. "max_level" is the level-20
     // veteran badge (its copy has said "level twenty" since the ladder grew
     // past the old cap).
     for (milestone, badge) in [
@@ -299,6 +306,8 @@ pub(crate) fn award_arrival_achievements(
         (20, "max_level"),
         (25, "level_twenty_five"),
         (30, "level_thirty"),
+        (35, "level_thirty_five"),
+        (40, "level_forty"),
     ] {
         if level >= milestone {
             push(&mut ids, badge);
@@ -469,8 +478,14 @@ pub(crate) fn award_arrival_achievements(
     if deliveries >= 25 {
         push(&mut ids, "twenty_five_deliveries");
     }
-    if deliveries >= 200 {
-        push(&mut ids, "two_hundred_deliveries");
+    for (count, badge) in [
+        (200, "two_hundred_deliveries"),
+        (250, "two_fifty_deliveries"),
+        (500, "five_hundred_deliveries"),
+    ] {
+        if deliveries >= count {
+            push(&mut ids, badge);
+        }
     }
     if money >= 250_000.0 {
         push(&mut ids, "quarter_million_bank");

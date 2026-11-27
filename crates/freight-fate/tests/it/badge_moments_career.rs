@@ -52,6 +52,16 @@ fn two_hundred_deliveries_lands_on_the_two_hundredth() {
     nth_delivery_earns("two_hundred_deliveries", 200);
 }
 
+#[test]
+fn two_fifty_deliveries_lands_on_the_two_hundred_fiftieth() {
+    nth_delivery_earns("two_fifty_deliveries", 250);
+}
+
+#[test]
+fn five_hundred_deliveries_lands_on_the_five_hundredth() {
+    nth_delivery_earns("five_hundred_deliveries", 500);
+}
+
 /// The settlement that carries the career to `level` earns `id`; one that
 /// ends a level short does not.
 fn level_earns(id: &str, level: i64) {
@@ -104,6 +114,16 @@ fn level_twenty_five_lands_with_the_level() {
 #[test]
 fn level_thirty_lands_with_the_level() {
     level_earns("level_thirty", 30);
+}
+
+#[test]
+fn level_thirty_five_lands_with_the_level() {
+    level_earns("level_thirty_five", 35);
+}
+
+#[test]
+fn level_forty_lands_with_the_level() {
+    level_earns("level_forty", 40);
 }
 
 #[test]
@@ -266,6 +286,21 @@ fn fifty_thousand_miles_lands_on_the_run_that_crosses_it() {
 #[test]
 fn hundred_k_miles_lands_on_the_run_that_crosses_it() {
     odometer_earns("hundred_k_miles", 100_000.0);
+}
+
+#[test]
+fn quarter_million_miles_lands_on_the_run_that_crosses_it() {
+    odometer_earns("quarter_million_miles", 250_000.0);
+}
+
+#[test]
+fn half_million_miles_lands_on_the_run_that_crosses_it() {
+    odometer_earns("half_million_miles", 500_000.0);
+}
+
+#[test]
+fn million_miles_lands_on_the_run_that_crosses_it() {
+    odometer_earns("million_miles", 1_000_000.0);
 }
 
 /// An on-time delivery adds two points of reputation. From `start`, the

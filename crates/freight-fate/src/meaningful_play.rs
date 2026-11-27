@@ -36,6 +36,7 @@ pub fn meaningful_profile_hash(profile_dict: &Value) -> String {
         }
         if let Some(Value::Object(career)) = map.get_mut("career") {
             career.remove("unacknowledged_grants");
+            career.remove("banked_levels_heard");
         }
         if let Some(Value::Object(record)) = map.get_mut("driving_record") {
             for field in [

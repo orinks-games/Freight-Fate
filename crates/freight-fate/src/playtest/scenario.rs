@@ -82,7 +82,15 @@ pub struct Scenario {
     pub name: Option<String>,
     pub city: Option<String>,
     pub level: Option<i64>,
+    /// Exact career experience; wins over `level`.
+    pub xp: Option<f64>,
+    /// Whether the one-time line for experience past level 30 has been
+    /// heard. Staging a level or experience marks it heard unless this is
+    /// passed false, so a staged level 35 career is not greeted with it.
+    pub banked_levels_heard: Option<bool>,
     pub deliveries: Option<i64>,
+    /// Lifetime miles on the career record (the mile achievements read it).
+    pub total_miles: Option<f64>,
     pub money: Option<f64>,
     pub reputation: Option<f64>,
     /// Where the career stands on the ownership ladder: `business_stage`
@@ -436,6 +444,10 @@ impl Scenario {
                 return Err(format!("level must be from 1 to {MAX_CAREER_LEVEL}"));
             }
         }
+        let xp = number(args, "xp")?;
+        if xp.is_some_and(|xp| !(0.0..=10_000_000.0).contains(&xp)) {
+            return Err("xp must be from 0 to 10,000,000".to_string());
+        }
         for key in [
             "fuel_pct",
             "damage_pct",
@@ -543,7 +555,10 @@ impl Scenario {
             name: text(args, "name")?,
             city: text(args, "city")?,
             level,
+            xp,
+            banked_levels_heard: args.get("banked_levels_heard").and_then(Value::as_bool),
             deliveries: integer(args, "deliveries")?,
+            total_miles: number(args, "total_miles")?,
             money: number(args, "money")?,
             reputation: number(args, "reputation")?,
             business,
@@ -694,6 +709,26 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             let level = level.clamp(1, MAX_CAREER_LEVEL) as usize;
             p.career.xp = LEVEL_XP[level - 1];
             notes.push(format!("Level {level}."));
+        }
+        if let Some(xp) = scenario.xp {
+            p.career.xp = xp;
+            notes.push(format!(
+                "{} experience, level {}.",
+                fmt_grouped(xp, 0),
+                p.career.level()
+            ));
+        }
+        if scenario.level.is_some() || scenario.xp.is_some() {
+            p.career.banked_levels_heard = scenario.banked_levels_heard.unwrap_or(true);
+        } else if let Some(heard) = scenario.banked_levels_heard {
+            p.career.banked_levels_heard = heard;
+        }
+        if let Some(miles) = scenario.total_miles {
+            p.career.total_miles = miles.max(0.0);
+            notes.push(format!(
+                "{} lifetime miles.",
+                fmt_grouped(miles.max(0.0), 0)
+            ));
         }
         if let Some(deliveries) = scenario.deliveries {
             p.career.deliveries = deliveries.max(0);

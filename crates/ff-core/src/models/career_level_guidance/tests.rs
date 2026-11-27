@@ -105,23 +105,49 @@ fn test_high_level_company_bands_do_not_overstate_business_status() {
 }
 
 #[test]
-fn test_level_30_guidance_is_distinct_per_business_path() {
-    let company_30 = career_level_guidance(&company(30));
-    let leased = career_level_guidance(&profile(30, LEASED_OWNER_OPERATOR));
-    let authority = career_level_guidance(&profile(30, INDEPENDENT_AUTHORITY));
+fn test_level_40_guidance_is_distinct_per_business_path() {
+    let company_40 = career_level_guidance(&company(40));
+    let leased = career_level_guidance(&profile(40, LEASED_OWNER_OPERATOR));
+    let authority = career_level_guidance(&profile(40, INDEPENDENT_AUTHORITY));
 
     let titles: std::collections::BTreeSet<&str> = [
-        company_30.title.as_str(),
+        company_40.title.as_str(),
         leased.title.as_str(),
         authority.title.as_str(),
     ]
     .into_iter()
     .collect();
     assert_eq!(titles.len(), 3);
-    assert_ne!(company_30.title, career_level_guidance(&company(25)).title);
+    assert_ne!(company_40.title, career_level_guidance(&company(25)).title);
     assert_ne!(
         authority.title,
         career_level_guidance(&profile(25, INDEPENDENT_AUTHORITY)).title
+    );
+}
+
+#[test]
+fn levels_30_to_39_fall_through_to_the_bands_below_the_top() {
+    for level in [30, 35, 39] {
+        assert_eq!(
+            career_level_guidance(&company(level)).title,
+            career_level_guidance(&company(25)).title
+        );
+        assert_eq!(
+            career_level_guidance(&profile(level, LEASED_OWNER_OPERATOR)).title,
+            career_level_guidance(&profile(25, LEASED_OWNER_OPERATOR)).title
+        );
+        assert_eq!(
+            career_level_guidance(&profile(level, INDEPENDENT_AUTHORITY)).title,
+            career_level_guidance(&profile(25, INDEPENDENT_AUTHORITY)).title
+        );
+    }
+    assert_eq!(
+        career_level_guidance(&profile(40, LEASED_OWNER_OPERATOR)).terminal_text,
+        "You reached level 40 as a leased-on owner-operator. Own authority is the one step left."
+    );
+    assert_eq!(
+        career_level_guidance(&company(40)).terminal_text,
+        "Level 40, the top rank. The buy-in stays open under Business status."
     );
 }
 

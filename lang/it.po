@@ -610,6 +610,33 @@ msgstr "Cinquantamila miglia percorse. La strada non ti lascerà andare."
 msgid "Ronnie Milsap - Prisoner of the Highway"
 msgstr "Ronnie Milsap - Prisoner of the Highway"
 
+msgid "Endless Highway"
+msgstr "Autostrada senza fine"
+
+msgid "Two hundred fifty thousand miles driven."
+msgstr "Duecentocinquantamila miglia percorse."
+
+msgid "The Band - Endless Highway"
+msgstr "The Band - Endless Highway"
+
+msgid "Miles and Miles"
+msgstr "Miglia e miglia"
+
+msgid "Half a million miles driven."
+msgstr "Mezzo milione di miglia percorse."
+
+msgid "Asleep at the Wheel - Miles and Miles of Texas"
+msgstr "Asleep at the Wheel - Miles and Miles of Texas"
+
+msgid "A Million Miles Away"
+msgstr "A un milione di miglia"
+
+msgid "A million miles driven."
+msgstr "Un milione di miglia percorse."
+
+msgid "The Plimsouls - A Million Miles Away"
+msgstr "The Plimsouls - A Million Miles Away"
+
 msgid "Money"
 msgstr "Soldi"
 
@@ -1032,6 +1059,24 @@ msgstr "Duecento consegne."
 msgid "Emily Nenni - Long Game"
 msgstr "Emily Nenni - Long Game"
 
+msgid "Roll Truck Roll"
+msgstr "Corri, camion, corri"
+
+msgid "Two hundred fifty deliveries."
+msgstr "Duecentocinquanta consegne."
+
+msgid "Red Simpson - Roll Truck Roll"
+msgstr "Red Simpson - Roll Truck Roll"
+
+msgid "The World Through a Windshield"
+msgstr "Il mondo attraverso un parabrezza"
+
+msgid "Five hundred deliveries."
+msgstr "Cinquecento consegne."
+
+msgid "Del Reeves - Looking at the World Through a Windshield"
+msgstr "Del Reeves - Looking at the World Through a Windshield"
+
 msgid "Breaking the Bank"
 msgstr "Sbancare"
 
@@ -1294,8 +1339,8 @@ msgstr "Alabama - Forty Hour Week (For a Livin')"
 msgid "Halfway There"
 msgstr "A metà strada"
 
-msgid "Career level 15, halfway up the ladder."
-msgstr "Livello di carriera 15, a metà della scala."
+msgid "Career level 15."
+msgstr "Livello di carriera 15."
 
 msgid "Bon Jovi - Livin' on a Prayer"
 msgstr "Bon Jovi - Livin' on a Prayer"
@@ -1313,11 +1358,29 @@ msgstr "Waylon Jennings - Are You Sure Hank Done It This Way"
 msgid "King of the Road"
 msgstr "Re della strada"
 
-msgid "Career level 30, the top."
-msgstr "Livello di carriera 30, la vetta."
+msgid "Career level 30."
+msgstr "Livello di carriera 30."
 
 msgid "Roger Miller - King of the Road"
 msgstr "Roger Miller - King of the Road"
+
+msgid "Further On Up the Road"
+msgstr "Più avanti lungo la strada"
+
+msgid "Career level 35."
+msgstr "Livello di carriera 35."
+
+msgid "Eric Clapton - Further On Up the Road"
+msgstr "Eric Clapton - Further On Up the Road"
+
+msgid "End of the Line"
+msgstr "Capolinea"
+
+msgid "Career level 40, the top."
+msgstr "Livello di carriera 40, il più alto."
+
+msgid "Traveling Wilburys - End of the Line"
+msgstr "Traveling Wilburys - End of the Line"
 
 msgid "Newer Iron"
 msgstr "Ferro più nuovo"
@@ -7920,15 +7983,6 @@ msgstr "Preparazione alla licenza propria bloccata: {join}"
 msgid "You are at the top career rank."
 msgstr "Sei al grado di carriera più alto."
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-msgid "Next: level {level}, {title}."
-msgstr "Prossimo: livello {level}, {title}."
-
-#. placeholders: {level}, {title}, {unlock}
-msgid "Next: level {level}, {title}. {unlock}"
-msgstr "Prossimo: livello {level}, {title}. {unlock}"
-
 #. one sentence of a longer line
 msgid "Company driver by choice."
 msgstr "Autista dipendente per scelta."
@@ -7954,6 +8008,14 @@ msgid ""
 msgstr ""
 "Sei al grado di carriera più alto. Il riscatto da padroncino resta "
 "disponibile in Situazione aziendale, se mai lo vorrai."
+
+#. placeholders: {level}, {title}
+msgid "Next: level {level}, {title}."
+msgstr "Prossimo: livello {level}, {title}."
+
+#. placeholders: {level}, {title}, {unlock}
+msgid "Next: level {level}, {title}. {unlock}"
+msgstr "Prossimo: livello {level}, {title}. {unlock}"
 
 msgid "Weigh station transponder subscription is active. "
 msgstr "L'abbonamento al transponder per le stazioni di pesatura è attivo. "
@@ -8210,20 +8272,21 @@ msgstr ""
 msgid "Reminder: you hold a new {gate_label}."
 msgstr "Promemoria: hai una nuova qualifica, {gate_label}."
 
+#. placeholders: {level}, {title}
 #. one sentence of a longer line
-msgid "Level up!"
-msgstr "Nuovo livello!"
+msgid "You are level {level}: {title}."
+msgstr "Sei al livello {level}: {title}."
 
-#. placeholders: {gained_level}, {title}, {unlock}
+#. one sentence of a longer line
+msgid "Your experience past level 30 now counts."
+msgstr "La tua esperienza oltre il livello 30 ora conta."
+
+#. placeholders: {level}, {title}
 msgid ""
-"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
+"Your experience past level 30 now counts. You are level {level}: {title}."
 msgstr ""
-"Nuovo livello! Ora sei al livello {gained_level}: {title}. Sblocco: {unlock}"
-
-#. placeholders: {gained_level}, {title}
-#. one sentence of a longer line
-msgid "You are now level {gained_level}: {title}."
-msgstr "Ora sei al livello {gained_level}: {title}."
+"La tua esperienza oltre il livello 30 ora conta. Sei al livello {level}: "
+"{title}."
 
 #. placeholders: {level}, {title}
 msgid " Next: level {level}, {title}."
@@ -8663,12 +8726,103 @@ msgstr "Un autista indipendente collaudato, non un gestore di flotta."
 msgid "Freight Fate Independent"
 msgstr "Indipendente di Freight Fate"
 
-msgid "Top career rank."
-msgstr "Grado di carriera più alto."
-
 msgid "A complete company-driver to independent owner-operator career."
 msgstr ""
 "Una carriera completa, da autista dipendente a padroncino indipendente."
+
+msgid "Preferred Carrier"
+msgstr "Vettore preferito"
+
+msgid "Long-service owner-operator"
+msgstr "Padroncino di lungo corso"
+
+msgid "The dispatch board grows to nine offers per visit."
+msgstr "La bacheca degli incarichi sale a nove offerte per visita."
+
+msgid "Brokers who have used you once call you first."
+msgstr ""
+"Gli intermediari che ti hanno già scelto una volta chiamano prima te."
+
+msgid "Core Carrier"
+msgstr "Vettore di fiducia"
+
+msgid "On the short list shippers offer freight to first."
+msgstr ""
+"Nella lista ristretta a cui i committenti offrono il carico per primi."
+
+msgid "Contract Carrier"
+msgstr "Vettore a contratto"
+
+msgid ""
+"Lower fees: the settlement service fee on leased-on loads drops to 1.5 "
+"percent, and the factoring fee under your own authority to 3 percent."
+msgstr ""
+"Commissioni più basse: la commissione di servizio sul compenso per i "
+"carichi da convenzionato scende all'1,5 per cento, e la commissione di "
+"factoring con licenza propria al 3 per cento."
+
+msgid "Hauling for customers who come back for more than one load."
+msgstr "Lavori per clienti che tornano per più di un carico."
+
+msgid "Dedicated Carrier"
+msgstr "Vettore dedicato"
+
+msgid "A carrier customers plan their freight around."
+msgstr "Un vettore attorno a cui i clienti organizzano i loro carichi."
+
+msgid "Carrier of Choice"
+msgstr "Vettore di prima scelta"
+
+msgid "The carrier a customer asks for by name."
+msgstr "Il vettore che un cliente chiede per nome."
+
+msgid "Senior Carrier Owner"
+msgstr "Autotrasportatore senior"
+
+msgid ""
+"Lower fees: the settlement service fee drops to 1 percent, and the "
+"factoring fee to 2.5 percent."
+msgstr ""
+"Commissioni più basse: la commissione di servizio sul compenso scende all'1 "
+"per cento, e la commissione di factoring al 2,5 per cento."
+
+msgid "Years of clean settlements behind one truck."
+msgstr "Anni di compensi puliti con un solo camion."
+
+msgid "Owner-Operator Mentor"
+msgstr "Tutor dei padroncini"
+
+msgid "Newer owner-operators ask how you did it."
+msgstr "I padroncini più nuovi ti chiedono come ci sei riuscito."
+
+msgid "Master Carrier Owner"
+msgstr "Maestro autotrasportatore"
+
+msgid "Nothing in the business of one truck is new to you."
+msgstr ""
+"Nel mestiere di chi ha un solo camion non c'è niente di nuovo per te."
+
+msgid "Veteran Carrier Owner"
+msgstr "Autotrasportatore veterano"
+
+msgid ""
+"Lower fees: the settlement service fee drops to 0.5 percent, and the "
+"factoring fee to 2 percent."
+msgstr ""
+"Commissioni più basse: la commissione di servizio sul compenso scende allo "
+"0,5 per cento, e la commissione di factoring al 2 per cento."
+
+msgid "Among the longest-serving independents on the road."
+msgstr "Tra gli indipendenti in strada da più tempo."
+
+msgid "Freight Fate Carrier Owner"
+msgstr "Autotrasportatore di Freight Fate"
+
+msgid "Top career rank."
+msgstr "Grado di carriera più alto."
+
+msgid "The top of the owner-operator ladder."
+msgstr "La cima della scala dei padroncini."
 
 msgid "Dedicated Company Driver"
 msgstr "Autista dipendente fedele"
@@ -8849,23 +9003,108 @@ msgstr "Un autista dipendente collaudato in cima alla scala della ditta."
 msgid "Freight Fate Company Driver"
 msgstr "Autista dipendente di Freight Fate"
 
-msgid "Top company-driver career rank."
-msgstr "Grado di carriera più alto da autista dipendente."
-
 msgid ""
 "A complete company-driver career without taking the owner-operator seat."
 msgstr ""
 "Una carriera completa da autista dipendente, senza prendere il posto da "
 "padroncino."
 
-#. placeholders: {level}, {title}
-#. one sentence of a longer line
-msgid "level {level}: {title}."
-msgstr "livello {level}: {title}."
+msgid "Driver Trainer"
+msgstr "Istruttore di guida"
 
-#. placeholders: {level}, {title}, {unlock}
-msgid "level {level}: {title}. Unlock: {unlock}"
-msgstr "livello {level}: {title}. Sblocco: {unlock}"
+msgid "Long-service company driver"
+msgstr "Autista dipendente di lungo corso"
+
+msgid "The carrier puts its new hires with you."
+msgstr "La ditta affida a te i nuovi assunti."
+
+msgid "Lead Driver Trainer"
+msgstr "Capo istruttore di guida"
+
+msgid "You train the drivers who train the new hires."
+msgstr "Formi gli autisti che formano i nuovi assunti."
+
+msgid "Road Test Examiner"
+msgstr "Esaminatore di guida"
+
+msgid ""
+"Experience pay: your carrier adds 1 percent of the load to every settlement."
+msgstr ""
+"Indennità di anzianità: la tua ditta aggiunge l'1 per cento del carico a "
+"ogni compenso."
+
+msgid "The carrier trusts you to judge who is ready for a truck."
+msgstr "La ditta si fida del tuo giudizio su chi è pronto per un camion."
+
+msgid "Safety Committee Driver"
+msgstr "Autista del comitato sicurezza"
+
+msgid "A driver's seat on the carrier's safety committee."
+msgstr "Un posto da autista nel comitato sicurezza della ditta."
+
+msgid "Driver Council Member"
+msgstr "Membro del consiglio degli autisti"
+
+msgid "You speak for the drivers when the carrier sets its rules."
+msgstr "Parli per gli autisti quando la ditta fissa le sue regole."
+
+msgid "Driver Council Chair"
+msgstr "Presidente del consiglio degli autisti"
+
+msgid "Experience pay rises to 2 percent of the load."
+msgstr "L'indennità di anzianità sale al 2 per cento del carico."
+
+msgid "Leading the drivers' council."
+msgstr "Guidi il consiglio degli autisti."
+
+msgid "Road Team Driver"
+msgstr "Autista della squadra su strada"
+
+msgid "One of the drivers the carrier sends to speak for it."
+msgstr "Uno degli autisti che la ditta manda a parlare per lei."
+
+msgid "Road Team Captain"
+msgstr "Capitano della squadra su strada"
+
+msgid "Leading the carrier's road team."
+msgstr "Guidi la squadra su strada della ditta."
+
+msgid "Senior Road Team Captain"
+msgstr "Capitano senior della squadra su strada"
+
+msgid "Experience pay rises to 3 percent of the load."
+msgstr "L'indennità di anzianità sale al 3 per cento del carico."
+
+msgid "The longest-serving captain on the road team."
+msgstr "Il capitano con più anni nella squadra su strada."
+
+msgid "Freight Fate Road Captain"
+msgstr "Capitano di strada di Freight Fate"
+
+msgid "Top company-driver career rank."
+msgstr "Grado di carriera più alto da autista dipendente."
+
+msgid "The top of the company-driver ladder."
+msgstr "La cima della scala degli autisti dipendenti."
+
+#. one sentence of a longer line
+msgid "Level up!"
+msgstr "Nuovo livello!"
+
+#. placeholders: {gained_level}, {title}
+msgid "Level up! You are now level {gained_level}: {title}."
+msgstr "Nuovo livello! Ora sei al livello {gained_level}: {title}."
+
+#. placeholders: {gained_level}, {title}
+#. one sentence of a longer line
+msgid "You are now level {gained_level}: {title}."
+msgstr "Ora sei al livello {gained_level}: {title}."
+
+#. placeholders: {gained_level}, {title}, {unlock}
+msgid ""
+"Level up! You are now level {gained_level}: {title}. Unlock: {unlock}"
+msgstr ""
+"Nuovo livello! Ora sei al livello {gained_level}: {title}. Sblocco: {unlock}"
 
 msgid "Run the business you built"
 msgstr "Gestisci l'attività che hai costruito"
@@ -8908,11 +9147,11 @@ msgid "Top of the leased-on ladder"
 msgstr "In cima alla scala da convenzionato"
 
 msgid ""
-"You reached level 30 as a leased-on owner-operator. Own authority is the "
+"You reached level 40 as a leased-on owner-operator. Own authority is the "
 "one step left."
 msgstr ""
-"Hai raggiunto il livello 30 come padroncino convenzionato. La licenza "
-"propria è l'unico passo rimasto."
+"Hai raggiunto il livello 40 come padroncino convenzionato. Ti manca un solo "
+"passo: la licenza propria."
 
 msgid "proven owner-operator lane"
 msgstr "rotta da padroncino collaudata"
@@ -8956,10 +9195,10 @@ msgstr "rotta aziendale di massima anzianità"
 msgid "Career company driver, by choice"
 msgstr "Autista dipendente di carriera, per scelta"
 
-msgid "Level 30, the top rank. The buy-in stays open under Business status."
+msgid "Level 40, the top rank. The buy-in stays open under Business status."
 msgstr ""
-"Livello 30, il grado più alto. L'acquisto del camion resta disponibile in "
-"Situazione aziendale."
+"Livello 40, il grado più alto. Il riscatto da padroncino resta disponibile "
+"in Situazione aziendale."
 
 msgid "Plan the next business step"
 msgstr "Pianifica il prossimo passo d'affari"
@@ -32861,6 +33100,10 @@ msgstr "Bonus consegna puntuale: {grouped} dollari."
 msgid "Early delivery bonus: {grouped} dollars."
 msgstr "Bonus consegna anticipata: {grouped} dollari."
 
+#. placeholders: {grouped}
+msgid "Experience pay: {grouped} dollars."
+msgstr "Indennità di anzianità: {grouped} dollari."
+
 msgid "tire wear"
 msgstr "usura degli pneumatici"
 
@@ -50238,6 +50481,30 @@ msgstr ""
 "{pad_engine} controlla il motore, {pad_fuel} legge il carburante e "
 "{pad_speed_limit} legge il limite."
 
+#~ msgid "Career level 15, halfway up the ladder."
+#~ msgstr "Livello di carriera 15, a metà della scala."
+
+#~ msgid "Career level 30, the top."
+#~ msgstr "Livello di carriera 30, la vetta."
+
+#~ msgid "level {level}: {title}."
+#~ msgstr "livello {level}: {title}."
+
+#~ msgid "level {level}: {title}. Unlock: {unlock}"
+#~ msgstr "livello {level}: {title}. Sblocco: {unlock}"
+
+#~ msgid ""
+#~ "You reached level 30 as a leased-on owner-operator. Own authority is the "
+#~ "one step left."
+#~ msgstr ""
+#~ "Hai raggiunto il livello 30 come padroncino convenzionato. La licenza "
+#~ "propria è l'unico passo rimasto."
+
+#~ msgid "Level 30, the top rank. The buy-in stays open under Business status."
+#~ msgstr ""
+#~ "Livello 30, il grado più alto. L'acquisto del camion resta disponibile in "
+#~ "Situazione aziendale."
+
 #~ msgid ""
 #~ "Driving and duty clocks reset, but you are still "
 #~ "tired.{wake_air_instruction}"
@@ -52557,9 +52824,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Sotto la pioggia, con i tergicristalli a tenere il tempo e la tua distanza "
 #~ "di sicurezza a tenere l'ordine."
-
-#~ msgid "Del Reeves - Looking at the World Through a Windshield"
-#~ msgstr "Del Reeves - Looking at the World Through a Windshield"
 
 #~ msgid "A Mile Past the Last Marker"
 #~ msgstr "Un miglio oltre l'ultima croce"

@@ -594,6 +594,7 @@ fn test_toll_route_delivery_settlement_records_expense() {
             reputation: None,
             transponder: false,
             record_surcharge: 1.0,
+            level: None,
         },
     );
 

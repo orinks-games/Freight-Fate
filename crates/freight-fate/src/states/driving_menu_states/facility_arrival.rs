@@ -332,6 +332,7 @@ impl FacilityArrivalState {
                         record_surcharge: ff_core::models::enforcement::record_insurance_surcharge(
                             profile,
                         ),
+                        level: Some(profile.career.level()),
                     },
                 )
                 .net_before_advance
