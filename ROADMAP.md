@@ -7523,7 +7523,7 @@ a carrier slice (owner, 2026-10-26).
       named by its quoted brand, with the dial position added when the
       brand has none, or else by what is left once the call sign, editor's
       notes, province and rebroadcasters come off ("News Talk 1010
-      Toronto"). Sixty-three names the rule cannot derive are set by hand
+      Toronto"). Sixty-five names the rule cannot derive are set by hand
       in `data/radio_imported_canada_overrides.json`;
       `import-canada-stations --names FILE` writes the review table.
 - [x] (Found along the way) 85 Canadian stations whose streams are on a
