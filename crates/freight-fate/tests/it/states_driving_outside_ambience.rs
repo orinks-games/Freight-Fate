@@ -92,14 +92,18 @@ fn test_a_warm_night_with_the_window_up_plays_the_muffled_insects_only() {
     assert_eq!(open.volume, 0.0, "nothing clear through a closed window");
     assert_eq!(sealed.pan, 0.0);
 
-    // Rolling at highway speed, the tires cover some of it.
+    // Rolling at highway speed, the tires cover most of it through closed glass,
+    // while keeping a faint bed underneath.
     drive.trip.truck.velocity_mps = 29.0;
     run(&mut drive, &mut app, 0.1);
     let rolling = on(&log, CH_NATURE_SEALED).unwrap();
-    assert!(rolling.volume < sealed.volume, "{rolling:?} vs {sealed:?}");
     assert!(
-        rolling.volume > sealed.volume * 0.75,
-        "the closed window keeps the insects over the road"
+        rolling.volume < sealed.volume * 0.5,
+        "{rolling:?} vs {sealed:?}"
+    );
+    assert!(
+        rolling.volume > sealed.volume * 0.25,
+        "closed-window insects stay faintly audible under the road bed"
     );
 }
 
