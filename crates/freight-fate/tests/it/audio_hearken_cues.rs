@@ -191,12 +191,15 @@ fn test_hearken_music_never_loops_and_fades_in_to_the_music_level() {
         assert!(r.engine.music_playing());
         assert_eq!(r.engine.music_length_s(), Some(61.5));
     }
-    // The outgoing track faded over 800 ms when the next one started.
+    // The outgoing track faded over 800 ms when the next one started. Since
+    // the menu crossfades (#885) it ramps to silence and is freed once the
+    // fade ends, rather than being stopped with a fade.
     let first = r.channel(tracks[0]);
-    assert!(r.rec.calls().contains(&Call::Stop {
-        channel: first,
-        fade_ms: 800
-    }));
+    assert!(r.rec.calls().into_iter().any(|call| matches!(
+        call,
+        Call::SetMixRamped { channel, mix, ramps }
+            if channel == first && mix.gain == 0.0 && ramps.gain_ms == 800
+    )));
     // The same track again is not restarted.
     let plays = play_count(&r);
     r.engine.play_music(tracks[1]);
