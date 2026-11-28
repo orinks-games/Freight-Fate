@@ -136,8 +136,9 @@ impl DrivingState {
             let category = event.data.category.clone().unwrap_or_default();
             if !ctx.settings.chatter_enabled(&category) {
                 if category == "river" {
-                    log::debug!(
-                        "River name withheld: {} (the rivers switch is off)",
+                    log::info!(
+                        target: crate::app::TRANSCRIPT_TARGET,
+                        "[river] withheld: {} (rivers switch off)",
                         message.normal
                     );
                 }

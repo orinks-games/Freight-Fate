@@ -49,9 +49,9 @@ pub enum Withheld {
 }
 
 impl Withheld {
-    /// The reason's key, as the debug log writes it: `named_bridge` (a
-    /// named bridge covers the crossing) or `merged_water` (its water ran on
-    /// from the river before).
+    /// The reason's key, as the agent server or a test names it:
+    /// `named_bridge` (a named bridge covers the crossing) or `merged_water`
+    /// (its water ran on from the river before).
     pub fn key(self) -> &'static str {
         match self {
             Withheld::Bridge => "named_bridge",

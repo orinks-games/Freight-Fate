@@ -3,10 +3,14 @@
 
 use super::Trip;
 use crate::sim::outside::RIVER_SPAN_MI;
-use crate::sim::river_crossing::{RiverCall, RiverCrossing, RiverEvent, RouteRiver};
+use crate::sim::river_crossing::{RiverCall, RiverCrossing, RiverEvent, RouteRiver, Withheld};
 use crate::sim::trip_models::{TripEventData, TripEventKind};
 use crate::sim::trip_route_helpers::stop_offset_for_direction;
 use crate::speech_text::SpokenMessage;
+
+/// The game's transcript log target (`freight_fate::app::TRANSCRIPT_TARGET`),
+/// which a player's game.log carries.
+const TRANSCRIPT_TARGET: &str = "freight_fate.transcript";
 
 impl Trip {
     /// Every `river` landmark on the route in route miles, sorted, resolved
@@ -75,12 +79,21 @@ impl Trip {
         self.river = state;
         match call {
             None => {}
-            Some(RiverCall::Withheld(i, why)) => {
-                log::debug!(
-                    "River name withheld at mile {:.2}: {} ({})",
-                    self.rivers[i].at_mi,
-                    self.rivers[i].name,
-                    why.key()
+            // On the transcript target, so a player's game.log shows why a
+            // river they heard was not named, beside the speech ladder's
+            // own lines.
+            Some(RiverCall::Withheld(i, Withheld::Bridge)) => {
+                log::info!(
+                    target: TRANSCRIPT_TARGET,
+                    "[river] withheld: {} (bridge line)",
+                    self.rivers[i].name
+                );
+            }
+            Some(RiverCall::Withheld(i, Withheld::MergedWater)) => {
+                log::info!(
+                    target: TRANSCRIPT_TARGET,
+                    "[river] withheld: {} (merged water)",
+                    self.rivers[i].name
                 );
             }
             Some(RiverCall::Say(i)) => {
