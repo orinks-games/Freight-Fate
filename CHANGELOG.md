@@ -18,7 +18,7 @@
 ### Added
 
 - **Sleeping through a co-driver's shift now plays the Sleeper Berth track.** It loops until you wake.
-- **Sleeper berth time on a team load now counts toward your 34-hour restart,** or 36 hours off in Canada. Taking the wheel back says when your cycle restarted.
+- **The driver resting in the berth now changes hours rules at the border too.** Berth time counts toward the 34-hour restart, or 36 hours in Canada.
 - **Canadian radio stations are on the dial.** Stations come in near their real transmitters across Canada, and Suggest a station takes a province.
 - **Live weather now covers Canada.** Canadian roads get current conditions and weather alerts from Environment and Climate Change Canada.
 - **Canadian live weather reads the real weather stations.** The Weather app names the station and adds wind, gusts, visibility and a forecast.
