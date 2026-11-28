@@ -7,6 +7,8 @@
 
 use super::clock::HosClock;
 use super::{cycle_limit, duration_text, CYCLE_SPEAK_MIN};
+use crate::models::economy::MOTEL_COST;
+use crate::pyfmt::fmt_f;
 
 /// What a restart row offers right now ([`HosClock::restart_offer`]).
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -22,13 +24,27 @@ pub enum RestartOffer {
     Finish { left_min: f64, hours: i64 },
 }
 
-/// Where the restart is taken, which names its help line and, in the lot,
-/// its label.
+/// Where the restart is taken, which names its help line and, in the lot
+/// and the motel, its label.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum RestartPlace {
     Terminal,
     Sleeper,
     Lot,
+    /// A motel room near a stop with no sleeper spot or a full lot, paid
+    /// a night's room for each day the rest spans ([`RestartOffer::motel_cost`]).
+    Motel,
+}
+
+impl RestartPlace {
+    /// The duty status the rest is logged under: the berth, or off duty
+    /// in the lot, a motel or the terminal.
+    pub fn duty_status(self) -> &'static str {
+        match self {
+            Self::Sleeper => "sleeper_berth",
+            Self::Terminal | Self::Lot | Self::Motel => "off_duty",
+        }
+    }
 }
 
 impl RestartOffer {
@@ -49,6 +65,17 @@ impl RestartOffer {
         }
     }
 
+    /// Motel nights this pick pays for: one a day the rest spans, at least
+    /// one, so 34 or 36 hours is two nights and 20 hours left is one.
+    pub fn motel_nights(self) -> i64 {
+        ((self.minutes() / (24.0 * 60.0)).ceil() as i64).max(1)
+    }
+
+    /// What the motel room costs for this pick, in dollars.
+    pub fn motel_cost(self) -> f64 {
+        self.motel_nights() as f64 * MOTEL_COST
+    }
+
     /// The state's name, as the agent server's `status` reports it.
     pub fn key(self) -> &'static str {
         match self {
@@ -65,6 +92,9 @@ impl RestartOffer {
 
     /// The row's label; None when no row is shown.
     pub fn label(self, place: RestartPlace) -> Option<String> {
+        if place == RestartPlace::Motel {
+            return self.motel_label();
+        }
         let lot = place == RestartPlace::Lot;
         Some(match (self, lot) {
             (Self::None, _) => return None,
@@ -103,6 +133,32 @@ impl RestartOffer {
         })
     }
 
+    /// The motel row's label, with the room's price; None when no row is
+    /// shown.
+    fn motel_label(self) -> Option<String> {
+        let cost = fmt_f(self.motel_cost(), 0);
+        Some(match self {
+            Self::None => return None,
+            Self::Fresh { hours: 36 } => {
+                format!("Take 36 hours off in a motel room for {cost} dollars")
+            }
+            Self::Fresh { hours } => {
+                format!("Take a {hours}-hour restart in a motel room for {cost} dollars")
+            }
+            Self::Finish {
+                left_min,
+                hours: 36,
+            } => format!(
+                "Rest {} more to finish 36 hours off in a motel room for {cost} dollars",
+                duration_text(left_min / 60.0)
+            ),
+            Self::Finish { left_min, hours } => format!(
+                "Rest {} more to finish a {hours}-hour restart in a motel room for {cost} dollars",
+                duration_text(left_min / 60.0)
+            ),
+        })
+    }
+
     /// The row's help line; None when no row is shown.
     pub fn help(self, place: RestartPlace) -> Option<String> {
         let span = self.span();
@@ -119,6 +175,11 @@ impl RestartOffer {
             (_, RestartPlace::Lot) => format!(
                 "A fresh cycle with poor rest: 5 points of fatigue off an hour, never below 30. \
                  Clock and deadline advance {span}."
+            ),
+            (_, RestartPlace::Motel) => format!(
+                "A real bed, paid from your own pocket. A fresh cycle and fresh hours of \
+                 service. Sleep takes off 8 points of fatigue an hour. Clock and deadline \
+                 advance {span}."
             ),
         };
         Some(match self {

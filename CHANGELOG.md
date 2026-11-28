@@ -57,6 +57,7 @@
 - **The ELD now tracks your 70-hour, 8-day work cycle.** A 34-hour rest starts a fresh week, and the sleep that finishes it says so.
 - **Terminals and rest stops now offer a 34-hour restart** once a day or less of your cycle is left.
 - **A sleep that leaves your cycle used up now says how much more rest restarts it.**
+- **Motel rooms now offer the 34-hour restart** at stops without a sleeper spot and at full lots, for a night's room per day.
 - **The clock now keeps Atlantic Time in the Maritimes and Mountain Time in the Yukon and the Northwest Territories.**
 - **Fuel stops, lodges and rest areas now line the northern roads.** Loaded trucks fuel at the lodges, and only year-round stops are offered.
 - **Fifty-six carriers now hire across the map, including Alaska.** Regional carriers serve every lower-48 city, and local carriers work 18 big cities and ports.

@@ -6,7 +6,7 @@ use ff_core::data::buffs::{buffs_for_stop, Buff};
 use ff_core::models::solvency;
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_int, round_py_n};
 use ff_core::sim::alertness::Alertness;
-use ff_core::sim::hos::{self, FullNight};
+use ff_core::sim::hos::{self, FullNight, RestartPlace};
 use ff_core::sim::roadside_inspection::InspectionLevel;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
@@ -37,7 +37,7 @@ use crate::states::driving_rest_states::short_stay::{ShortStay, BREAK_ROW, FOOD_
 mod cat_scale;
 mod cattle;
 mod chains;
-mod restart;
+pub(super) mod restart;
 mod services;
 
 const REST_STOP_INTRO_HELP: &str =
@@ -318,7 +318,7 @@ impl RestStopState {
                 ),
             };
             items.push(MenuItem::new(label, |s: &mut Self, ctx| s.sleep(ctx)).help(help));
-            items.extend(Self::restart_item(ctx, false));
+            items.extend(Self::restart_item(ctx, RestartPlace::Sleeper));
         } else if !is_scale && (has("park") || has("break")) {
             // No proper sleeper facility here, but you can always bed down in
             // the lot -- a legal reset, just cramped and poor rest. Except at
@@ -348,7 +348,7 @@ impl RestStopState {
                 MenuItem::new(lot_label, |s: &mut Self, ctx| s.emergency_lot_sleep(ctx))
                     .help(lot_help),
             );
-            items.extend(Self::restart_item(ctx, true));
+            items.extend(Self::restart_item(ctx, RestartPlace::Lot));
             let (motel_label, motel_help) = if canadian_reset {
                 (
                     format!(
@@ -371,6 +371,7 @@ impl RestStopState {
             items.push(
                 MenuItem::new(motel_label, |s: &mut Self, ctx| s.motel_sleep(ctx)).help(motel_help),
             );
+            items.extend(Self::restart_item(ctx, RestartPlace::Motel));
         }
         if has("repair") {
             items.push(

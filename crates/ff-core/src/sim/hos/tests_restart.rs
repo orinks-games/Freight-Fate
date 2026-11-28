@@ -271,3 +271,48 @@ fn a_sleep_that_leaves_the_cycle_used_up_says_so() {
     c.finish_restart("sleeper_berth");
     assert_eq!(c.cycle_still_used_up_text("realistic"), None);
 }
+
+#[test]
+fn motel_restart_rows_name_the_room_and_its_nights() {
+    use RestartOffer as O;
+    use RestartPlace as P;
+    let fresh = O::Fresh { hours: 34 };
+    let finish = O::Finish {
+        left_min: 20.0 * 60.0,
+        hours: 34,
+    };
+    let ca_fresh = O::Fresh { hours: 36 };
+    let ca_finish = O::Finish {
+        left_min: 26.0 * 60.0,
+        hours: 36,
+    };
+    assert_eq!(fresh.motel_nights(), 2);
+    assert_eq!(finish.motel_nights(), 1);
+    assert_eq!(ca_finish.motel_nights(), 2);
+    assert_eq!(
+        fresh.label(P::Motel).as_deref(),
+        Some("Take a 34-hour restart in a motel room for 190 dollars")
+    );
+    assert_eq!(
+        finish.label(P::Motel).as_deref(),
+        Some("Rest 20 hours more to finish a 34-hour restart in a motel room for 95 dollars")
+    );
+    assert_eq!(
+        ca_fresh.label(P::Motel).as_deref(),
+        Some("Take 36 hours off in a motel room for 190 dollars")
+    );
+    assert_eq!(
+        ca_finish.label(P::Motel).as_deref(),
+        Some("Rest 26 hours more to finish 36 hours off in a motel room for 190 dollars")
+    );
+    assert_eq!(
+        fresh.help(P::Motel).as_deref(),
+        Some(
+            "A real bed, paid from your own pocket. A fresh cycle and fresh hours of service. \
+             Sleep takes off 8 points of fatigue an hour. Clock and deadline advance 34 hours."
+        )
+    );
+    assert_eq!(O::None.label(P::Motel), None);
+    assert_eq!(P::Motel.duty_status(), "off_duty");
+    assert_eq!(P::Sleeper.duty_status(), "sleeper_berth");
+}

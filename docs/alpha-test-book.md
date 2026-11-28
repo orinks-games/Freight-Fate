@@ -472,8 +472,10 @@ Listen for: the ELD status line saying a day of cycle hours is left; the
 the sleep row at the terminal and at any stop where you can sleep; a sleep
 that leaves the cycle used up ending "Your cycle is still used up. Rest 24
 hours more to restart it.", and the row then reading "Rest 24 hours more
-to finish a 34-hour restart"; the sleep or restart that finishes 34 hours
-off (36 in Canada) saying "Cycle clock reset."
+to finish a 34-hour restart"; at a stop with no sleeper spot, and at a
+full lot, "Take a 34-hour restart in a motel room for 190 dollars" after
+the motel row; the sleep or restart that finishes 34 hours off (36 in
+Canada) saying "Cycle clock reset."
 
 Pass when: the restart clears the cycle, and Sunday Morning Coming Down
 is earned; at your home terminal, Take Me Home, Country Roads too.

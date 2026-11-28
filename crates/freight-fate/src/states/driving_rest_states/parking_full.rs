@@ -4,7 +4,7 @@
 //! follows.
 
 use ff_core::pyfmt::{fmt_f, fmt_grouped};
-use ff_core::sim::hos::{self, FullNight};
+use ff_core::sim::hos::{self, FullNight, RestartOffer, RestartPlace};
 use ff_core::sim::stop_lot::StopLot;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
@@ -14,12 +14,14 @@ use crate::impl_state_for_menu;
 use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
-    advance_rest_clock, clock_text, full_night_of, hos_mut_of, poi_ambient_key, profile_mut_of,
-    profile_of, settle_lift_before_sleep, shut_down_engine, FacilityEngine, MOTEL_COST,
+    advance_rest_clock, clock_text, full_night_of, hos_mut_of, hos_of, poi_ambient_key,
+    profile_mut_of, profile_of, settle_lift_before_sleep, shut_down_engine, FacilityEngine,
+    MOTEL_COST,
 };
 use crate::states::driving_menu_states::{keep_rows, DriveRef};
 use crate::states::driving_rest_states::back_on_the_road_line;
 use crate::states::driving_rest_states::fuel_pump::FuelPump;
+use crate::states::driving_rest_states::rest_stop::restart::{can_pay_for_room, rest_out_restart};
 use crate::states::driving_rest_states::short_stay::{ShortStay, BREAK_ROW, FOOD_ROW};
 use crate::states::driving_rest_states::shoulder::ShoulderSleepConfirmationState;
 use crate::states::driving_rest_states::RestFocus;
@@ -159,6 +161,15 @@ impl ParkingFullState {
             )
         };
         items.push(MenuItem::new(motel_label, |s: &mut Self, ctx| s.motel(ctx)).help(motel_help));
+        // The restart is the motel's too: a full lot has nowhere to park
+        // for it. One pick, as the room's night.
+        let offer = hos_of(ctx).restart_offer(&ctx.settings.hos_mode);
+        if let (Some(label), Some(help)) = (
+            offer.label(RestartPlace::Motel),
+            offer.help(RestartPlace::Motel),
+        ) {
+            items.push(MenuItem::new(label, |s: &mut Self, ctx| s.motel_restart(ctx)).help(help));
+        }
         items.push(
             MenuItem::new("Park on the shoulder and sleep", |s: &mut Self, ctx| {
                 s.shoulder(ctx)
@@ -259,6 +270,25 @@ impl ParkingFullState {
         // motel bed is the night you specifically did not spend in it (owner
         // report, 2026-08-20). The cramped-lot sleep keeps the award -- the
         // stop has no beds, so the lot night IS a bunk night.
+    }
+
+    /// The restart in a motel room: paid a night's room a day, rested in
+    /// one pick, then back to the road like the room's night.
+    fn motel_restart(&mut self, ctx: &mut GameContext) {
+        let offer = hos_of(ctx).restart_offer(&ctx.settings.hos_mode);
+        if offer == RestartOffer::None || !can_pay_for_room(ctx, offer) {
+            return;
+        }
+        let Some(text) = self.driving.clone().with(ctx, |d, ctx| {
+            rest_out_restart(d, ctx, offer, RestartPlace::Motel)
+        }) else {
+            return;
+        };
+        self.save_here(ctx, true);
+        ctx.audio.play("ui/notify");
+        ctx.pop_state();
+        ctx.say_with(text, Say::new());
+        ctx.award_restart_badges(false);
     }
 
     fn shoulder(&mut self, ctx: &mut GameContext) {

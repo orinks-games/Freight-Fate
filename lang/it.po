@@ -14879,6 +14879,31 @@ msgid ""
 "Rest {duration_text} more to finish a {hours}-hour restart in the lot"
 msgstr ""
 
+#. placeholders: {cost}
+msgid "Take 36 hours off in a motel room for {cost} dollars"
+msgstr "Prendi 36 ore di riposo in una stanza di motel per {cost} dollari"
+
+#. placeholders: {hours}, {cost}
+msgid "Take a {hours}-hour restart in a motel room for {cost} dollars"
+msgstr ""
+"Fai un riavvio di {hours} ore in una stanza di motel per {cost} dollari"
+
+#. placeholders: {duration_text}, {cost}
+msgid ""
+"Rest {duration_text} more to finish 36 hours off in a motel room for {cost} "
+"dollars"
+msgstr ""
+"Riposa ancora {duration_text} per completare 36 ore di riposo in una stanza "
+"di motel per {cost} dollari"
+
+#. placeholders: {duration_text}, {hours}, {cost}
+msgid ""
+"Rest {duration_text} more to finish a {hours}-hour restart in a motel room "
+"for {cost} dollars"
+msgstr ""
+"Riposa ancora {duration_text} per completare un riavvio di {hours} ore in "
+"una stanza di motel per {cost} dollari"
+
 #. one sentence of a longer line
 msgid "A fresh cycle and fresh hours of service."
 msgstr ""
@@ -14920,6 +14945,20 @@ msgid ""
 "A fresh cycle with poor rest: 5 points of fatigue off an hour, never below "
 "30. Clock and deadline advance {span}."
 msgstr ""
+
+#. one sentence of a longer line
+msgid "A real bed, paid from your own pocket."
+msgstr ""
+
+#. placeholders: {span}
+msgid ""
+"A real bed, paid from your own pocket. A fresh cycle and fresh hours of "
+"service. Sleep takes off 8 points of fatigue an hour. Clock and deadline "
+"advance {span}."
+msgstr ""
+"Un letto vero, pagato di tasca tua. Un ciclo nuovo e ore di servizio nuove. "
+"Il sonno toglie 8 punti di stanchezza all'ora. Orologio e scadenza avanzano "
+"di {span}."
 
 #. one sentence of a longer line
 msgid "Your rest so far counts."
@@ -35786,15 +35825,18 @@ msgstr "L'orologio avanza di {span}."
 msgid "Rest {span}{more} at {name}."
 msgstr ""
 
-#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}
+#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}, {cost}
 msgid ""
 "Rest {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
-"moves ahead {span}. {deadline}{cattle} Select again to rest."
+"moves ahead {span}. {deadline}{cattle}{cost} Select again to rest."
 msgstr ""
+"Riposo di {span}{more}: {name}. {effect} {legal} Stanchezza da {f} a {f2}. "
+"L'orologio avanza di {span}. {deadline}{cattle}{cost} Seleziona di nuovo "
+"per riposare."
 
-#. placeholders: {deadline}, {cattle}
+#. placeholders: {deadline}, {cattle}, {cost}
 #. one sentence of a longer line
-msgid "{deadline}{cattle} Select again to rest."
+msgid "{deadline}{cattle}{cost} Select again to rest."
 msgstr ""
 
 #. placeholders: {effect}, {legal}, {f}, {f2}
@@ -36423,6 +36465,31 @@ msgstr ""
 #. one sentence of a longer line
 msgid "{billing} It is {clock_text}."
 msgstr "{billing} Sono le {clock_text}."
+
+#. placeholders: {clocks_reset_text}, {grouped2}
+#. one sentence of a longer line
+msgid "{clocks_reset_text} {grouped2} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}
+#. one sentence of a longer line
+msgid "{engine_off}Motel, {grouped} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}, {woke_line}, {clock_text}, {clocks_reset_text}, {grouped2}, {deadline_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}Motel, {grouped} dollars. {woke_line} It is {clock_text}. "
+"{clocks_reset_text} {grouped2} dollars. "
+"{deadline_text}{wake_air_instruction}"
+msgstr ""
+"{engine_off}Motel, {grouped} dollari. {woke_line} Sono le {clock_text}. "
+"{clocks_reset_text} {grouped2} dollari. "
+"{deadline_text}{wake_air_instruction}"
+
+#. placeholders: {woke_line}, {clock_text}
+#. one sentence of a longer line
+msgid "{woke_line} It is {clock_text}."
+msgstr ""
 
 #. placeholders: {engine_off}, {woke_line}, {clock_text}
 #. one sentence of a longer line

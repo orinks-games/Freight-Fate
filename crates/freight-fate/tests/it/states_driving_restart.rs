@@ -9,7 +9,7 @@ use ff_core::sim::weather::WeatherKind;
 use freight_fate::playtest::{PlaytestHarness, RouteSetup};
 use freight_fate::states::base::Menu;
 use freight_fate::states::driving_menu_states::DriveRef;
-use freight_fate::states::driving_rest_states::RestStopState;
+use freight_fate::states::driving_rest_states::{ParkingFullState, RestStopState};
 
 /// A drive out of Austin with a worked shift and a used-up cycle under
 /// `rules`.
@@ -216,4 +216,118 @@ fn canadian_rules_at_a_stop_read_36_hours_off() {
     Menu::enter(&mut state, &mut harness.app.ctx);
     let rows = labels(&mut state, &mut harness);
     assert!(rows.iter().any(|r| r == "Take 36 hours off"), "{rows:?}");
+}
+
+#[test]
+fn a_lot_stop_offers_the_restart_in_a_motel_room_too() {
+    let mut harness = a_spent_week(HosRules::Us);
+    let mut state = a_stop(&harness, &["park", "break"]);
+    Menu::enter(&mut state, &mut harness.app.ctx);
+    let label = "Take a 34-hour restart in a motel room for 190 dollars";
+    let rows = labels(&mut state, &mut harness);
+    let motel = rows
+        .iter()
+        .position(|r| r == "Motel room: sleep 10 hours for 95 dollars")
+        .expect("the motel's night");
+    assert_eq!(rows[motel + 1], label, "{rows:?}");
+
+    let money_before = harness.app.ctx.profile.as_ref().expect("a career").money();
+    let before = game_minutes(&harness);
+    harness.clear_speech();
+    pick(&mut state, &mut harness, label);
+    let said = harness.transcript_text();
+    assert!(said.contains("Rest 34 hours at a motel room. "), "{said}");
+    assert!(
+        said.contains("The room costs 190 dollars. Select again to rest."),
+        "{said}"
+    );
+    assert_eq!(game_minutes(&harness), before, "the forecast moves nothing");
+    harness.clear_speech();
+    pick(&mut state, &mut harness, label);
+    let said = harness.transcript_text();
+    assert!(
+        said.contains("Motel, 190 dollars. You rested 34 hours and woke rested."),
+        "{said}"
+    );
+    assert!(
+        said.contains("Driving, duty and cycle clocks reset."),
+        "{said}"
+    );
+    assert!((game_minutes(&harness) - before - 34.0 * 60.0).abs() < 1e-6);
+    let p = harness.app.ctx.profile.as_ref().expect("a career");
+    assert!(p.hos.restart_complete());
+    assert!((money_before - p.money() - 190.0).abs() < 1e-6);
+    assert!(p.fatigue < 30.0, "a real bed: {}", p.fatigue);
+}
+
+#[test]
+fn a_motel_restart_the_driver_cannot_pay_for_says_the_price() {
+    let mut harness = a_spent_week(HosRules::Us);
+    harness.with_drive(|_, ctx| {
+        let p = ctx.profile.as_mut().expect("a career");
+        let cash = p.money();
+        p.spend(cash - 150.0);
+    });
+    let mut state = a_stop(&harness, &["park", "break"]);
+    Menu::enter(&mut state, &mut harness.app.ctx);
+    let before = game_minutes(&harness);
+    harness.clear_speech();
+    pick(
+        &mut state,
+        &mut harness,
+        "Take a 34-hour restart in a motel room for 190 dollars",
+    );
+    let said = harness.transcript_text();
+    assert!(
+        said.contains("A motel room costs 190 dollars and you have 150."),
+        "{said}"
+    );
+    assert_eq!(game_minutes(&harness), before);
+}
+
+#[test]
+fn a_full_lot_offers_the_restart_in_a_motel_room() {
+    let mut harness = a_spent_week(HosRules::Us);
+    let at = harness.read_drive(|d| d.trip.position_mi);
+    let mut stop = RoadStop::new("Example Rest Area", at, "public_rest_area");
+    stop.actions = ["park", "save", "break", "sleep"]
+        .iter()
+        .map(|a| a.to_string())
+        .collect();
+    let handle = DriveRef::of(&harness.shared_driving().expect("a drive on the stack"));
+    let mut state = ParkingFullState::with_drive(handle, stop);
+    let items = state.build_items(&mut harness.app.ctx);
+    let rows: Vec<String> = items
+        .iter()
+        .map(|item| item.text(&state, &harness.app.ctx))
+        .collect();
+    let label = "Take a 34-hour restart in a motel room for 190 dollars";
+    let motel = rows
+        .iter()
+        .position(|r| r == "Motel room: sleep 10 hours for 95 dollars")
+        .expect("the motel's night");
+    assert_eq!(rows[motel + 1], label, "{rows:?}");
+
+    let before = game_minutes(&harness);
+    harness.clear_speech();
+    let row = items
+        .iter()
+        .find(|item| item.text(&state, &harness.app.ctx) == label)
+        .cloned()
+        .expect("the restart row");
+    (row.action)(&mut state, &mut harness.app.ctx);
+    let said = harness.transcript_text();
+    assert!(
+        said.contains("Motel, 190 dollars. You rested 34 hours and woke rested."),
+        "{said}"
+    );
+    assert!((game_minutes(&harness) - before - 34.0 * 60.0).abs() < 1e-6);
+    assert!(harness
+        .app
+        .ctx
+        .profile
+        .as_ref()
+        .expect("a career")
+        .hos
+        .restart_complete());
 }

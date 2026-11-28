@@ -16634,6 +16634,30 @@ msgid ""
 "Rest {duration_text} more to finish a {hours}-hour restart in the lot"
 msgstr ""
 
+#. placeholders: {cost}
+#: crates/ff-core/src/sim/hos/restart.rs
+msgid "Take 36 hours off in a motel room for {cost} dollars"
+msgstr ""
+
+#. placeholders: {hours}, {cost}
+#: crates/ff-core/src/sim/hos/restart.rs
+msgid "Take a {hours}-hour restart in a motel room for {cost} dollars"
+msgstr ""
+
+#. placeholders: {duration_text}, {cost}
+#: crates/ff-core/src/sim/hos/restart.rs
+msgid ""
+"Rest {duration_text} more to finish 36 hours off in a motel room for {cost} "
+"dollars"
+msgstr ""
+
+#. placeholders: {duration_text}, {hours}, {cost}
+#: crates/ff-core/src/sim/hos/restart.rs
+msgid ""
+"Rest {duration_text} more to finish a {hours}-hour restart in a motel room "
+"for {cost} dollars"
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/ff-core/src/sim/hos/restart.rs
 msgid "A fresh cycle and fresh hours of service."
@@ -16682,6 +16706,19 @@ msgstr ""
 msgid ""
 "A fresh cycle with poor rest: 5 points of fatigue off an hour, never below "
 "30. Clock and deadline advance {span}."
+msgstr ""
+
+#. one sentence of a longer line
+#: crates/ff-core/src/sim/hos/restart.rs
+msgid "A real bed, paid from your own pocket."
+msgstr ""
+
+#. placeholders: {span}
+#: crates/ff-core/src/sim/hos/restart.rs
+msgid ""
+"A real bed, paid from your own pocket. A fresh cycle and fresh hours of "
+"service. Sleep takes off 8 points of fatigue an hour. Clock and deadline "
+"advance {span}."
 msgstr ""
 
 #. one sentence of a longer line
@@ -40043,7 +40080,7 @@ msgid ""
 msgstr ""
 
 #. placeholders: {grouped}, {grouped2}
-#: crates/freight-fate/src/states/driving_rest_states/parking_full.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
+#: crates/freight-fate/src/states/driving_rest_states/parking_full.rs crates/freight-fate/src/states/driving_rest_states/rest_stop/restart.rs crates/freight-fate/src/states/driving_rest_states/rest_stop.rs
 msgid "A motel room costs {grouped} dollars and you have {grouped2}."
 msgstr ""
 
@@ -40197,17 +40234,17 @@ msgstr ""
 msgid "Rest {span}{more} at {name}."
 msgstr ""
 
-#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}
+#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}, {cost}
 #: crates/freight-fate/src/states/driving_rest_states/rest_preview.rs
 msgid ""
 "Rest {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
-"moves ahead {span}. {deadline}{cattle} Select again to rest."
+"moves ahead {span}. {deadline}{cattle}{cost} Select again to rest."
 msgstr ""
 
-#. placeholders: {deadline}, {cattle}
+#. placeholders: {deadline}, {cattle}, {cost}
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_preview.rs
-msgid "{deadline}{cattle} Select again to rest."
+msgid "{deadline}{cattle}{cost} Select again to rest."
 msgstr ""
 
 #. placeholders: {effect}, {legal}, {f}, {f2}
@@ -40886,6 +40923,32 @@ msgstr ""
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_rest_states/rest_stop/chains.rs
 msgid "{billing} It is {clock_text}."
+msgstr ""
+
+#. placeholders: {clocks_reset_text}, {grouped2}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/restart.rs
+msgid "{clocks_reset_text} {grouped2} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/restart.rs
+msgid "{engine_off}Motel, {grouped} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}, {woke_line}, {clock_text}, {clocks_reset_text}, {grouped2}, {deadline_text}, {wake_air_instruction}
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/restart.rs
+msgid ""
+"{engine_off}Motel, {grouped} dollars. {woke_line} It is {clock_text}. "
+"{clocks_reset_text} {grouped2} dollars. "
+"{deadline_text}{wake_air_instruction}"
+msgstr ""
+
+#. placeholders: {woke_line}, {clock_text}
+#. one sentence of a longer line
+#: crates/freight-fate/src/states/driving_rest_states/rest_stop/restart.rs
+msgid "{woke_line} It is {clock_text}."
 msgstr ""
 
 #. placeholders: {engine_off}, {woke_line}, {clock_text}

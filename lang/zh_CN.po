@@ -13189,6 +13189,26 @@ msgid ""
 "Rest {duration_text} more to finish a {hours}-hour restart in the lot"
 msgstr ""
 
+#. placeholders: {cost}
+msgid "Take 36 hours off in a motel room for {cost} dollars"
+msgstr "在汽车旅馆房间休息36小时，{cost}美元"
+
+#. placeholders: {hours}, {cost}
+msgid "Take a {hours}-hour restart in a motel room for {cost} dollars"
+msgstr "在汽车旅馆房间进行{hours}小时重置，{cost}美元"
+
+#. placeholders: {duration_text}, {cost}
+msgid ""
+"Rest {duration_text} more to finish 36 hours off in a motel room for {cost} "
+"dollars"
+msgstr "在汽车旅馆房间再休息{duration_text}，完成36小时休息，{cost}美元"
+
+#. placeholders: {duration_text}, {hours}, {cost}
+msgid ""
+"Rest {duration_text} more to finish a {hours}-hour restart in a motel room "
+"for {cost} dollars"
+msgstr "在汽车旅馆房间再休息{duration_text}，完成{hours}小时重置，{cost}美元"
+
 #. one sentence of a longer line
 msgid "A fresh cycle and fresh hours of service."
 msgstr ""
@@ -13230,6 +13250,17 @@ msgid ""
 "A fresh cycle with poor rest: 5 points of fatigue off an hour, never below "
 "30. Clock and deadline advance {span}."
 msgstr ""
+
+#. one sentence of a longer line
+msgid "A real bed, paid from your own pocket."
+msgstr ""
+
+#. placeholders: {span}
+msgid ""
+"A real bed, paid from your own pocket. A fresh cycle and fresh hours of "
+"service. Sleep takes off 8 points of fatigue an hour. Clock and deadline "
+"advance {span}."
+msgstr "睡真正的床，自掏腰包。全新的周期和全新的工时。睡眠每小时消除8点疲劳。时钟和截止时间前进{span}。"
 
 #. one sentence of a longer line
 msgid "Your rest so far counts."
@@ -32194,15 +32225,17 @@ msgstr "时钟前进{span}。"
 msgid "Rest {span}{more} at {name}."
 msgstr ""
 
-#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}
+#. placeholders: {span}, {more}, {name}, {effect}, {legal}, {f}, {f2}, {deadline}, {cattle}, {cost}
 msgid ""
 "Rest {span}{more} at {name}. {effect} {legal} Fatigue {f} to {f2}. Clock "
-"moves ahead {span}. {deadline}{cattle} Select again to rest."
+"moves ahead {span}. {deadline}{cattle}{cost} Select again to rest."
 msgstr ""
+"在{name}休息{span}{more}。{effect} {legal} "
+"疲劳从{f}降到{f2}。时钟前进{span}。{deadline}{cattle}{cost} 再次选择即可休息。"
 
-#. placeholders: {deadline}, {cattle}
+#. placeholders: {deadline}, {cattle}, {cost}
 #. one sentence of a longer line
-msgid "{deadline}{cattle} Select again to rest."
+msgid "{deadline}{cattle}{cost} Select again to rest."
 msgstr ""
 
 #. placeholders: {effect}, {legal}, {f}, {f2}
@@ -32766,6 +32799,31 @@ msgstr "侧工具箱里已放好一套新防滑链。{billing}现在是{clock_te
 #. one sentence of a longer line
 msgid "{billing} It is {clock_text}."
 msgstr "{billing}现在是{clock_text}。"
+
+#. placeholders: {clocks_reset_text}, {grouped2}
+#. one sentence of a longer line
+msgid "{clocks_reset_text} {grouped2} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}
+#. one sentence of a longer line
+msgid "{engine_off}Motel, {grouped} dollars."
+msgstr ""
+
+#. placeholders: {engine_off}, {grouped}, {woke_line}, {clock_text}, {clocks_reset_text}, {grouped2}, {deadline_text}, {wake_air_instruction}
+msgid ""
+"{engine_off}Motel, {grouped} dollars. {woke_line} It is {clock_text}. "
+"{clocks_reset_text} {grouped2} dollars. "
+"{deadline_text}{wake_air_instruction}"
+msgstr ""
+"{engine_off}汽车旅馆，{grouped}美元。{woke_line} "
+"现在是{clock_text}。{clocks_reset_text} "
+"余额{grouped2}美元。{deadline_text}{wake_air_instruction}"
+
+#. placeholders: {woke_line}, {clock_text}
+#. one sentence of a longer line
+msgid "{woke_line} It is {clock_text}."
+msgstr ""
 
 #. placeholders: {engine_off}, {woke_line}, {clock_text}
 #. one sentence of a longer line
