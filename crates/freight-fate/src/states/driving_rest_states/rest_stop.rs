@@ -10,6 +10,7 @@ use ff_core::sim::hos::{self, FullNight, RestartPlace};
 use ff_core::sim::roadside_inspection::InspectionLevel;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
+use ff_core::speech_text::sentence_start;
 use serde_json::json;
 
 use crate::app::{GameContext, Say};
@@ -198,7 +199,9 @@ impl RestStopState {
         }
         let parking_text = self.stop.parking_text();
         if !parking_text.is_empty() {
-            parts.push(format!("{parking_text}."));
+            // Its own sentence here, so it opens with a capital: "Cenex
+            // C-Store. Limited truck parking." (agent drive, 2026-11-28).
+            parts.push(format!("{}.", sentence_start(&parking_text)));
         }
         if self.stop.fuel_callout() == Some(false) {
             // Said on arrival too: a driver who pulled in low needs to know

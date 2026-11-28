@@ -158,7 +158,7 @@
 - **Damage to a cattle load is said of the cattle,** such as "The cattle are bruised", with what the receiver will do.
 - **Speed limits near a border are said in the units of the sign.** On Automatic units, Blaine's Canadian 30 is "30 kilometers per hour", not 19.
 - **The crossing call and the hours rules at a border are said once,** even when a readout or the customs booth cuts in.
-- **Stop names in the approach call and the stop menu start with a capital,** such as "Travel center".
+- **Stop names in the approach call and the stop menu start with a capital, and so does the parking line after the name,** such as "Travel center" and "Limited truck parking."
 - **The reposition's accept line reads its distance as the board does,** with no stray decimal.
 - **Dealer and buy-in rows read liters under kilometers:** the tank in liters and fuel economy in liters per 100 kilometers.
 - **A newly tuned station no longer reads out the last station's song.** Now playing waits for the new station's own title.
