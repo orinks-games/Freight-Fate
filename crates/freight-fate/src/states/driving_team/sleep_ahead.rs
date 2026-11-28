@@ -17,9 +17,9 @@ use ff_core::sim::trip_models::RoadStop;
 
 use crate::app::{GameContext, TRANSCRIPT_TARGET};
 use crate::states::driving::DrivingState;
+use crate::states::driving_border::BOOTH_ASSIST_LOOKAHEAD_MI;
 use crate::states::driving_core::*;
 
-use super::customs::CUSTOMS_BRAKE_ROOM_MI;
 use super::overlay::TOP_UP_FRACTION;
 use super::pilot::{StopPurpose, FUEL_STOP_FRACTION};
 use super::TeamMode;
@@ -90,8 +90,8 @@ impl DrivingState {
     }
 
     /// The mile the shift may pass to: short of the receiver's exit, of a
-    /// chain-law area, of the co-driver's customs handback and of any line
-    /// where the hours rules change. None when nothing allows a jump.
+    /// chain-law area, of the next customs booth and of any line where the
+    /// hours rules change. None when nothing allows a jump.
     fn sleep_jump_limit(&mut self, ctx: &mut GameContext) -> Option<f64> {
         // Off the highway for the receiver: the streets are driven live.
         if self.destination_exit_taken {
@@ -112,14 +112,19 @@ impl DrivingState {
                 limit = limit.min(scale.at_mi - window - STOP_LEAD_MI);
             }
         }
-        // A customs booth is the player's (owner ruling, 2026-11-28): the
-        // jump ends short of where the co-driver stops to hand back for it.
-        if let Some(stop_by) = self.customs_handback_mi(ctx) {
-            limit = limit.min(stop_by - CUSTOMS_BRAKE_ROOM_MI - STOP_LEAD_MI);
+        // A customs booth is stopped at live (owner ruling, 2026-11-28 13:00
+        // UTC: the co-driver clears it alone): the jump ends short of where
+        // the booth's stop starts braking. Cleared, the booth is no longer
+        // ahead, and the next jump is free to start.
+        if let Some(booth) = self.customs_booth_ahead() {
+            limit = limit.min(booth.at_mi - BOOTH_ASSIST_LOOKAHEAD_MI - STOP_LEAD_MI);
         }
         // Never across a line where the hours rules change, booth or none
         // (60 north has none): the time jumped is counted under one rule
-        // set, and the line is crossed live.
+        // set, and the line is crossed live. The line into a booth's
+        // country always changes them, so a booth past its line (Beaver
+        // Creek, about 18 miles in) is reached by a jump that starts after
+        // the line.
         if let Some(line) = self.rules_lines_ahead(ctx).first() {
             limit = limit.min(line.at_mi - STOP_LEAD_MI);
         }

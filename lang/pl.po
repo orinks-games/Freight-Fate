@@ -26532,8 +26532,8 @@ msgstr ""
 msgid "Ran the port of entry"
 msgstr "Przejazd przez przejście graniczne bez zatrzymania"
 
-msgid "customs booth"
-msgstr "stanowisko celne"
+msgid "customs clearance"
+msgstr "odprawa celna"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr ""
@@ -26659,9 +26659,6 @@ msgid ""
 "{booth}, {agency}. The officer asks for your passport and checks the "
 "in-transit manifest for this load."
 msgstr ""
-
-msgid "customs clearance"
-msgstr "odprawa celna"
 
 msgid "Canada"
 msgstr "Kanadzie"
@@ -37805,18 +37802,6 @@ msgstr "instruktor"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "{co_driver_name} stoi ciężarówką przy bramie odbiorcy."
 
-#. placeholders: {co_driver_name}
-msgid ""
-"{co_driver_name} stopped short of the border and hands you the wheel for "
-"customs."
-msgstr ""
-"{co_driver_name} zatrzymuje się przed granicą i oddaje ci kierownicę na "
-"odprawę celną."
-
-#. placeholders: {co_driver_name}
-msgid "{co_driver_name} has the truck at the customs booth."
-msgstr "{co_driver_name} stoi ciężarówką przy stanowisku celnym."
-
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Czas pracy zmiennika się skończył."
@@ -38056,6 +38041,32 @@ msgstr "{co_driver_name}: przejechane {distance_text}"
 #. placeholders: {stop}
 msgid " and fueled at {stop}"
 msgstr " i tankowanie w {stop}"
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid "{co_driver_name} cleared customs into Canada at {booth_name}."
+msgstr "{co_driver_name}: odprawa celna do Kanady przy {booth_name}."
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name}."
+msgstr ""
+"{co_driver_name}: odprawa celna do Stanów Zjednoczonych przy {booth_name}."
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into Canada at {booth_name} after a "
+"{minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name}: odprawa celna do Kanady przy {booth_name} po "
+"{minutes}-minutowej kontroli dodatkowej."
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name} "
+"after a {minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name}: odprawa celna do Stanów Zjednoczonych przy {booth_name} "
+"po {minutes}-minutowej kontroli dodatkowej."
 
 #. placeholders: {co_driver_name}, {round}
 msgid ""
@@ -38319,9 +38330,6 @@ msgstr "Tankowanie"
 
 msgid "shoulder break"
 msgstr "przerwa na poboczu"
-
-msgid "customs"
-msgstr ""
 
 msgid "stalled"
 msgstr "unieruchomiona"
@@ -50745,6 +50753,19 @@ msgstr "{count} {count:centymetr|centymetry|centymetrów}"
 
 msgid "{count} centimeter"
 msgstr "{count} {count:centymetr|centymetry|centymetrów}"
+
+#~ msgid "customs booth"
+#~ msgstr "stanowisko celne"
+
+#~ msgid ""
+#~ "{co_driver_name} stopped short of the border and hands you the wheel for "
+#~ "customs."
+#~ msgstr ""
+#~ "{co_driver_name} zatrzymuje się przed granicą i oddaje ci kierownicę na "
+#~ "odprawę celną."
+
+#~ msgid "{co_driver_name} has the truck at the customs booth."
+#~ msgstr "{co_driver_name} stoi ciężarówką przy stanowisku celnym."
 
 #~ msgid "{co_driver_name} needs you at the wheel for customs."
 #~ msgstr "{co_driver_name} potrzebuje cię za kierownicą do odprawy celnej."

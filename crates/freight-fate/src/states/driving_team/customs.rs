@@ -1,12 +1,13 @@
-//! The co-driver never crosses a border (owner ruling, 2026-11-28). Short
-//! of the line into a customs booth's country they bring the truck to a
-//! stop and hand the wheel back, so the player crosses the line and clears
-//! customs exactly as on a solo crossing: the crossing call, the units and
-//! hours rules lines, the booth's notice, the stop and the clearance.
+//! The co-driver clears customs alone (owner ruling, 2026-11-28 13:00 UTC).
+//! On All assists the truck stops at the booth as it does for a solo
+//! driver; the clearance's effects follow with no menu
+//! (`DrivingState::clear_customs`), charged to the co-driver's logbook with
+//! the player's berth time running, and one note tells the player. The
+//! officer's lines and the booth's notice are not said for their crossing.
 //!
-//! The same lines bound a slept shift: the jump ends short of the handback
-//! point, and short of any line where the hours rules change (60 north has
-//! no booth), so the time jumped is always counted under one rule set.
+//! A slept shift's jump ends short of any line where the hours rules change
+//! and short of the booth, so both are driven live and the time on each
+//! side is counted under the right rules.
 
 use ff_core::sim::hos::HosRules;
 use ff_core::sim::trip_models::BorderBooth;
@@ -15,29 +16,7 @@ use crate::app::GameContext;
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 
-/// How far short of a customs booth the co-driver has the truck stopped:
-/// past the booth's notice at a standing start (2 miles), so the player
-/// hears it.
-pub(crate) const CUSTOMS_HANDBACK_LEAD_MI: f64 = WEIGH_STATION_NOTICE_MI + 1.0;
-/// How far short of the line into the booth's country the truck stops, so
-/// the crossing call is the player's.
-const CUSTOMS_LINE_LEAD_MI: f64 = 0.25;
-/// The co-driver is on the brake from this far short of the handback point:
-/// room to stop from highway speed on the service brake.
-pub(crate) const CUSTOMS_BRAKE_ROOM_MI: f64 = 0.5;
-/// How far ahead the live drive looks for a booth: beyond the widest gap
-/// between a line and its booth on the map (the Alaska line to Beaver
-/// Creek, about 20 miles).
-const CUSTOMS_SEARCH_MI: f64 = 60.0;
-
-/// The country a rule set belongs to.
-fn rules_country(rules: HosRules) -> &'static str {
-    if rules.is_canadian() {
-        "CA"
-    } else {
-        "US"
-    }
-}
+use super::notes::NoteWeight;
 
 /// A line ahead on the trip where the state or province changes.
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -45,6 +24,31 @@ pub(crate) struct RulesLine {
     pub at_mi: f64,
     pub from: HosRules,
     pub into: HosRules,
+}
+
+/// The co-driver's note for a clearance at `booth_name` into `country`
+/// ("CA" or "US").
+pub fn customs_note(
+    co_driver_name: &str,
+    booth_name: &str,
+    country: &str,
+    referred: bool,
+) -> String {
+    let minutes = format!("{BORDER_SECONDARY_EXTRA_MIN:.0}");
+    match (country == "CA", referred) {
+        (true, false) => format!("{co_driver_name} cleared customs into Canada at {booth_name}."),
+        (false, false) => {
+            format!("{co_driver_name} cleared customs into the United States at {booth_name}.")
+        }
+        (true, true) => format!(
+            "{co_driver_name} cleared customs into Canada at {booth_name} after a \
+             {minutes}-minute secondary inspection."
+        ),
+        (false, true) => format!(
+            "{co_driver_name} cleared customs into the United States at {booth_name} after a \
+             {minutes}-minute secondary inspection."
+        ),
+    }
 }
 
 impl DrivingState {
@@ -97,38 +101,20 @@ impl DrivingState {
             .min_by(|a, b| a.at_mi.total_cmp(&b.at_mi))
     }
 
-    /// The mile the co-driver has the truck stopped by for the next customs
-    /// booth: [`CUSTOMS_HANDBACK_LEAD_MI`] short of it, and short of the
-    /// line into its country when that is still ahead. None with no booth
-    /// ahead.
-    pub fn customs_handback_mi(&self, ctx: &GameContext) -> Option<f64> {
-        let booth = self.customs_booth_ahead()?;
-        let line = self
-            .rules_lines_ahead(ctx)
-            .into_iter()
-            .rev()
-            .find(|line| {
-                line.at_mi <= booth.at_mi
-                    && rules_country(line.into) == booth.entering_country
-                    && rules_country(line.from) != booth.entering_country
-            })
-            .map(|line| line.at_mi - CUSTOMS_LINE_LEAD_MI);
-        let short_of_booth = booth.at_mi - CUSTOMS_HANDBACK_LEAD_MI;
-        Some(line.map_or(short_of_booth, |line| line.min(short_of_booth)))
-    }
-
-    /// Whether the co-driver is braking for customs or hands back for it
-    /// now: within [`CUSTOMS_BRAKE_ROOM_MI`] of the handback point, or past
-    /// it.
-    pub(crate) fn customs_handback_due(&self, ctx: &GameContext) -> bool {
-        // Judged every frame the co-driver drives: a booth still far off
-        // costs one pass over the booths.
-        let near = self
-            .customs_booth_ahead()
-            .is_some_and(|booth| booth.at_mi - self.trip.position_mi <= CUSTOMS_SEARCH_MI);
-        near && self
-            .customs_handback_mi(ctx)
-            .is_some_and(|stop_by| stop_by - self.trip.position_mi <= CUSTOMS_BRAKE_ROOM_MI)
+    /// The co-driver at a customs booth, the truck stopped: the clearance
+    /// with no menu, and one note. They release the brake and drive on.
+    pub(crate) fn co_driver_clears_customs(&mut self, ctx: &mut GameContext, booth: &BorderBooth) {
+        let Some(co_driver_name) = self.co_driver_at_wheel_name() else {
+            return;
+        };
+        let referred = self.clear_customs(ctx, booth);
+        let line = customs_note(
+            co_driver_name,
+            &booth.name,
+            &booth.entering_country,
+            referred,
+        );
+        self.co_driver_note(ctx, line, NoteWeight::Wake);
     }
 }
 
@@ -137,10 +123,15 @@ mod tests {
     use super::*;
 
     #[test]
-    fn a_rule_set_names_its_country() {
-        assert_eq!(rules_country(HosRules::Us), "US");
-        assert_eq!(rules_country(HosRules::Alaska), "US");
-        assert_eq!(rules_country(HosRules::CanadaSouth60), "CA");
-        assert_eq!(rules_country(HosRules::CanadaNorth60), "CA");
+    fn the_note_names_the_country_and_a_secondary_inspection() {
+        assert_eq!(
+            customs_note("Dana", "Abbotsford-Huntingdon Port of Entry", "CA", false),
+            "Dana cleared customs into Canada at Abbotsford-Huntingdon Port of Entry."
+        );
+        assert_eq!(
+            customs_note("Dana", "Sumas Port of Entry", "US", true),
+            "Dana cleared customs into the United States at Sumas Port of Entry after a \
+             45-minute secondary inspection."
+        );
     }
 }

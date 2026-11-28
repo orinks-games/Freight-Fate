@@ -214,20 +214,6 @@ impl DrivingState {
             return Ok(pedals);
         }
 
-        // A customs booth ahead: the co-driver never crosses a border. They
-        // brake to a stop short of the line into the booth's country and
-        // hand back there, so the crossing and the clearance are the
-        // player's (`customs`).
-        if self.customs_handback_due(ctx) {
-            pilot.accel_s = 0.0;
-            pilot.stalled_s = 0.0;
-            if speed > 0.5 {
-                pedals.brake = true;
-                return Ok(pedals);
-            }
-            return Err("customs".to_string());
-        }
-
         // Parked at a stop the co-driver chose, or on the scale: the stop's
         // own menu, as T opens it.
         if speed <= DOCKING_MAX_MPH && self.pilot_at_stop_entrance() {
@@ -370,8 +356,11 @@ impl DrivingState {
         // A chain stop the assist is braking for, or a hazard it may brake
         // for, is no time for a foot on the accelerator either: it held the
         // truck off the chain-up stop, and drove it toward the hazard until
-        // the automatic brake took over.
+        // the automatic brake took over. The customs booth's stop the same:
+        // the assist brakes the truck to the booth and closes up to it.
         let assist_has_pedals = self.terminal_assist_owns(ctx)
+            || self.trip.booth_stop_active
+            || self.booth_close_up
             || self.decel_lane_brake > 0.0
             || self.chain_stop.is_some()
             || self.hazard_deadline.is_some();
