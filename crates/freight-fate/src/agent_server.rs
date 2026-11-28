@@ -385,7 +385,7 @@ fn fatigue_state_line(
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \
          rest_call {rest_call}; runaway {}{gate}{arrival}{co_driver}; jake_zone {}; touch_mode {}; recognizer {recognizer}; road_offer {}; \
-         touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {}; bridge {}; road_surface {}, {}; \
+         touch_clutch {}; lane {}; lane_push {}; window {}; outside {} ({}, {}); water {} (last river named: {}); bridge {}; road_surface {}, {}; \
          tire song {}; structure {}; chain_control {}; bond {}; full_night {}; chains {}; abs {}; drive_traction {}; trailer_sway {}; mirror_glance {}; \
          predictive_cruise {}; assisted_lane_change {}; lane_keep_availability {}; chain_worker {}; chain_stop {}; chain_wear {:.3} at {:.2} mph; \
          air {:.1} psi; brake {:.2}{}; jake {}; weather_service {}; weather_station {}; app {}.",
@@ -405,6 +405,7 @@ fn fatigue_state_line(
         o.outside_temperature_c
             .map_or("seasons off".to_string(), |t| format!("{t:.1} C")),
         o.water.name(),
+        o.river_named.as_deref().unwrap_or("none"),
         match &o.bridge {
             (state, Some((from, to))) => format!("{} (mile {from:.1} to {to:.1})", state.key()),
             (state, None) => state.key().to_string(),

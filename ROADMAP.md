@@ -4863,6 +4863,7 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
 - [ ] (Found along the way) Levels 19 to 30 still speak unlock lines that open nothing, such as "Owner-operator settlements are now routine."
 - [ ] (Found along the way) The company ladder from 31 to 40 has titles, the larger board and experience pay only.
 - [ ] (Found along the way) Player-run carrier roster steps by owner level (4 at opening, 6 at 32, 8 at 35, 10 at 38) are proposed for the phase that builds those carriers, and their unlock lines go in the empty owner-operator rows.
+- [x] (Found along the way) River water with no river name (owner report, 2026-11-27, Springfield MA to Fort Frances ON: 11 of 18 crossings he drove played the water silently). The name was thinned like scenery, by the 90-second chatter budget and the 2-mile town spacing. One water sound, one name: the name now comes from the water's own onset (`ff_core::sim::river_crossing::RiverCrossing`), never waits on the budget and still spends it; a named bridge's line covers its crossing, and two rivers whose water runs together get the first name. A withheld name is logged with the reason; the agent server's `status` reports the water and the last river named. Regression: `sim_river_crossings`. Fixed 2026-11-27.
 
 There is no separate 1.10 release: the working-week-and-home slate that
 was planned under that number is the opening slice of 2.0, on the

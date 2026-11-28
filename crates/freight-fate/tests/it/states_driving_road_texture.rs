@@ -262,7 +262,7 @@ fn test_the_route_joints_only_its_real_bridges_and_each_river_once() {
         }
     }
     // No river is jointed twice: an assumed span never sits on a structure.
-    for river in drive.outside.river_miles() {
+    for river in &drive.trip.river_crossing_miles() {
         let around: Vec<_> = spans
             .iter()
             .filter(|s| s.from_mi - RIVER_SPAN_MI <= *river && *river <= s.to_mi + RIVER_SPAN_MI)

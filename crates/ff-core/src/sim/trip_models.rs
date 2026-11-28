@@ -733,10 +733,11 @@ impl RoadsideCallout {
         self.category == "village" || self.explains_limit
     }
 
-    /// Named rivers and placed attraction signs bypass the chatter budget.
-    /// They still spend it, so the next random billboard waits behind them.
+    /// Placed attraction signs bypass the chatter budget. They still spend
+    /// it, so the next random billboard waits behind them. (Rivers are not
+    /// callouts: their names come with their water, `Trip::check_rivers`.)
     pub fn waits_for_chatter_budget(&self) -> bool {
-        !self.is_place_callout() && !matches!(self.category.as_str(), "river" | "billboard_sign")
+        !self.is_place_callout() && self.category != "billboard_sign"
     }
 }
 

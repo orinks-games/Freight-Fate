@@ -135,6 +135,13 @@ impl DrivingState {
             // mode, in terse as its short form.
             let category = event.data.category.clone().unwrap_or_default();
             if !ctx.settings.chatter_enabled(&category) {
+                if category == "river" {
+                    log::info!(
+                        target: crate::app::TRANSCRIPT_TARGET,
+                        "[river] withheld: {} (rivers switch off)",
+                        message.normal
+                    );
+                }
                 return;
             }
             // Town and village names answer to the place-callouts ladder, not

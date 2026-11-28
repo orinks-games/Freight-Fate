@@ -8,9 +8,9 @@
 //! crossfade of two aligned recordings.
 
 use ff_core::sim::outside::{
-    bed_mix, near_river, road_mask, road_mask_to, scene_bed, Bed, BedFader, DayPhase,
-    OutsideConditions, OutsideScene, Water, WaterEvent, NATURE_LEVEL, RIVER, SCENE_FADE_S,
-    WATER_FADE_IN_S, WATER_FADE_OUT_S, WATER_LEVEL,
+    bed_mix, road_mask, road_mask_to, scene_bed, Bed, BedFader, DayPhase, OutsideConditions,
+    OutsideScene, NATURE_LEVEL, RIVER, SCENE_FADE_S, WATER_FADE_IN_S, WATER_FADE_OUT_S,
+    WATER_LEVEL,
 };
 
 use crate::app::GameContext;
@@ -26,21 +26,12 @@ const STOP_FADE_MS: u32 = 100;
 #[derive(Clone, Debug, Default)]
 pub struct OutsideAudio {
     pub scene: OutsideScene,
-    pub water: Water,
     pub nature: BedFader,
     pub river: BedFader,
-    /// The trip's river miles, and the trip they were read from.
-    rivers: Vec<f64>,
-    rivers_trip: Option<u64>,
     temperature_c: Option<f64>,
 }
 
 impl OutsideAudio {
-    /// The river miles in use, for a test or the agent server.
-    pub fn river_miles(&self) -> &[f64] {
-        &self.rivers
-    }
-
     /// The temperature the scene was last judged on.
     pub fn temperature_c(&self) -> Option<f64> {
         self.temperature_c
@@ -51,10 +42,6 @@ impl DrivingState {
     /// Called in `update_audio` after `update_cab_audio`, which moves the
     /// glass this frame's mix follows.
     pub fn update_outside_audio(&mut self, ctx: &mut GameContext, dt: f64) {
-        if self.outside.rivers_trip != Some(self.trip_generation) {
-            self.outside.rivers = self.trip.river_crossing_miles();
-            self.outside.rivers_trip = Some(self.trip_generation);
-        }
         // Read fresh each frame: a staged or resumed drive moves its clock
         // after the first frame, and a reading held from before that judged
         // the first seconds on the wrong hour. The scene's hysteresis keeps
@@ -69,12 +56,9 @@ impl DrivingState {
         o.scene = o.scene.next(now);
         let want = scene_bed(o.scene);
         o.nature = o.nature.next(want, dt, SCENE_FADE_S, SCENE_FADE_S);
-        o.water = o.water.next(WaterEvent::Tick {
-            dt_real_s: dt,
-            // A named bridge over water is water its whole length.
-            near: near_river(&o.rivers, self.trip.position_mi) || self.trip.bridge.over_water(),
-        });
-        let river = o.water.is_over().then_some(RIVER);
+        // The trip moves the water with the river's name
+        // (`Trip::check_rivers`), so the two never disagree.
+        let river = self.trip.river.water.is_over().then_some(RIVER);
         o.river = o.river.next(river, dt, WATER_FADE_IN_S, WATER_FADE_OUT_S);
 
         let glass = self.cab.glass();

@@ -151,6 +151,7 @@
 - **Cruise brakes harder on ice and snow.** It reaches the weather's safe speed sooner and holds it on downgrades it used to lose.
 - **ABS and wheelspin warnings wait for your own foot.** They stay quiet while cruise works the pedals, and ABS no longer pulses on a light brake.
 - **Named river and bridge announcements no longer get crowded out by roadside chatter.**
+- **Every river you hear under the truck is now named.** Rivers near a town, a billboard or another river used to pass with no name.
 - **Relayed pickups now keep highway driving until the shipper's streets begin, then hand off to speed keeper and slow for corners.**
 - **Quitting on Windows no longer crashes when SAPI voices are loaded.**
 - **Canadian and Alaskan towns now use their 50 km/h and 25 mph statutory street limits,** and 80 km/h Canadian highway postings no longer carry into town.
