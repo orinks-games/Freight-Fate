@@ -816,15 +816,29 @@ impl GameContext {
     }
 
     pub fn apply_volumes(&mut self) {
-        let update = VolumeUpdate::default()
-            .master(self.settings.master_volume)
-            .sfx(self.settings.sfx_volume)
-            .music(self.settings.music_volume)
-            .weather(self.settings.weather_volume)
-            .outside(self.settings.outside_volume)
-            .road(self.settings.road_surface_volume)
-            .engine(self.settings.engine_volume)
-            .ui(self.settings.ui_volume);
+        let update = if self.co_driver_fast_forward {
+            VolumeUpdate::default()
+                .master(self.settings.master_volume)
+                .sfx(0.0)
+                .music(self.settings.music_volume)
+                .weather(0.0)
+                .outside(0.0)
+                .road(0.0)
+                .engine(0.0)
+                .ui(0.0)
+                .siren(0.0)
+        } else {
+            VolumeUpdate::default()
+                .master(self.settings.master_volume)
+                .sfx(self.settings.sfx_volume)
+                .music(self.settings.music_volume)
+                .weather(self.settings.weather_volume)
+                .outside(self.settings.outside_volume)
+                .road(self.settings.road_surface_volume)
+                .engine(self.settings.engine_volume)
+                .ui(self.settings.ui_volume)
+                .siren(1.0)
+        };
         self.audio.set_volumes(&update);
         self.audio
             .set_engine_voice(self.settings.engine_voice == "classic");

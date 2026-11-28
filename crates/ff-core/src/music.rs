@@ -616,9 +616,17 @@ mod tests {
         let keys: Vec<&str> = ALL_MUSIC_TRACKS
             .iter()
             .chain(ALL_HOST_SEGMENTS.iter())
+            .chain(std::iter::once(&*SLEEPER_BERTH_TRACK))
             .map(|t| t.key.as_str())
             .collect();
         let unique: HashSet<&str> = keys.iter().cloned().collect();
         assert_eq!(keys.len(), unique.len());
+    }
+
+    #[test]
+    fn test_sleeper_berth_track_metadata() {
+        assert_eq!(SLEEPER_BERTH_TRACK.key, SLEEPER_BERTH_TRACK_KEY);
+        assert_eq!(SLEEPER_BERTH_TRACK.title, "Sleeper Berth");
+        assert_eq!(music_track_duration_s(SLEEPER_BERTH_TRACK_KEY), 13.8);
     }
 }

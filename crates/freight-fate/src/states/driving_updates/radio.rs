@@ -54,6 +54,10 @@ impl DrivingState {
     /// silent when the current bed runs out. Day/night flavor stays as it
     /// was when the menu opened; it catches up when driving resumes.
     pub fn tick_drive_music(&mut self, ctx: &mut GameContext, dt: f64) {
+        if ctx.co_driver_fast_forward {
+            self.advance_radio_airtime(dt);
+            return;
+        }
         self.apply_radio_voicing(ctx);
         self.advance_radio_airtime(dt);
         self.sync_radio_power(ctx); // a rest-menu shutdown kills the radio too
@@ -988,6 +992,9 @@ impl DrivingState {
 
     /// Music volume = radio setting x signal x ducks.
     pub fn apply_radio_volume(&mut self, ctx: &mut GameContext) {
+        if ctx.co_driver_fast_forward {
+            return;
+        }
         let factor = self.radio_signal_factor;
         // A sibling of the picket duck, deliberately not the same field: the
         // picket duck self-heals on stop_radio_fringe, which would drag an
@@ -1002,6 +1009,9 @@ impl DrivingState {
         // An explicit (re)start IS the power sync for this frame; without
         // this, resuming a running-engine trip would restart the song twice.
         self.radio_powered = self.trip.truck.engine_on;
+        if ctx.co_driver_fast_forward {
+            return;
+        }
         if self.radio.enabled && self.trip.truck.engine_on {
             self.apply_radio_volume(ctx);
             self.with_radio_backend(ctx, |radio, backend| radio.play(Some(backend), ""));
@@ -1019,6 +1029,10 @@ impl DrivingState {
     /// with the engine-off top of every load).
     pub fn sync_radio_power(&mut self, ctx: &mut GameContext) {
         let powered = self.trip.truck.engine_on;
+        if ctx.co_driver_fast_forward {
+            self.radio_powered = powered;
+            return;
+        }
         if powered == self.radio_powered {
             return;
         }
@@ -1060,7 +1074,11 @@ impl DrivingState {
             return;
         }
         self.sync_radio_settings(ctx);
-        let action = self.with_radio_backend(ctx, |radio, backend| radio.toggle(Some(backend)));
+        let action = if ctx.co_driver_fast_forward {
+            self.radio.toggle(None)
+        } else {
+            self.with_radio_backend(ctx, |radio, backend| radio.toggle(Some(backend)))
+        };
         self.finish_radio_action(ctx, &action);
     }
 
@@ -1088,8 +1106,11 @@ impl DrivingState {
         if self.radio_switched_off(ctx) {
             return;
         }
-        let action =
-            self.with_radio_backend(ctx, |radio, backend| radio.tune(direction, Some(backend)));
+        let action = if ctx.co_driver_fast_forward {
+            self.radio.tune(direction, None)
+        } else {
+            self.with_radio_backend(ctx, |radio, backend| radio.tune(direction, Some(backend)))
+        };
         self.finish_radio_action(ctx, &action);
     }
 
@@ -1102,9 +1123,13 @@ impl DrivingState {
         if self.radio_switched_off(ctx) {
             return;
         }
-        let action = self.with_radio_backend(ctx, |radio, backend| {
-            radio.tune_category(direction, Some(backend))
-        });
+        let action = if ctx.co_driver_fast_forward {
+            self.radio.tune_category(direction, None)
+        } else {
+            self.with_radio_backend(ctx, |radio, backend| {
+                radio.tune_category(direction, Some(backend))
+            })
+        };
         self.finish_radio_action(ctx, &action);
     }
 
@@ -1126,9 +1151,13 @@ impl DrivingState {
         let was_off = !self.radio.enabled;
         self.radio.enabled = true;
         let id = station_id.to_string();
-        let action = self.with_radio_backend(ctx, |radio, backend| {
-            radio.select_station(&id, Some(backend))
-        });
+        let action = if ctx.co_driver_fast_forward {
+            self.radio.select_station(&id, None)
+        } else {
+            self.with_radio_backend(ctx, |radio, backend| {
+                radio.select_station(&id, Some(backend))
+            })
+        };
         self.write_radio_settings(ctx);
         let message = action.message;
         if was_off {

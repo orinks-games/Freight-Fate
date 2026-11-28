@@ -454,7 +454,7 @@ impl DrivingState {
         // this cab is listening, which is what lets a re-tune pick a station
         // up where it got to.
         self.advance_radio_airtime(dt);
-        if self.radio.enabled && self.trip.truck.engine_on {
+        if !ctx.co_driver_fast_forward && self.radio.enabled && self.trip.truck.engine_on {
             // The dial has left what the cab plays: check reception now,
             // before playback retunes to the fallback and hides the loss. In
             // Synthesized mode the fallback is the Roadhouse, which playback

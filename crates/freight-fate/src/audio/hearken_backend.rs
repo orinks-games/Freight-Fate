@@ -164,6 +164,10 @@ pub(super) enum MusicReplay {
         track: String,
         transition: ff_core::music_playback::MusicTransition,
     },
+    Loop {
+        track: String,
+        fade_ms: u32,
+    },
     File {
         path: String,
         fade_ms: u32,
