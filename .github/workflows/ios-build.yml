@@ -85,12 +85,11 @@ jobs:
           xcodebuild -version
           xcrun --sdk ${{ matrix.platform == 'IOS' && 'iphoneos' || 'iphonesimulator' }} --show-sdk-path
 
-      - name: Cache cargo registry and target directory
-        uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
-        with:
-          shared-key: ios-${{ matrix.target }}
-          cache-on-failure: true
-
+      # No rust-cache here (2026-11-28). The two entries were 1.2 GB each,
+      # and with them the repository's caches did not fit GitHub's 10 GB
+      # budget, so entries were dropped within hours, these included.
+      # Nothing waits on this check; the room goes to the desktop and
+      # TestFlight builds, which people do wait on.
       - name: Build freight-fate for ${{ matrix.target }}
         # The same command `cargo tools build-ios` runs. Touching ff_touch.m makes
         # build.rs compile it again even when the cache is warm, and the stamp

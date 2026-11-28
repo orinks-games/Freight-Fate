@@ -334,9 +334,9 @@ jobs:
 
       - name: Set up Rust and the build caches
         # CMake and ATL for Prism, the pinned toolchain and rust-cache: the
-        # same setup rust.yml's jobs use. The key is `release-2` in all the
-        # build jobs because the `release` entries were saved by the old
-        # builder, and the single cargo build reuses nothing in them.
+        # same setup rust.yml's jobs use. The key is `release-2` in the
+        # Windows and macOS jobs because the `release` entries were saved by
+        # the old builder, and the single cargo build reuses nothing in them.
         # rust-cache never saves again over an exact key match, so an old
         # entry would stay until Cargo.lock changed. Rename the key again
         # when the builder's cargo command changes.
@@ -572,7 +572,7 @@ jobs:
         with:
           ref: ${{ needs.prepare.outputs.commit_sha }}
 
-      - name: Set up Rust and the build caches
+      - name: Set up Rust
         # .github/actions/linux-deps installs what SDL2 and Prism compile
         # against: the whole desktop set of SDL2 backends (a backend whose
         # headers are missing is compiled out for every player), gcc 13 from
@@ -581,10 +581,14 @@ jobs:
         # sets CC/CXX before rust-cache keys on them: a CMake build directory
         # configured by another compiler throws its cache away, and SDL2
         # then tries to install into /usr/local. desktop-file-utils validates
-        # the AppImage's launcher entry.
+        # the AppImage's launcher entry. No cache-key: the Linux builds keep
+        # no rust-cache entry. Each entry is 1.2 GB and saves one to three
+        # minutes; a build without one takes 8 to 11 minutes, about level
+        # with a warm Windows build. The room goes to the Windows and macOS
+        # entries of both dev and the alpha line, which save three to six
+        # minutes each and did not fit in the 10 GB budget beside these.
         uses: ./.github/actions/rust-setup
         with:
-          cache-key: release-2
           linux-packages: file desktop-file-utils
 
       - name: Build the release tooling

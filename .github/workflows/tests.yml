@@ -81,15 +81,13 @@ jobs:
         if: steps.tested.outputs.cache-hit == 'true'
         run: echo "The nightly already tested ${{ steps.head.outputs.sha }}; nothing new."
 
-      - name: Set up Rust and the build caches
+      - name: Set up Rust
         if: steps.tested.outputs.cache-hit != 'true'
-        # One saved cache, from the nightly dev job. The alpha job and manual
-        # runs restore the nearest entry and save nothing: the repository's
-        # 10 GB cache budget is already full of release builds.
+        # No cache-key, so no rust-cache entry: nothing waits on this
+        # workflow, and an entry used once a night would push a release
+        # build's entry out of the repository's 10 GB cache budget.
         uses: ./.github/actions/rust-setup
         with:
-          cache-key: test
-          save-cache: ${{ github.event_name == 'schedule' && matrix.branch == 'dev' }}
           linux-packages: mold
 
       - name: Lint Rust targets
