@@ -64,8 +64,17 @@ pub struct CityMenuState {
     /// state: the briefing already said where the truck is parked (and, for
     /// an owner-operator, the cash), so the first entry line does not repeat it.
     after_briefing: bool,
+    briefing_navigation: BriefingNavigation,
     /// This screen's hold on the gate bed, while it is the holder's.
     ambience: Option<BedClaim>,
+}
+
+#[derive(Default, PartialEq, Eq)]
+enum BriefingNavigation {
+    #[default]
+    Unseen,
+    Returning,
+    Complete,
 }
 
 /// The wall-clock zone of the city the driver is standing in.
@@ -85,6 +94,7 @@ impl CityMenuState {
             queue_entry_announcement,
             backup_watch: None,
             after_briefing: false,
+            briefing_navigation: BriefingNavigation::default(),
             ambience: None,
         }
     }
@@ -124,6 +134,13 @@ impl CityMenuState {
     fn first_day_briefing(&mut self, ctx: &mut GameContext) {
         let lines = first_day_orientation_lines(ctx, "");
         ctx.push_state(SimpleMenuState::readout("First-day briefing", lines));
+        if crate::device::iphone() && self.briefing_navigation == BriefingNavigation::Unseen {
+            self.briefing_navigation = BriefingNavigation::Returning;
+            ctx.say_with(
+                "Choose Back or use a two-finger scrub to return to the terminal.",
+                Say::queued(),
+            );
+        }
     }
 
     fn career_plan(&mut self, ctx: &mut GameContext) {
@@ -703,6 +720,13 @@ impl Menu for CityMenuState {
         self.check_carrier_termination(ctx);
         self.check_standing(ctx);
         self.check_credentials(ctx);
+        if self.briefing_navigation == BriefingNavigation::Returning {
+            self.briefing_navigation = BriefingNavigation::Complete;
+            ctx.say_with(
+                "Quit to main menu saves your career and returns you to the title screen.",
+                Say::queued(),
+            );
+        }
     }
 
     fn build_items(&mut self, ctx: &mut GameContext) -> Vec<MenuItem<Self>> {
