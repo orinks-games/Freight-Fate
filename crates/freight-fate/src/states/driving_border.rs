@@ -94,6 +94,11 @@ impl DrivingState {
     }
 
     pub fn check_border_approach(&mut self, ctx: &mut GameContext) {
+        // The booth's notice and reminder are the player's: the co-driver
+        // hands the wheel back short of them (`driving_team::customs`).
+        if self.co_driver_driving() {
+            return;
+        }
         let position = self.trip.position_mi;
         let lookahead = self.scale_notice_lookahead_mi(ctx).max(2.0);
         let booths = self.trip.border_booths.clone();
@@ -152,7 +157,7 @@ impl DrivingState {
     /// stops it at an open scale (`scale_stop_is_assisted`), full lane
     /// keeping with facility stopping assistance, which is All assists.
     /// Lower levels leave the stop to the driver. The co-driver is left out:
-    /// a clearance needs the player at the window.
+    /// they hand the wheel back before the line (`driving_team::customs`).
     pub fn booth_stop_is_assisted(&self, ctx: &GameContext) -> bool {
         ctx.settings.lane_is_automated()
             && ctx.settings.destination_approach_assist
@@ -323,10 +328,21 @@ impl DrivingState {
 
     pub fn open_border_clearance(&mut self, ctx: &mut GameContext, booth: BorderBooth) {
         self.pending_border_clearance = None;
+        // The window is the player's. A co-driver who reached the booth
+        // anyway (handed the wheel too close to stop short) hands back here,
+        // stopped, and the officer's questions follow the summon rather
+        // than cutting it.
+        let summoned = self.co_driver_driving();
+        if summoned {
+            self.co_driver_summon(ctx, "customs booth");
+        }
+        let leads = ctx.result_leads;
+        ctx.result_leads = leads || summoned;
         let papers = self.trip.booth_papers(&booth);
         let mut state = BorderClearanceState::new(ctx, booth, self.trip_seed, papers);
         state.enter(ctx);
         push_over_drive(ctx, state);
+        ctx.result_leads = leads;
     }
 }
 

@@ -214,6 +214,20 @@ impl DrivingState {
             return Ok(pedals);
         }
 
+        // A customs booth ahead: the co-driver never crosses a border. They
+        // brake to a stop short of the line into the booth's country and
+        // hand back there, so the crossing and the clearance are the
+        // player's (`customs`).
+        if self.customs_handback_due(ctx) {
+            pilot.accel_s = 0.0;
+            pilot.stalled_s = 0.0;
+            if speed > 0.5 {
+                pedals.brake = true;
+                return Ok(pedals);
+            }
+            return Err("customs".to_string());
+        }
+
         // Parked at a stop the co-driver chose, or on the scale: the stop's
         // own menu, as T opens it.
         if speed <= DOCKING_MAX_MPH && self.pilot_at_stop_entrance() {

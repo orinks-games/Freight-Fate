@@ -873,6 +873,7 @@ The co-driver uses every assist, fuels when the tank runs low, crosses the open 
 - parked at a stop, when their own hours run out first, and they tell you how much of your rest you had;
 - at a rest area for their 30-minute break, or on the road if they could not reach one in time;
 - at the receiver's gate, so you can dock and deliver;
+- stopped short of the border, so you cross and clear customs yourself; they never drive across a border;
 - when the truck takes damage, or something else needs your decision.
 
 To drive again sooner, pause and choose Take the wheel back. Your ten hours must be unbroken, so driving before they are in starts your rest over.

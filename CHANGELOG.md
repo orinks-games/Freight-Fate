@@ -154,6 +154,7 @@
 
 ### Fixed
 
+- **On a team load you now clear customs yourself.** The co-driver stops short of the border and hands you the wheel.
 - **Level-ups from 19 to 30 name only what really opens,** such as LCV training at 20; the others say the level and title.
 - **Damage to a cattle load is said of the cattle,** such as "The cattle are bruised", with what the receiver will do.
 - **Speed limits near a border are said in the units of the sign.** On Automatic units, Blaine's Canadian 30 is "30 kilometers per hour", not 19.

@@ -24,6 +24,7 @@
 //! Nothing here is saved while the co-driver is at the wheel: a drive that
 //! is saved, quit or resumed always resumes with the player driving.
 
+pub mod customs;
 pub mod handover;
 pub mod notes;
 pub mod overlay;
@@ -122,6 +123,9 @@ pub struct TeamDrive {
     /// Where the co-driver's shift stands. Moved only through
     /// [`DrivingState::team_shift_event`].
     pub shift: TeamShift,
+    /// Why the co-driver last handed the wheel back (the summon's reason
+    /// key), for the agent server's `status`. Not saved.
+    pub last_handback: Option<String>,
 }
 
 impl TeamDrive {
@@ -134,6 +138,7 @@ impl TeamDrive {
             wheel: None,
             last_summary: Vec::new(),
             shift: TeamShift::Bunk,
+            last_handback: None,
         }
     }
 
@@ -472,6 +477,8 @@ impl DrivingState {
 fn summon_line(co_driver_name: &str, reason: &str) -> String {
     match reason {
         "gate" => format!("{co_driver_name} has the truck at the receiver's gate."),
+        "customs" => format!("{co_driver_name} needs you at the wheel for customs."),
+        "customs booth" => format!("{co_driver_name} has the truck at the customs booth."),
         "hours up" => {
             format!("{co_driver_name} has parked and hands you the wheel. Their hours are up.")
         }
@@ -612,6 +619,7 @@ impl DrivingState {
         lines.extend(cycle_restarted_sentence(&log).map(str::to_string));
         if let Some(team) = self.team.as_mut() {
             team.last_summary = lines.clone();
+            team.last_handback = Some(reason.to_string());
         }
         ctx.audio.play("ui/notify");
         let text = lines.join(" ");

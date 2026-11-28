@@ -19381,10 +19381,10 @@ msgstr "Vous prenez le volant {start_mi} miles plus loin sur la route."
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
-#. placeholders: {map_or}, {key}, {restart_remaining_min}
+#. placeholders: {map_or}, {key}, {restart_remaining_min}, {key2}
 msgid ""
 "cycle_left {map_or}; restart_offer {key}; restart_rest_left "
-"{restart_remaining_min} min"
+"{restart_remaining_min} min; hos_rules {key2}"
 msgstr ""
 
 msgid "unenforced"
@@ -26927,6 +26927,9 @@ msgstr ""
 
 msgid "Ran the port of entry"
 msgstr "Vous avez forcé le point d'entrée"
+
+msgid "customs booth"
+msgstr "poste de douane"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr ""
@@ -38220,6 +38223,14 @@ msgstr "formateur"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "{co_driver_name} a amené le camion au portail du destinataire."
 
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you at the wheel for customs."
+msgstr "{co_driver_name} a besoin de vous au volant pour la douane."
+
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} has the truck at the customs booth."
+msgstr "{co_driver_name} a amené le camion au poste de douane."
+
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Ses heures sont épuisées."
@@ -38726,6 +38737,9 @@ msgstr "Faire le plein"
 
 msgid "shoulder break"
 msgstr "pause sur le bas-côté"
+
+msgid "customs"
+msgstr ""
 
 msgid "stalled"
 msgstr "à l'arrêt"

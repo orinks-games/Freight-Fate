@@ -19173,10 +19173,10 @@ msgstr "Bạn cầm lái từ {start_mi} dặm phía trước."
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
-#. placeholders: {map_or}, {key}, {restart_remaining_min}
+#. placeholders: {map_or}, {key}, {restart_remaining_min}, {key2}
 msgid ""
 "cycle_left {map_or}; restart_offer {key}; restart_rest_left "
-"{restart_remaining_min} min"
+"{restart_remaining_min} min; hos_rules {key2}"
 msgstr ""
 
 msgid "unenforced"
@@ -26510,6 +26510,9 @@ msgstr ""
 
 msgid "Ran the port of entry"
 msgstr "Vượt cửa khẩu không dừng"
+
+msgid "customs booth"
+msgstr "trạm hải quan"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr "Nhân viên hộ tống bạn và xe tải quay lại cửa khẩu."
@@ -37550,6 +37553,14 @@ msgstr "người hướng dẫn"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "{co_driver_name} đã đưa xe tới cổng bên nhận hàng."
 
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} needs you at the wheel for customs."
+msgstr "{co_driver_name} cần bạn cầm lái để qua hải quan."
+
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} has the truck at the customs booth."
+msgstr "{co_driver_name} đã đưa xe tới trạm hải quan."
+
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Đã hết giờ lái theo quy định."
@@ -38045,6 +38056,9 @@ msgstr "Đổ dầu"
 
 msgid "shoulder break"
 msgstr "nghỉ ở lề đường"
+
+msgid "customs"
+msgstr ""
 
 msgid "stalled"
 msgstr "chết máy"

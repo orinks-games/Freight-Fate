@@ -351,7 +351,7 @@ fn tools_list() -> Value {
              open), on a load with a co-driver co_driver_shift (bunk, driving, \
              ending_rested, ending_last_lot, ending_hours_short or shoulder: where \
              their shift stands) and co_driver_left (the driving time or duty \
-             window their own logbook has left, in minutes, or hours off) and off_wheel_restart_rest_left (the off-duty minutes the restart still needs on the logbook off the wheel), and jake_zone (what the driver has heard about the no \
+             window their own logbook has left, in minutes, or hours off) and off_wheel_restart_rest_left (the off-duty minutes the restart still needs on the logbook off the wheel), off_wheel_rules (us, alaska, canada_south_60 or canada_north_60: the rules that logbook is under) and, once the co-driver has handed back, co_driver_handback (why: customs, gate, hours up, ...), and jake_zone (what the driver has heard about the no \
              engine brake zone ahead or under the truck: untold, heads_up, \
              inside_untold or inside_told), touch_mode (menu, field, wheel or \
              practice: how a gesture is read on this screen), road_offer (what a \
@@ -390,7 +390,7 @@ fn tools_list() -> Value {
              saved) and home_terminal_city. An HOURS line gives cycle_left (cycle \
              minutes left, or unenforced), restart_offer (none, fresh or finish: the \
              restart row on offer) and restart_rest_left (off-duty minutes the cycle \
-             restart still needs). An INPUT line \
+             restart still needs) and hos_rules (the rules the driver's logbook is under). An INPUT line \
              ends it: phone (whether this run plays as a phone), device (keyboard, \
              controller or touch: the input prompts name), last_used, and keyboard \
              and controller (connected or none).",
