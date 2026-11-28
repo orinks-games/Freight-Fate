@@ -229,6 +229,7 @@ struct TeeAudio {
     engine_pan_step: i32,
     /// See `Audio::set_cues_muted`: a cue held back is not heard either.
     cues_muted: bool,
+    music_looping: bool,
 }
 
 /// The key the road bed plays under. The game never starts that bed by key:
@@ -559,8 +560,14 @@ impl Audio for TeeAudio {
         self.inner.stop_world();
     }
     fn play_music_with(&mut self, track: &str, fade_ms: u32) {
+        self.music_looping = false;
         self.hear(format!("[radio] now playing {track}"));
         self.inner.play_music_with(track, fade_ms);
+    }
+    fn play_music_loop(&mut self, track: &str, fade_ms: u32) {
+        self.music_looping = true;
+        self.hear(format!("[music] looping {track}"));
+        self.inner.play_music_loop(track, fade_ms);
     }
     fn play_radio_stream_with(&mut self, url: &str, fade_ms: u32) -> Result<(), AudioError> {
         self.hear("[radio] live stream tuning".to_string());
@@ -579,6 +586,9 @@ impl Audio for TeeAudio {
         self.inner.radio_now_playing()
     }
     fn stop_music_with(&mut self, fade_ms: u32) {
+        if std::mem::take(&mut self.music_looping) {
+            self.hear("[music] stopped".to_string());
+        }
         self.inner.stop_music_with(fade_ms);
     }
     fn set_volumes(&mut self, volumes: &VolumeUpdate) {
@@ -612,6 +622,7 @@ pub fn install_ears(app: &mut App) -> SharedEars {
         bed_levels: Default::default(),
         engine_pan_step: 0,
         cues_muted: false,
+        music_looping: false,
     });
     ears
 }
@@ -687,6 +698,7 @@ mod tests {
             bed_levels: Default::default(),
             engine_pan_step: 0,
             cues_muted: false,
+            music_looping: false,
         }
     }
 

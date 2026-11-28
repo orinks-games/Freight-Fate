@@ -378,6 +378,9 @@ pub trait AudioBackend {
     ) {
         self.play_music_at(track, transition.fade_in_ms, transition.start_s);
     }
+    fn play_music_loop(&mut self, track: &str, fade_ms: u32) {
+        self.play_music(track, fade_ms);
+    }
     fn play_radio_stream(&mut self, _url: &str, _fade_ms: u32) -> Result<(), AudioError> {
         Err(AudioError::new("radio stream unavailable"))
     }

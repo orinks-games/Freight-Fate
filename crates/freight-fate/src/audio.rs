@@ -624,6 +624,11 @@ pub trait Audio {
     ) {
         self.play_music_at(track, transition.fade_in_ms, transition.start_s);
     }
+    /// Loop a shipped music track seamlessly on the music bus (used for the
+    /// sleeper berth bed while sleeping through a co-driver's shift).
+    fn play_music_loop(&mut self, track: &str, fade_ms: u32) {
+        self.play_music_with(track, fade_ms);
+    }
     fn play_radio_stream_with(&mut self, url: &str, fade_ms: u32) -> Result<(), AudioError>;
     fn play_radio_stream(&mut self, url: &str) -> Result<(), AudioError> {
         self.play_radio_stream_with(url, 1500)

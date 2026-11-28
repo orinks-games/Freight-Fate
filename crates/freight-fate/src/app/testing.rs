@@ -426,6 +426,12 @@ pub struct AudioCalls {
     /// Seconds into the track each `music` entry was asked to start at.
     /// Parallel to `music`; zero for a track played from the top.
     pub music_start_s: Vec<f64>,
+    /// `play_music_loop(track, fade_ms)` in order.
+    pub music_loops: Vec<(String, u32)>,
+    /// `stop_music_with(fade_ms)` in order.
+    pub music_stops: Vec<u32>,
+    /// `set_volumes(&update)` in order.
+    pub volumes: Vec<VolumeUpdate>,
     /// `"start"` / `"stop"` for every horn call, in order.
     pub horn: Vec<&'static str>,
     /// `set_engine_rpm(rpm, throttle)` in order. What the engine loop was
@@ -618,6 +624,12 @@ impl Audio for RecordingAudio {
         log.music.push((track.to_string(), fade_ms));
         log.music_start_s.push(start_s);
     }
+    fn play_music_loop(&mut self, track: &str, fade_ms: u32) {
+        self.log
+            .borrow_mut()
+            .music_loops
+            .push((track.to_string(), fade_ms));
+    }
     fn play_radio_stream_with(&mut self, _url: &str, _fade_ms: u32) -> Result<(), AudioError> {
         Ok(())
     }
@@ -630,7 +642,11 @@ impl Audio for RecordingAudio {
     fn radio_now_playing(&self) -> Option<String> {
         None
     }
-    fn stop_music_with(&mut self, _fade_ms: u32) {}
-    fn set_volumes(&mut self, _volumes: &VolumeUpdate) {}
+    fn stop_music_with(&mut self, fade_ms: u32) {
+        self.log.borrow_mut().music_stops.push(fade_ms);
+    }
+    fn set_volumes(&mut self, volumes: &VolumeUpdate) {
+        self.log.borrow_mut().volumes.push(*volumes);
+    }
     fn shutdown(&mut self) {}
 }

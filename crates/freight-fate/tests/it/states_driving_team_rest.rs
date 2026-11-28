@@ -657,3 +657,82 @@ fn with_the_rest_in_a_break_due_short_of_a_stop_hands_back() {
     let speed = harness.read_drive(|d| d.truck().speed_mph());
     assert!(speed < 1.0, "handed back stopped: {speed}");
 }
+
+#[test]
+fn sleeping_through_co_driver_shift_loops_sleeper_berth_and_ride_along_does_not() {
+    use freight_fate::app::testing::RecordingAudio;
+
+    // RideAlong must not play Sleeper Berth.
+    let mut ride = quiet_drive("Team RideAlong Audio");
+    let ride_audio = RecordingAudio::new();
+    let ride_log = ride_audio.log();
+    ride.app.ctx.audio = Box::new(ride_audio);
+    hand_over_after(&mut ride, 300.0, TeamMode::RideAlong);
+    assert!(
+        ride_log.borrow().music_loops.is_empty(),
+        "RideAlong should not loop Sleeper Berth"
+    );
+    drop(ride);
+
+    // SleepThrough loops Sleeper Berth, mutes non-music buses while keeping
+    // master and music up, clears radio voicing, and restores on take_wheel_back.
+    let mut sleep = quiet_drive("Team SleepThrough Audio");
+    sleep.app.ctx.settings.master_volume = 0.85;
+    sleep.app.ctx.settings.music_volume = 0.55;
+    sleep.app.ctx.settings.engine_volume = 0.6;
+    let sleep_audio = RecordingAudio::new();
+    let sleep_log = sleep_audio.log();
+    sleep.app.ctx.audio = Box::new(sleep_audio);
+    hand_over_after(&mut sleep, 300.0, TeamMode::SleepThrough);
+
+    {
+        let log = sleep_log.borrow();
+        assert_eq!(
+            log.music_loops,
+            vec![(ff_core::music::SLEEPER_BERTH_TRACK_KEY.to_string(), 600)]
+        );
+        assert_eq!(log.radio_voicing.last(), Some(&None));
+        let vol = log.volumes.last().expect("volumes applied on sleep");
+        assert_eq!(vol.master, Some(0.85));
+        assert_eq!(vol.music, Some(0.55));
+        assert_eq!(vol.engine, Some(0.0));
+        assert_eq!(vol.sfx, Some(0.0));
+        assert_eq!(vol.road, Some(0.0));
+        assert_eq!(vol.siren, Some(0.0));
+    }
+
+    // Radio controls pressed while asleep must not stop or replace Sleeper Berth.
+    let stops_before = sleep_log.borrow().music_stops.len();
+    let music_before = sleep_log.borrow().music.len();
+    sleep.with_drive(|d, ctx| {
+        d.tune_radio(ctx, 1);
+        d.toggle_radio(ctx);
+        d.toggle_radio(ctx);
+    });
+    assert_eq!(
+        sleep_log.borrow().music_stops.len(),
+        stops_before,
+        "radio controls during sleep must not stop Sleeper Berth"
+    );
+    assert_eq!(
+        sleep_log.borrow().music.len(),
+        music_before,
+        "radio controls during sleep must not start cab radio over Sleeper Berth"
+    );
+
+    sleep.with_drive(|d, ctx| {
+        d.take_wheel_back(ctx);
+    });
+    {
+        let log = sleep_log.borrow();
+        assert!(
+            log.music_stops.contains(&400),
+            "take_wheel_back should fade out Sleeper Berth: {:?}",
+            log.music_stops
+        );
+        let vol = log.volumes.last().expect("volumes restored on wake");
+        assert_eq!(vol.master, Some(0.85));
+        assert_eq!(vol.engine, Some(0.6));
+        assert_eq!(vol.siren, Some(1.0));
+    }
+}

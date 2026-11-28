@@ -667,6 +667,11 @@ impl Audio for AudioEngine {
         self.backend.play_music_transition(track, transition);
     }
 
+    /// Loop a shipped music track seamlessly on the music bus.
+    fn play_music_loop(&mut self, track: &str, fade_ms: u32) {
+        self.backend.play_music_loop(track, fade_ms);
+    }
+
     /// Stream a live radio URL when the active backend supports it.
     fn play_radio_stream_with(&mut self, url: &str, fade_ms: u32) -> Result<(), AudioError> {
         self.backend.play_radio_stream(url, fade_ms)

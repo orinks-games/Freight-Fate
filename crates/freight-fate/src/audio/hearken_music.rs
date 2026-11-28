@@ -70,6 +70,39 @@ impl HearkenBackend {
         }
     }
 
+    /// Loop a shipped music track seamlessly on the music bus (for example
+    /// the sleeper berth bed during a co-driver's simulated shift).
+    pub(super) fn play_music_loop(&mut self, track: &str, fade_ms: u32) {
+        if self.music_track.as_deref() == Some(track) && self.music_playing() {
+            return;
+        }
+        self.cancel_radio_connect();
+        // Fade out whatever was on the music bus before checking for the loop
+        // clip, so a missing pack entry still silences the cab radio cleanly.
+        self.fade_out_music_over(fade_ms.min(MUSIC_CROSSFADE_OUT_MS));
+        let Some((data, ext)) = FfClips::music(track) else {
+            log::warn!("Missing music track: {track}");
+            return;
+        };
+        if is_module(&ext) {
+            log::warn!("Could not open stream: {track} (tracker modules do not play)");
+            return;
+        }
+        self.music_request = Some(MusicReplay::Loop {
+            track: track.to_string(),
+            fade_ms,
+        });
+        let start = Start::LOOP.volume(0.0);
+        match self.audio.try_play_clip(track, data, Bus::MUSIC, start) {
+            Ok(sound) => {
+                self.music_gain = 1.0;
+                self.fade_in_music(sound, fade_ms);
+                self.music_track = Some(track.to_string());
+            }
+            Err(err) => log::warn!("Could not open stream: {track} ({err})"),
+        }
+    }
+
     /// Play one of the player's own files. Fails when the file cannot be
     /// read or decoded, so the radio layer can skip to the next entry.
     pub(super) fn play_music_file(&mut self, path: &str, fade_ms: u32) -> Result<(), AudioError> {
@@ -201,6 +234,9 @@ impl HearkenBackend {
         match request {
             Some(MusicReplay::Track { track, transition }) => {
                 self.play_music_transition(&track, transition);
+            }
+            Some(MusicReplay::Loop { track, fade_ms }) => {
+                self.play_music_loop(&track, fade_ms);
             }
             Some(MusicReplay::File { path, fade_ms }) => {
                 let _ = self.play_music_file(&path, fade_ms);

@@ -367,8 +367,11 @@ impl DrivingState {
             // none is handed back at the wake-up summary.
             ctx.stop_event_speech();
             ctx.co_driver_fast_forward = true;
+            self.stop_radio_fringe(ctx);
+            ctx.audio.set_radio_voicing(None);
+            ctx.apply_volumes();
             ctx.audio
-                .set_volumes(&crate::audio::VolumeUpdate::default().master(0.0));
+                .play_music_loop(ff_core::music::SLEEPER_BERTH_TRACK_KEY, 600);
         }
         // Nothing the player was holding carries over to the co-driver.
         self.brake_latch = Default::default();
@@ -390,7 +393,12 @@ impl DrivingState {
         ctx.co_driver_away = false;
         ctx.sync_cue_mute();
         if std::mem::take(&mut ctx.co_driver_fast_forward) {
+            ctx.audio.stop_music_with(400);
             ctx.apply_volumes();
+            self.apply_radio_voicing(ctx);
+            if self.radio.enabled && self.trip.truck.engine_on {
+                self.play_radio_current(ctx);
+            }
         }
         log::info!(
             target: TRANSCRIPT_TARGET,

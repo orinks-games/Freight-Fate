@@ -48,6 +48,10 @@ impl DrivingState {
     /// following the driver's glass. Also run while a menu covers the
     /// drive, so a Radio sound change there is heard at once.
     pub fn apply_radio_voicing(&self, ctx: &mut GameContext) {
+        if ctx.co_driver_fast_forward {
+            ctx.audio.set_radio_voicing(None);
+            return;
+        }
         let voicing = RadioVoicing {
             cab_speakers: ctx.settings.radio_cab_speakers,
             window: self.cab.glass(),

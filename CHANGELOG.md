@@ -17,6 +17,7 @@
 
 ### Added
 
+- **Sleeping through a co-driver's shift now loops Sleeper Berth.** The bed plays while the shift simulates and stops when you wake.
 - **Canadian radio stations are on the dial.** Stations come in near their real transmitters across Canada, and Suggest a station takes a province.
 - **Live weather now covers Canada.** Canadian roads get current conditions and weather alerts from Environment and Climate Change Canada.
 - **Canadian live weather reads the real weather stations.** The Weather app names the station and adds wind, gusts, visibility and a forecast.
