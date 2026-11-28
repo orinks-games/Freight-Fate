@@ -293,3 +293,20 @@ fn hos_cycle_min_stages_the_working_week() {
     assert_eq!(p.hos.cycle_remaining_min("realistic"), Some(60.0));
     assert_eq!(p.hos.restart_remaining_min(), 34.0 * 60.0);
 }
+
+/// `hos_restart_off_min` stages rest already taken toward the cycle restart,
+/// on top of the week `hos_cycle_min` puts on the ledger.
+#[test]
+fn hos_restart_off_min_stages_rest_toward_the_restart() {
+    let mut app = TestApp::new();
+    let notes = apply(
+        &mut app.ctx,
+        &scenario(json!({"hos_cycle_min": 4140, "hos_restart_off_min": 1500})),
+    )
+    .expect("the scenario applies");
+    assert!(notes
+        .iter()
+        .any(|n| n == "HOS restart: 1500 minutes off in a row."));
+    let p = app.ctx.profile.as_ref().expect("a career");
+    assert_eq!(p.hos.restart_remaining_min(), 34.0 * 60.0 - 1500.0);
+}
