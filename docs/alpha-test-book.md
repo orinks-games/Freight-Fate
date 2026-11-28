@@ -318,7 +318,10 @@ stops at the customs booth."; then "Customs booth in half a mile. Stop at
 the booth." (800 meters in kilometers).
 
 Do: stop at the booth. Choose Answer the officer's questions and hand
-over your documents.
+over your documents. Then cross once on All assists with your feet off
+the pedals: the truck brakes to a stop at the booth itself, with no new
+line, and the officer's questions open as after a stop by hand. On
+Balanced or Realistic the stop is still yours.
 
 Listen for: "The officer asks for your passport and checks the eManifest
 filed for this load.", then "Cleared. Welcome to Canada." or "Welcome to

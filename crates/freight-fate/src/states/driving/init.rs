@@ -533,6 +533,8 @@ impl DrivingState {
             chain_reminder_said: HashSet::new(),
             chain_stop: None,
             chain_stop_brake: 0.0,
+            booth_stop_brake: 0.0,
+            booth_close_up: false,
             chain_stop_areas_done: HashSet::new(),
             chain_set: Default::default(),
             chain_bare_cue_pending: false,

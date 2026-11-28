@@ -347,6 +347,11 @@ pub struct DrivingState {
     pub chain_stop: Option<crate::states::driving_events::chain_stop::ChainStop>,
     /// Its held brake application, one of the assists' pedal floors.
     pub chain_stop_brake: f64,
+    /// The customs booth stop's held brake on All assists
+    /// (`update_booth_stop_assist`), one of the assists' pedal floors.
+    pub booth_stop_brake: f64,
+    /// That stop came up short of the booth and is closing up at a crawl.
+    pub booth_close_up: bool,
     /// Chain-law areas the chain-up stop has handled, declined or had
     /// cancelled: never retried.
     pub chain_stop_areas_done: HashSet<usize>,

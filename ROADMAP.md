@@ -5684,12 +5684,28 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       rule changes, so they now wait for the road to go quiet however long
       it takes, and play once each, in order. The agent server can stage a
       drive before a line (`start_at` feature `state-line`).
+- [x] All assists stops at the customs booth (owner ruling, 2026-11-28).
+      The truck rolled through and drew the RCMP or CBP stop and its fine.
+      Now the setting that brakes for an open scale, full lane keeping with
+      facility stopping assistance, brakes to a stop at the booth
+      (`DrivingState::update_booth_stop_assist`) the way route-transition
+      assistance stops at a red light: it engages at 0.6 m/s2, eases off
+      under 0.35, closes up at a crawl if it stopped short, holds the real
+      clock to the stop (`Trip::booth_stop_active`), and opens the clearance
+      within 60 feet of the booth. No new line. The red-light assist itself
+      is on at every preset, so following it would have stopped Balanced and
+      Realistic too; the scale's rule keeps the stop the driver's there. The
+      co-driver is left out (a clearance needs the player). Regression:
+      `states_driving_border_assist`.
 - [ ] (Found along the way) The customs booth approach is an implicit state
       machine: three string keys in the enforcement events (notice,
       reminder, booth), the pending clearance and the reminder's real-time
       hold. Make it one `BoothApproach` enum in `ff-core` (Ahead, Noticed,
       Reminded, Stopped, Ran, Cleared) so the agent server's `status` reports
-      it and a scenario can set it. No defect came from it yet.
+      it and a scenario can set it. No defect came from it yet. Left open
+      by the All assists booth stop (2026-11-28): the enum, its table, the
+      status key and the scenario tag would have more than doubled that
+      change, which keeps to the existing keys.
 
 Automated evidence: the four `test_alcan_phase_a_*` cases (including the
 Tok–Delta Junction–Fairbanks split), `test_alcan_phase_b1_tok_cutoff_glenn_to_anchorage`,

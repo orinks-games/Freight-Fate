@@ -101,6 +101,7 @@
 
 ### Changed
 
+- **All assists now brakes to a stop at the customs booth.** At lower assist levels the stop is still yours.
 - **The Weather app names the weather station.** A live report also gives wind, gusts and visibility when the station measures them.
 - **Waiting with the parking brake set now drops to normal clock speed when an hours notice comes due.**
 - **On a load that stays in Canada, the rest menu offers the 8-hour Canadian night.** A load headed into the United States still sleeps 10 hours, so you cross with fresh hours.

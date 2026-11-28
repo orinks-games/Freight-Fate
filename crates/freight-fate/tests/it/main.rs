@@ -130,6 +130,7 @@ mod states_driving_bend_call_climbing;
 mod states_driving_bend_rollover_sweep;
 mod states_driving_billboard_moment;
 mod states_driving_border;
+mod states_driving_border_assist;
 mod states_driving_buffs;
 mod states_driving_cab_systems;
 mod states_driving_canadian_night;

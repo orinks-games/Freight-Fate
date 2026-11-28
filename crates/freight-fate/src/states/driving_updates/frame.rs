@@ -311,6 +311,7 @@ impl DrivingState {
             } else {
                 0.0
             })
+            .max(self.booth_stop_brake)
             .max(ramp_terminal_brake)
             .max(decel_lane_brake)
             .max(self.curve_servo.as_ref().map_or(0.0, |servo| servo.brake))
@@ -546,6 +547,8 @@ impl DrivingState {
         // Facility stopping assistance's roadside chain stops, for the same
         // reason: the brake it holds has to reach the physics.
         self.update_chain_stop_assist(ctx, braking_key || emergency || hand_accelerating);
+        // The customs booth's stop on All assists, for the same reason.
+        self.update_booth_stop_assist(ctx);
         // Curve assistance's approach servo, for the same reason: its
         // pedal has to be set where the physics will see it, and after cruise
         // and the keeper so the max it applies is the one that stands.
