@@ -152,6 +152,8 @@
 
 ### Fixed
 
+- **Level-ups from 19 to 30 name only what really opens,** such as LCV training at 20; the others say the level and title.
+- **Damage to a cattle load is said of the cattle,** such as "The cattle are bruised", with what the receiver will do.
 - **Speed limits near a border are said in the units of the sign.** On Automatic units, Blaine's Canadian 30 is "30 kilometers per hour", not 19.
 - **The crossing call and the hours rules at a border are said once,** even when a readout or the customs booth cuts in.
 - **Stop names in the approach call and the stop menu start with a capital,** such as "Travel center".

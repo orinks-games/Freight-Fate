@@ -192,6 +192,9 @@ impl ArrivalState {
             return;
         }
         let unlock = display_rank_for(profile_of(ctx)).unlock;
+        if unlock.is_empty() {
+            return; // a rank that opens nothing promises no tractor
+        }
         let target = format!("Unlock: {unlock}");
         for message in announcements.iter_mut() {
             if message.starts_with("Level up!") && message.contains(&target) {

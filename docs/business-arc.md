@@ -148,17 +148,17 @@ repairs stay on the carrier account.
 | 16 | Leased-On Applicant | Leased-on requirements appear in full. |
 | 17 | Tractor Buy-In Candidate | Tractor buy-in target is active. |
 | 18 | Leased-On Owner-Operator | Buy-in can unlock leased-on owner-operator economics. |
-| 19 | Settled Owner-Operator | Owner-operator settlements become normal. |
-| 20 | Established Owner-Operator | Specialty trailer programs matter more. |
-| 21 | Authority Prep Candidate | Authority prep reserve can unlock. |
-| 22 | Direct Freight Prep | Direct freight readiness gates become clearer. |
-| 23 | Trailer Strategy Owner | Trailer ownership planning matters for direct freight. |
-| 24 | Authority-Ready Operator | Final authority activation checklist. |
+| 19 | Settled Owner-Operator | Opens nothing new; the level-up says its title only. |
+| 20 | Established Owner-Operator | LCV training and turnpike doubles open for doubles-endorsed drivers with a clean recent record. |
+| 21 | Authority Prep Candidate | Authority prep reserve can unlock; liquid food loads open for tank-endorsed drivers. |
+| 22 | Direct Freight Prep | Opens nothing new. |
+| 23 | Trailer Strategy Owner | Opens nothing new. |
+| 24 | Authority-Ready Operator | Opens nothing new. |
 | 25 | Independent Authority Operator | Own authority and direct freight can unlock. |
-| 26 | Contract Freight Builder | Premium direct freight reputation matters more. |
-| 27 | Specialized Trailer Operator | Specialized trailer opportunities stand out. |
-| 28 | Premium Lane Operator | Premium lanes favor high reputation and the right trailer. |
-| 29 | Veteran Independent Operator | Prestige freight and best dispatch quality. |
+| 26 | Contract Freight Builder | Opens nothing new. |
+| 27 | Specialized Trailer Operator | Opens nothing new. |
+| 28 | Premium Lane Operator | Opens nothing new. |
+| 29 | Veteran Independent Operator | Opens nothing new. |
 | 30 | Freight Fate Independent | Top one-driver owner-operator rank. |
 
 Level 30 completes the extended owner-operator career arc. The own-authority
@@ -179,17 +179,17 @@ ranks instead of owner-operator prep or independent titles:
 | 16 | Fleet Senior Driver | Steadier premium company freight. |
 | 17 | Lead Fleet Driver | Best assigned company tractor. |
 | 18 | Company Fleet Captain | Fleet-captain standing on carrier payroll. |
-| 19 | Veteran Company Hauler | Long-haul company rhythm. |
-| 20 | Senior Fleet Regular | Specialty company freight. |
-| 21 | Carrier Elite Driver | Strongest carrier lanes. |
-| 22 | Premium Company Lane Driver | Premium company placement. |
-| 23 | Master Company Driver | Mentoring weight and priority board. |
-| 24 | Distinguished Fleet Driver | Distinguished fleet standing. |
-| 25 | Senior Fleet Mentor | Senior mentoring on company iron. |
-| 26 | Carrier Lifetime Driver | Lifetime company standing. |
-| 27 | Elite Specialized Company Driver | Specialized company freight. |
-| 28 | Top-Seniority Company Driver | Top-seniority prestige lanes. |
-| 29 | Company Career Veteran | Prestige company freight. |
+| 19 | Veteran Company Hauler | Opens nothing new. |
+| 20 | Senior Fleet Regular | LCV training and turnpike doubles, as on the owner-operator ladder. |
+| 21 | Carrier Elite Driver | Liquid food loads for tank-endorsed drivers. |
+| 22 | Premium Company Lane Driver | Opens nothing new. |
+| 23 | Master Company Driver | Opens nothing new. |
+| 24 | Distinguished Fleet Driver | Opens nothing new. |
+| 25 | Senior Fleet Mentor | Opens nothing new. |
+| 26 | Carrier Lifetime Driver | Opens nothing new. |
+| 27 | Elite Specialized Company Driver | Opens nothing new. |
+| 28 | Top-Seniority Company Driver | Opens nothing new. |
+| 29 | Company Career Veteran | Opens nothing new. |
 | 30 | Freight Fate Company Driver | Top company-driver career rank. |
 
 Owner-operators keep the owner-operator titles above. Spoken Business status,

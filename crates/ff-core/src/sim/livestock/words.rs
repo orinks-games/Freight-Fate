@@ -154,6 +154,43 @@ pub fn receiver_ruling_line(
     }
 }
 
+/// What the road says when the cattle's condition meter moves: their
+/// condition in the readout's words, the number, and what the receiver will
+/// do, as the receiver's ruling says it at the dock. `coaching` adds the
+/// one-time advice on the first report of the episode. The boxed-freight
+/// sentence ("The load has shifted hard") does not fit a live load.
+pub fn cattle_condition_line(condition_pct: f64, terse: bool, coaching: bool) -> String {
+    let outcome = cargo_outcome(condition_pct);
+    let words = LIVESTOCK_CONDITION_TEXT
+        .iter()
+        .find(|(o, _)| *o == outcome)
+        .map(|(_, text)| *text)
+        .unwrap_or("riding well");
+    if terse {
+        let consequence = match outcome {
+            CARGO_OUTCOME_EXCEPTION => "Exception on the bill.",
+            CARGO_OUTCOME_CLAIM => "Claim likely.",
+            _ => "The owner will refuse to pay.",
+        };
+        return format!("Cattle {words}, {condition_pct:.0} percent. {consequence}");
+    }
+    let consequence = match outcome {
+        CARGO_OUTCOME_EXCEPTION => {
+            "The receiver will note the bruising and hold back part of the pay."
+        }
+        CARGO_OUTCOME_CLAIM => {
+            "Some may not walk off. The receiver will take them, and the carrier pays a claim."
+        }
+        _ => "The owner will refuse to pay for the haul.",
+    };
+    let tail = if coaching {
+        " Brake and corner gently from here."
+    } else {
+        ""
+    };
+    format!("The cattle are {words}, {condition_pct:.0} percent. {consequence}{tail}")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -214,5 +251,34 @@ mod tests {
             receiver_ruling_line(91.0, 89, 10.0, false),
             "4 dead on arrival. The owner refuses to pay for the haul."
         );
+    }
+    #[test]
+    fn the_cattle_condition_line_speaks_of_cattle() {
+        // Alpha test, 2026-11: a cattle load taking damage heard "The load
+        // has shifted hard", the boxed-freight sentence.
+        let first = cattle_condition_line(12.0, false, true);
+        assert_eq!(
+            first,
+            "The cattle are bruised, 12 percent. The receiver will note the bruising and \
+             hold back part of the pay. Brake and corner gently from here."
+        );
+        let claim = cattle_condition_line(45.0, false, false);
+        assert_eq!(
+            claim,
+            "The cattle are injured, 45 percent. Some may not walk off. The receiver will \
+             take them, and the carrier pays a claim."
+        );
+        let lost = cattle_condition_line(80.0, false, false);
+        assert_eq!(
+            lost,
+            "The cattle are lost, 80 percent. The owner will refuse to pay for the haul."
+        );
+        assert_eq!(
+            cattle_condition_line(45.0, true, true),
+            "Cattle injured, 45 percent. Claim likely."
+        );
+        for line in [first, claim, lost] {
+            assert!(!line.contains("load"), "{line}");
+        }
     }
 }
