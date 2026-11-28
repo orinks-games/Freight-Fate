@@ -231,6 +231,7 @@ impl HearkenBackend {
         self.audio.update(&|_| false);
         self.follow_open();
         self.collect_radio_stream();
+        self.retire_outgoing_music();
         self.fades.update(dt);
         let rpm = self.engine_last_rpm;
         let load = self.engine_last_throttle;

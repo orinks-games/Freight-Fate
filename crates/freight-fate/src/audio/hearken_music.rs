@@ -145,16 +145,34 @@ impl HearkenBackend {
         }
         if let Some(sound) = self.music_sound.take() {
             let gain = self.music_gain;
-            self.audio.stop(sound, fade_out_ms);
             if fade_out_ms > 0 {
+                // Keep the handle live while fading to 0 so `set_volumes` and
+                // `stop_music` can mute, duck, or cut it mid-crossfade; `update`
+                // stops and frees the slot once the fade completes.
+                self.audio.set_volume_over(sound, 0.0, fade_out_ms);
                 self.music_outgoing = Some(OutgoingMusic {
                     sound,
                     gain,
                     started: Instant::now(),
                     fade_ms: fade_out_ms,
                 });
+            } else {
+                self.audio.stop(sound, 0);
             }
             self.forget_music();
+        }
+    }
+
+    /// Free an outgoing crossfade track once its fade-out finishes or the clip ends.
+    pub(super) fn retire_outgoing_music(&mut self) {
+        let Some(outgoing) = self.music_outgoing.as_ref() else {
+            return;
+        };
+        let elapsed_ms = outgoing.started.elapsed().as_millis();
+        if !self.audio.is_playing(outgoing.sound) || elapsed_ms >= u128::from(outgoing.fade_ms) {
+            if let Some(done) = self.music_outgoing.take() {
+                self.audio.stop(done.sound, 0);
+            }
         }
     }
 
