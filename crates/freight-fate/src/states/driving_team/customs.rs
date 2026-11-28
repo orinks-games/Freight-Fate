@@ -108,6 +108,15 @@ impl DrivingState {
             return;
         };
         let referred = self.clear_customs(ctx, booth);
+        // The booth is a stop the truck drives on from, not an arrival: the
+        // paused speed control comes back once the truck is rolling, as it
+        // does at a ramp's light. Held the arrival way it never came back
+        // under the co-driver, who only arms a disarmed one, and the truck
+        // ran 83 in a 50 work zone on the bare accelerator (agent drive,
+        // 2026-11-28).
+        if self.speed_control_paused_at_stop {
+            self.speed_control_transit_pause = true;
+        }
         let line = customs_note(
             co_driver_name,
             &booth.name,

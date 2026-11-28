@@ -241,6 +241,14 @@ fn co_driver_drives_through(
     if mode == TeamMode::RideAlong {
         assert!(slowest <= 3.0, "reached the booth at {slowest} mph");
     }
+    // Driving on under speed control again, not on the bare accelerator:
+    // left paused at the booth, the truck ran 83 in a 50 work zone and drew
+    // a ticket (agent drive, 2026-11-28).
+    let controlled = harness.read_drive(|d| d.cruise_mph.is_some() || d.keeper_mph.is_some());
+    assert!(
+        controlled,
+        "speed control still paused past the booth: {said}"
+    );
     assert!(!harness.state_is::<BorderClearanceState>());
     (harness, booth)
 }
