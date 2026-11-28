@@ -1549,6 +1549,8 @@ Everything found before 2026-09-25 moved to
 - [x] iOS field review: VoiceOver uses the native field, named for its purpose, to
       review and edit at the cursor without submitting. The Freight Fate
       control is absent while the native field is open.
+- [x] iOS first-day briefing cues name Back and the two-finger scrub, then
+      point to Quit to main menu after returning to the terminal.
 - [x] iOS sideload packaging: `cargo tools build-ios --sideload` builds a device
       IPA without an Apple certificate or provisioning profile, ready for
       re-signing in a sideloading tool; the signed `--device --ipa` path is

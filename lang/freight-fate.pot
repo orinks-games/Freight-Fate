@@ -20527,12 +20527,12 @@ msgstr ""
 msgid "{position} of {count}."
 msgstr ""
 
-#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_setback.rs crates/freight-fate/src/states/newspaper.rs
-msgid "Repeat this line."
-msgstr ""
-
 #: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/logbook.rs
 msgid "Return to the previous menu."
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_setback.rs crates/freight-fate/src/states/newspaper.rs
+msgid "Repeat this line."
 msgstr ""
 
 #: crates/freight-fate/src/states/base/menu.rs
@@ -21849,6 +21849,15 @@ msgstr ""
 
 #: crates/freight-fate/src/states/city/held_load.rs crates/freight-fate/src/states/city_pickup.rs crates/freight-fate/src/states/driving/snapshot.rs
 msgid "job"
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "Choose Back or use a two-finger scrub to return to the terminal."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid ""
+"Quit to main menu saves your career and returns you to the title screen."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/city.rs crates/freight-fate/src/states/driving_menu_states/arrival.rs

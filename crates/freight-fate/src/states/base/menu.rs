@@ -681,6 +681,10 @@ impl SimpleMenuState {
     /// takes (the driving status screens, the logbook), so a screen that
     /// used to be one long sentence can be re-read a line at a time.
     pub fn readout(title: &str, lines: Vec<String>) -> Self {
+        Self::readout_with_back_help(title, lines, "Return to the previous menu.")
+    }
+
+    pub(crate) fn readout_with_back_help(title: &str, lines: Vec<String>, back_help: &str) -> Self {
         let mut rows: Vec<MenuItem<SimpleMenuState>> = lines
             .into_iter()
             .map(|line| {
@@ -690,8 +694,7 @@ impl SimpleMenuState {
             })
             .collect();
         rows.push(
-            MenuItem::new("Back", |s: &mut SimpleMenuState, ctx| s.go_back(ctx))
-                .help("Return to the previous menu."),
+            MenuItem::new("Back", |s: &mut SimpleMenuState, ctx| s.go_back(ctx)).help(back_help),
         );
         let mut screen = Self::new(title, rows);
         screen.menu = screen

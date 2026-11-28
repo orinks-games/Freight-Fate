@@ -13,7 +13,12 @@ use freight_fate::states::city::CityMenuState;
 use freight_fate::states::driving_menu_states::DriveRef;
 use freight_fate::states::driving_pause_states::{trip_status_lines, PauseMenuState};
 use freight_fate::states::logbook::{logbook_lines, LogbookState};
+use freight_fate::touch::Gesture;
 use std::sync::{mpsc, Arc, Mutex};
+
+const BRIEFING_BACK_CUE: &str = "Choose Back or use a two-finger scrub to return to the terminal.";
+const TERMINAL_QUIT_CUE: &str =
+    "Quit to main menu saves your career and returns you to the title screen.";
 
 fn at_terminal(app: &mut TestApp, name: &str) {
     career(app, name, "Chicago");
@@ -51,8 +56,15 @@ fn test_time_and_weather_is_a_screen_of_lines() {
 fn test_first_day_briefing_is_a_screen_of_lines() {
     let mut app = TestApp::new();
     at_terminal(&mut app, "Briefing Rows");
+    app.clear_speech();
     select::<CityMenuState>(&mut app, "First-day briefing");
     assert!(is::<SimpleMenuState>(&app));
+    assert_eq!(
+        app.main_lines()
+            .iter()
+            .any(|line| line == BRIEFING_BACK_CUE),
+        cfg!(target_os = "ios")
+    );
     let rows = labels::<SimpleMenuState>(&app);
     assert!(
         rows[0].starts_with("First-day briefing: welcome aboard "),
@@ -67,6 +79,99 @@ fn test_first_day_briefing_is_a_screen_of_lines() {
         "{rows:?}"
     );
     assert_eq!(rows.len(), 7, "{rows:?}");
+    app.clear_speech();
+    select::<SimpleMenuState>(&mut app, "Back");
+    assert_eq!(
+        app.main_lines()
+            .iter()
+            .any(|line| line == TERMINAL_QUIT_CUE),
+        cfg!(target_os = "ios")
+    );
+}
+
+#[test]
+fn ios_first_day_briefing_queues_navigation_cues_once() {
+    struct Phone;
+    impl Drop for Phone {
+        fn drop(&mut self) {
+            freight_fate::device::force_phone(false);
+        }
+    }
+
+    freight_fate::device::force_phone(true);
+    let _phone = Phone;
+    for scrub in [false, true] {
+        let mut app = TestApp::new();
+        app.ctx.controller.restart_input(true);
+        at_terminal(&mut app, "Briefing Cues");
+        assert!(!app
+            .main_lines()
+            .iter()
+            .any(|line| line == TERMINAL_QUIT_CUE));
+
+        app.clear_speech();
+        select::<CityMenuState>(&mut app, "First-day briefing");
+        assert_eq!(
+            app.main_calls().last(),
+            Some(&(BRIEFING_BACK_CUE.into(), false))
+        );
+
+        app.clear_speech();
+        if scrub {
+            app.dispatch_gesture(Gesture::Escape);
+        } else {
+            select::<SimpleMenuState>(&mut app, "Back");
+        }
+        assert!(is::<CityMenuState>(&app));
+        assert_eq!(
+            app.main_calls().last(),
+            Some(&(TERMINAL_QUIT_CUE.into(), false))
+        );
+
+        app.clear_speech();
+        select::<CityMenuState>(&mut app, "First-day briefing");
+        app.dispatch_gesture(Gesture::Escape);
+        assert!(!app
+            .main_lines()
+            .iter()
+            .any(|line| line == BRIEFING_BACK_CUE || line == TERMINAL_QUIT_CUE));
+    }
+}
+
+#[test]
+fn ios_briefing_navigation_cues_are_recoverable_after_a_swipe() {
+    struct Phone;
+    impl Drop for Phone {
+        fn drop(&mut self) {
+            freight_fate::device::force_phone(false);
+        }
+    }
+    freight_fate::device::force_phone(true);
+    let _phone = Phone;
+    let mut app = TestApp::new();
+    app.ctx.controller.restart_input(true);
+    at_terminal(&mut app, "Interrupted Cues");
+    select::<CityMenuState>(&mut app, "First-day briefing");
+
+    app.dispatch_gesture(Gesture::SwipeRight);
+    assert_eq!(app.main_calls().last().map(|call| call.1), Some(true));
+    app.dispatch_gesture(Gesture::ThreeFingerSwipeDown);
+    app.dispatch_gesture(Gesture::TwoFingerSwipeUp);
+    assert_eq!(
+        app.main_calls().last(),
+        Some(&(BRIEFING_BACK_CUE.into(), true))
+    );
+    app.dispatch_gesture(Gesture::DoubleTap);
+    assert!(is::<CityMenuState>(&app));
+
+    app.dispatch_gesture(Gesture::SwipeRight);
+    assert_eq!(app.main_calls().last().map(|call| call.1), Some(true));
+    app.dispatch_gesture(Gesture::ThreeFingerSwipeDown);
+    app.dispatch_gesture(Gesture::TwoFingerSwipeUp);
+    assert_eq!(
+        app.main_calls().last(),
+        Some(&(TERMINAL_QUIT_CUE.into(), true))
+    );
 }
 
 #[test]
