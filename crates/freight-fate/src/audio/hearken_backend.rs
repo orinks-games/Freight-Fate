@@ -740,7 +740,7 @@ impl HearkenBackend {
                 let frac = rem_ms as f32 / outgoing.fade_ms.max(1) as f32;
                 let level = (music_level * gain * frac).clamp(0.0, 1.0);
                 self.audio.set_volume_over(sound, level, 0);
-                self.audio.stop(sound, rem_ms);
+                self.audio.set_volume_over(sound, 0.0, rem_ms);
             }
         }
     }
