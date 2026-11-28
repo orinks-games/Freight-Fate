@@ -3,11 +3,18 @@ description: The platform's build dependencies, the pinned toolchain and the com
 inputs:
   cache-key:
     description: >-
-      The build cache this job shares: `clippy`, `test` or `release-2`. Jobs
-      that build the same way share one entry across workflows, and jobs
-      that build differently keep apart, since one entry holds one kind of
+      The build cache this job shares: `clippy` or `release-2`. Jobs that
+      build the same way share one entry across workflows, and jobs that
+      build differently keep apart, since one entry holds one kind of
       build. rust-cache adds the OS, Cargo.lock and RUSTFLAGS to the key.
-    required: true
+      Leave it empty for a job that keeps no entry: the Linux release
+      builds and the nightly tests. The repository's caches asked for about
+      16 GB of a 10 GB budget (2026-11-28), so every entry was dropped
+      within hours and each build started cold. A Linux release build
+      gains about a minute from its 1.2 GB entry and finishes before the
+      Windows build either way; nothing waits on the tests.
+    required: false
+    default: ""
   linux-packages:
     description: Extra apt packages for the Linux dependencies step.
     required: false
@@ -79,7 +86,14 @@ runs:
         echo "RUSTC_WRAPPER=sccache" >> "$GITHUB_ENV"
         echo "SCCACHE_GHA_ENABLED=true" >> "$GITHUB_ENV"
     - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
+      if: inputs.cache-key != ''
       with:
         shared-key: ${{ inputs.cache-key }}
         cache-on-failure: true
         save-if: ${{ inputs.save-cache }}
+    # A job with no cache entry restores nothing as well: restoring an
+    # entry counts as using it, so one that is only ever restored is never
+    # dropped. It keeps rust-cache's one build setting.
+    - if: inputs.cache-key == ''
+      shell: bash
+      run: echo "CARGO_INCREMENTAL=0" >> "$GITHUB_ENV"
