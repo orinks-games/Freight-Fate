@@ -570,9 +570,9 @@ impl Trip {
                 {
                     continue;
                 }
-                // One line per crossing: the bridge's name is the line, and
-                // the river's sound still plays under it.
-                if landmark.category == "river" && self.bridge_at_mile(at_mi).is_some() {
+                // A river's name comes with its water (`Trip::check_rivers`),
+                // never thinned like scenery.
+                if landmark.category == "river" {
                     continue;
                 }
                 let mut callout = RoadsideCallout::new(
@@ -640,11 +640,10 @@ impl Trip {
                 }
                 continue;
             }
-            if !matches!(callout.category.as_str(), "river" | "billboard_sign")
-                && spaced.iter().any(|kept| {
-                    kept.category != "river"
-                        && (callout.at_mi - kept.at_mi).abs() < LANDMARK_MIN_SPACING_MI
-                })
+            if callout.category != "billboard_sign"
+                && spaced
+                    .iter()
+                    .any(|kept| (callout.at_mi - kept.at_mi).abs() < LANDMARK_MIN_SPACING_MI)
             {
                 continue;
             }

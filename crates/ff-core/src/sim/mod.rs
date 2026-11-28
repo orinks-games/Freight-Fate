@@ -35,6 +35,7 @@ pub mod real_weather_alerts;
 pub mod real_weather_alerts_canada;
 pub mod real_weather_canada;
 pub mod real_weather_stations;
+pub mod river_crossing;
 pub mod road_event_pacing;
 pub mod road_tally;
 pub mod road_texture;

@@ -122,6 +122,9 @@ fn test_20x_does_not_multiply_ambient_or_cb_over_the_same_sitting_time() {
             })
             .collect();
         trip.landmarks = Vec::new();
+        // A river's name comes with its water and never waits on the
+        // budget, so the route's own rivers would count here.
+        trip.rivers = Vec::new();
         trip.announced_billboards.clear();
         trip.announced_landmarks.clear();
         trip.last_chatter_s = None;
@@ -207,22 +210,29 @@ fn a_placed_attraction_sign_is_read_even_right_after_a_joke_board() {
 
 #[test]
 fn kerrville_rivers_survive_nearby_towns_and_a_spent_chatter_budget() {
+    // A river's name comes with its water (`Trip::check_rivers`): never
+    // spaced away by a town, never waiting on the chatter budget.
     let world = world();
     let mut trip = make_trip_with(world, "Kerrville", "Uvalde", TripOptions::default());
+    assert!(
+        !trip.landmarks.iter().any(|c| c.category == "river"),
+        "rivers are not scenery callouts"
+    );
     let crossings: Vec<_> = trip
-        .landmarks
+        .rivers
         .iter()
-        .filter(|c| c.category == "river")
-        .map(|c| (c.at_mi, c.place.clone()))
+        .map(|r| (r.at_mi, r.name.clone()))
         .collect();
     for name in ["Medina River", "Frio River", "Dry Frio River"] {
         let (at_mi, _) = crossings
             .iter()
-            .find(|(_, place)| place == name)
+            .find(|(_, river)| river == name)
             .unwrap_or_else(|| panic!("missing {name} from the route: {crossings:?}"));
+        // Clear of the last river's water, then onto this one.
+        trip.river = Default::default();
         trip.position_mi = *at_mi;
         trip.note_chatter_spoke();
-        trip.check_roadside_callouts();
+        trip.check_rivers(0.1);
         assert!(
             std::mem::take(&mut trip.events).iter().any(|e| {
                 e.kind == TripEventKind::Landmark
@@ -231,23 +241,9 @@ fn kerrville_rivers_survive_nearby_towns_and_a_spent_chatter_budget() {
             }),
             "{name} was not emitted with a spent chatter budget"
         );
-        trip.check_roadside_callouts();
+        trip.check_rivers(0.1);
         assert!(trip.events.is_empty(), "{name} was emitted again");
     }
-}
-
-#[test]
-fn a_river_does_not_take_the_next_attractions_spacing_slot() {
-    let river = RoadsideCallout::new("r", 12.0, "river", "Crossing the Muskoka River.");
-    let attraction = RoadsideCallout::new(
-        "a",
-        13.0,
-        "highway_marker",
-        "Passing Bethune Memorial House.",
-    );
-    let placed = Trip::space_landmarks(Vec::new(), vec![river, attraction]);
-    let keys: Vec<_> = placed.iter().map(|c| c.key.as_str()).collect();
-    assert_eq!(keys, ["r", "a"]);
 }
 
 #[test]
@@ -283,14 +279,6 @@ fn a_landmark_line_that_names_a_town_takes_the_town_slot() {
             "Grimshaw",
             "Entering Grimshaw, mile zero of the Mackenzie Highway.",
         ),
-        // A crossing a mile on still gets its own line.
-        at(
-            "r",
-            110.9,
-            "river",
-            "Muskoka River",
-            "Crossing the Muskoka River.",
-        ),
         // Same name, another mile: not the town's line.
         at(
             "x",
@@ -314,7 +302,6 @@ fn a_landmark_line_that_names_a_town_takes_the_town_slot() {
                 "highway_marker",
                 false
             ),
-            ("Crossing the Muskoka River.", "river", false),
             (
                 "Entering Grimshaw, mile zero of the Mackenzie Highway.",
                 "village",

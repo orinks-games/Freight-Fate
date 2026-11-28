@@ -313,6 +313,8 @@ pub struct DrivingObservation {
     pub outside_temperature_c: Option<f64>,
     /// Over a river or away from one.
     pub water: ff_core::sim::outside::Water,
+    /// The last river whose name was said, as the trip names it.
+    pub river_named: Option<String>,
     /// The bridge state and the route miles of the named bridge under the
     /// truck, if any.
     pub bridge: (ff_core::sim::bridges::BridgeCrossing, Option<(f64, f64)>),
@@ -1223,7 +1225,13 @@ impl App {
             outside: drive.outside.scene,
             outside_bed: drive.outside.nature.bed.map_or("none", |bed| bed.name),
             outside_temperature_c: drive.outside.temperature_c(),
-            water: drive.outside.water,
+            water: drive.trip.river.water,
+            river_named: drive
+                .trip
+                .river
+                .last_named
+                .and_then(|i| drive.trip.rivers.get(i))
+                .map(|r| r.name.clone()),
             bridge: (
                 drive.trip.bridge,
                 drive

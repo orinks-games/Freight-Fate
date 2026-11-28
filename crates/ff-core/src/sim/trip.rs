@@ -324,6 +324,10 @@ pub struct Trip {
     /// The named bridges on the route, and whether the truck is on one.
     pub bridges: Vec<crate::sim::bridges::RouteBridge>,
     pub bridge: crate::sim::bridges::BridgeCrossing,
+    /// The rivers on the route, and the water under the truck with the
+    /// river it is for (`sim::river_crossing`).
+    pub rivers: Vec<crate::sim::river_crossing::RouteRiver>,
+    pub river: crate::sim::river_crossing::RiverCrossing,
     pub billboards: Vec<RoadsideCallout>,
     pub chain_law_areas: Vec<(f64, f64)>,
     pub posts: Vec<EnforcementPost>,
@@ -561,6 +565,8 @@ impl Trip {
             landmarks: Vec::new(),
             bridges: Vec::new(),
             bridge: Default::default(),
+            rivers: Vec::new(),
+            river: Default::default(),
             billboards: Vec::new(),
             chain_law_areas: Vec::new(),
             posts: Vec::new(),
@@ -643,6 +649,7 @@ impl Trip {
         trip.border_booths = border_booths;
         trip.bond = crate::sim::bond::BondState::for_route(&trip.route, !trip.bobtail);
         trip.bridges = trip.place_bridges();
+        trip.rivers = trip.place_rivers();
         trip.landmarks = trip.place_landmarks();
         trip.billboards = trip.place_billboards();
         trip.chain_law_areas = trip.place_chain_law_areas();
@@ -940,6 +947,7 @@ impl Trip {
         self.check_cities();
         self.check_roadside_callouts();
         self.settle_bridge();
+        self.settle_rivers();
         self.events.truncate(events);
         self.toll_charges.truncate(tolls);
         let position = self.position_mi;

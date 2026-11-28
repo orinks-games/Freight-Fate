@@ -287,6 +287,8 @@ impl Trip {
         self.border_booths = border_booths;
         self.bridges = self.place_bridges();
         self.bridge = Default::default();
+        self.rivers = self.place_rivers();
+        self.river = Default::default();
         self.landmarks = self.place_landmarks();
         self.billboards = self.place_billboards();
         self.chain_law_areas = self.place_chain_law_areas();

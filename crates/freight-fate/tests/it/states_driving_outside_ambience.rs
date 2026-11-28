@@ -69,6 +69,9 @@ fn a_drive(app: &mut TestApp, local_hour: f64) -> (DrivingState, AudioLog) {
 fn run(drive: &mut DrivingState, app: &mut TestApp, seconds: f64) {
     let frames = (seconds / FRAME).round() as usize;
     for _ in 0..frames {
+        // The water moves with the trip's river state, as `Trip::update`
+        // ticks it each frame.
+        drive.trip.check_rivers(FRAME);
         drive.update_cab_audio(&mut app.ctx, FRAME);
         drive.update_outside_audio(&mut app.ctx, FRAME);
     }
@@ -190,15 +193,15 @@ fn test_a_river_plays_while_over_it_and_ends_after_the_hold() {
     let (mut drive, log) = a_drive(&mut app, 12.0);
     run(&mut drive, &mut app, 0.1);
     let river = *drive
-        .outside
-        .river_miles()
+        .trip
+        .river_crossing_miles()
         .first()
         .expect("the Genesee is on this route");
     assert!(on(&log, CH_WATER_SEALED).is_none());
 
     drive.trip.position_mi = river;
     run(&mut drive, &mut app, 1.0);
-    assert!(matches!(drive.outside.water, Water::Over { .. }));
+    assert!(matches!(drive.trip.river.water, Water::Over { .. }));
     let sealed = on(&log, CH_WATER_SEALED).expect("the river plays");
     let open = on(&log, CH_WATER_OPEN).expect("its clear copy runs beside it");
     assert_eq!(sealed.key, "ambient/river_sealed");
@@ -210,7 +213,7 @@ fn test_a_river_plays_while_over_it_and_ends_after_the_hold() {
     run(&mut drive, &mut app, RIVER_HOLD_S - 0.5);
     assert!(on(&log, CH_WATER_SEALED).is_some(), "still held");
     run(&mut drive, &mut app, 0.5 + WATER_FADE_OUT_S + 0.2);
-    assert_eq!(drive.outside.water, Water::Away);
+    assert_eq!(drive.trip.river.water, Water::Away);
     assert!(on(&log, CH_WATER_SEALED).is_none() && on(&log, CH_WATER_OPEN).is_none());
 }
 
@@ -271,11 +274,12 @@ fn test_no_outside_loop_is_asked_for_more_than_full_volume() {
     let mut app = TestApp::new();
     let (mut drive, log) = a_drive(&mut app, 23.0);
     run(&mut drive, &mut app, 0.1);
-    let river = *drive.outside.river_miles().first().expect("a river");
+    let river = *drive.trip.river_crossing_miles().first().expect("a river");
     drive.trip.position_mi = river;
     let mut loudest: f64 = 0.0;
     let mut step = |drive: &mut DrivingState, app: &mut TestApp, seconds: f64| {
         for _ in 0..(seconds / FRAME).round() as usize {
+            drive.trip.check_rivers(FRAME);
             drive.update_cab_audio(&mut app.ctx, FRAME);
             drive.update_outside_audio(&mut app.ctx, FRAME);
             for ch in CH_OUTSIDE {

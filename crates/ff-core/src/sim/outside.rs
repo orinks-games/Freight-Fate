@@ -10,6 +10,8 @@
 //! - [`OutsideScene`]: quiet, birds or insects, from the clock, the
 //!   temperature and the weather.
 //! - [`Water`]: whether the truck is over a river, held a few real seconds.
+//!   The trip moves it, with the river's name, through
+//!   `sim::river_crossing::RiverCrossing`.
 //! - [`BedFader`]: the bed actually playing and its level, which fades out
 //!   before a new bed fades in.
 //!

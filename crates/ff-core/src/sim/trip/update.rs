@@ -58,6 +58,7 @@ impl Trip {
         }
         self.latch_passed_roadside();
         self.settle_bridge();
+        self.settle_rivers();
         for (i, (start, leg)) in self
             .leg_starts
             .iter()
@@ -306,6 +307,8 @@ impl Trip {
         if self.on_ramp {
             // Off the highway on the exit ramp: hand this movement to the
             // ramp and pause highway events until the truck rejoins the road.
+            // The water's hold still runs down on real time.
+            self.check_rivers(dt);
             return self.events.clone();
         }
         // A crossing is judged where its leg starts, before any part of the
@@ -378,6 +381,7 @@ impl Trip {
         self.check_stops();
         self.check_roadside_callouts();
         self.check_bridges();
+        self.check_rivers(dt);
         self.check_tolls();
         self.check_cities();
         self.check_timezone();
