@@ -657,3 +657,67 @@ fn a_slept_shift_clears_fraser_miles_past_the_line() {
 fn a_slept_shift_clears_skagway_miles_past_the_line() {
     slept_through_a_far_booth(&["whitehorse_yt_ca", "skagway_ak_us"], "Alaska", "US");
 }
+
+/// The player clears customs, which leaves speed control paused at the
+/// booth, and hands the wheel over right there. Agent drive, 2026-11-28:
+/// the co-driver then drove on the bare accelerator, 118 in a 100.
+fn handed_over_at_the_booth_after_the_player_cleared(mode: TeamMode) {
+    let mut harness = on_the_road(NORTH, 3.0);
+    let booth = booth_named(&harness, HUNTINGDON);
+    harness.with_drive(move |d, _| {
+        d.trip.position_mi = booth.at_mi - 3.0;
+        d.enforcement_prev_mi = d.trip.position_mi;
+    });
+    let cleared = run_until(&mut harness, 60 * 60 * 10, |h| {
+        h.state_is::<BorderClearanceState>()
+    });
+    assert!(cleared, "{}", harness.transcript_text());
+    harness.select_menu_item(CLEAR_ROW);
+    harness.expect_state::<DrivingState>("cleared at Huntingdon");
+    let paused = harness.read_drive(|d| {
+        d.speed_control_paused_at_stop && d.cruise_mph.is_none() && d.keeper_mph.is_none()
+    });
+    assert!(paused, "the booth leaves speed control paused");
+    hand_over(&mut harness, mode);
+    let past = booth.at_mi + 3.0;
+    let mut fastest_over = f64::MIN;
+    let mut through = false;
+    for _ in 0..60 * 60 * 20 {
+        harness.advance_frame_clock();
+        harness.app.frame(DT);
+        let (at, over) = harness.with_drive(|d, _| {
+            let (limit, _) = d.trip.speed_limit_at(d.trip.position_mi);
+            (d.trip.position_mi, d.truck().speed_mph() - limit)
+        });
+        fastest_over = fastest_over.max(over);
+        if !co_driver_at_wheel(&harness) || at > past {
+            through = true;
+            break;
+        }
+    }
+    let said = harness.transcript_text();
+    assert!(through && co_driver_at_wheel(&harness), "{said}");
+    let controlled = harness.read_drive(|d| d.cruise_mph.is_some() || d.keeper_mph.is_some());
+    assert!(controlled, "speed control still paused under the co-driver");
+    // Riding along it is sampled every frame; asleep, once a frame of many
+    // ticks, which still sees a truck running away.
+    assert!(fastest_over < 8.0, "{fastest_over} mph over the limit");
+}
+
+#[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "drives through customs and on into British Columbia"
+)]
+fn a_co_driver_handed_a_paused_cruise_at_the_booth_holds_the_limit_riding_along() {
+    handed_over_at_the_booth_after_the_player_cleared(TeamMode::RideAlong);
+}
+
+#[test]
+#[cfg_attr(
+    not(feature = "slow-tests"),
+    ignore = "drives through customs and on into British Columbia"
+)]
+fn a_co_driver_handed_a_paused_cruise_at_the_booth_holds_the_limit_asleep() {
+    handed_over_at_the_booth_after_the_player_cleared(TeamMode::SleepThrough);
+}

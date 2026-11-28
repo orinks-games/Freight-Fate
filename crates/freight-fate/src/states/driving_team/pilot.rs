@@ -383,6 +383,15 @@ impl DrivingState {
                     Action::Cruise
                 };
                 self.pilot_press(ctx, pilot, action);
+            } else if ready && self.pilot_left_a_stop_pause() {
+                // Paused the arrival way at a stop the truck has driven on
+                // from (a customs booth the player cleared, then handed
+                // over at): the pause would wait for a departure that never
+                // comes, and they drove on the bare accelerator, 118 in a
+                // 100 (agent drive, 2026-11-28). It lifts as at a ramp's
+                // light, and the session resumes once the truck is rolling.
+                log::info!(target: TRANSCRIPT_TARGET, "[co-driver] resumes the paused speed control");
+                self.speed_control_transit_pause = true;
             }
         } else {
             pilot.accel_s = 0.0;
@@ -439,6 +448,22 @@ impl DrivingState {
         }
         pilot.descent_snub_to = None;
         false
+    }
+
+    /// Speed control is held by an arrival pause the truck has driven on
+    /// from: rolling on the highway, with no stop, exit, gate or receiver's
+    /// arrival that the pause could still be waiting for.
+    fn pilot_left_a_stop_pause(&self) -> bool {
+        self.speed_control_armed
+            && self.speed_control_paused_at_stop
+            && !self.speed_control_transit_pause
+            && !self.trip.finished
+            && !self.destination_arrival_active
+            && !self.destination_exit_taken
+            && self.ramp_mi.is_none()
+            && self.ramp_stop.is_none()
+            && self.exit_stop.is_none()
+            && !self.exit_signal_on
     }
 
     /// Short of a ramp's light or sign with the assist holding nothing, the
