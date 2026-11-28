@@ -319,10 +319,18 @@ impl PauseMenuState {
     }
 
     fn take_the_wheel_back(&mut self, ctx: &mut GameContext) {
-        self.drive().with(ctx, |d, ctx| d.take_wheel_back(ctx));
+        let restarted = self
+            .drive()
+            .with(ctx, |d, ctx| d.take_wheel_back(ctx))
+            .flatten()
+            .and_then(|log| super::cycle_restarted_sentence(&log));
         ctx.audio.play("ui/unpause");
         ctx.resume_event_speech();
         ctx.pop_state();
-        ctx.say_with("You have the wheel.", Say::queued().review(false));
+        let line = std::iter::once("You have the wheel.")
+            .chain(restarted)
+            .collect::<Vec<_>>()
+            .join(" ");
+        ctx.say_with(line, Say::queued().review(false));
     }
 }

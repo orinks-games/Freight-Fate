@@ -316,3 +316,75 @@ fn motel_restart_rows_name_the_room_and_its_nights() {
     assert_eq!(P::Motel.duty_status(), "off_duty");
     assert_eq!(P::Sleeper.duty_status(), "sleeper_berth");
 }
+
+/// Berth time on the move is off duty, so it builds the restart with the
+/// parked off-duty time after it (owner ruling 2026-11-28, team driving):
+/// 34 hours under US and Alaska rules, 36 under both Canadian sets. Any
+/// on-duty minute between them starts the count over.
+#[test]
+fn berth_time_on_the_move_builds_the_restart_under_every_rule_set() {
+    for (rules, threshold_h) in [
+        (HosRules::Us, 34.0),
+        (HosRules::Alaska, 34.0),
+        (HosRules::CanadaSouth60, 36.0),
+        (HosRules::CanadaNorth60, 36.0),
+    ] {
+        // Twenty hours in the berth while the co-driver drives, then the
+        // rest parked at a stop.
+        let mut c = used(rules, 60.0);
+        let before = c.cycle_used_min();
+        c.sleeper(20.0 * 60.0);
+        assert!(!c.restart_complete(), "{rules:?}");
+        assert!(
+            approx(c.restart_remaining_min(), (threshold_h - 20.0) * 60.0),
+            "{rules:?}"
+        );
+        c.off_duty((threshold_h - 20.0) * 60.0 - 1.0);
+        assert!(c.cycle_used_min() > 0.0, "{rules:?}: one minute short");
+        c.off_duty(1.0);
+        assert!(c.restart_complete(), "{rules:?}");
+        assert!(approx(c.cycle_used_min(), 0.0), "{rules:?}");
+        assert!(c.cycle_restarted_since(before), "{rules:?}");
+
+        // The whole restart in the berth, on the move.
+        let mut c = used(rules, 60.0);
+        c.sleeper(threshold_h * 60.0);
+        assert!(c.cycle_restarted_since(60.0 * 60.0), "{rules:?}");
+
+        // An on-duty minute between the berth and the stop starts over.
+        let mut c = used(rules, 60.0);
+        c.sleeper(20.0 * 60.0);
+        c.on_duty(1.0);
+        c.off_duty((threshold_h - 20.0) * 60.0);
+        assert!(!c.restart_complete(), "{rules:?}");
+        assert!(c.cycle_used_min() > 0.0, "{rules:?}");
+        assert!(
+            approx(c.restart_remaining_min(), 20.0 * 60.0),
+            "{rules:?}: {}",
+            c.restart_remaining_min()
+        );
+    }
+}
+
+/// A line crossed in the middle of the rest moves the threshold with it.
+#[test]
+fn a_rest_across_the_border_finishes_under_the_new_rules() {
+    // 35 hours off under Canadian rules, then into the US: the next
+    // off-duty minute completes it at 34.
+    let mut c = used(HosRules::CanadaSouth60, 60.0);
+    c.sleeper(35.0 * 60.0);
+    assert!(c.cycle_used_min() > 0.0);
+    c.set_rules(HosRules::Us);
+    c.sleeper(1.0);
+    assert!(approx(c.cycle_used_min(), 0.0));
+    assert!(c.restart_complete());
+
+    // A restart already complete under US rules, then into Canada: the
+    // cleared cycle stays cleared, though 34 hours is short of 36.
+    let mut c = used(HosRules::Us, 60.0);
+    c.sleeper(34.0 * 60.0);
+    assert!(approx(c.cycle_used_min(), 0.0));
+    c.set_rules(HosRules::CanadaSouth60);
+    c.sleeper(1.0);
+    assert!(approx(c.cycle_used_min(), 0.0));
+}

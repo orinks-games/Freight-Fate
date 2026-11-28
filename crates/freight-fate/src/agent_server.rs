@@ -380,7 +380,13 @@ fn fatigue_state_line(
     // On a load with a co-driver: their shift and their minutes left.
     let co_driver = o.co_driver.map_or(String::new(), |(shift, left)| {
         let left = left.map_or("hours off".to_string(), |min| format!("{min:.0} min"));
-        format!("; co_driver_shift {}; co_driver_left {left}", shift.key())
+        let rest = o.off_wheel_restart_rest_left.map_or(String::new(), |min| {
+            format!("; off_wheel_restart_rest_left {min:.0} min")
+        });
+        format!(
+            "; co_driver_shift {}; co_driver_left {left}{rest}",
+            shift.key()
+        )
     });
     format!(
         "STATE: alertness {}; nod {} ({timer:.2} {unit}); nod_misses {}; lift_owed {lift}; \

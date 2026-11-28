@@ -350,7 +350,7 @@ fn tools_list() -> Value {
              open), on a load with a co-driver co_driver_shift (bunk, driving, \
              ending_rested, ending_last_lot, ending_hours_short or shoulder: where \
              their shift stands) and co_driver_left (the driving time or duty \
-             window their own logbook has left, in minutes, or hours off), and jake_zone (what the driver has heard about the no \
+             window their own logbook has left, in minutes, or hours off) and off_wheel_restart_rest_left (the off-duty minutes the restart still needs on the logbook off the wheel), and jake_zone (what the driver has heard about the no \
              engine brake zone ahead or under the truck: untold, heads_up, \
              inside_untold or inside_told), touch_mode (menu, field, wheel or \
              practice: how a gesture is read on this screen), road_offer (what a \

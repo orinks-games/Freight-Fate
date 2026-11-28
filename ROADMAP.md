@@ -4859,7 +4859,7 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
 - [x] Opt-in cloud resume: main-menu checks pick up clean, tracked careers from this release line's cloud slots; changed local copies use Cloud backup's conflict choice. Off by default; 1.9 backups stay separate.
 - [x] (Found along the way) CI builds of 2.0 stopped at packaging because the licensed stereo engine recordings were only in the owner's `assets/sounds-licensed/` folder (2026-11-25). They now ride in the committed `assets/sounds.pak` with the other sounds (owner, 2026-11-25). To change them, run `cargo tools pack-sounds --require-licensed` on the machine that has the folder and commit the pack it writes.
 - [x] (Found along the way) Restart rows for the motel and a full lot (2026-11-28). Where a stop has no sleeper spot, and at a full lot, the motel offers the restart under the night's row ("Take a 34-hour restart in a motel room for 190 dollars", 36 hours off under Canadian rules, or "Rest ... more to finish"), from the same `RestartOffer` (`RestartPlace::Motel`). The room is a night's price for each day the rest spans (`RestartOffer::motel_nights`: 34 or 36 hours is two nights), a starting value for the owner. The rest stop forecasts first as its other rows do; the full lot rests in one pick, as its motel night does. Regression: `states_driving_restart`.
-- [ ] (Found along the way) Team restart, for the owner to rule (2026-11-28). After the co-driver hands back, the stop's menu is the player's own, so its restart rows (sleeper, lot, motel, full lot) already show and both logbooks rest the whole 34 hours. Not built: a restart while the co-driver keeps driving (sleeper time on the move counts toward 34 hours off under the US rule, but no co-driver can drive 34 hours, so it would end at their own limits), and whether the co-driver's own cycle should shape the offer.
+- [x] (Found along the way) Team restart (owner ruling 2026-11-28). Berth time while the co-driver drives is off duty and counts toward the cycle restart under the rules of the place the truck is in: 34 hours off in the US and Alaska (49 CFR 395.3(c)), 36 hours off for Canadian cycle 1 (SOR/2005-313 s. 28 and 53). Both logbooks take the jurisdiction's rules, so a rest that crosses the line finishes under the new country's threshold. When the cycle had hours at the handover and is clear at the handback, the handback and the wake summary end with "Your cycle restarted." The handback stop's restart row counts the berth time. Canadian cycle 2 is not modeled (its own bullet below); the co-driver's own cycle does not shape the offer.
 - [ ] (Found along the way) The committed pack carries the recut idle, low, mid and upper-mid loops, the trimmed cab shutdown, the 2.75 second starter, and the high pull (52,848 frames) and high coast (16,372 frames) loops (owner, 2026-11-25). With pull and coast in the pack the game no longer plays the earlier high loop: it carries a steady 596 Hz tone, heard as a dirt-bike whine on every run-up to a shift in the first full drive recording. The newer high on the owner's PC (52,648 frames) is a piece of the same recording with the same tone. The earlier high stays in the pack only because packaging requires the entry. Still owed: a clean high loop for a pack without pull and coast, the owner's ear on the pull loop (its firing line at 2,160 RPM is weak next to a 139 Hz tone, and its right channel is 5.6 dB louder), and a ruling on the 6.7 second starter in the owner's copy.
 - [x] Career level cap 40 (owner, 2026-11-27; plan in the project files, `career-level-cap/plan.md`). Levels 31 to 40 cost 25,000 experience each (412,000 to 637,000; 1 to 30 unchanged), with new titles on both ladders. A level that opens nothing speaks its level and title only. The board grows to nine offers at 31; company drivers get experience pay (1, 2, 3 percent of the load at 33, 36, 39, `business::experience_pay`); owner-operator settlement service and billing fees drop half a point at the same levels (`business::owner_fee_discount_share`). Experience already past level 30 counts, with one terminal line (`Career::banked_levels_heard`). Seven achievements for levels 35 and 40, 300 and 500 deliveries, and 250,000, 500,000 and 1,000,000 miles. The pay and fee steps are starting values for the owner's ear.
 - [x] (Found along the way) Levels 19 to 30 still speak unlock lines that open nothing, such as "Owner-operator settlements are now routine." Each now keeps a line only for what opens there: LCV training at 20, liquid food loads (and authority prep on the owner-operator ladder) at 21, own authority at 25; the rest say their level and title (2026-11-28). The LCV line is untrue for a Canadian-based driver, who cannot take doubles or LCV; still open, below.
@@ -5405,9 +5405,22 @@ branch. The older Phase A/B plan checklists are not a live completion list.
 - [ ] (Found along the way) The new Alaska sites have no street chains, and
       the two Deadhorse sites sit at the airport and the place centroid:
       neither terminal has an OpenStreetMap object.
-- [ ] **Canadian daily and cycle-2 rules.** Daily limits and daily off-duty
-      requirements, cycle 2, Canadian split sleeper, adverse-driving
-      extensions, and deferral are not modeled.
+- [ ] **Canadian daily rules.** Daily limits and daily off-duty
+      requirements, Canadian split sleeper, adverse-driving extensions, and
+      deferral are not modeled.
+- [ ] **Canadian cycle 2, for stable 2.0** (owner approved 2026-11-28; not
+      in the alpha). 120 hours on duty in 14 days, 24 hours off in a row
+      before passing 70 hours on duty (80 north of 60), 72 hours off in a
+      row to reset, 36 hours off to switch from cycle 1 to cycle 2 and 72
+      to switch back (SOR/2005-313 ss. 24 to 29 and 49 to 54).
+- [ ] **US 7-day cycles, for stable 2.0** (approved by the owner
+      2026-11-28, for stable 2.0, not in the alpha). The lower 48 runs
+      only 70 hours in 8 days and Alaska only 80 hours in 8 days. Missing: 60 hours in 7
+      days (49 CFR 395.3(b)(1), for a carrier that does not run every day
+      of the week) and Alaska's 70 hours in 7 days (395.1(h)). The carrier's
+      schedule decides which applies, so the cycle comes from the carrier,
+      and from the player's own choice under their own authority.
+      The 34-hour restart is the same for both.
 - [ ] **Route-wide HOS planning.** The job planner and planning hints use one
       rule set for the entire route rather than switching at jurisdiction
       boundaries. Since 2026-11-25 (brief 2 review) a plan for a route that

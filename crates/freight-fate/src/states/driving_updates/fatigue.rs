@@ -54,6 +54,12 @@ impl DrivingState {
         let jurisdiction = self.current_jurisdiction(ctx);
         let rules = HosRules::for_jurisdiction(&jurisdiction);
         let rules_changed = hos_mut_of(ctx).set_rules(rules);
+        // The logbook off the wheel is under the same rules: a driver
+        // asleep while the co-driver crosses the line rests toward the new
+        // country's restart. Only the driver's own clock speaks the change.
+        if let Some(team) = self.team.as_mut() {
+            team.off_wheel_hos.set_rules(rules);
+        }
         self.hos_jurisdiction_initialized = true;
         if rules_changed
             && !first_jurisdiction_frame
