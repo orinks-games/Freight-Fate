@@ -63,7 +63,17 @@ fn drive_until_the_booth(harness: &mut PlaytestHarness, frames: usize) -> f64 {
         }
         harness.advance_frame_clock();
         harness.with_drive(|d, ctx| d.update_frame(ctx, 1.0 / 60.0));
-        let (brake, stopped) = harness.read_drive(|d| (d.booth_stop_brake, d.pull_over.is_some()));
+        let (brake, stopped, cruising) = harness.read_drive(|d| {
+            (d.booth_stop_brake, d.pull_over.is_some(), d.cruise_mph.is_some())
+        });
+        // Once the stop has begun, cruise stays paused to the booth: it
+        // used to resume each time the brake eased ("Cruise resuming, 40."
+        // twice on the way in; agent drive at Blaine, 2026-11-28).
+        assert!(
+            hardest == 0.0 || !cruising,
+            "cruise resumed during the booth stop: {}",
+            harness.transcript_text()
+        );
         hardest = hardest.max(brake);
         if stopped {
             break;

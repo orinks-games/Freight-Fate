@@ -329,6 +329,11 @@ impl DrivingState {
         if !self.speed_control_armed || self.cruise_mph.is_some() || self.keeper_mph.is_some() {
             return;
         }
+        // All assists is stopping at a customs booth: cruise waits for the
+        // booth, not for the brake to ease on the way in.
+        if self.trip.booth_stop_active {
+            return;
+        }
         if self.speed_control_paused_at_stop && !self.lift_transit_pause(braking) {
             return;
         }

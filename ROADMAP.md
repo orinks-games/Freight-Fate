@@ -6523,6 +6523,10 @@ a carrier slice (owner, 2026-10-26).
       now say a posting in the units of the country it mostly stands in,
       with the unit ("reduced to 30 kilometers per hour"), at every
       crossing (2026-11-28). Work-zone lines still use the units in force.
+- [ ] (Found along the way) Cruise lines still convert a sign across the
+      line: northbound at Blaine, "Cruise set at 24 miles per hour for the
+      19 limit ahead" names the Canadian 30 in miles. Saying it in its own
+      units would mix two units in one sentence; wording for the director.
 - [x] (Found along the way) Stop names start lowercase in the approach
       call: "truck fuel station: McLeod Lake Petro-Canada in 7 kilometers",
       "travel center: Speed Pro Truck Stop". The Gordie Howe toll line
