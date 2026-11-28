@@ -50,7 +50,7 @@ pub(crate) use ios::{
 #[cfg(target_os = "ios")]
 enum NativeField {
     Closed,
-    Synced(Vec<char>, usize),
+    Synced(String, Vec<char>, usize),
     Edited,
 }
 
@@ -450,27 +450,28 @@ impl SdlShell {
     #[cfg(target_os = "ios")]
     pub(super) fn set_native_field(
         &mut self,
-        field: Option<(&[char], usize)>,
-        label: impl FnOnce() -> String,
+        field: Option<(&str, &[char], usize)>,
+        translate: impl FnOnce(&str) -> String,
     ) -> bool {
         self.native_field = match (&self.native_field, field) {
-            (NativeField::Synced(last_text, last_cursor), Some((text, cursor)))
-                if last_text == text && *last_cursor == cursor =>
-            {
+            (
+                NativeField::Synced(last_label, last_text, last_cursor),
+                Some((label, text, cursor)),
+            ) if last_label == label && last_text == text && *last_cursor == cursor => {
                 return true;
             }
-            (_, Some((text, cursor))) => {
+            (_, Some((label, text, cursor))) => {
                 let value: String = text.iter().collect();
                 let offset = text[..cursor].iter().map(|ch| ch.len_utf16()).sum();
-                if ios::set_native_field(Some(&value), offset, label) {
-                    NativeField::Synced(text.to_vec(), cursor)
+                if ios::set_native_field(Some(&value), offset, &translate(label)) {
+                    NativeField::Synced(label.to_owned(), text.to_vec(), cursor)
                 } else {
                     NativeField::Closed
                 }
             }
             (NativeField::Closed, None) => return false,
             (_, None) => {
-                ios::set_native_field(None, 0, label);
+                ios::set_native_field(None, 0, "");
                 NativeField::Closed
             }
         };

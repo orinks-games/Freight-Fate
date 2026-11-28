@@ -49,7 +49,7 @@ pub(crate) fn touch_field_help(ctx: &GameContext) -> Option<&'static str> {
 #[cfg(any(target_os = "ios", test))]
 fn voice_over_field_help(software_keyboard: bool, hardware_keyboard: bool) -> &'static str {
     if software_keyboard {
-        return "Type with the on-screen keyboard. On Typed text, choose Characters in the \
+        return "Type with the on-screen keyboard. In the text field, choose Characters in the \
                 VoiceOver rotor, then flick up or down to move the cursor. Use Delete to remove \
                 the character before the cursor, Return to confirm, or a two-finger scrub to cancel.";
     }
@@ -57,7 +57,7 @@ fn voice_over_field_help(software_keyboard: bool, hardware_keyboard: bool) -> &'
         return "Type with your keyboard. Use the left and right arrow keys to review letters, \
                 Return to confirm, or Escape to cancel.";
     }
-    "On Typed text, choose Characters in the VoiceOver rotor, then flick up or down to move the \
+    "In the text field, choose Characters in the VoiceOver rotor, then flick up or down to move the \
      cursor. Use Return to confirm, or a two-finger scrub to cancel."
 }
 
@@ -136,30 +136,52 @@ mod tests {
             voice_over_field_help(true, false),
             voice_over_field_help(true, true)
         );
-        assert!(voice_over_field_help(false, false).contains("On Typed text"));
+        assert!(voice_over_field_help(false, false).contains("In the text field"));
         assert!(voice_over_field_help(false, false).contains("two-finger scrub to cancel"));
+    }
+
+    #[test]
+    fn native_field_names_follow_the_current_field_label() {
+        let mut field = TextEntryState::new("Heading", "", |_, _| {});
+        assert_eq!(field.ios_field().map(|(label, _, _)| label), Some("Text"));
+        field.entry.field_label = "Station name".to_string();
+        assert_eq!(
+            field.ios_field().map(|(label, _, _)| label),
+            Some("Station name")
+        );
+        field.entry.field_label = "Stream address".to_string();
+        assert_eq!(
+            field.ios_field().map(|(label, _, _)| label),
+            Some("Stream address")
+        );
     }
 
     #[test]
     fn native_field_syncs_utf16_cursor_and_mid_text_edits() {
         let mut field = TextEntryState::new("Heading", "Field", |_, _| {});
         let field: &mut dyn State = &mut field;
-        assert_eq!(field.ios_field(), Some(([].as_slice(), 0)));
+        fn text_and_cursor(field: &dyn State) -> Option<(&[char], usize)> {
+            field.ios_field().map(|(_, text, cursor)| (text, cursor))
+        }
+        assert_eq!(text_and_cursor(field), Some(([].as_slice(), 0)));
         field.apply_ios_field_edit("A🚚bc", 4);
         assert_eq!(
-            field.ios_field(),
+            text_and_cursor(field),
             Some((['A', '🚚', 'b', 'c'].as_slice(), 3))
         );
         field.apply_ios_field_edit("A🚚bc", 3);
         assert_eq!(
-            field.ios_field(),
+            text_and_cursor(field),
             Some((['A', '🚚', 'b', 'c'].as_slice(), 2))
         );
         field.apply_ios_field_edit("Abc", 1);
-        assert_eq!(field.ios_field(), Some((['A', 'b', 'c'].as_slice(), 1)));
+        assert_eq!(
+            text_and_cursor(field),
+            Some((['A', 'b', 'c'].as_slice(), 1))
+        );
         field.apply_ios_field_edit("Aëbc", 2);
         assert_eq!(
-            field.ios_field(),
+            text_and_cursor(field),
             Some((['A', 'ë', 'b', 'c'].as_slice(), 2))
         );
     }
@@ -563,9 +585,14 @@ macro_rules! impl_state_for_text_entry {
                 <Self as $crate::states::text_entry::TextEntry>::captures_text_input(self)
             }
             #[cfg(any(target_os = "ios", test))]
-            fn ios_field(&self) -> Option<(&[char], usize)> {
+            fn ios_field(&self) -> Option<(&str, &[char], usize)> {
                 let entry = <Self as $crate::states::text_entry::TextEntry>::entry(self);
-                Some((&entry.name, entry.cursor))
+                let label = if entry.field_label.is_empty() {
+                    "Text"
+                } else {
+                    &entry.field_label
+                };
+                Some((label, &entry.name, entry.cursor))
             }
             #[cfg(any(target_os = "ios", test))]
             fn apply_ios_field_edit(&mut self, text: &str, cursor_utf16: usize) {

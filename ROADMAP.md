@@ -1546,7 +1546,7 @@ Everything found before 2026-09-25 moved to
       touch surface are answered at once and a menu swipe no longer beeps
       and speaks about 250 ms late (verified on an iPhone 18 Pro, iOS 27.2,
       2026-10-30).
-- [x] iOS field review: VoiceOver uses the native Typed text field to
+- [x] iOS field review: VoiceOver uses the native field, named for its purpose, to
       review and edit at the cursor without submitting. The Freight Fate
       control is absent while the native field is open.
 - [x] iOS sideload packaging: `cargo tools build-ios --sideload` builds a device

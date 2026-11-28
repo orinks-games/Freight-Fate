@@ -1701,7 +1701,7 @@ impl App {
             } else {
                 None
             };
-            let native = shell.set_native_field(field, || self.ctx.tr("Typed text"));
+            let native = shell.set_native_field(field, |label| self.ctx.tr(label));
             open && !native
         };
         shell.set_text_field(open);

@@ -313,7 +313,7 @@ pub trait State: AsAny {
     }
 
     #[cfg(any(target_os = "ios", test))]
-    fn ios_field(&self) -> Option<(&[char], usize)> {
+    fn ios_field(&self) -> Option<(&str, &[char], usize)> {
         None
     }
 
