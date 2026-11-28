@@ -152,6 +152,11 @@
 
 ### Fixed
 
+- **Speed limits near a border are said in the units of the sign.** On Automatic units, Blaine's Canadian 30 is "30 kilometers per hour", not 19.
+- **The crossing call and the hours rules at a border are said once,** even when a readout or the customs booth cuts in.
+- **Stop names in the approach call and the stop menu start with a capital,** such as "Travel center".
+- **The reposition's accept line reads its distance as the board does,** with no stray decimal.
+- **Dealer and buy-in rows read liters under kilometers:** the tank in liters and fuel economy in liters per 100 kilometers.
 - **A newly tuned station no longer reads out the last station's song.** Now playing waits for the new station's own title.
 - **Lane keeping keeps steering in snow and freezing rain.** It used to switch off with a tone and let the truck leave the road.
 - **Cruise brakes harder on ice and snow.** It reaches the weather's safe speed sooner and holds it on downgrades it used to lose.

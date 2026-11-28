@@ -663,6 +663,8 @@ impl DrivingState {
         // Keep the trip's spoken-distance units in step with a live settings
         // change; the setter only re-renders cues when the choice actually flips.
         self.trip.set_imperial(ctx.settings.imperial());
+        self.trip.automatic_units =
+            ctx.settings.units_mode() == ff_core::units::UnitsMode::Automatic;
         self.check_border_approach(ctx);
         let pos_before = self.trip.position_mi;
         let generation_before = self.trip_generation;

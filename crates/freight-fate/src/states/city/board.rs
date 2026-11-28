@@ -863,7 +863,9 @@ impl JobBoardState {
         let line = format!(
             "Reposition to {}, {} on {}. Pays {} dollars.",
             job.spoken_destination(),
-            ctx.settings.distance_text(route.miles(), true),
+            // Whole numbers, the board row's distance: "177.0 kilometers"
+            // read a decimal the row did not have.
+            ctx.settings.distance_text(job.distance_mi, false),
             route.highways().first().cloned().unwrap_or_default(),
             fmt_grouped(job.pay, 0),
         );

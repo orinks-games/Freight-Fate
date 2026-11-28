@@ -12979,6 +12979,14 @@ msgstr ""
 "{f} Tausend Newtonmeter Drehmoment, Tank mit {f2} Gallonen, {f3} Meilen pro "
 "Gallone"
 
+#. placeholders: {f}, {f2}, {f3}
+msgid ""
+"{f} thousand newton meters torque, {f2} liter tank, {f3} liters per 100 "
+"kilometers"
+msgstr ""
+"{f} Tausend Newtonmeter Drehmoment, Tank mit {f2} Litern, {f3} Liter auf "
+"100 Kilometer"
+
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
 "highway feel than the heavy hauler."
@@ -16386,11 +16394,8 @@ msgstr "Erinnerung an die Waage"
 msgid "border booth"
 msgstr "Grenzstation"
 
-msgid "miles per hour"
-msgstr "Meilen pro Stunde"
-
-msgid "kilometers per hour"
-msgstr "Kilometer pro Stunde"
+msgid "customs booth stop"
+msgstr ""
 
 #. placeholders: {speed_value}, {ahead_text}
 msgid "Speed limit drops to {speed_value} in {ahead_text}."
@@ -16564,6 +16569,12 @@ msgstr " auf {short_miles}"
 #. placeholders: {verb}, {speed_value}, {where_}, {span}
 msgid "Speed limit {verb} to {speed_value}{where_}{span}."
 msgstr "Tempolimit {verb} auf {speed_value}{where_}{span}."
+
+msgid "miles per hour"
+msgstr "Meilen pro Stunde"
+
+msgid "kilometers per hour"
+msgstr "Kilometer pro Stunde"
 
 msgid " for the downhill grade"
 msgstr " für das Gefälle"

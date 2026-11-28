@@ -11409,6 +11409,12 @@ msgid ""
 "{f} thousand newton meters torque, {f2} gallon tank, {f3} miles per gallon"
 msgstr "扭矩{f}千牛米，油箱{f2}加仑，每加仑{f3}英里"
 
+#. placeholders: {f}, {f2}, {f3}
+msgid ""
+"{f} thousand newton meters torque, {f2} liter tank, {f3} liters per 100 "
+"kilometers"
+msgstr "扭矩{f}千牛米，油箱{f2}升，每100公里{f3}升"
+
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
 "highway feel than the heavy hauler."
@@ -14605,11 +14611,8 @@ msgstr "称重站提醒"
 msgid "border booth"
 msgstr "边境检查亭"
 
-msgid "miles per hour"
-msgstr "英里每小时"
-
-msgid "kilometers per hour"
-msgstr "公里每小时"
+msgid "customs booth stop"
+msgstr ""
 
 #. placeholders: {speed_value}, {ahead_text}
 msgid "Speed limit drops to {speed_value} in {ahead_text}."
@@ -14781,6 +14784,12 @@ msgstr "，持续{short_miles}"
 #. placeholders: {verb}, {speed_value}, {where_}, {span}
 msgid "Speed limit {verb} to {speed_value}{where_}{span}."
 msgstr "限速{verb}至{speed_value}{where_}{span}。"
+
+msgid "miles per hour"
+msgstr "英里每小时"
+
+msgid "kilometers per hour"
+msgstr "公里每小时"
 
 msgid " for the downhill grade"
 msgstr "，下坡路段"

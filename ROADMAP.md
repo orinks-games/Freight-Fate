@@ -6507,18 +6507,25 @@ a carrier slice (owner, 2026-10-26).
       28 percent of Seattle's and half of Bellingham's posted loads go to
       Canada once the West opened. A weight on loads that cross (0.4 would
       roughly halve it) is a balance call for the owner.
-- [ ] (Found along the way) The crossing call and the hours rules line at
+- [x] (Found along the way) The crossing call and the hours rules line at
       a border are spoken a second time when a status readout, a customs
-      booth or a police stop cuts them.
-- [ ] (Found along the way) Converted limits at Blaine: northbound
+      booth or a police stop cuts them. The lines queued after a crossing
+      are now said once: a cut one is not handed back (2026-11-28).
+- [x] (Found along the way) Converted limits at Blaine: northbound
       (Bellingham to Surrey) "Speed limit reduced to 19 leaving Blaine for
       one mile" is 30 km/h in miles before the line; southbound (Surrey to
       Bellingham) "reduced to 64 approaching Blaine" is 40 mph in
-      kilometers.
-- [ ] (Found along the way) Stop names start lowercase in the approach
+      kilometers. On the Automatic units the arrival and drop-ahead lines
+      now say a posting in the units of the country it mostly stands in,
+      with the unit ("reduced to 30 kilometers per hour"), at every
+      crossing (2026-11-28). Work-zone lines still use the units in force.
+- [x] (Found along the way) Stop names start lowercase in the approach
       call: "truck fuel station: McLeod Lake Petro-Canada in 7 kilometers",
       "travel center: Speed Pro Truck Stop". The Gordie Howe toll line
-      also starts lowercase and is said twice.
+      also starts lowercase and is said twice. The approach call, the stop
+      screen's title and announcement, and "is behind you" now start with
+      a capital (2026-11-28); the toll line was already fixed on
+      2026-11-22.
 - [ ] (Found along the way) Pigeon River and the Sault Ste. Marie bridge
       take loads but were not driven for loads across the border.
 - [ ] (Found along the way) Shipping containers are hooked on a flatbed or
@@ -6542,8 +6549,9 @@ a carrier slice (owner, 2026-10-26).
       load for that driver. Slow test over every Canadian city, carrier and
       level 1 and 8. An empty run now parks and settles on arrival instead
       of opening the dock menu.
-- [ ] (Found along the way) The reposition's accept line says "177.0
-      kilometers", with a decimal the board line does not have.
+- [x] (Found along the way) The reposition's accept line says "177.0
+      kilometers", with a decimal the board line does not have. It now
+      reads the distance as the board does (2026-11-28).
 - [ ] (Found along the way) The load card's hours plan does not say it
       counts customs time; a border load's plan reads the same as a home
       one. Wording for the director.
@@ -7978,9 +7986,10 @@ here 2026-09-25. Details stay in the linked dated sections.
 - [ ] (Found along the way) **Public profile net worth still counts a
       tractor from a 1.9 buy-in at its full catalog price,** though it goes
       back for 35,000 at most.
-- [ ] (Found along the way) **Dealer and buy-in rows stay in US units under
+- [x] (Found along the way) **Dealer and buy-in rows stay in US units under
       kilometers:** the tank reads gallons and economy miles per gallon while
-      fuel elsewhere reads liters.
+      fuel elsewhere reads liters. Under kilometers they now read the tank
+      in liters and the economy in liters per 100 kilometers (2026-11-28).
 - [ ] (Found along the way) **`update_fuel`'s comment says it is calibrated
       for about 6.5 to 7 mpg at 60 mph;** with the reference load on level
       road the standard rig works out to about 7.3.

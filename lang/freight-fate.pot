@@ -14359,6 +14359,13 @@ msgid ""
 "{f} thousand newton meters torque, {f2} gallon tank, {f3} miles per gallon"
 msgstr ""
 
+#. placeholders: {f}, {f2}, {f3}
+#: crates/ff-core/src/models/trucks.rs
+msgid ""
+"{f} thousand newton meters torque, {f2} liter tank, {f3} liters per 100 "
+"kilometers"
+msgstr ""
+
 #: crates/ff-core/src/models/trucks.rs
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
@@ -18464,11 +18471,7 @@ msgid "border booth"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip.rs
-msgid "miles per hour"
-msgstr ""
-
-#: crates/ff-core/src/sim/trip.rs
-msgid "kilometers per hour"
+msgid "customs booth stop"
 msgstr ""
 
 #. placeholders: {speed_value}, {ahead_text}
@@ -18682,6 +18685,14 @@ msgstr ""
 #. placeholders: {verb}, {speed_value}, {where_}, {span}
 #: crates/ff-core/src/sim/trip/limits.rs
 msgid "Speed limit {verb} to {speed_value}{where_}{span}."
+msgstr ""
+
+#: crates/ff-core/src/sim/trip/limits.rs crates/ff-core/src/sim/trip.rs
+msgid "miles per hour"
+msgstr ""
+
+#: crates/ff-core/src/sim/trip/limits.rs crates/ff-core/src/sim/trip.rs
+msgid "kilometers per hour"
 msgstr ""
 
 #: crates/ff-core/src/sim/trip/limits.rs

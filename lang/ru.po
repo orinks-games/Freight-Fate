@@ -12758,6 +12758,14 @@ msgstr ""
 "крутящий момент {f} тысячи ньютон-метров, бак {f2} "
 "{f2:галлон|галлона|галлонов}, {f3} мили на галлон"
 
+#. placeholders: {f}, {f2}, {f3}
+msgid ""
+"{f} thousand newton meters torque, {f2} liter tank, {f3} liters per 100 "
+"kilometers"
+msgstr ""
+"крутящий момент {f} тысячи ньютон-метров, бак {f2} {f2:литр|литра|литров}, "
+"{f3} литра на 100 километров"
+
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
 "highway feel than the heavy hauler."
@@ -16125,11 +16133,8 @@ msgstr "напоминание о весах"
 msgid "border booth"
 msgstr "пограничный пост"
 
-msgid "miles per hour"
-msgstr "миль в час"
-
-msgid "kilometers per hour"
-msgstr "километров в час"
+msgid "customs booth stop"
+msgstr ""
 
 #. placeholders: {speed_value}, {ahead_text}
 msgid "Speed limit drops to {speed_value} in {ahead_text}."
@@ -16302,6 +16307,12 @@ msgstr " на {short_miles}"
 #. placeholders: {verb}, {speed_value}, {where_}, {span}
 msgid "Speed limit {verb} to {speed_value}{where_}{span}."
 msgstr "Ограничение скорости {verb} до {speed_value}{where_}{span}."
+
+msgid "miles per hour"
+msgstr "миль в час"
+
+msgid "kilometers per hour"
+msgstr "километров в час"
 
 msgid " for the downhill grade"
 msgstr " на спуске"

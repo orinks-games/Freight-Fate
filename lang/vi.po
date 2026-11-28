@@ -12992,6 +12992,13 @@ msgid ""
 msgstr ""
 "mô-men xoắn {f} nghìn niu-tơn mét, bình {f2} ga-lông, {f3} dặm mỗi ga-lông"
 
+#. placeholders: {f}, {f2}, {f3}
+msgid ""
+"{f} thousand newton meters torque, {f2} liter tank, {f3} liters per 100 "
+"kilometers"
+msgstr ""
+"mô-men xoắn {f} nghìn niu-tơn mét, bình {f2} lít, {f3} lít mỗi 100 ki-lô-mét"
+
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
 "highway feel than the heavy hauler."
@@ -16339,11 +16346,8 @@ msgstr "nhắc trạm cân"
 msgid "border booth"
 msgstr "trạm gác biên giới"
 
-msgid "miles per hour"
-msgstr "dặm/giờ"
-
-msgid "kilometers per hour"
-msgstr "km/h"
+msgid "customs booth stop"
+msgstr ""
 
 #. placeholders: {speed_value}, {ahead_text}
 msgid "Speed limit drops to {speed_value} in {ahead_text}."
@@ -16518,6 +16522,12 @@ msgstr " trong {short_miles}"
 #. placeholders: {verb}, {speed_value}, {where_}, {span}
 msgid "Speed limit {verb} to {speed_value}{where_}{span}."
 msgstr "Giới hạn tốc độ {verb} {speed_value}{where_}{span}."
+
+msgid "miles per hour"
+msgstr "dặm/giờ"
+
+msgid "kilometers per hour"
+msgstr "km/h"
 
 msgid " for the downhill grade"
 msgstr " cho đoạn xuống dốc"

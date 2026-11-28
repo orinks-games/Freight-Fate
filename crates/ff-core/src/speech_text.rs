@@ -511,6 +511,14 @@ pub fn stop_callout(parts: &StopCalloutParts<'_>) -> SpokenMessage {
     } else {
         format!(" at {exit_label}")
     };
+    // The name opens the line unless the planned prefix does: a kept type
+    // prefix starts with a capital there ("Truck fuel station: McLeod Lake
+    // Petro-Canada in 7 kilometers."), never mid-sentence.
+    let typed_name = if planned_prefix.is_empty() {
+        sentence_start(typed_name)
+    } else {
+        typed_name.to_string()
+    };
     let mut normal_parts = vec![format!(
         "{planned_prefix}{typed_name}{exit_part} in {distance}."
     )];
@@ -1127,7 +1135,7 @@ mod tests {
         });
         assert_eq!(
             pair.normal,
-            "travel center: Flying J Travel Center Corfu at exit 48A in 5 miles. \
+            "Travel center: Flying J Travel Center Corfu at exit 48A in 5 miles. \
              Confirmed truck parking. Press X to signal for the exit."
         );
         assert_eq!(
@@ -1253,7 +1261,7 @@ mod tests {
         let none = callout(Some(false));
         assert_eq!(
             none.normal,
-            "truck parking: The 115 Truck Stop at exit 115 in 5 miles. \
+            "Truck parking: The 115 Truck Stop at exit 115 in 5 miles. \
              Confirmed truck parking. No fuel. Press X to signal for the exit."
         );
         assert_eq!(
@@ -1263,7 +1271,7 @@ mod tests {
         let pumps = callout(Some(true));
         assert_eq!(
             pumps.normal,
-            "truck parking: The 115 Truck Stop at exit 115 in 5 miles. \
+            "Truck parking: The 115 Truck Stop at exit 115 in 5 miles. \
              Confirmed truck parking. Fuel. Press X to signal for the exit."
         );
         // Terse keeps only the verdict that changes the plan.

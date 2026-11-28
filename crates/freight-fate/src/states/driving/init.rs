@@ -252,6 +252,7 @@ impl DrivingState {
         ctx.settings
             .move_units(ff_core::units::UnitsEvent::ScreenAt(start_country));
         trip.set_imperial(ctx.settings.imperial());
+        trip.automatic_units = ctx.settings.units_mode() == ff_core::units::UnitsMode::Automatic;
         // How often a trooper pulls this driver in for a routine inspection
         // rides the safety record from the first mile.
         {

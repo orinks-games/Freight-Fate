@@ -76,7 +76,7 @@ pub struct RestStopState {
 impl RestStopState {
     pub fn new(ctx: &GameContext, stop: RoadStop, preferred_rest: RestFocus) -> Self {
         RestStopState {
-            menu: MenuCore::new(&stop.spoken_name()).with_intro_help(REST_STOP_INTRO_HELP),
+            menu: MenuCore::new(&stop.spoken_name_opening()).with_intro_help(REST_STOP_INTRO_HELP),
             driving: DriveRef::active(ctx),
             stop,
             preferred_rest,
@@ -88,7 +88,7 @@ impl RestStopState {
     /// The same screen over a drive the caller already shares (tests).
     pub fn with_drive(driving: DriveRef, stop: RoadStop, prefer_sleep: bool) -> Self {
         RestStopState {
-            menu: MenuCore::new(&stop.spoken_name()).with_intro_help(REST_STOP_INTRO_HELP),
+            menu: MenuCore::new(&stop.spoken_name_opening()).with_intro_help(REST_STOP_INTRO_HELP),
             driving,
             stop,
             preferred_rest: if prefer_sleep {
@@ -173,7 +173,7 @@ impl RestStopState {
 
     fn announce_over_drive(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
         ctx.set_ambient(Some(poi_ambient_key(&self.stop, d.trip.local_hour())));
-        let mut parts = vec![format!("{}.", self.stop.spoken_name())];
+        let mut parts = vec![format!("{}.", self.stop.spoken_name_opening())];
         if self.stop.stop_type == "weigh_station" {
             // An inspection, not hospitality: no parking chatter, no live lot
             // lookup, no brand amenities. The one-template announce read a

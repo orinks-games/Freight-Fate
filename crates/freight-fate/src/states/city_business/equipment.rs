@@ -219,7 +219,7 @@ impl TruckShopState {
     fn label(ctx: &GameContext, model: &TruckModel) -> String {
         let p = profile(ctx);
         let name = py_capitalize(model.label);
-        let traits = truck_traits(model);
+        let traits = truck_traits(model, ctx.settings.imperial());
         if model.key == p.truck {
             return format!("{name}: currently driving, {traits}");
         }

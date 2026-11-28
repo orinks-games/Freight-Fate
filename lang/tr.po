@@ -12541,6 +12541,13 @@ msgid ""
 "{f} thousand newton meters torque, {f2} gallon tank, {f3} miles per gallon"
 msgstr "{f} bin newton metre tork, {f2} galon depo, galon başına {f3} mil"
 
+#. placeholders: {f}, {f2}, {f3}
+msgid ""
+"{f} thousand newton meters torque, {f2} liter tank, {f3} liters per 100 "
+"kilometers"
+msgstr ""
+"{f} bin newton metre tork, {f2} litre depo, 100 kilometrede {f3} litre"
+
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
 "highway feel than the heavy hauler."
@@ -15892,11 +15899,8 @@ msgstr "kantar hatırlatması"
 msgid "border booth"
 msgstr "sınır kulübesi"
 
-msgid "miles per hour"
-msgstr "mil hız"
-
-msgid "kilometers per hour"
-msgstr "kilometre hız"
+msgid "customs booth stop"
+msgstr ""
 
 #. placeholders: {speed_value}, {ahead_text}
 msgid "Speed limit drops to {speed_value} in {ahead_text}."
@@ -16069,6 +16073,12 @@ msgstr ", {short_miles} boyunca"
 #. placeholders: {verb}, {speed_value}, {where_}, {span}
 msgid "Speed limit {verb} to {speed_value}{where_}{span}."
 msgstr "Hız sınırı {speed_value} olarak {verb}{where_}{span}."
+
+msgid "miles per hour"
+msgstr "mil hız"
+
+msgid "kilometers per hour"
+msgstr "kilometre hız"
 
 msgid " for the downhill grade"
 msgstr ", iniş eğimi için"

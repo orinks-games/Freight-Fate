@@ -12955,6 +12955,14 @@ msgstr ""
 "{f} mil newton metros de par, depósito de {f2} galones, {f3} millas por "
 "galón"
 
+#. placeholders: {f}, {f2}, {f3}
+msgid ""
+"{f} thousand newton meters torque, {f2} liter tank, {f3} liters per 100 "
+"kilometers"
+msgstr ""
+"{f} mil newton metros de par, depósito de {f2} litros, {f3} litros por cada "
+"100 kilómetros"
+
 msgid ""
 "The dependable tractor you started with: better fuel economy and a calmer "
 "highway feel than the heavy hauler."
@@ -16336,11 +16344,8 @@ msgstr "recordatorio de báscula"
 msgid "border booth"
 msgstr "caseta fronteriza"
 
-msgid "miles per hour"
-msgstr "millas por hora"
-
-msgid "kilometers per hour"
-msgstr "kilómetros por hora"
+msgid "customs booth stop"
+msgstr ""
 
 #. placeholders: {speed_value}, {ahead_text}
 msgid "Speed limit drops to {speed_value} in {ahead_text}."
@@ -16513,6 +16518,12 @@ msgstr " durante {short_miles}"
 #. placeholders: {verb}, {speed_value}, {where_}, {span}
 msgid "Speed limit {verb} to {speed_value}{where_}{span}."
 msgstr "Límite de velocidad {verb} a {speed_value}{where_}{span}."
+
+msgid "miles per hour"
+msgstr "millas por hora"
+
+msgid "kilometers per hour"
+msgstr "kilómetros por hora"
 
 msgid " for the downhill grade"
 msgstr " por la pendiente de bajada"

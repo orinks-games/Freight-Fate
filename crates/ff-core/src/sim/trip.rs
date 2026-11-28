@@ -358,6 +358,9 @@ pub struct Trip {
     /// True while All assists is stopping the truck at a customs booth,
     /// set by the game: the stop runs on the real clock to the booth.
     pub booth_stop_active: bool,
+    /// True on the Automatic units, set by the game: a posted limit is then
+    /// spoken in the units of the country its sign stands in.
+    pub automatic_units: bool,
     /// How the lane work is shared, set by the game from the driver's lane
     /// keeping (`TruckState::curve_safe_mph`): None with it automated. The
     /// curve call prices a bend by it.
@@ -583,6 +586,7 @@ impl Trip {
             turn_clock: 0.0,
             curve_shed_active: false,
             booth_stop_active: false,
+            automatic_units: false,
             lane_steers: None,
             exit_approach_mi: None,
             scale_reminder_hold_mi: None,
