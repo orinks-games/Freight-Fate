@@ -237,7 +237,9 @@ fn hands_back_and_player_clears(mode: TeamMode, lead_mi: f64) -> String {
     assert!(mph < 0.6, "handed back at {mph} mph");
     assert!(at < line, "handed back at {at}, past the line at {line}");
     assert!(
-        said.contains(&format!("{name} needs you at the wheel for customs.")),
+        said.contains(&format!(
+            "{name} stopped short of the border and hands you the wheel for customs."
+        )),
         "{said}"
     );
     assert_eq!(
@@ -341,7 +343,9 @@ fn southbound_the_co_driver_hands_back_short_of_the_line_into_the_united_states(
     let at = harness.read_drive(|d| d.trip.position_mi);
     assert!(at < line, "handed back at {at}, past the line at {line}");
     assert!(
-        said.contains(&format!("{name} needs you at the wheel for customs.")),
+        said.contains(&format!(
+            "{name} stopped short of the border and hands you the wheel for customs."
+        )),
         "{said}"
     );
 }
