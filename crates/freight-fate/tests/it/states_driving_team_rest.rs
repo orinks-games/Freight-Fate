@@ -701,6 +701,25 @@ fn sleeping_through_co_driver_shift_loops_sleeper_berth_and_ride_along_does_not(
         assert_eq!(vol.siren, Some(0.0));
     }
 
+    // Radio controls pressed while asleep must not stop or replace Sleeper Berth.
+    let stops_before = sleep_log.borrow().music_stops.len();
+    let music_before = sleep_log.borrow().music.len();
+    sleep.with_drive(|d, ctx| {
+        d.tune_radio(ctx, 1);
+        d.toggle_radio(ctx);
+        d.toggle_radio(ctx);
+    });
+    assert_eq!(
+        sleep_log.borrow().music_stops.len(),
+        stops_before,
+        "radio controls during sleep must not stop Sleeper Berth"
+    );
+    assert_eq!(
+        sleep_log.borrow().music.len(),
+        music_before,
+        "radio controls during sleep must not start cab radio over Sleeper Berth"
+    );
+
     sleep.with_drive(|d, ctx| {
         d.take_wheel_back(ctx);
     });
