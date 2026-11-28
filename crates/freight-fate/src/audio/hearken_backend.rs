@@ -27,6 +27,7 @@ use std::cell::Cell;
 use std::collections::{HashMap, HashSet};
 use std::rc::Rc;
 use std::sync::Arc;
+use std::time::Instant;
 
 use ff_core::audio_fades::FadeScheduler;
 use ff_core::audio_loops::SustainLoopSpec;
@@ -146,11 +147,27 @@ pub struct HearkenEngineBand {
     pub last_volume: f64,
 }
 
+/// A previous music sound still fading out during a crossfade, along with
+/// its gain trim and fade schedule so mute / ducking / volume changes apply
+/// to it immediately without cancelling its fade-out.
+pub(super) struct OutgoingMusic {
+    pub sound: Sound,
+    pub gain: f32,
+    pub started: Instant,
+    pub fade_ms: u32,
+}
+
 /// The music request to play again when the sound device opens: a track or
 /// a file started on the silent stand-in was a one-shot the swap let go.
 pub(super) enum MusicReplay {
-    Track { track: String, fade_ms: u32 },
-    File { path: String, fade_ms: u32 },
+    Track {
+        track: String,
+        transition: ff_core::music_playback::MusicTransition,
+    },
+    File {
+        path: String,
+        fade_ms: u32,
+    },
 }
 
 /// Whether this run asked for no sound (`SDL_AUDIODRIVER=dummy`: headless
@@ -186,6 +203,11 @@ pub struct HearkenBackend {
     pub(super) exclusive_cues: HashMap<String, Sound>,
     pub(super) music_track: Option<String>,
     pub(super) music_sound: Option<Sound>,
+    /// The previous music sound still fading out during a crossfade, so
+    /// `stop_music`, `set_volumes`, and overlapping segues keep it in sync.
+    pub(super) music_outgoing: Option<OutgoingMusic>,
+    /// Per-track linear loudness trim applied on top of `buses.music_level()`.
+    pub(super) music_gain: f32,
     /// The playing track's length, read when it started.
     pub(super) music_length: Option<f64>,
     /// The track or file on the music channel, to play again if the sound
@@ -295,6 +317,8 @@ impl HearkenBackend {
             exclusive_cues: HashMap::new(),
             music_track: None,
             music_sound: None,
+            music_outgoing: None,
+            music_gain: 1.0,
             music_length: None,
             music_request: None,
             radio: None,
@@ -678,8 +702,30 @@ impl HearkenBackend {
         // load contour.
         self.set_engine_rpm(self.engine_last_rpm, self.engine_last_throttle);
         if let Some(sound) = self.music_sound {
-            let level = self.buses.music_level() as f32;
+            let level = (self.buses.music_level() as f32 * self.music_gain).clamp(0.0, 1.0);
             self.audio.set_volume_over(sound, level, 0);
+        }
+        if let Some(outgoing) = self.music_outgoing.as_ref() {
+            let sound = outgoing.sound;
+            let gain = outgoing.gain;
+            let elapsed_ms = outgoing
+                .started
+                .elapsed()
+                .as_millis()
+                .min(u128::from(u32::MAX)) as u32;
+            let rem_ms = outgoing.fade_ms.saturating_sub(elapsed_ms);
+            let music_level = self.buses.music_level() as f32;
+            if !self.audio.is_playing(sound) {
+                self.music_outgoing = None;
+            } else if music_level <= 0.0 || rem_ms == 0 {
+                self.audio.stop(sound, 0);
+                self.music_outgoing = None;
+            } else {
+                let frac = rem_ms as f32 / outgoing.fade_ms.max(1) as f32;
+                let level = (music_level * gain * frac).clamp(0.0, 1.0);
+                self.audio.set_volume_over(sound, level, 0);
+                self.audio.set_volume_over(sound, 0.0, rem_ms);
+            }
         }
     }
 

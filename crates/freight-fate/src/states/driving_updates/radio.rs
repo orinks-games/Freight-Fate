@@ -388,8 +388,42 @@ impl DrivingState {
         self.radio_break_count = cue.break_count;
         self.radio_tracks_since_break = cue.tracks_since_break;
         if !key.is_empty() {
-            ctx.audio.play_music_at(&key, fade_ms, start_s);
+            let transition = ff_core::music_playback::plan_radio_tune(&key, start_s, fade_ms);
+            self.radio_elapsed_s = transition.start_s;
+            ctx.audio.play_music_transition(&key, transition);
         }
+    }
+
+    /// Preview the next asset key the station will play after the current item,
+    /// so the segue trigger matches the exact broadcast pairing (song-to-song,
+    /// song-to-DJ, song-to-jingle, song-to-ad, break-to-song, ad-to-ad).
+    fn next_radio_key_preview(&self, ctx: &GameContext, station: &RadioStation) -> Option<String> {
+        if !self.radio_break_queue.is_empty() {
+            if self.radio_break_pos + 1 < self.radio_break_queue.len() {
+                return Some(self.radio_break_queue[self.radio_break_pos + 1].clone());
+            }
+            return self
+                .radio_playlist
+                .get(self.radio_track_index % self.radio_playlist.len().max(1))
+                .cloned();
+        }
+        if self.radio_tracks_since_break + 1 >= RADIO_TRACKS_PER_HOST_BREAK
+            && !self.synth_roadhouse(ctx, station)
+        {
+            let queue = plan_break(
+                &station.id,
+                &station.host,
+                &station.playlist,
+                &format!("{}|{}", self.trip_seed, station.id),
+                self.radio_break_count,
+            );
+            if let Some(first) = queue.into_iter().next() {
+                return Some(first);
+            }
+        }
+        self.radio_playlist
+            .get((self.radio_track_index + 1) % self.radio_playlist.len().max(1))
+            .cloned()
     }
 
     pub fn update_radio_playback(&mut self, ctx: &mut GameContext, night: bool, dt: f64) {
@@ -418,13 +452,22 @@ impl DrivingState {
             return;
         }
         self.radio_elapsed_s += dt.max(0.0);
-        let len = if !self.radio_break_queue.is_empty() {
-            content_duration_s(&self.radio_break_queue[self.radio_break_pos])
+        let (outgoing_key, catalog_len) = if !self.radio_break_queue.is_empty() {
+            let key = self.radio_break_queue[self.radio_break_pos].clone();
+            let len = content_duration_s(&key);
+            (key, len)
         } else {
             let current = self.current_station_track();
-            self.station_track_len_s(ctx, &station, &current)
+            let len = self.station_track_len_s(ctx, &station, &current);
+            (current, len)
         };
-        if self.radio_elapsed_s < len {
+        let next_preview = self.next_radio_key_preview(ctx, &station);
+        let trigger_s = ff_core::music_playback::radio_segue_trigger_s(
+            &outgoing_key,
+            next_preview.as_deref(),
+            catalog_len,
+        );
+        if self.radio_elapsed_s < trigger_s {
             return;
         }
         self.radio_elapsed_s = 0.0;
@@ -432,11 +475,13 @@ impl DrivingState {
             self.radio_break_pos += 1;
             if self.radio_break_pos < self.radio_break_queue.len() {
                 let next = self.radio_break_queue[self.radio_break_pos].clone();
-                ctx.audio.play_music_with(&next, 300);
+                let transition = ff_core::music_playback::plan_radio_segue(&outgoing_key, &next);
+                self.radio_elapsed_s = transition.start_s;
+                ctx.audio.play_music_transition(&next, transition);
                 return;
             }
             self.radio_break_queue = Vec::new();
-            self.play_station_track(ctx, 1200);
+            self.play_station_track_segue(ctx, &outgoing_key);
             return;
         }
         self.radio_track_index += 1;
@@ -457,17 +502,28 @@ impl DrivingState {
                 self.radio_break_queue = queue;
                 self.radio_break_pos = 0;
                 self.radio_break_count += 1;
-                ctx.audio.play_music_with(&first, 600);
+                let transition = ff_core::music_playback::plan_radio_segue(&outgoing_key, &first);
+                self.radio_elapsed_s = transition.start_s;
+                ctx.audio.play_music_transition(&first, transition);
                 return;
             }
         }
-        self.play_station_track(ctx, 2500);
+        self.play_station_track_segue(ctx, &outgoing_key);
     }
 
     pub fn play_station_track(&mut self, ctx: &mut GameContext, fade_ms: u32) {
         let key = self.resolve_station_track(ctx, self.radio_track_index);
         if !key.is_empty() {
             ctx.audio.play_music_with(&key, fade_ms);
+        }
+    }
+
+    fn play_station_track_segue(&mut self, ctx: &mut GameContext, outgoing_key: &str) {
+        let key = self.resolve_station_track(ctx, self.radio_track_index);
+        if !key.is_empty() {
+            let transition = ff_core::music_playback::plan_radio_segue(outgoing_key, &key);
+            self.radio_elapsed_s = transition.start_s;
+            ctx.audio.play_music_transition(&key, transition);
         }
     }
 
