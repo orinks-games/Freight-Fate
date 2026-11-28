@@ -106,12 +106,12 @@ impl DrivingState {
         let line = self
             .rules_lines_ahead(ctx)
             .into_iter()
-            .filter(|line| {
+            .rev()
+            .find(|line| {
                 line.at_mi <= booth.at_mi
                     && rules_country(line.into) == booth.entering_country
                     && rules_country(line.from) != booth.entering_country
             })
-            .last()
             .map(|line| line.at_mi - CUSTOMS_LINE_LEAD_MI);
         let short_of_booth = booth.at_mi - CUSTOMS_HANDBACK_LEAD_MI;
         Some(line.map_or(short_of_booth, |line| line.min(short_of_booth)))
