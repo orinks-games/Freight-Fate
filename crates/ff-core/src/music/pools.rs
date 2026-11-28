@@ -304,10 +304,26 @@ pub static ALL_HOST_SEGMENTS: Lazy<Vec<MusicTrack>> = Lazy::new(|| {
         .collect()
 });
 
+/// Co-driver sleeper berth bed, looped while the player sleeps through a
+/// co-driver's simulated shift (`TeamMode::SleepThrough`). Lives outside
+/// `ALL_MUSIC_TRACKS` (the menu and radio rotation catalog) while sharing the
+/// duration index.
+pub const SLEEPER_BERTH_TRACK_KEY: &str = "sleeper_berth";
+
+pub static SLEEPER_BERTH_TRACK: Lazy<MusicTrack> = Lazy::new(|| {
+    MusicTrack::new(
+        SLEEPER_BERTH_TRACK_KEY,
+        "Sleeper Berth",
+        "Ambient sleeper berth loop for co-driver sleep",
+        13.8,
+    )
+});
+
 pub(super) static TRACKS_BY_KEY: Lazy<HashMap<String, MusicTrack>> = Lazy::new(|| {
     ALL_MUSIC_TRACKS
         .iter()
         .chain(ALL_HOST_SEGMENTS.iter())
+        .chain(std::iter::once(&*SLEEPER_BERTH_TRACK))
         .map(|track| (track.key.clone(), track.clone()))
         .collect()
 });

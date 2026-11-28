@@ -166,6 +166,10 @@ impl AudioBackend for HearkenBackend {
         HearkenBackend::play_music_transition(self, track, transition);
     }
 
+    fn play_music_loop(&mut self, track: &str, fade_ms: u32) {
+        HearkenBackend::play_music_loop(self, track, fade_ms);
+    }
+
     fn play_music_file(&mut self, path: &str, fade_ms: u32) -> Result<(), AudioError> {
         HearkenBackend::play_music_file(self, path, fade_ms)
     }

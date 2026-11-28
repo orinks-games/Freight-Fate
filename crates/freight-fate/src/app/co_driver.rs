@@ -93,7 +93,9 @@ impl App {
             self.ctx.settings.take_assists_back();
             self.ctx.co_driver_away = false;
             self.ctx.sync_cue_mute();
-            self.ctx.co_driver_fast_forward = false;
+            if std::mem::take(&mut self.ctx.co_driver_fast_forward) {
+                self.ctx.audio.stop_music_with(400);
+            }
             self.ctx.apply_volumes();
             return;
         };

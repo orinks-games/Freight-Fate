@@ -286,6 +286,27 @@ fn test_hearken_music_never_loops_catalog_tracks() {
     }
 }
 
+#[test]
+fn test_hearken_play_music_loop_loops_on_music_bus() {
+    let key = "test_sleeper_berth_loop";
+    ff_core::assets_pack::register_generated_sound(
+        &format!("music/{key}"),
+        crate::audio_support::sine_wav(0.1, 2),
+        "wav",
+    );
+    let mut r = hearken_rig();
+    r.engine.play_music_loop(key, 600);
+    assert!(r.hearken().music_sound().is_some());
+    let looping = r.rec.calls().into_iter().rev().find_map(|call| match call {
+        Call::Play {
+            key: k, looping, ..
+        } if k == key => Some(looping),
+        _ => None,
+    });
+    assert_eq!(looping, Some(true), "play_music_loop should loop the clip");
+    r.engine.stop_music_with(0);
+}
+
 /// Frames pass (each one a backend update) until `done`, for up to five
 /// seconds.
 fn frames_until(r: &mut HearkenRig, mut done: impl FnMut(&HearkenRig) -> bool) -> bool {

@@ -54,6 +54,10 @@ impl DrivingState {
     /// silent when the current bed runs out. Day/night flavor stays as it
     /// was when the menu opened; it catches up when driving resumes.
     pub fn tick_drive_music(&mut self, ctx: &mut GameContext, dt: f64) {
+        if ctx.co_driver_fast_forward {
+            self.advance_radio_airtime(dt);
+            return;
+        }
         self.apply_radio_voicing(ctx);
         self.advance_radio_airtime(dt);
         self.sync_radio_power(ctx); // a rest-menu shutdown kills the radio too
@@ -988,6 +992,9 @@ impl DrivingState {
 
     /// Music volume = radio setting x signal x ducks.
     pub fn apply_radio_volume(&mut self, ctx: &mut GameContext) {
+        if ctx.co_driver_fast_forward {
+            return;
+        }
         let factor = self.radio_signal_factor;
         // A sibling of the picket duck, deliberately not the same field: the
         // picket duck self-heals on stop_radio_fringe, which would drag an
@@ -1019,6 +1026,10 @@ impl DrivingState {
     /// with the engine-off top of every load).
     pub fn sync_radio_power(&mut self, ctx: &mut GameContext) {
         let powered = self.trip.truck.engine_on;
+        if ctx.co_driver_fast_forward {
+            self.radio_powered = powered;
+            return;
+        }
         if powered == self.radio_powered {
             return;
         }
