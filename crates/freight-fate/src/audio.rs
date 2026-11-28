@@ -713,6 +713,14 @@ pub trait Audio {
         let _ = start_s;
         self.play_music_with(track, fade_ms);
     }
+    /// Start a music track with explicit crossfade, seek, and loudness trim.
+    fn play_music_transition(
+        &mut self,
+        track: &str,
+        transition: ff_core::music_playback::MusicTransition,
+    ) {
+        self.play_music_at(track, transition.fade_in_ms, transition.start_s);
+    }
     fn play_radio_stream_with(&mut self, url: &str, fade_ms: u32) -> Result<(), AudioError>;
     fn play_radio_stream(&mut self, url: &str) -> Result<(), AudioError> {
         self.play_radio_stream_with(url, 1500)

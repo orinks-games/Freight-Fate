@@ -198,6 +198,7 @@ impl HearkenBackend {
         self.audio.update(&|_| false);
         self.follow_open();
         self.collect_radio_stream();
+        self.retire_outgoing_music();
         self.fades.update(dt);
         let crank = self.crank_gain.get();
         if crank != self.crank_applied {

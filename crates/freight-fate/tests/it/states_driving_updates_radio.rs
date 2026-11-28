@@ -494,25 +494,28 @@ fn test_break_queue_delivers_host_id_ad_slots_in_order() {
     d.radio_airtime_s = 0.0;
     tune_to_fixture(&mut d, &mut app, "brk-fixture", "roadhouse");
     assert!(tape.last().0.starts_with("radio_country_"));
-    assert_eq!(tape.last_start(), 0.0);
+    assert!(tape.last_start() <= 0.5);
 
     play_next(&mut d, &mut app, &tape); // song 2
     assert!(tape.last().0.starts_with("radio_country_"));
     play_next(&mut d, &mut app, &tape); // after 2 songs: a host break
     let (track, fade) = tape.last();
     assert!(track.starts_with("host_roadhouse_"));
-    assert_eq!(fade, 600); // fade into a break
+    assert!(fade <= 80, "host voice should enter crisply, got {fade}ms");
 
     play_next(&mut d, &mut app, &tape); // break ends, music resumes (song 3)
     let (track, fade) = tape.last();
     assert!(track.starts_with("radio_country_"));
-    assert_eq!(fade, 1200); // fade back to music
+    assert!(
+        (200..=600).contains(&fade),
+        "music returning from a break should enter smoothly, got {fade}ms"
+    );
 
     play_next(&mut d, &mut app, &tape); // song 4
     play_next(&mut d, &mut app, &tape); // after 4 songs: an id break
     let (track, fade) = tape.last();
     assert!(track.starts_with("id_") || track.starts_with("host_"));
-    assert_eq!(fade, 600);
+    assert!(fade <= 80, "jingle/id should enter crisply, got {fade}ms");
 }
 
 #[test]
@@ -1116,4 +1119,59 @@ fn test_a_favorite_plays_on_past_its_range() {
     );
     assert_eq!(d.radio_signal_factor, 1.0);
     assert!(app.event_lines().is_empty(), "{:?}", app.event_lines());
+}
+
+#[test]
+fn test_menu_rotation_crossfades_before_trailing_silence() {
+    let mut app = TestApp::new();
+    let tape = MusicAudio::install(&mut app);
+    let first = app
+        .ctx
+        .play_music_sequence("menu", &["menu_theme", "menu_first_rig"]);
+    assert_eq!(first, "menu_theme");
+    let cue = ff_core::music_cues::track_cue("menu_theme").expect("menu_theme has cue");
+    let trigger_s = ff_core::music_playback::menu_segue_trigger_s("menu_theme", 180.0);
+    assert!(
+        trigger_s < f64::from(cue.content_end_s),
+        "menu segue trigger {trigger_s:.2}s should fire before content_end {:.2}s",
+        cue.content_end_s
+    );
+
+    // Just before the acoustic outro cue, the first track is still playing.
+    app.ctx.update_music_rotation(trigger_s - 1.0);
+    assert_eq!(tape.last().0, "menu_theme");
+
+    // Crossing the acoustic cue crossfades into the next menu track well
+    // before the nominal end-of-file silence.
+    app.ctx.update_music_rotation(1.5);
+    let (next, fade_in) = tape.last();
+    assert_eq!(next, "menu_first_rig");
+    assert!(
+        fade_in >= 1400,
+        "menu crossfade should blend smoothly, got {fade_in}ms"
+    );
+}
+
+#[test]
+fn test_radio_segues_trigger_at_acoustic_outro_before_catalog_end() {
+    let mut app = TestApp::new();
+    let mut d = a_denver_drive(&mut app, 42);
+    let tape = MusicAudio::install(&mut app);
+    d.radio_airtime_s = 0.0;
+    tune_to_fixture(&mut d, &mut app, "segue-fixture", "roadhouse");
+    let first = tape.last().0;
+    let full_len = content_duration_s(&first);
+    let next_song = d.radio_playlist[1].clone();
+    let trigger_s =
+        ff_core::music_playback::radio_segue_trigger_s(&first, Some(&next_song), full_len);
+    assert!(trigger_s < full_len);
+
+    // Advance just past the acoustic segue point (still before full catalog end).
+    d.update_radio_playback(&mut app.ctx, false, trigger_s + 0.1);
+    let (second, fade_in) = tape.last();
+    assert_eq!(second, next_song);
+    assert!(
+        (600..=3000).contains(&fade_in),
+        "song-to-song radio segue should crossfade naturally, got {fade_in}ms"
+    );
 }

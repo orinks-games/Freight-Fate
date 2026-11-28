@@ -7,11 +7,13 @@
 //! refused (Hearken has no player for them), so a playlist skips them.
 
 use std::path::Path;
+use std::time::Instant;
 
+use ff_core::music_playback::{MusicTransition, DEFAULT_FADE_OUT_MS};
 use hearken::audio::{Bus, Sound, Start};
 
 use super::assets::MODULE_EXTENSIONS;
-use super::hearken_backend::{HearkenBackend, MusicReplay};
+use super::hearken_backend::{HearkenBackend, MusicReplay, OutgoingMusic};
 use super::hearken_clips::FfClips;
 use super::AudioError;
 
@@ -22,21 +24,27 @@ fn is_module(ext: &str) -> bool {
         .any(|module| module.eq_ignore_ascii_case(ext))
 }
 
-/// How long the outgoing track takes to fade when another replaces it.
-const MUSIC_CROSSFADE_OUT_MS: u32 = 800;
+/// How long the outgoing track takes to fade when another replaces it via
+/// the legacy `play_music` / `play_music_at` / `play_music_file` entry points.
+const MUSIC_CROSSFADE_OUT_MS: u32 = DEFAULT_FADE_OUT_MS;
 
 impl HearkenBackend {
     pub(super) fn play_music(&mut self, track: &str, fade_ms: u32) {
         if self.music_track.as_deref() == Some(track) {
             return;
         }
-        self.play_music_at(track, fade_ms, 0.0);
+        self.play_music_transition(track, MusicTransition::simple(fade_ms));
     }
 
     /// Play a shipped track from `start_s` seconds in. Like BASS, this does
     /// not short-circuit on the track already being the one loaded: the
     /// point of the call is the position.
     pub(super) fn play_music_at(&mut self, track: &str, fade_ms: u32, start_s: f64) {
+        self.play_music_transition(track, MusicTransition::at(fade_ms, start_s));
+    }
+
+    /// Play a shipped track with explicit crossfade, seek, and loudness trim.
+    pub(super) fn play_music_transition(&mut self, track: &str, transition: MusicTransition) {
         self.cancel_radio_connect();
         let Some((data, ext)) = FfClips::music(track) else {
             log::warn!("Missing music track: {track}");
@@ -46,15 +54,16 @@ impl HearkenBackend {
             log::warn!("Could not open stream: {track} (tracker modules do not play)");
             return;
         }
-        self.fade_out_music();
+        self.fade_out_music_over(transition.fade_out_ms);
         self.music_request = Some(MusicReplay::Track {
             track: track.to_string(),
-            fade_ms,
+            transition,
         });
-        let start = Start::ONCE.volume(0.0).from_s(start_s.max(0.0));
+        let start = Start::ONCE.volume(0.0).from_s(transition.start_s.max(0.0));
         match self.audio.try_play_clip(track, data, Bus::MUSIC, start) {
             Ok(sound) => {
-                self.fade_in_music(sound, fade_ms);
+                self.music_gain = transition.gain.clamp(0.1, 2.0);
+                self.fade_in_music(sound, transition.fade_in_ms);
                 self.music_track = Some(track.to_string());
             }
             Err(err) => log::warn!("Could not open stream: {track} ({err})"),
@@ -84,6 +93,7 @@ impl HearkenBackend {
         let start = Start::ONCE.volume(0.0);
         match self.audio.try_play_clip(&key, data, Bus::MUSIC, start) {
             Ok(sound) => {
+                self.music_gain = 1.0;
                 self.fade_in_music(sound, fade_ms);
                 self.music_track = Some(key);
                 self.music_request = Some(MusicReplay::File {
@@ -114,6 +124,9 @@ impl HearkenBackend {
         // sound yet, and stopping the radio must orphan that connect too.
         self.cancel_radio_connect();
         self.music_request = None;
+        if let Some(outgoing) = self.music_outgoing.take() {
+            self.audio.stop(outgoing.sound, fade_ms.min(250));
+        }
         let Some(sound) = self.music_sound.take() else {
             return;
         };
@@ -122,10 +135,44 @@ impl HearkenBackend {
     }
 
     pub(super) fn fade_out_music(&mut self) {
+        self.fade_out_music_over(MUSIC_CROSSFADE_OUT_MS);
+    }
+
+    pub(super) fn fade_out_music_over(&mut self, fade_out_ms: u32) {
         self.music_request = None;
+        if let Some(prev) = self.music_outgoing.take() {
+            self.audio.stop(prev.sound, 150);
+        }
         if let Some(sound) = self.music_sound.take() {
-            self.audio.stop(sound, MUSIC_CROSSFADE_OUT_MS);
+            let gain = self.music_gain;
+            if fade_out_ms > 0 {
+                // Keep the handle live while fading to 0 so `set_volumes` and
+                // `stop_music` can mute, duck, or cut it mid-crossfade; `update`
+                // stops and frees the slot once the fade completes.
+                self.audio.set_volume_over(sound, 0.0, fade_out_ms);
+                self.music_outgoing = Some(OutgoingMusic {
+                    sound,
+                    gain,
+                    started: Instant::now(),
+                    fade_ms: fade_out_ms,
+                });
+            } else {
+                self.audio.stop(sound, 0);
+            }
             self.forget_music();
+        }
+    }
+
+    /// Free an outgoing crossfade track once its fade-out finishes or the clip ends.
+    pub(super) fn retire_outgoing_music(&mut self) {
+        let Some(outgoing) = self.music_outgoing.as_ref() else {
+            return;
+        };
+        let elapsed_ms = outgoing.started.elapsed().as_millis();
+        if !self.audio.is_playing(outgoing.sound) || elapsed_ms >= u128::from(outgoing.fade_ms) {
+            if let Some(done) = self.music_outgoing.take() {
+                self.audio.stop(done.sound, 0);
+            }
         }
     }
 
@@ -134,6 +181,7 @@ impl HearkenBackend {
         self.music_sound = None;
         self.music_track = None;
         self.music_length = None;
+        self.music_gain = 1.0;
         self.radio = None;
     }
 
@@ -151,7 +199,9 @@ impl HearkenBackend {
         let request = self.music_request.take();
         self.forget_music();
         match request {
-            Some(MusicReplay::Track { track, fade_ms }) => self.play_music(&track, fade_ms),
+            Some(MusicReplay::Track { track, transition }) => {
+                self.play_music_transition(&track, transition);
+            }
             Some(MusicReplay::File { path, fade_ms }) => {
                 let _ = self.play_music_file(&path, fade_ms);
             }
@@ -160,7 +210,7 @@ impl HearkenBackend {
     }
 
     fn fade_in_music(&mut self, sound: Sound, fade_ms: u32) {
-        let level = self.buses.music_level() as f32;
+        let level = (self.buses.music_level() as f32 * self.music_gain).clamp(0.0, 1.0);
         self.audio.set_volume_over(sound, level, fade_ms);
         self.music_length = self.audio.length_s(sound);
         self.music_sound = Some(sound);
