@@ -109,9 +109,14 @@ fn remaining_ms(cue: TrackCue, trigger_s: f64, min_ms: u32, max_ms: u32) -> u32 
 /// synthesized or unmeasured tracks, overlaps the final 3.0 s.
 pub fn menu_segue_trigger_s(track: &str, duration_s: f64) -> f64 {
     if let Some(cue) = track_cue(track) {
-        let end = f64::from(cue.content_end_s);
-        let outro = f64::from(cue.outro_start_s);
-        let tail = cue.tail_s();
+        let raw_end = f64::from(cue.content_end_s);
+        let end = if duration_s > 0.0 {
+            raw_end.min(duration_s)
+        } else {
+            raw_end
+        };
+        let outro = f64::from(cue.outro_start_s).min(end);
+        let tail = (end - outro).max(0.0);
         let target = if tail >= 2.5 {
             (outro + 0.5).clamp(end - 5.5, end - 3.2)
         } else {
@@ -170,9 +175,14 @@ pub fn radio_segue_trigger_s(outgoing: &str, incoming: Option<&str>, duration_s:
     let in_role = incoming.map_or(BroadcastRole::Song, BroadcastRole::from_key);
 
     if let Some(cue) = track_cue(outgoing) {
-        let end = f64::from(cue.content_end_s);
-        let outro = f64::from(cue.outro_start_s);
-        let tail = cue.tail_s();
+        let raw_end = f64::from(cue.content_end_s);
+        let end = if duration_s > 0.0 {
+            raw_end.min(duration_s)
+        } else {
+            raw_end
+        };
+        let outro = f64::from(cue.outro_start_s).min(end);
+        let tail = (end - outro).max(0.0);
         let target = match (out_role, in_role) {
             (BroadcastRole::Song, BroadcastRole::Song) => {
                 if tail >= 2.5 {
