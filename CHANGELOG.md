@@ -24,6 +24,7 @@
 
 - **VoiceOver announces the driver-name prompt after the on-screen keyboard opens on iPhone and iPad.**
 - **On iPhone and iPad, VoiceOver reads the keys during name entry.** Use the Characters rotor to move the cursor before typing or deleting.
+- **On iPhone and iPad, VoiceOver names text fields by what they ask for, such as Driver name.**
 - **Cruise no longer slows on the highway for a town limit past your exit,** then speeds up again before the exit. It eases to its exit speed by the exit.
 - **The ramp curve warning comes before the exit when the truck needs more room than the exit lane to slow.**
 - **The GPS no longer calls a speed limit drop that lies past the exit you are taking.**

@@ -58,16 +58,11 @@ pub(crate) fn software_keyboard_shown() -> bool {
     unsafe { ff_touch_software_keyboard_shown() != 0 }
 }
 
-pub(super) fn set_native_field(
-    text: Option<&str>,
-    cursor: usize,
-    label: impl FnOnce() -> String,
-) -> bool {
+pub(super) fn set_native_field(text: Option<&str>, cursor: usize, label: &str) -> bool {
     // SAFETY: UIKit is called on the app thread and copies the UTF-8 bytes
     // within the call. A null text pointer removes the element.
     unsafe {
         if let Some(text) = text {
-            let label = label();
             ff_touch_set_field(
                 label.as_ptr(),
                 label.len(),

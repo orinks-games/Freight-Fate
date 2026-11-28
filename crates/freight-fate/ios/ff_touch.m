@@ -966,7 +966,6 @@ const char *ff_touch_take_field_edit(size_t *len, size_t *cursor) {
         }
         _field = [[FFTextField alloc] initWithFrame:CGRectZero];
         _field.delegate = _field;
-        _field.accessibilityLabel = label;
         _field.borderStyle = UITextBorderStyleRoundedRect;
         _field.backgroundColor = UIColor.systemBackgroundColor;
         _field.textColor = UIColor.labelColor;
@@ -988,6 +987,11 @@ const char *ff_touch_take_field_edit(size_t *len, size_t *cursor) {
             [_field.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor constant:-8],
             [_field.heightAnchor constraintEqualToConstant:44],
         ]];
+    }
+    if (![_field.accessibilityLabel isEqualToString:label]) {
+        _field.accessibilityLabel = label;
+    }
+    if (opening) {
         if (![_field becomeFirstResponder]) {
             [_field removeFromSuperview];
             _field = nil;
