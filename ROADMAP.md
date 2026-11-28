@@ -7500,6 +7500,11 @@ a carrier slice (owner, 2026-10-26).
       (`id_roadhouse_09`, `_10`) and the sung Coast to Coast ID (`_08`). The
       clips are kept in `assets/radio-2.0/pack-overlay/` as the source of
       the music pack rebuild (`music-9f4c05a1.pak`).
+- [x] Sleeper Berth, a 13.8 second loop, plays while the player sleeps
+      through a co-driver's shift and stops on waking; riding along is
+      unchanged (2026-11-28). The clip is `music/sleeper_berth` in the
+      pinned pack, `music-9782a9ba.pak` (442 entries), and in no repo
+      folder.
 - [x] A test holds every host, ID and ad duration in the tables to its clip
       in `music.pak` within 0.25 s, since the break timer reads the table.
 - [ ] (Found along the way) Hiring spots for the carriers that have none
