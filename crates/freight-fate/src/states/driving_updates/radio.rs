@@ -389,6 +389,7 @@ impl DrivingState {
         self.radio_tracks_since_break = cue.tracks_since_break;
         if !key.is_empty() {
             let transition = ff_core::music_playback::plan_radio_tune(&key, start_s, fade_ms);
+            self.radio_elapsed_s = transition.start_s;
             ctx.audio.play_music_transition(&key, transition);
         }
     }
