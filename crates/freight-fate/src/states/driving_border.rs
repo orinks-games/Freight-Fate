@@ -31,7 +31,7 @@ use crate::states::driving_updates::live;
 
 /// How far ahead of a customs booth All assists takes the stop: past the
 /// half-mile reminder, room to brake from highway speed.
-const BOOTH_ASSIST_LOOKAHEAD_MI: f64 = 1.5;
+pub(crate) const BOOTH_ASSIST_LOOKAHEAD_MI: f64 = 1.5;
 const METERS_PER_MILE: f64 = 1609.344;
 
 /// How far past a change of country the units wait for the crossing call
@@ -94,8 +94,9 @@ impl DrivingState {
     }
 
     pub fn check_border_approach(&mut self, ctx: &mut GameContext) {
-        // The booth's notice and reminder are the player's: the co-driver
-        // hands the wheel back short of them (`driving_team::customs`).
+        // The booth's notice and reminder are the player's. The co-driver
+        // stops and clears customs with neither (`driving_team::customs`);
+        // a player who takes the wheel back before the booth hears them.
         if self.co_driver_driving() {
             return;
         }
@@ -156,12 +157,10 @@ impl DrivingState {
     /// Whether the truck stops itself at customs booths: the setting that
     /// stops it at an open scale (`scale_stop_is_assisted`), full lane
     /// keeping with facility stopping assistance, which is All assists.
-    /// Lower levels leave the stop to the driver. The co-driver is left out:
-    /// they hand the wheel back before the line (`driving_team::customs`).
+    /// Lower levels leave the stop to the driver. The co-driver drives on
+    /// All assists, so they stop at every booth the same way.
     pub fn booth_stop_is_assisted(&self, ctx: &GameContext) -> bool {
-        ctx.settings.lane_is_automated()
-            && ctx.settings.destination_approach_assist
-            && !self.co_driver_driving()
+        ctx.settings.lane_is_automated() && ctx.settings.destination_approach_assist
     }
 
     /// All assists brakes the truck to a stop at the next customs booth the
@@ -265,7 +264,10 @@ impl DrivingState {
 
         self.enforcement_events
             .insert(format!("border-booth:{}", booth.key));
-        let running = self.trip.truck.speed_mph() > WEIGH_STATION_BYPASS_MPH;
+        // The co-driver never runs a booth: one who reaches it moving is
+        // stopped there and cleared.
+        let running =
+            self.trip.truck.speed_mph() > WEIGH_STATION_BYPASS_MPH && !self.co_driver_driving();
         if !running {
             self.stop_for_border(ctx);
             self.open_border_clearance(ctx, booth);
@@ -328,21 +330,50 @@ impl DrivingState {
 
     pub fn open_border_clearance(&mut self, ctx: &mut GameContext, booth: BorderBooth) {
         self.pending_border_clearance = None;
-        // The window is the player's. A co-driver who reached the booth
-        // anyway (handed the wheel too close to stop short) hands back here,
-        // stopped, and the officer's questions follow the summon rather
-        // than cutting it.
-        let summoned = self.co_driver_driving();
-        if summoned {
-            self.co_driver_summon(ctx, "customs booth");
+        // The co-driver clears customs alone (owner ruling, 2026-11-28):
+        // no officer's questions, one note for the player.
+        if self.co_driver_driving() {
+            self.co_driver_clears_customs(ctx, &booth);
+            return;
         }
-        let leads = ctx.result_leads;
-        ctx.result_leads = leads || summoned;
         let papers = self.trip.booth_papers(&booth);
-        let mut state = BorderClearanceState::new(ctx, booth, self.trip_seed, papers);
+        let mut state = BorderClearanceState::new(ctx, booth, papers);
         state.enter(ctx);
         push_over_drive(ctx, state);
-        ctx.result_leads = leads;
+    }
+
+    /// What a clearance at `booth` does, whoever is at the window: the
+    /// booth is cleared, the primary inspection's minutes (and the
+    /// secondary's on a referral) go on the driver's logbook as on duty,
+    /// and the truck stands at the booth on its parking brake, saved.
+    /// Returns whether the truck was referred to secondary inspection.
+    pub fn clear_customs(&mut self, ctx: &mut GameContext, booth: &BorderBooth) -> bool {
+        let referred = border_secondary_referral(self.trip_seed, &booth.key);
+        let extra_minutes = if referred {
+            BORDER_SECONDARY_EXTRA_MIN
+        } else {
+            0.0
+        };
+        let minutes = BORDER_PRIMARY_MIN + extra_minutes;
+        self.trip.clear_booth(booth);
+        advance_on_duty_clock(
+            self,
+            ctx,
+            minutes,
+            Some("on_duty_not_driving"),
+            "customs clearance",
+        );
+        self.trip.truck.velocity_mps = 0.0;
+        self.trip.truck.throttle = 0.0;
+        self.trip.truck.brake = 1.0;
+        self.trip.truck.set_parking_brake();
+        self.settle_engine_to_idle(ctx);
+        if ctx.profile.is_some() {
+            let snapshot = self.snapshot(ctx);
+            profile_mut_of(ctx).active_trip = Some(snapshot);
+            ctx.save_profile();
+        }
+        referred
     }
 }
 
@@ -447,18 +478,16 @@ pub struct BorderClearanceState {
     menu: MenuCore<Self>,
     driving: DriveRef,
     booth: BorderBooth,
-    trip_seed: i64,
     /// What this booth checks on this load (`sim::bond`).
     papers: BoothPapers,
 }
 
 impl BorderClearanceState {
-    pub fn new(ctx: &GameContext, booth: BorderBooth, trip_seed: i64, papers: BoothPapers) -> Self {
+    pub fn new(ctx: &GameContext, booth: BorderBooth, papers: BoothPapers) -> Self {
         Self {
             menu: MenuCore::new(&booth.name),
             driving: DriveRef::active(ctx),
             booth,
-            trip_seed,
             papers,
         }
     }
@@ -482,37 +511,14 @@ impl BorderClearanceState {
     }
 
     fn answer_officer(&mut self, ctx: &mut GameContext) {
-        let referred = border_secondary_referral(self.trip_seed, &self.booth.key);
-        let extra_minutes = if referred {
-            BORDER_SECONDARY_EXTRA_MIN
-        } else {
-            0.0
-        };
-        let minutes = BORDER_PRIMARY_MIN + extra_minutes;
         let booth = self.booth.clone();
-        let drive = self.driving.clone().with(ctx, |driving, ctx| {
-            driving.trip.clear_booth(&booth);
-            advance_on_duty_clock(
-                driving,
-                ctx,
-                minutes,
-                Some("on_duty_not_driving"),
-                "customs clearance",
-            );
-            driving.trip.truck.velocity_mps = 0.0;
-            driving.trip.truck.throttle = 0.0;
-            driving.trip.truck.brake = 1.0;
-            driving.trip.truck.set_parking_brake();
-            driving.settle_engine_to_idle(ctx);
-            if ctx.profile.is_some() {
-                let snapshot = driving.snapshot(ctx);
-                profile_mut_of(ctx).active_trip = Some(snapshot);
-                ctx.save_profile();
-            }
-        });
-        if drive.is_none() {
+        let referred = self
+            .driving
+            .clone()
+            .with(ctx, |driving, ctx| driving.clear_customs(ctx, &booth));
+        let Some(referred) = referred else {
             return;
-        }
+        };
 
         let country = if self.booth.entering_country == "CA" {
             "Canada"

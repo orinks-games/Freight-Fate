@@ -867,13 +867,12 @@ While the co-driver drives, the keys that move the truck do nothing. The informa
 
 The first time a load can be shared, the game says so once, at the shipper's dock or in the pause menu. After that, a long load's details on the dispatch board say "Co-driver: offered at the shipper's dock or from the pause menu, on your current hours."
 
-The co-driver uses every assist, fuels when the tank runs low, crosses the open scales and pulls over for a trooper. They hand the wheel back:
+The co-driver uses every assist, fuels when the tank runs low, crosses the open scales and pulls over for a trooper. They also stop at customs booths and clear them; you hear about it as you ride along, or in the summary when they wake you. They hand the wheel back:
 
 - parked at the next stop with parking once you have had your ten-hour rest, which comes before a fresh co-driver's hours run out;
 - parked at a stop, when their own hours run out first, and they tell you how much of your rest you had;
 - at a rest area for their 30-minute break, or on the road if they could not reach one in time;
 - at the receiver's gate, so you can dock and deliver;
-- stopped short of the border, so you cross and clear customs yourself; they never drive across a border;
 - when the truck takes damage, or something else needs your decision.
 
 If the units or the hours rules changed while the co-driver drove, you hear that once you are driving again.

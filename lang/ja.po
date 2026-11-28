@@ -24173,8 +24173,8 @@ msgstr "{border_chase_line}{control_hint}で合図して路肩に止まってく
 msgid "Ran the port of entry"
 msgstr "入国地点を通過してしまった"
 
-msgid "customs booth"
-msgstr "税関の検問所"
+msgid "customs clearance"
+msgstr "通関"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr "係官があなたとトラックを入国審査所まで連れ戻します。"
@@ -24288,9 +24288,6 @@ msgid ""
 "{booth}, {agency}. The officer asks for your passport and checks the "
 "in-transit manifest for this load."
 msgstr ""
-
-msgid "customs clearance"
-msgstr "通関"
 
 msgid "Canada"
 msgstr "カナダ"
@@ -34406,16 +34403,6 @@ msgstr "教官"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "{co_driver_name}が荷受人のゲートにトラックを着けました。"
 
-#. placeholders: {co_driver_name}
-msgid ""
-"{co_driver_name} stopped short of the border and hands you the wheel for "
-"customs."
-msgstr "{co_driver_name}が国境の手前で停めて、税関のためにハンドルを渡してくれます。"
-
-#. placeholders: {co_driver_name}
-msgid "{co_driver_name} has the truck at the customs booth."
-msgstr "{co_driver_name}が税関の検問所にトラックを着けました。"
-
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "運転時間が尽きました。"
@@ -34626,6 +34613,28 @@ msgstr "{co_driver_name}が{distance_text}運転しました"
 #. placeholders: {stop}
 msgid " and fueled at {stop}"
 msgstr "、{stop}で給油しました"
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid "{co_driver_name} cleared customs into Canada at {booth_name}."
+msgstr "{co_driver_name}は{booth_name}でカナダへの通関を済ませました。"
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name}."
+msgstr "{co_driver_name}は{booth_name}でアメリカへの通関を済ませました。"
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into Canada at {booth_name} after a "
+"{minutes}-minute secondary inspection."
+msgstr "{co_driver_name}は{booth_name}で{minutes}分の二次検査を受けたあと、カナダへの通関を済ませました。"
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name} "
+"after a {minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name}は{booth_name}で{minutes}分の二次検査を受けたあと、アメリカへの通関を済ませました。"
 
 #. placeholders: {co_driver_name}, {round}
 msgid ""
@@ -34860,9 +34869,6 @@ msgstr "給油"
 
 msgid "shoulder break"
 msgstr "路肩での休憩"
-
-msgid "customs"
-msgstr ""
 
 msgid "stalled"
 msgstr "エンスト"
@@ -45779,6 +45785,17 @@ msgstr "{count}センチメートル"
 
 msgid "{count} centimeter"
 msgstr "{count}センチメートル"
+
+#~ msgid "customs booth"
+#~ msgstr "税関の検問所"
+
+#~ msgid ""
+#~ "{co_driver_name} stopped short of the border and hands you the wheel for "
+#~ "customs."
+#~ msgstr "{co_driver_name}が国境の手前で停めて、税関のためにハンドルを渡してくれます。"
+
+#~ msgid "{co_driver_name} has the truck at the customs booth."
+#~ msgstr "{co_driver_name}が税関の検問所にトラックを着けました。"
 
 #~ msgid "{co_driver_name} needs you at the wheel for customs."
 #~ msgstr "{co_driver_name}が税関のために運転を代わってほしいと呼んでいます。"

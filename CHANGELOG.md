@@ -154,7 +154,7 @@
 
 ### Fixed
 
-- **On a team load you now clear customs yourself.** The co-driver stops short of the border and hands you the wheel.
+- **On a team load the co-driver now stops and clears customs.** You hear about it when you wake or as you ride along.
 - **Unit and hours-rule changes on a co-driver's shift are no longer lost.** You hear them once you are driving again.
 - **Level-ups from 19 to 30 name only what really opens,** such as LCV training at 20; the others say the level and title.
 - **Damage to a cattle load is said of the cattle,** such as "The cattle are bruised", with what the receiver will do.

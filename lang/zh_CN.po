@@ -23875,8 +23875,8 @@ msgstr "{border_chase_line}用 {control_hint} 打信号，在路肩停车。"
 msgid "Ran the port of entry"
 msgstr "闯过了入境口岸"
 
-msgid "customs booth"
-msgstr "海关检查亭"
+msgid "customs clearance"
+msgstr "海关清关"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr "警员护送你和卡车返回口岸。"
@@ -23990,9 +23990,6 @@ msgid ""
 "{booth}, {agency}. The officer asks for your passport and checks the "
 "in-transit manifest for this load."
 msgstr ""
-
-msgid "customs clearance"
-msgstr "海关清关"
 
 msgid "Canada"
 msgstr "加拿大"
@@ -34000,16 +33997,6 @@ msgstr "教练"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "{co_driver_name}已把卡车开到收货方大门。"
 
-#. placeholders: {co_driver_name}
-msgid ""
-"{co_driver_name} stopped short of the border and hands you the wheel for "
-"customs."
-msgstr "{co_driver_name}停在边境前，把方向盘交给你过海关。"
-
-#. placeholders: {co_driver_name}
-msgid "{co_driver_name} has the truck at the customs booth."
-msgstr "{co_driver_name}已把卡车开到海关检查亭。"
-
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "搭档的工时用完了。"
@@ -34217,6 +34204,27 @@ msgstr "{co_driver_name}开了{distance_text}"
 #. placeholders: {stop}
 msgid " and fueled at {stop}"
 msgstr " 并在{stop}加了油"
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid "{co_driver_name} cleared customs into Canada at {booth_name}."
+msgstr "{co_driver_name}在{booth_name}办完了入境加拿大的通关手续。"
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name}."
+msgstr "{co_driver_name}在{booth_name}办完了入境美国的通关手续。"
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into Canada at {booth_name} after a "
+"{minutes}-minute secondary inspection."
+msgstr "{co_driver_name}在{booth_name}经过{minutes}分钟的二次检查后，办完了入境加拿大的通关手续。"
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name} "
+"after a {minutes}-minute secondary inspection."
+msgstr "{co_driver_name}在{booth_name}经过{minutes}分钟的二次检查后，办完了入境美国的通关手续。"
 
 #. placeholders: {co_driver_name}, {round}
 msgid ""
@@ -34446,9 +34454,6 @@ msgstr "加油"
 
 msgid "shoulder break"
 msgstr "路肩休息"
-
-msgid "customs"
-msgstr ""
 
 msgid "stalled"
 msgstr "熄火"
@@ -44957,6 +44962,17 @@ msgstr "{count}厘米"
 
 msgid "{count} centimeter"
 msgstr "{count}厘米"
+
+#~ msgid "customs booth"
+#~ msgstr "海关检查亭"
+
+#~ msgid ""
+#~ "{co_driver_name} stopped short of the border and hands you the wheel for "
+#~ "customs."
+#~ msgstr "{co_driver_name}停在边境前，把方向盘交给你过海关。"
+
+#~ msgid "{co_driver_name} has the truck at the customs booth."
+#~ msgstr "{co_driver_name}已把卡车开到海关检查亭。"
 
 #~ msgid "{co_driver_name} needs you at the wheel for customs."
 #~ msgstr "{co_driver_name}需要你来开车过海关。"

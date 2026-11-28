@@ -26511,8 +26511,8 @@ msgstr ""
 msgid "Ran the port of entry"
 msgstr "Vượt cửa khẩu không dừng"
 
-msgid "customs booth"
-msgstr "trạm hải quan"
+msgid "customs clearance"
+msgstr "thông quan"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr "Nhân viên hộ tống bạn và xe tải quay lại cửa khẩu."
@@ -26629,9 +26629,6 @@ msgid ""
 "{booth}, {agency}. The officer asks for your passport and checks the "
 "in-transit manifest for this load."
 msgstr ""
-
-msgid "customs clearance"
-msgstr "thông quan"
 
 # same as English
 msgid "Canada"
@@ -37553,18 +37550,6 @@ msgstr "người hướng dẫn"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "{co_driver_name} đã đưa xe tới cổng bên nhận hàng."
 
-#. placeholders: {co_driver_name}
-msgid ""
-"{co_driver_name} stopped short of the border and hands you the wheel for "
-"customs."
-msgstr ""
-"{co_driver_name} dừng trước biên giới và giao lại tay lái cho bạn để qua "
-"hải quan."
-
-#. placeholders: {co_driver_name}
-msgid "{co_driver_name} has the truck at the customs booth."
-msgstr "{co_driver_name} đã đưa xe tới trạm hải quan."
-
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Đã hết giờ lái theo quy định."
@@ -37801,6 +37786,33 @@ msgstr "{co_driver_name} đã lái {distance_text}"
 #. placeholders: {stop}
 msgid " and fueled at {stop}"
 msgstr " và đổ dầu tại {stop}"
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid "{co_driver_name} cleared customs into Canada at {booth_name}."
+msgstr ""
+"{co_driver_name} đã làm xong thủ tục hải quan vào Canada tại {booth_name}."
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name}."
+msgstr ""
+"{co_driver_name} đã làm xong thủ tục hải quan vào Hoa Kỳ tại {booth_name}."
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into Canada at {booth_name} after a "
+"{minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name} đã làm xong thủ tục hải quan vào Canada tại {booth_name} "
+"sau {minutes} phút kiểm tra thứ cấp."
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name} "
+"after a {minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name} đã làm xong thủ tục hải quan vào Hoa Kỳ tại {booth_name} "
+"sau {minutes} phút kiểm tra thứ cấp."
 
 #. placeholders: {co_driver_name}, {round}
 msgid ""
@@ -38060,9 +38072,6 @@ msgstr "Đổ dầu"
 
 msgid "shoulder break"
 msgstr "nghỉ ở lề đường"
-
-msgid "customs"
-msgstr ""
 
 msgid "stalled"
 msgstr "chết máy"
@@ -50389,6 +50398,19 @@ msgstr "{count} xen-ti-mét"
 
 msgid "{count} centimeter"
 msgstr "{count} xen-ti-mét"
+
+#~ msgid "customs booth"
+#~ msgstr "trạm hải quan"
+
+#~ msgid ""
+#~ "{co_driver_name} stopped short of the border and hands you the wheel for "
+#~ "customs."
+#~ msgstr ""
+#~ "{co_driver_name} dừng trước biên giới và giao lại tay lái cho bạn để qua "
+#~ "hải quan."
+
+#~ msgid "{co_driver_name} has the truck at the customs booth."
+#~ msgstr "{co_driver_name} đã đưa xe tới trạm hải quan."
 
 #~ msgid "{co_driver_name} needs you at the wheel for customs."
 #~ msgstr "{co_driver_name} cần bạn cầm lái để qua hải quan."

@@ -26529,8 +26529,8 @@ msgstr ""
 msgid "Ran the port of entry"
 msgstr "Проезд пункта пропуска без остановки"
 
-msgid "customs booth"
-msgstr "таможенный пост"
+msgid "customs clearance"
+msgstr "таможенное оформление"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr "Сотрудники сопровождают вас и грузовик обратно к пункту пропуска."
@@ -26649,9 +26649,6 @@ msgid ""
 "{booth}, {agency}. The officer asks for your passport and checks the "
 "in-transit manifest for this load."
 msgstr ""
-
-msgid "customs clearance"
-msgstr "таможенное оформление"
 
 msgid "Canada"
 msgstr "Канаду"
@@ -37916,17 +37913,6 @@ msgstr "инструктор"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "Грузовик у ворот получателя, за рулём {co_driver_name}."
 
-#. placeholders: {co_driver_name}
-msgid ""
-"{co_driver_name} stopped short of the border and hands you the wheel for "
-"customs."
-msgstr ""
-"{co_driver_name} остановился перед границей и передаёт вам руль для таможни."
-
-#. placeholders: {co_driver_name}
-msgid "{co_driver_name} has the truck at the customs booth."
-msgstr "Грузовик у таможенного поста, за рулём {co_driver_name}."
-
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Рабочее время напарника вышло."
@@ -38160,6 +38146,32 @@ msgstr "{co_driver_name}: пройдено {distance_text}"
 #. placeholders: {stop}
 msgid " and fueled at {stop}"
 msgstr " и заправка в {stop}"
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid "{co_driver_name} cleared customs into Canada at {booth_name}."
+msgstr "{co_driver_name} прошёл таможню на въезд в Канаду: {booth_name}."
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name}."
+msgstr ""
+"{co_driver_name} прошёл таможню на въезд в Соединённые Штаты: {booth_name}."
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into Canada at {booth_name} after a "
+"{minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name} прошёл таможню на въезд в Канаду после {minutes}-минутного "
+"повторного досмотра: {booth_name}."
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name} "
+"after a {minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name} прошёл таможню на въезд в Соединённые Штаты после "
+"{minutes}-минутного повторного досмотра: {booth_name}."
 
 #. placeholders: {co_driver_name}, {round}
 msgid ""
@@ -38421,9 +38433,6 @@ msgstr "Заправка"
 
 msgid "shoulder break"
 msgstr "перерыв на обочине"
-
-msgid "customs"
-msgstr ""
 
 msgid "stalled"
 msgstr "заглох"
@@ -50876,6 +50885,18 @@ msgstr "{count} {count:сантиметр|сантиметра|сантимет�
 
 msgid "{count} centimeter"
 msgstr "{count} {count:сантиметр|сантиметра|сантиметров}"
+
+#~ msgid "customs booth"
+#~ msgstr "таможенный пост"
+
+#~ msgid ""
+#~ "{co_driver_name} stopped short of the border and hands you the wheel for "
+#~ "customs."
+#~ msgstr ""
+#~ "{co_driver_name} остановился перед границей и передаёт вам руль для таможни."
+
+#~ msgid "{co_driver_name} has the truck at the customs booth."
+#~ msgstr "Грузовик у таможенного поста, за рулём {co_driver_name}."
 
 #~ msgid "{co_driver_name} needs you at the wheel for customs."
 #~ msgstr "{co_driver_name} зовёт вас за руль для таможни."

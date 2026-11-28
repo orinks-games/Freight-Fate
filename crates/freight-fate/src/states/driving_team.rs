@@ -477,8 +477,6 @@ impl DrivingState {
 fn summon_line(co_driver_name: &str, reason: &str) -> String {
     match reason {
         "gate" => format!("{co_driver_name} has the truck at the receiver's gate."),
-        "customs" => format!("{co_driver_name} stopped short of the border and hands you the wheel for customs."),
-        "customs booth" => format!("{co_driver_name} has the truck at the customs booth."),
         "hours up" => {
             format!("{co_driver_name} has parked and hands you the wheel. Their hours are up.")
         }

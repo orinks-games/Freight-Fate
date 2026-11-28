@@ -25972,8 +25972,8 @@ msgstr ""
 msgid "Ran the port of entry"
 msgstr "Sınır kapısından durmadan geçildi"
 
-msgid "customs booth"
-msgstr "gümrük kulübesi"
+msgid "customs clearance"
+msgstr "gümrük işlemi"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr "Memurlar seni ve tırı sınır kapısına geri götürüyor."
@@ -26093,9 +26093,6 @@ msgid ""
 "{booth}, {agency}. The officer asks for your passport and checks the "
 "in-transit manifest for this load."
 msgstr ""
-
-msgid "customs clearance"
-msgstr "gümrük işlemi"
 
 msgid "Canada"
 msgstr "Kanada"
@@ -36931,18 +36928,6 @@ msgstr "eğitmen"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "{co_driver_name} tırı alıcının kapısına getirdi."
 
-#. placeholders: {co_driver_name}
-msgid ""
-"{co_driver_name} stopped short of the border and hands you the wheel for "
-"customs."
-msgstr ""
-"{co_driver_name} sınırdan önce durdu ve gümrük için direksiyonu size "
-"veriyor."
-
-#. placeholders: {co_driver_name}
-msgid "{co_driver_name} has the truck at the customs booth."
-msgstr "{co_driver_name} tırı gümrük kulübesine getirdi."
-
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Süreleri doldu."
@@ -37178,6 +37163,36 @@ msgstr "{co_driver_name} {distance_text} sürdü"
 #. placeholders: {stop}
 msgid " and fueled at {stop}"
 msgstr " ve yakıt aldı: {stop}"
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid "{co_driver_name} cleared customs into Canada at {booth_name}."
+msgstr ""
+"{co_driver_name}, {booth_name} konumunda Kanada'ya giriş için gümrükten "
+"geçti."
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name}."
+msgstr ""
+"{co_driver_name}, {booth_name} konumunda Amerika Birleşik Devletleri'ne "
+"giriş için gümrükten geçti."
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into Canada at {booth_name} after a "
+"{minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name}, {booth_name} konumunda {minutes} dakikalık ikincil "
+"denetimin ardından Kanada'ya giriş için gümrükten geçti."
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name} "
+"after a {minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name}, {booth_name} konumunda {minutes} dakikalık ikincil "
+"denetimin ardından Amerika Birleşik Devletleri'ne giriş için gümrükten "
+"geçti."
 
 #. placeholders: {co_driver_name}, {round}
 msgid ""
@@ -37441,9 +37456,6 @@ msgstr "Yakıt al"
 
 msgid "shoulder break"
 msgstr "emniyet şeridinde mola"
-
-msgid "customs"
-msgstr ""
 
 msgid "stalled"
 msgstr "durdu"
@@ -49680,6 +49692,19 @@ msgstr "{count} santimetre"
 
 msgid "{count} centimeter"
 msgstr "{count} santimetre"
+
+#~ msgid "customs booth"
+#~ msgstr "gümrük kulübesi"
+
+#~ msgid ""
+#~ "{co_driver_name} stopped short of the border and hands you the wheel for "
+#~ "customs."
+#~ msgstr ""
+#~ "{co_driver_name} sınırdan önce durdu ve gümrük için direksiyonu size "
+#~ "veriyor."
+
+#~ msgid "{co_driver_name} has the truck at the customs booth."
+#~ msgstr "{co_driver_name} tırı gümrük kulübesine getirdi."
 
 #~ msgid "{co_driver_name} needs you at the wheel for customs."
 #~ msgstr "{co_driver_name} gümrük için sizi direksiyona çağırıyor."

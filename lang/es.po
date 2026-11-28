@@ -26657,8 +26657,8 @@ msgstr ""
 msgid "Ran the port of entry"
 msgstr "Te saltaste el punto de entrada"
 
-msgid "customs booth"
-msgstr "caseta de aduanas"
+msgid "customs clearance"
+msgstr "autorización de aduana"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr ""
@@ -26782,9 +26782,6 @@ msgid ""
 "{booth}, {agency}. The officer asks for your passport and checks the "
 "in-transit manifest for this load."
 msgstr ""
-
-msgid "customs clearance"
-msgstr "autorización de aduana"
 
 msgid "Canada"
 msgstr "Canadá"
@@ -37901,18 +37898,6 @@ msgstr ""
 "{co_driver_name} ha llevado el camión hasta la entrada de la instalación de "
 "entrega."
 
-#. placeholders: {co_driver_name}
-msgid ""
-"{co_driver_name} stopped short of the border and hands you the wheel for "
-"customs."
-msgstr ""
-"{co_driver_name} se detuvo antes de la frontera y te devuelve el volante "
-"para la aduana."
-
-#. placeholders: {co_driver_name}
-msgid "{co_driver_name} has the truck at the customs booth."
-msgstr "{co_driver_name} tiene el camión en la caseta de aduanas."
-
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Se quedó sin horas de servicio."
@@ -38154,6 +38139,34 @@ msgstr "{co_driver_name} condujo {distance_text}"
 #. placeholders: {stop}
 msgid " and fueled at {stop}"
 msgstr " y cargó combustible en {stop}"
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid "{co_driver_name} cleared customs into Canada at {booth_name}."
+msgstr ""
+"{co_driver_name} pasó la aduana para entrar en Canadá en {booth_name}."
+
+#. placeholders: {co_driver_name}, {booth_name}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name}."
+msgstr ""
+"{co_driver_name} pasó la aduana para entrar en Estados Unidos en "
+"{booth_name}."
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into Canada at {booth_name} after a "
+"{minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name} pasó la aduana para entrar en Canadá en {booth_name} tras "
+"una inspección secundaria de {minutes} minutos."
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name} "
+"after a {minutes}-minute secondary inspection."
+msgstr ""
+"{co_driver_name} pasó la aduana para entrar en Estados Unidos en "
+"{booth_name} tras una inspección secundaria de {minutes} minutos."
 
 #. placeholders: {co_driver_name}, {round}
 msgid ""
@@ -38420,9 +38433,6 @@ msgstr "Cargar combustible"
 
 msgid "shoulder break"
 msgstr "pausa en el arcén"
-
-msgid "customs"
-msgstr ""
 
 msgid "stalled"
 msgstr "motor calado"
@@ -50971,6 +50981,19 @@ msgstr "{count} centímetros"
 
 msgid "{count} centimeter"
 msgstr "{count} centímetro"
+
+#~ msgid "customs booth"
+#~ msgstr "caseta de aduanas"
+
+#~ msgid ""
+#~ "{co_driver_name} stopped short of the border and hands you the wheel for "
+#~ "customs."
+#~ msgstr ""
+#~ "{co_driver_name} se detuvo antes de la frontera y te devuelve el volante "
+#~ "para la aduana."
+
+#~ msgid "{co_driver_name} has the truck at the customs booth."
+#~ msgstr "{co_driver_name} tiene el camión en la caseta de aduanas."
 
 #~ msgid "{co_driver_name} needs you at the wheel for customs."
 #~ msgstr "{co_driver_name} te necesita al volante para la aduana."

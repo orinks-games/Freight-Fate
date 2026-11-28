@@ -29929,8 +29929,8 @@ msgstr ""
 msgid "Ran the port of entry"
 msgstr ""
 
-#: crates/freight-fate/src/states/driving_border.rs crates/freight-fate/src/states/driving_team.rs
-msgid "customs booth"
+#: crates/freight-fate/src/states/driving_border.rs
+msgid "customs clearance"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_border.rs
@@ -30068,10 +30068,6 @@ msgstr ""
 msgid ""
 "{booth}, {agency}. The officer asks for your passport and checks the "
 "in-transit manifest for this load."
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_border.rs
-msgid "customs clearance"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_border.rs
@@ -42361,18 +42357,6 @@ msgstr ""
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr ""
 
-#. placeholders: {co_driver_name}
-#: crates/freight-fate/src/states/driving_team.rs
-msgid ""
-"{co_driver_name} stopped short of the border and hands you the wheel for "
-"customs."
-msgstr ""
-
-#. placeholders: {co_driver_name}
-#: crates/freight-fate/src/states/driving_team.rs
-msgid "{co_driver_name} has the truck at the customs booth."
-msgstr ""
-
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
 msgid "Their hours are up."
@@ -42623,6 +42607,31 @@ msgstr ""
 #. placeholders: {stop}
 #: crates/freight-fate/src/states/driving_team.rs
 msgid " and fueled at {stop}"
+msgstr ""
+
+#. placeholders: {co_driver_name}, {booth_name}
+#: crates/freight-fate/src/states/driving_team/customs.rs
+msgid "{co_driver_name} cleared customs into Canada at {booth_name}."
+msgstr ""
+
+#. placeholders: {co_driver_name}, {booth_name}
+#: crates/freight-fate/src/states/driving_team/customs.rs
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name}."
+msgstr ""
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+#: crates/freight-fate/src/states/driving_team/customs.rs
+msgid ""
+"{co_driver_name} cleared customs into Canada at {booth_name} after a "
+"{minutes}-minute secondary inspection."
+msgstr ""
+
+#. placeholders: {co_driver_name}, {booth_name}, {minutes}
+#: crates/freight-fate/src/states/driving_team/customs.rs
+msgid ""
+"{co_driver_name} cleared customs into the United States at {booth_name} "
+"after a {minutes}-minute secondary inspection."
 msgstr ""
 
 #. placeholders: {co_driver_name}, {round}
@@ -42897,10 +42906,6 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/pilot.rs crates/freight-fate/src/states/driving_team.rs
 msgid "shoulder break"
-msgstr ""
-
-#: crates/freight-fate/src/states/driving_team/pilot.rs
-msgid "customs"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/pilot.rs
