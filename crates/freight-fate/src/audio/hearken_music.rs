@@ -7,12 +7,13 @@
 //! refused (Hearken has no player for them), so a playlist skips them.
 
 use std::path::Path;
+use std::time::Instant;
 
 use ff_core::music_playback::{MusicTransition, DEFAULT_FADE_OUT_MS};
 use hearken::audio::{Bus, Sound, Start};
 
 use super::assets::MODULE_EXTENSIONS;
-use super::hearken_backend::{HearkenBackend, MusicReplay};
+use super::hearken_backend::{HearkenBackend, MusicReplay, OutgoingMusic};
 use super::hearken_clips::FfClips;
 use super::AudioError;
 
@@ -124,7 +125,7 @@ impl HearkenBackend {
         self.cancel_radio_connect();
         self.music_request = None;
         if let Some(outgoing) = self.music_outgoing.take() {
-            self.audio.stop(outgoing, fade_ms.min(250));
+            self.audio.stop(outgoing.sound, fade_ms.min(250));
         }
         let Some(sound) = self.music_sound.take() else {
             return;
@@ -140,11 +141,19 @@ impl HearkenBackend {
     pub(super) fn fade_out_music_over(&mut self, fade_out_ms: u32) {
         self.music_request = None;
         if let Some(prev) = self.music_outgoing.take() {
-            self.audio.stop(prev, 150);
+            self.audio.stop(prev.sound, 150);
         }
         if let Some(sound) = self.music_sound.take() {
+            let gain = self.music_gain;
             self.audio.stop(sound, fade_out_ms);
-            self.music_outgoing = Some(sound);
+            if fade_out_ms > 0 {
+                self.music_outgoing = Some(OutgoingMusic {
+                    sound,
+                    gain,
+                    started: Instant::now(),
+                    fade_ms: fade_out_ms,
+                });
+            }
             self.forget_music();
         }
     }
