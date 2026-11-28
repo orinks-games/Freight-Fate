@@ -19175,10 +19175,10 @@ msgstr "Prendi il volante {start_mi} miglia più avanti."
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
-#. placeholders: {map_or}, {key}, {restart_remaining_min}
+#. placeholders: {map_or}, {key}, {restart_remaining_min}, {key2}
 msgid ""
 "cycle_left {map_or}; restart_offer {key}; restart_rest_left "
-"{restart_remaining_min} min"
+"{restart_remaining_min} min; hos_rules {key2}"
 msgstr ""
 
 msgid "unenforced"
@@ -26624,6 +26624,9 @@ msgstr ""
 
 msgid "Ran the port of entry"
 msgstr "Valico attraversato senza fermarsi"
+
+msgid "customs booth"
+msgstr "postazione doganale"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr "Gli agenti scortano te e il camion fino al valico."
@@ -37822,6 +37825,18 @@ msgstr "istruttore"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "{co_driver_name} ha portato il camion al cancello del destinatario."
 
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} stopped short of the border and hands you the wheel for "
+"customs."
+msgstr ""
+"{co_driver_name} si è fermato prima del confine e ti passa il volante per "
+"la dogana."
+
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} has the truck at the customs booth."
+msgstr "{co_driver_name} ha portato il camion alla postazione doganale."
+
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Ha finito le ore."
@@ -38326,6 +38341,9 @@ msgstr "Rifornimento"
 
 msgid "shoulder break"
 msgstr "pausa sulla corsia d'emergenza"
+
+msgid "customs"
+msgstr ""
 
 msgid "stalled"
 msgstr "motore spento"
@@ -50813,6 +50831,9 @@ msgstr "{count} centimetri"
 
 msgid "{count} centimeter"
 msgstr "{count} centimetro"
+
+#~ msgid "{co_driver_name} needs you at the wheel for customs."
+#~ msgstr "{co_driver_name} ha bisogno di te al volante per la dogana."
 
 #~ msgid "Owner-operator settlements are now routine."
 #~ msgstr "I compensi da padroncino ormai sono routine."

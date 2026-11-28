@@ -220,6 +220,7 @@ mod states_driving_stop_menus;
 mod states_driving_stop_purpose;
 mod states_driving_street_controls;
 mod states_driving_team;
+mod states_driving_team_customs;
 mod states_driving_team_dock;
 mod states_driving_team_hazards;
 mod states_driving_team_hours;

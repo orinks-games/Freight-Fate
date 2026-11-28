@@ -300,6 +300,10 @@ pub struct DrivingObservation {
     /// On a load with a co-driver: the off-duty minutes the restart still
     /// needs on the logbook off the wheel (the player's while they sleep).
     pub off_wheel_restart_rest_left: Option<f64>,
+    /// On a load with a co-driver: the hours rules the logbook off the
+    /// wheel is under, and why the co-driver last handed back.
+    pub off_wheel_rules: Option<ff_core::sim::hos::HosRules>,
+    pub co_driver_handback: Option<String>,
     /// The driver window's state machine.
     pub window: ff_core::sim::cab::Window,
     /// The live weather service the truck's position is on (None: no
@@ -419,12 +423,13 @@ impl PlayerInputFrame<'_> {
         let mode = &self.app.ctx.settings.hos_mode;
         match self.app.ctx.profile.as_ref() {
             Some(p) => format!(
-                "cycle_left {}; restart_offer {}; restart_rest_left {:.0} min",
+                "cycle_left {}; restart_offer {}; restart_rest_left {:.0} min; hos_rules {}",
                 p.hos
                     .cycle_remaining_min(mode)
                     .map_or("unenforced".to_string(), |left| format!("{left:.0} min")),
                 p.hos.restart_offer(mode).key(),
-                p.hos.restart_remaining_min()
+                p.hos.restart_remaining_min(),
+                p.hos.rules.key()
             ),
             None => "no_career".to_string(),
         }
@@ -1223,6 +1228,11 @@ impl App {
                 .team
                 .as_ref()
                 .map(|team| team.off_wheel_hos.restart_remaining_min()),
+            off_wheel_rules: drive.team.as_ref().map(|team| team.off_wheel_hos.rules),
+            co_driver_handback: drive
+                .team
+                .as_ref()
+                .and_then(|team| team.last_handback.clone()),
             window: drive.cab.window(),
             weather_service: drive.trip.weather.live_service(),
             weather_station: drive.trip.weather.live_report().map_or_else(

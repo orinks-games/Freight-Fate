@@ -21716,11 +21716,11 @@ msgstr ""
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
-#. placeholders: {map_or}, {key}, {restart_remaining_min}
+#. placeholders: {map_or}, {key}, {restart_remaining_min}, {key2}
 #: crates/freight-fate/src/app.rs
 msgid ""
 "cycle_left {map_or}; restart_offer {key}; restart_rest_left "
-"{restart_remaining_min} min"
+"{restart_remaining_min} min; hos_rules {key2}"
 msgstr ""
 
 #: crates/freight-fate/src/app.rs
@@ -29927,6 +29927,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_border.rs
 msgid "Ran the port of entry"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_border.rs crates/freight-fate/src/states/driving_team.rs
+msgid "customs booth"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_border.rs
@@ -42357,6 +42361,18 @@ msgstr ""
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr ""
 
+#. placeholders: {co_driver_name}
+#: crates/freight-fate/src/states/driving_team.rs
+msgid ""
+"{co_driver_name} stopped short of the border and hands you the wheel for "
+"customs."
+msgstr ""
+
+#. placeholders: {co_driver_name}
+#: crates/freight-fate/src/states/driving_team.rs
+msgid "{co_driver_name} has the truck at the customs booth."
+msgstr ""
+
 #. one sentence of a longer line
 #: crates/freight-fate/src/states/driving_team.rs
 msgid "Their hours are up."
@@ -42881,6 +42897,10 @@ msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/pilot.rs crates/freight-fate/src/states/driving_team.rs
 msgid "shoulder break"
+msgstr ""
+
+#: crates/freight-fate/src/states/driving_team/pilot.rs
+msgid "customs"
 msgstr ""
 
 #: crates/freight-fate/src/states/driving_team/pilot.rs

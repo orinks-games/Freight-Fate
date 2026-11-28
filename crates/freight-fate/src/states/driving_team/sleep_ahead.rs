@@ -19,6 +19,7 @@ use crate::app::{GameContext, TRANSCRIPT_TARGET};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::*;
 
+use super::customs::CUSTOMS_BRAKE_ROOM_MI;
 use super::overlay::TOP_UP_FRACTION;
 use super::pilot::{StopPurpose, FUEL_STOP_FRACTION};
 use super::TeamMode;
@@ -88,8 +89,9 @@ impl DrivingState {
             && (self.keeper_mph.is_some() || self.cruise_mph.is_some())
     }
 
-    /// The mile the shift may pass to: short of the receiver's exit and of
-    /// a chain-law area. None when nothing allows a jump.
+    /// The mile the shift may pass to: short of the receiver's exit, of a
+    /// chain-law area, of the co-driver's customs handback and of any line
+    /// where the hours rules change. None when nothing allows a jump.
     fn sleep_jump_limit(&mut self, ctx: &mut GameContext) -> Option<f64> {
         // Off the highway for the receiver: the streets are driven live.
         if self.destination_exit_taken {
@@ -109,6 +111,17 @@ impl DrivingState {
             if let Some((scale, _)) = self.check_in_scale_ahead(ctx, limit - here + window) {
                 limit = limit.min(scale.at_mi - window - STOP_LEAD_MI);
             }
+        }
+        // A customs booth is the player's (owner ruling, 2026-11-28): the
+        // jump ends short of where the co-driver stops to hand back for it.
+        if let Some(stop_by) = self.customs_handback_mi(ctx) {
+            limit = limit.min(stop_by - CUSTOMS_BRAKE_ROOM_MI - STOP_LEAD_MI);
+        }
+        // Never across a line where the hours rules change, booth or none
+        // (60 north has none): the time jumped is counted under one rule
+        // set, and the line is crossed live.
+        if let Some(line) = self.rules_lines_ahead(ctx).first() {
+            limit = limit.min(line.at_mi - STOP_LEAD_MI);
         }
         // A chain-law area is the checkpoint's to judge, live.
         let mut mile = here;

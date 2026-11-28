@@ -17415,10 +17415,10 @@ msgstr "{start_mi}マイル先からハンドルを握ります。"
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
-#. placeholders: {map_or}, {key}, {restart_remaining_min}
+#. placeholders: {map_or}, {key}, {restart_remaining_min}, {key2}
 msgid ""
 "cycle_left {map_or}; restart_offer {key}; restart_rest_left "
-"{restart_remaining_min} min"
+"{restart_remaining_min} min; hos_rules {key2}"
 msgstr ""
 
 msgid "unenforced"
@@ -24172,6 +24172,9 @@ msgstr "{border_chase_line}{control_hint}で合図して路肩に止まってく
 
 msgid "Ran the port of entry"
 msgstr "入国地点を通過してしまった"
+
+msgid "customs booth"
+msgstr "税関の検問所"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr "係官があなたとトラックを入国審査所まで連れ戻します。"
@@ -34403,6 +34406,16 @@ msgstr "教官"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "{co_driver_name}が荷受人のゲートにトラックを着けました。"
 
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} stopped short of the border and hands you the wheel for "
+"customs."
+msgstr "{co_driver_name}が国境の手前で停めて、税関のためにハンドルを渡してくれます。"
+
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} has the truck at the customs booth."
+msgstr "{co_driver_name}が税関の検問所にトラックを着けました。"
+
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "運転時間が尽きました。"
@@ -34847,6 +34860,9 @@ msgstr "給油"
 
 msgid "shoulder break"
 msgstr "路肩での休憩"
+
+msgid "customs"
+msgstr ""
 
 msgid "stalled"
 msgstr "エンスト"
@@ -45763,6 +45779,9 @@ msgstr "{count}センチメートル"
 
 msgid "{count} centimeter"
 msgstr "{count}センチメートル"
+
+#~ msgid "{co_driver_name} needs you at the wheel for customs."
+#~ msgstr "{co_driver_name}が税関のために運転を代わってほしいと呼んでいます。"
 
 #~ msgid "Owner-operator settlements are now routine."
 #~ msgstr "オーナードライバーとしての精算はもう慣れたものです。"

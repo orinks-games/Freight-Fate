@@ -383,8 +383,17 @@ fn fatigue_state_line(
         let rest = o.off_wheel_restart_rest_left.map_or(String::new(), |min| {
             format!("; off_wheel_restart_rest_left {min:.0} min")
         });
+        let rules = o.off_wheel_rules.map_or(String::new(), |rules| {
+            format!("; off_wheel_rules {}", rules.key())
+        });
+        let handback = o
+            .co_driver_handback
+            .as_deref()
+            .map_or(String::new(), |reason| {
+                format!("; co_driver_handback {reason}")
+            });
         format!(
-            "; co_driver_shift {}; co_driver_left {left}{rest}",
+            "; co_driver_shift {}; co_driver_left {left}{rest}{rules}{handback}",
             shift.key()
         )
     });

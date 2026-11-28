@@ -10,7 +10,8 @@
 //! rule changes, so none of them is ever dropped: each waits here until no
 //! hazard is up, no ambient line is waiting and the road voice is quiet,
 //! however long that takes, and the queue releases one line at a time in
-//! [`AfterCrossing`] order.
+//! [`AfterCrossing`] order. While a co-driver has the wheel the units and
+//! hours rules lines wait for the player to take it back.
 
 use crate::app::{GameContext, SayEvent};
 use crate::speech::EventPriority;
@@ -102,6 +103,16 @@ impl DrivingState {
 
     /// Per frame: release the next line once the road is quiet.
     pub fn update_after_crossing(&mut self, ctx: &mut GameContext, _dt: f64) {
+        // The co-driver's road is silent to the player, so the units and
+        // hours rules lines wait until the player has the wheel: they are
+        // still true then. The crossing call and the clock change are of
+        // their moment, and pass with the shift.
+        if self.co_driver_driving() {
+            self.after_crossing.retain(|line| {
+                matches!(line.kind, AfterCrossing::Units | AfterCrossing::HoursRules)
+            });
+            return;
+        }
         if self.after_crossing.is_empty()
             || self.hazard_deadline.is_some()
             || !self.pending_ambient_events.is_empty()

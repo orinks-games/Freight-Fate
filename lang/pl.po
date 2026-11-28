@@ -19024,10 +19024,10 @@ msgstr "Przejmujesz kierownicę {start_mi} {start_mi:milę|mile|mil} dalej."
 msgid "business_stage {key}; buy_in_paid {buy_in_paid}"
 msgstr ""
 
-#. placeholders: {map_or}, {key}, {restart_remaining_min}
+#. placeholders: {map_or}, {key}, {restart_remaining_min}, {key2}
 msgid ""
 "cycle_left {map_or}; restart_offer {key}; restart_rest_left "
-"{restart_remaining_min} min"
+"{restart_remaining_min} min; hos_rules {key2}"
 msgstr ""
 
 msgid "unenforced"
@@ -26531,6 +26531,9 @@ msgstr ""
 
 msgid "Ran the port of entry"
 msgstr "Przejazd przez przejście graniczne bez zatrzymania"
+
+msgid "customs booth"
+msgstr "stanowisko celne"
 
 msgid "Officers escort you and the truck back to the port."
 msgstr ""
@@ -37802,6 +37805,18 @@ msgstr "instruktor"
 msgid "{co_driver_name} has the truck at the receiver's gate."
 msgstr "{co_driver_name} stoi ciężarówką przy bramie odbiorcy."
 
+#. placeholders: {co_driver_name}
+msgid ""
+"{co_driver_name} stopped short of the border and hands you the wheel for "
+"customs."
+msgstr ""
+"{co_driver_name} zatrzymuje się przed granicą i oddaje ci kierownicę na "
+"odprawę celną."
+
+#. placeholders: {co_driver_name}
+msgid "{co_driver_name} has the truck at the customs booth."
+msgstr "{co_driver_name} stoi ciężarówką przy stanowisku celnym."
+
 #. one sentence of a longer line
 msgid "Their hours are up."
 msgstr "Czas pracy zmiennika się skończył."
@@ -38304,6 +38319,9 @@ msgstr "Tankowanie"
 
 msgid "shoulder break"
 msgstr "przerwa na poboczu"
+
+msgid "customs"
+msgstr ""
 
 msgid "stalled"
 msgstr "unieruchomiona"
@@ -50727,6 +50745,9 @@ msgstr "{count} {count:centymetr|centymetry|centymetrów}"
 
 msgid "{count} centimeter"
 msgstr "{count} {count:centymetr|centymetry|centymetrów}"
+
+#~ msgid "{co_driver_name} needs you at the wheel for customs."
+#~ msgstr "{co_driver_name} potrzebuje cię za kierownicą do odprawy celnej."
 
 #~ msgid "Owner-operator settlements are now routine."
 #~ msgstr "Rozliczenia kierowcy-właściciela to już rutyna."
