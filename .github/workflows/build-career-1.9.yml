@@ -582,10 +582,11 @@ jobs:
         # configured by another compiler throws its cache away, and SDL2
         # then tries to install into /usr/local. desktop-file-utils validates
         # the AppImage's launcher entry. No cache-key: the Linux builds keep
-        # no rust-cache entry. Each entry is 1.2 GB, a build without one is
-        # about a minute slower and still finishes before the Windows build,
-        # and the room goes to the Windows and macOS entries of both dev and
-        # the alpha line, which did not fit in the 10 GB budget together.
+        # no rust-cache entry. Each entry is 1.2 GB and saves one to three
+        # minutes; a build without one takes 8 to 11 minutes, about level
+        # with a warm Windows build. The room goes to the Windows and macOS
+        # entries of both dev and the alpha line, which save three to six
+        # minutes each and did not fit in the 10 GB budget beside these.
         uses: ./.github/actions/rust-setup
         with:
           linux-packages: file desktop-file-utils
