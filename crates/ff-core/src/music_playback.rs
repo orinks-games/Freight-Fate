@@ -90,7 +90,7 @@ fn cue_gain(key: &str) -> f32 {
     track_cue(key).map_or(1.0, TrackCue::linear_gain)
 }
 
-fn cue_lead_in_s(key: &str) -> f64 {
+pub fn cue_lead_in_s(key: &str) -> f64 {
     track_cue(key).map_or(0.0, |c| f64::from(c.lead_in_s))
 }
 
@@ -297,14 +297,15 @@ pub fn plan_radio_tune(incoming: &str, start_s: f64, fade_in_ms: u32) -> MusicTr
 }
 
 /// Effective on-air duration of `outgoing` before transitioning to `incoming`,
-/// matching [`radio_segue_trigger_s`] so `radio_rotation::cue_after` stays in
-/// lockstep with live playback.
+/// matching [`radio_segue_trigger_s`] minus any trimmed leading silence so
+/// `radio_rotation::cue_after` stays in lockstep with live playback.
 pub fn radio_item_airtime_s(
     outgoing: &str,
     incoming: Option<&str>,
     catalog_duration_s: f64,
 ) -> f64 {
-    radio_segue_trigger_s(outgoing, incoming, catalog_duration_s).max(1.0)
+    let trigger = radio_segue_trigger_s(outgoing, incoming, catalog_duration_s);
+    (trigger - cue_lead_in_s(outgoing)).max(1.0)
 }
 
 #[cfg(test)]

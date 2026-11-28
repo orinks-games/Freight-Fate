@@ -12,6 +12,7 @@
 //! the same place. Nothing draws from a clock or an unseeded generator.
 
 use crate::music::{crc32, RADIO_TRACKS_PER_HOST_BREAK};
+use crate::music_playback::{cue_lead_in_s, radio_item_airtime_s};
 use crate::radio_content::{content_duration_s, plan_break};
 
 /// The station being walked: its identity, its shuffled track order, and the
@@ -99,13 +100,21 @@ pub fn cue_after(rotation: &StationRotation, airtime_s: f64) -> RotationCue {
     let mut remaining = airtime_s.max(0.0);
     for _ in 0..MAX_STEPS {
         let key = cue.current_key(rotation.tracks);
-        let span = content_duration_s(&key).max(MIN_ITEM_S);
+        let mut next_cue = cue.clone();
+        step(&mut next_cue, rotation);
+        let next_key = next_cue.current_key(rotation.tracks);
+        let next_opt = (!next_key.is_empty()).then_some(next_key.as_str());
+        let span = radio_item_airtime_s(&key, next_opt, content_duration_s(&key)).max(MIN_ITEM_S);
         if remaining < span {
-            cue.elapsed_s = remaining;
+            cue.elapsed_s = if remaining > 0.0 {
+                cue_lead_in_s(&key) + remaining
+            } else {
+                0.0
+            };
             return cue;
         }
         remaining -= span;
-        step(&mut cue, rotation);
+        cue = next_cue;
     }
     cue
 }
@@ -176,15 +185,16 @@ mod tests {
     fn airtime_moves_the_station_on() {
         let tracks = country();
         let rot = rotation(&tracks);
-        let first = content_duration_s(&tracks[0]);
+        let first =
+            radio_item_airtime_s(&tracks[0], Some(&tracks[1]), content_duration_s(&tracks[0]));
         // Half way through the opener.
         let cue = cue_after(&rot, first / 2.0);
         assert_eq!(cue.track_index, 0);
-        assert!((cue.elapsed_s - first / 2.0).abs() < 1e-9);
+        assert!((cue.elapsed_s - (cue_lead_in_s(&tracks[0]) + first / 2.0)).abs() < 1e-9);
         // Just past it: the second song, barely started.
         let cue = cue_after(&rot, first + 1.0);
         assert_eq!(cue.track_index, 1);
-        assert!((cue.elapsed_s - 1.0).abs() < 1e-9);
+        assert!((cue.elapsed_s - (cue_lead_in_s(&tracks[1]) + 1.0)).abs() < 1e-9);
         assert_eq!(cue.current_key(&tracks), tracks[1]);
     }
 
@@ -192,17 +202,20 @@ mod tests {
     fn the_host_break_lands_where_playback_would_put_it() {
         let tracks = country();
         let rot = rotation(&tracks);
+        let planned = plan_break("kbsk-billings", "bigsky", "country", "77|kbsk-billings", 0);
         // Two songs in, this station's host talks.
-        let two: f64 = tracks[..RADIO_TRACKS_PER_HOST_BREAK]
-            .iter()
-            .map(|k| content_duration_s(k))
-            .sum();
+        let two =
+            radio_item_airtime_s(&tracks[0], Some(&tracks[1]), content_duration_s(&tracks[0]))
+                + radio_item_airtime_s(
+                    &tracks[1],
+                    planned.first().map(String::as_str),
+                    content_duration_s(&tracks[1]),
+                );
         let cue = cue_after(&rot, two + 1.0);
         assert!(cue.in_break(), "a break should be open after two songs");
         assert_eq!(cue.break_count, 1);
         assert_eq!(cue.tracks_since_break, 0);
         assert_eq!(cue.track_index, RADIO_TRACKS_PER_HOST_BREAK);
-        let planned = plan_break("kbsk-billings", "bigsky", "country", "77|kbsk-billings", 0);
         assert_eq!(cue.current_key(&tracks), planned[0]);
     }
 
@@ -210,19 +223,30 @@ mod tests {
     fn the_break_hands_back_to_the_song_it_interrupted_for() {
         let tracks = country();
         let rot = rotation(&tracks);
-        let two: f64 = tracks[..RADIO_TRACKS_PER_HOST_BREAK]
-            .iter()
-            .map(|k| content_duration_s(k))
-            .sum();
         let planned = plan_break("kbsk-billings", "bigsky", "country", "77|kbsk-billings", 0);
-        let break_span: f64 = planned.iter().map(|k| content_duration_s(k)).sum();
+        let two =
+            radio_item_airtime_s(&tracks[0], Some(&tracks[1]), content_duration_s(&tracks[0]))
+                + radio_item_airtime_s(
+                    &tracks[1],
+                    planned.first().map(String::as_str),
+                    content_duration_s(&tracks[1]),
+                );
+        let resume_song = &tracks[RADIO_TRACKS_PER_HOST_BREAK];
+        let break_span: f64 = planned
+            .iter()
+            .enumerate()
+            .map(|(i, k)| {
+                let next = planned
+                    .get(i + 1)
+                    .map(String::as_str)
+                    .unwrap_or(resume_song.as_str());
+                radio_item_airtime_s(k, Some(next), content_duration_s(k))
+            })
+            .sum();
         let cue = cue_after(&rot, two + break_span + 1.0);
         assert!(!cue.in_break());
         assert_eq!(cue.track_index, RADIO_TRACKS_PER_HOST_BREAK);
-        assert_eq!(
-            cue.current_key(&tracks),
-            tracks[RADIO_TRACKS_PER_HOST_BREAK]
-        );
+        assert_eq!(cue.current_key(&tracks), *resume_song);
     }
 
     #[test]
