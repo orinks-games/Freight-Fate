@@ -17,7 +17,8 @@
 
 ### Added
 
-- **Sleeping through a co-driver's shift now loops Sleeper Berth.** The bed plays while the shift simulates and stops when you wake.
+- **Sleeping through a co-driver's shift now plays the Sleeper Berth track.** It loops until you wake.
+- **The driver resting in the berth now changes hours rules at the border too.** Berth time counts toward the 34-hour restart, or 36 hours in Canada.
 - **Canadian radio stations are on the dial.** Stations come in near their real transmitters across Canada, and Suggest a station takes a province.
 - **Live weather now covers Canada.** Canadian roads get current conditions and weather alerts from Environment and Climate Change Canada.
 - **Canadian live weather reads the real weather stations.** The Weather app names the station and adds wind, gusts, visibility and a forecast.
@@ -58,6 +59,7 @@
 - **The ELD now tracks your 70-hour, 8-day work cycle.** A 34-hour rest starts a fresh week, and the sleep that finishes it says so.
 - **Terminals and rest stops now offer a 34-hour restart** once a day or less of your cycle is left.
 - **A sleep that leaves your cycle used up now says how much more rest restarts it.**
+- **Motel rooms now offer the 34-hour restart** at stops without a sleeper spot and at full lots, for a night's room per day.
 - **The clock now keeps Atlantic Time in the Maritimes and Mountain Time in the Yukon and the Northwest Territories.**
 - **Fuel stops, lodges and rest areas now line the northern roads.** Loaded trucks fuel at the lodges, and only year-round stops are offered.
 - **Fifty-six carriers now hire across the map, including Alaska.** Regional carriers serve every lower-48 city, and local carriers work 18 big cities and ports.
@@ -101,6 +103,7 @@
 
 ### Changed
 
+- **All assists now brakes to a stop at the customs booth.** At lower assist levels the stop is still yours.
 - **The Weather app names the weather station.** A live report also gives wind, gusts and visibility when the station measures them.
 - **Waiting with the parking brake set now drops to normal clock speed when an hours notice comes due.**
 - **On a load that stays in Canada, the rest menu offers the 8-hour Canadian night.** A load headed into the United States still sleeps 10 hours, so you cross with fresh hours.
@@ -151,6 +154,13 @@
 
 ### Fixed
 
+- **Level-ups from 19 to 30 name only what really opens,** such as LCV training at 20; the others say the level and title.
+- **Damage to a cattle load is said of the cattle,** such as "The cattle are bruised", with what the receiver will do.
+- **Speed limits near a border are said in the units of the sign.** On Automatic units, Blaine's Canadian 30 is "30 kilometers per hour", not 19.
+- **The crossing call and the hours rules at a border are said once,** even when a readout or the customs booth cuts in.
+- **Stop names in the approach call and the stop menu start with a capital, and so does the parking line after the name,** such as "Travel center" and "Limited truck parking."
+- **The reposition's accept line reads its distance as the board does,** with no stray decimal.
+- **Dealer and buy-in rows read liters under kilometers:** the tank in liters and fuel economy in liters per 100 kilometers.
 - **A newly tuned station no longer reads out the last station's song.** Now playing waits for the new station's own title.
 - **Lane keeping keeps steering in snow and freezing rain.** It used to switch off with a tone and let the truck leave the road.
 - **Cruise brakes harder on ice and snow.** It reaches the weather's safe speed sooner and holds it on downgrades it used to lose.

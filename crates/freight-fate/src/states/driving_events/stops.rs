@@ -187,7 +187,8 @@ impl DrivingState {
         if let Some(selected) = self.selected_rest_stop() {
             let ahead = selected.at_mi - self.trip.position_mi;
             if ahead <= 0.0 {
-                self.say_plain(ctx, format!("{} is behind you.", selected.spoken_name()));
+                let name = selected.spoken_name_opening();
+                self.say_plain(ctx, format!("{name} is behind you."));
                 return;
             }
             let prefix = match self.selected_stop_purpose {

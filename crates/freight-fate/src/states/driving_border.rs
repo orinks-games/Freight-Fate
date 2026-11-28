@@ -21,10 +21,18 @@ use crate::states::base::{Menu, MenuCore, MenuItem};
 use crate::states::driving::DrivingState;
 use crate::states::driving_core::{
     advance_on_duty_clock, profile_mut_of, BORDER_PRIMARY_MIN, BORDER_SECONDARY_EXTRA_MIN,
-    BORDER_SECONDARY_REFERRAL_CHANCE, WEIGH_STATION_BYPASS_MPH,
+    BORDER_SECONDARY_REFERRAL_CHANCE, LINE_CLOSE_UP_THROTTLE, LINE_CREEP_MPH,
+    RAMP_ASSIST_DECEL_RELEASE_MPS2, RAMP_ASSIST_DECEL_START_MPS2, RAMP_ASSIST_HOLD_MI,
+    WEIGH_STATION_BYPASS_MPH,
 };
 use crate::states::driving_menu_states::{push_over_drive, DriveRef};
+use crate::states::driving_stops::assist_servo_brake;
 use crate::states::driving_updates::live;
+
+/// How far ahead of a customs booth All assists takes the stop: past the
+/// half-mile reminder, room to brake from highway speed.
+const BOOTH_ASSIST_LOOKAHEAD_MI: f64 = 1.5;
+const METERS_PER_MILE: f64 = 1609.344;
 
 /// How far past a change of country the units wait for the crossing call
 /// to carry their line, and how long a crossing call holds them against a
@@ -138,6 +146,98 @@ impl DrivingState {
                 );
             }
         }
+    }
+
+    /// Whether the truck stops itself at customs booths: the setting that
+    /// stops it at an open scale (`scale_stop_is_assisted`), full lane
+    /// keeping with facility stopping assistance, which is All assists.
+    /// Lower levels leave the stop to the driver. The co-driver is left out:
+    /// a clearance needs the player at the window.
+    pub fn booth_stop_is_assisted(&self, ctx: &GameContext) -> bool {
+        ctx.settings.lane_is_automated()
+            && ctx.settings.destination_approach_assist
+            && !self.co_driver_driving()
+    }
+
+    /// All assists brakes the truck to a stop at the next customs booth the
+    /// way route-transition assistance stops it at a red light: it starts
+    /// braking when the stop needs the assist's engagement rate, eases off
+    /// below its release rate, closes up at a crawl if it stopped short, and
+    /// at the booth the clearance opens as when the driver stops by hand.
+    /// No line of its own: the booth's notice and reminder say it.
+    pub fn update_booth_stop_assist(&mut self, ctx: &mut GameContext) {
+        let booth = (self.booth_stop_is_assisted(ctx)
+            && self.pull_over.is_none()
+            && self.ramp_mi.is_none()
+            && self.pending_border_clearance.is_none())
+        .then(|| self.next_booth_ahead(BOOTH_ASSIST_LOOKAHEAD_MI))
+        .flatten();
+        let Some(booth) = booth else {
+            self.booth_stop_brake = 0.0;
+            self.booth_close_up = false;
+            self.trip.booth_stop_active = false;
+            return;
+        };
+        let gap_mi = (booth.at_mi - self.trip.position_mi).max(0.0);
+        let speed = self.trip.truck.speed_mph();
+        if speed <= 3.0 && gap_mi <= RAMP_ASSIST_HOLD_MI {
+            // At the booth: the same stop and clearance as by hand.
+            self.booth_stop_brake = 0.0;
+            self.booth_close_up = false;
+            self.trip.booth_stop_active = false;
+            self.enforcement_events
+                .insert(format!("border-booth:{}", booth.key));
+            self.stop_for_border(ctx);
+            self.open_border_clearance(ctx, booth);
+            return;
+        }
+        let v = self.trip.truck.velocity_mps.max(0.0);
+        let needed = v * v / (2.0 * (gap_mi * METERS_PER_MILE).max(1.0));
+        let braking = self.booth_stop_brake > 0.0;
+        if needed >= RAMP_ASSIST_DECEL_START_MPS2
+            || (braking && needed >= RAMP_ASSIST_DECEL_RELEASE_MPS2)
+        {
+            if !braking && !self.booth_close_up {
+                // Cruise and the keeper hand back to the brake.
+                self.pause_speed_control(ctx, true);
+            }
+            self.booth_close_up = false;
+            self.trip.booth_stop_active = true;
+            self.booth_stop_brake =
+                assist_servo_brake(self.booth_stop_brake, needed, &self.trip.truck);
+            let truck = &mut self.trip.truck;
+            truck.throttle = 0.0;
+            truck.brake = truck.brake.max(self.booth_stop_brake);
+            return;
+        }
+        self.booth_stop_brake = 0.0;
+        if speed <= 3.0 {
+            // Stopped short of the booth: close up to it at a crawl, then
+            // brake again for the stop.
+            self.booth_close_up = true;
+        }
+        if self.booth_close_up && speed < LINE_CREEP_MPH {
+            let truck = &mut self.trip.truck;
+            truck.brake = 0.0;
+            truck.throttle = truck.throttle.max(LINE_CLOSE_UP_THROTTLE);
+        }
+    }
+
+    /// The first booth ahead within `lookahead` miles that the truck has
+    /// not yet stopped at, run or been cleared through.
+    fn next_booth_ahead(&self, lookahead: f64) -> Option<BorderBooth> {
+        let position = self.trip.position_mi;
+        self.trip
+            .border_booths
+            .iter()
+            .find(|booth| {
+                booth.at_mi >= position
+                    && booth.at_mi - position <= lookahead
+                    && !self
+                        .enforcement_events
+                        .contains(&format!("border-booth:{}", booth.key))
+            })
+            .cloned()
     }
 
     pub fn check_border_booth_crossing(&mut self, ctx: &mut GameContext, previous_mi: f64) -> bool {

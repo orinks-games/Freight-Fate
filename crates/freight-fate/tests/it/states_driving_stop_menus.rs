@@ -584,6 +584,29 @@ fn test_poi_menu_uses_curated_roadside_assistance_label() {
 }
 
 #[test]
+fn the_stop_screen_says_its_parking_as_a_sentence() {
+    // Agent drive, 2026-11-28: "Truck fuel station: Cenex C-Store. limited
+    // truck parking." The parking is a sentence of its own on arrival.
+    let mut harness = a_drive("Parking Sentence");
+    let at = harness.read_drive(|d| d.trip.position_mi);
+    let mut stop = RoadStop::new("Cenex C-Store", at, "fuel_station");
+    stop.actions = ["park", "fuel", "sleep"]
+        .iter()
+        .map(|a| a.to_string())
+        .collect();
+    stop.parking = "limited".to_string();
+    let mut state = rest_stop_screen(&mut harness, stop);
+    harness.clear_speech();
+    Menu::enter(&mut state, &mut harness.app.ctx);
+    let said = harness.app.main_lines().join(" ");
+    assert!(
+        said.contains("Cenex C-Store. Limited truck parking."),
+        "{said}"
+    );
+    assert!(!said.contains(". limited"), "{said}");
+}
+
+#[test]
 fn test_rest_stop_sleep_warns_before_redundant_double_sleep() {
     let mut harness = a_drive("Double Sleep");
     let at = harness.read_drive(|d| d.trip.position_mi);

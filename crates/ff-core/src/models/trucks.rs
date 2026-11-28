@@ -245,14 +245,26 @@ pub fn rated_mpg(model: &TruckModel) -> f64 {
     crate::sim::vehicle::TruckState::rated_mpg(&model.specs)
 }
 
-/// What a dealer or buy-in row says about a tractor: torque, tank and miles
-/// per gallon. US units, as the row has always read.
-pub fn truck_traits(model: &TruckModel) -> String {
+/// What a dealer or buy-in row says about a tractor: torque, tank and fuel
+/// economy, in gallons and miles per gallon, or under kilometers in liters
+/// and liters per 100 kilometers, as fuel reads everywhere else.
+pub fn truck_traits(model: &TruckModel, imperial: bool) -> String {
+    if imperial {
+        return format!(
+            "{} thousand newton meters torque, {} gallon tank, {} miles per gallon",
+            crate::pyfmt::fmt_f(model.specs.max_torque_nm / 1000.0, 1),
+            crate::pyfmt::fmt_f(model.specs.fuel_tank_gal, 0),
+            crate::pyfmt::fmt_f(rated_mpg(model), 1)
+        );
+    }
+    let liters = model.specs.fuel_tank_gal * crate::models::economy::LITRES_PER_US_GALLON;
+    let per_100_km = 100.0 * crate::models::economy::LITRES_PER_US_GALLON
+        / (rated_mpg(model).max(0.1) * crate::units::MILES_TO_KM);
     format!(
-        "{} thousand newton meters torque, {} gallon tank, {} miles per gallon",
+        "{} thousand newton meters torque, {} liter tank, {} liters per 100 kilometers",
         crate::pyfmt::fmt_f(model.specs.max_torque_nm / 1000.0, 1),
-        crate::pyfmt::fmt_f(model.specs.fuel_tank_gal, 0),
-        crate::pyfmt::fmt_f(rated_mpg(model), 1)
+        crate::pyfmt::fmt_f(liters, 0),
+        crate::pyfmt::fmt_f(per_100_km, 1)
     )
 }
 

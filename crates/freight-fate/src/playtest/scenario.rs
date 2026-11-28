@@ -156,6 +156,9 @@ pub struct Scenario {
     /// On-duty minutes on the cycle ledger (70 hours in 8 days), all of it
     /// ending now, with no restart under way.
     pub hos_cycle_min: Option<f64>,
+    /// Off-duty minutes already rested in a row toward the cycle restart,
+    /// set after `hos_cycle_min`.
+    pub hos_restart_off_min: Option<f64>,
     /// The co-driver's own logbook counters, the way the `hos_` ones stage
     /// the player's: put on the load in progress if it has a co-driver, and
     /// on the next co-driver paired otherwise.
@@ -474,6 +477,7 @@ impl Scenario {
             "hos_duty_min",
             "hos_since_break_min",
             "hos_cycle_min",
+            "hos_restart_off_min",
             "co_driver_driving_min",
             "co_driver_duty_min",
             "co_driver_since_break_min",
@@ -590,6 +594,7 @@ impl Scenario {
             hos_duty_min: number(args, "hos_duty_min")?,
             hos_since_break_min: number(args, "hos_since_break_min")?,
             hos_cycle_min: number(args, "hos_cycle_min")?,
+            hos_restart_off_min: number(args, "hos_restart_off_min")?,
             co_driver_hos: CoDriverHos {
                 driving_min: number(args, "co_driver_driving_min")?,
                 duty_min: number(args, "co_driver_duty_min")?,
@@ -944,6 +949,10 @@ pub fn apply(ctx: &mut GameContext, scenario: &Scenario) -> Result<Vec<String>, 
             p.hos.restart_off_min = 0.0;
             p.hos.warned.retain(|w| !w.starts_with("cycle:"));
             notes.push(format!("HOS cycle: {minutes:.0} minutes on duty."));
+        }
+        if let Some(minutes) = scenario.hos_restart_off_min {
+            p.hos.restart_off_min = minutes;
+            notes.push(format!("HOS restart: {minutes:.0} minutes off in a row."));
         }
         if let Some(city) = &scenario.came_from {
             let from = resolve_city_forgiving(world, city);

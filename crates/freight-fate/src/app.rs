@@ -297,6 +297,9 @@ pub struct DrivingObservation {
     /// driving time or duty window their own logbook has left (None with
     /// hours off).
     pub co_driver: Option<(ff_core::sim::team_shift::TeamShift, Option<f64>)>,
+    /// On a load with a co-driver: the off-duty minutes the restart still
+    /// needs on the logbook off the wheel (the player's while they sleep).
+    pub off_wheel_restart_rest_left: Option<f64>,
     /// The driver window's state machine.
     pub window: ff_core::sim::cab::Window,
     /// The live weather service the truck's position is on (None: no
@@ -1216,6 +1219,10 @@ impl App {
                 );
                 (team.shift, left)
             }),
+            off_wheel_restart_rest_left: drive
+                .team
+                .as_ref()
+                .map(|team| team.off_wheel_hos.restart_remaining_min()),
             window: drive.cab.window(),
             weather_service: drive.trip.weather.live_service(),
             weather_station: drive.trip.weather.live_report().map_or_else(

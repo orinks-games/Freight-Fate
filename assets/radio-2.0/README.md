@@ -19,19 +19,28 @@ the same way from the approved finals.
 
 ## Rebuilding the pack
 
-The rebuild is the previous pack plus this folder. The base pack is
-`https://crisp-crystal-9a9y.here.now/music.pak`, SHA-256
-`c56401a2a45057faba0bd4bf7d024ce7dd3908f682f4c35526643a1870cb7798`
-(426 entries, 382,743,336 bytes). Put it at `assets/music.pak`, then:
+The rebuild is the previous pack plus this folder. The base pack is the one
+pinned in `crates/ff-tools/src/release/packs.rs`: now
+`https://crisp-crystal-9a9y.here.now/music-9782a9ba.pak`, SHA-256
+`9782a9ba3f259f60609a5df5097cfcc2a9ddbc970d607687fe115608ee4bf691`
+(442 entries, 385,764,865 bytes). Put it at `assets/music.pak`, then:
 
 ```
 cargo tools pack-sounds --overlay assets/radio-2.0/pack-overlay \
   --out <scratch>/sounds.pak --music-out build/music-next.pak
 ```
 
-The `--out` file is a by-product; discard it. The result has 441 entries
-and is published as `music-<first 8 hex of its SHA-256>.pak` beside the old
-pack, so a branch that pins the old pack keeps building.
+The `--out` file is a by-product; discard it. The result is published as
+`music-<first 8 hex of its SHA-256>.pak` beside the old pack, so a branch
+that pins the old pack keeps building.
+
+Start from the pinned pack, not the 1.9 `music.pak`: the pinned pack also
+carries `music/sleeper_berth`, the 13.8 s loop that plays while the player
+sleeps through a co-driver's shift. That clip is in no repo folder (music
+files stay out of the repo), so a rebuild from the 1.9 pack would drop it.
+It went in on 2026-11-28 by overlaying a scratch folder holding
+`music/sleeper_berth.opus` on `music-9f4c05a1.pak` (441 entries), the pack
+this folder first produced.
 
 ## Hosts
 

@@ -1326,6 +1326,10 @@ pub fn build_driving(ctx: &mut GameContext, hit: &Hit, opts: &RoadOptions) -> (D
         }
         profile.hos = previous.hos.clone();
         profile.fatigue = previous.fatigue;
+        // And the cash a scenario put in hand: a staged drive reset it to
+        // the bench career's 5,000, so a stop that should refuse a motel
+        // room sold one (agent drive, 2026-11-28).
+        profile.set_money(previous.money());
         // And the date a scenario put on the calendar: dated rules (spring
         // weight limits, the Whittier tunnel's seasons) read it.
         profile.calendar_offset_days = previous.calendar_offset_days;

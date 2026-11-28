@@ -1336,6 +1336,45 @@ fn a_board_with_no_load_in_watson_lake_sends_the_truck_on_empty() {
     assert!(job.bobtail && job.assigned && job.pay > 0.0, "{job:?}");
 }
 
+/// The reposition's accept line reads its distance in whole numbers, as the
+/// board row does: "177.0 kilometers" had a decimal the row did not.
+#[test]
+fn a_reposition_accept_line_reads_whole_kilometers_like_the_board() {
+    let mut app = TestApp::new();
+    career(&mut app, "Yukon Driver", "Watson Lake");
+    {
+        let p = profile_mut(&mut app);
+        p.carrier_key = "northstar".to_string();
+        p.career.deliveries = 1;
+        p.achievements.push("first_day".to_string());
+    }
+    app.ctx.settings.units = "metric".to_string();
+    open_freight_market(&mut app.ctx);
+    let row = labels::<JobBoardState>(&app)[0].clone();
+    assert!(
+        row.starts_with("Assigned load: Reposition, empty, to "),
+        "{row}"
+    );
+    app.clear_speech();
+    activate::<JobBoardState>(&mut app, "Reposition");
+    app.ctx.run_deferred();
+    let said = app.main_lines().join("\n");
+    let accept = said
+        .lines()
+        .find(|line| line.starts_with("Reposition to "))
+        .unwrap_or_else(|| panic!("no accept line: {said}"));
+    let distance = row
+        .split(", ")
+        .map(|part| part.split('.').next().unwrap_or(part))
+        .find(|part| part.ends_with(" kilometers"))
+        .unwrap_or_else(|| panic!("the row's distance: {row}"));
+    assert!(
+        accept.contains(&format!(", {distance} on ")),
+        "{accept} / {row}"
+    );
+    assert!(!accept.contains(".0 kilometers"), "{accept}");
+}
+
 #[test]
 fn test_a_new_hires_first_dispatch_is_never_a_relay() {
     // Before the first delivery dispatch never relays, even off an empty

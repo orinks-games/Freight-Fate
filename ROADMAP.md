@@ -4858,11 +4858,15 @@ town at 15 to 23 mph. Design: the doc "Realistic traffic pass: design"
 - [x] No more low bridge and weight limit calls (owner, 2026-11-22: they spammed the player about bridges a truck never meets). Routing already avoids anything a legal truck cannot pass, so every call ended "Your route clears it"; Joplin to Tulsa spoke up to 122 of them, and Detroit to Windsor six in the eight miles before customs. The `corridor.restrictions` layer, its parser and the bake stay for a route that weighs the truck's own height and weight. The dispatch board help no longer promises restrictions in Route planning, which never listed them.
 - [x] Opt-in cloud resume: main-menu checks pick up clean, tracked careers from this release line's cloud slots; changed local copies use Cloud backup's conflict choice. Off by default; 1.9 backups stay separate.
 - [x] (Found along the way) CI builds of 2.0 stopped at packaging because the licensed stereo engine recordings were only in the owner's `assets/sounds-licensed/` folder (2026-11-25). They now ride in the committed `assets/sounds.pak` with the other sounds (owner, 2026-11-25). To change them, run `cargo tools pack-sounds --require-licensed` on the machine that has the folder and commit the pack it writes.
-- [ ] (Found along the way) Restart rows for the motel, a full lot and the team (co-driver) stop menus are not built; a driver there still restarts with nights in a row (2026-11-26).
+- [x] (Found along the way) Restart rows for the motel and a full lot (2026-11-28). Where a stop has no sleeper spot, and at a full lot, the motel offers the restart under the night's row ("Take a 34-hour restart in a motel room for 190 dollars", 36 hours off under Canadian rules, or "Rest ... more to finish"), from the same `RestartOffer` (`RestartPlace::Motel`). The room is a night's price for each day the rest spans (`RestartOffer::motel_nights`: 34 or 36 hours is two nights), a starting value for the owner. The rest stop forecasts first as its other rows do; the full lot rests in one pick, as its motel night does. Regression: `states_driving_restart`.
+- [x] (Found along the way) Team restart (owner ruling 2026-11-28). Berth time while the co-driver drives is off duty and counts toward the cycle restart under the rules of the place the truck is in: 34 hours off in the US and Alaska (49 CFR 395.3(c)), 36 hours off for Canadian cycle 1 (SOR/2005-313 s. 28 and 53). Both logbooks take the jurisdiction's rules, so a rest that crosses the line finishes under the new country's threshold. When the cycle had hours at the handover and is clear at the handback, the handback and the wake summary end with "Your cycle restarted." The handback stop's restart row counts the berth time. Canadian cycle 2 is not modeled (its own bullet below); the co-driver's own cycle does not shape the offer.
+- [ ] (Found along the way) A slept shift skips the customs booth (agent drive, 2026-11-28: a team load out of Seattle handed over 5 miles before Abbotsford-Huntingdon woke 531 miles into British Columbia with no stop, no clearance and no police). The sleep jump ends short of a scale that wants the truck and of a chain-law area, never of a customs booth, and nothing handles a co-driver at the booth live either. Who stands at the window on a team crossing is the owner's call: wake the player before the booth, or the co-driver clears it. The same jump hands back at a stop still in the old country's units and hours rules; both follow the truck only once it is back on the road ("Canadian hours rules" at once, the kilometers line a few hundred meters on), so a berth rest that crossed into Canada was counted to 34 hours, not 36.
+- [ ] (Found along the way) "Your cycle restarted." is not reachable in play (agent drive, 2026-11-28). Every handover is made from the wheel, and taking the wheel, even parked with the engine off, starts the off-duty count over, so the berth time that reaches the handback is one shift's 10 to 11 hours; the restart is finished at the stop's row instead. The owner's call: let a straight handover from a parked truck keep the count, or keep the line for staged tests only.
 - [ ] (Found along the way) The committed pack carries the recut idle, low, mid and upper-mid loops, the trimmed cab shutdown, the 2.75 second starter, and the high pull (52,848 frames) and high coast (16,372 frames) loops (owner, 2026-11-25). With pull and coast in the pack the game no longer plays the earlier high loop: it carries a steady 596 Hz tone, heard as a dirt-bike whine on every run-up to a shift in the first full drive recording. The newer high on the owner's PC (52,648 frames) is a piece of the same recording with the same tone. The earlier high stays in the pack only because packaging requires the entry. Still owed: a clean high loop for a pack without pull and coast, the owner's ear on the pull loop (its firing line at 2,160 RPM is weak next to a 139 Hz tone, and its right channel is 5.6 dB louder), and a ruling on the 6.7 second starter in the owner's copy.
 - [x] Career level cap 40 (owner, 2026-11-27; plan in the project files, `career-level-cap/plan.md`). Levels 31 to 40 cost 25,000 experience each (412,000 to 637,000; 1 to 30 unchanged), with new titles on both ladders. A level that opens nothing speaks its level and title only. The board grows to nine offers at 31; company drivers get experience pay (1, 2, 3 percent of the load at 33, 36, 39, `business::experience_pay`); owner-operator settlement service and billing fees drop half a point at the same levels (`business::owner_fee_discount_share`). Experience already past level 30 counts, with one terminal line (`Career::banked_levels_heard`). Seven achievements for levels 35 and 40, 300 and 500 deliveries, and 250,000, 500,000 and 1,000,000 miles. The pay and fee steps are starting values for the owner's ear.
-- [ ] (Found along the way) Levels 19 to 30 still speak unlock lines that open nothing, such as "Owner-operator settlements are now routine."
+- [x] (Found along the way) Levels 19 to 30 still speak unlock lines that open nothing, such as "Owner-operator settlements are now routine." Each now keeps a line only for what opens there: LCV training at 20, liquid food loads (and authority prep on the owner-operator ladder) at 21, own authority at 25; the rest say their level and title (2026-11-28). The LCV line is untrue for a Canadian-based driver, who cannot take doubles or LCV; still open, below.
 - [ ] (Found along the way) The company ladder from 31 to 40 has titles, the larger board and experience pay only.
+- [ ] (Found along the way) The level 20 line says LCV training opens, but a Canadian-based driver can take neither doubles nor LCV; that driver hears an unlock that is not there.
 - [ ] (Found along the way) Player-run carrier roster steps by owner level (4 at opening, 6 at 32, 8 at 35, 10 at 38) are proposed for the phase that builds those carriers, and their unlock lines go in the empty owner-operator rows.
 - [x] (Found along the way) River water with no river name (owner report, 2026-11-27, Springfield MA to Fort Frances ON: 11 of 18 crossings he drove played the water silently). The name was thinned like scenery, by the 90-second chatter budget and the 2-mile town spacing. One water sound, one name: the name now comes from the water's own onset (`ff_core::sim::river_crossing::RiverCrossing`), never waits on the budget and still spends it; a named bridge's line covers its crossing, and two rivers whose water runs together get the first name. A withheld name is logged with the reason; the agent server's `status` reports the water and the last river named. Regression: `sim_river_crossings`. Fixed 2026-11-27.
 
@@ -5403,9 +5407,22 @@ branch. The older Phase A/B plan checklists are not a live completion list.
 - [ ] (Found along the way) The new Alaska sites have no street chains, and
       the two Deadhorse sites sit at the airport and the place centroid:
       neither terminal has an OpenStreetMap object.
-- [ ] **Canadian daily and cycle-2 rules.** Daily limits and daily off-duty
-      requirements, cycle 2, Canadian split sleeper, adverse-driving
-      extensions, and deferral are not modeled.
+- [ ] **Canadian daily rules.** Daily limits and daily off-duty
+      requirements, Canadian split sleeper, adverse-driving extensions, and
+      deferral are not modeled.
+- [ ] **Canadian cycle 2, for stable 2.0** (owner approved 2026-11-28; not
+      in the alpha). 120 hours on duty in 14 days, 24 hours off in a row
+      before passing 70 hours on duty (80 north of 60), 72 hours off in a
+      row to reset, 36 hours off to switch from cycle 1 to cycle 2 and 72
+      to switch back (SOR/2005-313 ss. 24 to 29 and 49 to 54).
+- [ ] **US 7-day cycles, for stable 2.0** (approved by the owner
+      2026-11-28, for stable 2.0, not in the alpha). The lower 48 runs
+      only 70 hours in 8 days and Alaska only 80 hours in 8 days. Missing: 60 hours in 7
+      days (49 CFR 395.3(b)(1), for a carrier that does not run every day
+      of the week) and Alaska's 70 hours in 7 days (395.1(h)). The carrier's
+      schedule decides which applies, so the cycle comes from the carrier,
+      and from the player's own choice under their own authority.
+      The 34-hour restart is the same for both.
 - [ ] **Route-wide HOS planning.** The job planner and planning hints use one
       rule set for the entire route rather than switching at jurisdiction
       boundaries. Since 2026-11-25 (brief 2 review) a plan for a route that
@@ -5683,12 +5700,28 @@ branch. The older Phase A/B plan checklists are not a live completion list.
       rule changes, so they now wait for the road to go quiet however long
       it takes, and play once each, in order. The agent server can stage a
       drive before a line (`start_at` feature `state-line`).
+- [x] All assists stops at the customs booth (owner ruling, 2026-11-28).
+      The truck rolled through and drew the RCMP or CBP stop and its fine.
+      Now the setting that brakes for an open scale, full lane keeping with
+      facility stopping assistance, brakes to a stop at the booth
+      (`DrivingState::update_booth_stop_assist`) the way route-transition
+      assistance stops at a red light: it engages at 0.6 m/s2, eases off
+      under 0.35, closes up at a crawl if it stopped short, holds the real
+      clock to the stop (`Trip::booth_stop_active`), and opens the clearance
+      within 60 feet of the booth. No new line. The red-light assist itself
+      is on at every preset, so following it would have stopped Balanced and
+      Realistic too; the scale's rule keeps the stop the driver's there. The
+      co-driver is left out (a clearance needs the player). Regression:
+      `states_driving_border_assist`.
 - [ ] (Found along the way) The customs booth approach is an implicit state
       machine: three string keys in the enforcement events (notice,
       reminder, booth), the pending clearance and the reminder's real-time
       hold. Make it one `BoothApproach` enum in `ff-core` (Ahead, Noticed,
       Reminded, Stopped, Ran, Cleared) so the agent server's `status` reports
-      it and a scenario can set it. No defect came from it yet.
+      it and a scenario can set it. No defect came from it yet. Left open
+      by the All assists booth stop (2026-11-28): the enum, its table, the
+      status key and the scenario tag would have more than doubled that
+      change, which keeps to the existing keys.
 
 Automated evidence: the four `test_alcan_phase_a_*` cases (including the
 Tok–Delta Junction–Fairbanks split), `test_alcan_phase_b1_tok_cutoff_glenn_to_anchorage`,
@@ -6106,9 +6139,12 @@ with Facility streets off (transcripts in the project's
       words their events use ("Load: 19 tons of live cattle, gross 33
       tons. Cattle restless, 12 percent"), and the cattle row after it
       carries the head count and the limit. (Found along the way)
-- [ ] *(Found along the way)* The cattle condition line spoken on the road
+- [x] *(Found along the way)* The cattle condition line spoken on the road
       when the load takes damage still uses the boxed-freight sentence
       ("The load has shifted hard ..."); cattle need their own wording.
+      It now reads "The cattle are bruised, 12 percent. The receiver will
+      note the bruising and hold back part of the pay.", with the claim
+      and refusal in the receiver's words (2026-11-28).
 - [x] "They can ride 28 hours." is off the cattle board row; the load's
       details say it once, after the head count. (Found along the way)
 - [x] A class banned outright at a tunnel or bridge is refused in its own
@@ -6490,18 +6526,29 @@ a carrier slice (owner, 2026-10-26).
       28 percent of Seattle's and half of Bellingham's posted loads go to
       Canada once the West opened. A weight on loads that cross (0.4 would
       roughly halve it) is a balance call for the owner.
-- [ ] (Found along the way) The crossing call and the hours rules line at
+- [x] (Found along the way) The crossing call and the hours rules line at
       a border are spoken a second time when a status readout, a customs
-      booth or a police stop cuts them.
-- [ ] (Found along the way) Converted limits at Blaine: northbound
+      booth or a police stop cuts them. The lines queued after a crossing
+      are now said once: a cut one is not handed back (2026-11-28).
+- [x] (Found along the way) Converted limits at Blaine: northbound
       (Bellingham to Surrey) "Speed limit reduced to 19 leaving Blaine for
       one mile" is 30 km/h in miles before the line; southbound (Surrey to
       Bellingham) "reduced to 64 approaching Blaine" is 40 mph in
-      kilometers.
-- [ ] (Found along the way) Stop names start lowercase in the approach
+      kilometers. On the Automatic units the arrival and drop-ahead lines
+      now say a posting in the units of the country it mostly stands in,
+      with the unit ("reduced to 30 kilometers per hour"), at every
+      crossing (2026-11-28). Work-zone lines still use the units in force.
+- [ ] (Found along the way) Cruise lines still convert a sign across the
+      line: northbound at Blaine, "Cruise set at 24 miles per hour for the
+      19 limit ahead" names the Canadian 30 in miles. Saying it in its own
+      units would mix two units in one sentence; wording for the director.
+- [x] (Found along the way) Stop names start lowercase in the approach
       call: "truck fuel station: McLeod Lake Petro-Canada in 7 kilometers",
       "travel center: Speed Pro Truck Stop". The Gordie Howe toll line
-      also starts lowercase and is said twice.
+      also starts lowercase and is said twice. The approach call, the stop
+      screen's title and announcement, and "is behind you" now start with
+      a capital (2026-11-28); the toll line was already fixed on
+      2026-11-22.
 - [ ] (Found along the way) Pigeon River and the Sault Ste. Marie bridge
       take loads but were not driven for loads across the border.
 - [ ] (Found along the way) Shipping containers are hooked on a flatbed or
@@ -6525,8 +6572,9 @@ a carrier slice (owner, 2026-10-26).
       load for that driver. Slow test over every Canadian city, carrier and
       level 1 and 8. An empty run now parks and settles on arrival instead
       of opening the dock menu.
-- [ ] (Found along the way) The reposition's accept line says "177.0
-      kilometers", with a decimal the board line does not have.
+- [x] (Found along the way) The reposition's accept line says "177.0
+      kilometers", with a decimal the board line does not have. It now
+      reads the distance as the board does (2026-11-28).
 - [ ] (Found along the way) The load card's hours plan does not say it
       counts customs time; a border load's plan reads the same as a home
       one. Wording for the director.
@@ -7471,6 +7519,11 @@ a carrier slice (owner, 2026-10-26).
       (`id_roadhouse_09`, `_10`) and the sung Coast to Coast ID (`_08`). The
       clips are kept in `assets/radio-2.0/pack-overlay/` as the source of
       the music pack rebuild (`music-9f4c05a1.pak`).
+- [x] Sleeper Berth, a 13.8 second loop, plays while the player sleeps
+      through a co-driver's shift and stops on waking; riding along is
+      unchanged (2026-11-28). The clip is `music/sleeper_berth` in the
+      pinned pack, `music-9782a9ba.pak` (442 entries), and in no repo
+      folder.
 - [x] A test holds every host, ID and ad duration in the tables to its clip
       in `music.pak` within 0.25 s, since the break timer reads the table.
 - [ ] (Found along the way) Hiring spots for the carriers that have none
@@ -7961,9 +8014,10 @@ here 2026-09-25. Details stay in the linked dated sections.
 - [ ] (Found along the way) **Public profile net worth still counts a
       tractor from a 1.9 buy-in at its full catalog price,** though it goes
       back for 35,000 at most.
-- [ ] (Found along the way) **Dealer and buy-in rows stay in US units under
+- [x] (Found along the way) **Dealer and buy-in rows stay in US units under
       kilometers:** the tank reads gallons and economy miles per gallon while
-      fuel elsewhere reads liters.
+      fuel elsewhere reads liters. Under kilometers they now read the tank
+      in liters and the economy in liters per 100 kilometers (2026-11-28).
 - [ ] (Found along the way) **`update_fuel`'s comment says it is calibrated
       for about 6.5 to 7 mpg at 60 mph;** with the reference load on level
       road the standard rig works out to about 7.3.

@@ -43,7 +43,7 @@ impl BuyInState {
 
     fn label(ctx: &GameContext, model: &TruckModel) -> String {
         let name = py_capitalize(model.label);
-        let traits = truck_traits(model);
+        let traits = truck_traits(model, ctx.settings.imperial());
         let price = fmt_grouped(model.price, 0);
         if profile(ctx).active_truck_key() == model.key {
             format!("{name}, the tractor you drive now: {traits}, {price} dollars")

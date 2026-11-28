@@ -10,12 +10,13 @@ use crate::util::{self, Result};
 /// The music pack. Each rebuild is published under a new name beside the
 /// old one (`music-<first 8 hex of its SHA-256>.pak`), so a branch still
 /// pinned to an older pack keeps building; a rebuild moves both lines. The
-/// 2.0 pack is the 1.9 pack plus `assets/radio-2.0/pack-overlay/`, and that
-/// folder's README has the rebuild command. The SHA-256 is what gates the
-/// download.
-const DEFAULT_MUSIC_URL: &str = "https://crisp-crystal-9a9y.here.now/music-9f4c05a1.pak";
+/// 2.0 pack is the 1.9 pack plus `assets/radio-2.0/pack-overlay/` and the
+/// Sleeper Berth loop (`music/sleeper_berth`, whose clip is in no repo
+/// folder), and that folder's README has the rebuild command. The SHA-256 is
+/// what gates the download.
+const DEFAULT_MUSIC_URL: &str = "https://crisp-crystal-9a9y.here.now/music-9782a9ba.pak";
 const DEFAULT_MUSIC_SHA256: &str =
-    "9f4c05a19b3d0363abff7607cdc1648a08ca36d24a5a6dcce0a60cab0d51aa31";
+    "9782a9ba3f259f60609a5df5097cfcc2a9ddbc970d607687fe115608ee4bf691";
 /// Channel 3000's clips, packed from the owner's local clips folder. Its own
 /// pack rather than more of music.pak, which the game reads whole into
 /// memory; the game opens this one only when the radio is first tuned to

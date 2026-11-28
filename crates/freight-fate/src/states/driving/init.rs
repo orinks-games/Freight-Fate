@@ -252,6 +252,7 @@ impl DrivingState {
         ctx.settings
             .move_units(ff_core::units::UnitsEvent::ScreenAt(start_country));
         trip.set_imperial(ctx.settings.imperial());
+        trip.automatic_units = ctx.settings.units_mode() == ff_core::units::UnitsMode::Automatic;
         // How often a trooper pulls this driver in for a routine inspection
         // rides the safety record from the first mile.
         {
@@ -533,6 +534,8 @@ impl DrivingState {
             chain_reminder_said: HashSet::new(),
             chain_stop: None,
             chain_stop_brake: 0.0,
+            booth_stop_brake: 0.0,
+            booth_close_up: false,
             chain_stop_areas_done: HashSet::new(),
             chain_set: Default::default(),
             chain_bare_cue_pending: false,

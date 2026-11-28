@@ -1043,6 +1043,13 @@ impl RoadStop {
         typed_name(self.label(), &self.name, ": ")
     }
 
+    /// [`spoken_name`](Self::spoken_name) where it opens a line or a
+    /// sentence: a kept type prefix starts with a capital ("Travel center:
+    /// Speed Pro Truck Stop."), and stays lowercase mid-sentence.
+    pub fn spoken_name_opening(&self) -> String {
+        crate::speech_text::sentence_start(&self.spoken_name())
+    }
+
     /// Whether a driver can buy fuel here.
     pub fn sells_fuel(&self) -> bool {
         self.actions.iter().any(|action| action == "fuel")

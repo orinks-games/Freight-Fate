@@ -75,6 +75,15 @@ pub struct ShiftLog {
     pub fuel_stops: Vec<String>,
     pub scales: Vec<String>,
     pub notes: Vec<String>,
+    /// The player's cycle restarted while the co-driver held the wheel:
+    /// hours were on it at the handover and the berth time cleared them.
+    pub cycle_restarted: bool,
+}
+
+/// The sentence a handback adds after the rest sentence when the berth
+/// time restarted the player's cycle.
+pub fn cycle_restarted_sentence(log: &ShiftLog) -> Option<&'static str> {
+    log.cycle_restarted.then_some("Your cycle restarted.")
 }
 
 /// The co-driver while they hold the wheel.
@@ -93,6 +102,9 @@ pub struct Wheel {
     /// handover, and any animal strike they drove on from. More than this
     /// is damage they hand back for.
     pub damage_seen: f64,
+    /// On-duty minutes on the player's cycle at the handover, to tell at
+    /// the handback whether the berth time restarted it.
+    pub cycle_used_before: f64,
 }
 
 /// The co-driver for this load.
@@ -343,6 +355,7 @@ impl DrivingState {
         }
         std::mem::swap(hos_mut_of(ctx), &mut team.off_wheel_hos);
         let player_rest_owed = !co_driver::fully_rested(&team.off_wheel_hos);
+        let cycle_used_before = team.off_wheel_hos.cycle_used_min();
         let seed = self.trip_seed + self.trip.game_minutes as i64;
         team.wheel = Some(Wheel {
             mode,
@@ -353,6 +366,7 @@ impl DrivingState {
             summon: None,
             player_rest_owed,
             damage_seen: self.trip.truck.damage_pct,
+            cycle_used_before,
         });
         let co_driver_name = team.co_driver.name;
         self.team_shift_event(TeamShiftEvent::HandedOver);
@@ -385,8 +399,14 @@ impl DrivingState {
     /// Give the wheel back to the player. Returns the shift's log.
     pub fn take_wheel_back(&mut self, ctx: &mut GameContext) -> Option<ShiftLog> {
         let team = self.team.as_mut()?;
-        let wheel = team.wheel.take()?;
+        let mut wheel = team.wheel.take()?;
         std::mem::swap(hos_mut_of(ctx), &mut team.off_wheel_hos);
+        // Berth time is off duty, so a long enough shift restarts the
+        // player's cycle (34 hours, 36 under Canadian rules; owner ruling
+        // 2026-11-28). Said once, at the handback, when hours count.
+        wheel.log.cycle_restarted = !hos::HOS_NON_ENFORCED_MODES
+            .contains(&ctx.settings.hos_mode.as_str())
+            && hos_of(ctx).cycle_restarted_since(wheel.cycle_used_before);
         self.team_shift_event(TeamShiftEvent::TakenBack);
         ctx.settings.take_assists_back();
         self.trip.truck.transmission.automatic = ctx.settings.automatic_transmission;
@@ -589,6 +609,7 @@ impl DrivingState {
         if let Some(short) = short {
             lines.push(short);
         }
+        lines.extend(cycle_restarted_sentence(&log).map(str::to_string));
         if let Some(team) = self.team.as_mut() {
             team.last_summary = lines.clone();
         }

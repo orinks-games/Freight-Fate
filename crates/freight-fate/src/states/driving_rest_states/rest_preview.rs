@@ -2,7 +2,7 @@
 //! clone so a preview cannot change the driver's clock, deadline, or fatigue.
 
 use ff_core::pyfmt::fmt_f;
-use ff_core::sim::hos::{self, RestartOffer};
+use ff_core::sim::hos::{self, RestartOffer, RestartPlace};
 
 use crate::app::GameContext;
 use crate::states::driving::DrivingState;
@@ -17,10 +17,8 @@ pub(super) enum SleepChoice {
     Sleeper(i64),
     Lot,
     Motel,
-    /// The cycle restart, in the sleeper berth or, `lot`, in the lot.
-    Restart {
-        lot: bool,
-    },
+    /// The cycle restart, in the sleeper berth, the lot or a motel room.
+    Restart(RestartPlace),
 }
 
 impl SleepChoice {
@@ -31,15 +29,17 @@ impl SleepChoice {
             Self::Sleeper(10) | Self::Lot | Self::Motel => reset_hours,
             Self::Sleeper(hours) => hours,
             // The restart's minutes come from its offer, never from here.
-            Self::Restart { .. } => 0,
+            Self::Restart(_) => 0,
         }
     }
 
     fn name(self) -> &'static str {
         match self {
-            Self::Sleeper(_) | Self::Restart { lot: false } => "sleeper berth",
-            Self::Lot | Self::Restart { lot: true } => "the lot",
-            Self::Motel => "a motel room",
+            Self::Sleeper(_) | Self::Restart(RestartPlace::Sleeper | RestartPlace::Terminal) => {
+                "sleeper berth"
+            }
+            Self::Lot | Self::Restart(RestartPlace::Lot) => "the lot",
+            Self::Motel | Self::Restart(RestartPlace::Motel) => "a motel room",
         }
     }
 }
@@ -55,7 +55,7 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
     };
     // The restart rests what is left of it, the same minutes the pick takes.
     let restart = match choice {
-        SleepChoice::Restart { .. } => Some(profile.hos.restart_offer(&ctx.settings.hos_mode)),
+        SleepChoice::Restart(_) => Some(profile.hos.restart_offer(&ctx.settings.hos_mode)),
         _ => None,
     };
     let reset_hours = night.hours();
@@ -75,28 +75,26 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
             after.rest_reset(night);
             false
         }
-        SleepChoice::Restart { lot } => {
-            after.finish_restart(restart_status(lot));
+        SleepChoice::Restart(place) => {
+            after.finish_restart(place.duty_status());
             false
         }
         SleepChoice::Sleeper(_) => after.sleeper_split_rest(minutes),
     };
     // An 8-hour Canadian night ends the Canadian counts without the US
     // full_reset record, and is a full night all the same.
-    let full_reset = matches!(
-        choice,
-        SleepChoice::Sleeper(10) | SleepChoice::Restart { .. }
-    ) || after
-        .history
-        .last()
-        .is_some_and(|event| event.source == "full_reset");
+    let full_reset = matches!(choice, SleepChoice::Sleeper(10) | SleepChoice::Restart(_))
+        || after
+            .history
+            .last()
+            .is_some_and(|event| event.source == "full_reset");
     // A coffee or drink that wears off during the sleep is paid back first,
     // as the sleep itself does it.
     let wake_h = d.absolute_game_hour(ctx, None) + minutes / 60.0;
     let lying_down = (profile.fatigue + profile.stimulant_loan().owed_by(wake_h)).min(100.0);
     let fatigue_after = match choice {
-        SleepChoice::Restart { lot: false } => hos::rest_sleep(lying_down, minutes),
-        SleepChoice::Restart { lot: true } => hos::rest_poor_sleep(lying_down, minutes),
+        SleepChoice::Restart(RestartPlace::Lot) => hos::rest_poor_sleep(lying_down, minutes),
+        SleepChoice::Restart(_) => hos::rest_sleep(lying_down, minutes),
         SleepChoice::Sleeper(_) if full_reset => hos::rest_sleep(lying_down, minutes),
         SleepChoice::Motel => hos::rest_sleep(lying_down, minutes),
         SleepChoice::Lot => hos::rest_poor_sleep(lying_down, minutes),
@@ -109,7 +107,7 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
     };
     let restart_effect = restart.map(RestartOffer::effect_text);
     let effect = match choice {
-        SleepChoice::Restart { .. } => restart_effect.as_deref().unwrap_or(full_sleep_line),
+        SleepChoice::Restart(_) => restart_effect.as_deref().unwrap_or(full_sleep_line),
         SleepChoice::Lot | SleepChoice::Motel => full_sleep_line,
         SleepChoice::Sleeper(_) if full_reset => full_sleep_line,
         SleepChoice::Sleeper(_) if completed_split => {
@@ -170,15 +168,18 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
         .split_pending_spoken()
         .map(|summary| format!(" {summary}"))
         .unwrap_or_default();
-    let cost = if choice == SleepChoice::Motel {
-        format!(" The room costs {} dollars.", fmt_f(MOTEL_COST, 0))
-    } else {
-        String::new()
+    let room = match (choice, restart) {
+        (SleepChoice::Motel, _) => Some(MOTEL_COST),
+        (SleepChoice::Restart(RestartPlace::Motel), Some(offer)) => Some(offer.motel_cost()),
+        _ => None,
     };
+    let cost = room
+        .map(|dollars| format!(" The room costs {} dollars.", fmt_f(dollars, 0)))
+        .unwrap_or_default();
     if restart.is_some() {
         return format!(
             "Rest {span}{more} at {}. {effect} {legal} Fatigue {} to {}. Clock moves ahead \
-             {span}. {deadline}{cattle} Select again to rest.",
+             {span}. {deadline}{cattle}{cost} Select again to rest.",
             choice.name(),
             fmt_f(profile.fatigue, 0),
             fmt_f(fatigue_after, 0)
@@ -191,14 +192,4 @@ pub(super) fn sleep_preview(d: &DrivingState, ctx: &GameContext, choice: SleepCh
         fmt_f(profile.fatigue, 0),
         fmt_f(fatigue_after, 0)
     )
-}
-
-/// The duty status a restart is logged under: the berth, or off duty in
-/// the lot, the way the lot's night is logged.
-pub(super) fn restart_status(lot: bool) -> &'static str {
-    if lot {
-        "off_duty"
-    } else {
-        "sleeper_berth"
-    }
 }

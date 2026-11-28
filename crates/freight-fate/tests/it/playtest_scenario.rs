@@ -210,6 +210,28 @@ fn road_staging_keeps_the_sandbox_driver_hours_and_fatigue() {
 }
 
 #[test]
+fn road_staging_keeps_the_sandbox_driver_cash() {
+    let mut app = TestApp::new();
+    apply(
+        &mut app.ctx,
+        &scenario(json!({"city": "Buffalo", "money": 150})),
+    )
+    .unwrap();
+    let opts = RoadOptions {
+        feature: "stop".to_string(),
+        trip_seed: Some(7),
+        ..Default::default()
+    };
+    let pairs = vec![("Buffalo".to_string(), "Albany".to_string())];
+    let hit = find_feature(app.ctx.world, &pairs, "stop", &opts, Some(7))
+        .into_iter()
+        .next()
+        .expect("a stop on the test corridor");
+    let _ = build_driving(&mut app.ctx, &hit, &opts);
+    assert_eq!(app.ctx.profile.as_ref().unwrap().money(), 150.0);
+}
+
+#[test]
 fn road_staging_moves_the_career_clock_to_the_staged_hour() {
     // A staged drive's clock was its own hour while the career clock stayed
     // where the scenario left it, so what the drive read from the calendar
@@ -292,4 +314,21 @@ fn hos_cycle_min_stages_the_working_week() {
     assert_eq!(p.hos.cycle_used_min(), 4140.0);
     assert_eq!(p.hos.cycle_remaining_min("realistic"), Some(60.0));
     assert_eq!(p.hos.restart_remaining_min(), 34.0 * 60.0);
+}
+
+/// `hos_restart_off_min` stages rest already taken toward the cycle restart,
+/// on top of the week `hos_cycle_min` puts on the ledger.
+#[test]
+fn hos_restart_off_min_stages_rest_toward_the_restart() {
+    let mut app = TestApp::new();
+    let notes = apply(
+        &mut app.ctx,
+        &scenario(json!({"hos_cycle_min": 4140, "hos_restart_off_min": 1500})),
+    )
+    .expect("the scenario applies");
+    assert!(notes
+        .iter()
+        .any(|n| n == "HOS restart: 1500 minutes off in a row."));
+    let p = app.ctx.profile.as_ref().expect("a career");
+    assert_eq!(p.hos.restart_remaining_min(), 34.0 * 60.0 - 1500.0);
 }

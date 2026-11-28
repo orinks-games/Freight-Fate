@@ -257,7 +257,14 @@ impl DrivingState {
         let outcome = cargo_outcome(cargo_damage_pct);
         let words = cargo_condition_text(cargo_damage_pct, self.trip.truck.cargo_vocabulary());
         ctx.audio.play("ui/warning");
-        let message = if self.terse_speech(ctx) {
+        let message = if self.trip.truck.livestock.is_some() {
+            let terse = self.terse_speech(ctx);
+            ff_core::sim::livestock::cattle_condition_line(
+                cargo_damage_pct,
+                terse,
+                !self.cargo_coaching_said,
+            )
+        } else if self.terse_speech(ctx) {
             let consequence = match outcome {
                 "exception" => "Exception on the bill.",
                 "claim" => "Claim likely.",

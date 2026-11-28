@@ -43,7 +43,8 @@ pub use limit::{LimitEvent, LimitMark, LIMIT_HOURS, LIMIT_WARNING_MARKS_MIN};
 pub use phase::{LoadEvent, LoadPhase};
 pub use plan::{cattle_run, livestock_lane_ok, CattleRun, CATTLE_RUN_MARGIN_H};
 pub use words::{
-    head_text, pounds, receiver_ruling_line, shrink_pct, CattleKind, LIVESTOCK_CONDITION_TEXT,
+    cattle_condition_line, head_text, pounds, receiver_ruling_line, shrink_pct, CattleKind,
+    LIVESTOCK_CONDITION_TEXT,
 };
 
 use serde::{Deserialize, Serialize};

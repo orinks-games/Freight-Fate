@@ -6,10 +6,11 @@ use ff_core::data::buffs::{buffs_for_stop, Buff};
 use ff_core::models::solvency;
 use ff_core::pyfmt::{fmt_f, fmt_grouped, round_py_int, round_py_n};
 use ff_core::sim::alertness::Alertness;
-use ff_core::sim::hos::{self, FullNight};
+use ff_core::sim::hos::{self, FullNight, RestartPlace};
 use ff_core::sim::roadside_inspection::InspectionLevel;
 use ff_core::sim::trip_models::RoadStop;
 use ff_core::sim::vehicle::TruckState;
+use ff_core::speech_text::sentence_start;
 use serde_json::json;
 
 use crate::app::{GameContext, Say};
@@ -37,7 +38,7 @@ use crate::states::driving_rest_states::short_stay::{ShortStay, BREAK_ROW, FOOD_
 mod cat_scale;
 mod cattle;
 mod chains;
-mod restart;
+pub(super) mod restart;
 mod services;
 
 const REST_STOP_INTRO_HELP: &str =
@@ -76,7 +77,7 @@ pub struct RestStopState {
 impl RestStopState {
     pub fn new(ctx: &GameContext, stop: RoadStop, preferred_rest: RestFocus) -> Self {
         RestStopState {
-            menu: MenuCore::new(&stop.spoken_name()).with_intro_help(REST_STOP_INTRO_HELP),
+            menu: MenuCore::new(&stop.spoken_name_opening()).with_intro_help(REST_STOP_INTRO_HELP),
             driving: DriveRef::active(ctx),
             stop,
             preferred_rest,
@@ -88,7 +89,7 @@ impl RestStopState {
     /// The same screen over a drive the caller already shares (tests).
     pub fn with_drive(driving: DriveRef, stop: RoadStop, prefer_sleep: bool) -> Self {
         RestStopState {
-            menu: MenuCore::new(&stop.spoken_name()).with_intro_help(REST_STOP_INTRO_HELP),
+            menu: MenuCore::new(&stop.spoken_name_opening()).with_intro_help(REST_STOP_INTRO_HELP),
             driving,
             stop,
             preferred_rest: if prefer_sleep {
@@ -173,7 +174,7 @@ impl RestStopState {
 
     fn announce_over_drive(&mut self, ctx: &mut GameContext, d: &mut DrivingState) {
         ctx.set_ambient(Some(poi_ambient_key(&self.stop, d.trip.local_hour())));
-        let mut parts = vec![format!("{}.", self.stop.spoken_name())];
+        let mut parts = vec![format!("{}.", self.stop.spoken_name_opening())];
         if self.stop.stop_type == "weigh_station" {
             // An inspection, not hospitality: no parking chatter, no live lot
             // lookup, no brand amenities. The one-template announce read a
@@ -198,7 +199,9 @@ impl RestStopState {
         }
         let parking_text = self.stop.parking_text();
         if !parking_text.is_empty() {
-            parts.push(format!("{parking_text}."));
+            // Its own sentence here, so it opens with a capital: "Cenex
+            // C-Store. Limited truck parking." (agent drive, 2026-11-28).
+            parts.push(format!("{}.", sentence_start(&parking_text)));
         }
         if self.stop.fuel_callout() == Some(false) {
             // Said on arrival too: a driver who pulled in low needs to know
@@ -318,7 +321,7 @@ impl RestStopState {
                 ),
             };
             items.push(MenuItem::new(label, |s: &mut Self, ctx| s.sleep(ctx)).help(help));
-            items.extend(Self::restart_item(ctx, false));
+            items.extend(Self::restart_item(ctx, RestartPlace::Sleeper));
         } else if !is_scale && (has("park") || has("break")) {
             // No proper sleeper facility here, but you can always bed down in
             // the lot -- a legal reset, just cramped and poor rest. Except at
@@ -348,7 +351,7 @@ impl RestStopState {
                 MenuItem::new(lot_label, |s: &mut Self, ctx| s.emergency_lot_sleep(ctx))
                     .help(lot_help),
             );
-            items.extend(Self::restart_item(ctx, true));
+            items.extend(Self::restart_item(ctx, RestartPlace::Lot));
             let (motel_label, motel_help) = if canadian_reset {
                 (
                     format!(
@@ -371,6 +374,7 @@ impl RestStopState {
             items.push(
                 MenuItem::new(motel_label, |s: &mut Self, ctx| s.motel_sleep(ctx)).help(motel_help),
             );
+            items.extend(Self::restart_item(ctx, RestartPlace::Motel));
         }
         if has("repair") {
             items.push(

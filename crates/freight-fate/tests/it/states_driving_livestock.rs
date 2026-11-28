@@ -257,3 +257,23 @@ fn the_settlement_screen_reads_the_receivers_count_and_the_claim() {
         .expect("a load row");
     assert!(arrival.summary_lines[load_row + 1].contains("could not walk off"));
 }
+
+#[test]
+fn damage_to_the_cattle_is_said_of_the_cattle() {
+    // Alpha test, 2026-11: a cattle load taking damage heard the boxed
+    // freight's "The load has shifted hard".
+    let mut app = TestApp::new();
+    let mut d = a_cattle_drive(&mut app);
+    d.trip.truck.cargo_damage_pct = 40.0;
+    app.clear_speech();
+    d.announce_cargo_condition(&mut app.ctx);
+    let said = app.event_lines().join(" ");
+    assert!(
+        said.contains(
+            "The cattle are injured, 40 percent. Some may not walk off. The receiver will \
+             take them, and the carrier pays a claim. Brake and corner gently from here."
+        ),
+        "{said}"
+    );
+    assert!(!said.contains("shifted hard"), "{said}");
+}

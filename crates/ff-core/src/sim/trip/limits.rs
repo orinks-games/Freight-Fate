@@ -567,10 +567,36 @@ impl Trip {
                 }
             }
         }
-        format!(
-            "Speed limit {verb} to {}{where_}{span}.",
-            self.speed_value(limit)
-        )
+        let to = self.position_mi + length.unwrap_or(LIMIT_SCAN_MAX_MI);
+        let speed_value = self.posted_limit_value(limit, self.position_mi, to);
+        format!("Speed limit {verb} to {speed_value}{where_}{span}.")
+    }
+
+    /// A posted limit's number as the arrival and drop lines say it, for a
+    /// posting that holds from `from` to `to`. On the Automatic units a sign
+    /// in the other country's units is said in its own, with the unit: the
+    /// Canadian 30 posted just before the line northbound, or the American
+    /// 40 before the units switch southbound, rather than a converted 19 or
+    /// 64 (alpha drive at Blaine). Otherwise the bare number.
+    fn posted_limit_value(&self, mph: f64, from: f64, to: f64) -> String {
+        if !self.automatic_units {
+            return self.speed_value(mph);
+        }
+        let country = self.country_at((from + to) / 2.0);
+        if country.is_empty() {
+            return self.speed_value(mph);
+        }
+        let imperial = crate::units::country_units(&country).is_imperial();
+        if imperial == self.imperial {
+            return self.speed_value(mph);
+        }
+        let value = crate::pyfmt::fmt_f(crate::units::to_distance(mph, imperial), 0);
+        let unit = if imperial {
+            "miles per hour"
+        } else {
+            "kilometers per hour"
+        };
+        format!("{value} {unit}")
     }
 
     /// Why a drop with no city to blame is happening: a road stop just
@@ -735,9 +761,9 @@ impl Trip {
             return;
         }
         self.warned_limit_drops.push(boundary_mi);
+        let speed_value = self.posted_limit_value(limit, boundary_mi, boundary_mi + 1.0);
         let message = format!(
-            "Speed limit drops to {} in {}.",
-            self.speed_value(limit),
+            "Speed limit drops to {speed_value} in {}.",
             spoken_short_miles(ahead, self.imperial())
         );
         let key = round_py_n(limit, 1);

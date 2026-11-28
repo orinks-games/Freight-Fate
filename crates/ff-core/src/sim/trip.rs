@@ -355,6 +355,12 @@ pub struct Trip {
     pub turn_clock: f64,
     /// True while curve assistance is still taking speed off for a bend.
     pub curve_shed_active: bool,
+    /// True while All assists is stopping the truck at a customs booth,
+    /// set by the game: the stop runs on the real clock to the booth.
+    pub booth_stop_active: bool,
+    /// True on the Automatic units, set by the game: a posted limit is then
+    /// spoken in the units of the country its sign stands in.
+    pub automatic_units: bool,
     /// How the lane work is shared, set by the game from the driver's lane
     /// keeping (`TruckState::curve_safe_mph`): None with it automated. The
     /// curve call prices a bend by it.
@@ -579,6 +585,8 @@ impl Trip {
             controlled_turn: false,
             turn_clock: 0.0,
             curve_shed_active: false,
+            booth_stop_active: false,
+            automatic_units: false,
             lane_steers: None,
             exit_approach_mi: None,
             scale_reminder_hold_mi: None,
@@ -802,6 +810,13 @@ impl Trip {
             // 2026-11-22). Under the bypass speed the truck stops at the
             // booth anyway, so the low-speed pacing runs as usual.
             return Some("border booth");
+        }
+        if self.booth_stop_active {
+            // All assists braking for a customs booth, all the way to the
+            // stop: under the bypass speed the compressed clock passed the
+            // last of the road faster than the servo could shed it, and the
+            // stop ended on a full application (2026-11-28).
+            return Some("customs booth stop");
         }
         None
     }

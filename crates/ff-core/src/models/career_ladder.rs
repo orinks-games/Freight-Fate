@@ -175,43 +175,43 @@ pub const CAREER_RANKS: [CareerRank; 40] = [
         19,
         "Settled Owner-Operator",
         "Owner-operator",
-        "Owner-operator settlements are now routine.",
+        "",
         "Learning fuel, maintenance, insurance, trailer, and settlement reserves.",
     ),
     rank(
         20,
         "Established Owner-Operator",
         "Owner-operator",
-        "Specialty trailer programs matter more, and LCV training opens for \
-         doubles-endorsed drivers with a clean recent record.",
+        "LCV training opens for doubles-endorsed drivers with a clean recent record.",
         "Running as a steady leased-on business with clearer upside and costs.",
     ),
     rank(
         21,
         "Authority Prep Candidate",
         "Authority preparation",
-        "Authority prep reserve can unlock when the other requirements are met.",
+        "Authority prep reserve can unlock when the other requirements are met. \
+         Liquid food loads open for tank-endorsed drivers.",
         "Studying full authority while staying focused on one-truck operations.",
     ),
     rank(
         22,
         "Direct Freight Prep",
         "Authority preparation",
-        "The steps to direct freight are now listed.",
+        "",
         "Building reputation and working capital before direct broker freight.",
     ),
     rank(
         23,
         "Trailer Strategy Owner",
         "Authority preparation",
-        "Trailer ownership planning matters for direct freight.",
+        "",
         "Choosing when a trailer program is enough and when ownership helps.",
     ),
     rank(
         24,
         "Authority-Ready Operator",
         "Authority preparation",
-        "Final authority activation checklist.",
+        "",
         "Getting ready to run under your own authority.",
     ),
     rank(
@@ -225,28 +225,28 @@ pub const CAREER_RANKS: [CareerRank; 40] = [
         26,
         "Contract Freight Builder",
         "Established owner-operator",
-        "Premium direct freight reputation matters more.",
+        "",
         "Building repeat customers for your one truck.",
     ),
     rank(
         27,
         "Specialized Trailer Operator",
         "Established owner-operator",
-        "Specialized trailer opportunities stand out.",
+        "",
         "Matching owned or leased equipment to better freight.",
     ),
     rank(
         28,
         "Premium Lane Operator",
         "Established owner-operator",
-        "Premium lanes favor high reputation and the right trailer.",
+        "",
         "An established owner-operator with strong freight-market choice.",
     ),
     rank(
         29,
         "Veteran Independent Operator",
         "Established owner-operator",
-        "Prestige freight and best dispatch quality.",
+        "",
         "A proven independent driver, not a fleet manager.",
     ),
     rank(
@@ -470,77 +470,77 @@ pub const COMPANY_CAREER_RANKS: [CareerRank; 40] = [
         19,
         "Veteran Company Hauler",
         "Career company driver",
-        "Long-haul company work becomes the normal rhythm.",
+        "",
         "Miles and reputation keep growing on carrier equipment.",
     ),
     rank(
         20,
         "Senior Fleet Regular",
         "Career company driver",
-        "Specialty company freight and clean-service bonuses matter more.",
+        "LCV training opens for doubles-endorsed drivers with a clean recent record.",
         "A dependable senior company driver with nothing left to prove on risk.",
     ),
     rank(
         21,
         "Carrier Elite Driver",
         "Elite company driver",
-        "Elite company standing opens the strongest carrier lanes.",
+        "Liquid food loads open for tank-endorsed drivers.",
         "Running the freight the carrier trusts only its best drivers with.",
     ),
     rank(
         22,
         "Premium Company Lane Driver",
         "Elite company driver",
-        "Premium company lanes favor high reputation and clean timing.",
+        "",
         "An elite company driver with first call on the most valuable freight.",
     ),
     rank(
         23,
         "Master Company Driver",
         "Elite company driver",
-        "Master company status: mentoring weight and priority board placement.",
+        "",
         "Credentials, service, and seniority carry equal weight with dispatch.",
     ),
     rank(
         24,
         "Distinguished Fleet Driver",
         "Elite company driver",
-        "Distinguished fleet standing across the carrier's best lanes.",
+        "",
         "A distinguished company driver still protected from equipment risk.",
     ),
     rank(
         25,
         "Senior Fleet Mentor",
         "Lifetime company driver",
-        "Senior mentoring status: the carrier leans on your judgment.",
+        "",
         "Teaching by example while still driving company freight.",
     ),
     rank(
         26,
         "Carrier Lifetime Driver",
         "Lifetime company driver",
-        "Lifetime company standing with the strongest repeat lanes.",
+        "",
         "A career measured in clean company miles, not ownership.",
     ),
     rank(
         27,
         "Elite Specialized Company Driver",
         "Lifetime company driver",
-        "Specialized company freight stands out on your board.",
+        "",
         "Matching credentials to the carrier's hardest work.",
     ),
     rank(
         28,
         "Top-Seniority Company Driver",
         "Lifetime company driver",
-        "Top-seniority company placement on prestige carrier lanes.",
+        "",
         "Nothing on the board is above your standing.",
     ),
     rank(
         29,
         "Company Career Veteran",
         "Lifetime company driver",
-        "Prestige company freight and best dispatch quality.",
+        "",
         "A proven company driver at the top of the carrier ladder.",
     ),
     rank(
@@ -736,10 +736,10 @@ mod tests {
         assert_eq!(CAREER_RANKS.len() as i64, MAX_CAREER_LEVEL);
         assert_eq!(COMPANY_CAREER_RANKS.len() as i64, MAX_CAREER_LEVEL);
         assert_eq!(MAX_CAREER_LEVEL, 40);
-        // Levels 1 to 29 each open something; from 30 on a rank may open
+        // Levels 1 to 18 each open something; from 19 on a rank may open
         // nothing, and then its unlock is empty rather than invented.
         for rank in CAREER_RANKS.iter().chain(COMPANY_CAREER_RANKS.iter()) {
-            if rank.level < 30 || rank.level == MAX_CAREER_LEVEL {
+            if rank.level < 19 || rank.level == MAX_CAREER_LEVEL {
                 assert!(!rank.unlock.trim().is_empty(), "level {}", rank.level);
             }
             assert_eq!(rank.unlock, rank.unlock.trim());
@@ -943,5 +943,28 @@ mod tests {
             "Level up! You are now level 33: Road Test Examiner. Unlock: Experience pay: \
              your carrier adds 1 percent of the load to every settlement."
         );
+    }
+
+    #[test]
+    fn levels_nineteen_to_thirty_speak_only_what_opens() {
+        // Alpha test, 2026-11: levels 19 to 30 promised settlements, lanes
+        // and prestige freight that nothing in the game changes. A rank
+        // keeps a line only for what opens there: LCV training and turnpike
+        // doubles at 20 (`credentials`, `jobs::catalog`), liquid food at 21
+        // (`jobs::catalog`), authority prep at 21 and activation at 25
+        // (`business`).
+        let speaks = |ranks: &[CareerRank]| -> Vec<i64> {
+            ranks[18..30]
+                .iter()
+                .filter(|rank| !rank.unlock.is_empty())
+                .map(|rank| rank.level)
+                .collect()
+        };
+        assert_eq!(speaks(&CAREER_RANKS), vec![20, 21, 25]);
+        assert_eq!(speaks(&COMPANY_CAREER_RANKS), vec![20, 21]);
+        assert!(CAREER_RANKS[19].unlock.contains("LCV training"));
+        assert_eq!(CAREER_RANKS[19].unlock, COMPANY_CAREER_RANKS[19].unlock);
+        assert!(CAREER_RANKS[20].unlock.contains("Liquid food"));
+        assert!(COMPANY_CAREER_RANKS[20].unlock.contains("Liquid food"));
     }
 }

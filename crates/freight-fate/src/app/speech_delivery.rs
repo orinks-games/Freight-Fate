@@ -133,6 +133,10 @@ pub struct SayEvent {
     /// A held line in the same group is replaced by this one, so a line
     /// kept through a long wait never speaks after the one that updates it.
     pub group: Option<&'static str>,
+    /// Never handed back when an interrupt or a readout cuts it: said once.
+    /// For a line that is in the review and on a screen the driver can
+    /// read again, where a second telling buries what cut it.
+    pub said_once: bool,
 }
 
 impl SayEvent {
@@ -192,6 +196,11 @@ impl SayEvent {
 
     pub fn keep(mut self) -> Self {
         self.keep = true;
+        self
+    }
+
+    pub fn said_once(mut self) -> Self {
+        self.said_once = true;
         self
     }
 
@@ -684,6 +693,7 @@ impl GameContext {
             valid,
             keep,
             group,
+            said_once,
         } = opts;
         let key = key.as_deref();
         if self.co_driver_away && !force && !self.speech_requested {
@@ -785,7 +795,11 @@ impl GameContext {
             text,
             priority,
             interrupt,
-            protect: protect_for(category),
+            protect: if said_once {
+                Protect::No
+            } else {
+                protect_for(category)
+            },
             valid,
             key: key.map(str::to_string),
             receipt,

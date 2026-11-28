@@ -87,3 +87,77 @@ fn a_stripped_ontario_leg_drives_at_the_statutory_80() {
     let kmh = trip.corridor_limit_at(mile) * MILES_TO_KM;
     assert!((kmh - 80.0).abs() < 1e-9, "spoke {kmh} km/h");
 }
+
+/// The Blaine leg one way, its truck started and the units given.
+fn blaine_trip(from: &str, toward: &str, imperial: bool, automatic: bool) -> Trip {
+    let world = world();
+    let leg = world
+        .legs
+        .iter()
+        .find(|leg| leg.a == from && leg.b == toward)
+        .unwrap_or_else(|| panic!("directed leg {from} -> {toward} exists"))
+        .as_ref()
+        .clone();
+    let route = ff_core::data::world_models::Route::from_legs(
+        vec![from.to_string(), toward.to_string()],
+        vec![leg],
+    );
+    let mut truck = TruckState::default();
+    truck.transmission.automatic = true;
+    truck.start_engine();
+    let mut trip = Trip::new(
+        route,
+        truck,
+        default_weather(),
+        TripOptions {
+            world: Some(world),
+            ..TripOptions::seeded(17)
+        },
+    );
+    trip.set_imperial(imperial);
+    trip.automatic_units = automatic;
+    trip
+}
+
+/// The arrival line for the posting in force at `at`, after `before`.
+fn limit_line_at(trip: &mut Trip, before: f64, at: f64) -> String {
+    trip.position_mi = at;
+    trip.announced_speed_limit = Some(before);
+    trip.events.clear();
+    trip.check_speed_limit();
+    trip.events
+        .iter()
+        .map(|e| e.text().to_string())
+        .find(|text| text.starts_with("Speed limit"))
+        .unwrap_or_else(|| panic!("no limit line at mile {at}"))
+}
+
+#[test]
+fn a_limit_at_blaine_is_said_in_the_units_of_its_sign() {
+    // Alpha drive, 2026-11: the Canadian 30 posted just before the line
+    // northbound was said as 19 miles per hour, and the American 40 before
+    // the units switched southbound as 64 kilometers per hour.
+    let mut north = blaine_trip("blaine_wa_us", "surrey_bc_ca", true, true);
+    let line = limit_line_at(&mut north, 25.0, 1.25);
+    assert!(line.contains(" to 30 kilometers per hour"), "{line}");
+
+    let mut south = blaine_trip("surrey_bc_ca", "blaine_wa_us", false, true);
+    let line = limit_line_at(&mut south, 70.0 / MILES_TO_KM, 13.45);
+    assert!(line.contains(" to 40 miles per hour"), "{line}");
+
+    // Inside the country whose units are in force, the bare number.
+    let mut home = blaine_trip("surrey_bc_ca", "blaine_wa_us", true, true);
+    let line = limit_line_at(&mut home, 40.0, 14.6);
+    assert!(line.contains(" to 25 "), "{line}");
+    assert!(!line.contains("per hour"), "{line}");
+}
+
+#[test]
+fn a_chosen_unit_converts_every_sign() {
+    // Imperial or Metric on the Units row is the player's choice: every
+    // posting is said in it, as before.
+    let mut north = blaine_trip("blaine_wa_us", "surrey_bc_ca", true, false);
+    let line = limit_line_at(&mut north, 25.0, 1.25);
+    assert!(line.contains(" to 19"), "{line}");
+    assert!(!line.contains("per hour"), "{line}");
+}

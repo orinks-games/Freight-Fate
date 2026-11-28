@@ -114,7 +114,11 @@ impl DrivingState {
             // The line's own tone: nothing when the rung drops the words.
             ctx.play_event_cue(line.category, sound, 1.0, 0.0);
         }
-        let mut opts = SayEvent::queued();
+        // Said once: a status readout, the customs booth or a police stop
+        // that cuts one of these lines does not bring it back in full after
+        // (cross-border drives, 2026-11-23, heard each line twice). The
+        // review keeps every one, and the hours rules are on the logbook.
+        let mut opts = SayEvent::queued().said_once();
         opts.review = line.kind != AfterCrossing::Crossing;
         opts.priority = line.kind.priority();
         opts.category = line.category;

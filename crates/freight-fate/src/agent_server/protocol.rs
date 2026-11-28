@@ -108,6 +108,7 @@ fn scenario_properties() -> Value {
         "hos_duty_min": {"type": "number"},
         "hos_since_break_min": {"type": "number"},
         "hos_cycle_min": {"type": "number", "description": "on-duty minutes on the 70-hour, 8-day cycle, all ending now"},
+        "hos_restart_off_min": {"type": "number", "description": "off-duty minutes already rested in a row toward the cycle restart, set after hos_cycle_min"},
         "clear_load": {"type": "boolean"},
         "market_seed": {"type": "integer"},
         "board_seed": {"type": "integer"},
@@ -350,7 +351,7 @@ fn tools_list() -> Value {
              open), on a load with a co-driver co_driver_shift (bunk, driving, \
              ending_rested, ending_last_lot, ending_hours_short or shoulder: where \
              their shift stands) and co_driver_left (the driving time or duty \
-             window their own logbook has left, in minutes, or hours off), and jake_zone (what the driver has heard about the no \
+             window their own logbook has left, in minutes, or hours off) and off_wheel_restart_rest_left (the off-duty minutes the restart still needs on the logbook off the wheel), and jake_zone (what the driver has heard about the no \
              engine brake zone ahead or under the truck: untold, heads_up, \
              inside_untold or inside_told), touch_mode (menu, field, wheel or \
              practice: how a gesture is read on this screen), road_offer (what a \
@@ -508,6 +509,8 @@ fn tools_list() -> Value {
              the next drive starts in that band and gives its cue), hos_driving_min, hos_duty_min and \
              hos_since_break_min (sandbox HOS counters in game minutes), hos_cycle_min \
              (on-duty minutes on the 70-hour, 8-day cycle, all ending now), \
+             hos_restart_off_min (off-duty minutes already rested in a row toward the \
+             cycle restart, set after hos_cycle_min), \
              co_driver_driving_min, co_driver_duty_min, co_driver_since_break_min and \
              co_driver_rest_min (the co-driver's own logbook in game minutes, rest being \
              their unbroken sleeper time toward 10 hours: put on the load in progress \
