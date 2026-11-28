@@ -10,11 +10,14 @@
 use ff_core::sim::hos::HosRules;
 use ff_core::sim::trip_models::BorderBooth;
 use ff_core::sim::weather::WeatherKind;
+use ff_core::speech_pacing::SpeechCategory;
 use ff_core::units::UnitsMode;
 use freight_fate::playtest::{PlaytestHarness, RouteSetup};
 use freight_fate::states::driving::DrivingState;
 use freight_fate::states::driving_border::{border_secondary_referral, BorderClearanceState};
 use freight_fate::states::driving_team::TeamMode;
+use freight_fate::states::driving_updates::after_crossing::AfterCrossing;
+use freight_fate::states::driving_updates::fatigue::hours_rules_line;
 
 const DT: f64 = 1.0 / 60.0;
 const MPS_PER_MPH: f64 = 1.0 / 2.236_936;
@@ -190,6 +193,41 @@ fn a_slept_shift_jump_never_crosses_a_change_of_hours_rules() {
     assert!(jump.is_some(), "the road to the line passes as time");
     assert!(at < line, "jumped to {at}, past the Yukon line at {line}");
     assert_eq!(state, "British Columbia");
+}
+
+#[test]
+fn what_changed_at_a_line_waits_for_the_player_to_have_the_wheel() {
+    // Agent drive, 2026-11-28: the player cleared customs at a booth on the
+    // line, handed the wheel straight back, and the units and hours rules
+    // lines were spoken into the co-driver's silent road.
+    let cities = ["fort_nelson_bc_ca", "watson_lake_yt_ca"];
+    let mut harness = on_the_road(&cities, 3.0);
+    hand_over(&mut harness, TeamMode::RideAlong);
+    let rules_line = hours_rules_line(HosRules::CanadaNorth60);
+    harness.with_drive(move |d, ctx| {
+        d.queue_crossing_call("Crossing into Yukon.", None, None);
+        d.queue_after_crossing(
+            AfterCrossing::HoursRules,
+            rules_line,
+            Some(SpeechCategory::Status),
+        );
+        d.update_after_crossing(ctx, DT);
+        d.update_after_crossing(ctx, DT);
+    });
+    let waiting: Vec<AfterCrossing> =
+        harness.read_drive(|d| d.after_crossing.iter().map(|line| line.kind).collect());
+    assert_eq!(waiting, vec![AfterCrossing::HoursRules]);
+    assert!(!harness.transcript_text().contains(rules_line));
+    harness.with_drive(|d, ctx| {
+        d.take_wheel_back(ctx);
+    });
+    assert!(
+        run_until(&mut harness, 1200, |h| h
+            .transcript_text()
+            .contains(rules_line)),
+        "{}",
+        harness.transcript_text()
+    );
 }
 
 #[test]
