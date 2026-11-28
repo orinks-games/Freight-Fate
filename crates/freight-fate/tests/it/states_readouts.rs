@@ -139,6 +139,42 @@ fn ios_first_day_briefing_queues_navigation_cues_once() {
 }
 
 #[test]
+fn ios_briefing_navigation_cues_are_recoverable_after_a_swipe() {
+    struct Phone;
+    impl Drop for Phone {
+        fn drop(&mut self) {
+            freight_fate::device::force_phone(false);
+        }
+    }
+    freight_fate::device::force_phone(true);
+    let _phone = Phone;
+    let mut app = TestApp::new();
+    app.ctx.controller.restart_input(true);
+    at_terminal(&mut app, "Interrupted Cues");
+    select::<CityMenuState>(&mut app, "First-day briefing");
+
+    app.dispatch_gesture(Gesture::SwipeRight);
+    assert_eq!(app.main_calls().last().map(|call| call.1), Some(true));
+    app.dispatch_gesture(Gesture::ThreeFingerSwipeDown);
+    app.dispatch_gesture(Gesture::TwoFingerSwipeUp);
+    assert_eq!(
+        app.main_calls().last(),
+        Some(&(BRIEFING_BACK_CUE.into(), true))
+    );
+    app.dispatch_gesture(Gesture::DoubleTap);
+    assert!(is::<CityMenuState>(&app));
+
+    app.dispatch_gesture(Gesture::SwipeRight);
+    assert_eq!(app.main_calls().last().map(|call| call.1), Some(true));
+    app.dispatch_gesture(Gesture::ThreeFingerSwipeDown);
+    app.dispatch_gesture(Gesture::TwoFingerSwipeUp);
+    assert_eq!(
+        app.main_calls().last(),
+        Some(&(TERMINAL_QUIT_CUE.into(), true))
+    );
+}
+
+#[test]
 fn test_trip_status_is_a_screen_of_lines() {
     let mut app = TestApp::new();
     let drive = a_drive(&mut app);

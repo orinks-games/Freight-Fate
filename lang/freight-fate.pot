@@ -20527,12 +20527,12 @@ msgstr ""
 msgid "{position} of {count}."
 msgstr ""
 
-#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_setback.rs crates/freight-fate/src/states/newspaper.rs
-msgid "Repeat this line."
-msgstr ""
-
 #: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/logbook.rs
 msgid "Return to the previous menu."
+msgstr ""
+
+#: crates/freight-fate/src/states/base/menu.rs crates/freight-fate/src/states/career_setback.rs crates/freight-fate/src/states/newspaper.rs
+msgid "Repeat this line."
 msgstr ""
 
 #: crates/freight-fate/src/states/base/menu.rs
@@ -21851,16 +21851,21 @@ msgstr ""
 msgid "job"
 msgstr ""
 
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid "Choose Back or use a two-finger scrub to return to the terminal."
+msgstr ""
+
+#: crates/freight-fate/src/states/city/terminal.rs
+msgid ""
+"Quit to main menu saves your career and returns you to the title screen."
+msgstr ""
+
 #: crates/freight-fate/src/states/city/terminal.rs crates/freight-fate/src/states/city.rs crates/freight-fate/src/states/driving_menu_states/arrival.rs
 msgid "Terminal"
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid "First-day briefing"
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid "Choose Back or use a two-finger scrub to return to the terminal."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs
@@ -22040,11 +22045,6 @@ msgstr ""
 #. placeholders: {place}, {grouped}, {cdl}, {record}
 #: crates/freight-fate/src/states/city/terminal.rs
 msgid "{place}. {grouped} dollars.{cdl}{record}"
-msgstr ""
-
-#: crates/freight-fate/src/states/city/terminal.rs
-msgid ""
-"Quit to main menu saves your career and returns you to the title screen."
 msgstr ""
 
 #: crates/freight-fate/src/states/city/terminal.rs

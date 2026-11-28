@@ -45,6 +45,10 @@ use super::truck_status::TruckStatusState;
 
 mod backup;
 
+const BRIEFING_BACK_CUE: &str = "Choose Back or use a two-finger scrub to return to the terminal.";
+const TERMINAL_QUIT_CUE: &str =
+    "Quit to main menu saves your career and returns you to the title screen.";
+
 /// The hub screen while parked at a company terminal or yard.
 pub struct CityMenuState {
     menu: MenuCore<Self>,
@@ -133,13 +137,18 @@ impl CityMenuState {
 
     fn first_day_briefing(&mut self, ctx: &mut GameContext) {
         let lines = first_day_orientation_lines(ctx, "");
-        ctx.push_state(SimpleMenuState::readout("First-day briefing", lines));
-        if crate::device::iphone() && self.briefing_navigation == BriefingNavigation::Unseen {
+        if !crate::device::iphone() {
+            ctx.push_state(SimpleMenuState::readout("First-day briefing", lines));
+            return;
+        }
+        ctx.push_state(SimpleMenuState::readout_with_back_help(
+            "First-day briefing",
+            lines,
+            BRIEFING_BACK_CUE,
+        ));
+        if self.briefing_navigation == BriefingNavigation::Unseen {
             self.briefing_navigation = BriefingNavigation::Returning;
-            ctx.say_with(
-                "Choose Back or use a two-finger scrub to return to the terminal.",
-                Say::queued(),
-            );
+            ctx.say_with(BRIEFING_BACK_CUE, Say::queued());
         }
     }
 
@@ -722,10 +731,7 @@ impl Menu for CityMenuState {
         self.check_credentials(ctx);
         if self.briefing_navigation == BriefingNavigation::Returning {
             self.briefing_navigation = BriefingNavigation::Complete;
-            ctx.say_with(
-                "Quit to main menu saves your career and returns you to the title screen.",
-                Say::queued(),
-            );
+            ctx.say_with(TERMINAL_QUIT_CUE, Say::queued());
         }
     }
 
@@ -857,7 +863,11 @@ impl Menu for CityMenuState {
             MenuItem::new("Quit to main menu", |s: &mut Self, ctx| {
                 s.quit_to_main_menu(ctx)
             })
-            .help("Save your career and return to the title menu."),
+            .help(if crate::device::iphone() {
+                TERMINAL_QUIT_CUE
+            } else {
+                "Save your career and return to the title menu."
+            }),
         );
         if Self::show_first_day_briefing(ctx) {
             items.insert(

@@ -18001,11 +18001,11 @@ msgstr "Нет доступных вариантов."
 msgid "{position} of {count}."
 msgstr "{position} из {count}."
 
-msgid "Repeat this line."
-msgstr "Повторить эту строку."
-
 msgid "Return to the previous menu."
 msgstr "Вернуться в предыдущее меню."
+
+msgid "Repeat this line."
+msgstr "Повторить эту строку."
 
 msgid ""
 "Up and Down read a line at a time, Enter repeats it, Escape goes back."
@@ -19205,16 +19205,22 @@ msgstr "Четверть каждого расчёта тоже продолжа
 msgid "job"
 msgstr "заказ"
 
+msgid "Choose Back or use a two-finger scrub to return to the terminal."
+msgstr ""
+"Выберите «Back» или нарисуйте букву Z двумя пальцами, чтобы вернуться на "
+"терминал."
+
+msgid ""
+"Quit to main menu saves your career and returns you to the title screen."
+msgstr ""
+"Пункт «Выйти в главное меню» сохраняет карьеру и возвращает вас на "
+"титульный экран."
+
 msgid "Terminal"
 msgstr "Терминал"
 
 msgid "First-day briefing"
 msgstr "Инструктаж первого дня"
-
-msgid "Choose Back or use a two-finger scrub to return to the terminal."
-msgstr ""
-"Выберите «Back» или нарисуйте букву Z двумя пальцами, чтобы вернуться на "
-"терминал."
 
 msgid "Career plan"
 msgstr "План карьеры"
@@ -19369,12 +19375,6 @@ msgstr "{grouped} {grouped:доллар|доллара|долларов}.{cdl}{r
 #. placeholders: {place}, {grouped}, {cdl}, {record}
 msgid "{place}. {grouped} dollars.{cdl}{record}"
 msgstr "{place}. {grouped} {grouped:доллар|доллара|долларов}.{cdl}{record}"
-
-msgid ""
-"Quit to main menu saves your career and returns you to the title screen."
-msgstr ""
-"Пункт «Выйти в главное меню» сохраняет карьеру и возвращает вас на "
-"титульный экран."
 
 msgid ""
 "Loads from local freight facilities. New company hires get an assigned "
